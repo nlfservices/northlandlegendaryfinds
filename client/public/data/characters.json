@@ -1,0 +1,2977 @@
+[
+  {
+    "name": "Abomination",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 132,
+        "image": "/cards/chrome/CHROME-132_Abomination.png"
+      }
+    ]
+  },
+  {
+    "name": "Absorbing Man",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 166,
+        "image": "/cards/chrome/CHROME-166_Absorbing_Man.png"
+      }
+    ]
+  },
+  {
+    "name": "Adam Warlock",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 144,
+        "image": "/cards/chrome/CHROME-144_Adam_Warlock.png"
+      },
+      {
+        "set": "cbh",
+        "number": 27,
+        "image": "/cards/cbh/CBH-027_Adam_Warlock.png"
+      }
+    ]
+  },
+  {
+    "name": "Agent Carter",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 54,
+        "image": "/cards/mint/MINT-054_Agent_Carter.png"
+      }
+    ]
+  },
+  {
+    "name": "Agent Hill",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 35,
+        "image": "/cards/mint/MINT-035_Agent_Hill.png"
+      }
+    ]
+  },
+  {
+    "name": "All-New Venom",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 101,
+        "image": "/cards/cbh/CBH-101_All-New_Venom.png"
+      }
+    ]
+  },
+  {
+    "name": "Amaranth",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 99,
+        "image": "/cards/chrome/CHROME-099_Amaranth.png"
+      }
+    ]
+  },
+  {
+    "name": "America Chavez",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 153,
+        "image": "/cards/chrome/CHROME-153_America_Chavez.png"
+      },
+      {
+        "set": "cbh",
+        "number": 102,
+        "image": "/cards/cbh/CBH-102_America_Chavez.png"
+      },
+      {
+        "set": "mint",
+        "number": 48,
+        "image": "/cards/mint/MINT-048_America_Chavez.png"
+      }
+    ]
+  },
+  {
+    "name": "Ancient One",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 71,
+        "image": "/cards/mint/MINT-071_Ancient_One.png"
+      }
+    ]
+  },
+  {
+    "name": "Angel",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 28,
+        "image": "/cards/cbh/CBH-028_Angel.png"
+      },
+      {
+        "set": "cbh",
+        "number": 58,
+        "image": "/cards/cbh/CBH-058_Angel.png"
+      },
+      {
+        "set": "mint",
+        "number": 44,
+        "image": "/cards/mint/MINT-044_Angel.png"
+      }
+    ]
+  },
+  {
+    "name": "Annihilus",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 118,
+        "image": "/cards/chrome/CHROME-118_Annihilus.png"
+      }
+    ]
+  },
+  {
+    "name": "Ant-Man",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 141,
+        "image": "/cards/chrome/CHROME-141_Ant-Man.png"
+      },
+      {
+        "set": "chrome",
+        "number": 191,
+        "image": "/cards/chrome/CHROME-191_Ant-Man.png"
+      },
+      {
+        "set": "mint",
+        "number": 79,
+        "image": "/cards/mint/MINT-079_Ant-Man.png"
+      }
+    ]
+  },
+  {
+    "name": "Apocalypse",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 162,
+        "image": "/cards/chrome/CHROME-162_Apocalypse.png"
+      }
+    ]
+  },
+  {
+    "name": "Arana",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 59,
+        "image": "/cards/cbh/CBH-059_Arana.png"
+      }
+    ]
+  },
+  {
+    "name": "Banshee",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 103,
+        "image": "/cards/cbh/CBH-103_Banshee.png"
+      }
+    ]
+  },
+  {
+    "name": "Baron Zemo",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 125,
+        "image": "/cards/chrome/CHROME-125_Baron_Zemo.png"
+      }
+    ]
+  },
+  {
+    "name": "Beast",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 104,
+        "image": "/cards/cbh/CBH-104_Beast.png"
+      },
+      {
+        "set": "mint",
+        "number": 51,
+        "image": "/cards/mint/MINT-051_Beast.png"
+      }
+    ]
+  },
+  {
+    "name": "Bishop",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 20,
+        "image": "/cards/mint/MINT-020_Bishop.png"
+      }
+    ]
+  },
+  {
+    "name": "Black Bolt",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 116,
+        "image": "/cards/chrome/CHROME-116_Black_Bolt.png"
+      },
+      {
+        "set": "mint",
+        "number": 67,
+        "image": "/cards/mint/MINT-067_Black_Bolt.png"
+      }
+    ]
+  },
+  {
+    "name": "Black Cat",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 106,
+        "image": "/cards/chrome/CHROME-106_Black_Cat.png"
+      },
+      {
+        "set": "cbh",
+        "number": 60,
+        "image": "/cards/cbh/CBH-060_Black_Cat.png"
+      },
+      {
+        "set": "cbh",
+        "number": 105,
+        "image": "/cards/cbh/CBH-105_Black_Cat.png"
+      },
+      {
+        "set": "mint",
+        "number": 56,
+        "image": "/cards/mint/MINT-056_Black_Cat.png"
+      }
+    ]
+  },
+  {
+    "name": "Black Knight",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 165,
+        "image": "/cards/chrome/CHROME-165_Black_Knight.png"
+      },
+      {
+        "set": "mint",
+        "number": 25,
+        "image": "/cards/mint/MINT-025_Black_Knight.png"
+      }
+    ]
+  },
+  {
+    "name": "Black Panther",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 136,
+        "image": "/cards/chrome/CHROME-136_Black_Panther.png"
+      },
+      {
+        "set": "cbh",
+        "number": 61,
+        "image": "/cards/cbh/CBH-061_Black_Panther.png"
+      },
+      {
+        "set": "mint",
+        "number": 120,
+        "image": "/cards/mint/MINT-120_Black_Panther.png"
+      }
+    ]
+  },
+  {
+    "name": "Black Widow",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 129,
+        "image": "/cards/chrome/CHROME-129_Black_Widow.png"
+      },
+      {
+        "set": "chrome",
+        "number": 187,
+        "image": "/cards/chrome/CHROME-187_Black_Widow.png"
+      },
+      {
+        "set": "cbh",
+        "number": 1,
+        "image": "/cards/cbh/CBH-001_Black_Widow.png"
+      },
+      {
+        "set": "cbh",
+        "number": 62,
+        "image": "/cards/cbh/CBH-062_Black_Widow.png"
+      },
+      {
+        "set": "mint",
+        "number": 113,
+        "image": "/cards/mint/MINT-113_Black_Widow.png"
+      }
+    ]
+  },
+  {
+    "name": "Blade",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 126,
+        "image": "/cards/chrome/CHROME-126_Blade.png"
+      },
+      {
+        "set": "cbh",
+        "number": 29,
+        "image": "/cards/cbh/CBH-029_Blade.png"
+      },
+      {
+        "set": "mint",
+        "number": 111,
+        "image": "/cards/mint/MINT-111_Blade.png"
+      }
+    ]
+  },
+  {
+    "name": "Blob",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 63,
+        "image": "/cards/cbh/CBH-063_Blob.png"
+      }
+    ]
+  },
+  {
+    "name": "Blue Bolt",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 100,
+        "image": "/cards/cbh/CBH-100_Blue_Bolt.png"
+      }
+    ]
+  },
+  {
+    "name": "Bucky Barnes",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 124,
+        "image": "/cards/chrome/CHROME-124_Bucky_Barnes.png"
+      },
+      {
+        "set": "cbh",
+        "number": 30,
+        "image": "/cards/cbh/CBH-030_Bucky_Barnes.png"
+      }
+    ]
+  },
+  {
+    "name": "Bullseye",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 107,
+        "image": "/cards/cbh/CBH-107_Bullseye.png"
+      }
+    ]
+  },
+  {
+    "name": "Buzz",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 64,
+        "image": "/cards/cbh/CBH-064_Buzz.png"
+      }
+    ]
+  },
+  {
+    "name": "Cable",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 145,
+        "image": "/cards/chrome/CHROME-145_Cable.png"
+      },
+      {
+        "set": "mint",
+        "number": 28,
+        "image": "/cards/mint/MINT-028_Cable.png"
+      }
+    ]
+  },
+  {
+    "name": "Cadet Marvel",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 88,
+        "image": "/cards/chrome/CHROME-088_Cadet_Marvel.png"
+      }
+    ]
+  },
+  {
+    "name": "Captain America",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 190,
+        "image": "/cards/chrome/CHROME-190_Captain_America.png"
+      },
+      {
+        "set": "cbh",
+        "number": 2,
+        "image": "/cards/cbh/CBH-002_Captain_America.png"
+      },
+      {
+        "set": "cbh",
+        "number": 31,
+        "image": "/cards/cbh/CBH-031_Captain_America.png"
+      },
+      {
+        "set": "cbh",
+        "number": 65,
+        "image": "/cards/cbh/CBH-065_Captain_America.png"
+      },
+      {
+        "set": "cbh",
+        "number": 108,
+        "image": "/cards/cbh/CBH-108_Captain_America.png"
+      },
+      {
+        "set": "mint",
+        "number": 89,
+        "image": "/cards/mint/MINT-089_Captain_America.png"
+      },
+      {
+        "set": "mint",
+        "number": 104,
+        "image": "/cards/mint/MINT-104_Captain_America.png"
+      }
+    ]
+  },
+  {
+    "name": "Captain Britain",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 151,
+        "image": "/cards/chrome/CHROME-151_Captain_Britain.png"
+      }
+    ]
+  },
+  {
+    "name": "Captain Marvel",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 109,
+        "image": "/cards/cbh/CBH-109_Captain_Marvel.png"
+      },
+      {
+        "set": "mint",
+        "number": 81,
+        "image": "/cards/mint/MINT-081_Captain_Marvel.png"
+      }
+    ]
+  },
+  {
+    "name": "Cloak",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 30,
+        "image": "/cards/mint/MINT-030_Cloak.png"
+      }
+    ]
+  },
+  {
+    "name": "Colleen Wing",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 111,
+        "image": "/cards/cbh/CBH-111_Colleen_Wing.png"
+      }
+    ]
+  },
+  {
+    "name": "Colossus",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 93,
+        "image": "/cards/chrome/CHROME-093_Colossus.png"
+      },
+      {
+        "set": "mint",
+        "number": 66,
+        "image": "/cards/mint/MINT-066_Colossus.png"
+      }
+    ]
+  },
+  {
+    "name": "Cosmo the Spacedog",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 5,
+        "image": "/cards/mint/MINT-005_Cosmo_the_Spacedog.png"
+      }
+    ]
+  },
+  {
+    "name": "Cyborg Spider-Man",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 106,
+        "image": "/cards/cbh/CBH-106_Cyborg_Spider-Man.png"
+      }
+    ]
+  },
+  {
+    "name": "Cyclops",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 107,
+        "image": "/cards/chrome/CHROME-107_Cyclops.png"
+      },
+      {
+        "set": "cbh",
+        "number": 32,
+        "image": "/cards/cbh/CBH-032_Cyclops.png"
+      },
+      {
+        "set": "mint",
+        "number": 87,
+        "image": "/cards/mint/MINT-087_Cyclops.png"
+      }
+    ]
+  },
+  {
+    "name": "Dagger",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 31,
+        "image": "/cards/mint/MINT-031_Dagger.png"
+      }
+    ]
+  },
+  {
+    "name": "Daredevil",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 97,
+        "image": "/cards/chrome/CHROME-097_Daredevil.png"
+      },
+      {
+        "set": "cbh",
+        "number": 3,
+        "image": "/cards/cbh/CBH-003_Daredevil.png"
+      },
+      {
+        "set": "cbh",
+        "number": 33,
+        "image": "/cards/cbh/CBH-033_Daredevil.png"
+      },
+      {
+        "set": "cbh",
+        "number": 112,
+        "image": "/cards/cbh/CBH-112_Daredevil.png"
+      },
+      {
+        "set": "mint",
+        "number": 116,
+        "image": "/cards/mint/MINT-116_Daredevil.png"
+      }
+    ]
+  },
+  {
+    "name": "Dazzler",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 113,
+        "image": "/cards/cbh/CBH-113_Dazzler.png"
+      }
+    ]
+  },
+  {
+    "name": "Deadpool",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 200,
+        "image": "/cards/chrome/CHROME-200_Deadpool.png"
+      }
+    ]
+  },
+  {
+    "name": "Deathlok",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 34,
+        "image": "/cards/cbh/CBH-034_Deathlok.png"
+      },
+      {
+        "set": "cbh",
+        "number": 114,
+        "image": "/cards/cbh/CBH-114_Deathlok.png"
+      }
+    ]
+  },
+  {
+    "name": "Doctor Doom",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 148,
+        "image": "/cards/chrome/CHROME-148_Doctor_Doom.png"
+      },
+      {
+        "set": "cbh",
+        "number": 35,
+        "image": "/cards/cbh/CBH-035_Doctor_Doom.png"
+      },
+      {
+        "set": "cbh",
+        "number": 115,
+        "image": "/cards/cbh/CBH-115_Doctor_Doom.png"
+      },
+      {
+        "set": "mint",
+        "number": 107,
+        "image": "/cards/mint/MINT-107_Doctor_Doom.png"
+      }
+    ]
+  },
+  {
+    "name": "Doctor Octopus",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 160,
+        "image": "/cards/chrome/CHROME-160_Doctor_Octopus.png"
+      },
+      {
+        "set": "cbh",
+        "number": 5,
+        "image": "/cards/cbh/CBH-005_Doctor_Octopus.png"
+      },
+      {
+        "set": "mint",
+        "number": 75,
+        "image": "/cards/mint/MINT-075_Doctor_Octopus.png"
+      }
+    ]
+  },
+  {
+    "name": "Doctor Strange",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 6,
+        "image": "/cards/cbh/CBH-006_Doctor_Strange.png"
+      },
+      {
+        "set": "cbh",
+        "number": 36,
+        "image": "/cards/cbh/CBH-036_Doctor_Strange.png"
+      },
+      {
+        "set": "mint",
+        "number": 110,
+        "image": "/cards/mint/MINT-110_Doctor_Strange.png"
+      }
+    ]
+  },
+  {
+    "name": "Domino",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 154,
+        "image": "/cards/chrome/CHROME-154_Domino.png"
+      }
+    ]
+  },
+  {
+    "name": "Dracula",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 50,
+        "image": "/cards/mint/MINT-050_Dracula.png"
+      }
+    ]
+  },
+  {
+    "name": "Drax",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 174,
+        "image": "/cards/chrome/CHROME-174_Drax.png"
+      },
+      {
+        "set": "mint",
+        "number": 32,
+        "image": "/cards/mint/MINT-032_Drax.png"
+      }
+    ]
+  },
+  {
+    "name": "Ego",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 41,
+        "image": "/cards/mint/MINT-041_Ego.png"
+      }
+    ]
+  },
+  {
+    "name": "Electro",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 12,
+        "image": "/cards/mint/MINT-012_Electro.png"
+      }
+    ]
+  },
+  {
+    "name": "Elektra",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 66,
+        "image": "/cards/cbh/CBH-066_Elektra.png"
+      },
+      {
+        "set": "cbh",
+        "number": 116,
+        "image": "/cards/cbh/CBH-116_Elektra.png"
+      },
+      {
+        "set": "mint",
+        "number": 95,
+        "image": "/cards/mint/MINT-095_Elektra.png"
+      }
+    ]
+  },
+  {
+    "name": "Emma Frost",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 147,
+        "image": "/cards/chrome/CHROME-147_Emma_Frost.png"
+      },
+      {
+        "set": "cbh",
+        "number": 110,
+        "image": "/cards/cbh/CBH-110_Emma_Frost.png"
+      },
+      {
+        "set": "mint",
+        "number": 16,
+        "image": "/cards/mint/MINT-016_Emma_Frost.png"
+      }
+    ]
+  },
+  {
+    "name": "Exodus",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 2,
+        "image": "/cards/mint/MINT-002_Exodus.png"
+      }
+    ]
+  },
+  {
+    "name": "Falcon",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 197,
+        "image": "/cards/chrome/CHROME-197_Falcon.png"
+      },
+      {
+        "set": "cbh",
+        "number": 7,
+        "image": "/cards/cbh/CBH-007_Falcon.png"
+      }
+    ]
+  },
+  {
+    "name": "Fantasma",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 82,
+        "image": "/cards/chrome/CHROME-082_Fantasma.png"
+      }
+    ]
+  },
+  {
+    "name": "Flux",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 67,
+        "image": "/cards/cbh/CBH-067_Flux.png"
+      }
+    ]
+  },
+  {
+    "name": "Galactus",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 150,
+        "image": "/cards/chrome/CHROME-150_Galactus.png"
+      },
+      {
+        "set": "cbh",
+        "number": 37,
+        "image": "/cards/cbh/CBH-037_Galactus.png"
+      },
+      {
+        "set": "mint",
+        "number": 86,
+        "image": "/cards/mint/MINT-086_Galactus.png"
+      }
+    ]
+  },
+  {
+    "name": "Gambit",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 105,
+        "image": "/cards/chrome/CHROME-105_Gambit.png"
+      },
+      {
+        "set": "cbh",
+        "number": 117,
+        "image": "/cards/cbh/CBH-117_Gambit.png"
+      },
+      {
+        "set": "mint",
+        "number": 119,
+        "image": "/cards/mint/MINT-119_Gambit.png"
+      }
+    ]
+  },
+  {
+    "name": "Gamora",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 140,
+        "image": "/cards/chrome/CHROME-140_Gamora.png"
+      },
+      {
+        "set": "chrome",
+        "number": 175,
+        "image": "/cards/chrome/CHROME-175_Gamora.png"
+      },
+      {
+        "set": "mint",
+        "number": 93,
+        "image": "/cards/mint/MINT-093_Gamora.png"
+      }
+    ]
+  },
+  {
+    "name": "Genis-Vell",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 68,
+        "image": "/cards/cbh/CBH-068_Genis-Vell.png"
+      }
+    ]
+  },
+  {
+    "name": "Ghost",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 55,
+        "image": "/cards/mint/MINT-055_Ghost.png"
+      }
+    ]
+  },
+  {
+    "name": "Ghost Rider",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 8,
+        "image": "/cards/cbh/CBH-008_Ghost_Rider.png"
+      },
+      {
+        "set": "mint",
+        "number": 83,
+        "image": "/cards/mint/MINT-083_Ghost_Rider.png"
+      }
+    ]
+  },
+  {
+    "name": "Ghost-Spider",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 118,
+        "image": "/cards/cbh/CBH-118_Ghost-Spider.png"
+      },
+      {
+        "set": "mint",
+        "number": 91,
+        "image": "/cards/mint/MINT-091_Ghost-Spider.png"
+      }
+    ]
+  },
+  {
+    "name": "Gladiator",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 27,
+        "image": "/cards/mint/MINT-027_Gladiator.png"
+      }
+    ]
+  },
+  {
+    "name": "Goliath",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 38,
+        "image": "/cards/cbh/CBH-038_Goliath.png"
+      }
+    ]
+  },
+  {
+    "name": "Green Goblin",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 161,
+        "image": "/cards/chrome/CHROME-161_Green_Goblin.png"
+      },
+      {
+        "set": "cbh",
+        "number": 69,
+        "image": "/cards/cbh/CBH-069_Green_Goblin.png"
+      },
+      {
+        "set": "cbh",
+        "number": 119,
+        "image": "/cards/cbh/CBH-119_Green_Goblin.png"
+      },
+      {
+        "set": "mint",
+        "number": 69,
+        "image": "/cards/mint/MINT-069_Green_Goblin.png"
+      }
+    ]
+  },
+  {
+    "name": "Groot",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 177,
+        "image": "/cards/chrome/CHROME-177_Groot.png"
+      },
+      {
+        "set": "mint",
+        "number": 68,
+        "image": "/cards/mint/MINT-068_Groot.png"
+      }
+    ]
+  },
+  {
+    "name": "Hank Pym",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 39,
+        "image": "/cards/cbh/CBH-039_Hank_Pym.png"
+      },
+      {
+        "set": "mint",
+        "number": 19,
+        "image": "/cards/mint/MINT-019_Hank_Pym.png"
+      }
+    ]
+  },
+  {
+    "name": "Hawkeye",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 133,
+        "image": "/cards/chrome/CHROME-133_Hawkeye.png"
+      },
+      {
+        "set": "chrome",
+        "number": 186,
+        "image": "/cards/chrome/CHROME-186_Hawkeye.png"
+      },
+      {
+        "set": "cbh",
+        "number": 9,
+        "image": "/cards/cbh/CBH-009_Hawkeye.png"
+      },
+      {
+        "set": "cbh",
+        "number": 70,
+        "image": "/cards/cbh/CBH-070_Hawkeye.png"
+      },
+      {
+        "set": "mint",
+        "number": 94,
+        "image": "/cards/mint/MINT-094_Hawkeye.png"
+      }
+    ]
+  },
+  {
+    "name": "Heimdall",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 182,
+        "image": "/cards/chrome/CHROME-182_Heimdall.png"
+      },
+      {
+        "set": "mint",
+        "number": 37,
+        "image": "/cards/mint/MINT-037_Heimdall.png"
+      }
+    ]
+  },
+  {
+    "name": "Hela",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 180,
+        "image": "/cards/chrome/CHROME-180_Hela.png"
+      }
+    ]
+  },
+  {
+    "name": "Hercules",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 163,
+        "image": "/cards/chrome/CHROME-163_Hercules.png"
+      },
+      {
+        "set": "cbh",
+        "number": 40,
+        "image": "/cards/cbh/CBH-040_Hercules.png"
+      },
+      {
+        "set": "mint",
+        "number": 1,
+        "image": "/cards/mint/MINT-001_Hercules.png"
+      }
+    ]
+  },
+  {
+    "name": "Hobgoblin",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 120,
+        "image": "/cards/cbh/CBH-120_Hobgoblin.png"
+      }
+    ]
+  },
+  {
+    "name": "Howard the Duck",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 40,
+        "image": "/cards/mint/MINT-040_Howard_the_Duck.png"
+      }
+    ]
+  },
+  {
+    "name": "Hulk",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 128,
+        "image": "/cards/chrome/CHROME-128_Hulk.png"
+      },
+      {
+        "set": "chrome",
+        "number": 188,
+        "image": "/cards/chrome/CHROME-188_Hulk.png"
+      },
+      {
+        "set": "cbh",
+        "number": 10,
+        "image": "/cards/cbh/CBH-010_Hulk.png"
+      },
+      {
+        "set": "cbh",
+        "number": 41,
+        "image": "/cards/cbh/CBH-041_Hulk.png"
+      },
+      {
+        "set": "cbh",
+        "number": 71,
+        "image": "/cards/cbh/CBH-071_Hulk.png"
+      },
+      {
+        "set": "cbh",
+        "number": 121,
+        "image": "/cards/cbh/CBH-121_Hulk.png"
+      },
+      {
+        "set": "mint",
+        "number": 109,
+        "image": "/cards/mint/MINT-109_Hulk.png"
+      }
+    ]
+  },
+  {
+    "name": "Human Torch",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 11,
+        "image": "/cards/cbh/CBH-011_Human_Torch.png"
+      },
+      {
+        "set": "cbh",
+        "number": 42,
+        "image": "/cards/cbh/CBH-042_Human_Torch.png"
+      },
+      {
+        "set": "cbh",
+        "number": 72,
+        "image": "/cards/cbh/CBH-072_Human_Torch.png"
+      },
+      {
+        "set": "mint",
+        "number": 98,
+        "image": "/cards/mint/MINT-098_Human_Torch.png"
+      }
+    ]
+  },
+  {
+    "name": "Ice Man",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 43,
+        "image": "/cards/cbh/CBH-043_Ice_Man.png"
+      }
+    ]
+  },
+  {
+    "name": "Iceman",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 70,
+        "image": "/cards/mint/MINT-070_Iceman.png"
+      }
+    ]
+  },
+  {
+    "name": "Ikaris",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 14,
+        "image": "/cards/mint/MINT-014_Ikaris.png"
+      }
+    ]
+  },
+  {
+    "name": "Invisible Woman",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 44,
+        "image": "/cards/cbh/CBH-044_Invisible_Woman.png"
+      },
+      {
+        "set": "cbh",
+        "number": 73,
+        "image": "/cards/cbh/CBH-073_Invisible_Woman.png"
+      },
+      {
+        "set": "mint",
+        "number": 118,
+        "image": "/cards/mint/MINT-118_Invisible_Woman.png"
+      }
+    ]
+  },
+  {
+    "name": "Iron Fist",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 137,
+        "image": "/cards/chrome/CHROME-137_Iron_Fist.png"
+      },
+      {
+        "set": "cbh",
+        "number": 12,
+        "image": "/cards/cbh/CBH-012_Iron_Fist.png"
+      },
+      {
+        "set": "cbh",
+        "number": 74,
+        "image": "/cards/cbh/CBH-074_Iron_Fist.png"
+      },
+      {
+        "set": "mint",
+        "number": 65,
+        "image": "/cards/mint/MINT-065_Iron_Fist.png"
+      }
+    ]
+  },
+  {
+    "name": "Iron Man",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 189,
+        "image": "/cards/chrome/CHROME-189_Iron_Man.png"
+      },
+      {
+        "set": "cbh",
+        "number": 13,
+        "image": "/cards/cbh/CBH-013_Iron_Man.png"
+      },
+      {
+        "set": "cbh",
+        "number": 45,
+        "image": "/cards/cbh/CBH-045_Iron_Man.png"
+      },
+      {
+        "set": "cbh",
+        "number": 75,
+        "image": "/cards/cbh/CBH-075_Iron_Man.png"
+      },
+      {
+        "set": "cbh",
+        "number": 122,
+        "image": "/cards/cbh/CBH-122_Iron_Man.png"
+      },
+      {
+        "set": "mint",
+        "number": 103,
+        "image": "/cards/mint/MINT-103_Iron_Man.png"
+      }
+    ]
+  },
+  {
+    "name": "Iron Patriot",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 22,
+        "image": "/cards/mint/MINT-022_Iron_Patriot.png"
+      }
+    ]
+  },
+  {
+    "name": "Ironheart",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 29,
+        "image": "/cards/mint/MINT-029_Ironheart.png"
+      }
+    ]
+  },
+  {
+    "name": "J Jonah Jameson",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 43,
+        "image": "/cards/mint/MINT-043_J_Jonah_Jameson.png"
+      }
+    ]
+  },
+  {
+    "name": "Jackpot",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 81,
+        "image": "/cards/chrome/CHROME-081_Jackpot.png"
+      }
+    ]
+  },
+  {
+    "name": "Jane Foster",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 90,
+        "image": "/cards/chrome/CHROME-090_Jane_Foster.png"
+      }
+    ]
+  },
+  {
+    "name": "Jean Grey",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 94,
+        "image": "/cards/chrome/CHROME-094_Jean_Grey.png"
+      },
+      {
+        "set": "cbh",
+        "number": 76,
+        "image": "/cards/cbh/CBH-076_Jean_Grey.png"
+      },
+      {
+        "set": "mint",
+        "number": 97,
+        "image": "/cards/mint/MINT-097_Jean_Grey.png"
+      }
+    ]
+  },
+  {
+    "name": "Jeff the Land Shark",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 156,
+        "image": "/cards/chrome/CHROME-156_Jeff_the_Land_Shark.png"
+      }
+    ]
+  },
+  {
+    "name": "Jubilee",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 131,
+        "image": "/cards/chrome/CHROME-131_Jubilee.png"
+      },
+      {
+        "set": "cbh",
+        "number": 123,
+        "image": "/cards/cbh/CBH-123_Jubilee.png"
+      }
+    ]
+  },
+  {
+    "name": "Juggernaut",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 146,
+        "image": "/cards/chrome/CHROME-146_Juggernaut.png"
+      }
+    ]
+  },
+  {
+    "name": "Ka-Zar",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 84,
+        "image": "/cards/chrome/CHROME-084_Ka-Zar.png"
+      },
+      {
+        "set": "cbh",
+        "number": 14,
+        "image": "/cards/cbh/CBH-014_Ka-Zar.png"
+      }
+    ]
+  },
+  {
+    "name": "Kang",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 167,
+        "image": "/cards/chrome/CHROME-167_Kang.png"
+      }
+    ]
+  },
+  {
+    "name": "Kate Bishop",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 10,
+        "image": "/cards/mint/MINT-010_Kate_Bishop.png"
+      }
+    ]
+  },
+  {
+    "name": "Killmonger",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 4,
+        "image": "/cards/mint/MINT-004_Killmonger.png"
+      }
+    ]
+  },
+  {
+    "name": "Killraven",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 46,
+        "image": "/cards/cbh/CBH-046_Killraven.png"
+      }
+    ]
+  },
+  {
+    "name": "Kingpin",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 164,
+        "image": "/cards/chrome/CHROME-164_Kingpin.png"
+      },
+      {
+        "set": "mint",
+        "number": 15,
+        "image": "/cards/mint/MINT-015_Kingpin.png"
+      }
+    ]
+  },
+  {
+    "name": "Kitty Pryde",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 77,
+        "image": "/cards/cbh/CBH-077_Kitty_Pryde.png"
+      },
+      {
+        "set": "mint",
+        "number": 24,
+        "image": "/cards/mint/MINT-024_Kitty_Pryde.png"
+      }
+    ]
+  },
+  {
+    "name": "Lizard",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 85,
+        "image": "/cards/chrome/CHROME-085_Lizard.png"
+      }
+    ]
+  },
+  {
+    "name": "Lockjaw",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 152,
+        "image": "/cards/chrome/CHROME-152_Lockjaw.png"
+      }
+    ]
+  },
+  {
+    "name": "Loki",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 184,
+        "image": "/cards/chrome/CHROME-184_Loki.png"
+      },
+      {
+        "set": "cbh",
+        "number": 47,
+        "image": "/cards/cbh/CBH-047_Loki.png"
+      },
+      {
+        "set": "cbh",
+        "number": 78,
+        "image": "/cards/cbh/CBH-078_Loki.png"
+      },
+      {
+        "set": "mint",
+        "number": 80,
+        "image": "/cards/mint/MINT-080_Loki.png"
+      }
+    ]
+  },
+  {
+    "name": "Longshot",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 79,
+        "image": "/cards/cbh/CBH-079_Longshot.png"
+      }
+    ]
+  },
+  {
+    "name": "Luke Cage",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 111,
+        "image": "/cards/chrome/CHROME-111_Luke_Cage.png"
+      },
+      {
+        "set": "cbh",
+        "number": 15,
+        "image": "/cards/cbh/CBH-015_Luke_Cage.png"
+      },
+      {
+        "set": "cbh",
+        "number": 48,
+        "image": "/cards/cbh/CBH-048_Luke_Cage.png"
+      }
+    ]
+  },
+  {
+    "name": "MODOK",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 117,
+        "image": "/cards/chrome/CHROME-117_MODOK.png"
+      },
+      {
+        "set": "mint",
+        "number": 26,
+        "image": "/cards/mint/MINT-026_MODOK.png"
+      }
+    ]
+  },
+  {
+    "name": "Madame Web",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 9,
+        "image": "/cards/mint/MINT-009_Madame_Web.png"
+      }
+    ]
+  },
+  {
+    "name": "Magik",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 124,
+        "image": "/cards/cbh/CBH-124_Magik.png"
+      }
+    ]
+  },
+  {
+    "name": "Magneto",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 115,
+        "image": "/cards/mint/MINT-115_Magneto.png"
+      }
+    ]
+  },
+  {
+    "name": "Makkari",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 114,
+        "image": "/cards/chrome/CHROME-114_Makkari.png"
+      }
+    ]
+  },
+  {
+    "name": "Man-Thing",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 16,
+        "image": "/cards/cbh/CBH-016_Man-Thing.png"
+      }
+    ]
+  },
+  {
+    "name": "Mantis",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 173,
+        "image": "/cards/chrome/CHROME-173_Mantis.png"
+      },
+      {
+        "set": "mint",
+        "number": 63,
+        "image": "/cards/mint/MINT-063_Mantis.png"
+      }
+    ]
+  },
+  {
+    "name": "Mar-Vell",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 17,
+        "image": "/cards/cbh/CBH-017_Mar-Vell.png"
+      }
+    ]
+  },
+  {
+    "name": "Mary Jane",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 80,
+        "image": "/cards/cbh/CBH-080_Mary_Jane.png"
+      },
+      {
+        "set": "cbh",
+        "number": 125,
+        "image": "/cards/cbh/CBH-125_Mary_Jane.png"
+      }
+    ]
+  },
+  {
+    "name": "Mayor Luke Cage",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 82,
+        "image": "/cards/mint/MINT-082_Mayor_Luke_Cage.png"
+      }
+    ]
+  },
+  {
+    "name": "Maystorm",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 126,
+        "image": "/cards/cbh/CBH-126_Maystorm.png"
+      }
+    ]
+  },
+  {
+    "name": "Medusa",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 18,
+        "image": "/cards/cbh/CBH-018_Medusa.png"
+      },
+      {
+        "set": "mint",
+        "number": 39,
+        "image": "/cards/mint/MINT-039_Medusa.png"
+      }
+    ]
+  },
+  {
+    "name": "Mephisto",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 102,
+        "image": "/cards/chrome/CHROME-102_Mephisto.png"
+      }
+    ]
+  },
+  {
+    "name": "Mighty Thor",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 96,
+        "image": "/cards/mint/MINT-096_Mighty_Thor.png"
+      }
+    ]
+  },
+  {
+    "name": "Miles Morales",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 84,
+        "image": "/cards/mint/MINT-084_Miles_Morales.png"
+      }
+    ]
+  },
+  {
+    "name": "Mister Fantastic",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 89,
+        "image": "/cards/chrome/CHROME-089_Mister_Fantastic.png"
+      },
+      {
+        "set": "cbh",
+        "number": 19,
+        "image": "/cards/cbh/CBH-019_Mister_Fantastic.png"
+      },
+      {
+        "set": "cbh",
+        "number": 81,
+        "image": "/cards/cbh/CBH-081_Mister_Fantastic.png"
+      },
+      {
+        "set": "mint",
+        "number": 106,
+        "image": "/cards/mint/MINT-106_Mister_Fantastic.png"
+      }
+    ]
+  },
+  {
+    "name": "Mister Sinister",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 155,
+        "image": "/cards/chrome/CHROME-155_Mister_Sinister.png"
+      }
+    ]
+  },
+  {
+    "name": "Monica Rambeau",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 59,
+        "image": "/cards/mint/MINT-059_Monica_Rambeau.png"
+      }
+    ]
+  },
+  {
+    "name": "Moon Knight",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 98,
+        "image": "/cards/chrome/CHROME-098_Moon_Knight.png"
+      },
+      {
+        "set": "mint",
+        "number": 78,
+        "image": "/cards/mint/MINT-078_Moon_Knight.png"
+      }
+    ]
+  },
+  {
+    "name": "Moonstone",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 82,
+        "image": "/cards/cbh/CBH-082_Moonstone.png"
+      }
+    ]
+  },
+  {
+    "name": "Morbius",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 20,
+        "image": "/cards/cbh/CBH-020_Morbius.png"
+      }
+    ]
+  },
+  {
+    "name": "Ms Marvel",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 130,
+        "image": "/cards/chrome/CHROME-130_Ms_Marvel.png"
+      },
+      {
+        "set": "mint",
+        "number": 13,
+        "image": "/cards/mint/MINT-013_Ms_Marvel.png"
+      }
+    ]
+  },
+  {
+    "name": "Muse",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 47,
+        "image": "/cards/mint/MINT-047_Muse.png"
+      }
+    ]
+  },
+  {
+    "name": "Mysterio",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 115,
+        "image": "/cards/chrome/CHROME-115_Mysterio.png"
+      },
+      {
+        "set": "mint",
+        "number": 49,
+        "image": "/cards/mint/MINT-049_Mysterio.png"
+      }
+    ]
+  },
+  {
+    "name": "Namor",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 21,
+        "image": "/cards/cbh/CBH-021_Namor.png"
+      },
+      {
+        "set": "cbh",
+        "number": 83,
+        "image": "/cards/cbh/CBH-083_Namor.png"
+      },
+      {
+        "set": "mint",
+        "number": 73,
+        "image": "/cards/mint/MINT-073_Namor.png"
+      }
+    ]
+  },
+  {
+    "name": "Nebula",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 171,
+        "image": "/cards/chrome/CHROME-171_Nebula.png"
+      }
+    ]
+  },
+  {
+    "name": "Nick Fury",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 76,
+        "image": "/cards/mint/MINT-076_Nick_Fury.png"
+      }
+    ]
+  },
+  {
+    "name": "Night Thrasher",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 128,
+        "image": "/cards/cbh/CBH-128_Night_Thrasher.png"
+      }
+    ]
+  },
+  {
+    "name": "Nightcrawler",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 129,
+        "image": "/cards/cbh/CBH-129_Nightcrawler.png"
+      },
+      {
+        "set": "mint",
+        "number": 58,
+        "image": "/cards/mint/MINT-058_Nightcrawler.png"
+      }
+    ]
+  },
+  {
+    "name": "Northstar",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 85,
+        "image": "/cards/cbh/CBH-085_Northstar.png"
+      }
+    ]
+  },
+  {
+    "name": "Nova",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 7,
+        "image": "/cards/mint/MINT-007_Nova.png"
+      }
+    ]
+  },
+  {
+    "name": "Nova 2099",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 127,
+        "image": "/cards/cbh/CBH-127_Nova_2099.png"
+      }
+    ]
+  },
+  {
+    "name": "Odin",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 179,
+        "image": "/cards/chrome/CHROME-179_Odin.png"
+      },
+      {
+        "set": "mint",
+        "number": 11,
+        "image": "/cards/mint/MINT-011_Odin.png"
+      }
+    ]
+  },
+  {
+    "name": "Okoye",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 57,
+        "image": "/cards/mint/MINT-057_Okoye.png"
+      }
+    ]
+  },
+  {
+    "name": "Patriot",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 86,
+        "image": "/cards/cbh/CBH-086_Patriot.png"
+      }
+    ]
+  },
+  {
+    "name": "Pepper Potts",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 64,
+        "image": "/cards/mint/MINT-064_Pepper_Potts.png"
+      }
+    ]
+  },
+  {
+    "name": "Peter Parker",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 49,
+        "image": "/cards/cbh/CBH-049_Peter_Parker.png"
+      }
+    ]
+  },
+  {
+    "name": "Phantom Rider",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 18,
+        "image": "/cards/mint/MINT-018_Phantom_Rider.png"
+      }
+    ]
+  },
+  {
+    "name": "Phoenix",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 130,
+        "image": "/cards/cbh/CBH-130_Phoenix.png"
+      }
+    ]
+  },
+  {
+    "name": "Polaris",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 131,
+        "image": "/cards/cbh/CBH-131_Polaris.png"
+      }
+    ]
+  },
+  {
+    "name": "Professor X",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 117,
+        "image": "/cards/mint/MINT-117_Professor_X.png"
+      }
+    ]
+  },
+  {
+    "name": "Psylocke",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 135,
+        "image": "/cards/chrome/CHROME-135_Psylocke.png"
+      },
+      {
+        "set": "cbh",
+        "number": 132,
+        "image": "/cards/cbh/CBH-132_Psylocke.png"
+      }
+    ]
+  },
+  {
+    "name": "Punisher",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 170,
+        "image": "/cards/chrome/CHROME-170_Punisher.png"
+      }
+    ]
+  },
+  {
+    "name": "Quicksilver",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 121,
+        "image": "/cards/chrome/CHROME-121_Quicksilver.png"
+      },
+      {
+        "set": "chrome",
+        "number": 195,
+        "image": "/cards/chrome/CHROME-195_Quicksilver.png"
+      },
+      {
+        "set": "cbh",
+        "number": 133,
+        "image": "/cards/cbh/CBH-133_Quicksilver.png"
+      },
+      {
+        "set": "mint",
+        "number": 52,
+        "image": "/cards/mint/MINT-052_Quicksilver.png"
+      }
+    ]
+  },
+  {
+    "name": "Red Hulk",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 135,
+        "image": "/cards/cbh/CBH-135_Red_Hulk.png"
+      },
+      {
+        "set": "mint",
+        "number": 6,
+        "image": "/cards/mint/MINT-006_Red_Hulk.png"
+      }
+    ]
+  },
+  {
+    "name": "Red Skull",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 169,
+        "image": "/cards/chrome/CHROME-169_Red_Skull.png"
+      }
+    ]
+  },
+  {
+    "name": "Rocket Raccoon",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 120,
+        "image": "/cards/chrome/CHROME-120_Rocket_Raccoon.png"
+      },
+      {
+        "set": "chrome",
+        "number": 176,
+        "image": "/cards/chrome/CHROME-176_Rocket_Raccoon.png"
+      },
+      {
+        "set": "cbh",
+        "number": 136,
+        "image": "/cards/cbh/CBH-136_Rocket_Raccoon.png"
+      },
+      {
+        "set": "mint",
+        "number": 99,
+        "image": "/cards/mint/MINT-099_Rocket_Raccoon.png"
+      }
+    ]
+  },
+  {
+    "name": "Rogue",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 87,
+        "image": "/cards/cbh/CBH-087_Rogue.png"
+      },
+      {
+        "set": "cbh",
+        "number": 137,
+        "image": "/cards/cbh/CBH-137_Rogue.png"
+      },
+      {
+        "set": "mint",
+        "number": 108,
+        "image": "/cards/mint/MINT-108_Rogue.png"
+      }
+    ]
+  },
+  {
+    "name": "Ronan",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 157,
+        "image": "/cards/chrome/CHROME-157_Ronan.png"
+      }
+    ]
+  },
+  {
+    "name": "Ronan the Accuser",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 17,
+        "image": "/cards/mint/MINT-017_Ronan_the_Accuser.png"
+      }
+    ]
+  },
+  {
+    "name": "Sabretooth",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 92,
+        "image": "/cards/chrome/CHROME-092_Sabretooth.png"
+      },
+      {
+        "set": "cbh",
+        "number": 88,
+        "image": "/cards/cbh/CBH-088_Sabretooth.png"
+      },
+      {
+        "set": "cbh",
+        "number": 138,
+        "image": "/cards/cbh/CBH-138_Sabretooth.png"
+      }
+    ]
+  },
+  {
+    "name": "Sam Wilson",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 134,
+        "image": "/cards/cbh/CBH-134_Sam_Wilson.png"
+      }
+    ]
+  },
+  {
+    "name": "Samurai Venom",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 127,
+        "image": "/cards/chrome/CHROME-127_Samurai_Venom.png"
+      }
+    ]
+  },
+  {
+    "name": "Sandman",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 91,
+        "image": "/cards/chrome/CHROME-091_Sandman.png"
+      },
+      {
+        "set": "cbh",
+        "number": 89,
+        "image": "/cards/cbh/CBH-089_Sandman.png"
+      }
+    ]
+  },
+  {
+    "name": "Scarlet Witch",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 168,
+        "image": "/cards/chrome/CHROME-168_Scarlet_Witch.png"
+      },
+      {
+        "set": "chrome",
+        "number": 194,
+        "image": "/cards/chrome/CHROME-194_Scarlet_Witch.png"
+      },
+      {
+        "set": "mint",
+        "number": 92,
+        "image": "/cards/mint/MINT-092_Scarlet_Witch.png"
+      }
+    ]
+  },
+  {
+    "name": "Scorpion",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 42,
+        "image": "/cards/mint/MINT-042_Scorpion.png"
+      }
+    ]
+  },
+  {
+    "name": "Sentry",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 36,
+        "image": "/cards/mint/MINT-036_Sentry.png"
+      }
+    ]
+  },
+  {
+    "name": "Shang-Chi",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 159,
+        "image": "/cards/chrome/CHROME-159_Shang-Chi.png"
+      }
+    ]
+  },
+  {
+    "name": "She-Hulk",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 110,
+        "image": "/cards/chrome/CHROME-110_She-Hulk.png"
+      },
+      {
+        "set": "cbh",
+        "number": 90,
+        "image": "/cards/cbh/CBH-090_She-Hulk.png"
+      },
+      {
+        "set": "cbh",
+        "number": 139,
+        "image": "/cards/cbh/CBH-139_She-Hulk.png"
+      },
+      {
+        "set": "mint",
+        "number": 72,
+        "image": "/cards/mint/MINT-072_She-Hulk.png"
+      }
+    ]
+  },
+  {
+    "name": "Shuri",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 96,
+        "image": "/cards/chrome/CHROME-096_Shuri.png"
+      }
+    ]
+  },
+  {
+    "name": "Sif",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 183,
+        "image": "/cards/chrome/CHROME-183_Sif.png"
+      }
+    ]
+  },
+  {
+    "name": "Silk",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 108,
+        "image": "/cards/chrome/CHROME-108_Silk.png"
+      }
+    ]
+  },
+  {
+    "name": "Silver Sable",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 74,
+        "image": "/cards/mint/MINT-074_Silver_Sable.png"
+      }
+    ]
+  },
+  {
+    "name": "Silver Surfer",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 134,
+        "image": "/cards/chrome/CHROME-134_Silver_Surfer.png"
+      },
+      {
+        "set": "cbh",
+        "number": 50,
+        "image": "/cards/cbh/CBH-050_Silver_Surfer.png"
+      },
+      {
+        "set": "cbh",
+        "number": 91,
+        "image": "/cards/cbh/CBH-091_Silver_Surfer.png"
+      },
+      {
+        "set": "mint",
+        "number": 62,
+        "image": "/cards/mint/MINT-062_Silver_Surfer.png"
+      }
+    ]
+  },
+  {
+    "name": "Spider-Girl",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 143,
+        "image": "/cards/chrome/CHROME-143_Spider-Girl.png"
+      },
+      {
+        "set": "cbh",
+        "number": 92,
+        "image": "/cards/cbh/CBH-092_Spider-Girl.png"
+      },
+      {
+        "set": "cbh",
+        "number": 141,
+        "image": "/cards/cbh/CBH-141_Spider-Girl.png"
+      }
+    ]
+  },
+  {
+    "name": "Spider-Ham",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 142,
+        "image": "/cards/chrome/CHROME-142_Spider-Ham.png"
+      }
+    ]
+  },
+  {
+    "name": "Spider-Man",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 101,
+        "image": "/cards/chrome/CHROME-101_Spider-Man.png"
+      },
+      {
+        "set": "chrome",
+        "number": 199,
+        "image": "/cards/chrome/CHROME-199_Spider-Man.png"
+      },
+      {
+        "set": "cbh",
+        "number": 22,
+        "image": "/cards/cbh/CBH-022_Spider-Man.png"
+      },
+      {
+        "set": "cbh",
+        "number": 51,
+        "image": "/cards/cbh/CBH-051_Spider-Man.png"
+      },
+      {
+        "set": "cbh",
+        "number": 93,
+        "image": "/cards/cbh/CBH-093_Spider-Man.png"
+      },
+      {
+        "set": "cbh",
+        "number": 142,
+        "image": "/cards/cbh/CBH-142_Spider-Man.png"
+      },
+      {
+        "set": "mint",
+        "number": 101,
+        "image": "/cards/mint/MINT-101_Spider-Man.png"
+      }
+    ]
+  },
+  {
+    "name": "Spider-Man 2099",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 112,
+        "image": "/cards/chrome/CHROME-112_Spider-Man_2099.png"
+      },
+      {
+        "set": "cbh",
+        "number": 143,
+        "image": "/cards/cbh/CBH-143_Spider-Man_2099.png"
+      }
+    ]
+  },
+  {
+    "name": "Spider-Punk",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 144,
+        "image": "/cards/cbh/CBH-144_Spider-Punk.png"
+      }
+    ]
+  },
+  {
+    "name": "Spider-Woman",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 94,
+        "image": "/cards/cbh/CBH-094_Spider-Woman.png"
+      }
+    ]
+  },
+  {
+    "name": "Spider-Woman 2099",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 140,
+        "image": "/cards/cbh/CBH-140_Spider-Woman_2099.png"
+      }
+    ]
+  },
+  {
+    "name": "Spooky-Man",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 145,
+        "image": "/cards/cbh/CBH-145_Spooky-Man.png"
+      }
+    ]
+  },
+  {
+    "name": "Squirrel Girl",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 45,
+        "image": "/cards/mint/MINT-045_Squirrel_Girl.png"
+      }
+    ]
+  },
+  {
+    "name": "Star-Lord",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 104,
+        "image": "/cards/chrome/CHROME-104_Star-Lord.png"
+      },
+      {
+        "set": "chrome",
+        "number": 178,
+        "image": "/cards/chrome/CHROME-178_Star-Lord.png"
+      },
+      {
+        "set": "mint",
+        "number": 85,
+        "image": "/cards/mint/MINT-085_Star-Lord.png"
+      }
+    ]
+  },
+  {
+    "name": "Starfox",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 8,
+        "image": "/cards/mint/MINT-008_Starfox.png"
+      }
+    ]
+  },
+  {
+    "name": "Storm",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 95,
+        "image": "/cards/chrome/CHROME-095_Storm.png"
+      },
+      {
+        "set": "cbh",
+        "number": 95,
+        "image": "/cards/cbh/CBH-095_Storm.png"
+      },
+      {
+        "set": "mint",
+        "number": 112,
+        "image": "/cards/mint/MINT-112_Storm.png"
+      }
+    ]
+  },
+  {
+    "name": "Thanos",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 158,
+        "image": "/cards/chrome/CHROME-158_Thanos.png"
+      },
+      {
+        "set": "mint",
+        "number": 77,
+        "image": "/cards/mint/MINT-077_Thanos.png"
+      }
+    ]
+  },
+  {
+    "name": "The Collector",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 21,
+        "image": "/cards/mint/MINT-021_The_Collector.png"
+      }
+    ]
+  },
+  {
+    "name": "The Prowler",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 46,
+        "image": "/cards/mint/MINT-046_The_Prowler.png"
+      }
+    ]
+  },
+  {
+    "name": "The Thing",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 109,
+        "image": "/cards/chrome/CHROME-109_The_Thing.png"
+      },
+      {
+        "set": "cbh",
+        "number": 24,
+        "image": "/cards/cbh/CBH-024_The_Thing.png"
+      },
+      {
+        "set": "cbh",
+        "number": 52,
+        "image": "/cards/cbh/CBH-052_The_Thing.png"
+      },
+      {
+        "set": "cbh",
+        "number": 96,
+        "image": "/cards/cbh/CBH-096_The_Thing.png"
+      },
+      {
+        "set": "cbh",
+        "number": 146,
+        "image": "/cards/cbh/CBH-146_The_Thing.png"
+      },
+      {
+        "set": "mint",
+        "number": 90,
+        "image": "/cards/mint/MINT-090_The_Thing.png"
+      }
+    ]
+  },
+  {
+    "name": "The Watcher",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 53,
+        "image": "/cards/cbh/CBH-053_The_Watcher.png"
+      }
+    ]
+  },
+  {
+    "name": "Thor",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 119,
+        "image": "/cards/chrome/CHROME-119_Thor.png"
+      },
+      {
+        "set": "chrome",
+        "number": 185,
+        "image": "/cards/chrome/CHROME-185_Thor.png"
+      },
+      {
+        "set": "cbh",
+        "number": 25,
+        "image": "/cards/cbh/CBH-025_Thor.png"
+      },
+      {
+        "set": "cbh",
+        "number": 54,
+        "image": "/cards/cbh/CBH-054_Thor.png"
+      },
+      {
+        "set": "cbh",
+        "number": 97,
+        "image": "/cards/cbh/CBH-097_Thor.png"
+      },
+      {
+        "set": "mint",
+        "number": 105,
+        "image": "/cards/mint/MINT-105_Thor.png"
+      }
+    ]
+  },
+  {
+    "name": "Tigra",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 55,
+        "image": "/cards/cbh/CBH-055_Tigra.png"
+      }
+    ]
+  },
+  {
+    "name": "Typhoid Mary",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 123,
+        "image": "/cards/chrome/CHROME-123_Typhoid_Mary.png"
+      }
+    ]
+  },
+  {
+    "name": "Ultron",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 138,
+        "image": "/cards/chrome/CHROME-138_Ultron.png"
+      },
+      {
+        "set": "mint",
+        "number": 3,
+        "image": "/cards/mint/MINT-003_Ultron.png"
+      }
+    ]
+  },
+  {
+    "name": "Union Jack",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 34,
+        "image": "/cards/mint/MINT-034_Union_Jack.png"
+      }
+    ]
+  },
+  {
+    "name": "Valeria Richards",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 87,
+        "image": "/cards/chrome/CHROME-087_Valeria_Richards.png"
+      }
+    ]
+  },
+  {
+    "name": "Valkyrie",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 181,
+        "image": "/cards/chrome/CHROME-181_Valkyrie.png"
+      },
+      {
+        "set": "cbh",
+        "number": 23,
+        "image": "/cards/cbh/CBH-023_Valkyrie.png"
+      },
+      {
+        "set": "mint",
+        "number": 61,
+        "image": "/cards/mint/MINT-061_Valkyrie.png"
+      }
+    ]
+  },
+  {
+    "name": "Venom",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 149,
+        "image": "/cards/chrome/CHROME-149_Venom.png"
+      },
+      {
+        "set": "cbh",
+        "number": 84,
+        "image": "/cards/cbh/CBH-084_Venom.png"
+      },
+      {
+        "set": "cbh",
+        "number": 147,
+        "image": "/cards/cbh/CBH-147_Venom.png"
+      },
+      {
+        "set": "mint",
+        "number": 114,
+        "image": "/cards/mint/MINT-114_Venom.png"
+      }
+    ]
+  },
+  {
+    "name": "Vision",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 139,
+        "image": "/cards/chrome/CHROME-139_Vision.png"
+      },
+      {
+        "set": "chrome",
+        "number": 193,
+        "image": "/cards/chrome/CHROME-193_Vision.png"
+      },
+      {
+        "set": "cbh",
+        "number": 56,
+        "image": "/cards/cbh/CBH-056_Vision.png"
+      },
+      {
+        "set": "mint",
+        "number": 100,
+        "image": "/cards/mint/MINT-100_Vision.png"
+      }
+    ]
+  },
+  {
+    "name": "Void",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 38,
+        "image": "/cards/mint/MINT-038_Void.png"
+      }
+    ]
+  },
+  {
+    "name": "Volstagg",
+    "appearances": [
+      {
+        "set": "cbh",
+        "number": 26,
+        "image": "/cards/cbh/CBH-026_Volstagg.png"
+      }
+    ]
+  },
+  {
+    "name": "War Machine",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 196,
+        "image": "/cards/chrome/CHROME-196_War_Machine.png"
+      },
+      {
+        "set": "mint",
+        "number": 53,
+        "image": "/cards/mint/MINT-053_War_Machine.png"
+      }
+    ]
+  },
+  {
+    "name": "Wasp",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 113,
+        "image": "/cards/chrome/CHROME-113_Wasp.png"
+      },
+      {
+        "set": "chrome",
+        "number": 192,
+        "image": "/cards/chrome/CHROME-192_Wasp.png"
+      },
+      {
+        "set": "mint",
+        "number": 88,
+        "image": "/cards/mint/MINT-088_Wasp.png"
+      }
+    ]
+  },
+  {
+    "name": "Werewolf",
+    "appearances": [
+      {
+        "set": "mint",
+        "number": 23,
+        "image": "/cards/mint/MINT-023_Werewolf.png"
+      }
+    ]
+  },
+  {
+    "name": "Winter Soldier",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 198,
+        "image": "/cards/chrome/CHROME-198_Winter_Soldier.png"
+      },
+      {
+        "set": "cbh",
+        "number": 98,
+        "image": "/cards/cbh/CBH-098_Winter_Soldier.png"
+      },
+      {
+        "set": "mint",
+        "number": 60,
+        "image": "/cards/mint/MINT-060_Winter_Soldier.png"
+      }
+    ]
+  },
+  {
+    "name": "Wolverine",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 103,
+        "image": "/cards/chrome/CHROME-103_Wolverine.png"
+      },
+      {
+        "set": "cbh",
+        "number": 148,
+        "image": "/cards/cbh/CBH-148_Wolverine.png"
+      },
+      {
+        "set": "mint",
+        "number": 102,
+        "image": "/cards/mint/MINT-102_Wolverine.png"
+      }
+    ]
+  },
+  {
+    "name": "Wonder Man",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 100,
+        "image": "/cards/chrome/CHROME-100_Wonder_Man.png"
+      },
+      {
+        "set": "cbh",
+        "number": 149,
+        "image": "/cards/cbh/CBH-149_Wonder_Man.png"
+      },
+      {
+        "set": "mint",
+        "number": 33,
+        "image": "/cards/mint/MINT-033_Wonder_Man.png"
+      }
+    ]
+  },
+  {
+    "name": "Wong",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 86,
+        "image": "/cards/chrome/CHROME-086_Wong.png"
+      }
+    ]
+  },
+  {
+    "name": "X-23",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 122,
+        "image": "/cards/chrome/CHROME-122_X-23.png"
+      },
+      {
+        "set": "cbh",
+        "number": 57,
+        "image": "/cards/cbh/CBH-057_X-23.png"
+      }
+    ]
+  },
+  {
+    "name": "Yelena",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 83,
+        "image": "/cards/chrome/CHROME-083_Yelena.png"
+      }
+    ]
+  },
+  {
+    "name": "Yondu",
+    "appearances": [
+      {
+        "set": "chrome",
+        "number": 172,
+        "image": "/cards/chrome/CHROME-172_Yondu.png"
+      }
+    ]
+  }
+]

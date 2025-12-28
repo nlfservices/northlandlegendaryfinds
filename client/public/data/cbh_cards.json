@@ -1,0 +1,884 @@
+[
+  {
+    "number": 1,
+    "character": "Black Widow",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-001_Black_Widow.png"
+  },
+  {
+    "number": 2,
+    "character": "Captain America",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-002_Captain_America.png"
+  },
+  {
+    "number": 3,
+    "character": "Daredevil",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-003_Daredevil.png"
+  },
+  {
+    "number": 5,
+    "character": "Doctor Octopus",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-005_Doctor_Octopus.png"
+  },
+  {
+    "number": 6,
+    "character": "Doctor Strange",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-006_Doctor_Strange.png"
+  },
+  {
+    "number": 7,
+    "character": "Falcon",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-007_Falcon.png"
+  },
+  {
+    "number": 8,
+    "character": "Ghost Rider",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-008_Ghost_Rider.png"
+  },
+  {
+    "number": 9,
+    "character": "Hawkeye",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-009_Hawkeye.png"
+  },
+  {
+    "number": 10,
+    "character": "Hulk",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-010_Hulk.png"
+  },
+  {
+    "number": 11,
+    "character": "Human Torch",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-011_Human_Torch.png"
+  },
+  {
+    "number": 12,
+    "character": "Iron Fist",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-012_Iron_Fist.png"
+  },
+  {
+    "number": 13,
+    "character": "Iron Man",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-013_Iron_Man.png"
+  },
+  {
+    "number": 14,
+    "character": "Ka-Zar",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-014_Ka-Zar.png"
+  },
+  {
+    "number": 15,
+    "character": "Luke Cage",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-015_Luke_Cage.png"
+  },
+  {
+    "number": 16,
+    "character": "Man-Thing",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-016_Man-Thing.png"
+  },
+  {
+    "number": 17,
+    "character": "Mar-Vell",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-017_Mar-Vell.png"
+  },
+  {
+    "number": 18,
+    "character": "Medusa",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-018_Medusa.png"
+  },
+  {
+    "number": 19,
+    "character": "Mister Fantastic",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-019_Mister_Fantastic.png"
+  },
+  {
+    "number": 20,
+    "character": "Morbius",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-020_Morbius.png"
+  },
+  {
+    "number": 21,
+    "character": "Namor",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-021_Namor.png"
+  },
+  {
+    "number": 22,
+    "character": "Spider-Man",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-022_Spider-Man.png"
+  },
+  {
+    "number": 23,
+    "character": "Valkyrie",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-023_Valkyrie.png"
+  },
+  {
+    "number": 24,
+    "character": "The Thing",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-024_The_Thing.png"
+  },
+  {
+    "number": 25,
+    "character": "Thor",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-025_Thor.png"
+  },
+  {
+    "number": 26,
+    "character": "Volstagg",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-026_Volstagg.png"
+  },
+  {
+    "number": 27,
+    "character": "Adam Warlock",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-027_Adam_Warlock.png"
+  },
+  {
+    "number": 28,
+    "character": "Angel",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-028_Angel.png"
+  },
+  {
+    "number": 29,
+    "character": "Blade",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-029_Blade.png"
+  },
+  {
+    "number": 30,
+    "character": "Bucky Barnes",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-030_Bucky_Barnes.png"
+  },
+  {
+    "number": 31,
+    "character": "Captain America",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-031_Captain_America.png"
+  },
+  {
+    "number": 32,
+    "character": "Cyclops",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-032_Cyclops.png"
+  },
+  {
+    "number": 33,
+    "character": "Daredevil",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-033_Daredevil.png"
+  },
+  {
+    "number": 34,
+    "character": "Deathlok",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-034_Deathlok.png"
+  },
+  {
+    "number": 35,
+    "character": "Doctor Doom",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-035_Doctor_Doom.png"
+  },
+  {
+    "number": 36,
+    "character": "Doctor Strange",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-036_Doctor_Strange.png"
+  },
+  {
+    "number": 37,
+    "character": "Galactus",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-037_Galactus.png"
+  },
+  {
+    "number": 38,
+    "character": "Goliath",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-038_Goliath.png"
+  },
+  {
+    "number": 39,
+    "character": "Hank Pym",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-039_Hank_Pym.png"
+  },
+  {
+    "number": 40,
+    "character": "Hercules",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-040_Hercules.png"
+  },
+  {
+    "number": 41,
+    "character": "Hulk",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-041_Hulk.png"
+  },
+  {
+    "number": 42,
+    "character": "Human Torch",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-042_Human_Torch.png"
+  },
+  {
+    "number": 43,
+    "character": "Ice Man",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-043_Ice_Man.png"
+  },
+  {
+    "number": 44,
+    "character": "Invisible Woman",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-044_Invisible_Woman.png"
+  },
+  {
+    "number": 45,
+    "character": "Iron Man",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-045_Iron_Man.png"
+  },
+  {
+    "number": 46,
+    "character": "Killraven",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-046_Killraven.png"
+  },
+  {
+    "number": 47,
+    "character": "Loki",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-047_Loki.png"
+  },
+  {
+    "number": 48,
+    "character": "Luke Cage",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-048_Luke_Cage.png"
+  },
+  {
+    "number": 49,
+    "character": "Peter Parker",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-049_Peter_Parker.png"
+  },
+  {
+    "number": 50,
+    "character": "Silver Surfer",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-050_Silver_Surfer.png"
+  },
+  {
+    "number": 51,
+    "character": "Spider-Man",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-051_Spider-Man.png"
+  },
+  {
+    "number": 52,
+    "character": "The Thing",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-052_The_Thing.png"
+  },
+  {
+    "number": 53,
+    "character": "The Watcher",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-053_The_Watcher.png"
+  },
+  {
+    "number": 54,
+    "character": "Thor",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-054_Thor.png"
+  },
+  {
+    "number": 55,
+    "character": "Tigra",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-055_Tigra.png"
+  },
+  {
+    "number": 56,
+    "character": "Vision",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-056_Vision.png"
+  },
+  {
+    "number": 57,
+    "character": "X-23",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-057_X-23.png"
+  },
+  {
+    "number": 58,
+    "character": "Angel",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-058_Angel.png"
+  },
+  {
+    "number": 59,
+    "character": "Arana",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-059_Arana.png"
+  },
+  {
+    "number": 60,
+    "character": "Black Cat",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-060_Black_Cat.png"
+  },
+  {
+    "number": 61,
+    "character": "Black Panther",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-061_Black_Panther.png"
+  },
+  {
+    "number": 62,
+    "character": "Black Widow",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-062_Black_Widow.png"
+  },
+  {
+    "number": 63,
+    "character": "Blob",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-063_Blob.png"
+  },
+  {
+    "number": 64,
+    "character": "Buzz",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-064_Buzz.png"
+  },
+  {
+    "number": 65,
+    "character": "Captain America",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-065_Captain_America.png"
+  },
+  {
+    "number": 66,
+    "character": "Elektra",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-066_Elektra.png"
+  },
+  {
+    "number": 67,
+    "character": "Flux",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-067_Flux.png"
+  },
+  {
+    "number": 68,
+    "character": "Genis-Vell",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-068_Genis-Vell.png"
+  },
+  {
+    "number": 69,
+    "character": "Green Goblin",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-069_Green_Goblin.png"
+  },
+  {
+    "number": 70,
+    "character": "Hawkeye",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-070_Hawkeye.png"
+  },
+  {
+    "number": 71,
+    "character": "Hulk",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-071_Hulk.png"
+  },
+  {
+    "number": 72,
+    "character": "Human Torch",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-072_Human_Torch.png"
+  },
+  {
+    "number": 73,
+    "character": "Invisible Woman",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-073_Invisible_Woman.png"
+  },
+  {
+    "number": 74,
+    "character": "Iron Fist",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-074_Iron_Fist.png"
+  },
+  {
+    "number": 75,
+    "character": "Iron Man",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-075_Iron_Man.png"
+  },
+  {
+    "number": 76,
+    "character": "Jean Grey",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-076_Jean_Grey.png"
+  },
+  {
+    "number": 77,
+    "character": "Kitty Pryde",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-077_Kitty_Pryde.png"
+  },
+  {
+    "number": 78,
+    "character": "Loki",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-078_Loki.png"
+  },
+  {
+    "number": 79,
+    "character": "Longshot",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-079_Longshot.png"
+  },
+  {
+    "number": 80,
+    "character": "Mary Jane",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-080_Mary_Jane.png"
+  },
+  {
+    "number": 81,
+    "character": "Mister Fantastic",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-081_Mister_Fantastic.png"
+  },
+  {
+    "number": 82,
+    "character": "Moonstone",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-082_Moonstone.png"
+  },
+  {
+    "number": 83,
+    "character": "Namor",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-083_Namor.png"
+  },
+  {
+    "number": 84,
+    "character": "Venom",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-084_Venom.png"
+  },
+  {
+    "number": 85,
+    "character": "Northstar",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-085_Northstar.png"
+  },
+  {
+    "number": 86,
+    "character": "Patriot",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-086_Patriot.png"
+  },
+  {
+    "number": 87,
+    "character": "Rogue",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-087_Rogue.png"
+  },
+  {
+    "number": 88,
+    "character": "Sabretooth",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-088_Sabretooth.png"
+  },
+  {
+    "number": 89,
+    "character": "Sandman",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-089_Sandman.png"
+  },
+  {
+    "number": 90,
+    "character": "She-Hulk",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-090_She-Hulk.png"
+  },
+  {
+    "number": 91,
+    "character": "Silver Surfer",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-091_Silver_Surfer.png"
+  },
+  {
+    "number": 92,
+    "character": "Spider-Girl",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-092_Spider-Girl.png"
+  },
+  {
+    "number": 93,
+    "character": "Spider-Man",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-093_Spider-Man.png"
+  },
+  {
+    "number": 94,
+    "character": "Spider-Woman",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-094_Spider-Woman.png"
+  },
+  {
+    "number": 95,
+    "character": "Storm",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-095_Storm.png"
+  },
+  {
+    "number": 96,
+    "character": "The Thing",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-096_The_Thing.png"
+  },
+  {
+    "number": 97,
+    "character": "Thor",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-097_Thor.png"
+  },
+  {
+    "number": 98,
+    "character": "Winter Soldier",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-098_Winter_Soldier.png"
+  },
+  {
+    "number": 100,
+    "character": "Blue Bolt",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-100_Blue_Bolt.png"
+  },
+  {
+    "number": 101,
+    "character": "All-New Venom",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-101_All-New_Venom.png"
+  },
+  {
+    "number": 102,
+    "character": "America Chavez",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-102_America_Chavez.png"
+  },
+  {
+    "number": 103,
+    "character": "Banshee",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-103_Banshee.png"
+  },
+  {
+    "number": 104,
+    "character": "Beast",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-104_Beast.png"
+  },
+  {
+    "number": 105,
+    "character": "Black Cat",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-105_Black_Cat.png"
+  },
+  {
+    "number": 106,
+    "character": "Cyborg Spider-Man",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-106_Cyborg_Spider-Man.png"
+  },
+  {
+    "number": 107,
+    "character": "Bullseye",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-107_Bullseye.png"
+  },
+  {
+    "number": 108,
+    "character": "Captain America",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-108_Captain_America.png"
+  },
+  {
+    "number": 109,
+    "character": "Captain Marvel",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-109_Captain_Marvel.png"
+  },
+  {
+    "number": 110,
+    "character": "Emma Frost",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-110_Emma_Frost.png"
+  },
+  {
+    "number": 111,
+    "character": "Colleen Wing",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-111_Colleen_Wing.png"
+  },
+  {
+    "number": 112,
+    "character": "Daredevil",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-112_Daredevil.png"
+  },
+  {
+    "number": 113,
+    "character": "Dazzler",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-113_Dazzler.png"
+  },
+  {
+    "number": 114,
+    "character": "Deathlok",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-114_Deathlok.png"
+  },
+  {
+    "number": 115,
+    "character": "Doctor Doom",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-115_Doctor_Doom.png"
+  },
+  {
+    "number": 116,
+    "character": "Elektra",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-116_Elektra.png"
+  },
+  {
+    "number": 117,
+    "character": "Gambit",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-117_Gambit.png"
+  },
+  {
+    "number": 118,
+    "character": "Ghost-Spider",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-118_Ghost-Spider.png"
+  },
+  {
+    "number": 119,
+    "character": "Green Goblin",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-119_Green_Goblin.png"
+  },
+  {
+    "number": 120,
+    "character": "Hobgoblin",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-120_Hobgoblin.png"
+  },
+  {
+    "number": 121,
+    "character": "Hulk",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-121_Hulk.png"
+  },
+  {
+    "number": 122,
+    "character": "Iron Man",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-122_Iron_Man.png"
+  },
+  {
+    "number": 123,
+    "character": "Jubilee",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-123_Jubilee.png"
+  },
+  {
+    "number": 124,
+    "character": "Magik",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-124_Magik.png"
+  },
+  {
+    "number": 125,
+    "character": "Mary Jane",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-125_Mary_Jane.png"
+  },
+  {
+    "number": 126,
+    "character": "Maystorm",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-126_Maystorm.png"
+  },
+  {
+    "number": 127,
+    "character": "Nova 2099",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-127_Nova_2099.png"
+  },
+  {
+    "number": 128,
+    "character": "Night Thrasher",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-128_Night_Thrasher.png"
+  },
+  {
+    "number": 129,
+    "character": "Nightcrawler",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-129_Nightcrawler.png"
+  },
+  {
+    "number": 130,
+    "character": "Phoenix",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-130_Phoenix.png"
+  },
+  {
+    "number": 131,
+    "character": "Polaris",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-131_Polaris.png"
+  },
+  {
+    "number": 132,
+    "character": "Psylocke",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-132_Psylocke.png"
+  },
+  {
+    "number": 133,
+    "character": "Quicksilver",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-133_Quicksilver.png"
+  },
+  {
+    "number": 134,
+    "character": "Sam Wilson",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-134_Sam_Wilson.png"
+  },
+  {
+    "number": 135,
+    "character": "Red Hulk",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-135_Red_Hulk.png"
+  },
+  {
+    "number": 136,
+    "character": "Rocket Raccoon",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-136_Rocket_Raccoon.png"
+  },
+  {
+    "number": 137,
+    "character": "Rogue",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-137_Rogue.png"
+  },
+  {
+    "number": 138,
+    "character": "Sabretooth",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-138_Sabretooth.png"
+  },
+  {
+    "number": 139,
+    "character": "She-Hulk",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-139_She-Hulk.png"
+  },
+  {
+    "number": 140,
+    "character": "Spider-Woman 2099",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-140_Spider-Woman_2099.png"
+  },
+  {
+    "number": 141,
+    "character": "Spider-Girl",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-141_Spider-Girl.png"
+  },
+  {
+    "number": 142,
+    "character": "Spider-Man",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-142_Spider-Man.png"
+  },
+  {
+    "number": 143,
+    "character": "Spider-Man 2099",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-143_Spider-Man_2099.png"
+  },
+  {
+    "number": 144,
+    "character": "Spider-Punk",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-144_Spider-Punk.png"
+  },
+  {
+    "number": 145,
+    "character": "Spooky-Man",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-145_Spooky-Man.png"
+  },
+  {
+    "number": 146,
+    "character": "The Thing",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-146_The_Thing.png"
+  },
+  {
+    "number": 147,
+    "character": "Venom",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-147_Venom.png"
+  },
+  {
+    "number": 148,
+    "character": "Wolverine",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-148_Wolverine.png"
+  },
+  {
+    "number": 149,
+    "character": "Wonder Man",
+    "set": "cbh",
+    "image": "/cards/cbh/CBH-149_Wonder_Man.png"
+  }
+]
