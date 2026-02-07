@@ -7,14 +7,10 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
-import CardSets from "./pages/CardSets";
-import ChromeSet from "./pages/ChromeSet";
-import CBHSet from "./pages/CBHSet";
-import MintSet from "./pages/MintSet";
-import Characters from "./pages/Characters";
-import CharacterPage from "./pages/CharacterPage";
-import Shop from "./pages/Shop";
+import Marvel from "./pages/Marvel";
+import StarWars from "./pages/StarWars";
 import About from "./pages/About";
+import Contact from "./pages/Contact";
 
 
 function Router() {
@@ -24,14 +20,10 @@ function Router() {
       <div className="pt-20 min-h-screen flex flex-col">
         <Switch>
           <Route path={"/"} component={Home} />
-          <Route path={"/sets"} component={CardSets} />
-          <Route path={"/sets/chrome"} component={ChromeSet} />
-          <Route path={"/sets/comic-book-heroes"} component={CBHSet} />
-          <Route path={"/sets/marvel-mint"} component={MintSet} />
-          <Route path={"/characters"} component={Characters} />
-          <Route path={"/character/:name"} component={CharacterPage} />
-          <Route path={"/shop"} component={Shop} />
+          <Route path={"/marvel"} component={Marvel} />
+          <Route path={"/star-wars"} component={StarWars} />
           <Route path={"/about"} component={About} />
+          <Route path={"/contact"} component={Contact} />
           <Route path={"/404"} component={NotFound} />
           {/* Final fallback route */}
           <Route component={NotFound} />
@@ -52,7 +44,6 @@ function App() {
     <ErrorBoundary>
       <ThemeProvider
         defaultTheme="dark"
-        // switchable
       >
         <TooltipProvider>
           <Toaster />

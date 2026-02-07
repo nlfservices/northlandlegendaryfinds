@@ -1,103 +1,109 @@
 /**
- * Footer Component
+ * Footer Component - NLF cosmic theme
  * Design: Site-wide footer with links and branding
  */
 
 import { Link } from "wouter";
-import { Mail, Github, Twitter } from "lucide-react";
+import { Mail, Facebook, Twitter, Instagram } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-card/50 border-t border-border mt-auto">
-      <div className="container mx-auto px-4 py-12">
+    <footer className="bg-sidebar border-t border-sidebar-border mt-auto">
+      <div className="container py-12">
         <div className="grid md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="col-span-2">
             <div className="flex items-center space-x-3 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
-                <span className="text-lg font-bold text-primary-foreground">NLF</span>
-              </div>
+              <img 
+                src="/logo.png" 
+                alt="Northland Legendary Finds" 
+                className="h-12 w-12 object-contain"
+              />
               <div className="flex flex-col">
-                <span className="text-lg font-bold tracking-wider">NORTHLAND</span>
-                <span className="text-xs text-muted-foreground -mt-1">Legendary Finds</span>
+                <span className="text-lg font-bold tracking-wider text-primary glow-green">NORTHLAND</span>
+                <span className="text-xs text-sidebar-foreground -mt-1">Legendary Finds</span>
               </div>
             </div>
-            <p className="text-muted-foreground mb-4">
-              Premium Marvel trading card repacks from collectors, for collectors. Featuring Topps Chrome, Comic Book Heroes, and Marvel Mint collections.
+            <p className="text-sidebar-foreground/80 mb-4">
+              Premium Marvel and Star Wars trading card repacks from collectors, for collectors. 
+              100% authentic Topps cards with guaranteed hits in every box.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="mailto:info@northlandlegendaryfinds.com" className="text-sidebar-foreground hover:text-primary transition-colors">
                 <Mail className="w-5 h-5" />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="#" className="text-sidebar-foreground hover:text-primary transition-colors">
+                <Facebook className="w-5 h-5" />
+              </a>
+              <a href="#" className="text-sidebar-foreground hover:text-secondary transition-colors">
                 <Twitter className="w-5 h-5" />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Github className="w-5 h-5" />
+              <a href="#" className="text-sidebar-foreground hover:text-accent transition-colors">
+                <Instagram className="w-5 h-5" />
               </a>
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-bold mb-4">Quick Links</h3>
+            <h3 className="font-bold mb-4 text-sidebar-foreground">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link href="/" className="text-sidebar-foreground/80 hover:text-primary transition-colors">
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="/sets" className="text-muted-foreground hover:text-primary transition-colors">
-                  Card Sets
+                <Link href="/marvel" className="text-sidebar-foreground/80 hover:text-primary transition-colors">
+                  Marvel
                 </Link>
               </li>
               <li>
-                <Link href="/characters" className="text-muted-foreground hover:text-primary transition-colors">
-                  Characters
+                <Link href="/star-wars" className="text-sidebar-foreground/80 hover:text-secondary transition-colors">
+                  Star Wars
                 </Link>
               </li>
               <li>
-                <Link href="/shop" className="text-muted-foreground hover:text-primary transition-colors">
-                  Shop
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link href="/about" className="text-sidebar-foreground/80 hover:text-primary transition-colors">
                   About
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="text-sidebar-foreground/80 hover:text-primary transition-colors">
+                  Contact
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Card Sets */}
+          {/* Shop By Category */}
           <div>
-            <h3 className="font-bold mb-4">Card Sets</h3>
+            <h3 className="font-bold mb-4 text-sidebar-foreground">Shop By Category</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/sets/chrome" className="text-muted-foreground hover:text-primary transition-colors">
-                  Topps Chrome
-                </Link>
+                <span className="text-sidebar-foreground/80">Chrome Collections</span>
               </li>
               <li>
-                <Link href="/sets/comic-book-heroes" className="text-muted-foreground hover:text-primary transition-colors">
-                  Comic Book Heroes
-                </Link>
+                <span className="text-sidebar-foreground/80">Graded Cards</span>
               </li>
               <li>
-                <Link href="/sets/marvel-mint" className="text-muted-foreground hover:text-primary transition-colors">
-                  Marvel Mint
-                </Link>
+                <span className="text-sidebar-foreground/80">Autograph Series</span>
+              </li>
+              <li>
+                <span className="text-sidebar-foreground/80">Vintage Repacks</span>
+              </li>
+              <li>
+                <span className="text-sidebar-foreground/80">Case Hits</span>
               </li>
             </ul>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-border mt-8 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-muted-foreground">
+        <div className="border-t border-sidebar-border mt-8 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-sidebar-foreground/60">
           <p>© 2025 Northland Legendary Finds. All rights reserved.</p>
           <p className="mt-4 md:mt-0">
-            Premium Marvel Trading Cards • 100% Authentic
+            Premium Topps Trading Cards • 100% Authentic • Free Shipping Over $199
           </p>
         </div>
       </div>

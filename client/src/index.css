@@ -42,75 +42,95 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+/* NLF Logo Inspired Theme - Cosmic Green, Purple, Teal, Gold */
 :root {
-  --primary: oklch(0.58 0.24 285); /* Royal Purple */
-  --primary-foreground: oklch(0.98 0.01 285);
-  --sidebar-primary: oklch(0.58 0.24 285);
-  --sidebar-primary-foreground: oklch(0.98 0.01 285);
-  --chart-1: oklch(0.65 0.20 285);
-  --chart-2: oklch(0.58 0.24 285);
-  --chart-3: oklch(0.50 0.22 285);
-  --chart-4: oklch(0.42 0.20 285);
-  --chart-5: oklch(0.35 0.18 285);
+  /* Primary - Neon Green from logo text */
+  --primary: oklch(0.75 0.20 145); /* Bright lime green */
+  --primary-foreground: oklch(0.10 0.02 145); /* Dark green text */
+  
+  /* Sidebar - Deep space purple from Galactus */
+  --sidebar-primary: oklch(0.45 0.18 285); /* Deep purple */
+  --sidebar-primary-foreground: oklch(0.95 0.05 145); /* Light green */
+  
+  /* Charts - Cosmic color progression */
+  --chart-1: oklch(0.75 0.20 145); /* Green */
+  --chart-2: oklch(0.65 0.18 195); /* Teal */
+  --chart-3: oklch(0.55 0.20 285); /* Purple */
+  --chart-4: oklch(0.75 0.15 85); /* Gold */
+  --chart-5: oklch(0.45 0.18 285); /* Deep purple */
+  
+  /* Slightly rounded corners for modern feel */
   --radius: 0.5rem;
-  --background: oklch(0.10 0.01 285); /* Deep charcoal */
-  --foreground: oklch(0.95 0.01 285); /* Off-white */
-  --card: oklch(0.15 0.02 285); /* Slightly lighter than background */
-  --card-foreground: oklch(0.95 0.01 285);
-  --popover: oklch(0.12 0.02 285);
-  --popover-foreground: oklch(0.95 0.01 285);
-  --secondary: oklch(0.55 0.25 25); /* Crimson Red */
-  --secondary-foreground: oklch(0.98 0.01 25);
-  --muted: oklch(0.25 0.02 285);
-  --muted-foreground: oklch(0.60 0.01 285);
-  --accent: oklch(0.75 0.15 85); /* Metallic Gold */
-  --accent-foreground: oklch(0.15 0.02 285);
-  --destructive: oklch(0.55 0.25 25);
-  --destructive-foreground: oklch(0.98 0.01 25);
-  --border: oklch(0.25 0.02 285);
-  --input: oklch(0.20 0.02 285);
-  --ring: oklch(0.58 0.24 285);
-  --sidebar: oklch(0.12 0.02 285);
-  --sidebar-foreground: oklch(0.95 0.01 285);
-  --sidebar-accent: oklch(0.20 0.03 285);
-  --sidebar-accent-foreground: oklch(0.95 0.01 285);
-  --sidebar-border: oklch(0.25 0.02 285);
-  --sidebar-ring: oklch(0.58 0.24 285);
+  
+  /* Dark space background like logo */
+  --background: oklch(0.12 0.02 285); /* Deep space black */
+  --foreground: oklch(0.95 0.02 145); /* Light green-tinted white */
+  
+  /* Cards with subtle glow */
+  --card: oklch(0.18 0.03 285); /* Dark purple-tinted card */
+  --card-foreground: oklch(0.95 0.02 145);
+  
+  /* Popovers */
+  --popover: oklch(0.15 0.03 285);
+  --popover-foreground: oklch(0.95 0.02 145);
+  
+  /* Secondary - Teal/Cyan cosmic energy */
+  --secondary: oklch(0.60 0.15 195); /* Bright teal */
+  --secondary-foreground: oklch(0.10 0.02 195);
+  
+  /* Muted elements */
+  --muted: oklch(0.25 0.03 285);
+  --muted-foreground: oklch(0.60 0.05 145);
+  
+  /* Accent - Gold orbital rings */
+  --accent: oklch(0.75 0.15 85); /* Bright gold */
+  --accent-foreground: oklch(0.15 0.02 85);
+  
+  /* Destructive - Keep red for warnings */
+  --destructive: oklch(0.55 0.22 25);
+  --destructive-foreground: oklch(1 0 0);
+  
+  /* Borders with purple glow */
+  --border: oklch(0.30 0.08 285); /* Purple-tinted border */
+  --input: oklch(0.20 0.04 285); /* Dark input */
+  --ring: oklch(0.75 0.20 145); /* Green focus ring */
+  
+  /* Sidebar - Deep purple like logo background */
+  --sidebar: oklch(0.15 0.04 285);
+  --sidebar-foreground: oklch(0.95 0.02 145);
+  --sidebar-accent: oklch(0.25 0.08 285); /* Lighter purple on hover */
+  --sidebar-accent-foreground: oklch(0.75 0.20 145); /* Green highlight */
+  --sidebar-border: oklch(0.30 0.08 285);
+  --sidebar-ring: oklch(0.75 0.20 145);
 }
 
 .dark {
-  --primary: var(--color-blue-700);
-  --primary-foreground: var(--color-blue-50);
-  --sidebar-primary: var(--color-blue-500);
-  --sidebar-primary-foreground: var(--color-blue-50);
-  --background: oklch(0.141 0.005 285.823);
-  --foreground: oklch(0.85 0.005 65);
-  --card: oklch(0.21 0.006 285.885);
-  --card-foreground: oklch(0.85 0.005 65);
-  --popover: oklch(0.21 0.006 285.885);
-  --popover-foreground: oklch(0.85 0.005 65);
-  --secondary: oklch(0.24 0.006 286.033);
-  --secondary-foreground: oklch(0.7 0.005 65);
-  --muted: oklch(0.274 0.006 286.033);
-  --muted-foreground: oklch(0.705 0.015 286.067);
-  --accent: oklch(0.274 0.006 286.033);
-  --accent-foreground:  oklch(0.92 0.005 65);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.488 0.243 264.376);
-  --chart-1: var(--color-blue-300);
-  --chart-2: var(--color-blue-500);
-  --chart-3: var(--color-blue-600);
-  --chart-4: var(--color-blue-700);
-  --chart-5: var(--color-blue-800);
-  --sidebar: oklch(0.21 0.006 285.885);
-  --sidebar-foreground: oklch(0.85 0.005 65);
-  --sidebar-accent: oklch(0.274 0.006 286.033);
-  --sidebar-accent-foreground:  oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.488 0.243 264.376);
+  /* Same colors - designed for dark theme */
+  --primary: oklch(0.75 0.20 145);
+  --primary-foreground: oklch(0.10 0.02 145);
+  --background: oklch(0.12 0.02 285);
+  --foreground: oklch(0.95 0.02 145);
+  --card: oklch(0.18 0.03 285);
+  --card-foreground: oklch(0.95 0.02 145);
+  --popover: oklch(0.15 0.03 285);
+  --popover-foreground: oklch(0.95 0.02 145);
+  --secondary: oklch(0.60 0.15 195);
+  --secondary-foreground: oklch(0.10 0.02 195);
+  --muted: oklch(0.25 0.03 285);
+  --muted-foreground: oklch(0.60 0.05 145);
+  --accent: oklch(0.75 0.15 85);
+  --accent-foreground: oklch(0.15 0.02 85);
+  --destructive: oklch(0.55 0.22 25);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.30 0.08 285);
+  --input: oklch(0.20 0.04 285);
+  --ring: oklch(0.75 0.20 145);
+  --sidebar: oklch(0.15 0.04 285);
+  --sidebar-foreground: oklch(0.95 0.02 145);
+  --sidebar-accent: oklch(0.25 0.08 285);
+  --sidebar-accent-foreground: oklch(0.75 0.20 145);
+  --sidebar-border: oklch(0.30 0.08 285);
+  --sidebar-ring: oklch(0.75 0.20 145);
 }
 
 @layer base {
@@ -120,14 +140,6 @@
   body {
     @apply bg-background text-foreground;
     font-family: 'Inter', sans-serif;
-  }
-  h1, h2, h3 {
-    font-family: 'Bebas Neue', 'Oswald', sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-  h4, h5, h6 {
-    font-family: 'Oswald', sans-serif;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
@@ -140,27 +152,21 @@
   input[type="radio"]:not(:disabled) {
     @apply cursor-pointer;
   }
+  
+  /* Impact-style headlines */
+  h1, h2, h3 {
+    font-family: 'Anton', 'Impact', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
 }
 
 @layer components {
-  /**
-   * Custom container utility that centers content and adds responsive padding.
-   *
-   * This overrides Tailwind's default container behavior to:
-   * - Auto-center content (mx-auto)
-   * - Add responsive horizontal padding
-   * - Set max-width for large screens
-   *
-   * Usage: <div className="container">...</div>
-   *
-   * For custom widths, use max-w-* utilities directly:
-   * <div className="max-w-6xl mx-auto px-4">...</div>
-   */
   .container {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 1rem; /* 16px - mobile padding */
+    padding-left: 1rem;
     padding-right: 1rem;
   }
 
@@ -171,16 +177,74 @@
 
   @media (min-width: 640px) {
     .container {
-      padding-left: 1.5rem; /* 24px - tablet padding */
+      padding-left: 1.5rem;
       padding-right: 1.5rem;
     }
   }
 
   @media (min-width: 1024px) {
     .container {
-      padding-left: 2rem; /* 32px - desktop padding */
+      padding-left: 2rem;
       padding-right: 2rem;
-      max-width: 1280px; /* Standard content width */
+      max-width: 1280px;
     }
+  }
+  
+  /* Cosmic glow effects inspired by logo */
+  .glow-green {
+    text-shadow: 0 0 20px oklch(0.75 0.20 145),
+                 0 0 40px oklch(0.75 0.20 145 / 0.5);
+  }
+  
+  .glow-purple {
+    box-shadow: 0 0 20px oklch(0.45 0.18 285 / 0.3),
+                0 0 40px oklch(0.45 0.18 285 / 0.1);
+  }
+  
+  .glow-teal {
+    box-shadow: 0 0 20px oklch(0.60 0.15 195 / 0.3),
+                0 0 40px oklch(0.60 0.15 195 / 0.1);
+  }
+  
+  .glow-gold {
+    box-shadow: 0 0 20px oklch(0.75 0.15 85 / 0.3),
+                0 0 40px oklch(0.75 0.15 85 / 0.1);
+  }
+  
+  /* Orbital ring animation inspired by logo */
+  @keyframes orbit {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .orbit-ring {
+    animation: orbit 20s linear infinite;
+  }
+  
+  /* Space background with stars */
+  .space-bg {
+    background-color: oklch(0.12 0.02 285);
+    background-image: 
+      radial-gradient(circle at 20% 30%, oklch(0.75 0.20 145 / 0.1) 0%, transparent 2%),
+      radial-gradient(circle at 60% 70%, oklch(0.60 0.15 195 / 0.1) 0%, transparent 2%),
+      radial-gradient(circle at 80% 20%, oklch(0.75 0.15 85 / 0.1) 0%, transparent 2%),
+      radial-gradient(circle at 40% 90%, oklch(0.45 0.18 285 / 0.1) 0%, transparent 2%);
+  }
+  
+  /* Gradient text like logo */
+  .gradient-text {
+    background: linear-gradient(
+      135deg,
+      oklch(0.75 0.20 145),
+      oklch(0.60 0.15 195),
+      oklch(0.45 0.18 285)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 }
