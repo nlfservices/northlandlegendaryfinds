@@ -1,246 +1,242 @@
 /**
- * Marvel Category Page - Product listing with filters
- * Design: Hit Parade inspired product grid with NLF cosmic branding
+ * Marvel Category Page - Multiverse Vault Repack Products
  */
 
 import { useState } from "react";
-import { ShoppingCart, Filter } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
+import { ShoppingCart, Target, Package, TrendingUp } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
-// Mock product data - will be replaced with real data later
 const products = [
   {
-    id: 1,
-    name: "Topps Chrome Marvel Hobby Box",
-    description: "120 premium chrome cards with refractor technology",
-    price: 149.95,
-    image: "🦸",
-    category: "Chrome",
-    inStock: true,
+    id: "marvel-entry-vault",
+    name: "Entry Vault",
+    price: 75,
+    runSize: 100,
+    targetValue: "$80-85",
+    positioning: "Entry / volume driver",
+    tiers: [
+      { name: "Floor", percent: "40%", packs: 40, value: "$40-55" },
+      { name: "Strong Floor", percent: "30%", packs: 30, value: "$60-90" },
+      { name: "Heat", percent: "20%", packs: 20, value: "$120-300" },
+      { name: "Chaser", percent: "10%", packs: 10, value: "$400-2,000+" },
+    ],
+    emoji: "🎯",
+    color: "primary",
   },
   {
-    id: 2,
-    name: "Comic Book Heroes Series 1",
-    description: "147 cards spanning 50 years of Marvel history",
-    price: 129.95,
-    image: "⚡",
-    category: "Comic Book Heroes",
-    inStock: true,
+    id: "marvel-core-vault",
+    name: "Core Vault",
+    price: 150,
+    runSize: 100,
+    targetValue: "$165-175",
+    positioning: "Trust-building core tier",
+    tiers: [
+      { name: "Premium Floor", percent: "30%", packs: 30, value: "$75-100" },
+      { name: "Strong Premium", percent: "30%", packs: 30, value: "$130-170" },
+      { name: "Heat", percent: "25%", packs: 25, value: "$250-400" },
+      { name: "Nuclear Chaser", percent: "15%", packs: 15, value: "$900-3,000+" },
+    ],
+    emoji: "⚡",
+    color: "secondary",
   },
   {
-    id: 3,
-    name: "Marvel Mint Collection Box",
-    description: "120 pristine graded cards with platinum tier",
-    price: 199.95,
-    image: "💎",
-    category: "Mint",
-    inStock: true,
+    id: "marvel-prime-vault",
+    name: "Prime Vault",
+    price: 300,
+    runSize: 100,
+    targetValue: "$330-360",
+    positioning: "Primary profit driver",
+    badge: "BEST VALUE",
+    tiers: [
+      { name: "Premium Floor", percent: "28%", packs: 28, value: "$150-190" },
+      { name: "Strong Premium", percent: "27%", packs: 27, value: "$260-325" },
+      { name: "Major Heat", percent: "25%", packs: 25, value: "$450-700" },
+      { name: "Elite Chaser", percent: "20%", packs: 20, value: "$1,200-4,000+" },
+    ],
+    emoji: "💎",
+    color: "accent",
   },
   {
-    id: 4,
-    name: "Legendary Case Hits Series 1",
-    description: "Guaranteed autographs and rare inserts",
-    price: 549.95,
-    image: "🎯",
-    category: "Case Hits",
-    inStock: true,
+    id: "marvel-premium-vault",
+    name: "Premium Vault",
+    price: 500,
+    runSize: 100,
+    targetValue: "$525-575",
+    positioning: "Premium event tier",
+    tiers: [
+      { name: "Premium Floor", percent: "32%", packs: 32, value: "$250-325" },
+      { name: "Strong Premium", percent: "28%", packs: 28, value: "$400-550" },
+      { name: "Grail Hits", percent: "24%", packs: 24, value: "$750-1,200" },
+      { name: "Omega Chaser", percent: "16%", packs: 16, value: "$2,000-5,000+" },
+    ],
+    emoji: "⭐",
+    color: "primary",
   },
   {
-    id: 5,
-    name: "Marvel Graded Card Limited Edition",
-    description: "PSA 10 graded cards from premium sets",
-    price: 299.95,
-    image: "⭐",
-    category: "Graded",
-    inStock: true,
-  },
-  {
-    id: 6,
-    name: "Autograph Series Box",
-    description: "Multiple autographed cards guaranteed",
-    price: 399.95,
-    image: "✍️",
-    category: "Autographs",
-    inStock: false,
-  },
-  {
-    id: 7,
-    name: "Vintage Marvel Repack",
-    description: "Classic cards from the 70s, 80s, and 90s",
-    price: 179.95,
-    image: "📜",
-    category: "Vintage",
-    inStock: true,
-  },
-  {
-    id: 8,
-    name: "Marvel Mega Box",
-    description: "Over 200 cards with guaranteed hits",
-    price: 249.95,
-    image: "📦",
-    category: "Mega Box",
-    inStock: true,
+    id: "marvel-legendary-vault",
+    name: "Legendary Vault",
+    price: 1000,
+    runSize: 100,
+    targetValue: "$1,050-1,150",
+    positioning: "Ultra-exclusive prestige",
+    badge: "PRESTIGE",
+    tiers: [
+      { name: "Elite Floor", percent: "35%", packs: 35, value: "$550-700" },
+      { name: "Strong Elite", percent: "25%", packs: 25, value: "$900-1,200" },
+      { name: "Grail Centerpiece", percent: "25%", packs: 25, value: "$1,800-3,000" },
+      { name: "Legendary Chase", percent: "15%", packs: 15, value: "$5,000-15,000+" },
+    ],
+    emoji: "👑",
+    color: "accent",
   },
 ];
 
-const categories = ["All", "Chrome", "Comic Book Heroes", "Mint", "Case Hits", "Graded", "Autographs", "Vintage", "Mega Box"];
-
 export default function Marvel() {
-  const [selectedCategory, setSelectedCategory] = useState("All");
-  const [sortBy, setSortBy] = useState("featured");
+  const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
 
-  const filteredProducts = selectedCategory === "All" 
-    ? products 
-    : products.filter(p => p.category === selectedCategory);
-
-  const sortedProducts = [...filteredProducts].sort((a, b) => {
-    if (sortBy === "price-low") return a.price - b.price;
-    if (sortBy === "price-high") return b.price - a.price;
-    return 0; // featured
-  });
+  const handleAddToCart = (productName: string) => {
+    toast.info(`"${productName}" - Shopify integration coming soon!`);
+  };
 
   return (
     <div className="min-h-screen">
-      {/* Hero Banner */}
-      <section className="relative h-[300px] flex items-center justify-center space-bg overflow-hidden">
+      {/* Hero Section */}
+      <section className="relative h-[400px] flex items-center justify-center space-bg overflow-hidden">
         <div className="container relative z-10 text-center">
           <h1 className="text-6xl md:text-7xl font-bold mb-4 glow-green">
             MARVEL COLLECTION
           </h1>
-          <p className="text-xl text-muted-foreground">
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Premium Topps Marvel trading card repacks with guaranteed hits
+          </p>
+          <p className="text-sm text-muted-foreground mt-4">
+            All products feature 100-box run sizes • Transparent odds • Fair floors
           </p>
         </div>
       </section>
 
-      {/* Filters and Sort */}
-      <section className="bg-card border-y border-border sticky top-[88px] z-40">
-        <div className="container py-4">
-          <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
-            {/* Category Filter */}
-            <div className="flex items-center gap-2 flex-wrap">
-              <Filter className="w-5 h-5 text-muted-foreground" />
-              {categories.map((cat) => (
-                <Button
-                  key={cat}
-                  variant={selectedCategory === cat ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setSelectedCategory(cat)}
-                  className={selectedCategory === cat ? "bg-primary hover:bg-primary/90" : ""}
-                >
-                  {cat}
-                </Button>
-              ))}
-            </div>
-
-            {/* Sort */}
-            <div className="flex items-center gap-2">
-              <span className="text-sm text-muted-foreground">Sort by:</span>
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                className="px-4 py-2 bg-input border border-border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-              >
-                <option value="featured">Featured</option>
-                <option value="price-low">Price: Low to High</option>
-                <option value="price-high">Price: High to Low</option>
-              </select>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Product Grid */}
-      <section className="py-12">
+      {/* Products Grid */}
+      <section className="py-16">
         <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {sortedProducts.map((product) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {products.map((product) => (
               <div
                 key={product.id}
-                className="bg-card rounded-lg overflow-hidden glow-purple hover:scale-105 transition-transform"
+                className={`bg-card rounded-lg overflow-hidden border-2 transition-all duration-300 hover:scale-105 ${
+                  selectedProduct === product.id
+                    ? "border-primary glow-green"
+                    : "border-border"
+                }`}
+                onClick={() => setSelectedProduct(product.id)}
               >
-                {/* Product Image */}
-                <div className="aspect-square bg-muted flex items-center justify-center relative">
-                  <div className="text-8xl">{product.image}</div>
-                  {!product.inStock && (
-                    <div className="absolute inset-0 bg-background/80 flex items-center justify-center">
-                      <span className="text-destructive font-bold text-xl">OUT OF STOCK</span>
+                {/* Product Header */}
+                <div className="relative p-6 bg-gradient-to-br from-sidebar/50 to-sidebar">
+                  {product.badge && (
+                    <div className="absolute top-4 right-4 bg-primary text-primary-foreground px-3 py-1 rounded-full text-xs font-bold">
+                      {product.badge}
                     </div>
                   )}
+                  <div className="text-6xl mb-4">{product.emoji}</div>
+                  <h3 className="text-3xl font-bold mb-2">{product.name}</h3>
+                  <div className="flex items-baseline gap-2 mb-4">
+                    <span className="text-5xl font-bold text-primary glow-green">
+                      ${product.price}
+                    </span>
+                  </div>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex items-center gap-2">
+                      <Package className="w-4 h-4 text-muted-foreground" />
+                      <span>Run Size: {product.runSize} boxes</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Target className="w-4 h-4 text-muted-foreground" />
+                      <span>Target Value: {product.targetValue}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <TrendingUp className="w-4 h-4 text-muted-foreground" />
+                      <span className="text-xs">{product.positioning}</span>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Product Info */}
+                {/* Tier Breakdown */}
                 <div className="p-6">
-                  <div className="text-xs text-primary font-bold mb-2 uppercase tracking-wide">
-                    {product.category}
+                  <h4 className="font-bold mb-4 text-sm uppercase tracking-wider">
+                    Tier Distribution
+                  </h4>
+                  <div className="space-y-3">
+                    {product.tiers.map((tier, index) => (
+                      <div key={index} className="flex justify-between items-center text-sm">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-primary"></div>
+                          <span className="font-medium">{tier.name}</span>
+                          <span className="text-muted-foreground">({tier.percent})</span>
+                        </div>
+                        <span className="text-muted-foreground">{tier.value}</span>
+                      </div>
+                    ))}
                   </div>
-                  <h3 className="font-bold text-lg mb-2">{product.name}</h3>
-                  <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                    {product.description}
-                  </p>
-                  
-                  <div className="flex items-center justify-between">
-                    <span className="text-2xl font-bold text-primary">
-                      ${product.price.toFixed(2)}
-                    </span>
-                    <Button
-                      className="bg-primary hover:bg-primary/90"
-                      disabled={!product.inStock}
-                    >
-                      <ShoppingCart className="w-4 h-4 mr-2" />
-                      Add to Cart
+                </div>
+
+                {/* Actions */}
+                <div className="p-6 pt-0 space-y-3">
+                  <Button
+                    className="w-full bg-primary hover:bg-primary/90"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleAddToCart(product.name);
+                    }}
+                  >
+                    <ShoppingCart className="w-4 h-4 mr-2" />
+                    Add to Cart
+                  </Button>
+                  <Link href={`/marvel/${product.id}/checklist`}>
+                    <Button variant="outline" className="w-full">
+                      View Checklist (1-100)
                     </Button>
-                  </div>
+                  </Link>
                 </div>
               </div>
             ))}
           </div>
-
-          {/* No Results */}
-          {sortedProducts.length === 0 && (
-            <div className="text-center py-16">
-              <p className="text-xl text-muted-foreground">
-                No products found in this category.
-              </p>
-            </div>
-          )}
         </div>
       </section>
 
       {/* Info Section */}
-      <section className="py-16 bg-card border-t border-border">
+      <section className="py-16 bg-card border-y border-border">
         <div className="container max-w-4xl">
-          <h2 className="text-4xl font-bold text-center mb-8">
-            WHY CHOOSE OUR MARVEL REPACKS?
+          <h2 className="text-4xl font-bold text-center mb-12">
+            WHY CHOOSE MULTIVERSE VAULT?
           </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-              <h3 className="text-xl font-bold mb-3 text-primary">🎯 Guaranteed Hits</h3>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="text-center">
+              <div className="text-4xl mb-4">🎯</div>
+              <h3 className="text-xl font-bold mb-2">Guaranteed Hits</h3>
               <p className="text-muted-foreground">
                 Every box includes guaranteed chase cards, inserts, or autographs. No empty boxes ever.
               </p>
             </div>
-            
-            <div>
-              <h3 className="text-xl font-bold mb-3 text-primary">✅ 100% Authentic</h3>
+            <div className="text-center">
+              <div className="text-4xl mb-4">✅</div>
+              <h3 className="text-xl font-bold mb-2">100% Authentic</h3>
               <p className="text-muted-foreground">
                 All cards are verified authentic from official Topps releases. We never sell counterfeits.
               </p>
             </div>
-            
-            <div>
-              <h3 className="text-xl font-bold mb-3 text-primary">📈 Investment Value</h3>
+            <div className="text-center">
+              <div className="text-4xl mb-4">📈</div>
+              <h3 className="text-xl font-bold mb-2">Investment Value</h3>
               <p className="text-muted-foreground">
                 Curated selections from the hottest sets that appreciate over time. Build wealth while collecting.
               </p>
             </div>
-            
-            <div>
-              <h3 className="text-xl font-bold mb-3 text-primary">🚀 Fast Shipping</h3>
+            <div className="text-center">
+              <div className="text-4xl mb-4">🚀</div>
+              <h3 className="text-xl font-bold mb-2">Transparent Odds</h3>
               <p className="text-muted-foreground">
-                Orders ship within 24 hours. Free shipping on orders over $199 with tracking included.
+                Full tier breakdowns and fair floors published for every product. No hidden surprises.
               </p>
             </div>
           </div>

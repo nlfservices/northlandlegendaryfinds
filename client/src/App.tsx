@@ -7,6 +7,8 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
+import MarvelChecklist from "./pages/MarvelChecklist";
+import StarWarsChecklist from "./pages/StarWarsChecklist";
 import Marvel from "./pages/Marvel";
 import StarWars from "./pages/StarWars";
 import About from "./pages/About";
@@ -24,6 +26,8 @@ function Router() {
           <Route path={"/star-wars"} component={StarWars} />
           <Route path={"/about"} component={About} />
           <Route path={"/contact"} component={Contact} />
+      <Route path={"/marvel/:productId/checklist"} component={MarvelChecklist} />
+      <Route path={"/starwars/:productId/checklist"} component={StarWarsChecklist} />
           <Route path={"/404"} component={NotFound} />
           {/* Final fallback route */}
           <Route component={NotFound} />
