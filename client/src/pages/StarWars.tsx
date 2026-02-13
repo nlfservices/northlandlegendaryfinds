@@ -7,6 +7,7 @@ import { Link } from "wouter";
 import { ShoppingCart, Target, Package, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { TiltCard } from "@/components/TiltCard";
 
 const products = [
   {
@@ -129,7 +130,9 @@ export default function StarWars() {
                     </div>
                   )}
                   <div className="mb-4 flex justify-center">
-                    <img src={product.image} alt={product.name} className="w-32 h-auto object-contain" />
+                    <TiltCard>
+                      <img src={product.image} alt={product.name} className="w-32 h-auto object-contain" />
+                    </TiltCard>
                   </div>
                   <h3 className="text-3xl font-bold mb-2">{product.name}</h3>
                   <div className="flex items-baseline gap-2 mb-4">

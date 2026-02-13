@@ -7,6 +7,7 @@
 import { ShoppingCart, Star, Shield, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
+import { TiltCard } from "@/components/TiltCard";
 
 export default function Home() {
   return (
@@ -96,7 +97,9 @@ export default function Home() {
             <Link href="/marvel">
               <div className="bg-card rounded-lg overflow-hidden border-2 border-primary glow-purple hover:scale-105 transition-transform cursor-pointer">
                 <div className="aspect-square bg-muted flex items-center justify-center p-8">
-                  <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/yBUuigJxlFkbPlvW.png" alt="Origin" className="w-full h-full object-contain" />
+                  <TiltCard>
+                    <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/yBUuigJxlFkbPlvW.png" alt="Origin" className="w-full h-full object-contain" />
+                  </TiltCard>
                 </div>
                 <div className="p-6">
                   <h3 className="font-bold text-xl mb-2 text-primary">Origin</h3>
@@ -118,7 +121,9 @@ export default function Home() {
                   BEST VALUE
                 </div>
                 <div className="aspect-square bg-muted flex items-center justify-center p-8">
-                  <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/caYlsFRxIimzbuJD.png" alt="Shadowbox" className="w-full h-full object-contain" />
+                  <TiltCard>
+                    <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/caYlsFRxIimzbuJD.png" alt="Shadowbox" className="w-full h-full object-contain" />
+                  </TiltCard>
                 </div>
                 <div className="p-6">
                   <h3 className="font-bold text-xl mb-2 text-accent">Shadowbox</h3>
@@ -140,7 +145,9 @@ export default function Home() {
                   PRESTIGE
                 </div>
                 <div className="aspect-square bg-muted flex items-center justify-center p-8">
-                  <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/FwSbGgtYjUmYKzhf.png" alt="Galactic Legends" className="w-full h-full object-contain" />
+                  <TiltCard>
+                    <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/FwSbGgtYjUmYKzhf.png" alt="Galactic Legends" className="w-full h-full object-contain" />
+                  </TiltCard>
                 </div>
                 <div className="p-6">
                   <h3 className="font-bold text-xl mb-2 text-primary">Galactic Legends</h3>
