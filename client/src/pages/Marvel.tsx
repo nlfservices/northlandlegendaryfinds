@@ -14,13 +14,12 @@ const products = [
     name: "Entry Vault",
     price: 75,
     runSize: 100,
-    targetValue: "$80-85",
-    positioning: "Entry / volume driver",
+    positioning: "Entry level collection",
     tiers: [
-      { name: "Floor", percent: "40%", packs: 40, value: "$40-55" },
-      { name: "Strong Floor", percent: "30%", packs: 30, value: "$60-90" },
-      { name: "Heat", percent: "20%", packs: 20, value: "$120-300" },
-      { name: "Chaser", percent: "10%", packs: 10, value: "$400-2,000+" },
+      { name: "Floor", percent: "40%", packs: 40 },
+      { name: "Strong Floor", percent: "30%", packs: 30 },
+      { name: "Heat", percent: "20%", packs: 20 },
+      { name: "Chaser", percent: "10%", packs: 10 },
     ],
     emoji: "🎯",
     color: "primary",
@@ -30,13 +29,12 @@ const products = [
     name: "Core Vault",
     price: 150,
     runSize: 100,
-    targetValue: "$165-175",
-    positioning: "Trust-building core tier",
+    positioning: "Core collection tier",
     tiers: [
-      { name: "Premium Floor", percent: "30%", packs: 30, value: "$75-100" },
-      { name: "Strong Premium", percent: "30%", packs: 30, value: "$130-170" },
-      { name: "Heat", percent: "25%", packs: 25, value: "$250-400" },
-      { name: "Nuclear Chaser", percent: "15%", packs: 15, value: "$900-3,000+" },
+      { name: "Premium Floor", percent: "30%", packs: 30 },
+      { name: "Strong Premium", percent: "30%", packs: 30 },
+      { name: "Heat", percent: "25%", packs: 25 },
+      { name: "Nuclear Chaser", percent: "15%", packs: 15 },
     ],
     emoji: "⚡",
     color: "secondary",
@@ -46,14 +44,13 @@ const products = [
     name: "Prime Vault",
     price: 300,
     runSize: 100,
-    targetValue: "$330-360",
-    positioning: "Primary profit driver",
+    positioning: "Premium collection tier",
     badge: "BEST VALUE",
     tiers: [
-      { name: "Premium Floor", percent: "28%", packs: 28, value: "$150-190" },
-      { name: "Strong Premium", percent: "27%", packs: 27, value: "$260-325" },
-      { name: "Major Heat", percent: "25%", packs: 25, value: "$450-700" },
-      { name: "Elite Chaser", percent: "20%", packs: 20, value: "$1,200-4,000+" },
+      { name: "Premium Floor", percent: "28%", packs: 28 },
+      { name: "Strong Premium", percent: "27%", packs: 27 },
+      { name: "Major Heat", percent: "25%", packs: 25 },
+      { name: "Elite Chaser", percent: "20%", packs: 20 },
     ],
     emoji: "💎",
     color: "accent",
@@ -63,13 +60,12 @@ const products = [
     name: "Premium Vault",
     price: 500,
     runSize: 100,
-    targetValue: "$525-575",
-    positioning: "Premium event tier",
+    positioning: "High-end collection tier",
     tiers: [
-      { name: "Premium Floor", percent: "32%", packs: 32, value: "$250-325" },
-      { name: "Strong Premium", percent: "28%", packs: 28, value: "$400-550" },
-      { name: "Grail Hits", percent: "24%", packs: 24, value: "$750-1,200" },
-      { name: "Omega Chaser", percent: "16%", packs: 16, value: "$2,000-5,000+" },
+      { name: "Premium Floor", percent: "32%", packs: 32 },
+      { name: "Strong Premium", percent: "28%", packs: 28 },
+      { name: "Grail Hits", percent: "24%", packs: 24 },
+      { name: "Omega Chaser", percent: "16%", packs: 16 },
     ],
     emoji: "⭐",
     color: "primary",
@@ -79,14 +75,13 @@ const products = [
     name: "Legendary Vault",
     price: 1000,
     runSize: 100,
-    targetValue: "$1,050-1,150",
-    positioning: "Ultra-exclusive prestige",
+    positioning: "Ultra-exclusive collection tier",
     badge: "PRESTIGE",
     tiers: [
-      { name: "Elite Floor", percent: "35%", packs: 35, value: "$550-700" },
-      { name: "Strong Elite", percent: "25%", packs: 25, value: "$900-1,200" },
-      { name: "Grail Centerpiece", percent: "25%", packs: 25, value: "$1,800-3,000" },
-      { name: "Legendary Chase", percent: "15%", packs: 15, value: "$5,000-15,000+" },
+      { name: "Elite Floor", percent: "35%", packs: 35 },
+      { name: "Strong Elite", percent: "25%", packs: 25 },
+      { name: "Grail Centerpiece", percent: "25%", packs: 25 },
+      { name: "Legendary Chase", percent: "15%", packs: 15 },
     ],
     emoji: "👑",
     color: "accent",
@@ -112,7 +107,10 @@ export default function Marvel() {
             Premium Topps Marvel trading card repacks with guaranteed hits
           </p>
           <p className="text-sm text-muted-foreground mt-4">
-            All products feature 100-box run sizes • Transparent odds • Fair floors
+            All products feature 100-box run sizes • Transparent odds
+          </p>
+          <p className="text-xs text-muted-foreground mt-3 max-w-3xl mx-auto">
+            As of February 2026, the Multiverse Vault Marvel Series has been finalized. The number of boxes (100 per product) and items will not be changed.
           </p>
         </div>
       </section>
@@ -150,10 +148,7 @@ export default function Marvel() {
                       <Package className="w-4 h-4 text-muted-foreground" />
                       <span>Run Size: {product.runSize} boxes</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Target className="w-4 h-4 text-muted-foreground" />
-                      <span>Target Value: {product.targetValue}</span>
-                    </div>
+
                     <div className="flex items-center gap-2">
                       <TrendingUp className="w-4 h-4 text-muted-foreground" />
                       <span className="text-xs">{product.positioning}</span>
@@ -174,7 +169,7 @@ export default function Marvel() {
                           <span className="font-medium">{tier.name}</span>
                           <span className="text-muted-foreground">({tier.percent})</span>
                         </div>
-                        <span className="text-muted-foreground">{tier.value}</span>
+
                       </div>
                     ))}
                   </div>
@@ -226,17 +221,17 @@ export default function Marvel() {
               </p>
             </div>
             <div className="text-center">
-              <div className="text-4xl mb-4">📈</div>
-              <h3 className="text-xl font-bold mb-2">Investment Value</h3>
+              <div className="text-4xl mb-4">📦</div>
+              <h3 className="text-xl font-bold mb-2">Curated Selection</h3>
               <p className="text-muted-foreground">
-                Curated selections from the hottest sets that appreciate over time. Build wealth while collecting.
+                Carefully selected cards from the most popular and sought-after Topps Marvel sets.
               </p>
             </div>
             <div className="text-center">
               <div className="text-4xl mb-4">🚀</div>
               <h3 className="text-xl font-bold mb-2">Transparent Odds</h3>
               <p className="text-muted-foreground">
-                Full tier breakdowns and fair floors published for every product. No hidden surprises.
+                Full tier breakdowns published for every product. Complete transparency in our repack process.
               </p>
             </div>
           </div>
