@@ -21,7 +21,7 @@ const products = [
       { name: "Heat", percent: "20%", packs: 20 },
       { name: "Chaser", percent: "10%", packs: 10 },
     ],
-    emoji: "🌟",
+    image: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/yBUuigJxlFkbPlvW.png",
   },
   {
     id: "starwars-variant",
@@ -35,7 +35,7 @@ const products = [
       { name: "Heat", percent: "25%", packs: 25 },
       { name: "Nuclear Chaser", percent: "15%", packs: 15 },
     ],
-    emoji: "⚔️",
+    image: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/IqfXEkwQWpSYNeQX.png",
   },
   {
     id: "starwars-shadowbox",
@@ -50,7 +50,7 @@ const products = [
       { name: "Major Heat", percent: "25%", packs: 25 },
       { name: "Elite Chaser", percent: "20%", packs: 20 },
     ],
-    emoji: "🚀",
+    image: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/caYlsFRxIimzbuJD.png",
   },
   {
     id: "starwars-infinity-vault",
@@ -64,7 +64,7 @@ const products = [
       { name: "Grail Hits", percent: "24%", packs: 24 },
       { name: "Omega Chaser", percent: "16%", packs: 16 },
     ],
-    emoji: "🛸",
+    image: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/zotWVtSuexQxrbfn.png",
   },
   {
     id: "starwars-galactic-legends",
@@ -79,7 +79,7 @@ const products = [
       { name: "Grail Centerpiece", percent: "25%", packs: 25 },
       { name: "Legendary Chase", percent: "15%", packs: 15 },
     ],
-    emoji: "🌌",
+    image: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/FwSbGgtYjUmYKzhf.png",
   },
 ];
 
@@ -128,7 +128,9 @@ export default function StarWars() {
                       {product.badge}
                     </div>
                   )}
-                  <div className="text-6xl mb-4">{product.emoji}</div>
+                  <div className="mb-4 flex justify-center">
+                    <img src={product.image} alt={product.name} className="w-32 h-auto object-contain" />
+                  </div>
                   <h3 className="text-3xl font-bold mb-2">{product.name}</h3>
                   <div className="flex items-baseline gap-2 mb-4">
                     <span className="text-5xl font-bold text-accent glow-teal">

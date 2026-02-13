@@ -95,8 +95,8 @@ export default function Home() {
             {/* Origin */}
             <Link href="/marvel">
               <div className="bg-card rounded-lg overflow-hidden border-2 border-primary glow-purple hover:scale-105 transition-transform cursor-pointer">
-                <div className="aspect-square bg-muted flex items-center justify-center">
-                  <div className="text-6xl">🎯</div>
+                <div className="aspect-square bg-muted flex items-center justify-center p-8">
+                  <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/yBUuigJxlFkbPlvW.png" alt="Origin" className="w-full h-full object-contain" />
                 </div>
                 <div className="p-6">
                   <h3 className="font-bold text-xl mb-2 text-primary">Origin</h3>
@@ -117,8 +117,8 @@ export default function Home() {
                 <div className="absolute top-4 right-4 bg-accent text-accent-foreground px-3 py-1 rounded-full text-xs font-bold z-10">
                   BEST VALUE
                 </div>
-                <div className="aspect-square bg-muted flex items-center justify-center">
-                  <div className="text-6xl">💎</div>
+                <div className="aspect-square bg-muted flex items-center justify-center p-8">
+                  <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/caYlsFRxIimzbuJD.png" alt="Shadowbox" className="w-full h-full object-contain" />
                 </div>
                 <div className="p-6">
                   <h3 className="font-bold text-xl mb-2 text-accent">Shadowbox</h3>
@@ -139,8 +139,8 @@ export default function Home() {
                 <div className="absolute top-4 right-4 bg-primary text-primary-foreground px-3 py-1 rounded-full text-xs font-bold z-10">
                   PRESTIGE
                 </div>
-                <div className="aspect-square bg-muted flex items-center justify-center">
-                  <div className="text-6xl">👑</div>
+                <div className="aspect-square bg-muted flex items-center justify-center p-8">
+                  <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/FwSbGgtYjUmYKzhf.png" alt="Galactic Legends" className="w-full h-full object-contain" />
                 </div>
                 <div className="p-6">
                   <h3 className="font-bold text-xl mb-2 text-primary">Galactic Legends</h3>
