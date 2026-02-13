@@ -13,6 +13,8 @@ import Marvel from "./pages/Marvel";
 import StarWars from "./pages/StarWars";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import Subscribe from "./pages/Subscribe";
+import EmailCapturePopup from "./components/EmailCapturePopup";
 
 
 function Router() {
@@ -26,6 +28,7 @@ function Router() {
           <Route path={"/star-wars"} component={StarWars} />
           <Route path={"/about"} component={About} />
           <Route path={"/contact"} component={Contact} />
+          <Route path={"/subscribe"} component={Subscribe} />
       <Route path={"/marvel/:productId/checklist"} component={MarvelChecklist} />
       <Route path={"/starwars/:productId/checklist"} component={StarWarsChecklist} />
           <Route path={"/404"} component={NotFound} />
@@ -51,6 +54,7 @@ function App() {
       >
         <TooltipProvider>
           <Toaster />
+          <EmailCapturePopup />
           <Router />
         </TooltipProvider>
       </ThemeProvider>

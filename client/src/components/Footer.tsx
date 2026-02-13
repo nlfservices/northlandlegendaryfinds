@@ -73,6 +73,11 @@ export default function Footer() {
                   Contact
                 </Link>
               </li>
+              <li>
+                <Link href="/subscribe" className="text-sidebar-foreground/80 hover:text-green-400 transition-colors font-semibold">
+                  📧 Join Newsletter
+                </Link>
+              </li>
             </ul>
           </div>
 
