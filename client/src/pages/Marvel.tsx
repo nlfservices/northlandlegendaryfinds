@@ -10,8 +10,8 @@ import { toast } from "sonner";
 
 const products = [
   {
-    id: "marvel-entry-vault",
-    name: "Entry Vault",
+    id: "marvel-origin",
+    name: "Origin",
     price: 75,
     runSize: 100,
     positioning: "Entry level collection",
@@ -25,8 +25,8 @@ const products = [
     color: "primary",
   },
   {
-    id: "marvel-core-vault",
-    name: "Core Vault",
+    id: "marvel-variant",
+    name: "Variant",
     price: 150,
     runSize: 100,
     positioning: "Core collection tier",
@@ -40,8 +40,8 @@ const products = [
     color: "secondary",
   },
   {
-    id: "marvel-prime-vault",
-    name: "Prime Vault",
+    id: "marvel-shadowbox",
+    name: "Shadowbox",
     price: 300,
     runSize: 100,
     positioning: "Premium collection tier",
@@ -56,8 +56,8 @@ const products = [
     color: "accent",
   },
   {
-    id: "marvel-premium-vault",
-    name: "Premium Vault",
+    id: "marvel-infinity-vault",
+    name: "Infinity Vault",
     price: 500,
     runSize: 100,
     positioning: "High-end collection tier",
@@ -71,8 +71,8 @@ const products = [
     color: "primary",
   },
   {
-    id: "marvel-legendary-vault",
-    name: "Legendary Vault",
+    id: "marvel-galactic-legends",
+    name: "Galactic Legends",
     price: 1000,
     runSize: 100,
     positioning: "Ultra-exclusive collection tier",

@@ -10,8 +10,8 @@ import { toast } from "sonner";
 
 const products = [
   {
-    id: "starwars-entry-vault",
-    name: "Entry Vault",
+    id: "starwars-origin",
+    name: "Origin",
     price: 75,
     runSize: 100,
     positioning: "Entry level collection",
@@ -24,8 +24,8 @@ const products = [
     emoji: "🌟",
   },
   {
-    id: "starwars-core-vault",
-    name: "Core Vault",
+    id: "starwars-variant",
+    name: "Variant",
     price: 150,
     runSize: 100,
     positioning: "Core collection tier",
@@ -38,8 +38,8 @@ const products = [
     emoji: "⚔️",
   },
   {
-    id: "starwars-prime-vault",
-    name: "Prime Vault",
+    id: "starwars-shadowbox",
+    name: "Shadowbox",
     price: 300,
     runSize: 100,
     positioning: "Premium collection tier",
@@ -53,8 +53,8 @@ const products = [
     emoji: "🚀",
   },
   {
-    id: "starwars-premium-vault",
-    name: "Premium Vault",
+    id: "starwars-infinity-vault",
+    name: "Infinity Vault",
     price: 500,
     runSize: 100,
     positioning: "High-end collection tier",
@@ -67,8 +67,8 @@ const products = [
     emoji: "🛸",
   },
   {
-    id: "starwars-legendary-vault",
-    name: "Legendary Vault",
+    id: "starwars-galactic-legends",
+    name: "Galactic Legends",
     price: 1000,
     runSize: 100,
     positioning: "Ultra-exclusive collection tier",

@@ -7,11 +7,11 @@ import { ArrowLeft, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const productNames: Record<string, string> = {
-  "starwars-entry-vault": "Star Wars Entry Vault",
-  "starwars-core-vault": "Star Wars Core Vault",
-  "starwars-prime-vault": "Star Wars Prime Vault",
-  "starwars-premium-vault": "Star Wars Premium Vault",
-  "starwars-legendary-vault": "Star Wars Legendary Vault",
+  "starwars-origin": "Star Wars Origin",
+  "starwars-variant": "Star Wars Variant",
+  "starwars-shadowbox": "Star Wars Shadowbox",
+  "starwars-infinity-vault": "Star Wars Infinity Vault",
+  "starwars-galactic-legends": "Star Wars Galactic Legends",
 };
 
 export default function StarWarsChecklist() {

@@ -7,11 +7,11 @@ import { ArrowLeft, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const productNames: Record<string, string> = {
-  "marvel-entry-vault": "Marvel Entry Vault",
-  "marvel-core-vault": "Marvel Core Vault",
-  "marvel-prime-vault": "Marvel Prime Vault",
-  "marvel-premium-vault": "Marvel Premium Vault",
-  "marvel-legendary-vault": "Marvel Legendary Vault",
+  "marvel-origin": "Marvel Origin",
+  "marvel-variant": "Marvel Variant",
+  "marvel-shadowbox": "Marvel Shadowbox",
+  "marvel-infinity-vault": "Marvel Infinity Vault",
+  "marvel-galactic-legends": "Marvel Galactic Legends",
 };
 
 export default function MarvelChecklist() {
