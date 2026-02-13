@@ -98,18 +98,18 @@ export default function Marvel() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-[400px] flex items-center justify-center space-bg overflow-hidden">
+      <section className="relative min-h-[350px] md:h-[400px] flex items-center justify-center space-bg overflow-hidden py-12 md:py-0">
         <div className="container relative z-10 text-center">
-          <h1 className="text-6xl md:text-7xl font-bold mb-4 glow-green">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 glow-green px-4">
             MARVEL COLLECTION
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
             Premium Topps Marvel trading card repacks with guaranteed hits
           </p>
-          <p className="text-sm text-muted-foreground mt-4">
+          <p className="text-sm text-muted-foreground mt-4 px-4">
             All products feature 100-box run sizes • Transparent odds
           </p>
-          <p className="text-xs text-muted-foreground mt-3 max-w-3xl mx-auto">
+          <p className="text-xs text-muted-foreground mt-3 max-w-3xl mx-auto px-4">
             As of February 2026, the Multiverse Vault Marvel Series has been finalized. The number of boxes (100 per product) and items will not be changed.
           </p>
         </div>
@@ -118,7 +118,7 @@ export default function Marvel() {
       {/* Products Grid */}
       <section className="py-16">
         <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {products.map((product) => (
               <div
                 key={product.id}

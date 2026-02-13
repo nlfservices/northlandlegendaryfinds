@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section - Full width with cosmic background */}
-      <section className="relative h-[600px] flex items-center justify-center space-bg overflow-hidden">
+      <section className="relative min-h-[500px] md:h-[600px] flex items-center justify-center space-bg overflow-hidden py-12 md:py-0">
         {/* Decorative orbital rings */}
         <div className="absolute inset-0 flex items-center justify-center opacity-10">
           <div className="w-[800px] h-[800px] border-2 border-accent rounded-full orbit-ring"></div>
@@ -25,13 +25,13 @@ export default function Home() {
             </span>
           </div>
           
-          <h1 className="text-6xl md:text-8xl font-bold mb-6 glow-green">
+          <h1 className="text-5xl sm:text-6xl md:text-8xl font-bold mb-6 glow-green leading-tight">
             LEGENDARY
             <br />
             <span className="gradient-text">FINDS AWAIT</span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-8">
+          <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-8 px-4">
             Discover premium <span className="text-primary font-bold">Marvel</span> and{" "}
             <span className="text-secondary font-bold">Star Wars</span> trading card repacks.
             <br />
