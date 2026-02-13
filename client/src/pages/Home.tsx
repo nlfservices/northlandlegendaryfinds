@@ -91,74 +91,69 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Product Card 1 */}
-            <div className="bg-card rounded-lg overflow-hidden glow-purple hover:scale-105 transition-transform">
-              <div className="aspect-square bg-muted flex items-center justify-center">
-                <div className="text-6xl">🦸</div>
-              </div>
-              <div className="p-6">
-                <h3 className="font-bold text-lg mb-2">Topps Chrome Marvel</h3>
-                <p className="text-sm text-muted-foreground mb-4">120 premium chrome cards</p>
-                <div className="flex items-center justify-between">
-                  <span className="text-2xl font-bold text-primary">$149.95</span>
-                  <Button className="bg-primary hover:bg-primary/90">
-                    Add to Cart
-                  </Button>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Origin */}
+            <Link href="/marvel">
+              <div className="bg-card rounded-lg overflow-hidden border-2 border-primary glow-purple hover:scale-105 transition-transform cursor-pointer">
+                <div className="aspect-square bg-muted flex items-center justify-center">
+                  <div className="text-6xl">🎯</div>
+                </div>
+                <div className="p-6">
+                  <h3 className="font-bold text-xl mb-2 text-primary">Origin</h3>
+                  <p className="text-sm text-muted-foreground mb-4">Entry level collection • 100 boxes</p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-3xl font-bold text-primary">$75</span>
+                    <Button className="bg-primary hover:bg-primary/90">
+                      View Details
+                    </Button>
+                  </div>
                 </div>
               </div>
-            </div>
+            </Link>
 
-            {/* Product Card 2 */}
-            <div className="bg-card rounded-lg overflow-hidden glow-purple hover:scale-105 transition-transform">
-              <div className="aspect-square bg-muted flex items-center justify-center">
-                <div className="text-6xl">⚡</div>
-              </div>
-              <div className="p-6">
-                <h3 className="font-bold text-lg mb-2">Comic Book Heroes</h3>
-                <p className="text-sm text-muted-foreground mb-4">147 cards spanning 50 years</p>
-                <div className="flex items-center justify-between">
-                  <span className="text-2xl font-bold text-primary">$129.95</span>
-                  <Button className="bg-primary hover:bg-primary/90">
-                    Add to Cart
-                  </Button>
+            {/* Shadowbox */}
+            <Link href="/marvel">
+              <div className="bg-card rounded-lg overflow-hidden border-2 border-accent glow-purple hover:scale-105 transition-transform cursor-pointer relative">
+                <div className="absolute top-4 right-4 bg-accent text-accent-foreground px-3 py-1 rounded-full text-xs font-bold z-10">
+                  BEST VALUE
+                </div>
+                <div className="aspect-square bg-muted flex items-center justify-center">
+                  <div className="text-6xl">💎</div>
+                </div>
+                <div className="p-6">
+                  <h3 className="font-bold text-xl mb-2 text-accent">Shadowbox</h3>
+                  <p className="text-sm text-muted-foreground mb-4">Premium collection • 100 boxes</p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-3xl font-bold text-accent">$300</span>
+                    <Button className="bg-accent text-accent-foreground hover:bg-accent/90">
+                      View Details
+                    </Button>
+                  </div>
                 </div>
               </div>
-            </div>
+            </Link>
 
-            {/* Product Card 3 */}
-            <div className="bg-card rounded-lg overflow-hidden glow-purple hover:scale-105 transition-transform">
-              <div className="aspect-square bg-muted flex items-center justify-center">
-                <div className="text-6xl">💎</div>
-              </div>
-              <div className="p-6">
-                <h3 className="font-bold text-lg mb-2">Marvel Mint Collection</h3>
-                <p className="text-sm text-muted-foreground mb-4">120 pristine graded cards</p>
-                <div className="flex items-center justify-between">
-                  <span className="text-2xl font-bold text-accent">$199.95</span>
-                  <Button className="bg-accent text-accent-foreground hover:bg-accent/90">
-                    Add to Cart
-                  </Button>
+            {/* Galactic Legends */}
+            <Link href="/marvel">
+              <div className="bg-card rounded-lg overflow-hidden border-2 border-primary glow-purple hover:scale-105 transition-transform cursor-pointer relative">
+                <div className="absolute top-4 right-4 bg-primary text-primary-foreground px-3 py-1 rounded-full text-xs font-bold z-10">
+                  PRESTIGE
+                </div>
+                <div className="aspect-square bg-muted flex items-center justify-center">
+                  <div className="text-6xl">👑</div>
+                </div>
+                <div className="p-6">
+                  <h3 className="font-bold text-xl mb-2 text-primary">Galactic Legends</h3>
+                  <p className="text-sm text-muted-foreground mb-4">Ultra-exclusive • 100 boxes</p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-3xl font-bold text-primary">$1000</span>
+                    <Button className="bg-primary hover:bg-primary/90">
+                      View Details
+                    </Button>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            {/* Product Card 4 */}
-            <div className="bg-card rounded-lg overflow-hidden glow-purple hover:scale-105 transition-transform">
-              <div className="aspect-square bg-muted flex items-center justify-center">
-                <div className="text-6xl">🎯</div>
-              </div>
-              <div className="p-6">
-                <h3 className="font-bold text-lg mb-2">Legendary Case Hits</h3>
-                <p className="text-sm text-muted-foreground mb-4">Guaranteed autographs</p>
-                <div className="flex items-center justify-between">
-                  <span className="text-2xl font-bold text-accent">$549.95</span>
-                  <Button className="bg-accent text-accent-foreground hover:bg-accent/90">
-                    Add to Cart
-                  </Button>
-                </div>
-              </div>
-            </div>
+            </Link>
           </div>
 
           <div className="text-center mt-12">
