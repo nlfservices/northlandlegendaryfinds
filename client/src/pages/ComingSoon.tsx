@@ -1,0 +1,165 @@
+import { useEffect, useState } from "react";
+
+interface TimeLeft {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+}
+
+export default function ComingSoon() {
+  const [timeLeft, setTimeLeft] = useState<TimeLeft>({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+
+  useEffect(() => {
+    // Target date: Friday, March 13th, 2026 at 7:00 PM Central Time
+    // Central Time is UTC-6 (CST) or UTC-5 (CDT)
+    // March 13, 2026 will be in CDT (Daylight Saving Time)
+    // 7:00 PM CDT = 8:00 PM EDT = 12:00 AM UTC (next day)
+    const targetDate = new Date("2026-03-14T00:00:00Z"); // March 14 midnight UTC = March 13 7pm Central
+
+    const calculateTimeLeft = () => {
+      const now = new Date().getTime();
+      const difference = targetDate.getTime() - now;
+
+      if (difference > 0) {
+        setTimeLeft({
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+          minutes: Math.floor((difference / 1000 / 60) % 60),
+          seconds: Math.floor((difference / 1000) % 60),
+        });
+      } else {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      }
+    };
+
+    calculateTimeLeft();
+    const timer = setInterval(calculateTimeLeft, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-black flex items-center justify-center relative overflow-hidden">
+      {/* Cosmic Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-purple-950/20 to-black"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-green-500/5 via-transparent to-transparent"></div>
+      
+      {/* Animated stars */}
+      <div className="absolute inset-0 opacity-30">
+        {[...Array(50)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-white rounded-full animate-pulse"
+            style={{
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${2 + Math.random() * 3}s`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        {/* Logo */}
+        <div className="mb-8 sm:mb-12">
+          <img
+            src="/mylar-bags/origin.png"
+            alt="Northland Legendary Finds"
+            className="w-48 sm:w-64 md:w-80 h-auto mx-auto drop-shadow-[0_0_30px_rgba(0,255,65,0.3)]"
+          />
+        </div>
+
+        {/* Title */}
+        <h1 className="text-4xl sm:text-5xl md:text-7xl font-bebas text-white mb-4 tracking-wider">
+          SOMETHING <span className="text-[#00FF41]">LEGENDARY</span>
+        </h1>
+        <h2 className="text-3xl sm:text-4xl md:text-6xl font-bebas text-white mb-6 tracking-wider">
+          IS <span className="text-purple-500">COMING</span>
+        </h2>
+
+        {/* Subtitle */}
+        <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-12 sm:mb-16 font-oswald">
+          Marvel & Star Wars Trading Card Repacks
+        </p>
+
+        {/* Countdown Timer */}
+        <div className="grid grid-cols-4 gap-3 sm:gap-4 md:gap-8 mb-12 sm:mb-16 max-w-3xl mx-auto">
+          {[
+            { label: "DAYS", value: timeLeft.days },
+            { label: "HOURS", value: timeLeft.hours },
+            { label: "MINUTES", value: timeLeft.minutes },
+            { label: "SECONDS", value: timeLeft.seconds },
+          ].map((item) => (
+            <div
+              key={item.label}
+              className="bg-gradient-to-br from-purple-900/40 to-black border border-[#00FF41]/30 rounded-lg p-4 sm:p-6 md:p-8 backdrop-blur-sm"
+            >
+              <div className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bebas text-[#00FF41] mb-2 drop-shadow-[0_0_10px_rgba(0,255,65,0.5)]">
+                {String(item.value).padStart(2, "0")}
+              </div>
+              <div className="text-xs sm:text-sm md:text-base font-oswald text-gray-400 tracking-widest">
+                {item.label}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Launch Date */}
+        <div className="mb-12 sm:mb-16">
+          <p className="text-xl sm:text-2xl md:text-3xl font-bebas text-white mb-2">
+            LAUNCHING
+          </p>
+          <p className="text-2xl sm:text-3xl md:text-4xl font-bebas text-[#00FF41] tracking-wider">
+            FRIDAY, MARCH 13TH, 2026
+          </p>
+          <p className="text-lg sm:text-xl md:text-2xl font-oswald text-purple-400 mt-2">
+            7:00 PM CENTRAL TIME
+          </p>
+        </div>
+
+        {/* Email Capture */}
+        <div className="max-w-md mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-4 sm:mb-6 font-oswald">
+            Get notified when we launch + receive exclusive early access
+          </p>
+          
+          {/* Placeholder for GoHighLevel form */}
+          <div className="bg-gradient-to-br from-purple-900/20 to-black border border-[#00FF41]/30 rounded-lg p-6 sm:p-8 backdrop-blur-sm">
+            <div className="flex flex-col sm:flex-row gap-3">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="flex-1 px-4 py-3 bg-black/50 border border-purple-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[#00FF41] transition-colors"
+              />
+              <button className="px-6 py-3 bg-gradient-to-r from-[#00FF41] to-green-500 text-black font-oswald font-bold rounded-lg hover:from-green-500 hover:to-[#00FF41] transition-all duration-300 shadow-[0_0_20px_rgba(0,255,65,0.3)] hover:shadow-[0_0_30px_rgba(0,255,65,0.5)] whitespace-nowrap">
+                NOTIFY ME
+              </button>
+            </div>
+            <p className="text-xs text-gray-500 mt-3 text-center">
+              {/* TODO: Replace this form with GoHighLevel embed code */}
+              We'll never share your email. Unsubscribe anytime.
+            </p>
+          </div>
+        </div>
+
+        {/* Social Proof */}
+        <div className="mt-12 sm:mt-16 pt-8 border-t border-purple-500/20">
+          <p className="text-sm sm:text-base text-gray-400 font-oswald">
+            Premium Topps Chrome Marvel & Star Wars Cards
+          </p>
+          <p className="text-xs sm:text-sm text-gray-500 mt-2">
+            Professionally curated repacks • Transparent odds • Collector-focused
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}

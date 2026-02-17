@@ -15,9 +15,19 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Subscribe from "./pages/Subscribe";
 import EmailCapturePopup from "./components/EmailCapturePopup";
+import ComingSoon from "./pages/ComingSoon";
 
+
+// COMING SOON MODE: Set to true to show countdown page, false to show full site
+const COMING_SOON_MODE = true;
 
 function Router() {
+  // If coming soon mode is enabled, show only the countdown page
+  if (COMING_SOON_MODE) {
+    return <ComingSoon />;
+  }
+
+  // Normal site routing
   return (
     <>
       <Navigation />
@@ -54,7 +64,7 @@ function App() {
       >
         <TooltipProvider>
           <Toaster />
-          <EmailCapturePopup />
+          {!COMING_SOON_MODE && <EmailCapturePopup />}
           <Router />
         </TooltipProvider>
       </ThemeProvider>
