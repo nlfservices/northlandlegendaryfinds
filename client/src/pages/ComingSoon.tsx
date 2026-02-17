@@ -131,22 +131,25 @@ export default function ComingSoon() {
             Get notified when we launch + receive exclusive early access
           </p>
           
-          {/* Placeholder for GoHighLevel form */}
+          {/* GoHighLevel Form */}
           <div className="bg-gradient-to-br from-purple-900/20 to-black border border-[#00FF41]/30 rounded-lg p-6 sm:p-8 backdrop-blur-sm">
-            <div className="flex flex-col sm:flex-row gap-3">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-3 bg-black/50 border border-purple-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[#00FF41] transition-colors"
-              />
-              <button className="px-6 py-3 bg-gradient-to-r from-[#00FF41] to-green-500 text-black font-oswald font-bold rounded-lg hover:from-green-500 hover:to-[#00FF41] transition-all duration-300 shadow-[0_0_20px_rgba(0,255,65,0.3)] hover:shadow-[0_0_30px_rgba(0,255,65,0.5)] whitespace-nowrap">
-                NOTIFY ME
-              </button>
-            </div>
-            <p className="text-xs text-gray-500 mt-3 text-center">
-              {/* TODO: Replace this form with GoHighLevel embed code */}
-              We'll never share your email. Unsubscribe anytime.
-            </p>
+            <iframe 
+              src="https://api.leadconnectorhq.com/widget/form/5SL68SbkAFgq85FPiJw6" 
+              style={{width:'100%', height:'481px', border:'none', borderRadius:'4px'}} 
+              id="inline-5SL68SbkAFgq85FPiJw6" 
+              data-layout="{'id':'INLINE'}" 
+              data-trigger-type="alwaysShow" 
+              data-trigger-value="" 
+              data-activation-type="alwaysActivated" 
+              data-activation-value="" 
+              data-deactivation-type="neverDeactivate" 
+              data-deactivation-value="" 
+              data-form-name="Form 0" 
+              data-height="481" 
+              data-layout-iframe-id="inline-5SL68SbkAFgq85FPiJw6" 
+              data-form-id="5SL68SbkAFgq85FPiJw6" 
+              title="NLF Email Capture Form"
+            />
           </div>
         </div>
 
