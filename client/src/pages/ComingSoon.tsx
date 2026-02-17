@@ -87,69 +87,6 @@ export default function ComingSoon() {
 
   return (
     <div className="min-h-screen bg-black flex items-center justify-center relative overflow-hidden">
-      {/* 3D Comets - Marvel (Left) */}
-      {[...Array(5)].map((_, i) => (
-        <div
-          key={`marvel-${i}`}
-          className="absolute pointer-events-none"
-          style={{
-            left: `${Math.random() * 30}%`,
-            top: `${Math.random() * 100}%`,
-            animation: `cometLeft ${3 + Math.random() * 2}s ease-in infinite`,
-            animationDelay: `${i * 0.8}s`,
-          }}
-        >
-          <div className="relative">
-            {/* Comet head */}
-            <div className="w-4 h-4 rounded-full bg-gradient-to-br from-red-500 to-yellow-500 shadow-[0_0_20px_rgba(255,0,0,0.8)]" />
-            {/* Comet trail */}
-            <div className="absolute top-1/2 left-full w-32 h-1 -translate-y-1/2 bg-gradient-to-r from-red-500/80 via-yellow-500/40 to-transparent blur-sm" />
-          </div>
-        </div>
-      ))}
-
-      {/* 3D Comets - Star Wars (Right) */}
-      {[...Array(5)].map((_, i) => (
-        <div
-          key={`starwars-${i}`}
-          className="absolute pointer-events-none"
-          style={{
-            right: `${Math.random() * 30}%`,
-            top: `${Math.random() * 100}%`,
-            animation: `cometRight ${3 + Math.random() * 2}s ease-in infinite`,
-            animationDelay: `${i * 0.8}s`,
-          }}
-        >
-          <div className="relative">
-            {/* Comet head */}
-            <div className="w-4 h-4 rounded-full bg-gradient-to-br from-blue-400 to-white shadow-[0_0_20px_rgba(59,130,246,0.8)]" />
-            {/* Comet trail */}
-            <div className="absolute top-1/2 right-full w-32 h-1 -translate-y-1/2 bg-gradient-to-l from-blue-400/80 via-white/40 to-transparent blur-sm" />
-          </div>
-        </div>
-      ))}
-      {/* Distant Planets */}
-      {/* Large purple planet - top left */}
-      <div className="absolute top-[5%] left-[8%] w-32 h-32 md:w-48 md:h-48 rounded-full bg-gradient-to-br from-purple-600/30 to-purple-900/20 blur-sm opacity-40 animate-pulse" style={{ animationDuration: '8s' }} />
-      
-      {/* Medium blue planet with ring - top right */}
-      <div className="absolute top-[15%] right-[12%] pointer-events-none">
-        <div className="relative w-24 h-24 md:w-36 md:h-36">
-          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-400/30 to-blue-700/20 blur-sm opacity-50" />
-          {/* Ring */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-12 md:w-56 md:h-16 rounded-full border-2 border-blue-300/20 rotate-[25deg] blur-[1px]" />
-        </div>
-      </div>
-      
-      {/* Small red planet - bottom left */}
-      <div className="absolute bottom-[20%] left-[15%] w-16 h-16 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-red-500/25 to-red-900/15 blur-sm opacity-35 animate-pulse" style={{ animationDuration: '6s' }} />
-      
-      {/* Tiny distant planet - middle right */}
-      <div className="absolute top-[45%] right-[20%] w-12 h-12 rounded-full bg-gradient-to-br from-teal-400/20 to-teal-700/10 blur-sm opacity-30" />
-      
-      {/* Large gas giant - bottom right (partial view) */}
-      <div className="absolute bottom-[-10%] right-[-5%] w-64 h-64 md:w-96 md:h-96 rounded-full bg-gradient-to-br from-orange-600/20 to-yellow-700/15 blur-md opacity-25" />
-
       {/* Cosmic Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-black via-purple-950/20 to-black"></div>
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-green-500/5 via-transparent to-transparent"></div>
