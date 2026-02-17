@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, FormEvent } from "react";
 
 interface TimeLeft {
   days: number;
@@ -14,6 +14,47 @@ export default function ComingSoon() {
     minutes: 0,
     seconds: 0,
   });
+
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    phone: "",
+    email: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus("idle");
+
+    try {
+      const response = await fetch("https://api.leadconnectorhq.com/widget/form/5SL68SbkAFgq85FPiJw6", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          phone: formData.phone,
+          email: formData.email,
+        }),
+      });
+
+      if (response.ok) {
+        setSubmitStatus("success");
+        setFormData({ firstName: "", lastName: "", phone: "", email: "" });
+      } else {
+        setSubmitStatus("error");
+      }
+    } catch (error) {
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   useEffect(() => {
     // Target date: Friday, March 13th, 2026 at 7:00 PM Central Time
@@ -131,26 +172,56 @@ export default function ComingSoon() {
             Get notified when we launch + receive exclusive early access
           </p>
           
-          {/* GoHighLevel Form */}
-          <div className="bg-gradient-to-br from-purple-900/20 to-black border border-[#00FF41]/30 rounded-lg p-6 sm:p-8 backdrop-blur-sm">
-            <iframe 
-              src="https://api.leadconnectorhq.com/widget/form/5SL68SbkAFgq85FPiJw6" 
-              style={{width:'100%', height:'481px', border:'none', borderRadius:'4px'}} 
-              id="inline-5SL68SbkAFgq85FPiJw6" 
-              data-layout="{'id':'INLINE'}" 
-              data-trigger-type="alwaysShow" 
-              data-trigger-value="" 
-              data-activation-type="alwaysActivated" 
-              data-activation-value="" 
-              data-deactivation-type="neverDeactivate" 
-              data-deactivation-value="" 
-              data-form-name="Form 0" 
-              data-height="481" 
-              data-layout-iframe-id="inline-5SL68SbkAFgq85FPiJw6" 
-              data-form-id="5SL68SbkAFgq85FPiJw6" 
-              title="NLF Email Capture Form"
+          {/* Custom Styled Form */}
+          <form onSubmit={handleSubmit} className="space-y-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <input
+                type="text"
+                placeholder="First Name"
+                value={formData.firstName}
+                onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                className="px-4 py-2.5 bg-black/70 border border-[#00FF41]/30 rounded-lg text-[#00FF41] placeholder-gray-600 focus:outline-none focus:border-[#00FF41] focus:ring-1 focus:ring-[#00FF41] transition-all text-sm"
+              />
+              <input
+                type="text"
+                placeholder="Last Name"
+                value={formData.lastName}
+                onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                className="px-4 py-2.5 bg-black/70 border border-[#00FF41]/30 rounded-lg text-[#00FF41] placeholder-gray-600 focus:outline-none focus:border-[#00FF41] focus:ring-1 focus:ring-[#00FF41] transition-all text-sm"
+              />
+            </div>
+            <input
+              type="tel"
+              placeholder="Phone (optional)"
+              value={formData.phone}
+              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+              className="w-full px-4 py-2.5 bg-black/70 border border-[#00FF41]/30 rounded-lg text-[#00FF41] placeholder-gray-600 focus:outline-none focus:border-[#00FF41] focus:ring-1 focus:ring-[#00FF41] transition-all text-sm"
             />
-          </div>
+            <input
+              type="email"
+              placeholder="Email *"
+              value={formData.email}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              required
+              className="w-full px-4 py-2.5 bg-black/70 border border-[#00FF41]/30 rounded-lg text-[#00FF41] placeholder-gray-600 focus:outline-none focus:border-[#00FF41] focus:ring-1 focus:ring-[#00FF41] transition-all text-sm"
+            />
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full px-6 py-3 bg-gradient-to-r from-[#00FF41] to-green-500 text-black font-oswald font-bold rounded-lg hover:from-green-500 hover:to-[#00FF41] transition-all duration-300 shadow-[0_0_20px_rgba(0,255,65,0.3)] hover:shadow-[0_0_30px_rgba(0,255,65,0.5)] disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+            >
+              {isSubmitting ? "SUBMITTING..." : "GET EARLY ACCESS"}
+            </button>
+            {submitStatus === "success" && (
+              <p className="text-[#00FF41] text-sm text-center font-oswald">✓ You're on the list! Check your email.</p>
+            )}
+            {submitStatus === "error" && (
+              <p className="text-red-400 text-sm text-center font-oswald">Something went wrong. Please try again.</p>
+            )}
+            <p className="text-xs text-gray-600 text-center">
+              We'll never share your email. Unsubscribe anytime.
+            </p>
+          </form>
         </div>
 
         {/* Social Proof */}
