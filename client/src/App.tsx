@@ -22,8 +22,17 @@ import ComingSoon from "./pages/ComingSoon";
 const COMING_SOON_MODE = true;
 
 function Router() {
-  // If coming soon mode is enabled, show only the countdown page
-  if (COMING_SOON_MODE) {
+  // Check if owner bypass parameter is present in URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const bypassMode = urlParams.get('preview') === 'admin' || sessionStorage.getItem('nlf_preview') === 'true';
+  
+  // Store bypass in session so it persists across page navigation
+  if (urlParams.get('preview') === 'admin') {
+    sessionStorage.setItem('nlf_preview', 'true');
+  }
+  
+  // If coming soon mode is enabled AND user hasn't bypassed, show countdown page
+  if (COMING_SOON_MODE && !bypassMode) {
     return <ComingSoon />;
   }
 
