@@ -1,4 +1,5 @@
-import { useEffect, useState, FormEvent } from "react";
+import { useState, useEffect, FormEvent } from "react";
+import { trackLead } from "@/lib/fbPixel";
 
 interface TimeLeft {
   days: number;
@@ -46,6 +47,9 @@ export default function ComingSoon() {
       if (response.ok) {
         setSubmitStatus("success");
         setFormData({ firstName: "", lastName: "", phone: "", email: "" });
+        
+        // Track Facebook Pixel Lead event
+        trackLead('Early Access Signup', 'Coming Soon');
       } else {
         setSubmitStatus("error");
       }
