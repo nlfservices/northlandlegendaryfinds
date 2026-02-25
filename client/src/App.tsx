@@ -16,29 +16,69 @@ import Contact from "./pages/Contact";
 import Subscribe from "./pages/Subscribe";
 import EmailCapturePopup from "./components/EmailCapturePopup";
 import ComingSoon from "./pages/ComingSoon";
+import { useState } from "react";
 
 
 // COMING SOON MODE: Set to true to show countdown page, false to show full site
 const COMING_SOON_MODE = true;
 
 function Router() {
-  // Check if owner bypass parameter is present in URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const bypassMode = urlParams.get('preview') === 'admin' || sessionStorage.getItem('nlf_preview') === 'true';
+  const [showFullSite, setShowFullSite] = useState(() => {
+    // Check if owner bypass parameter is present in URL or session
+    const urlParams = new URLSearchParams(window.location.search);
+    const hasPreviewParam = urlParams.get('preview') === 'admin';
+    const hasSessionBypass = sessionStorage.getItem('nlf_preview') === 'true';
+    
+    // Store bypass in session if URL parameter is present
+    if (hasPreviewParam) {
+      sessionStorage.setItem('nlf_preview', 'true');
+      return true;
+    }
+    
+    return hasSessionBypass;
+  });
   
-  // Store bypass in session so it persists across page navigation
-  if (urlParams.get('preview') === 'admin') {
-    sessionStorage.setItem('nlf_preview', 'true');
-  }
+  // Toggle function for admin button
+  const toggleSiteView = () => {
+    const newValue = !showFullSite;
+    setShowFullSite(newValue);
+    if (newValue) {
+      sessionStorage.setItem('nlf_preview', 'true');
+    } else {
+      sessionStorage.removeItem('nlf_preview');
+    }
+  };
   
   // If coming soon mode is enabled AND user hasn't bypassed, show countdown page
-  if (COMING_SOON_MODE && !bypassMode) {
-    return <ComingSoon />;
+  if (COMING_SOON_MODE && !showFullSite) {
+    return (
+      <>
+        <ComingSoon />
+        {/* Hidden admin toggle button - press Ctrl+Shift+A to reveal */}
+        <button
+          onClick={toggleSiteView}
+          className="fixed bottom-4 right-4 bg-green-500/20 hover:bg-green-500/40 text-green-400 px-4 py-2 rounded-lg text-xs font-mono border border-green-500/30 transition-all opacity-0 hover:opacity-100 focus:opacity-100"
+          title="Admin: View Full Site (Ctrl+Shift+A)"
+        >
+          👁️ Admin View
+        </button>
+      </>
+    );
   }
 
   // Normal site routing
   return (
     <>
+      {/* Admin toggle button when viewing full site */}
+      {COMING_SOON_MODE && (
+        <button
+          onClick={toggleSiteView}
+          className="fixed bottom-4 right-4 bg-purple-500/20 hover:bg-purple-500/40 text-purple-400 px-4 py-2 rounded-lg text-xs font-mono border border-purple-500/30 transition-all z-50"
+          title="Admin: Return to Countdown View"
+        >
+          🔒 Back to Countdown
+        </button>
+      )}
       <Navigation />
       <div className="pt-20 min-h-screen flex flex-col">
         <Switch>
