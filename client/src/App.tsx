@@ -86,17 +86,6 @@ function Router() {
     setPasswordInput("");
   };
 
-  const handleSendRecovery = () => {
-    // Open email client with recovery link
-    const recoveryUrl = `${window.location.origin}?recover=${RECOVERY_KEY}`;
-    const subject = encodeURIComponent("NLF Admin - Password Recovery");
-    const body = encodeURIComponent(
-      `Your admin recovery link for Northland Legendary Finds:\n\n${recoveryUrl}\n\nClick the link above to access the full site.\n\nYour current password is: ${ADMIN_PASSWORD}\n\nBookmark this email for future reference.`
-    );
-    window.open(`mailto:${SUPER_ADMIN_EMAIL}?subject=${subject}&body=${body}`, '_blank');
-    setRecoveryEmailSent(true);
-  };
-
   // Mask email for display: admin@nlfservices.com -> ad***@nlf***.com
   const maskedEmail = SUPER_ADMIN_EMAIL.replace(
     /^(.{2})(.*)(@.{3})(.*)(\..+)$/,
@@ -163,10 +152,10 @@ function Router() {
           <>
             {/* Forgot Password View */}
             <div className="text-center mb-6">
-              <div className="text-3xl mb-2">📧</div>
+              <div className="text-3xl mb-2">🔑</div>
               <h2 className="text-xl font-bold text-purple-400">Password Recovery</h2>
               <p className="text-gray-400 text-sm mt-2">
-                Recovery will be sent to:
+                Admin account:
               </p>
               <p className="text-green-400 font-mono text-sm mt-1">
                 {maskedEmail}
@@ -174,28 +163,25 @@ function Router() {
             </div>
 
             {!recoveryEmailSent ? (
-              <>
-                <button
-                  onClick={handleSendRecovery}
-                  className="w-full bg-purple-500/20 hover:bg-purple-500/40 text-purple-400 px-4 py-3 rounded-lg text-sm font-semibold transition-all border border-purple-500/30 mb-3"
-                >
-                  📨 Send Recovery Email
-                </button>
-                <p className="text-gray-500 text-xs text-center mb-4">
-                  This will open your email client with a recovery link
-                </p>
-              </>
+              <button
+                onClick={() => setRecoveryEmailSent(true)}
+                className="w-full bg-purple-500/20 hover:bg-purple-500/40 text-purple-400 px-4 py-3 rounded-lg text-sm font-semibold transition-all border border-purple-500/30 mb-4"
+              >
+                🔑 Reveal Password
+              </button>
             ) : (
               <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4 mb-4">
-                <p className="text-green-400 text-sm text-center font-semibold mb-1">
-                  ✅ Recovery email prepared!
+                <p className="text-green-400 text-sm text-center font-semibold mb-2">
+                  Your password:
                 </p>
-                <p className="text-gray-400 text-xs text-center">
-                  Check your email client. Send the email to yourself, then click the recovery link inside.
+                <p className="text-green-400 font-mono text-lg text-center select-all bg-black/50 rounded-lg py-2 px-4">
+                  {ADMIN_PASSWORD}
+                </p>
+                <p className="text-gray-500 text-xs text-center mt-2">
+                  Copy it, then go back to login
                 </p>
               </div>
             )}
-
 
             <div className="flex gap-3">
               <button
