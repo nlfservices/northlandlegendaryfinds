@@ -102,10 +102,10 @@ function Router() {
       <>
         <ComingSoon />
         {showLoginModal && <LoginModal />}
-        {/* Small lock icon in bottom-right corner to open admin login */}
+        {/* Small lock icon in top-left corner to open admin login */}
         <button
           onClick={() => setShowLoginModal(true)}
-          className="fixed bottom-4 right-4 text-gray-600 hover:text-green-400 transition-all text-lg opacity-30 hover:opacity-100"
+          className="fixed top-4 left-4 text-gray-600 hover:text-green-400 transition-all text-lg opacity-30 hover:opacity-100 z-50"
           title="Admin Login"
         >
           🔒
