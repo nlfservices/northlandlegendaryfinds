@@ -1,115 +1,87 @@
 /**
- * Footer Component - NLF cosmic theme
- * Design: Site-wide footer with links and branding
+ * Footer - NLF cosmic theme with all store links
  */
 
 import { Link } from "wouter";
-import { Mail, Facebook, Twitter, Instagram } from "lucide-react";
+import { Mail, Facebook, Instagram, Youtube } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-sidebar border-t border-sidebar-border mt-auto">
+    <footer className="bg-card border-t border-border mt-auto">
       <div className="container py-12">
-        <div className="grid md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {/* Brand */}
-          <div className="col-span-2">
-            <div className="flex items-center space-x-3 mb-4">
-              <img 
-                src="/logo.png" 
-                alt="Northland Legendary Finds" 
+          <div className="col-span-2 md:col-span-1">
+            <div className="flex items-center gap-3 mb-4">
+              <img
+                src="/logo.png"
+                alt="NLF"
                 className="h-12 w-12 object-contain"
               />
               <div className="flex flex-col">
-                <span className="text-lg font-bold tracking-wider text-primary glow-green">NORTHLAND</span>
-                <span className="text-xs text-sidebar-foreground -mt-1">Legendary Finds</span>
+                <span className="text-primary font-bold tracking-wider" style={{ fontFamily: "'Anton', sans-serif" }}>
+                  NORTHLAND
+                </span>
+                <span className="text-[10px] text-muted-foreground tracking-widest uppercase -mt-0.5">
+                  Legendary Finds
+                </span>
               </div>
             </div>
-            <p className="text-sidebar-foreground/80 mb-4">
-              Premium Marvel and Star Wars trading card repacks from collectors, for collectors. 
-              100% authentic Topps cards with guaranteed hits in every box.
+            <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+              Premium Marvel & Star Wars trading card repacks. 100% authentic Topps cards with guaranteed hits.
             </p>
-            <div className="flex space-x-4">
-              <a href="mailto:info@northlandlegendaryfinds.com" className="text-sidebar-foreground hover:text-primary transition-colors">
-                <Mail className="w-5 h-5" />
+            <div className="flex gap-3">
+              <a href="mailto:info@northlandlegendaryfinds.com" className="w-9 h-9 rounded-lg bg-muted flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all">
+                <Mail className="w-4 h-4" />
               </a>
-              <a href="#" className="text-sidebar-foreground hover:text-primary transition-colors">
-                <Facebook className="w-5 h-5" />
+              <a href="#" className="w-9 h-9 rounded-lg bg-muted flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all">
+                <Facebook className="w-4 h-4" />
               </a>
-              <a href="#" className="text-sidebar-foreground hover:text-secondary transition-colors">
-                <Twitter className="w-5 h-5" />
+              <a href="#" className="w-9 h-9 rounded-lg bg-muted flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all">
+                <Instagram className="w-4 h-4" />
               </a>
-              <a href="#" className="text-sidebar-foreground hover:text-accent transition-colors">
-                <Instagram className="w-5 h-5" />
+              <a href="#" className="w-9 h-9 rounded-lg bg-muted flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all">
+                <Youtube className="w-4 h-4" />
               </a>
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Shop */}
           <div>
-            <h3 className="font-bold mb-4 text-sidebar-foreground">Quick Links</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/" className="text-sidebar-foreground/80 hover:text-primary transition-colors">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link href="/marvel" className="text-sidebar-foreground/80 hover:text-primary transition-colors">
-                  Marvel
-                </Link>
-              </li>
-              <li>
-                <Link href="/star-wars" className="text-sidebar-foreground/80 hover:text-secondary transition-colors">
-                  Star Wars
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="text-sidebar-foreground/80 hover:text-primary transition-colors">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="text-sidebar-foreground/80 hover:text-primary transition-colors">
-                  Contact
-                </Link>
-              </li>
-              <li>
-                <Link href="/subscribe" className="text-sidebar-foreground/80 hover:text-green-400 transition-colors font-semibold">
-                  📧 Join Newsletter
-                </Link>
-              </li>
+            <h3 className="font-bold text-sm uppercase tracking-wider mb-4">Shop</h3>
+            <ul className="space-y-2.5">
+              <li><Link href="/shop" className="text-sm text-muted-foreground hover:text-primary transition-colors">All Products</Link></li>
+              <li><Link href="/marvel" className="text-sm text-muted-foreground hover:text-primary transition-colors">Marvel</Link></li>
+              <li><Link href="/star-wars" className="text-sm text-muted-foreground hover:text-primary transition-colors">Star Wars</Link></li>
             </ul>
           </div>
 
-          {/* Shop By Category */}
+          {/* Info */}
           <div>
-            <h3 className="font-bold mb-4 text-sidebar-foreground">Shop By Category</h3>
-            <ul className="space-y-2">
-              <li>
-                <span className="text-sidebar-foreground/80">Chrome Collections</span>
-              </li>
-              <li>
-                <span className="text-sidebar-foreground/80">Graded Cards</span>
-              </li>
-              <li>
-                <span className="text-sidebar-foreground/80">Autograph Series</span>
-              </li>
-              <li>
-                <span className="text-sidebar-foreground/80">Vintage Repacks</span>
-              </li>
-              <li>
-                <span className="text-sidebar-foreground/80">Case Hits</span>
-              </li>
+            <h3 className="font-bold text-sm uppercase tracking-wider mb-4">Info</h3>
+            <ul className="space-y-2.5">
+              <li><Link href="/about" className="text-sm text-muted-foreground hover:text-primary transition-colors">About Us</Link></li>
+              <li><Link href="/faq" className="text-sm text-muted-foreground hover:text-primary transition-colors">FAQ</Link></li>
+              <li><Link href="/contact" className="text-sm text-muted-foreground hover:text-primary transition-colors">Contact</Link></li>
+              <li><Link href="/shipping" className="text-sm text-muted-foreground hover:text-primary transition-colors">Shipping & Returns</Link></li>
+            </ul>
+          </div>
+
+          {/* Legal */}
+          <div>
+            <h3 className="font-bold text-sm uppercase tracking-wider mb-4">Legal</h3>
+            <ul className="space-y-2.5">
+              <li><Link href="/terms" className="text-sm text-muted-foreground hover:text-primary transition-colors">Terms of Service</Link></li>
+              <li><Link href="/privacy" className="text-sm text-muted-foreground hover:text-primary transition-colors">Privacy Policy</Link></li>
+              <li><Link href="/refund-policy" className="text-sm text-muted-foreground hover:text-primary transition-colors">Refund Policy</Link></li>
             </ul>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-sidebar-border mt-8 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-sidebar-foreground/60">
-          <p>© 2025 Northland Legendary Finds. All rights reserved.</p>
-          <p className="mt-4 md:mt-0">
-            Premium Topps Trading Cards • 100% Authentic • Free Shipping Over $199
-          </p>
+        <div className="border-t border-border mt-10 pt-6 flex flex-col md:flex-row justify-between items-center text-xs text-muted-foreground/60 gap-2">
+          <p>&copy; {new Date().getFullYear()} Northland Legendary Finds. All rights reserved.</p>
+          <p>Premium Topps Trading Cards &bull; 100% Authentic &bull; Collector Owned & Operated</p>
         </div>
       </div>
     </footer>

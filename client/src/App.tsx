@@ -4,16 +4,26 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch, useLocation } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { CartProvider } from "./contexts/CartContext";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
+import CartDrawer from "./components/CartDrawer";
 import Home from "./pages/Home";
-import MarvelChecklist from "./pages/MarvelChecklist";
-import StarWarsChecklist from "./pages/StarWarsChecklist";
+import Shop from "./pages/Shop";
+import ProductDetail from "./pages/ProductDetail";
+import Cart from "./pages/Cart";
 import Marvel from "./pages/Marvel";
 import StarWars from "./pages/StarWars";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Subscribe from "./pages/Subscribe";
+import FAQ from "./pages/FAQ";
+import Shipping from "./pages/Shipping";
+import Terms from "./pages/Terms";
+import Privacy from "./pages/Privacy";
+import RefundPolicy from "./pages/RefundPolicy";
+import MarvelChecklist from "./pages/MarvelChecklist";
+import StarWarsChecklist from "./pages/StarWarsChecklist";
 import EmailCapturePopup from "./components/EmailCapturePopup";
 import ComingSoon from "./pages/ComingSoon";
 import { useState, useEffect } from "react";
@@ -31,7 +41,7 @@ const SUPER_ADMIN_EMAIL = "admin@nlfservices.com";
 // SECRET RECOVERY KEY: Add ?recover=nlf-legendary to URL to auto-login
 const RECOVERY_KEY = "nlf-legendary";
 
-function Router() {
+function AppRouter() {
   const [showFullSite, setShowFullSite] = useState(() => {
     return sessionStorage.getItem('nlf_admin') === 'true';
   });
@@ -47,7 +57,6 @@ function Router() {
     if (params.get('recover') === RECOVERY_KEY || params.get('preview') === 'admin') {
       sessionStorage.setItem('nlf_admin', 'true');
       setShowFullSite(true);
-      // Clean URL
       const url = new URL(window.location.href);
       url.searchParams.delete('recover');
       url.searchParams.delete('preview');
@@ -86,7 +95,6 @@ function Router() {
     setPasswordInput("");
   };
 
-  // Mask email for display: admin@nlfservices.com -> ad***@nlf***.com
   const maskedEmail = SUPER_ADMIN_EMAIL.replace(
     /^(.{2})(.*)(@.{3})(.*)(\..+)$/,
     '$1***$3***$5'
@@ -107,7 +115,6 @@ function Router() {
         
         {!showForgotPassword ? (
           <>
-            {/* Login View */}
             <div className="text-center mb-6">
               <div className="text-3xl mb-2">🔐</div>
               <h2 className="text-xl font-bold text-green-400">Admin Access</h2>
@@ -150,16 +157,11 @@ function Router() {
           </>
         ) : (
           <>
-            {/* Forgot Password View */}
             <div className="text-center mb-6">
               <div className="text-3xl mb-2">🔑</div>
               <h2 className="text-xl font-bold text-purple-400">Password Recovery</h2>
-              <p className="text-gray-400 text-sm mt-2">
-                Admin account:
-              </p>
-              <p className="text-green-400 font-mono text-sm mt-1">
-                {maskedEmail}
-              </p>
+              <p className="text-gray-400 text-sm mt-2">Admin account:</p>
+              <p className="text-green-400 font-mono text-sm mt-1">{maskedEmail}</p>
             </div>
 
             {!recoveryEmailSent ? (
@@ -171,15 +173,11 @@ function Router() {
               </button>
             ) : (
               <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4 mb-4">
-                <p className="text-green-400 text-sm text-center font-semibold mb-2">
-                  Your password:
-                </p>
+                <p className="text-green-400 text-sm text-center font-semibold mb-2">Your password:</p>
                 <p className="text-green-400 font-mono text-lg text-center select-all bg-black/50 rounded-lg py-2 px-4">
                   {ADMIN_PASSWORD}
                 </p>
-                <p className="text-gray-500 text-xs text-center mt-2">
-                  Copy it, then go back to login
-                </p>
+                <p className="text-gray-500 text-xs text-center mt-2">Copy it, then go back to login</p>
               </div>
             )}
 
@@ -209,7 +207,6 @@ function Router() {
       <>
         <ComingSoon />
         {showLoginModal && <LoginModal />}
-        {/* Small lock icon in top-left corner to open admin login */}
         <button
           onClick={() => setShowLoginModal(true)}
           className="fixed top-4 left-4 text-gray-600 hover:text-green-400 transition-all text-lg opacity-30 hover:opacity-100 z-50"
@@ -224,7 +221,6 @@ function Router() {
   // Normal site routing
   return (
     <>
-      {/* Admin logout button when viewing full site */}
       {COMING_SOON_MODE && (
         <button
           onClick={handleLogout}
@@ -235,42 +231,45 @@ function Router() {
         </button>
       )}
       <Navigation />
-      <div className="pt-20 min-h-screen flex flex-col">
+      <CartDrawer />
+      <main className="min-h-screen">
         <Switch>
-          <Route path={"/"} component={Home} />
-          <Route path={"/marvel"} component={Marvel} />
-          <Route path={"/star-wars"} component={StarWars} />
-          <Route path={"/about"} component={About} />
-          <Route path={"/contact"} component={Contact} />
-          <Route path={"/subscribe"} component={Subscribe} />
-          <Route path={"/marvel/:productId/checklist"} component={MarvelChecklist} />
-          <Route path={"/starwars/:productId/checklist"} component={StarWarsChecklist} />
-          <Route path={"/404"} component={NotFound} />
-          {/* Final fallback route */}
+          <Route path="/" component={Home} />
+          <Route path="/shop" component={Shop} />
+          <Route path="/product/:slug" component={ProductDetail} />
+          <Route path="/cart" component={Cart} />
+          <Route path="/marvel" component={Marvel} />
+          <Route path="/star-wars" component={StarWars} />
+          <Route path="/about" component={About} />
+          <Route path="/contact" component={Contact} />
+          <Route path="/subscribe" component={Subscribe} />
+          <Route path="/faq" component={FAQ} />
+          <Route path="/shipping" component={Shipping} />
+          <Route path="/terms" component={Terms} />
+          <Route path="/privacy" component={Privacy} />
+          <Route path="/refund-policy" component={RefundPolicy} />
+          <Route path="/marvel/:productId/checklist" component={MarvelChecklist} />
+          <Route path="/starwars/:productId/checklist" component={StarWarsChecklist} />
+          <Route path="/404" component={NotFound} />
           <Route component={NotFound} />
         </Switch>
-        <Footer />
-      </div>
+      </main>
+      <Footer />
     </>
   );
 }
 
-// NOTE: About Theme
-// - First choose a default theme according to your design style (dark or light bg), than change color palette in index.css
-//   to keep consistent foreground/background color across components
-// - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
-
 function App() {
   return (
     <ErrorBoundary>
-      <ThemeProvider
-        defaultTheme="dark"
-      >
-        <TooltipProvider>
-          <Toaster />
-          {!COMING_SOON_MODE && <EmailCapturePopup />}
-          <Router />
-        </TooltipProvider>
+      <ThemeProvider defaultTheme="dark">
+        <CartProvider>
+          <TooltipProvider>
+            <Toaster />
+            {!COMING_SOON_MODE && <EmailCapturePopup />}
+            <AppRouter />
+          </TooltipProvider>
+        </CartProvider>
       </ThemeProvider>
     </ErrorBoundary>
   );

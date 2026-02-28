@@ -1,101 +1,86 @@
 /**
- * Shop Page - Placeholder for Shopify integration
+ * Shop Page - All products grid with category filters
+ * Design: Giant Sports Cards inspired dark grid layout
  */
 
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { ShoppingCart, Package, Sparkles } from "lucide-react";
-import { Link } from "wouter";
-import { toast } from "sonner";
+import { useState } from "react";
+import { products } from "@/lib/products";
+import ProductCard from "@/components/ProductCard";
+
+type Filter = "all" | "marvel" | "starwars" | "repacks" | "sealed";
 
 export default function Shop() {
-  const handleComingSoon = () => {
-    toast.info("Shop coming soon! Shopify integration in progress.");
-  };
+  const [filter, setFilter] = useState<Filter>("all");
+
+  const filteredProducts = products.filter((p) => {
+    if (filter === "all") return true;
+    if (filter === "marvel") return p.category === "marvel";
+    if (filter === "starwars") return p.category === "starwars";
+    if (filter === "repacks") return p.isRepack;
+    if (filter === "sealed") return !p.isRepack;
+    return true;
+  });
+
+  const filters: { key: Filter; label: string }[] = [
+    { key: "all", label: "All Products" },
+    { key: "repacks", label: "Repacks" },
+    { key: "sealed", label: "Sealed Product" },
+    { key: "marvel", label: "Marvel" },
+    { key: "starwars", label: "Star Wars" },
+  ];
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative py-24 overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-cover bg-center opacity-20"
-          style={{
-            backgroundImage: "url('/banners/marvel_villains_banner.png')",
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
-        
-        <div className="relative z-10 container mx-auto px-4 text-center">
-          <h1 className="text-6xl md:text-7xl font-bold mb-6">
-            SHOP
+      {/* Header */}
+      <section className="py-12 border-b border-border">
+        <div className="container">
+          <h1 className="text-5xl md:text-6xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
+            <span className="text-primary">SHOP</span> ALL
           </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Premium Marvel trading card repacks and individual cards. Shopify integration coming soon!
+          <p className="text-muted-foreground text-lg">
+            Browse our complete collection of premium trading card products
           </p>
         </div>
       </section>
 
-      {/* Coming Soon Content */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <Card className="bg-card/50 backdrop-blur border-2 border-primary/30">
-              <CardContent className="p-12 text-center">
-                <div className="w-24 h-24 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <ShoppingCart className="w-12 h-12 text-primary" />
-                </div>
-                
-                <h2 className="text-4xl font-bold mb-4">
-                  SHOP COMING SOON
-                </h2>
-                
-                <p className="text-xl text-muted-foreground mb-8">
-                  We're integrating with Shopify to bring you the best shopping experience for Marvel trading cards. Check back soon!
-                </p>
-                
-                <div className="grid md:grid-cols-3 gap-6 mb-8">
-                  <div className="text-center">
-                    <Package className="w-10 h-10 text-primary mx-auto mb-3" />
-                    <h3 className="font-bold mb-2">Curated Repacks</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Premium repack boxes with guaranteed hits
-                    </p>
-                  </div>
-                  
-                  <div className="text-center">
-                    <Sparkles className="w-10 h-10 text-secondary mx-auto mb-3" />
-                    <h3 className="font-bold mb-2">Individual Cards</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Complete your collection card by card
-                    </p>
-                  </div>
-                  
-                  <div className="text-center">
-                    <ShoppingCart className="w-10 h-10 text-accent mx-auto mb-3" />
-                    <h3 className="font-bold mb-2">Secure Checkout</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Safe and secure Shopify payments
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                  <Button 
-                    size="lg" 
-                    onClick={handleComingSoon}
-                    className="bg-primary hover:bg-primary/90"
-                  >
-                    Notify Me When Available
-                  </Button>
-                  <Link href="/characters">
-                    <Button size="lg" variant="outline">
-                      Browse Characters
-                    </Button>
-                  </Link>
-                </div>
-              </CardContent>
-            </Card>
+      {/* Filters + Grid */}
+      <section className="py-10">
+        <div className="container">
+          {/* Filter Tabs */}
+          <div className="flex flex-wrap gap-2 mb-8">
+            {filters.map((f) => (
+              <button
+                key={f.key}
+                onClick={() => setFilter(f.key)}
+                className={`px-5 py-2 rounded-full text-sm font-bold tracking-wide transition-all ${
+                  filter === f.key
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-card border border-border text-muted-foreground hover:text-foreground hover:border-primary/30"
+                }`}
+              >
+                {f.label}
+              </button>
+            ))}
           </div>
+
+          {/* Results Count */}
+          <p className="text-sm text-muted-foreground mb-6">
+            Showing {filteredProducts.length} product{filteredProducts.length !== 1 ? "s" : ""}
+          </p>
+
+          {/* Product Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {filteredProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+
+          {filteredProducts.length === 0 && (
+            <div className="text-center py-20">
+              <p className="text-2xl font-bold text-muted-foreground mb-2">No products found</p>
+              <p className="text-muted-foreground">Try a different filter</p>
+            </div>
+          )}
         </div>
       </section>
     </div>

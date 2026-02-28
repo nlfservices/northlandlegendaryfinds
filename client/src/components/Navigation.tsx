@@ -1,23 +1,26 @@
 /**
- * Navigation Component - Hit Parade inspired with NLF cosmic branding
- * Design: Sticky header with logo, menu, search, cart
- * Colors: Deep purple background with green accents from logo
+ * Navigation - Giant Sports Cards inspired with NLF cosmic branding
+ * Design: Announcement bar + sticky nav with logo, links, cart
  */
 
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { Search, ShoppingCart, Menu, X } from "lucide-react";
+import { ShoppingCart, Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useCart } from "@/contexts/CartContext";
 
 export default function Navigation() {
   const [location] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
+  const [shopDropdownOpen, setShopDropdownOpen] = useState(false);
+  const { totalItems, setIsOpen: setCartOpen } = useCart();
 
   const navItems = [
+    { path: "/shop", label: "Shop All" },
     { path: "/marvel", label: "Marvel" },
     { path: "/star-wars", label: "Star Wars" },
     { path: "/about", label: "About" },
+    { path: "/faq", label: "FAQ" },
     { path: "/contact", label: "Contact" },
   ];
 
@@ -25,100 +28,80 @@ export default function Navigation() {
     <>
       {/* Announcement Bar */}
       <div className="bg-primary text-primary-foreground text-center py-2 px-4 text-sm font-bold tracking-wide">
-        🚀 FREE SHIPPING ON ORDERS OVER $199 | USE CODE: LEGENDARY
+        LAUNCHING MARCH 13TH — FREE SHIPPING ON ORDERS OVER $199
       </div>
 
       {/* Main Navigation */}
-      <nav className="sticky top-0 z-50 bg-sidebar border-b border-sidebar-border shadow-lg">
+      <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
         <div className="container">
-          <div className="flex items-center justify-between h-20">
+          <div className="flex items-center justify-between h-18">
             {/* Logo */}
-            <Link href="/" className="flex items-center space-x-3 group">
-              <img 
-                src="/logo.png" 
-                alt="Northland Legendary Finds" 
-                className="h-16 w-16 object-contain group-hover:scale-110 transition-transform"
+            <Link href="/" className="flex items-center gap-3 group flex-shrink-0">
+              <img
+                src="/logo.png"
+                alt="NLF"
+                className="h-14 w-14 object-contain group-hover:scale-105 transition-transform"
               />
-              <div className="hidden md:flex flex-col">
-                <span className="text-primary font-bold text-xl tracking-wider glow-green">
+              <div className="hidden sm:flex flex-col">
+                <span className="text-primary font-bold text-lg tracking-wider leading-tight" style={{ fontFamily: "'Anton', sans-serif" }}>
                   NORTHLAND
                 </span>
-                <span className="text-sidebar-foreground text-xs -mt-1">
+                <span className="text-muted-foreground text-[10px] tracking-widest uppercase -mt-0.5">
                   Legendary Finds
                 </span>
               </div>
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-1">
+            <div className="hidden lg:flex items-center gap-1">
               {navItems.map((item) => {
                 const isActive = location === item.path;
                 return (
                   <Link key={item.path} href={item.path}>
-                    <Button
-                      variant="ghost"
-                      className={`text-sidebar-foreground hover:text-primary hover:bg-sidebar-accent font-bold tracking-wide ${
-                        isActive ? "text-primary bg-sidebar-accent" : ""
+                    <button
+                      className={`px-4 py-2 text-sm font-bold tracking-wide rounded-lg transition-all ${
+                        isActive
+                          ? "text-primary bg-primary/10"
+                          : "text-foreground/80 hover:text-primary hover:bg-primary/5"
                       }`}
                     >
                       {item.label}
-                    </Button>
+                    </button>
                   </Link>
                 );
               })}
             </div>
 
-            {/* Right Side Actions */}
-            <div className="flex items-center space-x-4">
-              {/* Search */}
+            {/* Right Side */}
+            <div className="flex items-center gap-3">
+              {/* Cart Button */}
               <button
-                onClick={() => setSearchOpen(!searchOpen)}
-                className="text-sidebar-foreground hover:text-primary transition-colors"
+                onClick={() => setCartOpen(true)}
+                className="relative text-foreground hover:text-primary transition-colors p-2"
               >
-                <Search className="w-6 h-6" />
-              </button>
-
-              {/* Cart */}
-              <Link href="/cart">
-                <button className="relative text-sidebar-foreground hover:text-primary transition-colors">
-                  <ShoppingCart className="w-6 h-6" />
-                  <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                    0
+                <ShoppingCart className="w-6 h-6" />
+                {totalItems > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 bg-primary text-primary-foreground text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center animate-in zoom-in">
+                    {totalItems}
                   </span>
-                </button>
-              </Link>
+                )}
+              </button>
 
               {/* Mobile Menu Toggle */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden text-sidebar-foreground hover:text-primary transition-colors"
+                className="lg:hidden text-foreground hover:text-primary transition-colors p-2"
               >
-                {mobileMenuOpen ? (
-                  <X className="w-6 h-6" />
-                ) : (
-                  <Menu className="w-6 h-6" />
-                )}
+                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
             </div>
           </div>
-
-          {/* Search Bar (Expandable) */}
-          {searchOpen && (
-            <div className="pb-4">
-              <input
-                type="search"
-                placeholder="Search products..."
-                className="w-full px-6 py-3 bg-input border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-                autoFocus
-              />
-            </div>
-          )}
         </div>
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="lg:hidden border-t border-sidebar-border">
-            <div className="container py-4 space-y-2">
+          <div className="lg:hidden border-t border-border bg-background">
+            <div className="container py-4 space-y-1">
               {navItems.map((item) => {
                 const isActive = location === item.path;
                 return (
@@ -130,8 +113,8 @@ export default function Navigation() {
                     <div
                       className={`px-4 py-3 rounded-lg font-bold tracking-wide transition-colors ${
                         isActive
-                          ? "bg-sidebar-accent text-primary"
-                          : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-primary"
+                          ? "bg-primary/10 text-primary"
+                          : "text-foreground/80 hover:bg-primary/5 hover:text-primary"
                       }`}
                     >
                       {item.label}
