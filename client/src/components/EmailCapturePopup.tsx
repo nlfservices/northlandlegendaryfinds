@@ -1,24 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { X } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 /**
  * Smart Email Capture Popup Component
+ * Uses GHL iframe embed for reliable form submission
  * 
  * Behavior:
  * - Shows 2 seconds after page load on first visit
- * - If closed without submitting -> doesn't show again
+ * - If closed without submitting -> doesn't show again for this session
  * - If closed without submitting AND user tries to leave -> shows exit-intent popup
  * - Uses localStorage to remember user's choice
  * - Never shows to users who already submitted
- * 
- * To integrate GoHighLevel:
- * Replace the placeholder form with your GHL embed code in the form section
  */
 
 export default function EmailCapturePopup() {
   const [isOpen, setIsOpen] = useState(false);
   const [isExitIntent, setIsExitIntent] = useState(false);
+  const formContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Check if user has already interacted with popup
@@ -37,7 +35,6 @@ export default function EmailCapturePopup() {
 
     // Exit intent detection
     const handleMouseLeave = (e: MouseEvent) => {
-      // Only trigger if mouse leaves from top of page (navigating away)
       if (e.clientY <= 0 && hasClosedPopup === "temporary") {
         setIsExitIntent(true);
         setIsOpen(true);
@@ -52,23 +49,39 @@ export default function EmailCapturePopup() {
     };
   }, []);
 
+  // Listen for GHL form submission
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      if (event.data && typeof event.data === "object") {
+        if (
+          event.data.type === "form-submitted" ||
+          event.data.type === "hsFormCallback" ||
+          event.data.eventName === "onFormSubmit" ||
+          event.data.formSubmitted
+        ) {
+          localStorage.setItem("nlf_email_submitted", "true");
+          localStorage.setItem("nlf_popup_closed", "permanent");
+          setTimeout(() => setIsOpen(false), 2000);
+        }
+      }
+      if (event.data === "form_submitted") {
+        localStorage.setItem("nlf_email_submitted", "true");
+        localStorage.setItem("nlf_popup_closed", "permanent");
+        setTimeout(() => setIsOpen(false), 2000);
+      }
+    };
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  }, []);
+
   const handleClose = () => {
     setIsOpen(false);
-    // Mark as temporarily closed (will show exit intent)
     localStorage.setItem("nlf_popup_closed", "temporary");
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // TODO: Replace with actual GoHighLevel form submission
-    // For now, just mark as submitted and close
-    localStorage.setItem("nlf_email_submitted", "true");
-    localStorage.setItem("nlf_popup_closed", "permanent");
+  const handleCloseForever = () => {
     setIsOpen(false);
-    
-    // Show success message
-    alert("Thank you for subscribing! Check your email for your discount code.");
+    localStorage.setItem("nlf_popup_closed", "permanent");
   };
 
   if (!isOpen) return null;
@@ -79,66 +92,64 @@ export default function EmailCapturePopup() {
         {/* Close button */}
         <button
           onClick={handleClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+          className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors z-10"
           aria-label="Close popup"
         >
           <X className="w-6 h-6" />
         </button>
 
         {/* Content */}
-        <div className="p-8 text-center">
-          {/* Icon/Logo */}
-          <div className="mb-4">
-            <div className="inline-block p-4 bg-green-500/10 rounded-full">
-              <span className="text-5xl">🎁</span>
-            </div>
-          </div>
-
+        <div className="p-6 text-center">
           {/* Headline */}
-          <h2 className="text-3xl font-bold text-green-400 mb-2">
+          <h2 className="text-2xl font-bold text-green-400 mb-2 mt-2">
             {isExitIntent ? "Wait! Don't Miss Out!" : "Welcome to NLF!"}
           </h2>
           
-          <p className="text-lg text-gray-300 mb-6">
+          <p className="text-sm text-gray-300 mb-4">
             {isExitIntent 
-              ? "Get 10% off your first order before you go!"
-              : "Join our legendary collectors community and get 10% off your first repack!"
+              ? "Sign up for early access before you go!"
+              : "Join our legendary collectors community for exclusive drops and deals!"
             }
           </p>
 
-          {/* Form - PLACEHOLDER FOR GOHIGHLEVEL */}
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <input
-                type="email"
-                placeholder="Enter your email"
-                required
-                className="w-full px-4 py-3 bg-black/50 border border-green-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-green-500 transition-colors"
-              />
-            </div>
-            
-            <Button
-              type="submit"
-              className="w-full bg-green-500 hover:bg-green-600 text-black font-bold py-3 rounded-lg transition-all transform hover:scale-105"
+          {/* GHL Form - Same iframe approach as ComingSoon page */}
+          <div className="ghl-dark-wrapper rounded-lg overflow-hidden">
+            <div
+              ref={formContainerRef}
+              className="ghl-form-container"
             >
-              Get My 10% Discount
-            </Button>
-          </form>
+              <iframe
+                src="https://api.leadconnectorhq.com/widget/form/5SL68SbkAFgq85FPiJw6"
+                style={{ width: "100%", border: "none", overflow: "hidden" }}
+                scrolling="no"
+                id="popup-inline-5SL68SbkAFgq85FPiJw6"
+                data-layout='{"id":"INLINE"}'
+                data-trigger-type="alwaysShow"
+                data-trigger-value=""
+                data-activation-type="alwaysActivated"
+                data-activation-value=""
+                data-deactivation-type="neverDeactivate"
+                data-deactivation-value=""
+                data-form-name="Form 0"
+                data-height="600"
+                data-layout-iframe-id="popup-inline-5SL68SbkAFgq85FPiJw6"
+                data-form-id="5SL68SbkAFgq85FPiJw6"
+                title="Email Signup"
+              ></iframe>
+            </div>
+          </div>
 
           {/* Fine print */}
-          <p className="text-xs text-gray-500 mt-4">
+          <p className="text-xs text-gray-500 mt-3">
             We respect your privacy. Unsubscribe anytime.
           </p>
 
-          {/* GoHighLevel Integration Instructions */}
-          <div className="mt-6 p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-lg text-left">
-            <p className="text-xs text-yellow-400 font-mono">
-              <strong>To integrate GoHighLevel:</strong><br />
-              1. Get your GHL form embed code<br />
-              2. Replace the form section above with your embed code<br />
-              3. Update handleSubmit to work with GHL's submission
-            </p>
-          </div>
+          <button
+            onClick={handleCloseForever}
+            className="text-xs text-gray-600 hover:text-gray-400 mt-2 underline underline-offset-2 transition-colors"
+          >
+            No thanks, don't show again
+          </button>
         </div>
       </div>
     </div>

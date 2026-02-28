@@ -1,5 +1,5 @@
 /**
- * Contact Page - Contact form and information
+ * Contact Page - Contact form sends via mailto, plus contact info
  */
 
 import { useState } from "react";
@@ -17,7 +17,21 @@ export default function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Message sent! We'll get back to you within 24 hours.");
+    
+    // Validate fields
+    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+      toast.error("Please fill in all required fields.");
+      return;
+    }
+
+    // Build mailto link with form data
+    const emailBody = `Name: ${formData.name}%0AEmail: ${formData.email}%0A%0A${encodeURIComponent(formData.message)}`;
+    const mailtoLink = `mailto:info@northlandlegendaryfinds.com?subject=${encodeURIComponent(formData.subject)}&body=${emailBody}`;
+    
+    // Open email client
+    window.location.href = mailtoLink;
+    
+    toast.success("Opening your email client. If it doesn't open, email us directly at info@northlandlegendaryfinds.com");
     setFormData({ name: "", email: "", subject: "", message: "" });
   };
 
@@ -118,6 +132,13 @@ export default function Contact() {
                   <Send className="w-5 h-5 mr-2" />
                   Send Message
                 </Button>
+
+                <p className="text-xs text-center text-muted-foreground">
+                  This will open your email client. You can also email us directly at{" "}
+                  <a href="mailto:info@northlandlegendaryfinds.com" className="text-primary hover:underline">
+                    info@northlandlegendaryfinds.com
+                  </a>
+                </p>
               </form>
             </div>
 
