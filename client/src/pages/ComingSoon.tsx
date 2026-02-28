@@ -15,116 +15,16 @@ export default function ComingSoon() {
     minutes: 0,
     seconds: 0,
   });
-  const iframeRef = useRef<HTMLIFrameElement>(null);
 
-  // Inject dark theme CSS into the GHL iframe once it loads
-  useEffect(() => {
-    const iframe = iframeRef.current;
-    if (!iframe) return;
-
-    const injectStyles = () => {
-      try {
-        const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
-        if (!iframeDoc) return;
-
-        const style = iframeDoc.createElement("style");
-        style.textContent = `
-          body, .hl_wrapper, form, .fb-form {
-            background: transparent !important;
-            color: #00FF41 !important;
-            font-family: 'Oswald', sans-serif !important;
-          }
-          label, .form-label, .hl_form-label {
-            color: #00FF41 !important;
-            font-size: 12px !important;
-            text-transform: uppercase !important;
-            letter-spacing: 1px !important;
-          }
-          input, select, textarea, .hl_input, .form-control {
-            background: rgba(0,0,0,0.7) !important;
-            border: 1px solid rgba(0,255,65,0.3) !important;
-            border-radius: 8px !important;
-            color: #00FF41 !important;
-            padding: 10px 16px !important;
-            font-size: 14px !important;
-          }
-          input:focus, select:focus, textarea:focus {
-            border-color: #00FF41 !important;
-            box-shadow: 0 0 10px rgba(0,255,65,0.3) !important;
-            outline: none !important;
-          }
-          input::placeholder, textarea::placeholder {
-            color: #555 !important;
-          }
-          button[type="submit"], .hl_cta_btn, .btn-primary, .submit-button {
-            background: linear-gradient(to right, #00FF41, #22c55e) !important;
-            color: #000 !important;
-            font-weight: 700 !important;
-            border: none !important;
-            border-radius: 8px !important;
-            padding: 12px 24px !important;
-            font-size: 14px !important;
-            text-transform: uppercase !important;
-            letter-spacing: 2px !important;
-            cursor: pointer !important;
-            box-shadow: 0 0 20px rgba(0,255,65,0.3) !important;
-          }
-          button[type="submit"]:hover, .hl_cta_btn:hover, .btn-primary:hover {
-            box-shadow: 0 0 30px rgba(0,255,65,0.5) !important;
-          }
-          .hl_form-group, .form-group {
-            margin-bottom: 12px !important;
-          }
-          /* Hide consent checkboxes text styling */
-          .hl_form-check-label, .form-check-label {
-            color: #888 !important;
-            font-size: 10px !important;
-          }
-          a {
-            color: #a855f7 !important;
-          }
-          /* Required asterisk */
-          .text-danger, .required {
-            color: #00FF41 !important;
-          }
-          /* Privacy links */
-          .hl-text-center a, .text-center a {
-            color: #a855f7 !important;
-            font-size: 11px !important;
-          }
-        `;
-        iframeDoc.head.appendChild(style);
-
-        // Also add Oswald font
-        const fontLink = iframeDoc.createElement("link");
-        fontLink.href = "https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap";
-        fontLink.rel = "stylesheet";
-        iframeDoc.head.appendChild(fontLink);
-
-        // Track form submission via message event
-        // GHL forms redirect after submission, so we detect URL change
-      } catch (e) {
-        // Cross-origin restriction - can't inject CSS
-        // The iframe will show with default GHL styling
-        console.log("Could not inject styles into GHL iframe (cross-origin)");
-      }
-    };
-
-    iframe.addEventListener("load", injectStyles);
-    return () => iframe.removeEventListener("load", injectStyles);
-  }, []);
-
-  // Listen for form submission events from GHL
-  useEffect(() => {
-    const handleMessage = (event: MessageEvent) => {
-      // GHL sends a message when form is submitted
-      if (event.data && (event.data.type === "form-submitted" || event.data === "form_submitted")) {
-        trackLead('Early Access Signup', 'Coming Soon');
-      }
-    };
-    window.addEventListener("message", handleMessage);
-    return () => window.removeEventListener("message", handleMessage);
-  }, []);
+  // Form state
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const hiddenIframeRef = useRef<HTMLIFrameElement>(null);
 
   useEffect(() => {
     // Target date: Friday, March 13th, 2026 at 7:00 PM Central Time
@@ -153,8 +53,81 @@ export default function ComingSoon() {
     return () => clearInterval(timer);
   }, []);
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!email.trim()) {
+      setSubmitError("Email is required");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitError("");
+
+    try {
+      // Submit via hidden form to GHL
+      const formData = new URLSearchParams();
+      formData.append("first_name", firstName);
+      formData.append("last_name", lastName);
+      formData.append("phone", phone);
+      formData.append("email", email);
+      formData.append("formId", "5SL68SbkAFgq85FPiJw6");
+      formData.append("location_id", "KFJlOhDocOFLVA5rLqVh");
+
+      // Method 1: Submit via hidden iframe to avoid CORS
+      const form = document.createElement("form");
+      form.method = "POST";
+      form.action = "https://backend.leadconnectorhq.com/forms/submit";
+      form.target = "ghl-hidden-frame";
+      form.style.display = "none";
+
+      // Add all fields
+      const fields = {
+        first_name: firstName,
+        last_name: lastName,
+        phone: phone,
+        email: email,
+        formId: "5SL68SbkAFgq85FPiJw6",
+        location_id: "KFJlOhDocOFLVA5rLqVh",
+      };
+
+      Object.entries(fields).forEach(([key, value]) => {
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = key;
+        input.value = value;
+        form.appendChild(input);
+      });
+
+      document.body.appendChild(form);
+      form.submit();
+      document.body.removeChild(form);
+
+      // Track with Facebook Pixel
+      trackLead("Early Access Signup", "Coming Soon");
+
+      // Show success after brief delay
+      setTimeout(() => {
+        setIsSubmitting(false);
+        setIsSubmitted(true);
+      }, 1500);
+    } catch (error) {
+      console.error("Form submission error:", error);
+      setIsSubmitting(false);
+      setSubmitError("Something went wrong. Please try again.");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-black flex items-center justify-center relative overflow-hidden">
+      {/* Hidden iframe for GHL form submission */}
+      <iframe
+        ref={hiddenIframeRef}
+        name="ghl-hidden-frame"
+        style={{ display: "none" }}
+        title="Form submission target"
+      />
+
       {/* Cosmic Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-black via-purple-950/20 to-black"></div>
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-green-500/5 via-transparent to-transparent"></div>
@@ -234,35 +207,108 @@ export default function ComingSoon() {
           </p>
         </div>
 
-        {/* Email Capture - GHL Iframe Embed */}
-        <div className="max-w-md mx-auto">
+        {/* Custom Email Capture Form */}
+        <div className="max-w-lg mx-auto">
           <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-4 sm:mb-6 font-oswald">
             Get notified when we launch + receive exclusive early access
           </p>
           
-          {/* GHL Form Embed - Actual iframe for reliable submission */}
-          <div className="rounded-xl overflow-hidden border border-[#00FF41]/20 bg-black/50 backdrop-blur-sm">
-            <iframe
-              ref={iframeRef}
-              src="https://api.leadconnectorhq.com/widget/form/5SL68SbkAFgq85FPiJw6"
-              style={{ width: "100%", height: "500px", border: "none" }}
-              id="inline-5SL68SbkAFgq85FPiJw6"
-              data-layout='{"id":"INLINE"}'
-              data-trigger-type="alwaysShow"
-              data-trigger-value=""
-              data-activation-type="alwaysActivated"
-              data-activation-value=""
-              data-deactivation-type="neverDeactivate"
-              data-deactivation-value=""
-              data-form-name="Form 0"
-              data-height="500"
-              data-layout-iframe-id="inline-5SL68SbkAFgq85FPiJw6"
-              data-form-id="5SL68SbkAFgq85FPiJw6"
-              title="Early Access Signup"
-            ></iframe>
-          </div>
+          {!isSubmitted ? (
+            <form onSubmit={handleSubmit} className="space-y-3">
+              {/* First Name & Last Name - side by side */}
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-left text-[#00FF41]/70 text-[10px] uppercase tracking-[2px] font-oswald mb-1 ml-1">
+                    First Name
+                  </label>
+                  <input
+                    type="text"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    placeholder="First Name"
+                    className="w-full bg-black/70 border border-[#00FF41]/25 rounded-lg px-4 py-2.5 text-[#00FF41] text-sm font-oswald placeholder-gray-600 focus:border-[#00FF41]/70 focus:shadow-[0_0_12px_rgba(0,255,65,0.2)] focus:outline-none transition-all"
+                  />
+                </div>
+                <div>
+                  <label className="block text-left text-[#00FF41]/70 text-[10px] uppercase tracking-[2px] font-oswald mb-1 ml-1">
+                    Last Name
+                  </label>
+                  <input
+                    type="text"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    placeholder="Last Name"
+                    className="w-full bg-black/70 border border-[#00FF41]/25 rounded-lg px-4 py-2.5 text-[#00FF41] text-sm font-oswald placeholder-gray-600 focus:border-[#00FF41]/70 focus:shadow-[0_0_12px_rgba(0,255,65,0.2)] focus:outline-none transition-all"
+                  />
+                </div>
+              </div>
+
+              {/* Phone */}
+              <div>
+                <label className="block text-left text-[#00FF41]/70 text-[10px] uppercase tracking-[2px] font-oswald mb-1 ml-1">
+                  Phone
+                </label>
+                <input
+                  type="tel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder="Phone Number"
+                  className="w-full bg-black/70 border border-[#00FF41]/25 rounded-lg px-4 py-2.5 text-[#00FF41] text-sm font-oswald placeholder-gray-600 focus:border-[#00FF41]/70 focus:shadow-[0_0_12px_rgba(0,255,65,0.2)] focus:outline-none transition-all"
+                />
+              </div>
+
+              {/* Email - Required */}
+              <div>
+                <label className="block text-left text-[#00FF41]/70 text-[10px] uppercase tracking-[2px] font-oswald mb-1 ml-1">
+                  Email <span className="text-[#00FF41]">*</span>
+                </label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="your@email.com"
+                  required
+                  className="w-full bg-black/70 border border-[#00FF41]/25 rounded-lg px-4 py-2.5 text-[#00FF41] text-sm font-oswald placeholder-gray-600 focus:border-[#00FF41]/70 focus:shadow-[0_0_12px_rgba(0,255,65,0.2)] focus:outline-none transition-all"
+                />
+              </div>
+
+              {/* Error message */}
+              {submitError && (
+                <p className="text-red-400 text-xs text-center font-oswald">{submitError}</p>
+              )}
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-gradient-to-r from-[#00FF41] to-emerald-500 text-black font-bold py-3 px-6 rounded-lg text-sm uppercase tracking-[3px] font-oswald hover:shadow-[0_0_30px_rgba(0,255,65,0.4)] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isSubmitting ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                    </svg>
+                    Submitting...
+                  </span>
+                ) : (
+                  "🚀 Get Early Access"
+                )}
+              </button>
+            </form>
+          ) : (
+            <div className="bg-[#00FF41]/10 border border-[#00FF41]/30 rounded-xl p-6 backdrop-blur-sm">
+              <div className="text-4xl mb-3">✅</div>
+              <h3 className="text-[#00FF41] text-xl font-bebas tracking-wider mb-2">
+                YOU'RE ON THE LIST!
+              </h3>
+              <p className="text-gray-300 text-sm font-oswald">
+                We'll notify you when we launch. Get ready for something legendary.
+              </p>
+            </div>
+          )}
           
-          <p className="text-xs text-gray-600 text-center mt-3">
+          <p className="text-xs text-gray-600 text-center mt-3 font-oswald">
             We'll never share your email. Unsubscribe anytime.
           </p>
         </div>
