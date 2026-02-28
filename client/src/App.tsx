@@ -196,19 +196,6 @@ function Router() {
               </div>
             )}
 
-            <div className="border-t border-gray-700 pt-4 mt-2">
-              <p className="text-gray-500 text-xs text-center mb-3">
-                Or use your secret recovery URL:
-              </p>
-              <div className="bg-black/50 border border-gray-700 rounded-lg p-3 mb-4">
-                <p className="text-green-400 font-mono text-xs break-all text-center select-all">
-                  {window.location.origin}?recover={RECOVERY_KEY}
-                </p>
-              </div>
-              <p className="text-gray-600 text-xs text-center mb-4">
-                Bookmark this URL for quick admin access
-              </p>
-            </div>
 
             <div className="flex gap-3">
               <button
