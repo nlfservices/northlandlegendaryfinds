@@ -113,7 +113,7 @@ export default function About() {
           </p>
           <div className="space-y-4">
             <p className="text-muted-foreground">
-              Email: <a href="mailto:info@northlandlegendaryfinds.com" className="text-primary hover:underline">info@northlandlegendaryfinds.com</a>
+              Email: <a href="mailto:info@nlfservices.com" className="text-primary hover:underline">info@nlfservices.com</a>
             </p>
             <p className="text-muted-foreground">
               Follow us on social media for the latest drops and exclusive offers

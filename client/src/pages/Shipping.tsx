@@ -98,7 +98,7 @@ export default function Shipping() {
                 </div>
                 <div>
                   <h3 className="font-bold text-lg mb-2">Damaged Items</h3>
-                  <p className="text-muted-foreground">If your order arrives damaged, please contact us within 48 hours of delivery at info@northlandlegendaryfinds.com with photos of the damage. We will replace the item or issue a full refund at our discretion.</p>
+                  <p className="text-muted-foreground">If your order arrives damaged, please contact us within 48 hours of delivery at info@nlfservices.com with photos of the damage. We will replace the item or issue a full refund at our discretion.</p>
                 </div>
                 <div>
                   <h3 className="font-bold text-lg mb-2">Refund Processing</h3>

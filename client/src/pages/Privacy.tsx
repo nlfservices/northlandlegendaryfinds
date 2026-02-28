@@ -69,7 +69,7 @@ export default function Privacy() {
             <div>
               <h2 className="text-2xl font-bold mb-3">Contact Us</h2>
               <p className="text-muted-foreground leading-relaxed">
-                For more information about our privacy practices, if you have questions, or if you would like to make a complaint, please contact us by email at info@northlandlegendaryfinds.com.
+                For more information about our privacy practices, if you have questions, or if you would like to make a complaint, please contact us by email at info@nlfservices.com.
               </p>
             </div>
           </div>

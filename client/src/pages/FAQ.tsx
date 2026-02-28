@@ -44,7 +44,7 @@ const faqs = [
       },
       {
         q: "Can I cancel or modify my order?",
-        a: "Orders can be cancelled or modified within 1 hour of placement, provided they haven't been shipped yet. Contact us immediately at info@northlandlegendaryfinds.com if you need to make changes.",
+        a: "Orders can be cancelled or modified within 1 hour of placement, provided they haven't been shipped yet. Contact us immediately at info@nlfservices.com if you need to make changes.",
       },
     ],
   },

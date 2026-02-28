@@ -31,7 +31,7 @@ export default function Footer() {
               Premium Marvel & Star Wars trading card repacks. 100% authentic Topps cards with guaranteed hits.
             </p>
             <div className="flex gap-3">
-              <a href="mailto:info@northlandlegendaryfinds.com" className="w-9 h-9 rounded-lg bg-muted flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all">
+              <a href="mailto:info@nlfservices.com" className="w-9 h-9 rounded-lg bg-muted flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all">
                 <Mail className="w-4 h-4" />
               </a>
               <a href="#" className="w-9 h-9 rounded-lg bg-muted flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all">

@@ -26,12 +26,12 @@ export default function Contact() {
 
     // Build mailto link with form data
     const emailBody = `Name: ${formData.name}%0AEmail: ${formData.email}%0A%0A${encodeURIComponent(formData.message)}`;
-    const mailtoLink = `mailto:info@northlandlegendaryfinds.com?subject=${encodeURIComponent(formData.subject)}&body=${emailBody}`;
+    const mailtoLink = `mailto:info@nlfservices.com?subject=${encodeURIComponent(formData.subject)}&body=${emailBody}`;
     
     // Open email client
     window.location.href = mailtoLink;
     
-    toast.success("Opening your email client. If it doesn't open, email us directly at info@northlandlegendaryfinds.com");
+    toast.success("Opening your email client. If it doesn't open, email us directly at info@nlfservices.com");
     setFormData({ name: "", email: "", subject: "", message: "" });
   };
 
@@ -135,8 +135,8 @@ export default function Contact() {
 
                 <p className="text-xs text-center text-muted-foreground">
                   This will open your email client. You can also email us directly at{" "}
-                  <a href="mailto:info@northlandlegendaryfinds.com" className="text-primary hover:underline">
-                    info@northlandlegendaryfinds.com
+                  <a href="mailto:info@nlfservices.com" className="text-primary hover:underline">
+                    info@nlfservices.com
                   </a>
                 </p>
               </form>
@@ -160,10 +160,10 @@ export default function Contact() {
                   <div>
                     <h3 className="font-bold text-lg mb-1">Email</h3>
                     <a 
-                      href="mailto:info@northlandlegendaryfinds.com" 
+                      href="mailto:info@nlfservices.com" 
                       className="text-primary hover:underline"
                     >
-                      info@northlandlegendaryfinds.com
+                      info@nlfservices.com
                     </a>
                     <p className="text-sm text-muted-foreground mt-1">
                       We respond within 24 hours
@@ -270,7 +270,7 @@ export default function Contact() {
                 Do you offer wholesale pricing?
               </h3>
               <p className="text-muted-foreground">
-                Yes! We work with card shops and resellers. Contact us at wholesale@northlandlegendaryfinds.com 
+                Yes! We work with card shops and resellers. Contact us at wholesale@nlfservices.com 
                 for bulk pricing information.
               </p>
             </div>

@@ -51,7 +51,7 @@ export default function RefundPolicy() {
             <div>
               <h2 className="text-2xl font-bold mb-3">Damaged or Defective Items</h2>
               <p className="text-muted-foreground leading-relaxed">
-                If your order arrives damaged or defective, please contact us within 48 hours of delivery at <a href="mailto:info@northlandlegendaryfinds.com" className="text-primary hover:underline">info@northlandlegendaryfinds.com</a> with the following:
+                If your order arrives damaged or defective, please contact us within 48 hours of delivery at <a href="mailto:info@nlfservices.com" className="text-primary hover:underline">info@nlfservices.com</a> with the following:
               </p>
               <ul className="list-disc list-inside text-muted-foreground space-y-1 mt-2">
                 <li>Your order number</li>
@@ -66,7 +66,7 @@ export default function RefundPolicy() {
             <div>
               <h2 className="text-2xl font-bold mb-3">How to Request a Refund</h2>
               <p className="text-muted-foreground leading-relaxed">
-                To initiate a return or refund, please email us at <a href="mailto:info@northlandlegendaryfinds.com" className="text-primary hover:underline">info@northlandlegendaryfinds.com</a> with your order number and reason for the return. We will provide you with return shipping instructions within 24 hours.
+                To initiate a return or refund, please email us at <a href="mailto:info@nlfservices.com" className="text-primary hover:underline">info@nlfservices.com</a> with your order number and reason for the return. We will provide you with return shipping instructions within 24 hours.
               </p>
             </div>
 
@@ -87,7 +87,7 @@ export default function RefundPolicy() {
             <div>
               <h2 className="text-2xl font-bold mb-3">Questions?</h2>
               <p className="text-muted-foreground leading-relaxed">
-                If you have any questions about our refund policy, please contact us at <a href="mailto:info@northlandlegendaryfinds.com" className="text-primary hover:underline">info@northlandlegendaryfinds.com</a>.
+                If you have any questions about our refund policy, please contact us at <a href="mailto:info@nlfservices.com" className="text-primary hover:underline">info@nlfservices.com</a>.
               </p>
             </div>
           </div>

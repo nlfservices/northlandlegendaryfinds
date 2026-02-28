@@ -76,7 +76,7 @@ export default function Terms() {
             <div>
               <h2 className="text-2xl font-bold mb-3">9. Contact Information</h2>
               <p className="text-muted-foreground leading-relaxed">
-                Questions about the Terms of Service should be sent to us at info@northlandlegendaryfinds.com.
+                Questions about the Terms of Service should be sent to us at info@nlfservices.com.
               </p>
             </div>
           </div>
