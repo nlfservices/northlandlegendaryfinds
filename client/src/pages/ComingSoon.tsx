@@ -15,16 +15,8 @@ export default function ComingSoon() {
     minutes: 0,
     seconds: 0,
   });
-
-  // Form state
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [submitError, setSubmitError] = useState("");
-  const hiddenIframeRef = useRef<HTMLIFrameElement>(null);
+  const formContainerRef = useRef<HTMLDivElement>(null);
+  const [formLoaded, setFormLoaded] = useState(false);
 
   useEffect(() => {
     // Target date: Friday, March 13th, 2026 at 7:00 PM Central Time
@@ -53,81 +45,57 @@ export default function ComingSoon() {
     return () => clearInterval(timer);
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!email.trim()) {
-      setSubmitError("Email is required");
-      return;
-    }
+  // Load the GHL form via their embed script (inline div method)
+  useEffect(() => {
+    const container = formContainerRef.current;
+    if (!container) return;
 
-    setIsSubmitting(true);
-    setSubmitError("");
+    // Check if form_embed.js already loaded the form
+    const checkFormLoaded = setInterval(() => {
+      const iframe = container.querySelector("iframe");
+      if (iframe) {
+        setFormLoaded(true);
+        clearInterval(checkFormLoaded);
+      }
+    }, 500);
 
-    try {
-      // Submit via hidden form to GHL
-      const formData = new URLSearchParams();
-      formData.append("first_name", firstName);
-      formData.append("last_name", lastName);
-      formData.append("phone", phone);
-      formData.append("email", email);
-      formData.append("formId", "5SL68SbkAFgq85FPiJw6");
-      formData.append("location_id", "KFJlOhDocOFLVA5rLqVh");
+    // Timeout after 10 seconds
+    const timeout = setTimeout(() => {
+      clearInterval(checkFormLoaded);
+      setFormLoaded(true); // Show whatever we have
+    }, 10000);
 
-      // Method 1: Submit via hidden iframe to avoid CORS
-      const form = document.createElement("form");
-      form.method = "POST";
-      form.action = "https://backend.leadconnectorhq.com/forms/submit";
-      form.target = "ghl-hidden-frame";
-      form.style.display = "none";
+    return () => {
+      clearInterval(checkFormLoaded);
+      clearTimeout(timeout);
+    };
+  }, []);
 
-      // Add all fields
-      const fields = {
-        first_name: firstName,
-        last_name: lastName,
-        phone: phone,
-        email: email,
-        formId: "5SL68SbkAFgq85FPiJw6",
-        location_id: "KFJlOhDocOFLVA5rLqVh",
-      };
-
-      Object.entries(fields).forEach(([key, value]) => {
-        const input = document.createElement("input");
-        input.type = "hidden";
-        input.name = key;
-        input.value = value;
-        form.appendChild(input);
-      });
-
-      document.body.appendChild(form);
-      form.submit();
-      document.body.removeChild(form);
-
-      // Track with Facebook Pixel
-      trackLead("Early Access Signup", "Coming Soon");
-
-      // Show success after brief delay
-      setTimeout(() => {
-        setIsSubmitting(false);
-        setIsSubmitted(true);
-      }, 1500);
-    } catch (error) {
-      console.error("Form submission error:", error);
-      setIsSubmitting(false);
-      setSubmitError("Something went wrong. Please try again.");
-    }
-  };
+  // Listen for GHL form submission message events
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      // GHL sends various messages - check for form submission
+      if (event.data && typeof event.data === "object") {
+        // Check for form submission indicators
+        if (
+          event.data.type === "form-submitted" ||
+          event.data.type === "hsFormCallback" ||
+          event.data.eventName === "onFormSubmit" ||
+          event.data.formSubmitted
+        ) {
+          trackLead("Early Access Signup", "Coming Soon");
+        }
+      }
+      if (event.data === "form_submitted") {
+        trackLead("Early Access Signup", "Coming Soon");
+      }
+    };
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  }, []);
 
   return (
     <div className="min-h-screen bg-black flex items-center justify-center relative overflow-hidden">
-      {/* Hidden iframe for GHL form submission */}
-      <iframe
-        ref={hiddenIframeRef}
-        name="ghl-hidden-frame"
-        style={{ display: "none" }}
-        title="Form submission target"
-      />
-
       {/* Cosmic Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-black via-purple-950/20 to-black"></div>
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-green-500/5 via-transparent to-transparent"></div>
@@ -207,106 +175,38 @@ export default function ComingSoon() {
           </p>
         </div>
 
-        {/* Custom Email Capture Form */}
+        {/* Email Capture - GHL Inline Form Embed */}
         <div className="max-w-lg mx-auto">
           <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-4 sm:mb-6 font-oswald">
             Get notified when we launch + receive exclusive early access
           </p>
           
-          {!isSubmitted ? (
-            <form onSubmit={handleSubmit} className="space-y-3">
-              {/* First Name & Last Name - side by side */}
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-left text-[#00FF41]/70 text-[10px] uppercase tracking-[2px] font-oswald mb-1 ml-1">
-                    First Name
-                  </label>
-                  <input
-                    type="text"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    placeholder="First Name"
-                    className="w-full bg-black/70 border border-[#00FF41]/25 rounded-lg px-4 py-2.5 text-[#00FF41] text-sm font-oswald placeholder-gray-600 focus:border-[#00FF41]/70 focus:shadow-[0_0_12px_rgba(0,255,65,0.2)] focus:outline-none transition-all"
-                  />
-                </div>
-                <div>
-                  <label className="block text-left text-[#00FF41]/70 text-[10px] uppercase tracking-[2px] font-oswald mb-1 ml-1">
-                    Last Name
-                  </label>
-                  <input
-                    type="text"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    placeholder="Last Name"
-                    className="w-full bg-black/70 border border-[#00FF41]/25 rounded-lg px-4 py-2.5 text-[#00FF41] text-sm font-oswald placeholder-gray-600 focus:border-[#00FF41]/70 focus:shadow-[0_0_12px_rgba(0,255,65,0.2)] focus:outline-none transition-all"
-                  />
-                </div>
-              </div>
-
-              {/* Phone */}
-              <div>
-                <label className="block text-left text-[#00FF41]/70 text-[10px] uppercase tracking-[2px] font-oswald mb-1 ml-1">
-                  Phone
-                </label>
-                <input
-                  type="tel"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  placeholder="Phone Number"
-                  className="w-full bg-black/70 border border-[#00FF41]/25 rounded-lg px-4 py-2.5 text-[#00FF41] text-sm font-oswald placeholder-gray-600 focus:border-[#00FF41]/70 focus:shadow-[0_0_12px_rgba(0,255,65,0.2)] focus:outline-none transition-all"
-                />
-              </div>
-
-              {/* Email - Required */}
-              <div>
-                <label className="block text-left text-[#00FF41]/70 text-[10px] uppercase tracking-[2px] font-oswald mb-1 ml-1">
-                  Email <span className="text-[#00FF41]">*</span>
-                </label>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="your@email.com"
-                  required
-                  className="w-full bg-black/70 border border-[#00FF41]/25 rounded-lg px-4 py-2.5 text-[#00FF41] text-sm font-oswald placeholder-gray-600 focus:border-[#00FF41]/70 focus:shadow-[0_0_12px_rgba(0,255,65,0.2)] focus:outline-none transition-all"
-                />
-              </div>
-
-              {/* Error message */}
-              {submitError && (
-                <p className="text-red-400 text-xs text-center font-oswald">{submitError}</p>
-              )}
-
-              {/* Submit Button */}
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-[#00FF41] to-emerald-500 text-black font-bold py-3 px-6 rounded-lg text-sm uppercase tracking-[3px] font-oswald hover:shadow-[0_0_30px_rgba(0,255,65,0.4)] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {isSubmitting ? (
-                  <span className="flex items-center justify-center gap-2">
-                    <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                    </svg>
-                    Submitting...
-                  </span>
-                ) : (
-                  "🚀 Get Early Access"
-                )}
-              </button>
-            </form>
-          ) : (
-            <div className="bg-[#00FF41]/10 border border-[#00FF41]/30 rounded-xl p-6 backdrop-blur-sm">
-              <div className="text-4xl mb-3">✅</div>
-              <h3 className="text-[#00FF41] text-xl font-bebas tracking-wider mb-2">
-                YOU'RE ON THE LIST!
-              </h3>
-              <p className="text-gray-300 text-sm font-oswald">
-                We'll notify you when we launch. Get ready for something legendary.
-              </p>
+          {/* GHL Form Container with dark theme wrapper */}
+          <div className="ghl-dark-wrapper rounded-xl overflow-hidden">
+            <div
+              ref={formContainerRef}
+              className="ghl-form-container"
+            >
+              <iframe
+                src="https://api.leadconnectorhq.com/widget/form/5SL68SbkAFgq85FPiJw6"
+                style={{ width: "100%", border: "none", overflow: "hidden" }}
+                scrolling="no"
+                id="inline-5SL68SbkAFgq85FPiJw6"
+                data-layout='{"id":"INLINE"}'
+                data-trigger-type="alwaysShow"
+                data-trigger-value=""
+                data-activation-type="alwaysActivated"
+                data-activation-value=""
+                data-deactivation-type="neverDeactivate"
+                data-deactivation-value=""
+                data-form-name="Form 0"
+                data-height="600"
+                data-layout-iframe-id="inline-5SL68SbkAFgq85FPiJw6"
+                data-form-id="5SL68SbkAFgq85FPiJw6"
+                title="Early Access Signup"
+              ></iframe>
             </div>
-          )}
+          </div>
           
           <p className="text-xs text-gray-600 text-center mt-3 font-oswald">
             We'll never share your email. Unsubscribe anytime.
