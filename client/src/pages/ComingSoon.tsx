@@ -1,4 +1,4 @@
-import { useState, useEffect, FormEvent } from "react";
+import { useState, useEffect, useRef } from "react";
 import { trackLead } from "@/lib/fbPixel";
 
 interface TimeLeft {
@@ -15,81 +15,121 @@ export default function ComingSoon() {
     minutes: 0,
     seconds: 0,
   });
+  const iframeRef = useRef<HTMLIFrameElement>(null);
 
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    phone: "",
-    email: "",
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  // Inject dark theme CSS into the GHL iframe once it loads
+  useEffect(() => {
+    const iframe = iframeRef.current;
+    if (!iframe) return;
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitStatus("idle");
+    const injectStyles = () => {
+      try {
+        const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
+        if (!iframeDoc) return;
 
-    try {
-      // Create a hidden iframe to submit the form to GHL
-      const iframeName = "ghl_submit_" + Date.now();
-      const iframe = document.createElement("iframe");
-      iframe.name = iframeName;
-      iframe.style.display = "none";
-      document.body.appendChild(iframe);
+        const style = iframeDoc.createElement("style");
+        style.textContent = `
+          body, .hl_wrapper, form, .fb-form {
+            background: transparent !important;
+            color: #00FF41 !important;
+            font-family: 'Oswald', sans-serif !important;
+          }
+          label, .form-label, .hl_form-label {
+            color: #00FF41 !important;
+            font-size: 12px !important;
+            text-transform: uppercase !important;
+            letter-spacing: 1px !important;
+          }
+          input, select, textarea, .hl_input, .form-control {
+            background: rgba(0,0,0,0.7) !important;
+            border: 1px solid rgba(0,255,65,0.3) !important;
+            border-radius: 8px !important;
+            color: #00FF41 !important;
+            padding: 10px 16px !important;
+            font-size: 14px !important;
+          }
+          input:focus, select:focus, textarea:focus {
+            border-color: #00FF41 !important;
+            box-shadow: 0 0 10px rgba(0,255,65,0.3) !important;
+            outline: none !important;
+          }
+          input::placeholder, textarea::placeholder {
+            color: #555 !important;
+          }
+          button[type="submit"], .hl_cta_btn, .btn-primary, .submit-button {
+            background: linear-gradient(to right, #00FF41, #22c55e) !important;
+            color: #000 !important;
+            font-weight: 700 !important;
+            border: none !important;
+            border-radius: 8px !important;
+            padding: 12px 24px !important;
+            font-size: 14px !important;
+            text-transform: uppercase !important;
+            letter-spacing: 2px !important;
+            cursor: pointer !important;
+            box-shadow: 0 0 20px rgba(0,255,65,0.3) !important;
+          }
+          button[type="submit"]:hover, .hl_cta_btn:hover, .btn-primary:hover {
+            box-shadow: 0 0 30px rgba(0,255,65,0.5) !important;
+          }
+          .hl_form-group, .form-group {
+            margin-bottom: 12px !important;
+          }
+          /* Hide consent checkboxes text styling */
+          .hl_form-check-label, .form-check-label {
+            color: #888 !important;
+            font-size: 10px !important;
+          }
+          a {
+            color: #a855f7 !important;
+          }
+          /* Required asterisk */
+          .text-danger, .required {
+            color: #00FF41 !important;
+          }
+          /* Privacy links */
+          .hl-text-center a, .text-center a {
+            color: #a855f7 !important;
+            font-size: 11px !important;
+          }
+        `;
+        iframeDoc.head.appendChild(style);
 
-      // Create a hidden form that targets the iframe
-      const form = document.createElement("form");
-      form.method = "POST";
-      form.action = "https://backend.leadconnectorhq.com/forms/submit";
-      form.target = iframeName;
-      form.style.display = "none";
+        // Also add Oswald font
+        const fontLink = iframeDoc.createElement("link");
+        fontLink.href = "https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap";
+        fontLink.rel = "stylesheet";
+        iframeDoc.head.appendChild(fontLink);
 
-      // Add form fields
-      const fields: Record<string, string> = {
-        first_name: formData.firstName,
-        last_name: formData.lastName,
-        phone: formData.phone,
-        email: formData.email,
-        formId: "5SL68SbkAFgq85FPiJw6",
-        location_id: "KFJlOhDocOFLVA5rLqVh",
-      };
+        // Track form submission via message event
+        // GHL forms redirect after submission, so we detect URL change
+      } catch (e) {
+        // Cross-origin restriction - can't inject CSS
+        // The iframe will show with default GHL styling
+        console.log("Could not inject styles into GHL iframe (cross-origin)");
+      }
+    };
 
-      Object.entries(fields).forEach(([key, value]) => {
-        const input = document.createElement("input");
-        input.type = "hidden";
-        input.name = key;
-        input.value = value;
-        form.appendChild(input);
-      });
+    iframe.addEventListener("load", injectStyles);
+    return () => iframe.removeEventListener("load", injectStyles);
+  }, []);
 
-      document.body.appendChild(form);
-      form.submit();
-
-      // Clean up after a delay and show success
-      setTimeout(() => {
-        document.body.removeChild(form);
-        document.body.removeChild(iframe);
-      }, 3000);
-
-      setSubmitStatus("success");
-      setFormData({ firstName: "", lastName: "", phone: "", email: "" });
-      
-      // Track Facebook Pixel Lead event
-      trackLead('Early Access Signup', 'Coming Soon');
-    } catch (error) {
-      setSubmitStatus("error");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  // Listen for form submission events from GHL
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      // GHL sends a message when form is submitted
+      if (event.data && (event.data.type === "form-submitted" || event.data === "form_submitted")) {
+        trackLead('Early Access Signup', 'Coming Soon');
+      }
+    };
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  }, []);
 
   useEffect(() => {
     // Target date: Friday, March 13th, 2026 at 7:00 PM Central Time
-    // Central Time is UTC-6 (CST) or UTC-5 (CDT)
-    // March 13, 2026 will be in CDT (Daylight Saving Time)
-    // 7:00 PM CDT = 8:00 PM EDT = 12:00 AM UTC (next day)
-    const targetDate = new Date("2026-03-14T00:00:00Z"); // March 14 midnight UTC = March 13 7pm Central
+    // March is in CDT (UTC-5), so 7pm CDT = midnight UTC March 14
+    const targetDate = new Date("2026-03-14T00:00:00Z");
 
     const calculateTimeLeft = () => {
       const now = new Date().getTime();
@@ -194,62 +234,37 @@ export default function ComingSoon() {
           </p>
         </div>
 
-        {/* Email Capture */}
+        {/* Email Capture - GHL Iframe Embed */}
         <div className="max-w-md mx-auto">
           <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-4 sm:mb-6 font-oswald">
             Get notified when we launch + receive exclusive early access
           </p>
           
-          {/* Custom Styled Form */}
-          <form onSubmit={handleSubmit} className="space-y-3">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <input
-                type="text"
-                placeholder="First Name"
-                value={formData.firstName}
-                onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                className="px-4 py-2.5 bg-black/70 border border-[#00FF41]/30 rounded-lg text-[#00FF41] placeholder-gray-600 focus:outline-none focus:border-[#00FF41] focus:ring-1 focus:ring-[#00FF41] transition-all text-sm"
-              />
-              <input
-                type="text"
-                placeholder="Last Name"
-                value={formData.lastName}
-                onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                className="px-4 py-2.5 bg-black/70 border border-[#00FF41]/30 rounded-lg text-[#00FF41] placeholder-gray-600 focus:outline-none focus:border-[#00FF41] focus:ring-1 focus:ring-[#00FF41] transition-all text-sm"
-              />
-            </div>
-            <input
-              type="tel"
-              placeholder="Phone (optional)"
-              value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              className="w-full px-4 py-2.5 bg-black/70 border border-[#00FF41]/30 rounded-lg text-[#00FF41] placeholder-gray-600 focus:outline-none focus:border-[#00FF41] focus:ring-1 focus:ring-[#00FF41] transition-all text-sm"
-            />
-            <input
-              type="email"
-              placeholder="Email *"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              required
-              className="w-full px-4 py-2.5 bg-black/70 border border-[#00FF41]/30 rounded-lg text-[#00FF41] placeholder-gray-600 focus:outline-none focus:border-[#00FF41] focus:ring-1 focus:ring-[#00FF41] transition-all text-sm"
-            />
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full px-6 py-3 bg-gradient-to-r from-[#00FF41] to-green-500 text-black font-oswald font-bold rounded-lg hover:from-green-500 hover:to-[#00FF41] transition-all duration-300 shadow-[0_0_20px_rgba(0,255,65,0.3)] hover:shadow-[0_0_30px_rgba(0,255,65,0.5)] disabled:opacity-50 disabled:cursor-not-allowed text-sm"
-            >
-              {isSubmitting ? "SUBMITTING..." : "GET EARLY ACCESS"}
-            </button>
-            {submitStatus === "success" && (
-              <p className="text-[#00FF41] text-sm text-center font-oswald">✓ You're on the list! Check your email.</p>
-            )}
-            {submitStatus === "error" && (
-              <p className="text-red-400 text-sm text-center font-oswald">Something went wrong. Please try again.</p>
-            )}
-            <p className="text-xs text-gray-600 text-center">
-              We'll never share your email. Unsubscribe anytime.
-            </p>
-          </form>
+          {/* GHL Form Embed - Actual iframe for reliable submission */}
+          <div className="rounded-xl overflow-hidden border border-[#00FF41]/20 bg-black/50 backdrop-blur-sm">
+            <iframe
+              ref={iframeRef}
+              src="https://api.leadconnectorhq.com/widget/form/5SL68SbkAFgq85FPiJw6"
+              style={{ width: "100%", height: "500px", border: "none" }}
+              id="inline-5SL68SbkAFgq85FPiJw6"
+              data-layout='{"id":"INLINE"}'
+              data-trigger-type="alwaysShow"
+              data-trigger-value=""
+              data-activation-type="alwaysActivated"
+              data-activation-value=""
+              data-deactivation-type="neverDeactivate"
+              data-deactivation-value=""
+              data-form-name="Form 0"
+              data-height="500"
+              data-layout-iframe-id="inline-5SL68SbkAFgq85FPiJw6"
+              data-form-id="5SL68SbkAFgq85FPiJw6"
+              title="Early Access Signup"
+            ></iframe>
+          </div>
+          
+          <p className="text-xs text-gray-600 text-center mt-3">
+            We'll never share your email. Unsubscribe anytime.
+          </p>
         </div>
 
         {/* Social Proof */}
