@@ -22,45 +22,93 @@ import { useState } from "react";
 // COMING SOON MODE: Set to true to show countdown page, false to show full site
 const COMING_SOON_MODE = true;
 
+// ADMIN PASSWORD: Change this to your own password
+const ADMIN_PASSWORD = "temp123";
+
 function Router() {
   const [showFullSite, setShowFullSite] = useState(() => {
-    // Check if owner bypass parameter is present in URL or session
-    const urlParams = new URLSearchParams(window.location.search);
-    const hasPreviewParam = urlParams.get('preview') === 'admin';
-    const hasSessionBypass = sessionStorage.getItem('nlf_preview') === 'true';
-    
-    // Store bypass in session if URL parameter is present
-    if (hasPreviewParam) {
-      sessionStorage.setItem('nlf_preview', 'true');
-      return true;
-    }
-    
-    return hasSessionBypass;
+    return sessionStorage.getItem('nlf_admin') === 'true';
   });
-  
-  // Toggle function for admin button
-  const toggleSiteView = () => {
-    const newValue = !showFullSite;
-    setShowFullSite(newValue);
-    if (newValue) {
-      sessionStorage.setItem('nlf_preview', 'true');
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [passwordInput, setPasswordInput] = useState("");
+  const [loginError, setLoginError] = useState(false);
+
+  const handleLogin = () => {
+    if (passwordInput === ADMIN_PASSWORD) {
+      sessionStorage.setItem('nlf_admin', 'true');
+      setShowFullSite(true);
+      setShowLoginModal(false);
+      setPasswordInput("");
+      setLoginError(false);
     } else {
-      sessionStorage.removeItem('nlf_preview');
+      setLoginError(true);
+      setPasswordInput("");
     }
   };
-  
-  // If coming soon mode is enabled AND user hasn't bypassed, show countdown page
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('nlf_admin');
+    setShowFullSite(false);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleLogin();
+    }
+  };
+
+  // Admin login modal
+  const LoginModal = () => (
+    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-[9999]">
+      <div className="bg-gray-900 border border-green-500/30 rounded-xl p-8 max-w-sm w-full mx-4 shadow-2xl shadow-green-500/10">
+        <div className="text-center mb-6">
+          <div className="text-3xl mb-2">🔐</div>
+          <h2 className="text-xl font-bold text-green-400">Admin Access</h2>
+          <p className="text-gray-400 text-sm mt-1">Enter password to view full site</p>
+        </div>
+        <input
+          type="password"
+          value={passwordInput}
+          onChange={(e) => { setPasswordInput(e.target.value); setLoginError(false); }}
+          onKeyDown={handleKeyDown}
+          placeholder="Enter password..."
+          autoFocus
+          className="w-full bg-black/50 border border-green-500/30 rounded-lg px-4 py-3 text-green-400 placeholder-gray-600 focus:outline-none focus:border-green-400 focus:shadow-[0_0_15px_rgba(0,255,65,0.15)] transition-all mb-3"
+        />
+        {loginError && (
+          <p className="text-red-400 text-sm mb-3 text-center">Wrong password. Try again.</p>
+        )}
+        <div className="flex gap-3">
+          <button
+            onClick={() => { setShowLoginModal(false); setPasswordInput(""); setLoginError(false); }}
+            className="flex-1 bg-gray-800 hover:bg-gray-700 text-gray-300 px-4 py-2.5 rounded-lg text-sm transition-all border border-gray-700"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={handleLogin}
+            className="flex-1 bg-green-500/20 hover:bg-green-500/40 text-green-400 px-4 py-2.5 rounded-lg text-sm font-semibold transition-all border border-green-500/30"
+          >
+            Unlock Site
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+
+  // If coming soon mode is enabled AND user hasn't logged in, show countdown page
   if (COMING_SOON_MODE && !showFullSite) {
     return (
       <>
         <ComingSoon />
-        {/* Hidden admin toggle button - press Ctrl+Shift+A to reveal */}
+        {showLoginModal && <LoginModal />}
+        {/* Small lock icon in bottom-right corner to open admin login */}
         <button
-          onClick={toggleSiteView}
-          className="fixed bottom-4 right-4 bg-green-500/20 hover:bg-green-500/40 text-green-400 px-4 py-2 rounded-lg text-xs font-mono border border-green-500/30 transition-all opacity-0 hover:opacity-100 focus:opacity-100"
-          title="Admin: View Full Site (Ctrl+Shift+A)"
+          onClick={() => setShowLoginModal(true)}
+          className="fixed bottom-4 right-4 text-gray-600 hover:text-green-400 transition-all text-lg opacity-30 hover:opacity-100"
+          title="Admin Login"
         >
-          👁️ Admin View
+          🔒
         </button>
       </>
     );
@@ -69,10 +117,10 @@ function Router() {
   // Normal site routing
   return (
     <>
-      {/* Admin toggle button when viewing full site */}
+      {/* Admin logout button when viewing full site */}
       {COMING_SOON_MODE && (
         <button
-          onClick={toggleSiteView}
+          onClick={handleLogout}
           className="fixed bottom-4 right-4 bg-purple-500/20 hover:bg-purple-500/40 text-purple-400 px-4 py-2 rounded-lg text-xs font-mono border border-purple-500/30 transition-all z-50"
           title="Admin: Return to Countdown View"
         >
@@ -88,8 +136,8 @@ function Router() {
           <Route path={"/about"} component={About} />
           <Route path={"/contact"} component={Contact} />
           <Route path={"/subscribe"} component={Subscribe} />
-      <Route path={"/marvel/:productId/checklist"} component={MarvelChecklist} />
-      <Route path={"/starwars/:productId/checklist"} component={StarWarsChecklist} />
+          <Route path={"/marvel/:productId/checklist"} component={MarvelChecklist} />
+          <Route path={"/starwars/:productId/checklist"} component={StarWarsChecklist} />
           <Route path={"/404"} component={NotFound} />
           {/* Final fallback route */}
           <Route component={NotFound} />
