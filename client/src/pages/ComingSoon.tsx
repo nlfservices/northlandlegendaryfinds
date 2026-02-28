@@ -25,34 +25,58 @@ export default function ComingSoon() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus("idle");
 
     try {
-      const response = await fetch("https://api.leadconnectorhq.com/widget/form/5SL68SbkAFgq85FPiJw6", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          first_name: formData.firstName,
-          last_name: formData.lastName,
-          phone: formData.phone,
-          email: formData.email,
-        }),
+      // Create a hidden iframe to submit the form to GHL
+      const iframeName = "ghl_submit_" + Date.now();
+      const iframe = document.createElement("iframe");
+      iframe.name = iframeName;
+      iframe.style.display = "none";
+      document.body.appendChild(iframe);
+
+      // Create a hidden form that targets the iframe
+      const form = document.createElement("form");
+      form.method = "POST";
+      form.action = "https://backend.leadconnectorhq.com/forms/submit";
+      form.target = iframeName;
+      form.style.display = "none";
+
+      // Add form fields
+      const fields: Record<string, string> = {
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        phone: formData.phone,
+        email: formData.email,
+        formId: "5SL68SbkAFgq85FPiJw6",
+        location_id: "KFJlOhDocOFLVA5rLqVh",
+      };
+
+      Object.entries(fields).forEach(([key, value]) => {
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = key;
+        input.value = value;
+        form.appendChild(input);
       });
 
-      if (response.ok) {
-        setSubmitStatus("success");
-        setFormData({ firstName: "", lastName: "", phone: "", email: "" });
-        
-        // Track Facebook Pixel Lead event
-        trackLead('Early Access Signup', 'Coming Soon');
-      } else {
-        setSubmitStatus("error");
-      }
+      document.body.appendChild(form);
+      form.submit();
+
+      // Clean up after a delay and show success
+      setTimeout(() => {
+        document.body.removeChild(form);
+        document.body.removeChild(iframe);
+      }, 3000);
+
+      setSubmitStatus("success");
+      setFormData({ firstName: "", lastName: "", phone: "", email: "" });
+      
+      // Track Facebook Pixel Lead event
+      trackLead('Early Access Signup', 'Coming Soon');
     } catch (error) {
       setSubmitStatus("error");
     } finally {
