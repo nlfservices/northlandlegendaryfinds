@@ -3,6 +3,7 @@
  * Design: Hero with pack image, featured products, trust elements, FAQ preview
  */
 
+import { useAuth } from "@/_core/hooks/useAuth";
 import { ShoppingCart, Shield, Star, TrendingUp, Package, ArrowRight, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
@@ -17,6 +18,10 @@ const NLF_LOGO = "https://files.manuscdn.com/user_upload_by_module/session_file/
 const TRUST_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/trust-section-bg-kwnjuLkybJ2rqpCpEwiChw.webp";
 
 export default function Home() {
+  // The userAuth hooks provides authentication state
+  // To implement login/logout functionality, simply call logout() or redirect to getLoginUrl()
+  let { user, loading, error, isAuthenticated, logout } = useAuth();
+
   const { addItem } = useCart();
   const repackProducts = getRepackProducts();
   const comingSoonProducts = getComingSoonProducts();

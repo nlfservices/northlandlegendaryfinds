@@ -1,0 +1,1014 @@
+/**
+ * Admin Dashboard - Manage products, checklists, pulls, and shows
+ * Uses DashboardLayout with sidebar navigation
+ */
+import { useAuth } from "@/_core/hooks/useAuth";
+import { trpc } from "@/lib/trpc";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
+import { toast } from "sonner";
+import { getLoginUrl } from "@/const";
+import {
+  Package, ListChecks, Zap, Radio, Plus, Trash2, Edit, Eye,
+  CheckCircle2, Circle, ArrowLeft, Loader2, Calendar, ExternalLink
+} from "lucide-react";
+import { useState, useMemo } from "react";
+import { Link } from "wouter";
+
+// ==================== PRODUCT MANAGEMENT ====================
+
+function ProductManager() {
+  const { data: products, isLoading } = trpc.admin.products.list.useQuery();
+  const createProduct = trpc.admin.products.create.useMutation();
+  const deleteProduct = trpc.admin.products.delete.useMutation();
+  const updateProduct = trpc.admin.products.update.useMutation();
+  const utils = trpc.useUtils();
+
+  const [showCreateDialog, setShowCreateDialog] = useState(false);
+  const [editingProduct, setEditingProduct] = useState<number | null>(null);
+  const [form, setForm] = useState({
+    name: "", slug: "", description: "", price: 0, totalPacks: 500,
+    category: "marvel" as const, status: "draft" as const,
+    isWhatnotExclusive: false, whatnotSeriesName: "", packsPerShow: 50,
+    shopifyUrl: "", sortOrder: 0,
+  });
+
+  const resetForm = () => {
+    setForm({
+      name: "", slug: "", description: "", price: 0, totalPacks: 500,
+      category: "marvel", status: "draft",
+      isWhatnotExclusive: false, whatnotSeriesName: "", packsPerShow: 50,
+      shopifyUrl: "", sortOrder: 0,
+    });
+  };
+
+  const handleCreate = async () => {
+    try {
+      await createProduct.mutateAsync({
+        ...form,
+        price: form.price * 100, // convert to cents
+        whatnotSeriesName: form.whatnotSeriesName || undefined,
+        packsPerShow: form.isWhatnotExclusive ? form.packsPerShow : undefined,
+        shopifyUrl: form.shopifyUrl || undefined,
+      });
+      toast.success("Product created!");
+      utils.admin.products.list.invalidate();
+      setShowCreateDialog(false);
+      resetForm();
+    } catch (e: any) {
+      toast.error(e.message || "Failed to create product");
+    }
+  };
+
+  const handleDelete = async (id: number) => {
+    if (!confirm("Delete this product and all its checklist items?")) return;
+    try {
+      await deleteProduct.mutateAsync({ id });
+      toast.success("Product deleted");
+      utils.admin.products.list.invalidate();
+    } catch (e: any) {
+      toast.error(e.message || "Failed to delete");
+    }
+  };
+
+  const handleStatusChange = async (id: number, status: string) => {
+    try {
+      await updateProduct.mutateAsync({ id, data: { status: status as any } });
+      toast.success("Status updated");
+      utils.admin.products.list.invalidate();
+    } catch (e: any) {
+      toast.error(e.message || "Failed to update");
+    }
+  };
+
+  const autoSlug = (name: string) => {
+    return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  };
+
+  if (isLoading) return <div className="flex items-center justify-center py-12"><Loader2 className="w-6 h-6 animate-spin text-primary" /></div>;
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-bold">Products</h2>
+          <p className="text-muted-foreground text-sm">Manage your repack products</p>
+        </div>
+        <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
+          <DialogTrigger asChild>
+            <Button onClick={resetForm}><Plus className="w-4 h-4 mr-2" /> New Product</Button>
+          </DialogTrigger>
+          <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle>Create Product</DialogTitle>
+              <DialogDescription>Add a new repack product</DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div>
+                <Label>Name</Label>
+                <Input value={form.name} onChange={e => { setForm(f => ({ ...f, name: e.target.value, slug: autoSlug(e.target.value) })); }} placeholder="NLF Variant Vol. 1" />
+              </div>
+              <div>
+                <Label>Slug</Label>
+                <Input value={form.slug} onChange={e => setForm(f => ({ ...f, slug: e.target.value }))} placeholder="nlf-variant-vol-1" />
+              </div>
+              <div>
+                <Label>Description</Label>
+                <Textarea value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} placeholder="Product description..." />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label>Price ($)</Label>
+                  <Input type="number" value={form.price} onChange={e => setForm(f => ({ ...f, price: parseFloat(e.target.value) || 0 }))} />
+                </div>
+                <div>
+                  <Label>Total Packs</Label>
+                  <Input type="number" value={form.totalPacks} onChange={e => setForm(f => ({ ...f, totalPacks: parseInt(e.target.value) || 500 }))} />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label>Category</Label>
+                  <Select value={form.category} onValueChange={v => setForm(f => ({ ...f, category: v as any }))}>
+                    <SelectTrigger><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="marvel">Marvel</SelectItem>
+                      <SelectItem value="starwars">Star Wars</SelectItem>
+                      <SelectItem value="sports">Sports</SelectItem>
+                      <SelectItem value="pokemon">Pokemon</SelectItem>
+                      <SelectItem value="other">Other</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label>Status</Label>
+                  <Select value={form.status} onValueChange={v => setForm(f => ({ ...f, status: v as any }))}>
+                    <SelectTrigger><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="draft">Draft</SelectItem>
+                      <SelectItem value="active">Active</SelectItem>
+                      <SelectItem value="soldout">Sold Out</SelectItem>
+                      <SelectItem value="archived">Archived</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <div>
+                <Label>Shopify Checkout URL</Label>
+                <Input value={form.shopifyUrl} onChange={e => setForm(f => ({ ...f, shopifyUrl: e.target.value }))} placeholder="https://shop.example.com/..." />
+              </div>
+              <Separator />
+              <div className="flex items-center gap-3">
+                <Switch checked={form.isWhatnotExclusive} onCheckedChange={v => setForm(f => ({ ...f, isWhatnotExclusive: v }))} />
+                <Label>Whatnot Exclusive</Label>
+              </div>
+              {form.isWhatnotExclusive && (
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label>Series Name</Label>
+                    <Input value={form.whatnotSeriesName} onChange={e => setForm(f => ({ ...f, whatnotSeriesName: e.target.value }))} placeholder="500 Pack Series" />
+                  </div>
+                  <div>
+                    <Label>Packs Per Show</Label>
+                    <Input type="number" value={form.packsPerShow} onChange={e => setForm(f => ({ ...f, packsPerShow: parseInt(e.target.value) || 50 }))} />
+                  </div>
+                </div>
+              )}
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setShowCreateDialog(false)}>Cancel</Button>
+              <Button onClick={handleCreate} disabled={createProduct.isPending}>
+                {createProduct.isPending ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+                Create Product
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      </div>
+
+      {(!products || products.length === 0) ? (
+        <Card>
+          <CardContent className="py-12 text-center">
+            <Package className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+            <p className="text-muted-foreground">No products yet. Create your first repack product!</p>
+          </CardContent>
+        </Card>
+      ) : (
+        <div className="grid gap-4">
+          {products.map(product => (
+            <Card key={product.id} className="hover:border-primary/30 transition-colors">
+              <CardContent className="py-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                      <Package className="w-6 h-6 text-primary" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-bold">{product.name}</h3>
+                        <Badge variant={product.status === 'active' ? 'default' : product.status === 'draft' ? 'secondary' : 'outline'}>
+                          {product.status}
+                        </Badge>
+                        {product.isWhatnotExclusive && (
+                          <Badge variant="outline" className="border-purple-500/50 text-purple-400">Whatnot</Badge>
+                        )}
+                      </div>
+                      <p className="text-sm text-muted-foreground">
+                        {product.category} · {product.packsRemaining}/{product.totalPacks} packs remaining
+                        {product.price ? ` · $${(product.price / 100).toFixed(2)}` : ''}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Select value={product.status} onValueChange={v => handleStatusChange(product.id, v)}>
+                      <SelectTrigger className="w-[120px] h-8 text-xs">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="draft">Draft</SelectItem>
+                        <SelectItem value="active">Active</SelectItem>
+                        <SelectItem value="soldout">Sold Out</SelectItem>
+                        <SelectItem value="archived">Archived</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <Button variant="ghost" size="icon" className="text-red-400 hover:text-red-300 hover:bg-red-500/10" onClick={() => handleDelete(product.id)}>
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ==================== CHECKLIST EDITOR ====================
+
+function ChecklistEditor() {
+  const { data: products, isLoading: productsLoading } = trpc.admin.products.list.useQuery();
+  const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
+  const { data: checklist, isLoading: checklistLoading } = trpc.admin.checklist.getByProduct.useQuery(
+    { productId: selectedProductId! },
+    { enabled: !!selectedProductId }
+  );
+  const createItem = trpc.admin.checklist.create.useMutation();
+  const bulkCreate = trpc.admin.checklist.bulkCreate.useMutation();
+  const deleteItem = trpc.admin.checklist.delete.useMutation();
+  const updateItem = trpc.admin.checklist.update.useMutation();
+  const utils = trpc.useUtils();
+
+  const [showAddDialog, setShowAddDialog] = useState(false);
+  const [showBulkDialog, setShowBulkDialog] = useState(false);
+  const [bulkText, setBulkText] = useState("");
+  const [bulkTier, setBulkTier] = useState<"chase" | "hit" | "base" | "bonus">("base");
+  const [itemForm, setItemForm] = useState({
+    cardName: "", cardSet: "", cardYear: "", cardNumber: "",
+    parallel: "", tier: "base" as const, estimatedValue: "",
+  });
+
+  const handleAddItem = async () => {
+    if (!selectedProductId) return;
+    try {
+      await createItem.mutateAsync({
+        productId: selectedProductId,
+        ...itemForm,
+        cardSet: itemForm.cardSet || undefined,
+        cardYear: itemForm.cardYear || undefined,
+        cardNumber: itemForm.cardNumber || undefined,
+        parallel: itemForm.parallel || undefined,
+        estimatedValue: itemForm.estimatedValue || undefined,
+      });
+      toast.success("Card added to checklist!");
+      utils.admin.checklist.getByProduct.invalidate({ productId: selectedProductId });
+      setShowAddDialog(false);
+      setItemForm({ cardName: "", cardSet: "", cardYear: "", cardNumber: "", parallel: "", tier: "base", estimatedValue: "" });
+    } catch (e: any) {
+      toast.error(e.message || "Failed to add card");
+    }
+  };
+
+  const handleBulkAdd = async () => {
+    if (!selectedProductId || !bulkText.trim()) return;
+    const lines = bulkText.trim().split('\n').filter(l => l.trim());
+    const items = lines.map((line, index) => {
+      // Format: CardName | Set | Year | Number | Parallel | Value
+      const parts = line.split('|').map(p => p.trim());
+      return {
+        cardName: parts[0] || line.trim(),
+        cardSet: parts[1] || undefined,
+        cardYear: parts[2] || undefined,
+        cardNumber: parts[3] || undefined,
+        parallel: parts[4] || undefined,
+        tier: bulkTier,
+        estimatedValue: parts[5] || undefined,
+        sortOrder: index,
+      };
+    });
+    try {
+      await bulkCreate.mutateAsync({ productId: selectedProductId, items });
+      toast.success(`${items.length} cards added!`);
+      utils.admin.checklist.getByProduct.invalidate({ productId: selectedProductId });
+      setShowBulkDialog(false);
+      setBulkText("");
+    } catch (e: any) {
+      toast.error(e.message || "Failed to bulk add");
+    }
+  };
+
+  const handleDeleteItem = async (id: number) => {
+    if (!selectedProductId) return;
+    try {
+      await deleteItem.mutateAsync({ id });
+      toast.success("Card removed");
+      utils.admin.checklist.getByProduct.invalidate({ productId: selectedProductId });
+    } catch (e: any) {
+      toast.error(e.message || "Failed to delete");
+    }
+  };
+
+  const tierColors: Record<string, string> = {
+    chase: "text-amber-400 bg-amber-500/10 border-amber-500/30",
+    hit: "text-purple-400 bg-purple-500/10 border-purple-500/30",
+    base: "text-blue-400 bg-blue-500/10 border-blue-500/30",
+    bonus: "text-green-400 bg-green-500/10 border-green-500/30",
+  };
+
+  // Group checklist by tier
+  const grouped = useMemo(() => {
+    if (!checklist) return {};
+    const groups: Record<string, typeof checklist> = {};
+    for (const item of checklist) {
+      if (!groups[item.tier]) groups[item.tier] = [];
+      groups[item.tier].push(item);
+    }
+    return groups;
+  }, [checklist]);
+
+  const tierOrder = ["chase", "hit", "base", "bonus"];
+
+  if (productsLoading) return <div className="flex items-center justify-center py-12"><Loader2 className="w-6 h-6 animate-spin text-primary" /></div>;
+
+  return (
+    <div className="space-y-6">
+      <div>
+        <h2 className="text-2xl font-bold">Checklist Editor</h2>
+        <p className="text-muted-foreground text-sm">Add and manage cards in each product's checklist</p>
+      </div>
+
+      {/* Product Selector */}
+      <div className="flex items-center gap-4">
+        <Select value={selectedProductId?.toString() || ""} onValueChange={v => setSelectedProductId(parseInt(v))}>
+          <SelectTrigger className="w-[300px]">
+            <SelectValue placeholder="Select a product..." />
+          </SelectTrigger>
+          <SelectContent>
+            {products?.map(p => (
+              <SelectItem key={p.id} value={p.id.toString()}>{p.name}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        {selectedProductId && (
+          <div className="flex gap-2">
+            <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
+              <DialogTrigger asChild>
+                <Button size="sm"><Plus className="w-4 h-4 mr-1" /> Add Card</Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Add Card to Checklist</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-3">
+                  <div>
+                    <Label>Card Name *</Label>
+                    <Input value={itemForm.cardName} onChange={e => setItemForm(f => ({ ...f, cardName: e.target.value }))} placeholder="Spider-Man" />
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <Label>Set</Label>
+                      <Input value={itemForm.cardSet} onChange={e => setItemForm(f => ({ ...f, cardSet: e.target.value }))} placeholder="2024 Topps Chrome" />
+                    </div>
+                    <div>
+                      <Label>Year</Label>
+                      <Input value={itemForm.cardYear} onChange={e => setItemForm(f => ({ ...f, cardYear: e.target.value }))} placeholder="2024" />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <Label>Card Number</Label>
+                      <Input value={itemForm.cardNumber} onChange={e => setItemForm(f => ({ ...f, cardNumber: e.target.value }))} placeholder="#42" />
+                    </div>
+                    <div>
+                      <Label>Parallel</Label>
+                      <Input value={itemForm.parallel} onChange={e => setItemForm(f => ({ ...f, parallel: e.target.value }))} placeholder="Gold Refractor /50" />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <Label>Tier</Label>
+                      <Select value={itemForm.tier} onValueChange={v => setItemForm(f => ({ ...f, tier: v as any }))}>
+                        <SelectTrigger><SelectValue /></SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="chase">Chase (Top Tier)</SelectItem>
+                          <SelectItem value="hit">Hit</SelectItem>
+                          <SelectItem value="base">Base</SelectItem>
+                          <SelectItem value="bonus">Bonus</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <Label>Est. Value</Label>
+                      <Input value={itemForm.estimatedValue} onChange={e => setItemForm(f => ({ ...f, estimatedValue: e.target.value }))} placeholder="$50-$100" />
+                    </div>
+                  </div>
+                </div>
+                <DialogFooter>
+                  <Button variant="outline" onClick={() => setShowAddDialog(false)}>Cancel</Button>
+                  <Button onClick={handleAddItem} disabled={!itemForm.cardName || createItem.isPending}>Add Card</Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+
+            <Dialog open={showBulkDialog} onOpenChange={setShowBulkDialog}>
+              <DialogTrigger asChild>
+                <Button size="sm" variant="outline"><ListChecks className="w-4 h-4 mr-1" /> Bulk Add</Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-lg">
+                <DialogHeader>
+                  <DialogTitle>Bulk Add Cards</DialogTitle>
+                  <DialogDescription>
+                    One card per line. Format: CardName | Set | Year | Number | Parallel | Value
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="space-y-3">
+                  <div>
+                    <Label>Tier for all cards</Label>
+                    <Select value={bulkTier} onValueChange={v => setBulkTier(v as any)}>
+                      <SelectTrigger><SelectValue /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="chase">Chase</SelectItem>
+                        <SelectItem value="hit">Hit</SelectItem>
+                        <SelectItem value="base">Base</SelectItem>
+                        <SelectItem value="bonus">Bonus</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <Textarea
+                    value={bulkText}
+                    onChange={e => setBulkText(e.target.value)}
+                    placeholder={`Spider-Man | 2024 Topps Chrome | 2024 | #1 | Gold /50 | $100-$200\nIron Man | 2024 Topps Chrome | 2024 | #2 | Base | $5-$10`}
+                    rows={10}
+                  />
+                  <p className="text-xs text-muted-foreground">{bulkText.trim().split('\n').filter(l => l.trim()).length} cards to add</p>
+                </div>
+                <DialogFooter>
+                  <Button variant="outline" onClick={() => setShowBulkDialog(false)}>Cancel</Button>
+                  <Button onClick={handleBulkAdd} disabled={!bulkText.trim() || bulkCreate.isPending}>
+                    {bulkCreate.isPending ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+                    Add All Cards
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          </div>
+        )}
+      </div>
+
+      {/* Checklist Display */}
+      {selectedProductId && checklistLoading && (
+        <div className="flex items-center justify-center py-12"><Loader2 className="w-6 h-6 animate-spin text-primary" /></div>
+      )}
+
+      {selectedProductId && !checklistLoading && checklist && (
+        <div className="space-y-6">
+          <div className="flex items-center gap-4 text-sm text-muted-foreground">
+            <span>{checklist.length} total cards</span>
+            <span>{checklist.filter(c => c.isPulled).length} pulled</span>
+            <span>{checklist.filter(c => !c.isPulled).length} remaining</span>
+          </div>
+
+          {tierOrder.map(tier => {
+            const items = grouped[tier];
+            if (!items || items.length === 0) return null;
+            return (
+              <div key={tier}>
+                <div className="flex items-center gap-2 mb-3">
+                  <Badge className={tierColors[tier]}>{tier.toUpperCase()}</Badge>
+                  <span className="text-sm text-muted-foreground">({items.length} cards)</span>
+                </div>
+                <div className="space-y-2">
+                  {items.map(item => (
+                    <div key={item.id} className={`flex items-center justify-between p-3 rounded-lg border ${item.isPulled ? 'bg-green-500/5 border-green-500/20' : 'bg-card border-border'}`}>
+                      <div className="flex items-center gap-3">
+                        {item.isPulled ? (
+                          <CheckCircle2 className="w-5 h-5 text-green-400 shrink-0" />
+                        ) : (
+                          <Circle className="w-5 h-5 text-muted-foreground shrink-0" />
+                        )}
+                        <div>
+                          <div className="font-medium">
+                            {item.cardName}
+                            {item.parallel && <span className="text-primary ml-2 text-sm">({item.parallel})</span>}
+                          </div>
+                          <div className="text-xs text-muted-foreground">
+                            {[item.cardSet, item.cardYear, item.cardNumber].filter(Boolean).join(' · ')}
+                            {item.estimatedValue && <span className="text-green-400 ml-2">{item.estimatedValue}</span>}
+                          </div>
+                        </div>
+                      </div>
+                      <Button variant="ghost" size="icon" className="text-red-400 hover:text-red-300 hover:bg-red-500/10 shrink-0" onClick={() => handleDeleteItem(item.id)}>
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {selectedProductId && !checklistLoading && checklist?.length === 0 && (
+        <Card>
+          <CardContent className="py-12 text-center">
+            <ListChecks className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+            <p className="text-muted-foreground">No cards in this checklist yet. Add cards individually or use bulk add!</p>
+          </CardContent>
+        </Card>
+      )}
+    </div>
+  );
+}
+
+// ==================== PULL LOGGER ====================
+
+function PullLogger() {
+  const { data: products } = trpc.admin.products.list.useQuery();
+  const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
+  const [selectedShowId, setSelectedShowId] = useState<number | null>(null);
+
+  const { data: checklist } = trpc.admin.checklist.getByProduct.useQuery(
+    { productId: selectedProductId! },
+    { enabled: !!selectedProductId }
+  );
+  const { data: productShows } = trpc.admin.shows.getByProduct.useQuery(
+    { productId: selectedProductId! },
+    { enabled: !!selectedProductId }
+  );
+  const { data: productPulls } = trpc.admin.pulls.getByProduct.useQuery(
+    { productId: selectedProductId! },
+    { enabled: !!selectedProductId }
+  );
+
+  const createPull = trpc.admin.pulls.create.useMutation();
+  const deletePull = trpc.admin.pulls.delete.useMutation();
+  const utils = trpc.useUtils();
+
+  const [pullForm, setPullForm] = useState({
+    packNumber: 1, pulledBy: "", notes: "",
+  });
+
+  const unpulledItems = useMemo(() => {
+    return checklist?.filter(item => !item.isPulled) || [];
+  }, [checklist]);
+
+  const handleLogPull = async (checklistItemId: number) => {
+    if (!selectedProductId) return;
+    try {
+      await createPull.mutateAsync({
+        checklistItemId,
+        productId: selectedProductId,
+        showId: selectedShowId || undefined,
+        packNumber: pullForm.packNumber || undefined,
+        pulledBy: pullForm.pulledBy || undefined,
+        notes: pullForm.notes || undefined,
+      });
+      toast.success("Pull logged!");
+      setPullForm(f => ({ ...f, packNumber: f.packNumber + 1, notes: "" }));
+      utils.admin.checklist.getByProduct.invalidate({ productId: selectedProductId });
+      utils.admin.pulls.getByProduct.invalidate({ productId: selectedProductId });
+    } catch (e: any) {
+      toast.error(e.message || "Failed to log pull");
+    }
+  };
+
+  const handleUndoPull = async (pullId: number) => {
+    if (!selectedProductId) return;
+    try {
+      await deletePull.mutateAsync({ id: pullId });
+      toast.success("Pull undone");
+      utils.admin.checklist.getByProduct.invalidate({ productId: selectedProductId });
+      utils.admin.pulls.getByProduct.invalidate({ productId: selectedProductId });
+    } catch (e: any) {
+      toast.error(e.message || "Failed to undo pull");
+    }
+  };
+
+  const tierColors: Record<string, string> = {
+    chase: "border-l-amber-400",
+    hit: "border-l-purple-400",
+    base: "border-l-blue-400",
+    bonus: "border-l-green-400",
+  };
+
+  return (
+    <div className="space-y-6">
+      <div>
+        <h2 className="text-2xl font-bold flex items-center gap-2">
+          <Zap className="w-6 h-6 text-primary" /> Pull Logger
+        </h2>
+        <p className="text-muted-foreground text-sm">Log pulls during live shows — quick and easy</p>
+      </div>
+
+      {/* Product & Show Selector */}
+      <div className="flex flex-wrap items-center gap-4">
+        <Select value={selectedProductId?.toString() || ""} onValueChange={v => { setSelectedProductId(parseInt(v)); setSelectedShowId(null); }}>
+          <SelectTrigger className="w-[250px]">
+            <SelectValue placeholder="Select product..." />
+          </SelectTrigger>
+          <SelectContent>
+            {products?.map(p => (
+              <SelectItem key={p.id} value={p.id.toString()}>{p.name}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        {selectedProductId && productShows && productShows.length > 0 && (
+          <Select value={selectedShowId?.toString() || "none"} onValueChange={v => setSelectedShowId(v === "none" ? null : parseInt(v))}>
+            <SelectTrigger className="w-[250px]">
+              <SelectValue placeholder="Select show (optional)..." />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="none">No show (website sale)</SelectItem>
+              {productShows.map(s => (
+                <SelectItem key={s.id} value={s.id.toString()}>{s.title}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        )}
+      </div>
+
+      {selectedProductId && (
+        <>
+          {/* Quick Entry Fields */}
+          <Card>
+            <CardContent className="py-4">
+              <div className="flex flex-wrap items-end gap-4">
+                <div>
+                  <Label className="text-xs">Pack #</Label>
+                  <Input type="number" className="w-24" value={pullForm.packNumber} onChange={e => setPullForm(f => ({ ...f, packNumber: parseInt(e.target.value) || 1 }))} />
+                </div>
+                <div>
+                  <Label className="text-xs">Pulled By</Label>
+                  <Input className="w-40" value={pullForm.pulledBy} onChange={e => setPullForm(f => ({ ...f, pulledBy: e.target.value }))} placeholder="Customer name" />
+                </div>
+                <div className="flex-1 min-w-[200px]">
+                  <Label className="text-xs">Notes</Label>
+                  <Input value={pullForm.notes} onChange={e => setPullForm(f => ({ ...f, notes: e.target.value }))} placeholder="Optional notes..." />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Available Cards to Pull */}
+          <div>
+            <h3 className="font-bold mb-3">Available Cards ({unpulledItems.length} remaining)</h3>
+            <div className="grid gap-2">
+              {unpulledItems.map(item => (
+                <div key={item.id} className={`flex items-center justify-between p-3 rounded-lg border border-l-4 ${tierColors[item.tier]} bg-card hover:bg-accent/50 transition-colors`}>
+                  <div>
+                    <div className="font-medium">
+                      {item.cardName}
+                      {item.parallel && <span className="text-primary ml-2 text-sm">({item.parallel})</span>}
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      {[item.cardSet, item.cardYear, item.cardNumber].filter(Boolean).join(' · ')}
+                      {item.estimatedValue && <span className="text-green-400 ml-2">{item.estimatedValue}</span>}
+                    </div>
+                  </div>
+                  <Button size="sm" onClick={() => handleLogPull(item.id)} disabled={createPull.isPending}>
+                    <Zap className="w-4 h-4 mr-1" /> Log Pull
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Recent Pulls */}
+          {productPulls && productPulls.length > 0 && (
+            <div>
+              <h3 className="font-bold mb-3">Recent Pulls ({productPulls.length})</h3>
+              <div className="space-y-2">
+                {productPulls.slice(0, 20).map(pull => (
+                  <div key={pull.id} className="flex items-center justify-between p-3 rounded-lg bg-green-500/5 border border-green-500/20">
+                    <div>
+                      <div className="text-sm">
+                        Pack #{pull.packNumber || '?'}
+                        {pull.pulledBy && <span className="text-muted-foreground"> — {pull.pulledBy}</span>}
+                      </div>
+                      <div className="text-xs text-muted-foreground">
+                        {new Date(pull.pulledAt).toLocaleString()}
+                        {pull.notes && <span className="ml-2">· {pull.notes}</span>}
+                      </div>
+                    </div>
+                    <Button variant="ghost" size="sm" className="text-red-400 hover:text-red-300" onClick={() => handleUndoPull(pull.id)}>
+                      Undo
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  );
+}
+
+// ==================== SHOW MANAGER ====================
+
+function ShowManager() {
+  const { data: products } = trpc.admin.products.list.useQuery();
+  const { data: allShows, isLoading } = trpc.admin.shows.list.useQuery();
+  const createShow = trpc.admin.shows.create.useMutation();
+  const updateShow = trpc.admin.shows.update.useMutation();
+  const deleteShow = trpc.admin.shows.delete.useMutation();
+  const utils = trpc.useUtils();
+
+  const [showCreateDialog, setShowCreateDialog] = useState(false);
+  const [form, setForm] = useState({
+    title: "", productId: 0, showDate: "", whatnotUrl: "",
+    startingPackNumber: 1, notes: "",
+  });
+
+  const handleCreate = async () => {
+    if (!form.productId || !form.title || !form.showDate) {
+      toast.error("Please fill in title, product, and date");
+      return;
+    }
+    try {
+      await createShow.mutateAsync({
+        title: form.title,
+        productId: form.productId,
+        showDate: new Date(form.showDate).getTime(),
+        whatnotUrl: form.whatnotUrl || undefined,
+        startingPackNumber: form.startingPackNumber || undefined,
+        notes: form.notes || undefined,
+      });
+      toast.success("Show scheduled!");
+      utils.admin.shows.list.invalidate();
+      setShowCreateDialog(false);
+      setForm({ title: "", productId: 0, showDate: "", whatnotUrl: "", startingPackNumber: 1, notes: "" });
+    } catch (e: any) {
+      toast.error(e.message || "Failed to create show");
+    }
+  };
+
+  const handleStatusChange = async (id: number, status: string) => {
+    try {
+      await updateShow.mutateAsync({ id, data: { status: status as any } });
+      toast.success("Show status updated");
+      utils.admin.shows.list.invalidate();
+    } catch (e: any) {
+      toast.error(e.message || "Failed to update");
+    }
+  };
+
+  const handleDelete = async (id: number) => {
+    if (!confirm("Delete this show?")) return;
+    try {
+      await deleteShow.mutateAsync({ id });
+      toast.success("Show deleted");
+      utils.admin.shows.list.invalidate();
+    } catch (e: any) {
+      toast.error(e.message || "Failed to delete");
+    }
+  };
+
+  const statusColors: Record<string, string> = {
+    scheduled: "bg-blue-500/10 text-blue-400 border-blue-500/30",
+    live: "bg-red-500/10 text-red-400 border-red-500/30",
+    completed: "bg-green-500/10 text-green-400 border-green-500/30",
+    cancelled: "bg-gray-500/10 text-gray-400 border-gray-500/30",
+  };
+
+  if (isLoading) return <div className="flex items-center justify-center py-12"><Loader2 className="w-6 h-6 animate-spin text-primary" /></div>;
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-bold flex items-center gap-2">
+            <Radio className="w-6 h-6 text-red-400" /> Whatnot Shows
+          </h2>
+          <p className="text-muted-foreground text-sm">Schedule and manage live stream shows</p>
+        </div>
+        <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
+          <DialogTrigger asChild>
+            <Button><Plus className="w-4 h-4 mr-2" /> Schedule Show</Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Schedule a Show</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div>
+                <Label>Title</Label>
+                <Input value={form.title} onChange={e => setForm(f => ({ ...f, title: e.target.value }))} placeholder="NLF Variant Vol. 1 - Show #1" />
+              </div>
+              <div>
+                <Label>Product</Label>
+                <Select value={form.productId?.toString() || ""} onValueChange={v => setForm(f => ({ ...f, productId: parseInt(v) }))}>
+                  <SelectTrigger><SelectValue placeholder="Select product..." /></SelectTrigger>
+                  <SelectContent>
+                    {products?.map(p => (
+                      <SelectItem key={p.id} value={p.id.toString()}>{p.name}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label>Date & Time</Label>
+                <Input type="datetime-local" value={form.showDate} onChange={e => setForm(f => ({ ...f, showDate: e.target.value }))} />
+              </div>
+              <div>
+                <Label>Whatnot URL</Label>
+                <Input value={form.whatnotUrl} onChange={e => setForm(f => ({ ...f, whatnotUrl: e.target.value }))} placeholder="https://whatnot.com/live/..." />
+              </div>
+              <div>
+                <Label>Starting Pack #</Label>
+                <Input type="number" value={form.startingPackNumber} onChange={e => setForm(f => ({ ...f, startingPackNumber: parseInt(e.target.value) || 1 }))} />
+              </div>
+              <div>
+                <Label>Notes</Label>
+                <Textarea value={form.notes} onChange={e => setForm(f => ({ ...f, notes: e.target.value }))} placeholder="Optional notes..." />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setShowCreateDialog(false)}>Cancel</Button>
+              <Button onClick={handleCreate} disabled={createShow.isPending}>Schedule Show</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      </div>
+
+      {(!allShows || allShows.length === 0) ? (
+        <Card>
+          <CardContent className="py-12 text-center">
+            <Radio className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+            <p className="text-muted-foreground">No shows scheduled yet. Create your first Whatnot show!</p>
+          </CardContent>
+        </Card>
+      ) : (
+        <div className="space-y-3">
+          {allShows.map(show => (
+            <Card key={show.id}>
+              <CardContent className="py-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-red-500/10 rounded-lg flex items-center justify-center">
+                      <Radio className="w-6 h-6 text-red-400" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-bold">{show.title}</h3>
+                        <Badge className={statusColors[show.status]}>{show.status}</Badge>
+                      </div>
+                      <p className="text-sm text-muted-foreground">
+                        {new Date(Number(show.showDate)).toLocaleString()} · {show.packsOpened} packs opened
+                        {show.whatnotUrl && (
+                          <a href={show.whatnotUrl} target="_blank" rel="noopener noreferrer" className="text-primary ml-2 inline-flex items-center gap-1">
+                            <ExternalLink className="w-3 h-3" /> Whatnot
+                          </a>
+                        )}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Select value={show.status} onValueChange={v => handleStatusChange(show.id, v)}>
+                      <SelectTrigger className="w-[130px] h-8 text-xs">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="scheduled">Scheduled</SelectItem>
+                        <SelectItem value="live">Live</SelectItem>
+                        <SelectItem value="completed">Completed</SelectItem>
+                        <SelectItem value="cancelled">Cancelled</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <Button variant="ghost" size="icon" className="text-red-400 hover:text-red-300 hover:bg-red-500/10" onClick={() => handleDelete(show.id)}>
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ==================== MAIN ADMIN DASHBOARD ====================
+
+export default function AdminDashboard() {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  if (!user || user.role !== 'admin') {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Card className="max-w-md w-full mx-4">
+          <CardContent className="py-12 text-center">
+            <div className="text-4xl mb-4">🔒</div>
+            <h2 className="text-xl font-bold mb-2">Admin Access Required</h2>
+            <p className="text-muted-foreground mb-6">You need to be logged in as an admin to access this page.</p>
+            <div className="flex gap-3 justify-center">
+              <Link href="/">
+                <Button variant="outline"><ArrowLeft className="w-4 h-4 mr-2" /> Back to Site</Button>
+              </Link>
+              <a href={getLoginUrl()}>
+                <Button>Log In</Button>
+              </a>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-background">
+      {/* Admin Header */}
+      <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
+        <div className="container flex items-center justify-between h-14">
+          <div className="flex items-center gap-3">
+            <Link href="/">
+              <Button variant="ghost" size="sm"><ArrowLeft className="w-4 h-4 mr-1" /> Site</Button>
+            </Link>
+            <Separator orientation="vertical" className="h-6" />
+            <h1 className="font-bold text-lg">NLF Admin</h1>
+          </div>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <span>{user.name || user.email}</span>
+            <Badge variant="outline" className="border-primary/50 text-primary">Admin</Badge>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <div className="container py-6">
+        <Tabs defaultValue="products" className="space-y-6">
+          <TabsList className="bg-card border border-border">
+            <TabsTrigger value="products" className="flex items-center gap-2">
+              <Package className="w-4 h-4" /> Products
+            </TabsTrigger>
+            <TabsTrigger value="checklists" className="flex items-center gap-2">
+              <ListChecks className="w-4 h-4" /> Checklists
+            </TabsTrigger>
+            <TabsTrigger value="pulls" className="flex items-center gap-2">
+              <Zap className="w-4 h-4" /> Pull Logger
+            </TabsTrigger>
+            <TabsTrigger value="shows" className="flex items-center gap-2">
+              <Radio className="w-4 h-4" /> Shows
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="products">
+            <ProductManager />
+          </TabsContent>
+          <TabsContent value="checklists">
+            <ChecklistEditor />
+          </TabsContent>
+          <TabsContent value="pulls">
+            <PullLogger />
+          </TabsContent>
+          <TabsContent value="shows">
+            <ShowManager />
+          </TabsContent>
+        </Tabs>
+      </div>
+    </div>
+  );
+}

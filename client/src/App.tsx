@@ -26,8 +26,11 @@ import MarvelChecklist from "./pages/MarvelChecklist";
 import StarWarsChecklist from "./pages/StarWarsChecklist";
 import EmailCapturePopup from "./components/EmailCapturePopup";
 import ComingSoon from "./pages/ComingSoon";
+import AdminDashboard from "./pages/AdminDashboard";
+import Checklists from "./pages/Checklists";
+import ChecklistDetail from "./pages/ChecklistDetail";
+import Whatnot from "./pages/Whatnot";
 import { useState, useEffect } from "react";
-
 
 // COMING SOON MODE: Set to true to show countdown page, false to show full site
 const COMING_SOON_MODE = true;
@@ -219,6 +222,7 @@ function AppRouter() {
   }
 
   // Normal site routing
+  // make sure to consider if you need authentication for certain routes
   return (
     <>
       {COMING_SOON_MODE && (
@@ -250,6 +254,10 @@ function AppRouter() {
           <Route path="/refund-policy" component={RefundPolicy} />
           <Route path="/marvel/:productId/checklist" component={MarvelChecklist} />
           <Route path="/starwars/:productId/checklist" component={StarWarsChecklist} />
+          <Route path="/checklists" component={Checklists} />
+          <Route path="/checklist/:slug" component={ChecklistDetail} />
+          <Route path="/whatnot" component={Whatnot} />
+          <Route path="/admin" component={AdminDashboard} />
           <Route path="/404" component={NotFound} />
           <Route component={NotFound} />
         </Switch>

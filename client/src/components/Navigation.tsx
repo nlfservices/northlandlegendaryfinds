@@ -17,11 +17,12 @@ export default function Navigation() {
 
   const navItems = [
     { path: "/shop", label: "Shop All" },
+    { path: "/checklists", label: "Checklists" },
+    { path: "/whatnot", label: "Whatnot" },
     { path: "/marvel", label: "Marvel" },
     { path: "/star-wars", label: "Star Wars" },
     { path: "/about", label: "About" },
     { path: "/faq", label: "FAQ" },
-    { path: "/contact", label: "Contact" },
   ];
 
   return (
