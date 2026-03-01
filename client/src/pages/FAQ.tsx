@@ -1,9 +1,14 @@
 /**
  * FAQ Page - Frequently asked questions about repacks and the store
+ * 
+ * Design: NLF Cosmic theme — black bg, green (#00FF41) accents, purple highlights
+ * Updated: Returns section now reflects strict all-sales-final policy
+ * Shipping section updated with zone-based pricing from Midwest HQ
  */
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { Link } from "wouter";
 
 const faqs = [
   {
@@ -29,6 +34,10 @@ const faqs = [
         q: "Why are repacks limited to 500 packs?",
         a: "We limit our production runs to maintain quality and exclusivity. With only 500 packs per product, we can ensure every single pack meets our high standards. Once a run sells out, it's gone forever.",
       },
+      {
+        q: "What sets are the cards pulled from?",
+        a: "Our repacks feature cards from premium Topps releases including Topps Chrome, Chrome Sapphire, Marvel Mint, Comic Book Heroes, and other high-end sets. The specific sets vary by product — check each product page for details on what's included.",
+      },
     ],
   },
   {
@@ -43,8 +52,12 @@ const faqs = [
         a: "Yes. All payments are processed through Shopify's PCI-compliant payment system. We never store your credit card information on our servers.",
       },
       {
-        q: "Can I cancel or modify my order?",
-        a: "Orders can be cancelled or modified within 1 hour of placement, provided they haven't been shipped yet. Contact us immediately at info@nlfservices.com if you need to make changes.",
+        q: "Can I cancel my order?",
+        a: "If you need to cancel, contact us immediately at info@nlfservices.com. We process orders quickly (same-day before 2 PM CST), so cancellation is not guaranteed. If a cancellation is granted before shipment, a 15% cancellation fee will apply. Orders that have already shipped cannot be cancelled.",
+      },
+      {
+        q: "Do you offer pre-orders?",
+        a: "Yes, some products may be available for pre-order before their official release. All pre-order sales are final. Pricing is set at the time of purchase and will not be adjusted for market fluctuations.",
       },
     ],
   },
@@ -53,11 +66,11 @@ const faqs = [
     questions: [
       {
         q: "How much does shipping cost?",
-        a: "We offer free shipping on orders over $199. For orders under $199, flat-rate shipping is $8.99 for standard delivery within the continental United States.",
+        a: "Shipping rates are zone-based from our Midwest facility. Zone 1 (Midwest) starts at just $5.99 with 1–2 day delivery. Zone 2 is $7.99 (2–3 days), Zone 3 is $9.99 (3–4 days), Zone 4 is $11.99 (4–5 days), and Zone 5 (Alaska/Hawaii) is $14.99 (5–10 days). FREE shipping on all orders over $199 within the contiguous US!",
       },
       {
-        q: "How long does shipping take?",
-        a: "Orders are processed and shipped within 24 hours of purchase. Standard shipping typically takes 3-5 business days. Expedited shipping options are available at checkout.",
+        q: "How fast will I receive my order?",
+        a: "We process and ship all in-stock orders placed before 2:00 PM CST the same business day. Midwest customers (Zone 1) can receive orders in as little as 1–2 business days. Even our furthest contiguous US customers (Zone 4) typically receive orders within 4–5 business days. Check our Shipping page for a full zone map.",
       },
       {
         q: "Do you ship internationally?",
@@ -65,7 +78,11 @@ const faqs = [
       },
       {
         q: "How are the cards packaged for shipping?",
-        a: "All orders are shipped in rigid mailers with bubble wrap protection. Cards are sealed in our custom NLF holographic mylar bags and placed in a protective top loader or card saver before being packed for shipping.",
+        a: "All orders are shipped in rigid mailers with bubble wrap protection. Cards are sealed in our custom NLF holographic mylar bags and placed in protective top loaders or card savers before being packed. Sealed hobby boxes are shipped in double-walled corrugated boxes for maximum protection.",
+      },
+      {
+        q: "Can I upgrade to faster shipping?",
+        a: "Yes! We offer USPS Priority Mail (2–3 days), UPS 2nd Day Air, and UPS Next Day Air as upgraded options at checkout. Rates are calculated based on weight and destination.",
       },
     ],
   },
@@ -73,16 +90,24 @@ const faqs = [
     category: "Returns & Refunds",
     questions: [
       {
-        q: "What is your return policy?",
-        a: "Due to the nature of trading card repacks, all sales are final once the pack has been opened. Unopened packs may be returned within 14 days of delivery for a full refund. The pack must be in its original sealed condition.",
+        q: "What is your return policy on repacks?",
+        a: "All repack sales are final — no returns, no exchanges, no exceptions. This applies to both opened and unopened repack products. Due to the nature of mystery/repack products, we cannot accept returns as the integrity of the product cannot be verified once it leaves our facility. This is standard industry practice across all major trading card retailers.",
+      },
+      {
+        q: "Can I return a sealed hobby box?",
+        a: "All sales are final. Under rare circumstances, returns of factory-sealed product may be considered on a case-by-case basis, subject to a 15% restocking fee. The product must be in its original, factory-sealed condition with no signs of tampering, returned within 7 days, and pre-approved by our team. Opened sealed products cannot be returned.",
       },
       {
         q: "What if my order arrives damaged?",
-        a: "If your order arrives damaged, please contact us within 48 hours of delivery with photos of the damage. We will either replace the item or issue a full refund at our discretion.",
+        a: "If your order arrives damaged, DO NOT open the items. Contact us within 48 hours of delivery at info@nlfservices.com with your order number, photos of the damage (both item and packaging), and a description of the issue. We will review your claim and respond within 24 hours. Opening damaged items may void our ability to provide a resolution.",
       },
       {
-        q: "How long do refunds take to process?",
-        a: "Refunds are processed within 3-5 business days of receiving the returned item. The refund will be credited to your original payment method.",
+        q: "What if I received the wrong item?",
+        a: "If we made an error with your order, contact us immediately at info@nlfservices.com with your order number and photos. We will correct the mistake at no cost to you. This is the only exception to our all-sales-final policy.",
+      },
+      {
+        q: "Why is the return policy so strict?",
+        a: "Trading card repacks and mystery products are unique — once a pack leaves our facility, we have no way to verify the contents haven't been altered. This policy protects both our customers and our business, and is the same standard used by every major trading card retailer in the industry including Blowout Cards, Giant Sports Cards, and Hit Parade.",
       },
     ],
   },
@@ -157,6 +182,27 @@ export default function FAQ() {
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Still have questions */}
+          <div className="mt-12 bg-muted/20 rounded-xl border border-border p-6 text-center">
+            <h3 className="font-bold text-lg mb-2">Still Have Questions?</h3>
+            <p className="text-sm text-muted-foreground mb-4 max-w-md mx-auto">
+              Can't find the answer you're looking for? Our team is happy to help.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <a
+                href="mailto:info@nlfservices.com"
+                className="inline-block bg-primary text-primary-foreground font-bold px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors"
+              >
+                Email Us
+              </a>
+              <Link href="/shipping">
+                <span className="inline-block border border-primary text-primary font-bold px-6 py-3 rounded-lg hover:bg-primary/10 transition-colors cursor-pointer">
+                  View Shipping Zones
+                </span>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
