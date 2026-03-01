@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import { useState, useMemo } from "react";
 import { Link } from "wouter";
+import CsvUploader from "@/components/CsvUploader";
 
 // ==================== PRODUCT MANAGEMENT ====================
 
@@ -268,6 +269,7 @@ function ChecklistEditor() {
   const bulkCreate = trpc.admin.checklist.bulkCreate.useMutation();
   const deleteItem = trpc.admin.checklist.delete.useMutation();
   const updateItem = trpc.admin.checklist.update.useMutation();
+  const csvImportChecklist = trpc.admin.checklist.csvImport.useMutation();
   const utils = trpc.useUtils();
 
   const [showAddDialog, setShowAddDialog] = useState(false);
@@ -545,9 +547,50 @@ function ChecklistEditor() {
         <Card>
           <CardContent className="py-12 text-center">
             <ListChecks className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-            <p className="text-muted-foreground">No cards in this checklist yet. Add cards individually or use bulk add!</p>
+            <p className="text-muted-foreground">No cards in this checklist yet. Add cards individually, use bulk add, or upload a CSV!</p>
           </CardContent>
         </Card>
+      )}
+
+      {/* CSV Upload Section */}
+      {selectedProductId && (
+        <Separator className="my-6" />
+      )}
+      {selectedProductId && (
+        <CsvUploader
+          title="CSV Checklist Import"
+          description="Upload a CSV file to bulk-add cards. Use tier values: Top Hits, Middle of Pack, Low Floor, or Bonus."
+          templateName="nlf-checklist-template"
+          columns={[
+            { key: "cardName", label: "Card Name", required: true },
+            { key: "cardSet", label: "Set" },
+            { key: "cardYear", label: "Year" },
+            { key: "cardNumber", label: "Card Number" },
+            { key: "parallel", label: "Parallel / Variant" },
+            { key: "tier", label: "Tier" },
+            { key: "estimatedValue", label: "Estimated Value" },
+          ]}
+          onImport={async (rows) => {
+            try {
+              const res = await csvImportChecklist.mutateAsync({
+                productId: selectedProductId,
+                rows: rows.map(r => ({
+                  cardName: r.cardName || "",
+                  cardSet: r.cardSet,
+                  cardYear: r.cardYear,
+                  cardNumber: r.cardNumber,
+                  parallel: r.parallel,
+                  tier: r.tier,
+                  estimatedValue: r.estimatedValue,
+                })),
+              });
+              utils.admin.checklist.getByProduct.invalidate({ productId: selectedProductId });
+              return { success: true, count: res.count };
+            } catch (e: any) {
+              return { success: false, errors: [e.message || "Import failed"] };
+            }
+          }}
+        />
       )}
     </div>
   );
@@ -575,6 +618,7 @@ function PullLogger() {
 
   const createPull = trpc.admin.pulls.create.useMutation();
   const deletePull = trpc.admin.pulls.delete.useMutation();
+  const csvImportPulls = trpc.admin.pulls.csvImport.useMutation();
   const utils = trpc.useUtils();
 
   const [pullForm, setPullForm] = useState({
@@ -732,6 +776,42 @@ function PullLogger() {
               </div>
             </div>
           )}
+          {/* CSV Pull Import */}
+          <Separator className="my-6" />
+          <CsvUploader
+            title="CSV Pull Import"
+            description="Upload a CSV of pulls to log them in bulk. Card names must match checklist items exactly."
+            templateName="nlf-pulls-template"
+            columns={[
+              { key: "cardName", label: "Card Name", required: true },
+              { key: "packNumber", label: "Pack Number" },
+              { key: "pulledBy", label: "Pulled By" },
+              { key: "notes", label: "Notes" },
+            ]}
+            onImport={async (rows) => {
+              try {
+                const res = await csvImportPulls.mutateAsync({
+                  productId: selectedProductId,
+                  showId: selectedShowId || undefined,
+                  rows: rows.map(r => ({
+                    cardName: r.cardName || "",
+                    packNumber: r.packNumber ? parseInt(r.packNumber) : undefined,
+                    pulledBy: r.pulledBy,
+                    notes: r.notes,
+                  })),
+                });
+                utils.admin.checklist.getByProduct.invalidate({ productId: selectedProductId });
+                utils.admin.pulls.getByProduct.invalidate({ productId: selectedProductId });
+                const errors: string[] = [];
+                if (res.unmatched > 0) {
+                  errors.push(`${res.unmatched} cards could not be matched: ${res.unmatchedCards.join(", ")}`);
+                }
+                return { success: true, count: res.matched, errors: errors.length > 0 ? errors : undefined };
+              } catch (e: any) {
+                return { success: false, errors: [e.message || "Import failed"] };
+              }
+            }}
+          />
         </>
       )}
     </div>

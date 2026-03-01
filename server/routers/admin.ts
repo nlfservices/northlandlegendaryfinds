@@ -5,7 +5,7 @@ import {
   getChecklistByProductId, createChecklistItem, createChecklistItems, updateChecklistItem, deleteChecklistItem, deleteChecklistByProductId,
   getPullsByProductId, createPull, deletePull, getRecentPulls, getPullsByShowId,
   getAllShows, getShowsByProductId, createShow, updateShow, deleteShow, getShowById,
-  getProductStats,
+  getProductStats, bulkCreatePulls, findChecklistItemByName,
 } from "../db";
 
 // ==================== ADMIN PRODUCT ROUTES ====================
@@ -148,6 +148,45 @@ const checklistRouter = router({
     await deleteChecklistByProductId(input.productId);
     return { success: true };
   }),
+
+  /** CSV bulk import - accepts parsed CSV rows */
+  csvImport: adminProcedure.input(z.object({
+    productId: z.number(),
+    rows: z.array(z.object({
+      cardName: z.string().min(1),
+      cardSet: z.string().optional(),
+      cardYear: z.string().optional(),
+      cardNumber: z.string().optional(),
+      parallel: z.string().optional(),
+      tier: z.string().optional(),
+      estimatedValue: z.string().optional(),
+    })),
+  })).mutation(async ({ input }) => {
+    const validTiers = ["chase", "hit", "base", "bonus"];
+    const items = input.rows.map((row, index) => {
+      // Map tier aliases: "top hits" -> chase, "middle of pack" -> hit, "low floor" -> base
+      let tier = (row.tier || "base").toLowerCase().trim();
+      if (tier === "top hits" || tier === "top" || tier === "top hit") tier = "chase";
+      if (tier === "middle" || tier === "middle of pack" || tier === "mid") tier = "hit";
+      if (tier === "low" || tier === "low floor" || tier === "floor") tier = "base";
+      if (!validTiers.includes(tier)) tier = "base";
+
+      return {
+        productId: input.productId,
+        cardName: row.cardName.trim(),
+        cardSet: row.cardSet?.trim() || null,
+        cardYear: row.cardYear?.trim() || null,
+        cardNumber: row.cardNumber?.trim() || null,
+        parallel: row.parallel?.trim() || null,
+        tier: tier as "chase" | "hit" | "base" | "bonus",
+        estimatedValue: row.estimatedValue?.trim() || null,
+        imageUrl: null,
+        sortOrder: index,
+      };
+    });
+    await createChecklistItems(items);
+    return { success: true, count: items.length };
+  }),
 });
 
 // ==================== ADMIN PULL ROUTES ====================
@@ -189,6 +228,45 @@ const pullRouter = router({
   delete: adminProcedure.input(z.object({ id: z.number() })).mutation(async ({ input }) => {
     await deletePull(input.id);
     return { success: true };
+  }),
+
+  /** CSV bulk import pulls - matches card names to checklist items */
+  csvImport: adminProcedure.input(z.object({
+    productId: z.number(),
+    showId: z.number().optional(),
+    rows: z.array(z.object({
+      cardName: z.string().min(1),
+      packNumber: z.number().optional(),
+      pulledBy: z.string().optional(),
+      notes: z.string().optional(),
+    })),
+  })).mutation(async ({ input }) => {
+    const results = { matched: 0, unmatched: 0, unmatchedCards: [] as string[] };
+    const pullsToCreate = [];
+
+    for (const row of input.rows) {
+      const item = await findChecklistItemByName(input.productId, row.cardName.trim());
+      if (item && !item.isPulled) {
+        pullsToCreate.push({
+          checklistItemId: item.id,
+          productId: input.productId,
+          showId: input.showId ?? null,
+          packNumber: row.packNumber ?? null,
+          pulledBy: row.pulledBy?.trim() ?? null,
+          notes: row.notes?.trim() ?? null,
+        });
+        results.matched++;
+      } else {
+        results.unmatched++;
+        results.unmatchedCards.push(row.cardName);
+      }
+    }
+
+    if (pullsToCreate.length > 0) {
+      await bulkCreatePulls(pullsToCreate);
+    }
+
+    return results;
   }),
 });
 

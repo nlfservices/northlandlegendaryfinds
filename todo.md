@@ -53,3 +53,9 @@
 
 ## Misc Updates
 - [x] Update Whatnot store URL to https://www.whatnot.com/user/northlandfinds
+- [x] Build dedicated 500-pack Marvel Whatnot checklist page with Top Hits / Middle of Pack / Low Floor tiers
+- [x] Add CSV bulk import API for checklist items (upload spreadsheet of cards)
+- [x] Add CSV bulk import API for pulls (upload spreadsheet of hits)
+- [x] Add CSV upload UI to admin dashboard for checklists and pulls
+- [x] Add CSV template download buttons
+- [x] Display pulled date prominently on checklist cards ("Pulled Mar 15, 2026")

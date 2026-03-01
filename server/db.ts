@@ -103,6 +103,17 @@ export async function getAllProducts() {
   return db.select().from(repackProducts).orderBy(asc(repackProducts.sortOrder));
 }
 
+export async function getWhatnotProducts() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(repackProducts)
+    .where(and(
+      eq(repackProducts.isWhatnotExclusive, true),
+      eq(repackProducts.status, "active")
+    ))
+    .orderBy(asc(repackProducts.sortOrder));
+}
+
 export async function getActiveProducts() {
   const db = await getDb();
   if (!db) return [];
@@ -305,6 +316,47 @@ export async function deleteShow(id: number) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
   await db.delete(shows).where(eq(shows.id, id));
+}
+
+// ==================== BULK PULL HELPERS ====================
+
+export async function bulkCreatePulls(pullsData: InsertPull[]) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  if (pullsData.length === 0) return { count: 0 };
+
+  let count = 0;
+  for (const pull of pullsData) {
+    await db.insert(pulls).values(pull);
+    // Mark the checklist item as pulled
+    await db.update(checklistItems)
+      .set({ isPulled: true })
+      .where(eq(checklistItems.id, pull.checklistItemId));
+    count++;
+  }
+
+  // Decrement packs remaining (unique pack numbers)
+  const uniquePacks = new Set(pullsData.map(p => p.packNumber).filter(Boolean));
+  if (uniquePacks.size > 0 && pullsData[0]?.productId) {
+    await db.update(repackProducts)
+      .set({ packsRemaining: sql`${repackProducts.packsRemaining} - ${uniquePacks.size}` })
+      .where(eq(repackProducts.id, pullsData[0].productId));
+  }
+
+  return { count };
+}
+
+/** Find checklist item by card name (fuzzy match) for CSV pull import */
+export async function findChecklistItemByName(productId: number, cardName: string) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const items = await db.select().from(checklistItems)
+    .where(and(
+      eq(checklistItems.productId, productId),
+      eq(checklistItems.cardName, cardName)
+    ))
+    .limit(1);
+  return items.length > 0 ? items[0] : undefined;
 }
 
 // ==================== STATS HELPERS ====================
