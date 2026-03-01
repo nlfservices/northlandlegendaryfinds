@@ -50,3 +50,6 @@
 - [ ] Verify Buy Now links work
 - [ ] Save checkpoint
 - [ ] Deliver to user
+
+## Misc Updates
+- [x] Update Whatnot store URL to https://www.whatnot.com/user/northlandfinds

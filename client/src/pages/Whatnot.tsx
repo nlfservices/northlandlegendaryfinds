@@ -13,7 +13,7 @@ import {
   Loader2, Clock, Users, TrendingUp, Eye, Star
 } from "lucide-react";
 
-const WHATNOT_STORE_URL = "https://www.whatnot.com/user/northlandlegendaryfinds";
+const WHATNOT_STORE_URL = "https://www.whatnot.com/user/northlandfinds";
 
 export default function Whatnot() {
   const { data: products, isLoading: productsLoading } = trpc.public.products.list.useQuery();
