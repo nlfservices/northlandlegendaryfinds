@@ -1,22 +1,33 @@
 /**
- * ProductDetail - Individual product page
- * Design: Large image left, details right, add to cart, features list
+ * ProductDetail - Individual product page with Stripe checkout
+ * Design: Large image left, details right, Buy Now with Stripe, features list
  */
 
 import { useParams, Link } from "wouter";
-import { ShoppingCart, ArrowLeft, Shield, Star, Package, Check, AlertCircle } from "lucide-react";
+import { CreditCard, ArrowLeft, Shield, Star, Package, Check, AlertCircle, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useCart } from "@/contexts/CartContext";
 import { getProductBySlug, products } from "@/lib/products";
 import ProductCard from "@/components/ProductCard";
 import { useState } from "react";
 import { toast } from "sonner";
+import { trpc } from "@/lib/trpc";
 
 export default function ProductDetail() {
   const { slug } = useParams<{ slug: string }>();
   const product = getProductBySlug(slug || "");
-  const { addItem } = useCart();
   const [quantity, setQuantity] = useState(1);
+
+  const createSession = trpc.checkout.createSession.useMutation({
+    onSuccess: (data) => {
+      if (data.url) {
+        toast.info("Redirecting to secure checkout...");
+        window.open(data.url, "_blank");
+      }
+    },
+    onError: (error) => {
+      toast.error(`Checkout failed: ${error.message}`);
+    },
+  });
 
   if (!product) {
     return (
@@ -34,11 +45,12 @@ export default function ProductDetail() {
     );
   }
 
-  const handleAddToCart = () => {
-    if (product.inStock) {
-      addItem(product, quantity);
-      toast.success(`${product.name} added to cart!`);
-    }
+  const handleBuyNow = () => {
+    if (!product.inStock) return;
+    createSession.mutate({
+      productSlug: product.slug,
+      quantity,
+    });
   };
 
   const relatedProducts = products
@@ -123,44 +135,57 @@ export default function ProductDetail() {
                 {product.description}
               </p>
 
-              {/* Add to Cart */}
+              {/* Buy Now with Stripe */}
               {product.inStock && (
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="flex items-center border border-border rounded-lg">
-                    <button
-                      onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                      className="px-4 py-3 text-lg font-bold hover:bg-muted transition-colors"
+                <div className="space-y-4 mb-8">
+                  <div className="flex items-center gap-4">
+                    <div className="flex items-center border border-border rounded-lg">
+                      <button
+                        onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                        className="px-4 py-3 text-lg font-bold hover:bg-muted transition-colors"
+                      >
+                        −
+                      </button>
+                      <span className="px-4 py-3 text-lg font-bold min-w-[3rem] text-center">
+                        {quantity}
+                      </span>
+                      <button
+                        onClick={() => setQuantity(Math.min(5, quantity + 1))}
+                        className="px-4 py-3 text-lg font-bold hover:bg-muted transition-colors"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <Button
+                      onClick={handleBuyNow}
+                      disabled={createSession.isPending}
+                      size="lg"
+                      className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-lg py-6"
                     >
-                      −
-                    </button>
-                    <span className="px-4 py-3 text-lg font-bold min-w-[3rem] text-center">
-                      {quantity}
-                    </span>
-                    <button
-                      onClick={() => setQuantity(Math.min(10, quantity + 1))}
-                      className="px-4 py-3 text-lg font-bold hover:bg-muted transition-colors"
-                    >
-                      +
-                    </button>
+                      {createSession.isPending ? (
+                        <>
+                          <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                          Processing...
+                        </>
+                      ) : (
+                        <>
+                          <CreditCard className="w-5 h-5 mr-2" />
+                          Buy Now — ${(product.price * quantity).toFixed(2)}
+                        </>
+                      )}
+                    </Button>
                   </div>
-                  <Button
-                    onClick={handleAddToCart}
-                    size="lg"
-                    className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-lg py-6"
-                  >
-                    <ShoppingCart className="w-5 h-5 mr-2" />
-                    Add to Cart — ${(product.price * quantity).toFixed(2)}
-                  </Button>
+                  <p className="text-xs text-muted-foreground text-center">
+                    Secure checkout powered by Stripe. Opens in a new tab.
+                  </p>
                 </div>
               )}
 
               {!product.inStock && (
                 <div className="mb-8">
-                  <Link href="/subscribe">
-                    <Button size="lg" className="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold text-lg py-6">
-                      Notify Me When Available
-                    </Button>
-                  </Link>
+                  <Button size="lg" className="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold text-lg py-6" onClick={() => toast.info("Notification feature coming soon!")}>
+                    Notify Me When Available
+                  </Button>
                 </div>
               )}
 

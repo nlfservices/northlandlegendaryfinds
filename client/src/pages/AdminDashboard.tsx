@@ -20,7 +20,8 @@ import { toast } from "sonner";
 import { getLoginUrl } from "@/const";
 import {
   Package, ListChecks, Zap, Radio, Plus, Trash2, Edit, Eye,
-  CheckCircle2, Circle, ArrowLeft, Loader2, Calendar, ExternalLink
+  CheckCircle2, Circle, ArrowLeft, Loader2, Calendar, ExternalLink,
+  ShoppingBag, Truck, CreditCard
 } from "lucide-react";
 import { useState, useMemo } from "react";
 import { Link } from "wouter";
@@ -1003,6 +1004,245 @@ function ShowManager() {
   );
 }
 
+// ==================== ORDER MANAGER ====================
+
+function OrderManager() {
+  const { data: allOrders, isLoading } = trpc.checkout.allOrders.useQuery();
+  const updateStatus = trpc.checkout.updateOrderStatus.useMutation();
+  const utils = trpc.useUtils();
+  const [expandedOrder, setExpandedOrder] = useState<number | null>(null);
+  const [trackingInput, setTrackingInput] = useState("");
+  const [notesInput, setNotesInput] = useState("");
+
+  const handleStatusChange = async (orderId: number, status: string) => {
+    try {
+      await updateStatus.mutateAsync({
+        orderId,
+        status: status as any,
+        trackingNumber: trackingInput || undefined,
+        notes: notesInput || undefined,
+      });
+      toast.success(`Order #${orderId} updated to ${status}`);
+      utils.checkout.allOrders.invalidate();
+    } catch (e: any) {
+      toast.error(e.message || "Failed to update order");
+    }
+  };
+
+  const handleShip = async (orderId: number) => {
+    if (!trackingInput.trim()) {
+      toast.error("Please enter a tracking number");
+      return;
+    }
+    try {
+      await updateStatus.mutateAsync({
+        orderId,
+        status: "shipped",
+        trackingNumber: trackingInput,
+        notes: notesInput || undefined,
+      });
+      toast.success(`Order #${orderId} marked as shipped!`);
+      utils.checkout.allOrders.invalidate();
+      setTrackingInput("");
+      setNotesInput("");
+      setExpandedOrder(null);
+    } catch (e: any) {
+      toast.error(e.message || "Failed to update order");
+    }
+  };
+
+  const statusColors: Record<string, string> = {
+    pending: "bg-yellow-500/10 text-yellow-400 border-yellow-500/30",
+    paid: "bg-blue-500/10 text-blue-400 border-blue-500/30",
+    shipped: "bg-purple-500/10 text-purple-400 border-purple-500/30",
+    delivered: "bg-green-500/10 text-green-400 border-green-500/30",
+    cancelled: "bg-gray-500/10 text-gray-400 border-gray-500/30",
+    refunded: "bg-red-500/10 text-red-400 border-red-500/30",
+  };
+
+  const statusIcons: Record<string, React.ReactNode> = {
+    pending: <CreditCard className="w-5 h-5 text-yellow-400" />,
+    paid: <CreditCard className="w-5 h-5 text-blue-400" />,
+    shipped: <Truck className="w-5 h-5 text-purple-400" />,
+    delivered: <CheckCircle2 className="w-5 h-5 text-green-400" />,
+    cancelled: <Circle className="w-5 h-5 text-gray-400" />,
+    refunded: <Circle className="w-5 h-5 text-red-400" />,
+  };
+
+  if (isLoading) return <div className="flex items-center justify-center py-12"><Loader2 className="w-6 h-6 animate-spin text-primary" /></div>;
+
+  // Stats
+  const totalOrders = allOrders?.length || 0;
+  const paidOrders = allOrders?.filter(o => ["paid", "shipped", "delivered"].includes(o.status)) || [];
+  const totalRevenue = paidOrders.reduce((sum, o) => sum + o.amountCents, 0);
+  const pendingShipment = allOrders?.filter(o => o.status === "paid").length || 0;
+
+  return (
+    <div className="space-y-6">
+      <div>
+        <h2 className="text-2xl font-bold flex items-center gap-2">
+          <ShoppingBag className="w-6 h-6 text-primary" /> Orders
+        </h2>
+        <p className="text-muted-foreground text-sm">Manage customer orders and fulfillment</p>
+      </div>
+
+      {/* Stats Cards */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <Card>
+          <CardContent className="py-4 text-center">
+            <div className="text-2xl font-bold text-primary">{totalOrders}</div>
+            <div className="text-xs text-muted-foreground">Total Orders</div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="py-4 text-center">
+            <div className="text-2xl font-bold text-green-400">${(totalRevenue / 100).toFixed(2)}</div>
+            <div className="text-xs text-muted-foreground">Revenue</div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="py-4 text-center">
+            <div className="text-2xl font-bold text-yellow-400">{pendingShipment}</div>
+            <div className="text-xs text-muted-foreground">Needs Shipping</div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="py-4 text-center">
+            <div className="text-2xl font-bold text-purple-400">{allOrders?.filter(o => o.status === "shipped").length || 0}</div>
+            <div className="text-xs text-muted-foreground">In Transit</div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Orders List */}
+      {(!allOrders || allOrders.length === 0) ? (
+        <Card>
+          <CardContent className="py-12 text-center">
+            <ShoppingBag className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+            <p className="text-muted-foreground">No orders yet. Orders will appear here when customers make purchases.</p>
+          </CardContent>
+        </Card>
+      ) : (
+        <div className="space-y-3">
+          {allOrders.map(order => (
+            <Card key={order.id} className={expandedOrder === order.id ? "border-primary/50" : ""}>
+              <CardContent className="py-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-muted">
+                      {statusIcons[order.status]}
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="font-bold">Order #{order.id}</span>
+                        <Badge className={statusColors[order.status]}>{order.status.toUpperCase()}</Badge>
+                      </div>
+                      <div className="text-sm text-muted-foreground">
+                        {order.customerName || order.customerEmail || "Guest"} · 
+                        ${(order.amountCents / 100).toFixed(2)} · 
+                        {order.quantity} pack{order.quantity > 1 ? "s" : ""} · 
+                        {new Date(order.createdAt).toLocaleDateString()}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {order.status === "paid" && (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="border-purple-500/30 text-purple-400 hover:bg-purple-500/10"
+                        onClick={() => {
+                          setExpandedOrder(expandedOrder === order.id ? null : order.id);
+                          setTrackingInput(order.trackingNumber || "");
+                          setNotesInput(order.notes || "");
+                        }}
+                      >
+                        <Truck className="w-4 h-4 mr-1" /> Ship
+                      </Button>
+                    )}
+                    <Select
+                      value={order.status}
+                      onValueChange={v => handleStatusChange(order.id, v)}
+                    >
+                      <SelectTrigger className="w-[130px] h-8 text-xs">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="pending">Pending</SelectItem>
+                        <SelectItem value="paid">Paid</SelectItem>
+                        <SelectItem value="shipped">Shipped</SelectItem>
+                        <SelectItem value="delivered">Delivered</SelectItem>
+                        <SelectItem value="cancelled">Cancelled</SelectItem>
+                        <SelectItem value="refunded">Refunded</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                {/* Expanded shipping form */}
+                {expandedOrder === order.id && (
+                  <div className="mt-4 pt-4 border-t border-border space-y-3">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <Label>Customer Email</Label>
+                        <p className="text-sm text-muted-foreground">{order.customerEmail || "N/A"}</p>
+                      </div>
+                      <div>
+                        <Label>Shipping Address</Label>
+                        <p className="text-sm text-muted-foreground">
+                          {order.shippingAddress ? (
+                            typeof order.shippingAddress === "object" ? (
+                              Object.values(order.shippingAddress as Record<string, string>).filter(Boolean).join(", ")
+                            ) : String(order.shippingAddress)
+                          ) : "N/A"}
+                        </p>
+                      </div>
+                    </div>
+                    <div>
+                      <Label>Tracking Number</Label>
+                      <Input
+                        value={trackingInput}
+                        onChange={e => setTrackingInput(e.target.value)}
+                        placeholder="Enter USPS/UPS/FedEx tracking number..."
+                      />
+                    </div>
+                    <div>
+                      <Label>Notes</Label>
+                      <Textarea
+                        value={notesInput}
+                        onChange={e => setNotesInput(e.target.value)}
+                        placeholder="Optional fulfillment notes..."
+                        rows={2}
+                      />
+                    </div>
+                    <div className="flex gap-2">
+                      <Button onClick={() => handleShip(order.id)} disabled={updateStatus.isPending}>
+                        <Truck className="w-4 h-4 mr-2" /> Mark as Shipped
+                      </Button>
+                      <Button variant="outline" onClick={() => setExpandedOrder(null)}>Cancel</Button>
+                    </div>
+                  </div>
+                )}
+
+                {/* Show tracking if already shipped */}
+                {order.trackingNumber && order.status !== "paid" && (
+                  <div className="mt-3 pt-3 border-t border-border">
+                    <div className="flex items-center gap-2 text-sm">
+                      <Truck className="w-4 h-4 text-purple-400" />
+                      <span className="text-muted-foreground">Tracking:</span>
+                      <span className="font-mono text-primary">{order.trackingNumber}</span>
+                    </div>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ==================== MAIN ADMIN DASHBOARD ====================
 
 export default function AdminDashboard() {
@@ -1073,6 +1313,9 @@ export default function AdminDashboard() {
             <TabsTrigger value="shows" className="flex items-center gap-2">
               <Radio className="w-4 h-4" /> Shows
             </TabsTrigger>
+            <TabsTrigger value="orders" className="flex items-center gap-2">
+              <ShoppingBag className="w-4 h-4" /> Orders
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="products">
@@ -1086,6 +1329,9 @@ export default function AdminDashboard() {
           </TabsContent>
           <TabsContent value="shows">
             <ShowManager />
+          </TabsContent>
+          <TabsContent value="orders">
+            <OrderManager />
           </TabsContent>
         </Tabs>
       </div>

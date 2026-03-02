@@ -4,6 +4,7 @@ import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { adminRouter } from "./routers/admin";
 import { publicRouter } from "./routers/public";
+import { checkoutRouter } from "./routers/checkout";
 
 export const appRouter = router({
   system: systemRouter,
@@ -23,6 +24,9 @@ export const appRouter = router({
 
   // Public routes (no auth required)
   public: publicRouter,
+
+  // Checkout routes (Stripe integration)
+  checkout: checkoutRouter,
 });
 
 export type AppRouter = typeof appRouter;

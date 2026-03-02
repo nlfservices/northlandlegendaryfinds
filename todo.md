@@ -59,3 +59,13 @@
 - [x] Add CSV upload UI to admin dashboard for checklists and pulls
 - [x] Add CSV template download buttons
 - [x] Display pulled date prominently on checklist cards ("Pulled Mar 15, 2026")
+
+## Stripe Integration (replacing Shopify)
+- [x] Add Stripe feature to project
+- [x] Configure Stripe API keys (auto-configured)
+- [x] Build orders database table
+- [x] Build Stripe checkout session API route
+- [x] Build Stripe webhook handler for payment confirmation
+- [x] Update product pages with Stripe checkout buttons
+- [x] Add order management to admin dashboard
+- [x] Write tests for Stripe integration

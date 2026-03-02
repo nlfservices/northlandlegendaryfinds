@@ -13,6 +13,8 @@ export const users = mysqlTable("users", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
   lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(),
+  /** Stripe customer ID for payment processing */
+  stripeCustomerId: varchar("stripeCustomerId", { length: 255 }),
 });
 
 export type User = typeof users.$inferSelect;
@@ -136,3 +138,46 @@ export const shows = mysqlTable("shows", {
 
 export type Show = typeof shows.$inferSelect;
 export type InsertShow = typeof shows.$inferInsert;
+
+/**
+ * Orders - tracks purchases made through Stripe checkout
+ * Following Stripe best practices: store only Stripe IDs + fulfillment data
+ */
+export const orders = mysqlTable("orders", {
+  id: int("id").autoincrement().primaryKey(),
+  /** User who placed the order (null for guest checkout) */
+  userId: int("userId"),
+  /** Stripe checkout session ID */
+  stripeSessionId: varchar("stripeSessionId", { length: 255 }).notNull().unique(),
+  /** Stripe payment intent ID */
+  stripePaymentIntentId: varchar("stripePaymentIntentId", { length: 255 }),
+  /** Which product was purchased */
+  productId: int("productId").notNull(),
+  /** Quantity purchased */
+  quantity: int("quantity").notNull().default(1),
+  /** Amount in cents (cached for quick display without Stripe API call) */
+  amountCents: int("amountCents").notNull(),
+  /** Currency code */
+  currency: varchar("currency", { length: 3 }).notNull().default("usd"),
+  /** Order status for fulfillment tracking */
+  status: mysqlEnum("status", ["pending", "paid", "shipped", "delivered", "cancelled", "refunded"]).notNull().default("pending"),
+  /** Customer email (for guest checkout or quick reference) */
+  customerEmail: varchar("customerEmail", { length: 320 }),
+  /** Customer name */
+  customerName: varchar("customerName", { length: 255 }),
+  /** Shipping address (JSON) */
+  shippingAddress: json("shippingAddress"),
+  /** Tracking number for shipment */
+  trackingNumber: varchar("trackingNumber", { length: 255 }),
+  /** Fulfillment notes */
+  notes: text("notes"),
+  /** When the payment was confirmed */
+  paidAt: timestamp("paidAt"),
+  /** When the order was shipped */
+  shippedAt: timestamp("shippedAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Order = typeof orders.$inferSelect;
+export type InsertOrder = typeof orders.$inferInsert;

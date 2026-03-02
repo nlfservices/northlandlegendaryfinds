@@ -31,6 +31,7 @@ import Checklists from "./pages/Checklists";
 import ChecklistDetail from "./pages/ChecklistDetail";
 import Whatnot from "./pages/Whatnot";
 import WhatnotChecklist from "./pages/WhatnotChecklist";
+import OrderSuccess from "./pages/OrderSuccess";
 import { useState, useEffect } from "react";
 
 // COMING SOON MODE: Set to true to show countdown page, false to show full site
@@ -259,6 +260,7 @@ function AppRouter() {
           <Route path="/checklist/:slug" component={ChecklistDetail} />
           <Route path="/whatnot" component={Whatnot} />
           <Route path="/whatnot/checklist/:slug" component={WhatnotChecklist} />
+          <Route path="/order-success" component={OrderSuccess} />
           <Route path="/admin" component={AdminDashboard} />
           <Route path="/404" component={NotFound} />
           <Route component={NotFound} />

@@ -1,14 +1,14 @@
 /**
  * ProductCard - Reusable product card for shop grids
- * Design: Dark card with hover glow, badge, price, add to cart
+ * Design: Dark card with hover glow, badge, price, Buy Now with Stripe
  */
 
-import { ShoppingCart, Eye } from "lucide-react";
+import { CreditCard, Eye, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useCart } from "@/contexts/CartContext";
 import { Link } from "wouter";
 import type { Product } from "@/lib/products";
 import { toast } from "sonner";
+import { trpc } from "@/lib/trpc";
 
 interface ProductCardProps {
   product: Product;
@@ -16,7 +16,17 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product, featured }: ProductCardProps) {
-  const { addItem } = useCart();
+  const createSession = trpc.checkout.createSession.useMutation({
+    onSuccess: (data) => {
+      if (data.url) {
+        toast.info("Redirecting to secure checkout...");
+        window.open(data.url, "_blank");
+      }
+    },
+    onError: (error) => {
+      toast.error(`Checkout failed: ${error.message}`);
+    },
+  });
 
   const badgeColors: Record<string, string> = {
     green: "bg-green-500 text-black",
@@ -26,12 +36,14 @@ export default function ProductCard({ product, featured }: ProductCardProps) {
     gold: "bg-amber-500 text-black",
   };
 
-  const handleAddToCart = (e: React.MouseEvent) => {
+  const handleBuyNow = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     if (product.inStock) {
-      addItem(product);
-      toast.success(`${product.name} added to cart!`);
+      createSession.mutate({
+        productSlug: product.slug,
+        quantity: 1,
+      });
     } else {
       toast.info("This product is coming soon! Sign up for notifications.");
     }
@@ -107,17 +119,23 @@ export default function ProductCard({ product, featured }: ProductCardProps) {
               )}
             </div>
             <Button
-              onClick={handleAddToCart}
+              onClick={handleBuyNow}
               size="sm"
+              disabled={!product.inStock || createSession.isPending}
               className={
                 product.inStock
                   ? "bg-primary hover:bg-primary/90 text-primary-foreground"
                   : "bg-muted text-muted-foreground cursor-not-allowed"
               }
-              disabled={!product.inStock}
             >
-              <ShoppingCart className="w-4 h-4 mr-1" />
-              {product.inStock ? "Add" : "Soon"}
+              {createSession.isPending ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                <>
+                  <CreditCard className="w-4 h-4 mr-1" />
+                  {product.inStock ? "Buy" : "Soon"}
+                </>
+              )}
             </Button>
           </div>
         </div>
