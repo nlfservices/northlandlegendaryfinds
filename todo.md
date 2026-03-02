@@ -69,3 +69,8 @@
 - [x] Update product pages with Stripe checkout buttons
 - [x] Add order management to admin dashboard
 - [x] Write tests for Stripe integration
+
+## Whatnot Checklist Population
+- [x] Create Whatnot-exclusive Marvel product in database
+- [x] Seed 500 checklist items (Top Hits / Middle of Pack / Low Floor)
+- [x] Verify Whatnot page displays the full checklist
