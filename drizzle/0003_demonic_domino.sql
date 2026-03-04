@@ -1,0 +1,41 @@
+CREATE TABLE `card_sets` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`name` varchar(255) NOT NULL,
+	`slug` varchar(255) NOT NULL,
+	`year` varchar(10),
+	`manufacturer` varchar(100),
+	`category` enum('marvel','starwars','sports','pokemon','other') NOT NULL DEFAULT 'marvel',
+	`totalBaseCards` int,
+	`imageUrl` text,
+	`notes` text,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	CONSTRAINT `card_sets_id` PRIMARY KEY(`id`),
+	CONSTRAINT `card_sets_slug_unique` UNIQUE(`slug`)
+);
+--> statement-breakpoint
+CREATE TABLE `inventory_cards` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`cardSetId` int NOT NULL,
+	`cardName` varchar(255) NOT NULL,
+	`cardNumber` varchar(50),
+	`parallel` varchar(150),
+	`serialNumber` varchar(20),
+	`condition` enum('raw','psa10','psa9','psa8','psa7','bgs10','bgs9.5','bgs9','sgc10','sgc9.5','sgc9','other') NOT NULL DEFAULT 'raw',
+	`gradingCompany` varchar(50),
+	`gradeValue` varchar(20),
+	`quantity` int NOT NULL DEFAULT 1,
+	`purchasePriceCents` int,
+	`estimatedValueCents` int,
+	`source` varchar(255),
+	`acquiredAt` timestamp,
+	`status` enum('in_stock','allocated','pulled','sold','traded','grading') NOT NULL DEFAULT 'in_stock',
+	`allocatedToProductId` int,
+	`checklistItemId` int,
+	`allocatedTier` enum('chase','hit','base','bonus'),
+	`imageUrl` text,
+	`notes` text,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	CONSTRAINT `inventory_cards_id` PRIMARY KEY(`id`)
+);

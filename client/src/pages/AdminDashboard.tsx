@@ -21,11 +21,13 @@ import { getLoginUrl } from "@/const";
 import {
   Package, ListChecks, Zap, Radio, Plus, Trash2, Edit, Eye,
   CheckCircle2, Circle, ArrowLeft, Loader2, Calendar, ExternalLink,
-  ShoppingBag, Truck, CreditCard
+  ShoppingBag, Truck, CreditCard, Boxes, Hammer
 } from "lucide-react";
 import { useState, useMemo } from "react";
 import { Link } from "wouter";
 import CsvUploader from "@/components/CsvUploader";
+import InventoryManager from "@/components/InventoryManager";
+import RepackBuilder from "@/components/RepackBuilder";
 
 // ==================== PRODUCT MANAGEMENT ====================
 
@@ -1316,6 +1318,12 @@ export default function AdminDashboard() {
             <TabsTrigger value="orders" className="flex items-center gap-2">
               <ShoppingBag className="w-4 h-4" /> Orders
             </TabsTrigger>
+            <TabsTrigger value="inventory" className="flex items-center gap-2">
+              <Boxes className="w-4 h-4" /> Inventory
+            </TabsTrigger>
+            <TabsTrigger value="repack-builder" className="flex items-center gap-2">
+              <Hammer className="w-4 h-4" /> Repack Builder
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="products">
@@ -1332,6 +1340,12 @@ export default function AdminDashboard() {
           </TabsContent>
           <TabsContent value="orders">
             <OrderManager />
+          </TabsContent>
+          <TabsContent value="inventory">
+            <InventoryManager />
+          </TabsContent>
+          <TabsContent value="repack-builder">
+            <RepackBuilder />
           </TabsContent>
         </Tabs>
       </div>

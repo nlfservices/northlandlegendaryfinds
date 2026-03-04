@@ -6,6 +6,8 @@ import {
   checklistItems, InsertChecklistItem, ChecklistItem,
   pulls, InsertPull, Pull,
   shows, InsertShow, Show,
+  cardSets, InsertCardSet, CardSet,
+  inventoryCards, InsertInventoryCard, InventoryCard,
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -242,6 +244,16 @@ export async function createPull(pull: InsertPull) {
     .set({ packsRemaining: sql`${repackProducts.packsRemaining} - 1` })
     .where(eq(repackProducts.id, pull.productId));
 
+  // Update inventory card status to 'pulled' if linked
+  const linkedCards = await db.select().from(inventoryCards)
+    .where(eq(inventoryCards.checklistItemId, pull.checklistItemId))
+    .limit(1);
+  if (linkedCards.length > 0) {
+    await db.update(inventoryCards)
+      .set({ status: "pulled" })
+      .where(eq(inventoryCards.id, linkedCards[0].id));
+  }
+
   return result;
 }
 
@@ -261,6 +273,16 @@ export async function deletePull(id: number) {
     await db.update(repackProducts)
       .set({ packsRemaining: sql`${repackProducts.packsRemaining} + 1` })
       .where(eq(repackProducts.id, pull.productId));
+
+    // Restore inventory card status to 'allocated' if linked
+    const linkedCards = await db.select().from(inventoryCards)
+      .where(eq(inventoryCards.checklistItemId, pull.checklistItemId))
+      .limit(1);
+    if (linkedCards.length > 0) {
+      await db.update(inventoryCards)
+        .set({ status: "allocated" })
+        .where(eq(inventoryCards.id, linkedCards[0].id));
+    }
   }
 
   await db.delete(pulls).where(eq(pulls.id, id));
@@ -357,6 +379,191 @@ export async function findChecklistItemByName(productId: number, cardName: strin
     ))
     .limit(1);
   return items.length > 0 ? items[0] : undefined;
+}
+
+// ==================== CARD SET HELPERS ====================
+
+export async function getAllCardSets() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(cardSets).orderBy(asc(cardSets.name));
+}
+
+export async function getCardSetById(id: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(cardSets).where(eq(cardSets.id, id)).limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+export async function createCardSet(set: InsertCardSet) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  return db.insert(cardSets).values(set);
+}
+
+export async function updateCardSet(id: number, data: Partial<InsertCardSet>) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  await db.update(cardSets).set(data).where(eq(cardSets.id, id));
+}
+
+export async function deleteCardSet(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  await db.delete(cardSets).where(eq(cardSets.id, id));
+}
+
+// ==================== INVENTORY HELPERS ====================
+
+export async function getAllInventoryCards(filters?: {
+  cardSetId?: number;
+  status?: string;
+  search?: string;
+  allocatedToProductId?: number;
+}) {
+  const db = await getDb();
+  if (!db) return [];
+
+  const conditions = [];
+  if (filters?.cardSetId) conditions.push(eq(inventoryCards.cardSetId, filters.cardSetId));
+  if (filters?.status) conditions.push(eq(inventoryCards.status, filters.status as any));
+  if (filters?.allocatedToProductId) conditions.push(eq(inventoryCards.allocatedToProductId, filters.allocatedToProductId));
+
+  if (conditions.length > 0) {
+    return db.select().from(inventoryCards)
+      .where(and(...conditions))
+      .orderBy(desc(inventoryCards.createdAt));
+  }
+  return db.select().from(inventoryCards).orderBy(desc(inventoryCards.createdAt));
+}
+
+export async function getInventoryCardById(id: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(inventoryCards).where(eq(inventoryCards.id, id)).limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+export async function createInventoryCard(card: InsertInventoryCard) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  return db.insert(inventoryCards).values(card);
+}
+
+export async function bulkCreateInventoryCards(cards: InsertInventoryCard[]) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  if (cards.length === 0) return { count: 0 };
+  // Insert in batches of 100 to avoid query size limits
+  let count = 0;
+  for (let i = 0; i < cards.length; i += 100) {
+    const batch = cards.slice(i, i + 100);
+    await db.insert(inventoryCards).values(batch);
+    count += batch.length;
+  }
+  return { count };
+}
+
+export async function updateInventoryCard(id: number, data: Partial<InsertInventoryCard>) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  await db.update(inventoryCards).set(data).where(eq(inventoryCards.id, id));
+}
+
+export async function deleteInventoryCard(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  await db.delete(inventoryCards).where(eq(inventoryCards.id, id));
+}
+
+/** Allocate inventory cards to a repack product and auto-create checklist items */
+export async function allocateCardsToRepack(cardIds: number[], productId: number, tier: "chase" | "hit" | "base" | "bonus") {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const results = [];
+  for (const cardId of cardIds) {
+    // Get the inventory card
+    const card = await getInventoryCardById(cardId);
+    if (!card) continue;
+    if (card.status !== "in_stock") continue;
+
+    // Get the card set for the set name
+    const set = await getCardSetById(card.cardSetId);
+
+    // Create a checklist item from this inventory card
+    const checklistResult = await db.insert(checklistItems).values({
+      productId,
+      cardName: card.cardName,
+      cardSet: set?.name ?? "Unknown Set",
+      cardYear: set?.year ?? "",
+      cardNumber: card.cardNumber ?? "",
+      parallel: card.parallel ?? "Base",
+      tier,
+      estimatedValue: card.estimatedValueCents ? `$${(card.estimatedValueCents / 100).toFixed(0)}` : undefined,
+      imageUrl: card.imageUrl,
+      sortOrder: 0,
+    });
+
+    // Get the inserted checklist item ID
+    const insertId = Number((checklistResult as any)[0]?.insertId);
+
+    // Update inventory card status to allocated
+    await db.update(inventoryCards).set({
+      status: "allocated",
+      allocatedToProductId: productId,
+      checklistItemId: insertId || undefined,
+      allocatedTier: tier,
+    }).where(eq(inventoryCards.id, cardId));
+
+    results.push({ cardId, checklistItemId: insertId });
+  }
+
+  return results;
+}
+
+/** Deallocate cards from a repack (remove from checklist, set back to in_stock) */
+export async function deallocateCardsFromRepack(cardIds: number[]) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  for (const cardId of cardIds) {
+    const card = await getInventoryCardById(cardId);
+    if (!card || card.status !== "allocated") continue;
+
+    // Remove the associated checklist item
+    if (card.checklistItemId) {
+      await db.delete(checklistItems).where(eq(checklistItems.id, card.checklistItemId));
+    }
+
+    // Set inventory card back to in_stock
+    await db.update(inventoryCards).set({
+      status: "in_stock",
+      allocatedToProductId: null,
+      checklistItemId: null,
+      allocatedTier: null,
+    }).where(eq(inventoryCards.id, cardId));
+  }
+}
+
+/** Get inventory stats */
+export async function getInventoryStats() {
+  const db = await getDb();
+  if (!db) return { totalCards: 0, inStock: 0, allocated: 0, pulled: 0, sold: 0, totalValue: 0, totalCost: 0 };
+
+  const allCards = await db.select().from(inventoryCards);
+  const stats = {
+    totalCards: allCards.length,
+    inStock: allCards.filter(c => c.status === "in_stock").length,
+    allocated: allCards.filter(c => c.status === "allocated").length,
+    pulled: allCards.filter(c => c.status === "pulled").length,
+    sold: allCards.filter(c => c.status === "sold").length,
+    grading: allCards.filter(c => c.status === "grading").length,
+    totalValue: allCards.reduce((sum, c) => sum + (c.estimatedValueCents ?? 0), 0),
+    totalCost: allCards.reduce((sum, c) => sum + (c.purchasePriceCents ?? 0), 0),
+  };
+  return stats;
 }
 
 // ==================== STATS HELPERS ====================

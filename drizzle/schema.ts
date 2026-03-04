@@ -181,3 +181,82 @@ export const orders = mysqlTable("orders", {
 
 export type Order = typeof orders.$inferSelect;
 export type InsertOrder = typeof orders.$inferInsert;
+
+/**
+ * Card Sets - master reference of all card sets (e.g., "2025 Topps Chrome", "2025 Marvel Sapphire")
+ */
+export const cardSets = mysqlTable("card_sets", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Set name (e.g., "2025 Topps Chrome") */
+  name: varchar("name", { length: 255 }).notNull(),
+  /** Short slug for URLs */
+  slug: varchar("slug", { length: 255 }).notNull().unique(),
+  /** Year of the set */
+  year: varchar("year", { length: 10 }),
+  /** Manufacturer (e.g., "Topps", "Panini") */
+  manufacturer: varchar("manufacturer", { length: 100 }),
+  /** Category */
+  category: mysqlEnum("category", ["marvel", "starwars", "sports", "pokemon", "other"]).notNull().default("marvel"),
+  /** Total base cards in the set */
+  totalBaseCards: int("totalBaseCards"),
+  /** Image URL for the set */
+  imageUrl: text("imageUrl"),
+  /** Notes about the set */
+  notes: text("notes"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type CardSet = typeof cardSets.$inferSelect;
+export type InsertCardSet = typeof cardSets.$inferInsert;
+
+/**
+ * Inventory Cards - master inventory of every card you own
+ * This is the single source of truth for what's in stock
+ */
+export const inventoryCards = mysqlTable("inventory_cards", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Which set this card belongs to */
+  cardSetId: int("cardSetId").notNull(),
+  /** Character/Player name */
+  cardName: varchar("cardName", { length: 255 }).notNull(),
+  /** Card number in the set */
+  cardNumber: varchar("cardNumber", { length: 50 }),
+  /** Parallel/Variant type (e.g., "Base", "Refractor", "Gold /50", "Superfractor 1/1") */
+  parallel: varchar("parallel", { length: 150 }),
+  /** Serial number if numbered (e.g., "25" for /25) */
+  serialNumber: varchar("serialNumber", { length: 20 }),
+  /** Card condition */
+  condition: mysqlEnum("condition", ["raw", "psa10", "psa9", "psa8", "psa7", "bgs10", "bgs9.5", "bgs9", "sgc10", "sgc9.5", "sgc9", "other"]).notNull().default("raw"),
+  /** Grading company if graded */
+  gradingCompany: varchar("gradingCompany", { length: 50 }),
+  /** Grade value if graded */
+  gradeValue: varchar("gradeValue", { length: 20 }),
+  /** Quantity in stock (for non-unique cards) */
+  quantity: int("quantity").notNull().default(1),
+  /** Purchase price in cents */
+  purchasePriceCents: int("purchasePriceCents"),
+  /** Estimated market value in cents */
+  estimatedValueCents: int("estimatedValueCents"),
+  /** Where the card was acquired */
+  source: varchar("source", { length: 255 }),
+  /** Date acquired */
+  acquiredAt: timestamp("acquiredAt"),
+  /** Inventory status */
+  status: mysqlEnum("status", ["in_stock", "allocated", "pulled", "sold", "traded", "grading"]).notNull().default("in_stock"),
+  /** Which repack product this card is allocated to (null = unallocated) */
+  allocatedToProductId: int("allocatedToProductId"),
+  /** Which checklist item this maps to when allocated */
+  checklistItemId: int("checklistItemId"),
+  /** Tier assignment when allocated to a repack */
+  allocatedTier: mysqlEnum("allocatedTier", ["chase", "hit", "base", "bonus"]),
+  /** Image URL of the card */
+  imageUrl: text("imageUrl"),
+  /** Additional notes */
+  notes: text("notes"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type InventoryCard = typeof inventoryCards.$inferSelect;
+export type InsertInventoryCard = typeof inventoryCards.$inferInsert;

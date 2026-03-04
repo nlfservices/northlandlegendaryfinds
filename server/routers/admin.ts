@@ -6,6 +6,10 @@ import {
   getPullsByProductId, createPull, deletePull, getRecentPulls, getPullsByShowId,
   getAllShows, getShowsByProductId, createShow, updateShow, deleteShow, getShowById,
   getProductStats, bulkCreatePulls, findChecklistItemByName,
+  getAllCardSets, getCardSetById, createCardSet, updateCardSet, deleteCardSet,
+  getAllInventoryCards, getInventoryCardById, createInventoryCard, bulkCreateInventoryCards,
+  updateInventoryCard, deleteInventoryCard, allocateCardsToRepack, deallocateCardsFromRepack,
+  getInventoryStats,
 } from "../db";
 
 // ==================== ADMIN PRODUCT ROUTES ====================
@@ -321,6 +325,180 @@ const showRouter = router({
   }),
 });
 
+// ==================== ADMIN CARD SET ROUTES ====================
+
+const cardSetInput = z.object({
+  name: z.string().min(1),
+  slug: z.string().min(1),
+  year: z.string().optional(),
+  manufacturer: z.string().optional(),
+  category: z.enum(["marvel", "starwars", "sports", "pokemon", "other"]).default("marvel"),
+  totalBaseCards: z.number().optional(),
+  imageUrl: z.string().optional(),
+  notes: z.string().optional(),
+});
+
+const cardSetRouter = router({
+  list: adminProcedure.query(async () => {
+    return getAllCardSets();
+  }),
+
+  getById: adminProcedure.input(z.object({ id: z.number() })).query(async ({ input }) => {
+    return getCardSetById(input.id);
+  }),
+
+  create: adminProcedure.input(cardSetInput).mutation(async ({ input }) => {
+    const data = {
+      ...input,
+      year: input.year ?? null,
+      manufacturer: input.manufacturer ?? null,
+      totalBaseCards: input.totalBaseCards ?? null,
+      imageUrl: input.imageUrl ?? null,
+      notes: input.notes ?? null,
+    };
+    await createCardSet(data);
+    return { success: true };
+  }),
+
+  update: adminProcedure.input(z.object({
+    id: z.number(),
+    data: cardSetInput.partial(),
+  })).mutation(async ({ input }) => {
+    await updateCardSet(input.id, input.data);
+    return { success: true };
+  }),
+
+  delete: adminProcedure.input(z.object({ id: z.number() })).mutation(async ({ input }) => {
+    await deleteCardSet(input.id);
+    return { success: true };
+  }),
+});
+
+// ==================== ADMIN INVENTORY ROUTES ====================
+
+const inventoryCardInput = z.object({
+  cardSetId: z.number(),
+  cardName: z.string().min(1),
+  cardNumber: z.string().optional(),
+  parallel: z.string().optional(),
+  serialNumber: z.string().optional(),
+  condition: z.enum(["raw", "psa10", "psa9", "psa8", "psa7", "bgs10", "bgs9.5", "bgs9", "sgc10", "sgc9.5", "sgc9", "other"]).default("raw"),
+  gradingCompany: z.string().optional(),
+  gradeValue: z.string().optional(),
+  quantity: z.number().default(1),
+  purchasePriceCents: z.number().optional(),
+  estimatedValueCents: z.number().optional(),
+  source: z.string().optional(),
+  imageUrl: z.string().optional(),
+  notes: z.string().optional(),
+});
+
+const inventoryRouter = router({
+  list: adminProcedure.input(z.object({
+    cardSetId: z.number().optional(),
+    status: z.string().optional(),
+    search: z.string().optional(),
+    allocatedToProductId: z.number().optional(),
+  }).optional()).query(async ({ input }) => {
+    return getAllInventoryCards(input ?? undefined);
+  }),
+
+  getById: adminProcedure.input(z.object({ id: z.number() })).query(async ({ input }) => {
+    return getInventoryCardById(input.id);
+  }),
+
+  stats: adminProcedure.query(async () => {
+    return getInventoryStats();
+  }),
+
+  create: adminProcedure.input(inventoryCardInput).mutation(async ({ input }) => {
+    const data = {
+      ...input,
+      cardNumber: input.cardNumber ?? null,
+      parallel: input.parallel ?? null,
+      serialNumber: input.serialNumber ?? null,
+      gradingCompany: input.gradingCompany ?? null,
+      gradeValue: input.gradeValue ?? null,
+      purchasePriceCents: input.purchasePriceCents ?? null,
+      estimatedValueCents: input.estimatedValueCents ?? null,
+      source: input.source ?? null,
+      imageUrl: input.imageUrl ?? null,
+      notes: input.notes ?? null,
+    };
+    await createInventoryCard(data);
+    return { success: true };
+  }),
+
+  /** CSV bulk import inventory cards */
+  csvImport: adminProcedure.input(z.object({
+    cardSetId: z.number(),
+    rows: z.array(z.object({
+      cardName: z.string().min(1),
+      cardNumber: z.string().optional(),
+      parallel: z.string().optional(),
+      serialNumber: z.string().optional(),
+      condition: z.string().optional(),
+      quantity: z.number().optional(),
+      purchasePrice: z.number().optional(),
+      estimatedValue: z.number().optional(),
+      source: z.string().optional(),
+      notes: z.string().optional(),
+    })),
+  })).mutation(async ({ input }) => {
+    const validConditions = ["raw", "psa10", "psa9", "psa8", "psa7", "bgs10", "bgs9.5", "bgs9", "sgc10", "sgc9.5", "sgc9", "other"];
+    const cards = input.rows.map(row => {
+      let condition = (row.condition || "raw").toLowerCase().trim();
+      if (!validConditions.includes(condition)) condition = "raw";
+      return {
+        cardSetId: input.cardSetId,
+        cardName: row.cardName.trim(),
+        cardNumber: row.cardNumber?.trim() || null,
+        parallel: row.parallel?.trim() || null,
+        serialNumber: row.serialNumber?.trim() || null,
+        condition: condition as any,
+        quantity: row.quantity ?? 1,
+        purchasePriceCents: row.purchasePrice ? Math.round(row.purchasePrice * 100) : null,
+        estimatedValueCents: row.estimatedValue ? Math.round(row.estimatedValue * 100) : null,
+        source: row.source?.trim() || null,
+        notes: row.notes?.trim() || null,
+      };
+    });
+    const result = await bulkCreateInventoryCards(cards);
+    return { success: true, count: result.count };
+  }),
+
+  update: adminProcedure.input(z.object({
+    id: z.number(),
+    data: inventoryCardInput.partial(),
+  })).mutation(async ({ input }) => {
+    await updateInventoryCard(input.id, input.data);
+    return { success: true };
+  }),
+
+  delete: adminProcedure.input(z.object({ id: z.number() })).mutation(async ({ input }) => {
+    await deleteInventoryCard(input.id);
+    return { success: true };
+  }),
+
+  /** Allocate cards from inventory to a repack product */
+  allocateToRepack: adminProcedure.input(z.object({
+    cardIds: z.array(z.number()),
+    productId: z.number(),
+    tier: z.enum(["chase", "hit", "base", "bonus"]),
+  })).mutation(async ({ input }) => {
+    const results = await allocateCardsToRepack(input.cardIds, input.productId, input.tier);
+    return { success: true, allocated: results.length };
+  }),
+
+  /** Deallocate cards from a repack (return to inventory) */
+  deallocateFromRepack: adminProcedure.input(z.object({
+    cardIds: z.array(z.number()),
+  })).mutation(async ({ input }) => {
+    await deallocateCardsFromRepack(input.cardIds);
+    return { success: true };
+  }),
+});
+
 // ==================== COMBINED ADMIN ROUTER ====================
 
 export const adminRouter = router({
@@ -328,4 +506,6 @@ export const adminRouter = router({
   checklist: checklistRouter,
   pulls: pullRouter,
   shows: showRouter,
+  cardSets: cardSetRouter,
+  inventory: inventoryRouter,
 });

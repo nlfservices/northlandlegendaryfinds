@@ -74,3 +74,15 @@
 - [x] Create Whatnot-exclusive Marvel product in database
 - [x] Seed 500 checklist items (Top Hits / Middle of Pack / Low Floor)
 - [x] Verify Whatnot page displays the full checklist
+
+## Inventory Management System
+- [x] Design inventory database schema (cardSets, inventoryCards tables)
+- [x] Create database migrations for inventory tables
+- [x] Build inventory CRUD API routes (add/edit/delete cards, bulk import)
+- [x] Build repack builder API routes (assign cards to repacks, auto-sync checklists)
+- [x] Build admin Inventory Manager UI with search, filter, CSV import/export
+- [x] Build admin Repack Builder UI (drag cards from inventory to repacks with tier assignment)
+- [x] Connect inventory to existing checklist system (auto-sync when cards assigned to repacks)
+- [x] Connect pull system to inventory (mark cards as pulled updates inventory)
+- [x] Add inventory dashboard stats (total cards, total value, cards allocated, cards pulled)
+- [x] Write tests for inventory API routes
