@@ -4,7 +4,8 @@
  */
 
 import { useAuth } from "@/_core/hooks/useAuth";
-import { ShoppingCart, Shield, Star, TrendingUp, Package, ArrowRight, Zap } from "lucide-react";
+import { ShoppingCart, Shield, Star, TrendingUp, Package, ArrowRight, Zap, Award } from "lucide-react";
+import CardGradeAnimation, { HULK_CARD_IMAGES } from "@/components/CardGradeAnimation";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { useCart } from "@/contexts/CartContext";
@@ -195,6 +196,75 @@ export default function Home() {
               <p className="text-sm text-muted-foreground">
                 Orders ship within 24 hours with secure packaging and full tracking.
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== CARD GRADING SHOWCASE ===== */}
+      <section className="py-16 lg:py-20 bg-gradient-to-b from-background via-card/30 to-background">
+        <div className="container">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left: Animation */}
+            <div className="flex justify-center">
+              <CardGradeAnimation
+                images={HULK_CARD_IMAGES}
+                cardName="Hulk"
+                setName="2025 Topps Marvel Mint"
+                grade="10"
+                gradeLabel="GEM MINT"
+                gradingCompany="CGC"
+                serialNumber="#109 · Black Refractor /10"
+                autoPlay={true}
+                autoPlayDelay={4000}
+              />
+            </div>
+
+            {/* Right: Text */}
+            <div className="text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-emerald-500/15 border border-emerald-500/30 rounded-full mb-6">
+                <Award className="w-4 h-4 text-emerald-400" />
+                <span className="text-emerald-400 text-sm font-bold tracking-wide">GRADING READY</span>
+              </div>
+
+              <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ fontFamily: "'Anton', sans-serif" }}>
+                FROM <span className="text-amber-400">RAW</span> TO{" "}
+                <span className="text-emerald-400">GRADED</span>
+              </h2>
+
+              <p className="text-lg text-muted-foreground mb-6 max-w-lg">
+                Our top hits are investment-grade cards worthy of professional grading. Watch the transformation from raw pull to CGC-certified gem — every card in our repacks has slab potential.
+              </p>
+
+              <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-amber-500/10 rounded-lg flex items-center justify-center">
+                    <Star className="w-4 h-4 text-amber-400" />
+                  </div>
+                  <span className="text-sm text-muted-foreground">Premium cards from Topps Chrome, Marvel Mint & more</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-emerald-500/10 rounded-lg flex items-center justify-center">
+                    <Shield className="w-4 h-4 text-emerald-400" />
+                  </div>
+                  <span className="text-sm text-muted-foreground">CGC, PSA & BGS grading-ready condition</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-purple-500/10 rounded-lg flex items-center justify-center">
+                    <TrendingUp className="w-4 h-4 text-purple-400" />
+                  </div>
+                  <span className="text-sm text-muted-foreground">Numbered parallels, autos & 1-of-1s in every series</span>
+                </div>
+              </div>
+
+              <div className="mt-8">
+                <Link href="/whatnot">
+                  <Button size="lg" className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-lg px-8 py-6">
+                    Explore 500-Pack Series
+                    <ArrowRight className="w-5 h-5 ml-2" />
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
         </div>

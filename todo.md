@@ -86,3 +86,8 @@
 - [x] Connect pull system to inventory (mark cards as pulled updates inventory)
 - [x] Add inventory dashboard stats (total cards, total value, cards allocated, cards pulled)
 - [x] Write tests for inventory API routes
+
+## Card Animation Feature
+- [x] Write AI video prompts for raw-to-graded card animation (for external software)
+- [x] Build interactive 3D card flip animation component for website (raw → graded)
+- [x] Integrate card animation into homepage
