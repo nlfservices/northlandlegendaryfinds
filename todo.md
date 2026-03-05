@@ -91,3 +91,11 @@
 - [x] Write AI video prompts for raw-to-graded card animation (for external software)
 - [x] Build interactive 3D card flip animation component for website (raw → graded)
 - [x] Integrate card animation into homepage
+
+## Card Slideshow Highlight (Redesign)
+- [x] Redesign card animation section into major homepage highlight
+- [x] Build slideshow/carousel component with 3D flip effect (raw → graded)
+- [x] Move section higher on homepage (right after stats bar)
+- [x] Generate custom NLF-branded cosmic card display background
+- [x] Test with Hulk card as first showcase card
+- [ ] Add more cards to slideshow (waiting for user photos)
