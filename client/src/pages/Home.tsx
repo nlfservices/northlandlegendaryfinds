@@ -84,7 +84,7 @@ export default function Home() {
               </h1>
 
               <p className="text-lg sm:text-xl text-gray-300 max-w-lg mb-8 leading-relaxed">
-                Premium <strong className="text-primary">Marvel</strong> &amp; <strong className="text-cyan-400">Star Wars</strong> trading card repacks with guaranteed hits in every pack. Limited to 500 packs each.
+                Premium <strong className="text-primary">Marvel</strong> trading card repacks with guaranteed hits in every pack. Limited to 500 packs. <strong className="text-cyan-400">Star Wars</strong> dropping June 2026.
               </p>
 
               <div className="flex flex-wrap gap-4">
@@ -156,14 +156,16 @@ export default function Home() {
               <span className="text-primary">LAUNCH</span> EXCLUSIVE REPACKS
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Hand-curated premium trading card repacks with guaranteed hits. Limited to 500 packs each — once they're gone, they're gone.
+              Our flagship Marvel trading card repack with guaranteed hits. Limited to 500 packs — once they're gone, they're gone.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {repackProducts.map((product) => (
-              <ProductCard key={product.id} product={product} featured />
-            ))}
+          <div className="flex justify-center">
+            <div className="w-full max-w-md">
+              {repackProducts.map((product) => (
+                <ProductCard key={product.id} product={product} featured />
+              ))}
+            </div>
           </div>
 
           <div className="text-center mt-10">

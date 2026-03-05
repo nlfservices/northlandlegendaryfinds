@@ -14,7 +14,7 @@ export default function About() {
             ABOUT US
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Your trusted source for premium Marvel and Star Wars trading card repacks
+            Your trusted source for premium Marvel trading card repacks — Star Wars collection coming June 2026
           </p>
         </div>
       </section>

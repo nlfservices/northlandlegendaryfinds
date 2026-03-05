@@ -101,9 +101,14 @@ export default function ProductCard({ product, featured }: ProductCardProps) {
             {product.name}
           </h3>
           
-          {product.isRepack && (
+          {product.isRepack && !product.isComingSoon && (
             <p className="text-xs text-primary/80 mb-3">
               Limited to {product.inventory} packs
+            </p>
+          )}
+          {product.isRepack && product.isComingSoon && (
+            <p className="text-xs text-cyan-400/80 mb-3">
+              Limited to 500 packs
             </p>
           )}
 

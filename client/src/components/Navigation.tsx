@@ -20,7 +20,7 @@ export default function Navigation() {
     { path: "/checklists", label: "Checklists" },
     { path: "/whatnot", label: "Whatnot" },
     { path: "/marvel", label: "Marvel" },
-    { path: "/star-wars", label: "Star Wars" },
+    { path: "/star-wars", label: "Star Wars (June)" },
     { path: "/about", label: "About" },
     { path: "/faq", label: "FAQ" },
   ];

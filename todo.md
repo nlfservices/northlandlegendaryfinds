@@ -99,3 +99,13 @@
 - [x] Generate custom NLF-branded cosmic card display background
 - [x] Test with Hulk card as first showcase card
 - [ ] Add more cards to slideshow (waiting for user photos)
+
+## Star Wars Repacks → Coming Soon (June 2026 / Mandalorian Movie)
+- [x] Move Star Wars "Shadows of the Force" repack from active products to Coming Soon
+- [x] Add June 2026 release date and Mandalorian movie tie-in messaging
+- [x] Keep only Marvel NLF Variant repack as purchasable for March 13 launch
+- [x] Update homepage featured repacks section (Marvel only)
+- [x] Update shop page to reflect Marvel-only availability
+- [x] Update Star Wars nav link / section to show Coming Soon status
+- [x] Update Footer, About, Subscribe, ComingSoon pages with Star Wars June 2026 messaging
+- [x] Test and save checkpoint

@@ -74,22 +74,22 @@ export const products: Product[] = [
     price: 100,
     image: CDN.nlfPack,
     images: [CDN.nlfPack],
-    description: "Shadows of the Force is our premium Star Wars trading card repack, featuring the most sought-after cards from across the galaxy. From classic trilogy heroes to modern era favorites, every pack delivers a curated selection of premium Topps Star Wars cards with guaranteed hits.",
+    description: "Shadows of the Force is our premium Star Wars trading card repack, featuring the most sought-after cards from across the galaxy. Launching June 2026 to coincide with The Mandalorian & Grogu theatrical release — every pack will deliver a curated selection of premium Topps Star Wars cards with guaranteed hits, including professionally graded slabs.",
     features: [
       "Hand-curated premium Star Wars trading cards",
       "Guaranteed hit in every pack (auto, relic, or numbered card)",
       "Cards from Topps Chrome Star Wars and other premium sets",
       "Limited to 500 packs — once they're gone, they're gone",
       "Sealed in custom NLF holographic mylar bag",
-      "From the original trilogy to the latest releases",
+      "Timed with The Mandalorian & Grogu movie release",
+      "Includes professionally graded slabs",
     ],
-    badge: "LAUNCH EXCLUSIVE",
+    badge: "COMING JUNE 2026",
     badgeColor: "cyan",
-    inStock: true,
-    inventory: 500,
+    inStock: false,
+    inventory: 0,
     isRepack: true,
-    isComingSoon: false,
-    shopifyUrl: `https://${SHOPIFY_STORE}/products/shadows-of-the-force`,
+    isComingSoon: true,
   },
 
   // ===== COMING SOON PRODUCTS =====
@@ -185,5 +185,9 @@ export function getComingSoonProducts(): Product[] {
 }
 
 export function getRepackProducts(): Product[] {
-  return products.filter((p) => p.isRepack);
+  return products.filter((p) => p.isRepack && !p.isComingSoon);
+}
+
+export function getComingSoonRepacks(): Product[] {
+  return products.filter((p) => p.isRepack && p.isComingSoon);
 }

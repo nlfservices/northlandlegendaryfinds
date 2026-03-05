@@ -137,7 +137,7 @@ export default function ComingSoon() {
 
         {/* Subtitle */}
         <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-12 sm:mb-16 font-oswald">
-          Marvel & Star Wars Trading Card Repacks
+          Marvel Trading Card Repacks — Star Wars Dropping June 2026
         </p>
 
         {/* Countdown Timer */}
@@ -216,7 +216,7 @@ export default function ComingSoon() {
         {/* Social Proof */}
         <div className="mt-12 sm:mt-16 pt-8 border-t border-purple-500/20">
           <p className="text-sm sm:text-base text-gray-400 font-oswald">
-            Premium Topps Chrome Marvel & Star Wars Cards
+            Premium Topps Chrome Marvel Cards • Star Wars Coming June 2026
           </p>
           <p className="text-xs sm:text-sm text-gray-500 mt-2">
             Professionally curated repacks • Transparent odds • Collector-focused
