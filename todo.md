@@ -239,3 +239,16 @@
 - [x] Prevent duplicate subscriptions for same email + product
 - [x] Add admin view to see collected emails (via admin.launchSubscribers.list)
 - [x] Write vitest tests for the subscribe endpoint
+
+## Spreadsheet-Style Checklist Management Sheet
+- [x] Review current checklist/card schema and admin routes
+- [x] Add image upload endpoint (S3) for card images
+- [x] Update bulkCreate to support imageUrl field
+- [x] Build spreadsheet-style checklist management page (admin)
+- [x] Tab 1: Add Cards — paste/type rows with card name, set, number, parallel, tier, value, image
+- [x] Tab 2: Mark Pulled — upload sheet with pulled cards, date, and stream info
+- [x] Tab 3: Remove Pulled — view pulled cards and bulk-unpull/remove them
+- [x] Support paste-from-spreadsheet (tab-separated) and CSV import
+- [x] Add image upload per card row (S3 storage)
+- [ ] Add image thumbnails in the checklist public view
+- [x] Write vitest tests for new/updated endpoints

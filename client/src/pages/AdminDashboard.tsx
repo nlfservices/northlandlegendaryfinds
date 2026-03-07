@@ -21,7 +21,7 @@ import { getLoginUrl } from "@/const";
 import {
   Package, ListChecks, Zap, Radio, Plus, Trash2, Edit, Eye,
   CheckCircle2, Circle, ArrowLeft, Loader2, Calendar, ExternalLink,
-  ShoppingBag, Truck, CreditCard, Boxes, Hammer, Download, BarChart3
+  ShoppingBag, Truck, CreditCard, Boxes, Hammer, Download, BarChart3, FileSpreadsheet
 } from "lucide-react";
 import { useState, useMemo } from "react";
 import { Link } from "wouter";
@@ -29,6 +29,7 @@ import CsvUploader from "@/components/CsvUploader";
 import InventoryManager from "@/components/InventoryManager";
 import RepackBuilder from "@/components/RepackBuilder";
 import EbayCompsPanel from "@/components/EbayCompsPanel";
+import ChecklistSheet from "@/components/ChecklistSheet";
 
 // ==================== PRODUCT MANAGEMENT ====================
 
@@ -255,6 +256,49 @@ function ProductManager() {
             </Card>
           ))}
         </div>
+      )}
+    </div>
+  );
+}
+
+// ==================== CHECKLIST SHEET WRAPPER ====================
+
+function ChecklistSheetWrapper() {
+  const { data: products, isLoading } = trpc.admin.products.list.useQuery();
+  const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
+
+  if (isLoading) return <div className="flex justify-center py-12"><Loader2 className="w-6 h-6 animate-spin text-primary" /></div>;
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-xl font-bold">Checklist Sheet</h2>
+          <p className="text-sm text-muted-foreground">Spreadsheet-style tool to add cards, mark pulled, and manage your checklist</p>
+        </div>
+        <Select
+          value={selectedProductId?.toString() || "none"}
+          onValueChange={v => setSelectedProductId(v === "none" ? null : parseInt(v))}
+        >
+          <SelectTrigger className="w-64"><SelectValue placeholder="Select a product..." /></SelectTrigger>
+          <SelectContent>
+            <SelectItem value="none">Select a product...</SelectItem>
+            {products?.map(p => (
+              <SelectItem key={p.id} value={p.id.toString()}>{p.name}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+
+      {selectedProductId ? (
+        <ChecklistSheet productId={selectedProductId} />
+      ) : (
+        <Card>
+          <CardContent className="py-12 text-center">
+            <FileSpreadsheet className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
+            <p className="text-muted-foreground">Select a product above to manage its checklist</p>
+          </CardContent>
+        </Card>
       )}
     </div>
   );
@@ -1391,6 +1435,9 @@ export default function AdminDashboard() {
             <TabsTrigger value="products" className="flex items-center gap-2">
               <Package className="w-4 h-4" /> Products
             </TabsTrigger>
+            <TabsTrigger value="checklist-sheet" className="flex items-center gap-2">
+              <FileSpreadsheet className="w-4 h-4" /> Checklist Sheet
+            </TabsTrigger>
             <TabsTrigger value="checklists" className="flex items-center gap-2">
               <ListChecks className="w-4 h-4" /> Checklists
             </TabsTrigger>
@@ -1416,6 +1463,9 @@ export default function AdminDashboard() {
 
           <TabsContent value="products">
             <ProductManager />
+          </TabsContent>
+          <TabsContent value="checklist-sheet">
+            <ChecklistSheetWrapper />
           </TabsContent>
           <TabsContent value="checklists">
             <ChecklistEditor />

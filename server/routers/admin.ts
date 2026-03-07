@@ -2,8 +2,8 @@ import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { adminProcedure, router } from "../_core/trpc";
 import { getDb } from "../db";
-import { launchSubscribers } from "../../drizzle/schema";
-import { eq, desc, sql } from "drizzle-orm";
+import { launchSubscribers, pulls } from "../../drizzle/schema";
+import { eq, desc, sql, and } from "drizzle-orm";
 import {
   getAllProducts, createProduct, updateProduct, deleteProduct, getProductById,
   getChecklistByProductId, createChecklistItem, createChecklistItems, updateChecklistItem, deleteChecklistItem, deleteChecklistByProductId,
@@ -249,6 +249,74 @@ const checklistRouter = router({
       notFound: notFoundNames.slice(0, 20), // Return first 20 not-found names
       totalNotFound: notFoundNames.length,
     };
+  }),
+
+  /** Bulk mark pulled with date + stream info — creates pull records */
+  bulkMarkPulled: adminProcedure.input(z.object({
+    productId: z.number(),
+    showId: z.number().optional(),
+    streamName: z.string().optional(),
+    pulledDate: z.number().optional(), // UTC timestamp ms
+    rows: z.array(z.object({
+      checklistItemId: z.number(),
+      packNumber: z.number().optional(),
+      pulledBy: z.string().optional(),
+      notes: z.string().optional(),
+    })),
+  })).mutation(async ({ input }) => {
+    const pullsData = input.rows.map(row => ({
+      checklistItemId: row.checklistItemId,
+      productId: input.productId,
+      showId: input.showId ?? null,
+      packNumber: row.packNumber ?? null,
+      pulledBy: row.pulledBy?.trim() ?? null,
+      notes: [row.notes, input.streamName ? `Stream: ${input.streamName}` : null].filter(Boolean).join(' | ') || null,
+      pulledAt: input.pulledDate ? new Date(input.pulledDate) : new Date(),
+    }));
+    const result = await bulkCreatePulls(pullsData);
+    return { success: true, count: result.count };
+  }),
+
+  /** Bulk unpull — removes pulled status and deletes pull records */
+  bulkUnpull: adminProcedure.input(z.object({
+    productId: z.number(),
+    checklistItemIds: z.array(z.number()),
+  })).mutation(async ({ input }) => {
+    const db = await getDb();
+    if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database not available" });
+
+    let unpulledCount = 0;
+    for (const itemId of input.checklistItemIds) {
+      // Remove pull records for this checklist item
+      await db.delete(pulls).where(
+        and(
+          eq(pulls.checklistItemId, itemId),
+          eq(pulls.productId, input.productId)
+        )
+      );
+      // Mark as not pulled
+      await updateChecklistItem(itemId, { isPulled: false });
+      unpulledCount++;
+    }
+    return { success: true, count: unpulledCount };
+  }),
+
+  /** Upload card image to S3 */
+  uploadImage: adminProcedure.input(z.object({
+    checklistItemId: z.number(),
+    imageData: z.string(), // base64 encoded image
+    contentType: z.string().default("image/jpeg"),
+    fileName: z.string().optional(),
+  })).mutation(async ({ input }) => {
+    const { storagePut } = await import("../storage");
+    const buffer = Buffer.from(input.imageData, "base64");
+    const ext = input.contentType === "image/png" ? "png" : input.contentType === "image/webp" ? "webp" : "jpg";
+    const randomSuffix = Math.random().toString(36).substring(2, 10);
+    const fileKey = `checklist-cards/${input.checklistItemId}-${randomSuffix}.${ext}`;
+    const { url } = await storagePut(fileKey, buffer, input.contentType);
+    // Update the checklist item with the image URL
+    await updateChecklistItem(input.checklistItemId, { imageUrl: url });
+    return { success: true, url };
   }),
 
   /** Export checklist as CSV-ready data */
