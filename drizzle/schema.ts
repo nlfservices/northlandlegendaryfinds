@@ -314,6 +314,10 @@ export const marvelCards = mysqlTable("marvel_cards", {
   rarity: varchar("rarity", { length: 100 }),
   /** Card image URL */
   imageUrl: text("imageUrl"),
+  /** Back image URL */
+  backImageUrl: text("back_image_url"),
+  /** Card description */
+  description: text("description"),
   /** Sort order for display */
   sortOrder: int("sortOrder").notNull().default(0),
   /** Source ID from the original site */

@@ -129,3 +129,22 @@
 - [x] Build Graded Inventory page showing NLF's graded collection
 - [x] Add grade color-coding (gold=10, silver=9.5, green=9, etc.)
 - [ ] Connect cards to repack products (show which cards could be in repacks)
+
+## Comic Book Heroes Base Set Images & Descriptions
+- [x] Scrape base set card images from comicbookcard.com (150 cards)
+- [ ] Write original descriptions for each base set card (not copied from other sites)
+- [x] Upload card images to CDN and update database with image URLs
+- [x] Update Card Database UI to show card images and descriptions
+- [ ] Test and save checkpoint
+- [x] Scrape base set card images from mintcomiccards.com (86 of 120 Marvel Mint cards)
+- [ ] Write original descriptions for each Marvel Mint base set card
+
+## Card Database SEO & Image Optimization
+- [x] Download and compress Comic Book Heroes card images (WebP, lazy load)
+- [x] Use generic character placeholders for sets without card images (Hulk comic art)
+- [ ] Write original descriptions for all 1,709 cards (not copied from other sites)
+- [x] Simple CSS-only card flip on click (front/back with rotate icon)
+- [x] SEO optimization (meta tags, semantic HTML, alt text on all images)
+- [x] Image optimization (WebP, ~14KB avg, lazy loading with IntersectionObserver)
+- [x] Update Card Database UI with images, descriptions, and card flip
+- [ ] Test SEO and page load performance

@@ -629,6 +629,8 @@ export async function searchMarvelCards(query: string, limit: number = 50): Prom
     parallels: marvelCards.parallels,
     rarity: marvelCards.rarity,
     imageUrl: marvelCards.imageUrl,
+    backImageUrl: marvelCards.backImageUrl,
+    description: marvelCards.description,
     sortOrder: marvelCards.sortOrder,
     sourceId: marvelCards.sourceId,
     createdAt: marvelCards.createdAt,

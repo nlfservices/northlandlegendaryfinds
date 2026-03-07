@@ -36,6 +36,13 @@
       "when": 1772858516198,
       "tag": "0004_old_silver_sable",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1772862893962,
+      "tag": "0005_sturdy_wilson_fisk",
+      "breakpoints": true
     }
   ]
 }
