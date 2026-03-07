@@ -380,3 +380,23 @@ export const gradedCards = mysqlTable("graded_cards", {
 
 export type GradedCard = typeof gradedCards.$inferSelect;
 export type InsertGradedCard = typeof gradedCards.$inferInsert;
+
+/**
+ * Launch Subscribers - collects emails for product launch notifications
+ * Users can subscribe to be notified when a product becomes available
+ */
+export const launchSubscribers = mysqlTable("launch_subscribers", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Email address */
+  email: varchar("email", { length: 320 }).notNull(),
+  /** Product slug (e.g., "nlf-variant") */
+  productSlug: varchar("productSlug", { length: 255 }).notNull(),
+  /** Optional: user ID if they were logged in */
+  userId: int("userId"),
+  /** Source of the subscription (product page, shop page, homepage, etc.) */
+  source: varchar("source", { length: 100 }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type LaunchSubscriber = typeof launchSubscribers.$inferSelect;
+export type InsertLaunchSubscriber = typeof launchSubscribers.$inferInsert;

@@ -2,6 +2,8 @@ import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { adminProcedure, router } from "../_core/trpc";
 import { getDb } from "../db";
+import { launchSubscribers } from "../../drizzle/schema";
+import { eq, desc, sql } from "drizzle-orm";
 import {
   getAllProducts, createProduct, updateProduct, deleteProduct, getProductById,
   getChecklistByProductId, createChecklistItem, createChecklistItems, updateChecklistItem, deleteChecklistItem, deleteChecklistByProductId,
@@ -574,8 +576,61 @@ const inventoryRouter = router({
   }),
 });
 
-// ==================== COMBINED ADMIN ROUTER ====================
+/// ==================== ADMIN LAUNCH SUBSCRIBER ROUTES ====================
 
+const launchSubscriberRouter = router({
+  /** Get all launch subscribers with optional product filter */
+  list: adminProcedure
+    .input(
+      z.object({
+        productSlug: z.string().optional(),
+      }).optional()
+    )
+    .query(async ({ input }) => {
+      const db = await getDb();
+      if (!db) return [];
+
+      if (input?.productSlug) {
+        return db
+          .select()
+          .from(launchSubscribers)
+          .where(eq(launchSubscribers.productSlug, input.productSlug))
+          .orderBy(desc(launchSubscribers.createdAt));
+      }
+
+      return db
+        .select()
+        .from(launchSubscribers)
+        .orderBy(desc(launchSubscribers.createdAt));
+    }),
+
+  /** Get subscriber count per product */
+  stats: adminProcedure.query(async () => {
+    const db = await getDb();
+    if (!db) return [];
+
+    return db
+      .select({
+        productSlug: launchSubscribers.productSlug,
+        count: sql<number>`count(*)`.as("count"),
+      })
+      .from(launchSubscribers)
+      .groupBy(launchSubscribers.productSlug);
+  }),
+
+  /** Delete a subscriber */
+  delete: adminProcedure
+    .input(z.object({ id: z.number() }))
+    .mutation(async ({ input }) => {
+      const db = await getDb();
+      if (!db) throw new Error("Database not available");
+
+      await db.delete(launchSubscribers).where(eq(launchSubscribers.id, input.id));
+      return { success: true };
+    }),
+});
+
+// ==================== COMBINED ADMIN ROUTER ====================
 export const adminRouter = router({
   products: productRouter,
   checklist: checklistRouter,
@@ -583,4 +638,5 @@ export const adminRouter = router({
   shows: showRouter,
   cardSets: cardSetRouter,
   inventory: inventoryRouter,
+  launchSubscribers: launchSubscriberRouter,
 });

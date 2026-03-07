@@ -1,11 +1,11 @@
 /**
  * ProductDetail - Individual product page with Stripe checkout
  * Design: Large image left, details right, Buy Now with Stripe, features list
- * Launch gating: Products with a launchDate show a countdown instead of Buy Now until launch
+ * Launch gating: Products with a launchDate show a countdown + Notify Me form until launch
  */
 
 import { useParams, Link } from "wouter";
-import { CreditCard, ArrowLeft, Shield, Star, Package, Check, AlertCircle, Loader2, Clock, Zap } from "lucide-react";
+import { CreditCard, ArrowLeft, Shield, Star, Package, Check, AlertCircle, Loader2, Clock, Zap, Bell, Mail, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getProductBySlug, products } from "@/lib/products";
 import ProductCard from "@/components/ProductCard";
@@ -13,8 +13,93 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { trpc } from "@/lib/trpc";
 import { useLaunchCountdown } from "@/hooks/useLaunchCountdown";
+import { useAuth } from "@/_core/hooks/useAuth";
 
-function LaunchCountdownBlock({ launchDateUtc }: { launchDateUtc: string }) {
+function NotifyMeForm({ productSlug }: { productSlug: string }) {
+  const { user } = useAuth();
+  const [email, setEmail] = useState(user?.email || "");
+  const [subscribed, setSubscribed] = useState(false);
+
+  const subscribe = trpc.public.launch.subscribe.useMutation({
+    onSuccess: (data) => {
+      setSubscribed(true);
+      if (data.alreadySubscribed) {
+        toast.success("You're already on the list! We'll notify you at launch.");
+      } else {
+        toast.success("You're in! We'll email you when this product drops.");
+      }
+    },
+    onError: (error) => {
+      toast.error(error.message || "Failed to subscribe. Please try again.");
+    },
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.trim()) {
+      toast.error("Please enter your email address.");
+      return;
+    }
+    subscribe.mutate({
+      email: email.trim(),
+      productSlug,
+      source: "product-page",
+    });
+  };
+
+  if (subscribed) {
+    return (
+      <div className="bg-primary/10 border border-primary/30 rounded-xl p-5 text-center">
+        <CheckCircle2 className="w-8 h-8 text-primary mx-auto mb-2" />
+        <p className="text-primary font-bold text-sm">You're on the list!</p>
+        <p className="text-xs text-muted-foreground mt-1">
+          We'll send a notification to <strong className="text-foreground">{email}</strong> when this product goes live.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="bg-card border border-border rounded-xl p-5">
+      <div className="flex items-center gap-2 mb-3">
+        <Bell className="w-4 h-4 text-primary" />
+        <span className="text-sm font-bold">Get Notified at Launch</span>
+      </div>
+      <p className="text-xs text-muted-foreground mb-3">
+        Enter your email and we'll let you know the moment this product is available.
+      </p>
+      <div className="flex gap-2">
+        <div className="relative flex-1">
+          <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="your@email.com"
+            required
+            className="w-full bg-background border border-border rounded-lg pl-10 pr-4 py-2.5 text-sm placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all"
+          />
+        </div>
+        <Button
+          type="submit"
+          disabled={subscribe.isPending}
+          className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-5 whitespace-nowrap"
+        >
+          {subscribe.isPending ? (
+            <Loader2 className="w-4 h-4 animate-spin" />
+          ) : (
+            <>
+              <Bell className="w-4 h-4 mr-1.5" />
+              Notify Me
+            </>
+          )}
+        </Button>
+      </div>
+    </form>
+  );
+}
+
+function LaunchCountdownBlock({ launchDateUtc, productSlug }: { launchDateUtc: string; productSlug: string }) {
   const { days, hours, minutes, seconds, isLaunched } = useLaunchCountdown(launchDateUtc);
 
   if (isLaunched) return null;
@@ -22,7 +107,7 @@ function LaunchCountdownBlock({ launchDateUtc }: { launchDateUtc: string }) {
   const pad = (n: number) => String(n).padStart(2, "0");
 
   return (
-    <div className="mb-8">
+    <div className="mb-8 space-y-4">
       {/* Countdown banner */}
       <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 border border-primary/30 rounded-xl p-6 text-center">
         <div className="flex items-center justify-center gap-2 mb-3">
@@ -60,16 +145,19 @@ function LaunchCountdownBlock({ launchDateUtc }: { launchDateUtc: string }) {
         </p>
       </div>
 
+      {/* Notify Me form */}
+      <NotifyMeForm productSlug={productSlug} />
+
       {/* Disabled Buy Now button */}
       <Button
         disabled
         size="lg"
-        className="w-full mt-4 bg-muted text-muted-foreground font-bold text-lg py-6 cursor-not-allowed"
+        className="w-full bg-muted text-muted-foreground font-bold text-lg py-6 cursor-not-allowed"
       >
         <Clock className="w-5 h-5 mr-2" />
         Available March 13th
       </Button>
-      <p className="text-xs text-muted-foreground text-center mt-2">
+      <p className="text-xs text-muted-foreground text-center">
         Checkout will be enabled when the countdown reaches zero.
       </p>
     </div>
@@ -211,9 +299,9 @@ export default function ProductDetail() {
                 {product.description}
               </p>
 
-              {/* Launch countdown (shown before launch date) */}
+              {/* Launch countdown + Notify Me (shown before launch date) */}
               {product.inStock && hasLaunchGate && product.launchDate && (
-                <LaunchCountdownBlock launchDateUtc={product.launchDate} />
+                <LaunchCountdownBlock launchDateUtc={product.launchDate} productSlug={product.slug} />
               )}
 
               {/* Buy Now with Stripe (shown after launch date) */}

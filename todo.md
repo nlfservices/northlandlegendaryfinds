@@ -229,3 +229,13 @@
 - [x] Ensure Buy Now button activates automatically on March 13th
 - [x] Server-side checkout enforcement (blocks API calls before launch date)
 - [x] Vitest test for launch date gating
+
+## Notify Me Email Collection for Product Launch
+- [x] Create launch_subscribers database table (email, product slug, timestamp)
+- [x] Add tRPC route to subscribe email for a product launch
+- [x] Add Notify Me button with email input on ProductDetail page (pre-launch)
+- [ ] Add Notify Me CTA on ProductCard for launch-gated products
+- [x] Show success confirmation after subscribing
+- [x] Prevent duplicate subscriptions for same email + product
+- [x] Add admin view to see collected emails (via admin.launchSubscribers.list)
+- [x] Write vitest tests for the subscribe endpoint

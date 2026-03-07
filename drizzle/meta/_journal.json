@@ -43,6 +43,13 @@
       "when": 1772862893962,
       "tag": "0005_sturdy_wilson_fisk",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1772909975371,
+      "tag": "0006_slim_shockwave",
+      "breakpoints": true
     }
   ]
 }

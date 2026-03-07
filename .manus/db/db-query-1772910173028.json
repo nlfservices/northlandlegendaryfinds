@@ -1,0 +1,18 @@
+{
+  "query": "SELECT * FROM launch_subscribers ORDER BY createdAt DESC LIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT * FROM launch_subscribers ORDER BY createdAt DESC LIMIT 5;",
+  "rows": [
+    {
+      "id": "1",
+      "email": "test@example.com",
+      "productSlug": "nlf-variant",
+      "userId": "1",
+      "source": "product-page",
+      "createdAt": "2026-03-07 19:02:41"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\temail\tproductSlug\tuserId\tsource\tcreatedAt\n1\ttest@example.com\tnlf-variant\t1\tproduct-page\t2026-03-07 19:02:41\n",
+  "stderr": "",
+  "execution_time_ms": 421
+}

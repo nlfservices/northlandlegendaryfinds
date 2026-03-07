@@ -9,6 +9,9 @@ import {
   getAllMarvelSets, getMarvelSetBySlug, getMarvelCardsBySetId, searchMarvelCards,
   getAllGradedCards, getGradedCardStats, getGradedCardGradeDistribution, getGradedCardSets,
 } from "../db";
+import { launchSubscribers } from "../../drizzle/schema";
+import { getDb } from "../db";
+import { eq, and } from "drizzle-orm";
 
 // ==================== PUBLIC PRODUCT ROUTES ====================
 
@@ -145,6 +148,75 @@ const publicGradedRouter = router({
   }),
 });
 
+// ==================== PUBLIC LAUNCH SUBSCRIBER ROUTES ====================
+
+const publicLaunchRouter = router({
+  /** Subscribe an email for product launch notification */
+  subscribe: publicProcedure
+    .input(
+      z.object({
+        email: z.string().email("Please enter a valid email address"),
+        productSlug: z.string().min(1),
+        source: z.string().optional(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const db = await getDb();
+      if (!db) throw new Error("Database not available");
+
+      // Check for duplicate subscription
+      const existing = await db
+        .select({ id: launchSubscribers.id })
+        .from(launchSubscribers)
+        .where(
+          and(
+            eq(launchSubscribers.email, input.email.toLowerCase().trim()),
+            eq(launchSubscribers.productSlug, input.productSlug)
+          )
+        )
+        .limit(1);
+
+      if (existing.length > 0) {
+        return { success: true, alreadySubscribed: true };
+      }
+
+      await db.insert(launchSubscribers).values({
+        email: input.email.toLowerCase().trim(),
+        productSlug: input.productSlug,
+        userId: ctx.user?.id ?? null,
+        source: input.source ?? "product-page",
+      });
+
+      return { success: true, alreadySubscribed: false };
+    }),
+
+  /** Check if an email is already subscribed for a product */
+  checkSubscription: publicProcedure
+    .input(
+      z.object({
+        email: z.string().email(),
+        productSlug: z.string(),
+      })
+    )
+    .query(async ({ input }) => {
+      const db = await getDb();
+      if (!db) return { subscribed: false };
+
+      const existing = await db
+        .select({ id: launchSubscribers.id })
+        .from(launchSubscribers)
+        .where(
+          and(
+            eq(launchSubscribers.email, input.email.toLowerCase().trim()),
+            eq(launchSubscribers.productSlug, input.productSlug)
+          )
+        )
+        .limit(1);
+
+      return { subscribed: existing.length > 0 };
+    }),
+});
+
 // ==================== COMBINED PUBLIC ROUTER ====================
 
 export const publicRouter = router({
@@ -154,4 +226,5 @@ export const publicRouter = router({
   shows: publicShowRouter,
   marvel: publicMarvelRouter,
   graded: publicGradedRouter,
+  launch: publicLaunchRouter,
 });
