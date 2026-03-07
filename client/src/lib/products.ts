@@ -23,6 +23,8 @@ export interface Product {
   isRepack: boolean;
   isComingSoon: boolean;
   shopifyUrl?: string;
+  /** UTC ISO string — product cannot be purchased before this date */
+  launchDate?: string;
 }
 
 // CDN URLs
@@ -64,6 +66,8 @@ export const products: Product[] = [
     isRepack: true,
     isComingSoon: false,
     shopifyUrl: `https://${SHOPIFY_STORE}/products/nlf-variant`,
+    // Available March 13, 2026 at 7:00 PM Central (CDT = UTC-5)
+    launchDate: "2026-03-14T00:00:00Z",
   },
   {
     id: "shadows-of-the-force",

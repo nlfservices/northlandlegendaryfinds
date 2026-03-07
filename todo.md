@@ -222,3 +222,10 @@
 ## Shipping Page Map Improvement
 - [x] Replace CSS-based US map with proper SVG map using accurate state boundaries
 - [x] Keep same green/teal/purple shipping zone color scheme
+
+## Product Launch Date Gating
+- [x] Make NLF Variant product page unavailable for purchase until Friday March 13th, 2026
+- [x] Show countdown or "Available March 13th" message instead of Buy Now button before launch
+- [x] Ensure Buy Now button activates automatically on March 13th
+- [x] Server-side checkout enforcement (blocks API calls before launch date)
+- [x] Vitest test for launch date gating

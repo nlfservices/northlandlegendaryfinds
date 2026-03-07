@@ -4,6 +4,7 @@ import { publicProcedure, protectedProcedure, adminProcedure, router } from "../
 import { getDb } from "../db";
 import { orders, repackProducts, users } from "../../drizzle/schema";
 import { eq, desc, and } from "drizzle-orm";
+import { LAUNCH_DATE_UTC, LAUNCH_NOT_YET_MSG } from "../../shared/const";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
   apiVersion: "2025-02-24.acacia" as any,
@@ -36,6 +37,15 @@ export const checkoutRouter = router({
       const productInfo = PRODUCT_PRICES[input.productSlug];
       if (!productInfo) {
         throw new Error(`Product not found: ${input.productSlug}`);
+      }
+
+      // Enforce launch date: NLF Variant cannot be purchased before March 13, 2026 7pm CT
+      if (input.productSlug === 'nlf-variant') {
+        const now = new Date();
+        const launchDate = new Date(LAUNCH_DATE_UTC);
+        if (now < launchDate) {
+          throw new Error(LAUNCH_NOT_YET_MSG);
+        }
       }
 
       const origin = ctx.req.headers.origin || ctx.req.headers.referer?.replace(/\/$/, "") || "https://northlandlegendaryfinds.com";

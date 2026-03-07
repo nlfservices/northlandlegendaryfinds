@@ -1,21 +1,90 @@
 /**
  * ProductDetail - Individual product page with Stripe checkout
  * Design: Large image left, details right, Buy Now with Stripe, features list
+ * Launch gating: Products with a launchDate show a countdown instead of Buy Now until launch
  */
 
 import { useParams, Link } from "wouter";
-import { CreditCard, ArrowLeft, Shield, Star, Package, Check, AlertCircle, Loader2 } from "lucide-react";
+import { CreditCard, ArrowLeft, Shield, Star, Package, Check, AlertCircle, Loader2, Clock, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getProductBySlug, products } from "@/lib/products";
 import ProductCard from "@/components/ProductCard";
 import { useState } from "react";
 import { toast } from "sonner";
 import { trpc } from "@/lib/trpc";
+import { useLaunchCountdown } from "@/hooks/useLaunchCountdown";
+
+function LaunchCountdownBlock({ launchDateUtc }: { launchDateUtc: string }) {
+  const { days, hours, minutes, seconds, isLaunched } = useLaunchCountdown(launchDateUtc);
+
+  if (isLaunched) return null;
+
+  const pad = (n: number) => String(n).padStart(2, "0");
+
+  return (
+    <div className="mb-8">
+      {/* Countdown banner */}
+      <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 border border-primary/30 rounded-xl p-6 text-center">
+        <div className="flex items-center justify-center gap-2 mb-3">
+          <Clock className="w-5 h-5 text-primary" />
+          <span className="text-primary font-bold text-sm uppercase tracking-wider">
+            Available March 13th at 7:00 PM CT
+          </span>
+        </div>
+
+        {/* Countdown digits */}
+        <div className="flex items-center justify-center gap-3 mb-4">
+          {[
+            { value: days, label: "DAYS" },
+            { value: hours, label: "HRS" },
+            { value: minutes, label: "MIN" },
+            { value: seconds, label: "SEC" },
+          ].map((unit, i) => (
+            <div key={unit.label} className="flex items-center gap-3">
+              <div className="bg-background/80 border border-primary/20 rounded-lg px-3 py-2 min-w-[60px]">
+                <div
+                  className="text-2xl md:text-3xl font-bold text-primary tabular-nums"
+                  style={{ fontFamily: "'Anton', sans-serif" }}
+                >
+                  {pad(unit.value)}
+                </div>
+                <div className="text-[10px] text-muted-foreground tracking-wider">{unit.label}</div>
+              </div>
+              {i < 3 && <span className="text-primary/50 text-2xl font-bold">:</span>}
+            </div>
+          ))}
+        </div>
+
+        <p className="text-sm text-muted-foreground">
+          This product drops <strong className="text-foreground">Friday, March 13th, 2026</strong> at 7:00 PM Central Time.
+        </p>
+      </div>
+
+      {/* Disabled Buy Now button */}
+      <Button
+        disabled
+        size="lg"
+        className="w-full mt-4 bg-muted text-muted-foreground font-bold text-lg py-6 cursor-not-allowed"
+      >
+        <Clock className="w-5 h-5 mr-2" />
+        Available March 13th
+      </Button>
+      <p className="text-xs text-muted-foreground text-center mt-2">
+        Checkout will be enabled when the countdown reaches zero.
+      </p>
+    </div>
+  );
+}
 
 export default function ProductDetail() {
   const { slug } = useParams<{ slug: string }>();
   const product = getProductBySlug(slug || "");
   const [quantity, setQuantity] = useState(1);
+
+  // Determine if the product has a future launch date
+  const hasLaunchGate = product?.launchDate
+    ? new Date() < new Date(product.launchDate)
+    : false;
 
   const createSession = trpc.checkout.createSession.useMutation({
     onSuccess: (data) => {
@@ -46,7 +115,7 @@ export default function ProductDetail() {
   }
 
   const handleBuyNow = () => {
-    if (!product.inStock) return;
+    if (!product.inStock || hasLaunchGate) return;
     createSession.mutate({
       productSlug: product.slug,
       quantity,
@@ -115,11 +184,18 @@ export default function ProductDetail() {
 
               {/* Stock Status */}
               <div className="flex items-center gap-2 mb-6">
-                {product.inStock ? (
+                {product.inStock && !hasLaunchGate ? (
                   <>
                     <div className="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse" />
                     <span className="text-sm text-green-400 font-bold">
                       In Stock — {product.inventory} packs remaining
+                    </span>
+                  </>
+                ) : product.inStock && hasLaunchGate ? (
+                  <>
+                    <Zap className="w-4 h-4 text-primary" />
+                    <span className="text-sm text-primary font-bold">
+                      Drops March 13th — {product.inventory} packs available at launch
                     </span>
                   </>
                 ) : (
@@ -135,8 +211,13 @@ export default function ProductDetail() {
                 {product.description}
               </p>
 
-              {/* Buy Now with Stripe */}
-              {product.inStock && (
+              {/* Launch countdown (shown before launch date) */}
+              {product.inStock && hasLaunchGate && product.launchDate && (
+                <LaunchCountdownBlock launchDateUtc={product.launchDate} />
+              )}
+
+              {/* Buy Now with Stripe (shown after launch date) */}
+              {product.inStock && !hasLaunchGate && (
                 <div className="space-y-4 mb-8">
                   <div className="flex items-center gap-4">
                     <div className="flex items-center border border-border rounded-lg">

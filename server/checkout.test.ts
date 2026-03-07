@@ -1,6 +1,7 @@
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
 import { appRouter } from "./routers";
 import type { TrpcContext } from "./_core/context";
+import { LAUNCH_DATE_UTC, LAUNCH_NOT_YET_MSG } from "../shared/const";
 
 type AuthenticatedUser = NonNullable<TrpcContext["user"]>;
 
@@ -108,6 +109,25 @@ describe("checkout.createSession", () => {
         quantity: 0,
       })
     ).rejects.toThrow();
+  });
+
+  it("rejects nlf-variant purchase before launch date", async () => {
+    // Mock Date.now to return a date before launch
+    const beforeLaunch = new Date("2026-03-12T12:00:00Z").getTime();
+    vi.useFakeTimers();
+    vi.setSystemTime(beforeLaunch);
+
+    const ctx = createPublicContext();
+    const caller = appRouter.createCaller(ctx);
+
+    await expect(
+      caller.checkout.createSession({
+        productSlug: "nlf-variant",
+        quantity: 1,
+      })
+    ).rejects.toThrow(LAUNCH_NOT_YET_MSG);
+
+    vi.useRealTimers();
   });
 });
 
