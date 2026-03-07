@@ -283,3 +283,10 @@
 - [x] Series lifecycle: Active → Sold Out → move to next series
 - [x] Admin can log packs sold per show (Pack Inventory tab + existing Shows tab)
 - [x] Write vitest tests for new endpoints (78 tests passing)
+
+## Follow-up Testing & Verification
+- [x] Test pull workflow: select cards, set date/stream, mark as pulled
+- [x] Verify live pack counter decrements on product page after pulls (499/500 confirmed)
+- [x] Verify pulled cards show date and stream info on the Master Sheet
+- [x] Fix any issues found during testing (fixed dbSlug mapping, pack decrement on bulk pull, auto-select product)
+- [ ] Prepare site for publishing

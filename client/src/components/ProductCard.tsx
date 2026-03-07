@@ -41,7 +41,7 @@ export default function ProductCard({ product, featured }: ProductCardProps) {
 
   // Fetch live pack data for repack products
   const { data: dbProduct } = trpc.public.products.getBySlug.useQuery(
-    { slug: product.slug },
+    { slug: product.dbSlug || product.slug },
     { enabled: product.isRepack, refetchInterval: 30000 }
   );
   const livePacksRemaining = dbProduct?.packsRemaining ?? product.inventory;

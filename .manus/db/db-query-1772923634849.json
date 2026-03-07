@@ -1,0 +1,17 @@
+{
+  "query": "SELECT id, name, slug, totalPacks, packsRemaining FROM repack_products;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, name, slug, totalPacks, packsRemaining FROM repack_products;",
+  "rows": [
+    {
+      "id": "1",
+      "name": "NLF Marvel 500-Pack Series",
+      "slug": "nlf-marvel-500-whatnot",
+      "totalPacks": "500",
+      "packsRemaining": "500"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tslug\ttotalPacks\tpacksRemaining\n1\tNLF Marvel 500-Pack Series\tnlf-marvel-500-whatnot\t500\t500\n",
+  "stderr": "",
+  "execution_time_ms": 441
+}

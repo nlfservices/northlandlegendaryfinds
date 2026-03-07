@@ -23,7 +23,7 @@ import {
   CheckCircle2, Circle, ArrowLeft, Loader2, Calendar, ExternalLink,
   ShoppingBag, Truck, CreditCard, Boxes, Hammer, Download, BarChart3, FileSpreadsheet
 } from "lucide-react";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Link } from "wouter";
 import CsvUploader from "@/components/CsvUploader";
 import InventoryManager from "@/components/InventoryManager";
@@ -267,6 +267,13 @@ function ChecklistSheetWrapper() {
   const { data: products, isLoading } = trpc.admin.products.list.useQuery();
   const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
 
+  // Auto-select the first product when products load
+  useEffect(() => {
+    if (products && products.length > 0 && selectedProductId === null) {
+      setSelectedProductId(products[0].id);
+    }
+  }, [products, selectedProductId]);
+
   if (isLoading) return <div className="flex justify-center py-12"><Loader2 className="w-6 h-6 animate-spin text-primary" /></div>;
 
   return (
@@ -277,12 +284,11 @@ function ChecklistSheetWrapper() {
           <p className="text-sm text-muted-foreground">Spreadsheet-style tool to add cards, mark pulled, and manage your checklist</p>
         </div>
         <Select
-          value={selectedProductId?.toString() || "none"}
-          onValueChange={v => setSelectedProductId(v === "none" ? null : parseInt(v))}
+          value={selectedProductId?.toString() || ""}
+          onValueChange={v => setSelectedProductId(parseInt(v))}
         >
           <SelectTrigger className="w-64"><SelectValue placeholder="Select a product..." /></SelectTrigger>
           <SelectContent>
-            <SelectItem value="none">Select a product...</SelectItem>
             {products?.map(p => (
               <SelectItem key={p.id} value={p.id.toString()}>{p.name}</SelectItem>
             ))}

@@ -2,7 +2,7 @@ import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { adminProcedure, router } from "../_core/trpc";
 import { getDb } from "../db";
-import { launchSubscribers, pulls } from "../../drizzle/schema";
+import { launchSubscribers, pulls, repackProducts } from "../../drizzle/schema";
 import { eq, desc, sql, and } from "drizzle-orm";
 import {
   getAllProducts, createProduct, updateProduct, deleteProduct, getProductById,
@@ -299,6 +299,12 @@ const checklistRouter = router({
       // Mark as not pulled
       await updateChecklistItem(itemId, { isPulled: false });
       unpulledCount++;
+    }
+    // Increment packs remaining by the number of unpulled cards
+    if (unpulledCount > 0) {
+      await db.update(repackProducts)
+        .set({ packsRemaining: sql`${repackProducts.packsRemaining} + ${unpulledCount}` })
+        .where(eq(repackProducts.id, input.productId));
     }
     return { success: true, count: unpulledCount };
   }),

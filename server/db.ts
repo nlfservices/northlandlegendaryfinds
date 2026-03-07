@@ -357,11 +357,14 @@ export async function bulkCreatePulls(pullsData: InsertPull[]) {
     count++;
   }
 
-  // Decrement packs remaining (unique pack numbers)
+  // Decrement packs remaining
+  // If pack numbers are provided, decrement by unique pack count
+  // Otherwise, decrement by total number of pulls (each pull = 1 pack opened)
   const uniquePacks = new Set(pullsData.map(p => p.packNumber).filter(Boolean));
-  if (uniquePacks.size > 0 && pullsData[0]?.productId) {
+  const decrementBy = uniquePacks.size > 0 ? uniquePacks.size : count;
+  if (decrementBy > 0 && pullsData[0]?.productId) {
     await db.update(repackProducts)
-      .set({ packsRemaining: sql`${repackProducts.packsRemaining} - ${uniquePacks.size}` })
+      .set({ packsRemaining: sql`GREATEST(${repackProducts.packsRemaining} - ${decrementBy}, 0)` })
       .where(eq(repackProducts.id, pullsData[0].productId));
   }
 

@@ -25,6 +25,8 @@ export interface Product {
   shopifyUrl?: string;
   /** UTC ISO string — product cannot be purchased before this date */
   launchDate?: string;
+  /** Database product slug (if different from frontend slug) for live pack counter */
+  dbSlug?: string;
 }
 
 // CDN URLs
@@ -44,6 +46,7 @@ export const products: Product[] = [
   {
     id: "nlf-variant",
     slug: "nlf-variant",
+    dbSlug: "nlf-marvel-500-whatnot",
     name: "NLF Variant",
     subtitle: "Marvel Trading Card Repack",
     category: "marvel",

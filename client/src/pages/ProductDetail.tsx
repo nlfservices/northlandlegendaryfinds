@@ -176,8 +176,9 @@ export default function ProductDetail() {
     : false;
 
   // Fetch live pack data for repack products
+  const dbSlugToQuery = product?.dbSlug || slug || "";
   const { data: dbProduct } = trpc.public.products.getBySlug.useQuery(
-    { slug: slug || "" },
+    { slug: dbSlugToQuery },
     { enabled: !!product?.isRepack, refetchInterval: 30000 }
   );
   const livePacksRemaining = dbProduct?.packsRemaining ?? product?.inventory ?? 0;
@@ -282,7 +283,7 @@ export default function ProductDetail() {
 
               {/* Live Pack Counter */}
               {product.isRepack && (
-                <LivePackCounter productSlug={product.slug} fallbackInventory={product.inventory} />
+                <LivePackCounter productSlug={product.dbSlug || product.slug} fallbackInventory={product.inventory} />
               )}
 
               {/* Stock Status */}
