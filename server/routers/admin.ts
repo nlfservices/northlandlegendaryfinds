@@ -1,5 +1,7 @@
 import { z } from "zod";
+import { TRPCError } from "@trpc/server";
 import { adminProcedure, router } from "../_core/trpc";
+import { getDb } from "../db";
 import {
   getAllProducts, createProduct, updateProduct, deleteProduct, getProductById,
   getChecklistByProductId, createChecklistItem, createChecklistItems, updateChecklistItem, deleteChecklistItem, deleteChecklistByProductId,
@@ -164,6 +166,7 @@ const checklistRouter = router({
       parallel: z.string().optional(),
       tier: z.string().optional(),
       estimatedValue: z.string().optional(),
+      imageUrl: z.string().optional(),
     })),
   })).mutation(async ({ input }) => {
     const validTiers = ["chase", "hit", "base", "bonus"];
@@ -184,12 +187,84 @@ const checklistRouter = router({
         parallel: row.parallel?.trim() || null,
         tier: tier as "chase" | "hit" | "base" | "bonus",
         estimatedValue: row.estimatedValue?.trim() || null,
-        imageUrl: null,
+        imageUrl: row.imageUrl?.trim() || null,
         sortOrder: index,
       };
     });
     await createChecklistItems(items);
     return { success: true, count: items.length };
+  }),
+
+  /** CSV mark-as-pulled - matches cards by name+parallel and marks them as pulled */
+  csvMarkPulled: adminProcedure.input(z.object({
+    productId: z.number(),
+    rows: z.array(z.object({
+      cardName: z.string().min(1),
+      parallel: z.string().optional(),
+      cardNumber: z.string().optional(),
+      pulled: z.string().optional(),
+    })),
+  })).mutation(async ({ input }) => {
+    const db = await getDb();
+    if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database not available" });
+
+    // Get all checklist items for this product
+    const allItems = await getChecklistByProductId(input.productId);
+    let markedCount = 0;
+    let notFoundNames: string[] = [];
+
+    for (const row of input.rows) {
+      const pullValue = (row.pulled || "").toLowerCase().trim();
+      // Only process rows marked as pulled
+      if (!["yes", "y", "true", "1", "x", "pulled"].includes(pullValue)) continue;
+
+      const cardName = row.cardName.trim().toLowerCase();
+      const parallel = row.parallel?.trim().toLowerCase() || "";
+      const cardNumber = row.cardNumber?.trim().toLowerCase() || "";
+
+      // Find matching checklist item
+      const match = allItems.find(item => {
+        const nameMatch = item.cardName.toLowerCase() === cardName;
+        if (!nameMatch) return false;
+        // If parallel provided, must match
+        if (parallel && item.parallel && item.parallel.toLowerCase() !== parallel) return false;
+        // If card number provided, must match
+        if (cardNumber && item.cardNumber && item.cardNumber.toLowerCase() !== cardNumber) return false;
+        return true;
+      });
+
+      if (match && !match.isPulled) {
+        await updateChecklistItem(match.id, { isPulled: true });
+        markedCount++;
+      } else if (!match) {
+        notFoundNames.push(row.cardName);
+      }
+    }
+
+    return {
+      success: true,
+      markedCount,
+      notFound: notFoundNames.slice(0, 20), // Return first 20 not-found names
+      totalNotFound: notFoundNames.length,
+    };
+  }),
+
+  /** Export checklist as CSV-ready data */
+  exportChecklist: adminProcedure.input(z.object({
+    productId: z.number(),
+  })).query(async ({ input }) => {
+    const items = await getChecklistByProductId(input.productId);
+    return items.map(item => ({
+      cardName: item.cardName,
+      cardSet: item.cardSet || "",
+      cardYear: item.cardYear || "",
+      cardNumber: item.cardNumber || "",
+      parallel: item.parallel || "",
+      tier: item.tier,
+      estimatedValue: item.estimatedValue || "",
+      imageUrl: item.imageUrl || "",
+      isPulled: item.isPulled ? "YES" : "NO",
+    }));
   }),
 });
 

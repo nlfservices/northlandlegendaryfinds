@@ -18,6 +18,7 @@ import {
 import { useMemo } from "react";
 
 const WHATNOT_STORE_URL = "https://www.whatnot.com/user/northlandfinds";
+const CARD_PLACEHOLDER = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/card-placeholder-AFtdwioDcmq6GHzFUFUpif.webp";
 
 // Tier configuration with new naming
 const tierConfig = {
@@ -397,11 +398,22 @@ export default function WhatnotChecklist() {
                             }`}
                           >
                             <div className="flex items-center gap-3 min-w-0 flex-1">
-                              {item.isPulled ? (
-                                <CheckCircle2 className={`w-5 h-5 ${config.textColor} shrink-0`} />
-                              ) : (
-                                <Circle className="w-5 h-5 text-muted-foreground/40 shrink-0" />
-                              )}
+                              {/* Card Image */}
+                              <div className="relative shrink-0">
+                                <img
+                                  src={item.imageUrl || CARD_PLACEHOLDER}
+                                  alt={item.cardName}
+                                  className={`w-12 h-16 object-cover rounded-md border ${
+                                    item.isPulled ? `${config.borderColor} opacity-60` : 'border-border'
+                                  }`}
+                                  loading="lazy"
+                                />
+                                {item.isPulled ? (
+                                  <div className="absolute inset-0 flex items-center justify-center">
+                                    <CheckCircle2 className={`w-5 h-5 ${config.textColor} drop-shadow-lg`} />
+                                  </div>
+                                ) : null}
+                              </div>
                               <div className="min-w-0">
                                 <div className="font-medium flex items-center gap-2 flex-wrap">
                                   <span className={item.isPulled ? config.textColor : ""}>

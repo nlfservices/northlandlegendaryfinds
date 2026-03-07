@@ -202,3 +202,10 @@
 - [x] Write vitest tests for eBay API routes
 - [ ] Register endpoint in eBay Developer Portal (requires publish first)
 - [ ] Update EBAY_CLIENT_SECRET with production key after keyset unlock
+
+## Whatnot Checklist Improvements
+- [x] Add placeholder images for all checklist cards on Whatnot checklist page
+- [x] Build downloadable spreadsheet template for card/price uploads with image URL column
+- [x] Build CSV upload system for marking cards as pulled (checkbox column to remove cards)
+- [x] Add Export Checklist as CSV button to admin dashboard
+- [ ] Test and save checkpoint

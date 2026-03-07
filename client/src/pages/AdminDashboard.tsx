@@ -21,7 +21,7 @@ import { getLoginUrl } from "@/const";
 import {
   Package, ListChecks, Zap, Radio, Plus, Trash2, Edit, Eye,
   CheckCircle2, Circle, ArrowLeft, Loader2, Calendar, ExternalLink,
-  ShoppingBag, Truck, CreditCard, Boxes, Hammer
+  ShoppingBag, Truck, CreditCard, Boxes, Hammer, Download
 } from "lucide-react";
 import { useState, useMemo } from "react";
 import { Link } from "wouter";
@@ -273,6 +273,7 @@ function ChecklistEditor() {
   const deleteItem = trpc.admin.checklist.delete.useMutation();
   const updateItem = trpc.admin.checklist.update.useMutation();
   const csvImportChecklist = trpc.admin.checklist.csvImport.useMutation();
+  const csvMarkPulled = trpc.admin.checklist.csvMarkPulled.useMutation();
   const utils = trpc.useUtils();
 
   const [showAddDialog, setShowAddDialog] = useState(false);
@@ -562,7 +563,7 @@ function ChecklistEditor() {
       {selectedProductId && (
         <CsvUploader
           title="CSV Checklist Import"
-          description="Upload a CSV file to bulk-add cards. Use tier values: Top Hits, Middle of Pack, Low Floor, or Bonus."
+          description="Upload a CSV file to bulk-add cards. Includes image URL and price columns. Use tier values: Top Hits, Middle of Pack, Low Floor, or Bonus."
           templateName="nlf-checklist-template"
           columns={[
             { key: "cardName", label: "Card Name", required: true },
@@ -572,6 +573,7 @@ function ChecklistEditor() {
             { key: "parallel", label: "Parallel / Variant" },
             { key: "tier", label: "Tier" },
             { key: "estimatedValue", label: "Estimated Value" },
+            { key: "imageUrl", label: "Image URL" },
           ]}
           onImport={async (rows) => {
             try {
@@ -585,6 +587,7 @@ function ChecklistEditor() {
                   parallel: r.parallel,
                   tier: r.tier,
                   estimatedValue: r.estimatedValue,
+                  imageUrl: r.imageUrl,
                 })),
               });
               utils.admin.checklist.getByProduct.invalidate({ productId: selectedProductId });
@@ -594,6 +597,87 @@ function ChecklistEditor() {
             }
           }}
         />
+      )}
+
+      {/* Mark as Pulled CSV Upload */}
+      {selectedProductId && checklist && checklist.length > 0 && (
+        <>
+          <Separator className="my-6" />
+          <CsvUploader
+            title="Mark Cards as Pulled (CSV)"
+            description='Upload a CSV with a "Pulled" column (YES/NO). Cards marked YES will be flagged as pulled and removed from the active checklist. Match is by Card Name + Parallel.'
+            templateName="nlf-mark-pulled-template"
+            columns={[
+              { key: "cardName", label: "Card Name", required: true },
+              { key: "cardNumber", label: "Card Number" },
+              { key: "parallel", label: "Parallel / Variant" },
+              { key: "pulled", label: "Pulled", required: true },
+            ]}
+            onImport={async (rows) => {
+              try {
+                const res = await csvMarkPulled.mutateAsync({
+                  productId: selectedProductId,
+                  rows: rows.map(r => ({
+                    cardName: r.cardName || "",
+                    cardNumber: r.cardNumber,
+                    parallel: r.parallel,
+                    pulled: r.pulled,
+                  })),
+                });
+                utils.admin.checklist.getByProduct.invalidate({ productId: selectedProductId });
+                const msgs: string[] = [`${res.markedCount} cards marked as pulled`];
+                if (res.totalNotFound > 0) {
+                  msgs.push(`${res.totalNotFound} cards not found: ${res.notFound.join(", ")}`);
+                }
+                return { success: true, count: res.markedCount, errors: res.totalNotFound > 0 ? [`${res.totalNotFound} card(s) not found in checklist`] : undefined };
+              } catch (e: any) {
+                return { success: false, errors: [e.message || "Import failed"] };
+              }
+            }}
+          />
+        </>
+      )}
+
+      {/* Export Checklist Button */}
+      {selectedProductId && checklist && checklist.length > 0 && (
+        <>
+          <Separator className="my-6" />
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="font-bold text-lg">Export Checklist</h3>
+              <p className="text-sm text-muted-foreground">Download the current checklist as a CSV file. Edit it and re-upload to mark cards as pulled.</p>
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                if (!checklist) return;
+                const headers = ["Card Name", "Set", "Year", "Card Number", "Parallel / Variant", "Tier", "Estimated Value", "Image URL", "Pulled"];
+                const rows = checklist.map(item => [
+                  item.cardName,
+                  item.cardSet || "",
+                  item.cardYear || "",
+                  item.cardNumber || "",
+                  item.parallel || "",
+                  item.tier,
+                  item.estimatedValue || "",
+                  item.imageUrl || "",
+                  item.isPulled ? "YES" : "NO",
+                ]);
+                const csvContent = [headers, ...rows].map(row => row.map(cell => `"${(cell || "").replace(/"/g, '""')}"`).join(",")).join("\n");
+                const blob = new Blob([csvContent], { type: "text/csv" });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = `checklist-export-${selectedProductId}.csv`;
+                a.click();
+                URL.revokeObjectURL(url);
+              }}
+            >
+              <Download className="w-4 h-4 mr-2" /> Export CSV
+            </Button>
+          </div>
+        </>
       )}
     </div>
   );

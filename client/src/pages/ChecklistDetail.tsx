@@ -12,7 +12,9 @@ import {
   ListChecks, ArrowLeft, CheckCircle2, Circle, Loader2,
   Radio, Zap, Package, Calendar, TrendingUp, Eye
 } from "lucide-react";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+
+const CARD_PLACEHOLDER = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/card-placeholder-AFtdwioDcmq6GHzFUFUpif.webp";
 
 export default function ChecklistDetail() {
   const params = useParams<{ slug: string }>();
@@ -238,11 +240,22 @@ export default function ChecklistDetail() {
                           }`}
                         >
                           <div className="flex items-center gap-3">
-                            {item.isPulled ? (
-                              <CheckCircle2 className="w-5 h-5 text-green-400 shrink-0" />
-                            ) : (
-                              <Circle className="w-5 h-5 text-muted-foreground shrink-0" />
-                            )}
+                            {/* Card Image */}
+                            <div className="relative shrink-0">
+                              <img
+                                src={item.imageUrl || CARD_PLACEHOLDER}
+                                alt={item.cardName}
+                                className={`w-12 h-16 object-cover rounded-md border ${
+                                  item.isPulled ? 'border-green-500/30 opacity-60' : 'border-border'
+                                }`}
+                                loading="lazy"
+                              />
+                              {item.isPulled && (
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                  <CheckCircle2 className="w-5 h-5 text-green-400 drop-shadow-lg" />
+                                </div>
+                              )}
+                            </div>
                             <div>
                               <div className="font-medium">
                                 {item.cardName}
