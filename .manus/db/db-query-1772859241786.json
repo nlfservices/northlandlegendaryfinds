@@ -1,0 +1,13 @@
+{
+  "query": "SELECT COUNT(*) as total FROM graded_cards;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT COUNT(*) as total FROM graded_cards;",
+  "rows": [
+    {
+      "total": "2133"
+    }
+  ],
+  "messages": [],
+  "stdout": "total\n2133\n",
+  "stderr": "",
+  "execution_time_ms": 360
+}

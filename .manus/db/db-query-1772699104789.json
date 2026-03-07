@@ -1,0 +1,30 @@
+{
+  "query": "SELECT 'inventory_cards' as tbl, COUNT(*) as cnt FROM inventory_cards UNION ALL SELECT 'checklist_items', COUNT(*) FROM checklist_items UNION ALL SELECT 'card_sets', COUNT(*) FROM card_sets UNION ALL SELECT 'orders', COUNT(*) FROM orders UNION ALL SELECT 'users', COUNT(*) FROM users;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT 'inventory_cards' as tbl, COUNT(*) as cnt FROM inventory_cards UNION ALL SELECT 'checklist_items', COUNT(*) FROM checklist_items UNION ALL SELECT 'card_sets', COUNT(*) FROM card_sets UNION ALL SELECT 'orders', COUNT(*) FROM orders UNION ALL SELECT 'users', COUNT(*) FROM users;",
+  "rows": [
+    {
+      "tbl": "orders",
+      "cnt": "1"
+    },
+    {
+      "tbl": "checklist_items",
+      "cnt": "528"
+    },
+    {
+      "tbl": "card_sets",
+      "cnt": "0"
+    },
+    {
+      "tbl": "users",
+      "cnt": "1"
+    },
+    {
+      "tbl": "inventory_cards",
+      "cnt": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "tbl\tcnt\norders\t1\nchecklist_items\t528\ncard_sets\t0\nusers\t1\ninventory_cards\t0\n",
+  "stderr": "",
+  "execution_time_ms": 359
+}

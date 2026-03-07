@@ -1,4 +1,4 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, boolean, json, bigint } from "drizzle-orm/mysql-core";
+import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, boolean, json, bigint, decimal } from "drizzle-orm/mysql-core";
 
 /**
  * Core user table backing auth flow.
@@ -260,3 +260,119 @@ export const inventoryCards = mysqlTable("inventory_cards", {
 
 export type InventoryCard = typeof inventoryCards.$inferSelect;
 export type InsertInventoryCard = typeof inventoryCards.$inferInsert;
+
+// ============================================================
+// CARD ENCYCLOPEDIA - Complete card database from all sets
+// ============================================================
+
+/**
+ * Marvel Card Sets - the 6 master sets from 2025toppsmarvelcards.com
+ * Separate from cardSets (which is for inventory tracking)
+ */
+export const marvelSets = mysqlTable("marvel_sets", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Original ID from source site */
+  sourceId: int("sourceId"),
+  /** Full set name (e.g., "2025 Topps Chrome") */
+  name: varchar("name", { length: 255 }).notNull(),
+  /** Short display name (e.g., "Chrome") */
+  shortName: varchar("shortName", { length: 100 }),
+  /** URL-friendly slug */
+  slug: varchar("slug", { length: 255 }).notNull().unique(),
+  /** Release year */
+  releaseYear: int("releaseYear"),
+  /** Total cards in the set */
+  totalCards: int("totalCards"),
+  /** Description of the set */
+  description: text("description"),
+  /** Box/pack image URL */
+  imageUrl: text("imageUrl"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type MarvelSet = typeof marvelSets.$inferSelect;
+export type InsertMarvelSet = typeof marvelSets.$inferInsert;
+
+/**
+ * Marvel Cards - every card in every set (the full encyclopedia)
+ * 1,709 cards across 6 sets with subset/category info
+ */
+export const marvelCards = mysqlTable("marvel_cards", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Which set this card belongs to */
+  setId: int("setId").notNull(),
+  /** Card number (e.g., "1", "AM-1", "CC-1") */
+  cardNumber: varchar("cardNumber", { length: 50 }).notNull(),
+  /** Character name (e.g., "Iron Man", "Spider-Man") */
+  characterName: varchar("characterName", { length: 255 }).notNull(),
+  /** Subset/category (e.g., "Base", "AIR MARVEL", "AVENGERS INFINITY") */
+  cardType: varchar("cardType", { length: 255 }),
+  /** Available parallels as comma-separated string */
+  parallels: text("parallels"),
+  /** Rarity info */
+  rarity: varchar("rarity", { length: 100 }),
+  /** Card image URL */
+  imageUrl: text("imageUrl"),
+  /** Sort order for display */
+  sortOrder: int("sortOrder").notNull().default(0),
+  /** Source ID from the original site */
+  sourceId: int("sourceId"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type MarvelCard = typeof marvelCards.$inferSelect;
+export type InsertMarvelCard = typeof marvelCards.$inferInsert;
+
+/**
+ * Graded Cards - NLF's graded card inventory (CGC + AGS submissions)
+ * Tracks every card sent for grading with results
+ */
+export const gradedCards = mysqlTable("graded_cards", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Grading company (CGC, AGS, PSA, BGS, SGC) */
+  gradingCompany: varchar("gradingCompany", { length: 20 }).notNull(),
+  /** Grade received (e.g., "9", "9.5", "GEM MINT 10", or null if awaiting) */
+  grade: varchar("grade", { length: 30 }),
+  /** Numeric grade for sorting (e.g., 9.0, 9.5, 10.0) */
+  gradeNumeric: decimal("gradeNumeric", { precision: 3, scale: 1 }),
+  /** Autograph grade if applicable */
+  autographGrade: varchar("autographGrade", { length: 30 }),
+  /** Character/card name */
+  cardName: varchar("cardName", { length: 255 }).notNull(),
+  /** Card number in the set */
+  cardNumber: varchar("cardNumber", { length: 50 }),
+  /** Card set name (e.g., "2025 Topps Chrome", "2025 Marvel Comic Book Heroes") */
+  cardSet: varchar("cardSet", { length: 255 }),
+  /** Subset/insert name (e.g., "Golden Anniversary", "Base") */
+  subset: varchar("subset", { length: 255 }),
+  /** Parallel/variant (e.g., "Gold Refractor", "Electrum Refractor", "Blue Refractor") */
+  parallel: varchar("parallel", { length: 255 }),
+  /** Numbered to (e.g., 50, 75, 99, 199) */
+  numberedTo: int("numberedTo"),
+  /** CGC cert number or AGS submission ID */
+  certNumber: varchar("certNumber", { length: 50 }),
+  /** Invoice/submission number */
+  invoiceNumber: varchar("invoiceNumber", { length: 50 }),
+  /** Line item number within submission */
+  lineItem: varchar("lineItem", { length: 20 }),
+  /** Submission batch identifier (e.g., "CGC1A", "AGS1") */
+  batchId: varchar("batchId", { length: 20 }),
+  /** Status of the grading */
+  status: mysqlEnum("status", ["submitted", "received", "grading", "shipped", "delivered"]).notNull().default("submitted"),
+  /** Date received by grading company */
+  receivedDate: timestamp("receivedDate"),
+  /** Date shipped back */
+  shippedDate: timestamp("shippedDate"),
+  /** Declared value in cents */
+  declaredValueCents: int("declaredValueCents"),
+  /** Link to marvel_cards table if matched */
+  marvelCardId: int("marvelCardId"),
+  /** Error type if any */
+  errorType: varchar("errorType", { length: 100 }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type GradedCard = typeof gradedCards.$inferSelect;
+export type InsertGradedCard = typeof gradedCards.$inferInsert;

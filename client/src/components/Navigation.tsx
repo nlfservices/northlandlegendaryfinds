@@ -16,11 +16,11 @@ export default function Navigation() {
   const { totalItems, setIsOpen: setCartOpen } = useCart();
 
   const navItems = [
-    { path: "/shop", label: "Shop All" },
+    { path: "/shop", label: "Shop" },
+    { path: "/cards", label: "Card Database" },
+    { path: "/graded", label: "Graded Inventory" },
     { path: "/checklists", label: "Checklists" },
     { path: "/whatnot", label: "Whatnot" },
-    { path: "/marvel", label: "Marvel" },
-    { path: "/star-wars", label: "Star Wars (June)" },
     { path: "/about", label: "About" },
     { path: "/faq", label: "FAQ" },
   ];

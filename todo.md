@@ -109,3 +109,23 @@
 - [x] Update Star Wars nav link / section to show Coming Soon status
 - [x] Update Footer, About, Subscribe, ComingSoon pages with Star Wars June 2026 messaging
 - [x] Test and save checkpoint
+
+## Inventory & Pricing Integration
+- [ ] Research and import card inventory from 2025toppsmarvelcards.com
+- [ ] Research PriceCharting API for live card pricing
+- [ ] Design/update database schema for card inventory with pricing
+- [ ] Integrate PriceCharting API on backend for live price lookups
+- [ ] Build frontend UI to display inventory with live prices
+- [ ] Test and save checkpoint
+
+## Full Card Database & Graded Inventory Integration
+- [x] Scrape all 6 card sets from 2025toppsmarvelcards.com (1,709 cards)
+- [x] Design database schema for sets, subsets, cards, and graded inventory
+- [x] Import all set/card data into NLF database
+- [x] Parse and import CGC graded cards (1,282 cards with grades)
+- [x] Parse and import AGS submitted cards (851 cards, awaiting grades)
+- [x] Build Set Browser page (improved version of 2025toppsmarvelcards.com)
+- [x] Build Card Database page with search and set browsing
+- [x] Build Graded Inventory page showing NLF's graded collection
+- [x] Add grade color-coding (gold=10, silver=9.5, green=9, etc.)
+- [ ] Connect cards to repack products (show which cards could be in repacks)

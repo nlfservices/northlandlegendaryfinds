@@ -583,3 +583,151 @@ export async function getProductStats(productId: number) {
     totalPacks: product?.totalPacks ?? 0,
   };
 }
+
+// ==================== MARVEL ENCYCLOPEDIA HELPERS ====================
+
+import { marvelSets, marvelCards, gradedCards, type MarvelSet, type MarvelCard, type GradedCard } from "../drizzle/schema";
+import { like } from "drizzle-orm";
+
+export async function getAllMarvelSets(): Promise<MarvelSet[]> {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(marvelSets).orderBy(asc(marvelSets.name));
+}
+
+export async function getMarvelSetBySlug(slug: string): Promise<MarvelSet | undefined> {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(marvelSets).where(eq(marvelSets.slug, slug)).limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+export async function getMarvelSetById(id: number): Promise<MarvelSet | undefined> {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(marvelSets).where(eq(marvelSets.id, id)).limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+export async function getMarvelCardsBySetId(setId: number): Promise<MarvelCard[]> {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(marvelCards)
+    .where(eq(marvelCards.setId, setId))
+    .orderBy(asc(marvelCards.sortOrder));
+}
+
+export async function searchMarvelCards(query: string, limit: number = 50): Promise<(MarvelCard & { setName?: string })[]> {
+  const db = await getDb();
+  if (!db) return [];
+  const results = await db.select({
+    id: marvelCards.id,
+    setId: marvelCards.setId,
+    cardNumber: marvelCards.cardNumber,
+    characterName: marvelCards.characterName,
+    cardType: marvelCards.cardType,
+    parallels: marvelCards.parallels,
+    rarity: marvelCards.rarity,
+    imageUrl: marvelCards.imageUrl,
+    sortOrder: marvelCards.sortOrder,
+    sourceId: marvelCards.sourceId,
+    createdAt: marvelCards.createdAt,
+    setName: marvelSets.name,
+  }).from(marvelCards)
+    .leftJoin(marvelSets, eq(marvelCards.setId, marvelSets.id))
+    .where(like(marvelCards.characterName, `%${query}%`))
+    .orderBy(asc(marvelCards.characterName))
+    .limit(limit);
+  return results;
+}
+
+// ==================== GRADED CARDS HELPERS ====================
+
+export async function getAllGradedCards(filters?: {
+  gradingCompany?: string;
+  grade?: string;
+  cardSet?: string;
+  search?: string;
+  batchId?: string;
+  limit?: number;
+  offset?: number;
+}): Promise<GradedCard[]> {
+  const db = await getDb();
+  if (!db) return [];
+
+  const conditions = [];
+  if (filters?.gradingCompany) conditions.push(eq(gradedCards.gradingCompany, filters.gradingCompany));
+  if (filters?.grade) conditions.push(eq(gradedCards.grade, filters.grade));
+  if (filters?.cardSet) conditions.push(eq(gradedCards.cardSet, filters.cardSet));
+  if (filters?.batchId) conditions.push(eq(gradedCards.batchId, filters.batchId));
+  if (filters?.search) conditions.push(like(gradedCards.cardName, `%${filters.search}%`));
+
+  const query = db.select().from(gradedCards);
+  
+  if (conditions.length > 0) {
+    return query
+      .where(and(...conditions))
+      .orderBy(desc(gradedCards.gradeNumeric), asc(gradedCards.cardName))
+      .limit(filters?.limit ?? 100)
+      .offset(filters?.offset ?? 0);
+  }
+  
+  return query
+    .orderBy(desc(gradedCards.gradeNumeric), asc(gradedCards.cardName))
+    .limit(filters?.limit ?? 100)
+    .offset(filters?.offset ?? 0);
+}
+
+export async function getGradedCardStats() {
+  const db = await getDb();
+  if (!db) return { total: 0, cgc: 0, ags: 0, gem10: 0, pristine10: 0, mint95: 0, grade9: 0, other: 0, uniqueSets: 0 };
+
+  const allCards = await db.select().from(gradedCards);
+  
+  const stats = {
+    total: allCards.length,
+    cgc: allCards.filter(c => c.gradingCompany === 'CGC').length,
+    ags: allCards.filter(c => c.gradingCompany === 'AGS').length,
+    gem10: allCards.filter(c => c.grade === 'GEM MINT 10').length,
+    pristine10: allCards.filter(c => c.grade === 'PRISTINE 10').length,
+    mint95: allCards.filter(c => c.grade === 'MINT+ 9.5').length,
+    grade9: allCards.filter(c => c.grade === '9').length,
+    other: allCards.filter(c => c.grade && !['GEM MINT 10', 'PRISTINE 10', 'MINT+ 9.5', '9'].includes(c.grade)).length,
+    awaitingGrade: allCards.filter(c => !c.grade).length,
+    uniqueSets: new Set(allCards.map(c => c.cardSet).filter(Boolean)).size,
+    uniqueCharacters: new Set(allCards.map(c => c.cardName).filter(Boolean)).size,
+  };
+  return stats;
+}
+
+export async function getGradedCardGradeDistribution() {
+  const db = await getDb();
+  if (!db) return [];
+  
+  const allCards = await db.select().from(gradedCards);
+  const distribution: Record<string, number> = {};
+  for (const card of allCards) {
+    const grade = card.grade || 'Awaiting Grade';
+    distribution[grade] = (distribution[grade] || 0) + 1;
+  }
+  
+  return Object.entries(distribution)
+    .map(([grade, count]) => ({ grade, count }))
+    .sort((a, b) => b.count - a.count);
+}
+
+export async function getGradedCardSets() {
+  const db = await getDb();
+  if (!db) return [];
+  
+  const allCards = await db.select().from(gradedCards);
+  const sets: Record<string, number> = {};
+  for (const card of allCards) {
+    const setName = card.cardSet || 'Unknown';
+    sets[setName] = (sets[setName] || 0) + 1;
+  }
+  
+  return Object.entries(sets)
+    .map(([name, count]) => ({ name, count }))
+    .sort((a, b) => b.count - a.count);
+}
