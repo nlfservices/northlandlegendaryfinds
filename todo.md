@@ -209,3 +209,6 @@
 - [x] Build CSV upload system for marking cards as pulled (checkbox column to remove cards)
 - [x] Add Export Checklist as CSV button to admin dashboard
 - [ ] Test and save checkpoint
+
+## Admin Dashboard eBay Comps Tab
+- [x] Add eBay Price Comps tab to main admin dashboard

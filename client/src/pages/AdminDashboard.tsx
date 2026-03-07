@@ -21,13 +21,14 @@ import { getLoginUrl } from "@/const";
 import {
   Package, ListChecks, Zap, Radio, Plus, Trash2, Edit, Eye,
   CheckCircle2, Circle, ArrowLeft, Loader2, Calendar, ExternalLink,
-  ShoppingBag, Truck, CreditCard, Boxes, Hammer, Download
+  ShoppingBag, Truck, CreditCard, Boxes, Hammer, Download, BarChart3
 } from "lucide-react";
 import { useState, useMemo } from "react";
 import { Link } from "wouter";
 import CsvUploader from "@/components/CsvUploader";
 import InventoryManager from "@/components/InventoryManager";
 import RepackBuilder from "@/components/RepackBuilder";
+import EbayCompsPanel from "@/components/EbayCompsPanel";
 
 // ==================== PRODUCT MANAGEMENT ====================
 
@@ -1408,6 +1409,9 @@ export default function AdminDashboard() {
             <TabsTrigger value="repack-builder" className="flex items-center gap-2">
               <Hammer className="w-4 h-4" /> Repack Builder
             </TabsTrigger>
+            <TabsTrigger value="ebay-comps" className="flex items-center gap-2">
+              <BarChart3 className="w-4 h-4" /> eBay Comps
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="products">
@@ -1430,6 +1434,9 @@ export default function AdminDashboard() {
           </TabsContent>
           <TabsContent value="repack-builder">
             <RepackBuilder />
+          </TabsContent>
+          <TabsContent value="ebay-comps">
+            <EbayCompsPanel />
           </TabsContent>
         </Tabs>
       </div>
