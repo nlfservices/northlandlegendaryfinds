@@ -4,7 +4,7 @@
  * Launch gating: Products with a launchDate show countdown instead of Buy button
  */
 
-import { CreditCard, Eye, Loader2, Clock } from "lucide-react";
+import { CreditCard, Eye, Loader2, Clock, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import type { Product } from "@/lib/products";
@@ -38,6 +38,15 @@ export default function ProductCard({ product, featured }: ProductCardProps) {
   const hasLaunchGate = product.launchDate
     ? new Date() < new Date(product.launchDate)
     : false;
+
+  // Fetch live pack data for repack products
+  const { data: dbProduct } = trpc.public.products.getBySlug.useQuery(
+    { slug: product.slug },
+    { enabled: product.isRepack, refetchInterval: 30000 }
+  );
+  const livePacksRemaining = dbProduct?.packsRemaining ?? product.inventory;
+  const liveTotalPacks = dbProduct?.totalPacks ?? product.inventory;
+  const isSoldOut = product.isRepack && !product.isComingSoon && liveTotalPacks > 0 && livePacksRemaining <= 0;
 
   const createSession = trpc.checkout.createSession.useMutation({
     onSuccess: (data) => {
@@ -109,11 +118,19 @@ export default function ProductCard({ product, featured }: ProductCardProps) {
               </div>
             </div>
           </div>
-          {/* Out of stock overlay (only for truly out-of-stock, not launch-gated) */}
-          {!product.inStock && (
+          {/* Out of stock overlay */}
+          {!product.inStock && !isSoldOut && (
             <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
               <span className="bg-muted text-muted-foreground px-4 py-2 rounded-lg font-bold text-sm">
                 COMING SOON
+              </span>
+            </div>
+          )}
+          {/* Sold out overlay */}
+          {isSoldOut && (
+            <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+              <span className="bg-red-500/90 text-white px-4 py-2 rounded-lg font-bold text-sm">
+                SOLD OUT
               </span>
             </div>
           )}
@@ -128,14 +145,19 @@ export default function ProductCard({ product, featured }: ProductCardProps) {
             {product.name}
           </h3>
           
-          {product.isRepack && !product.isComingSoon && !hasLaunchGate && (
+          {product.isRepack && !product.isComingSoon && !hasLaunchGate && !isSoldOut && (
             <p className="text-xs text-primary/80 mb-3">
-              Limited to {product.inventory} packs
+              {livePacksRemaining} of {liveTotalPacks} packs remaining
+            </p>
+          )}
+          {product.isRepack && !product.isComingSoon && !hasLaunchGate && isSoldOut && (
+            <p className="text-xs text-red-400/80 mb-3">
+              All {liveTotalPacks} packs sold — series complete!
             </p>
           )}
           {product.isRepack && !product.isComingSoon && hasLaunchGate && (
             <p className="text-xs text-primary/80 mb-3">
-              {product.inventory} packs dropping March 13th
+              {liveTotalPacks} packs dropping March 13th
             </p>
           )}
           {product.isRepack && product.isComingSoon && (
@@ -162,7 +184,16 @@ export default function ProductCard({ product, featured }: ProductCardProps) {
                 </span>
               )}
             </div>
-            {hasLaunchGate ? (
+            {isSoldOut ? (
+              <Button
+                size="sm"
+                disabled
+                className="bg-red-500/20 text-red-400 border border-red-500/30 cursor-not-allowed"
+              >
+                <AlertTriangle className="w-4 h-4 mr-1" />
+                Sold Out
+              </Button>
+            ) : hasLaunchGate ? (
               <Button
                 onClick={handleBuyNow}
                 size="sm"

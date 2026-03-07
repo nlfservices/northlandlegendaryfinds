@@ -1,9 +1,13 @@
 /**
- * ChecklistSheet - Spreadsheet-style admin tool for checklist management
- * Three tabs:
- *   1. Add Cards - bulk add with inline editing, paste support, image upload
- *   2. Mark Pulled - select cards to mark as pulled with date + stream
- *   3. Manage Pulled - view/unpull pulled cards
+ * ChecklistSheet - Unified Master Spreadsheet for checklist management
+ * 
+ * ONE spreadsheet view per series:
+ *   - Upload all cards + images at once
+ *   - Mark cards as pulled inline with date + show/episode
+ *   - Remove pulled status inline
+ *   - Live pack counter showing remaining inventory
+ *   - Bulk import via CSV/paste
+ *   - Sold-out detection
  */
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
@@ -15,12 +19,12 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "sonner";
 import {
-  Plus, Trash2, Upload, Image as ImageIcon, CheckCircle2, Circle,
-  Loader2, FileSpreadsheet, X, Undo2, Calendar, Radio, Download
+  Plus, Trash2, Upload, Image as ImageIcon, CheckCircle2,
+  Loader2, FileSpreadsheet, X, Undo2, Calendar, Radio, Download,
+  Package, TrendingUp, Eye, AlertTriangle, Zap, Search
 } from "lucide-react";
 import { useState, useRef, useCallback, useMemo } from "react";
 
@@ -54,6 +58,573 @@ function createEmptyRow(): NewCardRow {
   };
 }
 
+// ==================== PACK COUNTER ====================
+
+function PackCounter({ productId }: { productId: number }) {
+  const { data: stats } = trpc.admin.products.getById.useQuery({ id: productId });
+  const { data: productStats } = trpc.public.products.stats.useQuery({ id: productId });
+  const { data: shows } = trpc.admin.shows.getByProduct.useQuery({ productId });
+
+  const totalPacks = stats?.totalPacks || 0;
+  const packsRemaining = stats?.packsRemaining || 0;
+  const packsSold = totalPacks - packsRemaining;
+  const progressPercent = totalPacks > 0 ? Math.round((packsSold / totalPacks) * 100) : 0;
+  const isSoldOut = packsRemaining <= 0 && totalPacks > 0;
+
+  const completedShows = shows?.filter(s => s.status === "completed") || [];
+  const totalPacksFromShows = completedShows.reduce((sum, s) => sum + (s.packsOpened || 0), 0);
+
+  return (
+    <div className="space-y-4">
+      {/* Main Counter */}
+      <div className={`rounded-xl border p-6 ${isSoldOut ? 'bg-red-500/5 border-red-500/30' : 'bg-card border-border'}`}>
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-3">
+            <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${isSoldOut ? 'bg-red-500/10' : 'bg-primary/10'}`}>
+              <Package className={`w-6 h-6 ${isSoldOut ? 'text-red-400' : 'text-primary'}`} />
+            </div>
+            <div>
+              <h3 className="text-lg font-bold">
+                {isSoldOut ? 'SOLD OUT' : 'Pack Inventory'}
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                {isSoldOut ? 'All packs have been opened!' : 'Live inventory tracking'}
+              </p>
+            </div>
+          </div>
+          {!isSoldOut && (
+            <div className="text-right">
+              <div className="text-3xl font-bold text-primary" style={{ fontFamily: "'Anton', sans-serif" }}>
+                {packsRemaining}
+              </div>
+              <div className="text-xs text-muted-foreground">packs remaining</div>
+            </div>
+          )}
+        </div>
+
+        {/* Progress Bar */}
+        <div className="mb-3">
+          <div className="flex items-center justify-between text-sm mb-1.5">
+            <span className="text-muted-foreground">{packsSold} sold of {totalPacks}</span>
+            <span className="font-bold">{progressPercent}%</span>
+          </div>
+          <div className="w-full bg-muted rounded-full h-3 overflow-hidden">
+            <div
+              className={`h-full rounded-full transition-all duration-500 ${
+                isSoldOut ? 'bg-red-500' : progressPercent > 80 ? 'bg-amber-500' : 'bg-gradient-to-r from-primary to-green-400'
+              }`}
+              style={{ width: `${Math.min(progressPercent, 100)}%` }}
+            />
+          </div>
+        </div>
+
+        {/* Stats Grid */}
+        <div className="grid grid-cols-4 gap-3 mt-4">
+          <div className="bg-muted/30 rounded-lg p-3 text-center">
+            <div className="text-lg font-bold">{totalPacks}</div>
+            <div className="text-xs text-muted-foreground">Total Packs</div>
+          </div>
+          <div className="bg-muted/30 rounded-lg p-3 text-center">
+            <div className="text-lg font-bold text-green-400">{packsSold}</div>
+            <div className="text-xs text-muted-foreground">Sold</div>
+          </div>
+          <div className="bg-muted/30 rounded-lg p-3 text-center">
+            <div className="text-lg font-bold text-primary">{packsRemaining}</div>
+            <div className="text-xs text-muted-foreground">Remaining</div>
+          </div>
+          <div className="bg-muted/30 rounded-lg p-3 text-center">
+            <div className="text-lg font-bold text-amber-400">{completedShows.length}</div>
+            <div className="text-xs text-muted-foreground">Shows Done</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Show Log */}
+      {completedShows.length > 0 && (
+        <div className="rounded-xl border border-border bg-card p-4">
+          <h4 className="text-sm font-bold mb-3 flex items-center gap-2">
+            <Radio className="w-4 h-4 text-red-400" /> Show Log
+          </h4>
+          <div className="space-y-2">
+            {completedShows.slice(0, 10).map(show => (
+              <div key={show.id} className="flex items-center justify-between text-sm py-1.5 border-b border-border/50 last:border-0">
+                <div className="flex items-center gap-2">
+                  <Calendar className="w-3.5 h-3.5 text-muted-foreground" />
+                  <span>{new Date(Number(show.showDate)).toLocaleDateString()}</span>
+                  <span className="text-muted-foreground">—</span>
+                  <span className="font-medium">{show.title}</span>
+                </div>
+                <Badge variant="outline" className="text-xs">
+                  {show.packsOpened} packs
+                </Badge>
+              </div>
+            ))}
+          </div>
+          {totalPacksFromShows > 0 && (
+            <div className="mt-3 pt-2 border-t border-border text-xs text-muted-foreground">
+              Total packs opened across {completedShows.length} shows: <strong className="text-foreground">{totalPacksFromShows}</strong>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ==================== MASTER SHEET (ALL CARDS VIEW) ====================
+
+function MasterSheet({ productId }: { productId: number }) {
+  const { data: checklist, isLoading } = trpc.admin.checklist.getByProduct.useQuery({ productId });
+  const { data: shows } = trpc.admin.shows.getByProduct.useQuery({ productId });
+  const { data: allPulls } = trpc.admin.pulls.getByProduct.useQuery({ productId });
+  const bulkMarkPulled = trpc.admin.checklist.bulkMarkPulled.useMutation();
+  const bulkUnpull = trpc.admin.checklist.bulkUnpull.useMutation();
+  const uploadImage = trpc.admin.checklist.uploadImage.useMutation();
+  const utils = trpc.useUtils();
+
+  const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
+  const [filterTier, setFilterTier] = useState<string>("all");
+  const [filterStatus, setFilterStatus] = useState<string>("all");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [pullDate, setPullDate] = useState(() => new Date().toISOString().slice(0, 16));
+  const [pullStream, setPullStream] = useState("");
+  const [selectedShowId, setSelectedShowId] = useState<number | undefined>();
+  const [uploadingImageId, setUploadingImageId] = useState<number | null>(null);
+
+  // Build pull lookup for show/date info
+  const pullLookup = useMemo(() => {
+    const lookup: Record<number, { pulledAt: string; showTitle?: string; notes?: string }> = {};
+    if (!allPulls || !shows) return lookup;
+    for (const pull of allPulls) {
+      const show = pull.showId ? shows.find(s => s.id === pull.showId) : undefined;
+      lookup[pull.checklistItemId] = {
+        pulledAt: new Date(pull.pulledAt).toLocaleDateString(),
+        showTitle: show?.title || undefined,
+        notes: pull.notes || undefined,
+      };
+    }
+    return lookup;
+  }, [allPulls, shows]);
+
+  const filteredItems = useMemo(() => {
+    if (!checklist) return [];
+    let items = [...checklist];
+    if (filterTier !== "all") items = items.filter(i => i.tier === filterTier);
+    if (filterStatus === "pulled") items = items.filter(i => i.isPulled);
+    if (filterStatus === "available") items = items.filter(i => !i.isPulled);
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      items = items.filter(i =>
+        i.cardName.toLowerCase().includes(q) ||
+        i.parallel?.toLowerCase().includes(q) ||
+        i.cardNumber?.toLowerCase().includes(q) ||
+        i.cardSet?.toLowerCase().includes(q)
+      );
+    }
+    return items;
+  }, [checklist, filterTier, filterStatus, searchQuery]);
+
+  const totalCards = checklist?.length || 0;
+  const pulledCards = checklist?.filter(c => c.isPulled).length || 0;
+  const availableCards = totalCards - pulledCards;
+  const withImages = checklist?.filter(c => c.imageUrl).length || 0;
+
+  const selectedPulled = useMemo(() => {
+    if (!checklist) return 0;
+    return Array.from(selectedIds).filter(id => checklist.find(c => c.id === id)?.isPulled).length;
+  }, [selectedIds, checklist]);
+  const selectedUnpulled = selectedIds.size - selectedPulled;
+
+  const toggleSelect = (id: number) => {
+    setSelectedIds(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
+  const toggleAll = () => {
+    if (selectedIds.size === filteredItems.length) {
+      setSelectedIds(new Set());
+    } else {
+      setSelectedIds(new Set(filteredItems.map(i => i.id)));
+    }
+  };
+
+  const handleMarkPulled = async () => {
+    const unpulledSelected = Array.from(selectedIds).filter(id =>
+      checklist?.find(c => c.id === id && !c.isPulled)
+    );
+    if (unpulledSelected.length === 0) {
+      toast.error("No unpulled cards selected");
+      return;
+    }
+
+    try {
+      const result = await bulkMarkPulled.mutateAsync({
+        productId,
+        showId: selectedShowId,
+        streamName: pullStream.trim() || undefined,
+        pulledDate: new Date(pullDate).getTime(),
+        rows: unpulledSelected.map(id => ({ checklistItemId: id })),
+      });
+      toast.success(`${result.count} cards marked as pulled!`);
+      setSelectedIds(new Set());
+      utils.admin.checklist.getByProduct.invalidate({ productId });
+      utils.admin.pulls.getByProduct.invalidate({ productId });
+      utils.admin.products.getById.invalidate({ id: productId });
+      utils.public.products.stats.invalidate({ id: productId });
+    } catch (e: any) {
+      toast.error(e.message || "Failed to mark cards as pulled");
+    }
+  };
+
+  const handleUnpull = async () => {
+    const pulledSelected = Array.from(selectedIds).filter(id =>
+      checklist?.find(c => c.id === id && c.isPulled)
+    );
+    if (pulledSelected.length === 0) {
+      toast.error("No pulled cards selected to unpull");
+      return;
+    }
+    if (!confirm(`Remove pulled status from ${pulledSelected.length} card(s)?`)) return;
+
+    try {
+      const result = await bulkUnpull.mutateAsync({
+        productId,
+        checklistItemIds: pulledSelected,
+      });
+      toast.success(`${result.count} cards un-pulled!`);
+      setSelectedIds(new Set());
+      utils.admin.checklist.getByProduct.invalidate({ productId });
+      utils.admin.pulls.getByProduct.invalidate({ productId });
+      utils.admin.products.getById.invalidate({ id: productId });
+      utils.public.products.stats.invalidate({ id: productId });
+    } catch (e: any) {
+      toast.error(e.message || "Failed to unpull cards");
+    }
+  };
+
+  const handleImageUpload = async (itemId: number, file: File) => {
+    setUploadingImageId(itemId);
+    try {
+      const base64 = await fileToBase64(file);
+      await uploadImage.mutateAsync({
+        checklistItemId: itemId,
+        imageData: base64,
+        contentType: file.type || "image/jpeg",
+      });
+      toast.success("Image uploaded!");
+      utils.admin.checklist.getByProduct.invalidate({ productId });
+    } catch (e: any) {
+      toast.error(e.message || "Failed to upload image");
+    } finally {
+      setUploadingImageId(null);
+    }
+  };
+
+  const tierColors: Record<string, string> = {
+    chase: "text-amber-400 bg-amber-500/10",
+    hit: "text-purple-400 bg-purple-500/10",
+    base: "text-blue-400 bg-blue-500/10",
+    bonus: "text-green-400 bg-green-500/10",
+  };
+
+  if (isLoading) return <div className="flex justify-center py-12"><Loader2 className="w-6 h-6 animate-spin text-primary" /></div>;
+
+  return (
+    <div className="space-y-4">
+      {/* Stats Bar */}
+      <div className="flex items-center gap-6 text-sm flex-wrap">
+        <div className="flex items-center gap-2">
+          <div className="w-2 h-2 rounded-full bg-blue-400" />
+          <span className="text-muted-foreground">Total:</span>
+          <span className="font-bold">{totalCards}</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-2 h-2 rounded-full bg-green-400" />
+          <span className="text-muted-foreground">Pulled:</span>
+          <span className="font-bold text-green-400">{pulledCards}</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-2 h-2 rounded-full bg-amber-400" />
+          <span className="text-muted-foreground">Available:</span>
+          <span className="font-bold">{availableCards}</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-2 h-2 rounded-full bg-purple-400" />
+          <span className="text-muted-foreground">With Images:</span>
+          <span className="font-bold">{withImages}/{totalCards}</span>
+        </div>
+      </div>
+
+      {/* Pull Info Bar (for marking pulled) */}
+      <Card>
+        <CardContent className="py-3">
+          <div className="flex items-center gap-4 flex-wrap">
+            <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Pull Info:</span>
+            <div className="flex items-center gap-2">
+              <Calendar className="w-4 h-4 text-muted-foreground" />
+              <Input
+                type="datetime-local"
+                value={pullDate}
+                onChange={e => setPullDate(e.target.value)}
+                className="w-48 h-8 text-sm"
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <Radio className="w-4 h-4 text-muted-foreground" />
+              <Input
+                value={pullStream}
+                onChange={e => setPullStream(e.target.value)}
+                placeholder="Stream / Episode"
+                className="w-48 h-8 text-sm"
+              />
+            </div>
+            {shows && shows.length > 0 && (
+              <div className="flex items-center gap-2">
+                <Label className="text-xs">Show</Label>
+                <Select
+                  value={selectedShowId?.toString() || "none"}
+                  onValueChange={v => setSelectedShowId(v === "none" ? undefined : parseInt(v))}
+                >
+                  <SelectTrigger className="w-48 h-8 text-sm"><SelectValue placeholder="Select show..." /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="none">No show</SelectItem>
+                    {shows.map(s => (
+                      <SelectItem key={s.id} value={s.id.toString()}>{s.title}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Filter Bar */}
+      <div className="flex items-center gap-3 flex-wrap">
+        <div className="relative">
+          <Search className="w-4 h-4 absolute left-2.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+            placeholder="Search cards..."
+            className="w-64 h-8 text-sm pl-8"
+          />
+        </div>
+        <Select value={filterTier} onValueChange={setFilterTier}>
+          <SelectTrigger className="w-28 h-8 text-sm"><SelectValue /></SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Tiers</SelectItem>
+            <SelectItem value="chase">Chase</SelectItem>
+            <SelectItem value="hit">Hit</SelectItem>
+            <SelectItem value="base">Base</SelectItem>
+            <SelectItem value="bonus">Bonus</SelectItem>
+          </SelectContent>
+        </Select>
+        <Select value={filterStatus} onValueChange={setFilterStatus}>
+          <SelectTrigger className="w-32 h-8 text-sm"><SelectValue /></SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Status</SelectItem>
+            <SelectItem value="available">Available</SelectItem>
+            <SelectItem value="pulled">Pulled</SelectItem>
+          </SelectContent>
+        </Select>
+        <span className="text-sm text-muted-foreground ml-auto">
+          {selectedIds.size > 0 && (
+            <span className="font-medium text-foreground">{selectedIds.size} selected · </span>
+          )}
+          {filteredItems.length} cards shown
+        </span>
+      </div>
+
+      {/* Master Spreadsheet Table */}
+      <div className="border border-border rounded-lg overflow-hidden">
+        <ScrollArea className="max-h-[600px]">
+          <Table>
+            <TableHeader className="bg-muted/30 sticky top-0 z-10">
+              <TableRow>
+                <TableHead className="w-10">
+                  <Checkbox
+                    checked={filteredItems.length > 0 && selectedIds.size === filteredItems.length}
+                    onCheckedChange={toggleAll}
+                  />
+                </TableHead>
+                <TableHead className="w-14">Status</TableHead>
+                <TableHead className="w-14">Image</TableHead>
+                <TableHead className="min-w-[160px]">Card Name</TableHead>
+                <TableHead>Set</TableHead>
+                <TableHead className="w-16">Card #</TableHead>
+                <TableHead>Parallel</TableHead>
+                <TableHead className="w-20">Tier</TableHead>
+                <TableHead className="w-24">Condition</TableHead>
+                <TableHead className="w-28">Pulled Date</TableHead>
+                <TableHead className="w-32">Show / Stream</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {filteredItems.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={11} className="text-center py-8 text-muted-foreground">
+                    {totalCards === 0 ? "No cards in this checklist yet. Use 'Add Cards' to import." : "No cards match your filters."}
+                  </TableCell>
+                </TableRow>
+              ) : (
+                filteredItems.map(item => {
+                  const pullInfo = pullLookup[item.id];
+                  return (
+                    <TableRow
+                      key={item.id}
+                      className={`cursor-pointer transition-colors ${
+                        selectedIds.has(item.id) ? 'bg-primary/5' :
+                        item.isPulled ? 'bg-green-500/3' : ''
+                      }`}
+                      onClick={() => toggleSelect(item.id)}
+                    >
+                      <TableCell onClick={e => e.stopPropagation()}>
+                        <Checkbox
+                          checked={selectedIds.has(item.id)}
+                          onCheckedChange={() => toggleSelect(item.id)}
+                        />
+                      </TableCell>
+                      <TableCell>
+                        {item.isPulled ? (
+                          <CheckCircle2 className="w-5 h-5 text-green-400" />
+                        ) : (
+                          <div className="w-5 h-5 rounded-full border-2 border-muted-foreground/30" />
+                        )}
+                      </TableCell>
+                      <TableCell onClick={e => e.stopPropagation()}>
+                        {uploadingImageId === item.id ? (
+                          <Loader2 className="w-4 h-4 animate-spin text-primary" />
+                        ) : item.imageUrl ? (
+                          <img
+                            src={item.imageUrl}
+                            alt=""
+                            className="w-8 h-10 object-cover rounded border border-border cursor-pointer hover:border-primary/50 transition-colors"
+                            onClick={() => {
+                              const input = document.createElement("input");
+                              input.type = "file";
+                              input.accept = "image/*";
+                              input.onchange = (e) => {
+                                const file = (e.target as HTMLInputElement).files?.[0];
+                                if (file) handleImageUpload(item.id, file);
+                              };
+                              input.click();
+                            }}
+                          />
+                        ) : (
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8 text-muted-foreground hover:text-primary"
+                            onClick={() => {
+                              const input = document.createElement("input");
+                              input.type = "file";
+                              input.accept = "image/*";
+                              input.onchange = (e) => {
+                                const file = (e.target as HTMLInputElement).files?.[0];
+                                if (file) handleImageUpload(item.id, file);
+                              };
+                              input.click();
+                            }}
+                          >
+                            <ImageIcon className="w-4 h-4" />
+                          </Button>
+                        )}
+                      </TableCell>
+                      <TableCell className="font-medium">
+                        <div>
+                          {item.cardName}
+                          {item.parallel && (
+                            <span className="text-primary ml-1.5 text-xs font-normal">({item.parallel})</span>
+                          )}
+                        </div>
+                      </TableCell>
+                      <TableCell className="text-sm text-muted-foreground">
+                        {item.cardSet || '-'}
+                        {item.cardYear && <span className="ml-1">({item.cardYear})</span>}
+                      </TableCell>
+                      <TableCell className="text-sm">{item.cardNumber || '-'}</TableCell>
+                      <TableCell className="text-sm text-primary">{item.parallel || '-'}</TableCell>
+                      <TableCell>
+                        <Badge variant="outline" className={`text-xs ${tierColors[item.tier] || ''}`}>
+                          {item.tier}
+                        </Badge>
+                      </TableCell>
+                      <TableCell className="text-xs text-muted-foreground">{item.cardCondition || 'Raw'}</TableCell>
+                      <TableCell className="text-xs">
+                        {item.isPulled ? (
+                          <span className="text-green-400">{pullInfo?.pulledAt || 'Yes'}</span>
+                        ) : (
+                          <span className="text-muted-foreground/50">—</span>
+                        )}
+                      </TableCell>
+                      <TableCell className="text-xs">
+                        {pullInfo?.showTitle ? (
+                          <span className="text-muted-foreground">{pullInfo.showTitle}</span>
+                        ) : pullInfo?.notes ? (
+                          <span className="text-muted-foreground">{pullInfo.notes}</span>
+                        ) : (
+                          <span className="text-muted-foreground/50">—</span>
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  );
+                })
+              )}
+            </TableBody>
+          </Table>
+        </ScrollArea>
+      </div>
+
+      {/* Action Bar */}
+      {selectedIds.size > 0 && (
+        <div className="flex items-center justify-between bg-card border border-border rounded-lg p-3">
+          <span className="text-sm">
+            <strong>{selectedIds.size}</strong> selected
+            {selectedUnpulled > 0 && <span className="text-muted-foreground"> · {selectedUnpulled} unpulled</span>}
+            {selectedPulled > 0 && <span className="text-green-400"> · {selectedPulled} pulled</span>}
+          </span>
+          <div className="flex gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setSelectedIds(new Set())}
+            >
+              Clear
+            </Button>
+            {selectedUnpulled > 0 && (
+              <Button
+                size="sm"
+                onClick={handleMarkPulled}
+                disabled={bulkMarkPulled.isPending}
+                className="bg-green-600 hover:bg-green-700"
+              >
+                {bulkMarkPulled.isPending ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <CheckCircle2 className="w-4 h-4 mr-2" />}
+                Mark {selectedUnpulled} Pulled
+              </Button>
+            )}
+            {selectedPulled > 0 && (
+              <Button
+                size="sm"
+                variant="destructive"
+                onClick={handleUnpull}
+                disabled={bulkUnpull.isPending}
+              >
+                {bulkUnpull.isPending ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Undo2 className="w-4 h-4 mr-2" />}
+                Unpull {selectedPulled}
+              </Button>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ==================== ADD CARDS TAB ====================
 
 function AddCardsTab({ productId }: { productId: number }) {
@@ -64,9 +635,6 @@ function AddCardsTab({ productId }: { productId: number }) {
   const [defaultYear, setDefaultYear] = useState("");
   const [defaultTier, setDefaultTier] = useState<"chase" | "hit" | "base" | "bonus">("base");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [uploadingImages, setUploadingImages] = useState<Set<string>>(new Set());
-  const fileInputRefs = useRef<Map<string, HTMLInputElement>>(new Map());
-  const pasteAreaRef = useRef<HTMLTextAreaElement>(null);
 
   const bulkCreate = trpc.admin.checklist.bulkCreate.useMutation();
   const uploadImage = trpc.admin.checklist.uploadImage.useMutation();
@@ -103,16 +671,13 @@ function AddCardsTab({ productId }: { productId: number }) {
     ));
   };
 
-  // Parse pasted tab-separated or pipe-separated data
   const handlePaste = useCallback((text: string) => {
     const lines = text.trim().split('\n').filter(l => l.trim());
     if (lines.length === 0) return;
 
-    // Detect separator: tab or pipe
     const firstLine = lines[0];
     const separator = firstLine.includes('\t') ? '\t' : '|';
 
-    // Check if first line is a header
     const headerKeywords = ['card name', 'name', 'set', 'year', 'number', 'parallel', 'tier', 'value'];
     const firstLineLower = firstLine.toLowerCase();
     const isHeader = headerKeywords.some(k => firstLineLower.includes(k));
@@ -139,7 +704,6 @@ function AddCardsTab({ productId }: { productId: number }) {
     }).filter(r => r.cardName);
 
     if (newRows.length > 0) {
-      // Replace empty rows with pasted data
       setRows(prev => {
         const nonEmpty = prev.filter(r => r.cardName.trim());
         return [...nonEmpty, ...newRows];
@@ -148,7 +712,6 @@ function AddCardsTab({ productId }: { productId: number }) {
     }
   }, [defaultSet, defaultYear, defaultTier]);
 
-  // Handle CSV file upload
   const handleFileUpload = useCallback((file: File) => {
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -168,7 +731,6 @@ function AddCardsTab({ productId }: { productId: number }) {
 
     setIsSubmitting(true);
     try {
-      // First, create all the checklist items
       const items = validRows.map((row, index) => ({
         cardName: row.cardName.trim(),
         cardSet: row.cardSet.trim() || defaultSet || undefined,
@@ -184,13 +746,9 @@ function AddCardsTab({ productId }: { productId: number }) {
       const result = await bulkCreate.mutateAsync({ productId, items });
       toast.success(`${result.count} cards added to checklist!`);
 
-      // Now upload any images
-      // We need to get the newly created items to get their IDs
-      // Refetch the checklist to get the new IDs
       await utils.admin.checklist.getByProduct.invalidate({ productId });
       const updatedChecklist = await utils.admin.checklist.getByProduct.fetch({ productId });
 
-      // Match images to newly created items by name
       const rowsWithImages = validRows.filter(r => r.imageFile);
       if (rowsWithImages.length > 0 && updatedChecklist) {
         let uploadedCount = 0;
@@ -219,7 +777,6 @@ function AddCardsTab({ productId }: { productId: number }) {
         }
       }
 
-      // Reset the form
       setRows(Array.from({ length: 5 }, createEmptyRow));
     } catch (e: any) {
       toast.error(e.message || "Failed to add cards");
@@ -234,7 +791,7 @@ function AddCardsTab({ productId }: { productId: number }) {
       <Card>
         <CardContent className="py-3">
           <div className="flex items-center gap-4 flex-wrap">
-            <span className="text-sm font-medium text-muted-foreground">Defaults:</span>
+            <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Defaults:</span>
             <div className="flex items-center gap-2">
               <Label className="text-xs">Set</Label>
               <Input
@@ -269,7 +826,7 @@ function AddCardsTab({ productId }: { productId: number }) {
         </CardContent>
       </Card>
 
-      {/* Paste / Upload Area */}
+      {/* Import Buttons */}
       <div className="flex gap-3">
         <Button
           variant="outline"
@@ -487,423 +1044,6 @@ function AddCardsTab({ productId }: { productId: number }) {
   );
 }
 
-// ==================== MARK PULLED TAB ====================
-
-function MarkPulledTab({ productId }: { productId: number }) {
-  const { data: checklist, isLoading } = trpc.admin.checklist.getByProduct.useQuery({ productId });
-  const { data: shows } = trpc.admin.shows.getByProduct.useQuery({ productId });
-  const bulkMarkPulled = trpc.admin.checklist.bulkMarkPulled.useMutation();
-  const utils = trpc.useUtils();
-
-  const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
-  const [streamName, setStreamName] = useState("");
-  const [selectedShowId, setSelectedShowId] = useState<number | undefined>();
-  const [pulledDate, setPulledDate] = useState(() => {
-    const now = new Date();
-    return now.toISOString().slice(0, 16); // YYYY-MM-DDTHH:mm
-  });
-  const [filterTier, setFilterTier] = useState<string>("all");
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const unpulledItems = useMemo(() => {
-    if (!checklist) return [];
-    return checklist.filter(item => !item.isPulled);
-  }, [checklist]);
-
-  const filteredItems = useMemo(() => {
-    let items = unpulledItems;
-    if (filterTier !== "all") {
-      items = items.filter(i => i.tier === filterTier);
-    }
-    if (searchQuery.trim()) {
-      const q = searchQuery.toLowerCase();
-      items = items.filter(i =>
-        i.cardName.toLowerCase().includes(q) ||
-        i.parallel?.toLowerCase().includes(q) ||
-        i.cardNumber?.toLowerCase().includes(q)
-      );
-    }
-    return items;
-  }, [unpulledItems, filterTier, searchQuery]);
-
-  const toggleSelect = (id: number) => {
-    setSelectedIds(prev => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
-  };
-
-  const toggleAll = () => {
-    if (selectedIds.size === filteredItems.length) {
-      setSelectedIds(new Set());
-    } else {
-      setSelectedIds(new Set(filteredItems.map(i => i.id)));
-    }
-  };
-
-  const handleMarkPulled = async () => {
-    if (selectedIds.size === 0) {
-      toast.error("Select at least one card to mark as pulled");
-      return;
-    }
-
-    try {
-      const result = await bulkMarkPulled.mutateAsync({
-        productId,
-        showId: selectedShowId,
-        streamName: streamName.trim() || undefined,
-        pulledDate: new Date(pulledDate).getTime(),
-        rows: Array.from(selectedIds).map(id => ({
-          checklistItemId: id,
-        })),
-      });
-      toast.success(`${result.count} cards marked as pulled!`);
-      setSelectedIds(new Set());
-      utils.admin.checklist.getByProduct.invalidate({ productId });
-      utils.admin.pulls.getByProduct.invalidate({ productId });
-    } catch (e: any) {
-      toast.error(e.message || "Failed to mark cards as pulled");
-    }
-  };
-
-  const tierColors: Record<string, string> = {
-    chase: "text-amber-400 bg-amber-500/10",
-    hit: "text-purple-400 bg-purple-500/10",
-    base: "text-blue-400 bg-blue-500/10",
-    bonus: "text-green-400 bg-green-500/10",
-  };
-
-  if (isLoading) return <div className="flex justify-center py-12"><Loader2 className="w-6 h-6 animate-spin text-primary" /></div>;
-
-  return (
-    <div className="space-y-4">
-      {/* Pull Info Bar */}
-      <Card>
-        <CardContent className="py-3">
-          <div className="flex items-center gap-4 flex-wrap">
-            <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-muted-foreground" />
-              <Label className="text-xs">Date</Label>
-              <Input
-                type="datetime-local"
-                value={pulledDate}
-                onChange={e => setPulledDate(e.target.value)}
-                className="w-48 h-8 text-sm"
-              />
-            </div>
-            <div className="flex items-center gap-2">
-              <Radio className="w-4 h-4 text-muted-foreground" />
-              <Label className="text-xs">Stream</Label>
-              <Input
-                value={streamName}
-                onChange={e => setStreamName(e.target.value)}
-                placeholder="Stream name / URL"
-                className="w-48 h-8 text-sm"
-              />
-            </div>
-            {shows && shows.length > 0 && (
-              <div className="flex items-center gap-2">
-                <Label className="text-xs">Show</Label>
-                <Select
-                  value={selectedShowId?.toString() || "none"}
-                  onValueChange={v => setSelectedShowId(v === "none" ? undefined : parseInt(v))}
-                >
-                  <SelectTrigger className="w-48 h-8 text-sm"><SelectValue placeholder="Select show..." /></SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="none">No show</SelectItem>
-                    {shows.map(s => (
-                      <SelectItem key={s.id} value={s.id.toString()}>{s.title}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            )}
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Filter Bar */}
-      <div className="flex items-center gap-3">
-        <Input
-          value={searchQuery}
-          onChange={e => setSearchQuery(e.target.value)}
-          placeholder="Search cards..."
-          className="w-64 h-8 text-sm"
-        />
-        <Select value={filterTier} onValueChange={setFilterTier}>
-          <SelectTrigger className="w-28 h-8 text-sm"><SelectValue /></SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Tiers</SelectItem>
-            <SelectItem value="chase">Chase</SelectItem>
-            <SelectItem value="hit">Hit</SelectItem>
-            <SelectItem value="base">Base</SelectItem>
-            <SelectItem value="bonus">Bonus</SelectItem>
-          </SelectContent>
-        </Select>
-        <span className="text-sm text-muted-foreground">
-          {selectedIds.size} selected · {unpulledItems.length} unpulled cards
-        </span>
-      </div>
-
-      {/* Cards Table */}
-      <div className="border border-border rounded-lg overflow-hidden">
-        <ScrollArea className="max-h-[500px]">
-          <Table>
-            <TableHeader className="bg-muted/30 sticky top-0 z-10">
-              <TableRow>
-                <TableHead className="w-10">
-                  <Checkbox
-                    checked={filteredItems.length > 0 && selectedIds.size === filteredItems.length}
-                    onCheckedChange={toggleAll}
-                  />
-                </TableHead>
-                <TableHead>Card Name</TableHead>
-                <TableHead>Set</TableHead>
-                <TableHead className="w-16">Card #</TableHead>
-                <TableHead>Parallel</TableHead>
-                <TableHead className="w-20">Tier</TableHead>
-                <TableHead className="w-24">Value</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredItems.length === 0 ? (
-                <TableRow>
-                  <TableCell colSpan={7} className="text-center py-8 text-muted-foreground">
-                    {unpulledItems.length === 0 ? "All cards have been pulled!" : "No cards match your search."}
-                  </TableCell>
-                </TableRow>
-              ) : (
-                filteredItems.map(item => (
-                  <TableRow
-                    key={item.id}
-                    className={`cursor-pointer ${selectedIds.has(item.id) ? 'bg-primary/5' : ''}`}
-                    onClick={() => toggleSelect(item.id)}
-                  >
-                    <TableCell>
-                      <Checkbox
-                        checked={selectedIds.has(item.id)}
-                        onCheckedChange={() => toggleSelect(item.id)}
-                      />
-                    </TableCell>
-                    <TableCell className="font-medium">{item.cardName}</TableCell>
-                    <TableCell className="text-sm text-muted-foreground">{item.cardSet || '-'}</TableCell>
-                    <TableCell className="text-sm">{item.cardNumber || '-'}</TableCell>
-                    <TableCell className="text-sm text-primary">{item.parallel || '-'}</TableCell>
-                    <TableCell>
-                      <Badge variant="outline" className={`text-xs ${tierColors[item.tier] || ''}`}>
-                        {item.tier}
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="text-sm text-green-400">{item.estimatedValue || '-'}</TableCell>
-                  </TableRow>
-                ))
-              )}
-            </TableBody>
-          </Table>
-        </ScrollArea>
-      </div>
-
-      {/* Action Bar */}
-      <div className="flex items-center justify-end gap-2">
-        <Button
-          variant="outline"
-          onClick={() => setSelectedIds(new Set())}
-          disabled={selectedIds.size === 0}
-        >
-          Clear Selection
-        </Button>
-        <Button
-          onClick={handleMarkPulled}
-          disabled={selectedIds.size === 0 || bulkMarkPulled.isPending}
-          className="bg-green-600 hover:bg-green-700"
-        >
-          {bulkMarkPulled.isPending ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <CheckCircle2 className="w-4 h-4 mr-2" />}
-          Mark {selectedIds.size} Card{selectedIds.size !== 1 ? 's' : ''} as Pulled
-        </Button>
-      </div>
-    </div>
-  );
-}
-
-// ==================== MANAGE PULLED TAB ====================
-
-function ManagePulledTab({ productId }: { productId: number }) {
-  const { data: checklist, isLoading } = trpc.admin.checklist.getByProduct.useQuery({ productId });
-  const bulkUnpull = trpc.admin.checklist.bulkUnpull.useMutation();
-  const utils = trpc.useUtils();
-
-  const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const pulledItems = useMemo(() => {
-    if (!checklist) return [];
-    return checklist.filter(item => item.isPulled);
-  }, [checklist]);
-
-  const filteredItems = useMemo(() => {
-    if (!searchQuery.trim()) return pulledItems;
-    const q = searchQuery.toLowerCase();
-    return pulledItems.filter(i =>
-      i.cardName.toLowerCase().includes(q) ||
-      i.parallel?.toLowerCase().includes(q) ||
-      i.cardNumber?.toLowerCase().includes(q)
-    );
-  }, [pulledItems, searchQuery]);
-
-  const toggleSelect = (id: number) => {
-    setSelectedIds(prev => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
-  };
-
-  const toggleAll = () => {
-    if (selectedIds.size === filteredItems.length) {
-      setSelectedIds(new Set());
-    } else {
-      setSelectedIds(new Set(filteredItems.map(i => i.id)));
-    }
-  };
-
-  const handleUnpull = async () => {
-    if (selectedIds.size === 0) return;
-    if (!confirm(`Remove pulled status from ${selectedIds.size} card(s)? This will also delete their pull records.`)) return;
-
-    try {
-      const result = await bulkUnpull.mutateAsync({
-        productId,
-        checklistItemIds: Array.from(selectedIds),
-      });
-      toast.success(`${result.count} cards un-pulled!`);
-      setSelectedIds(new Set());
-      utils.admin.checklist.getByProduct.invalidate({ productId });
-      utils.admin.pulls.getByProduct.invalidate({ productId });
-    } catch (e: any) {
-      toast.error(e.message || "Failed to unpull cards");
-    }
-  };
-
-  const tierColors: Record<string, string> = {
-    chase: "text-amber-400 bg-amber-500/10",
-    hit: "text-purple-400 bg-purple-500/10",
-    base: "text-blue-400 bg-blue-500/10",
-    bonus: "text-green-400 bg-green-500/10",
-  };
-
-  if (isLoading) return <div className="flex justify-center py-12"><Loader2 className="w-6 h-6 animate-spin text-primary" /></div>;
-
-  return (
-    <div className="space-y-4">
-      {/* Filter Bar */}
-      <div className="flex items-center gap-3">
-        <Input
-          value={searchQuery}
-          onChange={e => setSearchQuery(e.target.value)}
-          placeholder="Search pulled cards..."
-          className="w-64 h-8 text-sm"
-        />
-        <span className="text-sm text-muted-foreground">
-          {selectedIds.size} selected · {pulledItems.length} pulled cards total
-        </span>
-      </div>
-
-      {/* Pulled Cards Table */}
-      <div className="border border-border rounded-lg overflow-hidden">
-        <ScrollArea className="max-h-[500px]">
-          <Table>
-            <TableHeader className="bg-muted/30 sticky top-0 z-10">
-              <TableRow>
-                <TableHead className="w-10">
-                  <Checkbox
-                    checked={filteredItems.length > 0 && selectedIds.size === filteredItems.length}
-                    onCheckedChange={toggleAll}
-                  />
-                </TableHead>
-                <TableHead>Card Name</TableHead>
-                <TableHead>Set</TableHead>
-                <TableHead className="w-16">Card #</TableHead>
-                <TableHead>Parallel</TableHead>
-                <TableHead className="w-20">Tier</TableHead>
-                <TableHead className="w-24">Value</TableHead>
-                <TableHead className="w-16">Image</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredItems.length === 0 ? (
-                <TableRow>
-                  <TableCell colSpan={8} className="text-center py-8 text-muted-foreground">
-                    {pulledItems.length === 0 ? "No cards have been pulled yet." : "No pulled cards match your search."}
-                  </TableCell>
-                </TableRow>
-              ) : (
-                filteredItems.map(item => (
-                  <TableRow
-                    key={item.id}
-                    className={`cursor-pointer ${selectedIds.has(item.id) ? 'bg-red-500/5' : ''}`}
-                    onClick={() => toggleSelect(item.id)}
-                  >
-                    <TableCell>
-                      <Checkbox
-                        checked={selectedIds.has(item.id)}
-                        onCheckedChange={() => toggleSelect(item.id)}
-                      />
-                    </TableCell>
-                    <TableCell className="font-medium">
-                      <div className="flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-green-400 shrink-0" />
-                        {item.cardName}
-                      </div>
-                    </TableCell>
-                    <TableCell className="text-sm text-muted-foreground">{item.cardSet || '-'}</TableCell>
-                    <TableCell className="text-sm">{item.cardNumber || '-'}</TableCell>
-                    <TableCell className="text-sm text-primary">{item.parallel || '-'}</TableCell>
-                    <TableCell>
-                      <Badge variant="outline" className={`text-xs ${tierColors[item.tier] || ''}`}>
-                        {item.tier}
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="text-sm text-green-400">{item.estimatedValue || '-'}</TableCell>
-                    <TableCell>
-                      {item.imageUrl ? (
-                        <img src={item.imageUrl} alt="" className="w-8 h-10 object-cover rounded border border-border" />
-                      ) : (
-                        <span className="text-xs text-muted-foreground">-</span>
-                      )}
-                    </TableCell>
-                  </TableRow>
-                ))
-              )}
-            </TableBody>
-          </Table>
-        </ScrollArea>
-      </div>
-
-      {/* Action Bar */}
-      <div className="flex items-center justify-end gap-2">
-        <Button
-          variant="outline"
-          onClick={() => setSelectedIds(new Set())}
-          disabled={selectedIds.size === 0}
-        >
-          Clear Selection
-        </Button>
-        <Button
-          variant="destructive"
-          onClick={handleUnpull}
-          disabled={selectedIds.size === 0 || bulkUnpull.isPending}
-        >
-          {bulkUnpull.isPending ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Undo2 className="w-4 h-4 mr-2" />}
-          Unpull {selectedIds.size} Card{selectedIds.size !== 1 ? 's' : ''}
-        </Button>
-      </div>
-    </div>
-  );
-}
-
 // ==================== HELPER ====================
 
 async function fileToBase64(file: File): Promise<string> {
@@ -911,7 +1051,6 @@ async function fileToBase64(file: File): Promise<string> {
     const reader = new FileReader();
     reader.onload = () => {
       const result = reader.result as string;
-      // Remove the data:image/xxx;base64, prefix
       const base64 = result.split(',')[1];
       resolve(base64);
     };
@@ -923,61 +1062,31 @@ async function fileToBase64(file: File): Promise<string> {
 // ==================== MAIN COMPONENT ====================
 
 export default function ChecklistSheet({ productId }: { productId: number }) {
-  const { data: checklist } = trpc.admin.checklist.getByProduct.useQuery({ productId });
-
-  const totalCards = checklist?.length || 0;
-  const pulledCards = checklist?.filter(c => c.isPulled).length || 0;
-  const withImages = checklist?.filter(c => c.imageUrl).length || 0;
-
   return (
     <div className="space-y-6">
-      {/* Stats Bar */}
-      <div className="flex items-center gap-6 text-sm">
-        <div className="flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-blue-400" />
-          <span className="text-muted-foreground">Total:</span>
-          <span className="font-bold">{totalCards}</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-green-400" />
-          <span className="text-muted-foreground">Pulled:</span>
-          <span className="font-bold text-green-400">{pulledCards}</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-amber-400" />
-          <span className="text-muted-foreground">Remaining:</span>
-          <span className="font-bold">{totalCards - pulledCards}</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-purple-400" />
-          <span className="text-muted-foreground">With Images:</span>
-          <span className="font-bold">{withImages}</span>
-        </div>
-      </div>
-
-      <Tabs defaultValue="add" className="space-y-4">
+      <Tabs defaultValue="master" className="space-y-4">
         <TabsList className="bg-card border border-border">
+          <TabsTrigger value="master" className="flex items-center gap-2">
+            <FileSpreadsheet className="w-4 h-4" /> Master Sheet
+          </TabsTrigger>
           <TabsTrigger value="add" className="flex items-center gap-2">
             <Plus className="w-4 h-4" /> Add Cards
           </TabsTrigger>
-          <TabsTrigger value="pull" className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4" /> Mark Pulled
-          </TabsTrigger>
-          <TabsTrigger value="manage" className="flex items-center gap-2">
-            <Undo2 className="w-4 h-4" /> Manage Pulled
+          <TabsTrigger value="inventory" className="flex items-center gap-2">
+            <Package className="w-4 h-4" /> Pack Inventory
           </TabsTrigger>
         </TabsList>
+
+        <TabsContent value="master">
+          <MasterSheet productId={productId} />
+        </TabsContent>
 
         <TabsContent value="add">
           <AddCardsTab productId={productId} />
         </TabsContent>
 
-        <TabsContent value="pull">
-          <MarkPulledTab productId={productId} />
-        </TabsContent>
-
-        <TabsContent value="manage">
-          <ManagePulledTab productId={productId} />
+        <TabsContent value="inventory">
+          <PackCounter productId={productId} />
         </TabsContent>
       </Tabs>
     </div>

@@ -9,6 +9,7 @@ import { CreditCard, ArrowLeft, Shield, Star, Package, Check, AlertCircle, Loade
 import { Button } from "@/components/ui/button";
 import { getProductBySlug, products } from "@/lib/products";
 import ProductCard from "@/components/ProductCard";
+import LivePackCounter from "@/components/LivePackCounter";
 import { useState } from "react";
 import { toast } from "sonner";
 import { trpc } from "@/lib/trpc";
@@ -174,6 +175,15 @@ export default function ProductDetail() {
     ? new Date() < new Date(product.launchDate)
     : false;
 
+  // Fetch live pack data for repack products
+  const { data: dbProduct } = trpc.public.products.getBySlug.useQuery(
+    { slug: slug || "" },
+    { enabled: !!product?.isRepack, refetchInterval: 30000 }
+  );
+  const livePacksRemaining = dbProduct?.packsRemaining ?? product?.inventory ?? 0;
+  const liveTotalPacks = dbProduct?.totalPacks ?? product?.inventory ?? 0;
+  const isSoldOut = product?.isRepack && !product?.isComingSoon && liveTotalPacks > 0 && livePacksRemaining <= 0;
+
   const createSession = trpc.checkout.createSession.useMutation({
     onSuccess: (data) => {
       if (data.url) {
@@ -270,20 +280,25 @@ export default function ProductDetail() {
                 )}
               </div>
 
+              {/* Live Pack Counter */}
+              {product.isRepack && (
+                <LivePackCounter productSlug={product.slug} fallbackInventory={product.inventory} />
+              )}
+
               {/* Stock Status */}
               <div className="flex items-center gap-2 mb-6">
                 {product.inStock && !hasLaunchGate ? (
                   <>
                     <div className="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse" />
                     <span className="text-sm text-green-400 font-bold">
-                      In Stock — {product.inventory} packs remaining
+                      In Stock — Limited packs remaining
                     </span>
                   </>
                 ) : product.inStock && hasLaunchGate ? (
                   <>
                     <Zap className="w-4 h-4 text-primary" />
                     <span className="text-sm text-primary font-bold">
-                      Drops March 13th — {product.inventory} packs available at launch
+                      Drops March 13th — packs available at launch
                     </span>
                   </>
                 ) : (
@@ -304,7 +319,7 @@ export default function ProductDetail() {
                 <LaunchCountdownBlock launchDateUtc={product.launchDate} productSlug={product.slug} />
               )}
 
-              {/* Buy Now with Stripe (shown after launch date) */}
+              {/* Buy Now with Stripe (shown after launch date, not sold out) */}
               {product.inStock && !hasLaunchGate && (
                 <div className="space-y-4 mb-8">
                   <div className="flex items-center gap-4">
@@ -355,6 +370,19 @@ export default function ProductDetail() {
                   <Button size="lg" className="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold text-lg py-6" onClick={() => toast.info("Notification feature coming soon!")}>
                     Notify Me When Available
                   </Button>
+                </div>
+              )}
+
+              {/* Sold Out State - shown when all packs are gone */}
+              {isSoldOut && !hasLaunchGate && (
+                <div className="mb-8 p-4 bg-red-500/10 border border-red-500/30 rounded-xl text-center">
+                  <p className="text-red-400 font-bold text-lg mb-1">SOLD OUT</p>
+                  <p className="text-sm text-muted-foreground">All {liveTotalPacks} packs have been sold. This series is complete!</p>
+                  <Link href="/checklists">
+                    <Button variant="outline" className="mt-3 border-red-500/30 text-red-400 hover:bg-red-500/10">
+                      View Complete Checklist
+                    </Button>
+                  </Link>
                 </div>
               )}
 

@@ -270,3 +270,16 @@
 - [x] Show image placeholder icon when no image is uploaded
 - [x] Add hover/click to enlarge image functionality (lightbox)
 - [x] Ensure images load efficiently (lazy loading)
+
+## Unified Master Spreadsheet & Live Pack Counter
+- [x] Redesign admin checklist into single master spreadsheet per series
+- [x] Upload all cards + images in one CSV/spreadsheet import (Add Cards tab)
+- [x] Inline "pulled" checkbox with date, show name, and episode/time fields
+- [x] Same list stays active until all cards pulled — unified Master Sheet tab
+- [x] Add show/episode tracking table (show name, date, episode number, packs sold) — existing Shows tab
+- [x] Live pack counter on product page (LivePackCounter component)
+- [x] Live pack counter updates as cards are marked pulled during shows (30s auto-refresh)
+- [x] Sold-out state when series is complete (keep on site, show "Sold Out" badge)
+- [x] Series lifecycle: Active → Sold Out → move to next series
+- [x] Admin can log packs sold per show (Pack Inventory tab + existing Shows tab)
+- [x] Write vitest tests for new endpoints (78 tests passing)
