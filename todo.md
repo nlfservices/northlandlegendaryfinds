@@ -212,3 +212,8 @@
 
 ## Admin Dashboard eBay Comps Tab
 - [x] Add eBay Price Comps tab to main admin dashboard
+
+## Card Database Set Images
+- [x] Compress and upload all 6 box images (Chrome, CBH, Mint, Sapphire, Studios, Studios Sapphire) to CDN
+- [x] Update database with box image URLs for all 6 sets
+- [x] Redesign /cards page set cards with box images and green background matching site theme

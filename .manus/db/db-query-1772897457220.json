@@ -1,0 +1,49 @@
+{
+  "query": "SELECT * FROM marvel_sets LIMIT 3;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT * FROM marvel_sets LIMIT 3;",
+  "rows": [
+    {
+      "id": "1",
+      "sourceId": "1",
+      "name": "2025 Topps Chrome",
+      "shortName": "Chrome",
+      "slug": "2025-topps-chrome",
+      "releaseYear": "2025",
+      "totalCards": "361",
+      "description": "NULL",
+      "imageUrl": "NULL",
+      "createdAt": "2026-03-07 04:43:43",
+      "updatedAt": "2026-03-07 04:43:43"
+    },
+    {
+      "id": "2",
+      "sourceId": "5",
+      "name": "2025 Topps Comic Book Heroes",
+      "shortName": "Comic Heroes",
+      "slug": "2025-topps-comic-book-heroes",
+      "releaseYear": "2025",
+      "totalCards": "150",
+      "description": "NULL",
+      "imageUrl": "NULL",
+      "createdAt": "2026-03-07 04:43:43",
+      "updatedAt": "2026-03-07 04:43:43"
+    },
+    {
+      "id": "3",
+      "sourceId": "6",
+      "name": "2025 Topps Marvel Mint",
+      "shortName": "Marvel Mint",
+      "slug": "2025-topps-marvel-mint",
+      "releaseYear": "2025",
+      "totalCards": "156",
+      "description": "NULL",
+      "imageUrl": "NULL",
+      "createdAt": "2026-03-07 04:43:44",
+      "updatedAt": "2026-03-07 04:43:44"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tsourceId\tname\tshortName\tslug\treleaseYear\ttotalCards\tdescription\timageUrl\tcreatedAt\tupdatedAt\n1\t1\t2025 Topps Chrome\tChrome\t2025-topps-chrome\t2025\t361\tNULL\tNULL\t2026-03-07 04:43:43\t2026-03-07 04:43:43\n2\t5\t2025 Topps Comic Book Heroes\tComic Heroes\t2025-topps-comic-book-heroes\t2025\t150\tNULL\tNULL\t2026-03-07 04:43:43\t2026-03-07 04:43:43\n3\t6\t2025 Topps Marvel Mint\tMarvel Mint\t2025-topps-marvel-mint\t2025\t156\tNULL\tNULL\t2026-03-07 04:43:44\t2026-03-07 04:43:44\n",
+  "stderr": "",
+  "execution_time_ms": 352
+}

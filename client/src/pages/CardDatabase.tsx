@@ -238,45 +238,70 @@ function SetBrowser() {
             {isLoading ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {[1, 2, 3, 4, 5, 6].map((i) => (
-                  <div key={i} className="h-48 rounded-xl bg-card animate-pulse border border-border" />
+                  <div key={i} className="h-72 rounded-xl bg-card animate-pulse border border-border" />
                 ))}
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {sets?.map((set) => (
                   <Link key={set.id} href={`/cards/${set.slug}`}>
-                    <article className="group relative overflow-hidden rounded-xl bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 cursor-pointer">
-                      <div className="p-6">
-                        <div className="flex items-start justify-between gap-3 mb-4">
-                          <div className="min-w-0">
-                            <h3 className="font-bold text-lg group-hover:text-primary transition-colors leading-tight">
+                    <article className="group relative overflow-hidden rounded-xl border-2 border-primary/20 hover:border-primary/60 transition-all duration-300 hover:shadow-xl hover:shadow-primary/15 cursor-pointer">
+                      {/* Green gradient background */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-[oklch(0.20_0.08_145)] via-[oklch(0.15_0.06_155)] to-[oklch(0.12_0.04_165)]" />
+                      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,oklch(0.30_0.12_145/0.3),transparent_60%)]" />
+                      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,oklch(0.25_0.10_195/0.2),transparent_60%)]" />
+                      
+                      <div className="relative z-10 p-5">
+                        {/* Box image + info layout */}
+                        <div className="flex gap-4 items-start">
+                          {/* Box image */}
+                          <div className="shrink-0 w-28 h-36 rounded-lg overflow-hidden border border-primary/20 bg-black/30 shadow-lg group-hover:scale-105 transition-transform duration-300">
+                            {set.imageUrl ? (
+                              <img
+                                src={set.imageUrl}
+                                alt={`${set.name} box`}
+                                className="w-full h-full object-contain p-1"
+                                loading="lazy"
+                              />
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center">
+                                <Layers className="w-10 h-10 text-primary/40" />
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Set info */}
+                          <div className="flex-1 min-w-0">
+                            <h3 className="font-bold text-base leading-tight text-foreground group-hover:text-primary transition-colors">
                               {set.name}
                             </h3>
                             {set.shortName && set.shortName !== set.name && (
-                              <p className="text-sm text-muted-foreground mt-1">{set.shortName}</p>
+                              <p className="text-xs text-primary/70 font-medium mt-0.5">{set.shortName}</p>
                             )}
-                          </div>
-                          <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all shrink-0 mt-1" />
-                        </div>
 
-                        <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                          <div className="flex items-center gap-1.5">
-                            <Hash className="w-4 h-4" />
-                            <span>{set.totalCards} cards</span>
-                          </div>
-                          <div className="flex items-center gap-1.5">
-                            <Star className="w-4 h-4" />
-                            <span>{set.releaseYear}</span>
-                          </div>
-                        </div>
+                            <div className="flex items-center gap-3 mt-3 text-sm">
+                              <div className="flex items-center gap-1.5 text-primary/80">
+                                <Hash className="w-3.5 h-3.5" />
+                                <span className="font-semibold">{set.totalCards}</span>
+                                <span className="text-muted-foreground text-xs">cards</span>
+                              </div>
+                              <div className="flex items-center gap-1.5 text-primary/80">
+                                <Star className="w-3.5 h-3.5" />
+                                <span className="font-semibold">{set.releaseYear}</span>
+                              </div>
+                            </div>
 
-                        <div className="mt-4 flex gap-1.5">
-                          {['bg-red-500', 'bg-blue-500', 'bg-yellow-500', 'bg-green-500', 'bg-purple-500'].map((color, i) => (
-                            <div key={i} className={`h-1 flex-1 rounded-full ${color} opacity-60`} />
-                          ))}
+                            {/* View button */}
+                            <div className="mt-4 flex items-center gap-1.5 text-xs font-semibold text-primary group-hover:translate-x-1 transition-transform">
+                              <span>View Full Set</span>
+                              <ChevronRight className="w-3.5 h-3.5" />
+                            </div>
+                          </div>
                         </div>
                       </div>
-                      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary/0 via-primary/50 to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                      {/* Bottom accent line */}
+                      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary/0 via-primary/60 to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </article>
                   </Link>
                 ))}
