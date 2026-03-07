@@ -41,7 +41,7 @@ import { useState, useEffect } from "react";
 const COMING_SOON_MODE = true;
 
 // ADMIN PASSWORD: Change this to your own password
-const ADMIN_PASSWORD = "temp123";
+const ADMIN_PASSWORD = "6390";
 
 // SUPER ADMIN EMAIL: Used for password recovery
 const SUPER_ADMIN_EMAIL = "admin@nlfservices.com";
