@@ -16,8 +16,8 @@ import {
   Search, ArrowLeft, Loader2, ExternalLink, TrendingUp,
   TrendingDown, DollarSign, BarChart3, AlertTriangle, Wifi, WifiOff
 } from "lucide-react";
-import { useState, useMemo } from "react";
-import { Link } from "wouter";
+import { useState, useMemo, useEffect } from "react";
+import { Link, useSearch } from "wouter";
 
 const GRADE_OPTIONS = [
   { value: "all", label: "All Grades" },
@@ -46,12 +46,23 @@ const SORT_OPTIONS = [
 
 export default function EbayComps() {
   const { user, loading: authLoading } = useAuth();
-  const [searchQuery, setSearchQuery] = useState("");
-  const [activeQuery, setActiveQuery] = useState("");
+  const searchParams = useSearch();
+  const urlQuery = new URLSearchParams(searchParams).get("q") || "";
+  const [searchQuery, setSearchQuery] = useState(urlQuery);
+  const [activeQuery, setActiveQuery] = useState(urlQuery);
   const [grade, setGrade] = useState("all");
   const [sort, setSort] = useState("price");
   const [limit, setLimit] = useState(50);
-  const [hasSearched, setHasSearched] = useState(false);
+  const [hasSearched, setHasSearched] = useState(!!urlQuery);
+
+  // Auto-search when URL query param changes
+  useEffect(() => {
+    if (urlQuery) {
+      setSearchQuery(urlQuery);
+      setActiveQuery(urlQuery);
+      setHasSearched(true);
+    }
+  }, [urlQuery]);
 
   // eBay search query
   const {

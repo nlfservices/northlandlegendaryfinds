@@ -12,8 +12,9 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import {
   Search, ChevronRight, BookOpen, Layers, Hash, ArrowLeft,
-  Star, X, RotateCcw, Eye, Grid3X3, List
+  Star, X, RotateCcw, Eye, Grid3X3, List, DollarSign
 } from "lucide-react";
+import { useLocation } from "wouter";
 
 // Default placeholder for cards without images
 const PLACEHOLDER_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hulk_9ebdacfa.png";
@@ -108,6 +109,42 @@ function FlipCard({ frontImg, backImg, name, cardNumber }: {
         )}
       </div>
     </div>
+  );
+}
+
+// ==================== QUICK COMP BUTTON ====================
+function QuickCompButton({ cardName, setName, compact }: { cardName: string; setName: string; compact?: boolean }) {
+  const [, navigate] = useLocation();
+  
+  const handleComp = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    const query = encodeURIComponent(`${cardName} ${setName}`);
+    navigate(`/admin/ebay-comps?q=${query}`);
+  };
+
+  if (compact) {
+    return (
+      <button
+        onClick={handleComp}
+        className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs bg-primary/10 text-primary hover:bg-primary/20 transition-colors border border-primary/20"
+        title={`Check eBay price for ${cardName}`}
+      >
+        <DollarSign className="w-3 h-3" />
+        Comp
+      </button>
+    );
+  }
+
+  return (
+    <button
+      onClick={handleComp}
+      className="mt-2 w-full flex items-center justify-center gap-1 px-2 py-1.5 rounded-md text-[11px] font-medium bg-primary/10 text-primary hover:bg-primary/20 transition-colors border border-primary/20"
+      title={`Check eBay price for ${cardName}`}
+    >
+      <DollarSign className="w-3 h-3" />
+      Quick Comp
+    </button>
   );
 }
 
@@ -490,6 +527,7 @@ function SetDetail({ slug }: { slug: string }) {
                         {card.parallels}
                       </p>
                     )}
+                    <QuickCompButton cardName={card.characterName} setName={set.name} />
                   </div>
                 </div>
               </article>
@@ -507,6 +545,7 @@ function SetDetail({ slug }: { slug: string }) {
                     <th className="text-left p-3 text-sm font-semibold text-muted-foreground">Character</th>
                     <th className="text-left p-3 text-sm font-semibold text-muted-foreground">Type</th>
                     <th className="text-left p-3 text-sm font-semibold text-muted-foreground">Parallels</th>
+                    <th className="text-left p-3 text-sm font-semibold text-muted-foreground w-24">Comp</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -538,6 +577,9 @@ function SetDetail({ slug }: { slug: string }) {
                         ) : (
                           <span className="text-muted-foreground/50">&mdash;</span>
                         )}
+                      </td>
+                      <td className="p-3">
+                        <QuickCompButton cardName={card.characterName} setName={set.name} compact />
                       </td>
                     </tr>
                   ))}

@@ -217,3 +217,4 @@
 - [x] Compress and upload all 6 box images (Chrome, CBH, Mint, Sapphire, Studios, Studios Sapphire) to CDN
 - [x] Update database with box image URLs for all 6 sets
 - [x] Redesign /cards page set cards with box images and green background matching site theme
+- [x] Add Quick Comp button to card detail pages for one-click eBay price lookup

@@ -41,13 +41,13 @@ const SORT_OPTIONS = [
   { value: "endingSoonest", label: "Ending Soonest" },
 ];
 
-export default function EbayCompsPanel() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [activeQuery, setActiveQuery] = useState("");
+export default function EbayCompsPanel({ initialQuery }: { initialQuery?: string } = {}) {
+  const [searchQuery, setSearchQuery] = useState(initialQuery || "");
+  const [activeQuery, setActiveQuery] = useState(initialQuery || "");
   const [grade, setGrade] = useState("all");
   const [sort, setSort] = useState("price");
   const [limit, setLimit] = useState(50);
-  const [hasSearched, setHasSearched] = useState(false);
+  const [hasSearched, setHasSearched] = useState(!!initialQuery);
 
   // eBay search query
   const {

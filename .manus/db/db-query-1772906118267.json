@@ -1,0 +1,20 @@
+{
+  "query": "SELECT \n  ms.name,\n  COUNT(*) as total,\n  SUM(CASE WHEN mc.imageUrl IS NOT NULL AND mc.imageUrl != '' THEN 1 ELSE 0 END) as with_images\nFROM marvel_cards mc\nJOIN marvel_sets ms ON mc.setId = ms.id\nWHERE ms.name LIKE '%Chrome%' AND ms.name NOT LIKE '%Sapphire%' AND ms.name NOT LIKE '%Studios%'\n   OR ms.name LIKE '%Comic Book%'\nGROUP BY ms.name;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT \n  ms.name,\n  COUNT(*) as total,\n  SUM(CASE WHEN mc.imageUrl IS NOT NULL AND mc.imageUrl != '' THEN 1 ELSE 0 END) as with_images\nFROM marvel_cards mc\nJOIN marvel_sets ms ON mc.setId = ms.id\nWHERE ms.name LIKE '%Chrome%' AND ms.name NOT LIKE '%Sapphire%' AND ms.name NOT LIKE '%Studios%'\n   OR ms.name LIKE '%Comic Book%'\nGROUP BY ms.name;",
+  "rows": [
+    {
+      "name": "2025 Topps Chrome",
+      "total": "358",
+      "with_images": "197"
+    },
+    {
+      "name": "2025 Topps Comic Book Heroes",
+      "total": "150",
+      "with_images": "150"
+    }
+  ],
+  "messages": [],
+  "stdout": "name\ttotal\twith_images\n2025 Topps Chrome\t358\t197\n2025 Topps Comic Book Heroes\t150\t150\n",
+  "stderr": "",
+  "execution_time_ms": 380
+}

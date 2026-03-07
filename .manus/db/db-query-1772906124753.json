@@ -1,0 +1,46 @@
+{
+  "query": "SELECT ms.name, COUNT(*) as total, SUM(CASE WHEN mc.imageUrl IS NOT NULL AND mc.imageUrl != '' THEN 1 ELSE 0 END) as with_images, SUM(CASE WHEN mc.imageUrl IS NULL OR mc.imageUrl = '' THEN 1 ELSE 0 END) as without_images FROM marvel_cards mc JOIN marvel_sets ms ON mc.setId = ms.id GROUP BY ms.name;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT ms.name, COUNT(*) as total, SUM(CASE WHEN mc.imageUrl IS NOT NULL AND mc.imageUrl != '' THEN 1 ELSE 0 END) as with_images, SUM(CASE WHEN mc.imageUrl IS NULL OR mc.imageUrl = '' THEN 1 ELSE 0 END) as without_images FROM marvel_cards mc JOIN marvel_sets ms ON mc.setId = ms.id GROUP BY ms.name;",
+  "rows": [
+    {
+      "name": "2025 Topps Comic Book Heroes",
+      "total": "150",
+      "with_images": "150",
+      "without_images": "0"
+    },
+    {
+      "name": "2025 Topps Marvel Mint",
+      "total": "223",
+      "with_images": "86",
+      "without_images": "137"
+    },
+    {
+      "name": "2025 Topps Marvel Studios Sapphire",
+      "total": "210",
+      "with_images": "0",
+      "without_images": "210"
+    },
+    {
+      "name": "2025 Topps Marvel Sapphire",
+      "total": "225",
+      "with_images": "0",
+      "without_images": "225"
+    },
+    {
+      "name": "2025 Topps Marvel Studios",
+      "total": "543",
+      "with_images": "0",
+      "without_images": "543"
+    },
+    {
+      "name": "2025 Topps Chrome",
+      "total": "358",
+      "with_images": "197",
+      "without_images": "161"
+    }
+  ],
+  "messages": [],
+  "stdout": "name\ttotal\twith_images\twithout_images\n2025 Topps Comic Book Heroes\t150\t150\t0\n2025 Topps Marvel Mint\t223\t86\t137\n2025 Topps Marvel Studios Sapphire\t210\t0\t210\n2025 Topps Marvel Sapphire\t225\t0\t225\n2025 Topps Marvel Studios\t543\t0\t543\n2025 Topps Chrome\t358\t197\t161\n",
+  "stderr": "",
+  "execution_time_ms": 357
+}
