@@ -290,3 +290,9 @@
 - [x] Verify pulled cards show date and stream info on the Master Sheet
 - [x] Fix any issues found during testing (fixed dbSlug mapping, pack decrement on bulk pull, auto-select product)
 - [ ] Prepare site for publishing
+
+## FAQ Page Update
+- [x] Review and update FAQ page content for accuracy
+- [x] Update repack descriptions: most include a one-touch or graded card
+- [x] Align FAQ with recent features (live pack counter, transparency, checklist, Whatnot compliance)
+- [x] Remove or update any outdated information (Shopify → Stripe, added one-touch/graded card info, new categories)

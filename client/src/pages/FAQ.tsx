@@ -2,8 +2,8 @@
  * FAQ Page - Frequently asked questions about repacks and the store
  * 
  * Design: NLF Cosmic theme — black bg, green (#00FF41) accents, purple highlights
- * Updated: Returns section now reflects strict all-sales-final policy
- * Shipping section updated with zone-based pricing from Midwest HQ
+ * Updated: Reflects one-touch/graded card format, Stripe checkout, live pack counter,
+ * checklist transparency, Whatnot compliance, and live show format
  */
 
 import { useState } from "react";
@@ -16,27 +16,77 @@ const faqs = [
     questions: [
       {
         q: "What is a trading card repack?",
-        a: "A repack is a curated selection of trading cards hand-picked from various premium sets and sealed in a custom pack. Our repacks feature cards from official Topps releases including Chrome, Sapphire, Mint, and more. Each pack is designed to deliver maximum value and excitement with guaranteed hits.",
+        a: "A repack is a curated selection of trading cards hand-picked from various premium sets and sealed in a custom pack. Our repacks feature cards from official Topps releases including Chrome, Sapphire, Mint, and more. Most of our repacks include either a one-touch magnetic case card or a professionally graded card (PSA, SGC, or BGS), giving you premium-protected hits right out of the pack.",
       },
       {
         q: "What does 'guaranteed hit' mean?",
-        a: "Every NLF repack is guaranteed to contain at least one premium chase card. This can include autographed cards, relic/memorabilia cards, numbered parallel cards (/99, /50, /25, /10, /5, or even 1/1), refractors, or other high-value inserts. You will never receive a pack without a hit.",
+        a: "Every NLF repack is guaranteed to contain at least one premium chase card. Most of our packs include a card in a one-touch magnetic holder or a professionally graded slab. Hits can include autographed cards, relic/memorabilia cards, numbered parallel cards (/99, /50, /25, /10, /5, or even 1/1), refractors, or other high-value inserts. You will never receive a pack without a hit.",
+      },
+      {
+        q: "What is a one-touch card?",
+        a: "A one-touch is a premium magnetic card holder that provides superior protection and display quality. When we say a repack includes a one-touch card, it means you're getting a notable card already secured in a high-quality magnetic case — ready to display or add to your collection immediately. These are typically our best pulls from hobby box breaks.",
+      },
+      {
+        q: "Do your repacks include graded cards?",
+        a: "Yes! Many of our repacks include professionally graded cards from PSA, SGC, or BGS. Graded cards have been authenticated and assigned a condition grade by a third-party grading service, which adds both credibility and value. Check each product page for specifics on what's included.",
       },
       {
         q: "Are the cards in your repacks authentic?",
-        a: "Absolutely. 100% of our cards are authentic, officially licensed Topps trading cards. We source directly from hobby boxes and never deal in counterfeits or reproductions. Every card is inspected for quality before being included in a repack.",
-      },
-      {
-        q: "How many cards are in each repack?",
-        a: "The exact number of cards varies by product, but each repack is designed to deliver exceptional value. Our $100 repacks include a generous selection of base cards, inserts, and at least one guaranteed hit card.",
+        a: "Absolutely. 100% of our cards are authentic, officially licensed Topps trading cards. We source directly from hobby boxes and never deal in counterfeits or reproductions. Every card is inspected for quality before being included in a repack. All graded cards come with their original certification from PSA, SGC, or BGS.",
       },
       {
         q: "Why are repacks limited to 500 packs?",
-        a: "We limit our production runs to maintain quality and exclusivity. With only 500 packs per product, we can ensure every single pack meets our high standards. Once a run sells out, it's gone forever.",
+        a: "We limit our production runs to maintain quality and exclusivity. With only 500 packs per series, we can ensure every single pack meets our high standards. You can track exactly how many packs remain in real time on each product page — once a run sells out, it's gone forever and the series is retired.",
       },
       {
         q: "What sets are the cards pulled from?",
-        a: "Our repacks feature cards from premium Topps releases including Topps Chrome, Chrome Sapphire, Marvel Mint, Comic Book Heroes, and other high-end sets. The specific sets vary by product — check each product page for details on what's included.",
+        a: "Our repacks feature cards from premium Topps releases including Topps Chrome Marvel, Chrome Sapphire, Marvel Mint, and other high-end sets. The specific sets vary by product — check each product page and the full checklist for details on every card included in the series.",
+      },
+    ],
+  },
+  {
+    category: "Checklists & Transparency",
+    questions: [
+      {
+        q: "How can I see what's in a repack series?",
+        a: "Every repack series has a full public checklist available on our website. The checklist shows every card in the series — including card name, set, year, parallel type, tier (chase, hit, or base), and card condition. Visit the Checklists page or click 'View Full Checklist' on any product page to see the complete breakdown.",
+      },
+      {
+        q: "How do I know which cards have been pulled?",
+        a: "Our checklists update in real time. When a card is pulled during a live show, it's marked as pulled on the checklist with the date and stream name. You can see exactly which cards are still available and which have already been claimed. The live pack counter on each product page also shows how many packs remain.",
+      },
+      {
+        q: "What is the live pack counter?",
+        a: "The live pack counter is displayed on each product page and shows exactly how many packs remain out of the total run (e.g., '450 of 500 remaining'). It updates automatically as packs are sold and opened during live shows, so you always know the current inventory status.",
+      },
+      {
+        q: "Are you compliant with Whatnot's repack rules?",
+        a: "Yes. We follow all Whatnot Professionally Sealed Surprise Products guidelines. This includes publishing a full checklist before sales begin, disclosing all card details (year, name, variation, condition), never advertising estimated values or floor/ceiling comparisons, and finalizing our checklists before the first pack is sold. Visit our Transparency page for full details on our compliance practices.",
+      },
+      {
+        q: "Why don't you show card values on the checklist?",
+        a: "Per Whatnot's marketplace rules and our commitment to transparency, we do not display estimated values, floor/ceiling ranges, or value comparisons on our checklists. Card values fluctuate constantly and displaying them could be misleading. Instead, we provide all the factual details you need — card name, set, year, parallel, and condition — so you can research current market values yourself through eBay sold listings or other pricing tools.",
+      },
+    ],
+  },
+  {
+    category: "Live Shows & Whatnot",
+    questions: [
+      {
+        q: "Where do you sell your repacks?",
+        a: "We sell repacks through our website (northlandlegendaryfinds.com) and on Whatnot, the leading live auction platform for trading cards. During Whatnot live shows, packs are opened in real time so you can watch your pulls happen live. Follow us on Whatnot to get notified when we go live.",
+      },
+      {
+        q: "How do live shows work?",
+        a: "During a live show on Whatnot, we open repack packs in real time on camera. You purchase a pack, and we break it open live so you can see exactly what you get. All pulls are logged to our checklist system immediately, and the live pack counter updates in real time. It's the most transparent way to experience trading card repacks.",
+      },
+      {
+        q: "How many packs do you open per show?",
+        a: "The number of packs opened varies by show. We track packs opened per show in our system, so you can see the history of each series on the checklist page. A typical show might open 30–60 packs, but it depends on demand and the energy of the stream.",
+      },
+      {
+        q: "Can I buy packs outside of live shows?",
+        a: "Yes! Packs are available for purchase directly on our website anytime inventory is available. You don't have to wait for a live show to buy — but watching the live breaks is half the fun!",
       },
     ],
   },
@@ -45,11 +95,11 @@ const faqs = [
     questions: [
       {
         q: "What payment methods do you accept?",
-        a: "We accept all major credit cards (Visa, Mastercard, American Express, Discover), PayPal, Apple Pay, Google Pay, and Shop Pay through our secure Shopify checkout.",
+        a: "We accept all major credit cards (Visa, Mastercard, American Express, Discover), Apple Pay, and Google Pay through our secure Stripe-powered checkout. All transactions are encrypted and PCI-compliant.",
       },
       {
         q: "Is my payment information secure?",
-        a: "Yes. All payments are processed through Shopify's PCI-compliant payment system. We never store your credit card information on our servers.",
+        a: "Yes. All payments are processed through Stripe, one of the world's most trusted payment processors. We never store your credit card information on our servers. Every transaction is encrypted with industry-standard SSL/TLS security.",
       },
       {
         q: "Can I cancel my order?",
@@ -57,7 +107,7 @@ const faqs = [
       },
       {
         q: "Do you offer pre-orders?",
-        a: "Yes, some products may be available for pre-order before their official release. All pre-order sales are final. Pricing is set at the time of purchase and will not be adjusted for market fluctuations.",
+        a: "Yes, some products may be available for pre-order before their official release. You can sign up with the 'Notify Me' button on any upcoming product page to be alerted when it becomes available. All pre-order sales are final. Pricing is set at the time of purchase and will not be adjusted for market fluctuations.",
       },
     ],
   },
@@ -78,7 +128,7 @@ const faqs = [
       },
       {
         q: "How are the cards packaged for shipping?",
-        a: "All orders are shipped in rigid mailers with bubble wrap protection. Cards are sealed in our custom NLF holographic mylar bags and placed in protective top loaders or card savers before being packed. Sealed hobby boxes are shipped in double-walled corrugated boxes for maximum protection.",
+        a: "All orders are shipped in rigid mailers with bubble wrap protection. One-touch cards and graded slabs are individually wrapped for extra protection. Cards are sealed in our custom NLF holographic mylar bags and placed in protective top loaders or card savers before being packed. Sealed hobby boxes are shipped in double-walled corrugated boxes for maximum protection.",
       },
       {
         q: "Can I upgrade to faster shipping?",
@@ -184,8 +234,33 @@ export default function FAQ() {
             ))}
           </div>
 
+          {/* Quick Links */}
+          <div className="mt-12 grid sm:grid-cols-3 gap-4">
+            <Link href="/checklists">
+              <div className="bg-card rounded-xl border border-border p-5 hover:border-primary/50 transition-colors cursor-pointer text-center">
+                <div className="text-2xl mb-2">📋</div>
+                <h4 className="font-bold text-sm">View Checklists</h4>
+                <p className="text-xs text-muted-foreground mt-1">See every card in our series</p>
+              </div>
+            </Link>
+            <Link href="/transparency">
+              <div className="bg-card rounded-xl border border-border p-5 hover:border-primary/50 transition-colors cursor-pointer text-center">
+                <div className="text-2xl mb-2">🛡️</div>
+                <h4 className="font-bold text-sm">Transparency Policy</h4>
+                <p className="text-xs text-muted-foreground mt-1">Our compliance commitment</p>
+              </div>
+            </Link>
+            <Link href="/shipping">
+              <div className="bg-card rounded-xl border border-border p-5 hover:border-primary/50 transition-colors cursor-pointer text-center">
+                <div className="text-2xl mb-2">🚚</div>
+                <h4 className="font-bold text-sm">Shipping Zones</h4>
+                <p className="text-xs text-muted-foreground mt-1">Zone map & delivery times</p>
+              </div>
+            </Link>
+          </div>
+
           {/* Still have questions */}
-          <div className="mt-12 bg-muted/20 rounded-xl border border-border p-6 text-center">
+          <div className="mt-8 bg-muted/20 rounded-xl border border-border p-6 text-center">
             <h3 className="font-bold text-lg mb-2">Still Have Questions?</h3>
             <p className="text-sm text-muted-foreground mb-4 max-w-md mx-auto">
               Can't find the answer you're looking for? Our team is happy to help.
