@@ -16,9 +16,9 @@ import { Link, useParams } from "wouter";
 import {
   ListChecks, ArrowLeft, CheckCircle2, Loader2,
   Radio, Zap, Package, Calendar, TrendingUp, Eye,
-  ShieldCheck, FileCheck, Info
+  ShieldCheck, FileCheck, Info, X as XIcon
 } from "lucide-react";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 const CARD_PLACEHOLDER = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/card-placeholder-AFtdwioDcmq6GHzFUFUpif.webp";
 
@@ -118,8 +118,32 @@ export default function ChecklistDetail() {
 
   const finalizationStatement = product.checklistStatement || defaultFinalizationStatement;
 
+  const [lightboxImage, setLightboxImage] = useState<{ url: string; name: string } | null>(null);
+
   return (
     <div className="min-h-screen">
+      {/* Image Lightbox */}
+      {lightboxImage && (
+        <div
+          className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 cursor-pointer"
+          onClick={() => setLightboxImage(null)}
+        >
+          <button
+            className="absolute top-4 right-4 text-white/80 hover:text-white transition-colors z-10"
+            onClick={() => setLightboxImage(null)}
+          >
+            <XIcon className="w-8 h-8" />
+          </button>
+          <div className="relative max-w-2xl max-h-[80vh] flex flex-col items-center" onClick={e => e.stopPropagation()}>
+            <img
+              src={lightboxImage.url}
+              alt={lightboxImage.name}
+              className="max-w-full max-h-[70vh] object-contain rounded-lg shadow-2xl"
+            />
+            <p className="text-white/80 text-sm mt-3 text-center font-medium">{lightboxImage.name}</p>
+          </div>
+        </div>
+      )}
       {/* Hero */}
       <section className="relative py-12 lg:py-16 overflow-hidden">
         <div className={`absolute inset-0 bg-gradient-to-b ${categoryColors[product.category] || categoryColors.other} opacity-10`} />
@@ -310,15 +334,23 @@ export default function ChecklistDetail() {
                         >
                           <div className="flex items-center gap-3">
                             {/* Card Image */}
-                            <div className="relative shrink-0">
+                            <div
+                              className="relative shrink-0 cursor-pointer group"
+                              onClick={() => item.imageUrl && setLightboxImage({ url: item.imageUrl, name: `${item.cardName}${item.parallel ? ` (${item.parallel})` : ''}` })}
+                            >
                               <img
                                 src={item.imageUrl || CARD_PLACEHOLDER}
                                 alt={item.cardName}
-                                className={`w-12 h-16 object-cover rounded-md border ${
+                                className={`w-12 h-16 object-cover rounded-md border transition-all ${
                                   item.isPulled ? 'border-green-500/30 opacity-60' : 'border-border'
-                                }`}
+                                } ${item.imageUrl ? 'group-hover:border-primary/50 group-hover:shadow-lg group-hover:shadow-primary/10' : ''}`}
                                 loading="lazy"
                               />
+                              {item.imageUrl && !item.isPulled && (
+                                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 rounded-md transition-all flex items-center justify-center">
+                                  <Eye className="w-4 h-4 text-white opacity-0 group-hover:opacity-100 transition-opacity drop-shadow-lg" />
+                                </div>
+                              )}
                               {item.isPulled && (
                                 <div className="absolute inset-0 flex items-center justify-center">
                                   <CheckCircle2 className="w-5 h-5 text-green-400 drop-shadow-lg" />

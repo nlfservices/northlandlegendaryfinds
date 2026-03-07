@@ -250,7 +250,7 @@
 - [x] Tab 3: Remove Pulled — view pulled cards and bulk-unpull/remove them
 - [x] Support paste-from-spreadsheet (tab-separated) and CSV import
 - [x] Add image upload per card row (S3 storage)
-- [ ] Add image thumbnails in the checklist public view
+- [x] Add image thumbnails in the checklist public view
 - [x] Write vitest tests for new/updated endpoints
 
 ## Whatnot Compliance & Transparency
@@ -264,3 +264,9 @@
 - [x] Update admin Checklist Sheet to include compliance fields (cardCondition column)
 - [x] Ensure checklist detail page shows all Whatnot-required fields (year, player/card name, variation, grade)
 - [x] Add "Platform Compliant" badge and Transparency Policy link on checklist detail pages
+
+## Card Image Thumbnails on Public Checklist
+- [x] Display card image thumbnails on public checklist detail page
+- [x] Show image placeholder icon when no image is uploaded
+- [x] Add hover/click to enlarge image functionality (lightbox)
+- [x] Ensure images load efficiently (lazy loading)
