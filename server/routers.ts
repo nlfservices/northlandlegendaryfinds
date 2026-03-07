@@ -5,6 +5,7 @@ import { publicProcedure, router } from "./_core/trpc";
 import { adminRouter } from "./routers/admin";
 import { publicRouter } from "./routers/public";
 import { checkoutRouter } from "./routers/checkout";
+import { ebayRouter } from "./routers/ebay";
 
 export const appRouter = router({
   system: systemRouter,
@@ -27,6 +28,9 @@ export const appRouter = router({
 
   // Checkout routes (Stripe integration)
   checkout: checkoutRouter,
+
+  // eBay API routes (admin only)
+  ebay: ebayRouter,
 });
 
 export type AppRouter = typeof appRouter;

@@ -1,0 +1,45 @@
+{
+  "query": "SELECT id, characterName, cardNumber, cardType, imageUrl FROM marvel_cards WHERE setId = 1 AND cardType = 'Base' ORDER BY cardNumber LIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, characterName, cardNumber, cardType, imageUrl FROM marvel_cards WHERE setId = 1 AND cardType = 'Base' ORDER BY cardNumber LIMIT 5;",
+  "rows": [
+    {
+      "id": "1",
+      "characterName": "Iron Man",
+      "cardNumber": "1",
+      "cardType": "Base",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "2",
+      "characterName": "Layla El-Faouly",
+      "cardNumber": "10",
+      "cardType": "Base",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "3",
+      "characterName": "Wonder Man",
+      "cardNumber": "100",
+      "cardType": "Base",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "4",
+      "characterName": "Spider-Man",
+      "cardNumber": "101",
+      "cardType": "Base",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "5",
+      "characterName": "Mephisto",
+      "cardNumber": "102",
+      "cardType": "Base",
+      "imageUrl": "NULL"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcharacterName\tcardNumber\tcardType\timageUrl\n1\tIron Man\t1\tBase\tNULL\n2\tLayla El-Faouly\t10\tBase\tNULL\n3\tWonder Man\t100\tBase\tNULL\n4\tSpider-Man\t101\tBase\tNULL\n5\tMephisto\t102\tBase\tNULL\n",
+  "stderr": "",
+  "execution_time_ms": 373
+}

@@ -7,4 +7,11 @@ export const ENV = {
   isProduction: process.env.NODE_ENV === "production",
   forgeApiUrl: process.env.BUILT_IN_FORGE_API_URL ?? "",
   forgeApiKey: process.env.BUILT_IN_FORGE_API_KEY ?? "",
+  // eBay API credentials
+  ebayClientId: process.env.EBAY_CLIENT_ID ?? "",
+  ebayClientSecret: process.env.EBAY_CLIENT_SECRET ?? "",
+  ebaySandboxClientId: process.env.EBAY_SANDBOX_CLIENT_ID ?? "",
+  ebaySandboxClientSecret: process.env.EBAY_SANDBOX_CLIENT_SECRET ?? "",
+  ebayVerificationToken: process.env.EBAY_VERIFICATION_TOKEN ?? "",
+  ebayDeletionEndpointUrl: process.env.EBAY_DELETION_ENDPOINT_URL ?? "",
 };

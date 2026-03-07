@@ -148,3 +148,57 @@
 - [x] Image optimization (WebP, ~14KB avg, lazy loading with IntersectionObserver)
 - [x] Update Card Database UI with images, descriptions, and card flip
 - [ ] Test SEO and page load performance
+
+## Character-Specific Card Images (Chrome + CBH)
+- [ ] Upload 200 Chrome character images to CDN (compress to WebP)
+- [ ] Upload 148 CBH character images to CDN (compress to WebP)
+- [ ] Update Chrome cards (setId=1) imageUrl in database with character-specific images
+- [ ] Update CBH cards (setId=2) imageUrl in database with character-specific images
+- [ ] Verify images display correctly on Card Database page
+- [ ] Save checkpoint
+
+## Additional Character & Banner Images Integration
+- [ ] Compress and upload 8 individual character team images (Captain America, Thanos, Star-Lord, Doctor Doom, Cyclops, Galactus, Magneto, Reed Richards) to CDN
+- [ ] Compress and upload 3 banner images (heroes, leaders, villains) to CDN
+- [ ] Integrate banner images into homepage sections
+- [ ] Add banner images as card database set headers
+- [ ] Assign character team images to subset/insert cards in Chrome set
+
+## eBay Browse API Price Comps Integration
+- [ ] Set up eBay API credentials (Client ID, Sandbox ID, Sandbox Secret)
+- [ ] Build eBay OAuth token acquisition (client credentials grant)
+- [ ] Build eBay Browse API search endpoint for sold listings
+- [ ] Build price aggregation logic (low/avg/high from recent sold listings)
+- [ ] Build /admin/ebay-comps page with card name search
+- [ ] Add grade filter (CGC 10, 9.5, 9, 8.5, etc.) to search
+- [ ] Display price summary table showing low/avg/high
+- [ ] Display individual sold listing results with prices and dates
+- [ ] Write tests for eBay API routes
+- [ ] Complete CBH image database updates (148 cards)
+
+## eBay Integration (Skill-based)
+- [ ] Read legendary-card-shop skill for eBay integration guidance
+- [ ] Set up eBay credentials (EBAY_CLIENT_ID, EBAY_CLIENT_SECRET, EBAY_SANDBOX_*, EBAY_VERIFICATION_TOKEN, EBAY_DELETION_ENDPOINT_URL)
+- [ ] Build eBay OAuth token helper (client credentials grant)
+- [ ] Build Finding API findCompletedItems for sold price comps
+- [ ] Build Browse API fallback for active listing comps
+- [ ] Build /api/ebay/account-deletion GET challenge endpoint
+- [ ] Build /api/ebay/account-deletion POST handler
+- [ ] Build /admin/ebay-comps page with card name search
+- [ ] Add grade filter (CGC 10, 9.5, 9, 8.5, etc.)
+- [ ] Display price summary (low/avg/high) and individual listings
+- [ ] Write vitest tests for eBay API routes
+- [ ] Register endpoint in eBay Developer Portal
+
+## eBay Integration
+- [x] Set up eBay credentials (EBAY_CLIENT_ID, EBAY_CLIENT_SECRET, EBAY_SANDBOX_*, EBAY_VERIFICATION_TOKEN, EBAY_DELETION_ENDPOINT_URL)
+- [x] Build eBay OAuth token helper (client credentials grant)
+- [x] Build Browse API search for active listing comps (Finding API deprecated)
+- [x] Build /api/ebay/account-deletion GET challenge endpoint
+- [x] Build /api/ebay/account-deletion POST handler
+- [x] Add eBay tRPC procedures for comps search
+- [x] Build /admin/ebay-comps page with card name search and grade filter
+- [x] Display price summary (low/avg/high) and individual listings
+- [x] Write vitest tests for eBay API routes
+- [ ] Register endpoint in eBay Developer Portal (requires publish first)
+- [ ] Update EBAY_CLIENT_SECRET with production key after keyset unlock

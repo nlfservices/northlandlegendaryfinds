@@ -1,0 +1,58 @@
+{
+  "query": "SELECT ms.id, ms.name, ms.shortName, ms.slug, ms.totalCards, COUNT(mc.id) as actual_cards FROM marvel_sets ms LEFT JOIN marvel_cards mc ON mc.setId = ms.id GROUP BY ms.id ORDER BY ms.id;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT ms.id, ms.name, ms.shortName, ms.slug, ms.totalCards, COUNT(mc.id) as actual_cards FROM marvel_sets ms LEFT JOIN marvel_cards mc ON mc.setId = ms.id GROUP BY ms.id ORDER BY ms.id;",
+  "rows": [
+    {
+      "id": "1",
+      "name": "2025 Topps Chrome",
+      "shortName": "Chrome",
+      "slug": "2025-topps-chrome",
+      "totalCards": "361",
+      "actual_cards": "358"
+    },
+    {
+      "id": "2",
+      "name": "2025 Topps Comic Book Heroes",
+      "shortName": "Comic Heroes",
+      "slug": "2025-topps-comic-book-heroes",
+      "totalCards": "150",
+      "actual_cards": "150"
+    },
+    {
+      "id": "3",
+      "name": "2025 Topps Marvel Mint",
+      "shortName": "Marvel Mint",
+      "slug": "2025-topps-marvel-mint",
+      "totalCards": "156",
+      "actual_cards": "223"
+    },
+    {
+      "id": "4",
+      "name": "2025 Topps Marvel Sapphire",
+      "shortName": "Sapphire",
+      "slug": "2025-topps-marvel-sapphire",
+      "totalCards": "225",
+      "actual_cards": "225"
+    },
+    {
+      "id": "5",
+      "name": "2025 Topps Marvel Studios",
+      "shortName": "Marvel Studios",
+      "slug": "2025-topps-marvel-studios",
+      "totalCards": "543",
+      "actual_cards": "543"
+    },
+    {
+      "id": "6",
+      "name": "2025 Topps Marvel Studios Sapphire",
+      "shortName": "Studios Sapphire",
+      "slug": "2025-topps-marvel-studios-sapphire",
+      "totalCards": "210",
+      "actual_cards": "210"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tshortName\tslug\ttotalCards\tactual_cards\n1\t2025 Topps Chrome\tChrome\t2025-topps-chrome\t361\t358\n2\t2025 Topps Comic Book Heroes\tComic Heroes\t2025-topps-comic-book-heroes\t150\t150\n3\t2025 Topps Marvel Mint\tMarvel Mint\t2025-topps-marvel-mint\t156\t223\n4\t2025 Topps Marvel Sapphire\tSapphire\t2025-topps-marvel-sapphire\t225\t225\n5\t2025 Topps Marvel Studios\tMarvel Studios\t2025-topps-marvel-studios\t543\t543\n6\t2025 Topps Marvel Studios Sapphire\tStudios Sapphire\t2025-topps-marvel-studios-sapphire\t210\t210\n",
+  "stderr": "",
+  "execution_time_ms": 487
+}
