@@ -252,3 +252,15 @@
 - [x] Add image upload per card row (S3 storage)
 - [ ] Add image thumbnails in the checklist public view
 - [x] Write vitest tests for new/updated endpoints
+
+## Whatnot Compliance & Transparency
+- [x] Review and update checklist schema for Whatnot required fields (brand, series name, item condition, quantity)
+- [x] Remove estimated value column from public checklist view (only MSRP allowed per Whatnot rules)
+- [x] Add finalization statement to each checklist ("As of [date], this series has been finalized...")
+- [x] Add manufacturer/brand info prominently on checklist pages
+- [x] Add item condition field to checklist items (schema + admin sheet)
+- [x] Create Transparency & Compliance page explaining NLF's adherence to platform rules
+- [x] Add link to Transparency page in site navigation (navbar + footer)
+- [x] Update admin Checklist Sheet to include compliance fields (cardCondition column)
+- [x] Ensure checklist detail page shows all Whatnot-required fields (year, player/card name, variation, grade)
+- [x] Add "Platform Compliant" badge and Transparency Policy link on checklist detail pages

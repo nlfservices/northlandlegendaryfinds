@@ -44,6 +44,10 @@ export const repackProducts = mysqlTable("repack_products", {
   shopifyUrl: text("shopifyUrl"),
   /** Sort order for display */
   sortOrder: int("sortOrder").notNull().default(0),
+  /** Date the checklist was finalized (Whatnot compliance) */
+  checklistFinalizedAt: timestamp("checklistFinalizedAt"),
+  /** Custom finalization statement (Whatnot compliance) */
+  checklistStatement: text("checklistStatement"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
@@ -70,8 +74,10 @@ export const checklistItems = mysqlTable("checklist_items", {
   parallel: varchar("parallel", { length: 100 }),
   /** Tier for display grouping */
   tier: mysqlEnum("tier", ["chase", "hit", "base", "bonus"]).notNull().default("base"),
-  /** Estimated value range (e.g., "$50-$100") */
+  /** Estimated value range (e.g., "$50-$100") — admin-only, hidden from public per Whatnot rules */
   estimatedValue: varchar("estimatedValue", { length: 50 }),
+  /** Card condition (e.g., "Raw", "Near Mint", "Graded PSA 10") — Whatnot compliance */
+  cardCondition: varchar("cardCondition", { length: 100 }),
   /** Whether this card has been pulled */
   isPulled: boolean("isPulled").notNull().default(false),
   /** Image URL of the card (optional) */

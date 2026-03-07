@@ -35,6 +35,7 @@ import OrderSuccess from "./pages/OrderSuccess";
 import CardDatabase from "./pages/CardDatabase";
 import GradedInventory from "./pages/GradedInventory";
 import EbayComps from "./pages/EbayComps";
+import Transparency from "./pages/Transparency";
 import { useState, useEffect } from "react";
 
 // COMING SOON MODE: Set to true to show countdown page, false to show full site
@@ -269,6 +270,7 @@ function AppRouter() {
           <Route path="/graded" component={GradedInventory} />
           <Route path="/admin" component={AdminDashboard} />
           <Route path="/admin/ebay-comps" component={EbayComps} />
+          <Route path="/transparency" component={Transparency} />
           <Route path="/404" component={NotFound} />
           <Route component={NotFound} />
         </Switch>

@@ -121,6 +121,7 @@ const checklistRouter = router({
       parallel: z.string().optional(),
       tier: z.enum(["chase", "hit", "base", "bonus"]).default("base"),
       estimatedValue: z.string().optional(),
+      cardCondition: z.string().optional(),
       sortOrder: z.number().default(0),
     })),
   })).mutation(async ({ input }) => {
@@ -132,6 +133,7 @@ const checklistRouter = router({
       cardNumber: item.cardNumber ?? null,
       parallel: item.parallel ?? null,
       estimatedValue: item.estimatedValue ?? null,
+      cardCondition: item.cardCondition ?? null,
       imageUrl: null,
       sortOrder: item.sortOrder || index,
     }));

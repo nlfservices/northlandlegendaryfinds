@@ -22,6 +22,7 @@ export default function Navigation() {
     { path: "/checklists", label: "Checklists" },
     { path: "/whatnot", label: "Whatnot" },
     { path: "/about", label: "About" },
+    { path: "/transparency", label: "Transparency" },
     { path: "/faq", label: "FAQ" },
   ];
 

@@ -1,6 +1,11 @@
 /**
  * Checklist Detail Page - Full checklist for a single product
  * Shows all cards grouped by tier, with pull status and real-time tracking
+ * 
+ * WHATNOT COMPLIANCE:
+ * - Estimated values are HIDDEN from public view (only MSRP allowed per Whatnot rules)
+ * - Finalization statement displayed when checklist is finalized
+ * - All required fields shown: card year, player/card name, variation, condition
  */
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
@@ -9,10 +14,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link, useParams } from "wouter";
 import {
-  ListChecks, ArrowLeft, CheckCircle2, Circle, Loader2,
-  Radio, Zap, Package, Calendar, TrendingUp, Eye
+  ListChecks, ArrowLeft, CheckCircle2, Loader2,
+  Radio, Zap, Package, Calendar, TrendingUp, Eye,
+  ShieldCheck, FileCheck, Info
 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
 const CARD_PLACEHOLDER = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/card-placeholder-AFtdwioDcmq6GHzFUFUpif.webp";
 
@@ -101,6 +107,17 @@ export default function ChecklistDetail() {
 
   const progressPercent = stats ? Math.round(((stats.totalPacks - stats.packsRemaining) / stats.totalPacks) * 100) : 0;
 
+  // Build the finalization statement
+  const finalizedDate = product.checklistFinalizedAt
+    ? new Date(product.checklistFinalizedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+    : null;
+
+  const defaultFinalizationStatement = finalizedDate
+    ? `As of ${finalizedDate}, the ${product.name} series has been finalized. The number of professionally sealed surprise products and individual items in this series will not be changed.`
+    : null;
+
+  const finalizationStatement = product.checklistStatement || defaultFinalizationStatement;
+
   return (
     <div className="min-h-screen">
       {/* Hero */}
@@ -125,12 +142,25 @@ export default function ChecklistDetail() {
                 <Badge variant="outline" className="border-primary/50 text-primary">
                   {product.status}
                 </Badge>
+                {finalizationStatement && (
+                  <Badge variant="outline" className="border-green-500/50 text-green-400">
+                    <ShieldCheck className="w-3 h-3 mr-1" /> Verified Checklist
+                  </Badge>
+                )}
               </div>
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2" style={{ fontFamily: "'Anton', sans-serif" }}>
                 {product.name}
               </h1>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground mb-1">
+                <span className="font-medium text-foreground">Manufacturer:</span> Northland Legendary Finds
+              </div>
+              {product.whatnotSeriesName && (
+                <div className="flex items-center gap-2 text-sm text-muted-foreground mb-1">
+                  <span className="font-medium text-foreground">Series:</span> {product.whatnotSeriesName}
+                </div>
+              )}
               {product.description && (
-                <p className="text-muted-foreground text-lg max-w-2xl">{product.description}</p>
+                <p className="text-muted-foreground text-lg max-w-2xl mt-2">{product.description}</p>
               )}
             </div>
 
@@ -169,6 +199,45 @@ export default function ChecklistDetail() {
                 style={{ width: `${progressPercent}%` }}
               />
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Finalization Statement Banner */}
+      {finalizationStatement && (
+        <section className="border-y border-green-500/20 bg-green-500/5">
+          <div className="container py-4">
+            <div className="flex items-start gap-3">
+              <FileCheck className="w-5 h-5 text-green-400 shrink-0 mt-0.5" />
+              <div>
+                <p className="text-sm text-green-300 font-medium mb-1">Finalized Checklist Statement</p>
+                <p className="text-sm text-muted-foreground leading-relaxed">{finalizationStatement}</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Compliance Info Bar */}
+      <section className="border-b border-border bg-card/50">
+        <div className="container py-3">
+          <div className="flex items-center gap-6 text-xs text-muted-foreground overflow-x-auto">
+            <div className="flex items-center gap-1.5 shrink-0">
+              <ShieldCheck className="w-3.5 h-3.5 text-green-400" />
+              <span>Platform Compliant</span>
+            </div>
+            <div className="flex items-center gap-1.5 shrink-0">
+              <Info className="w-3.5 h-3.5 text-blue-400" />
+              <span>Full checklist published — no hidden cards</span>
+            </div>
+            <div className="flex items-center gap-1.5 shrink-0">
+              <Eye className="w-3.5 h-3.5 text-purple-400" />
+              <span>Real-time pull tracking</span>
+            </div>
+            <Link href="/transparency" className="flex items-center gap-1.5 shrink-0 text-primary hover:underline">
+              <FileCheck className="w-3.5 h-3.5" />
+              <span>View our Transparency Policy</span>
+            </Link>
           </div>
         </div>
       </section>
@@ -263,15 +332,16 @@ export default function ChecklistDetail() {
                                   <span className="text-primary ml-2 text-sm font-normal">({item.parallel})</span>
                                 )}
                               </div>
-                              <div className="text-xs text-muted-foreground">
-                                {[item.cardSet, item.cardYear, item.cardNumber].filter(Boolean).join(' · ')}
+                              <div className="text-xs text-muted-foreground flex flex-wrap gap-x-1.5">
+                                {item.cardSet && <span>{item.cardSet}</span>}
+                                {item.cardYear && <span>· {item.cardYear}</span>}
+                                {item.cardNumber && <span>· #{item.cardNumber}</span>}
+                                {item.cardCondition && <span>· {item.cardCondition}</span>}
                               </div>
                             </div>
                           </div>
                           <div className="flex items-center gap-3">
-                            {item.estimatedValue && (
-                              <span className="text-sm font-bold text-green-400">{item.estimatedValue}</span>
-                            )}
+                            {/* NOTE: estimatedValue intentionally NOT shown per Whatnot compliance rules */}
                             {item.isPulled && (
                               <Badge variant="outline" className="border-green-500/30 text-green-400 text-xs">PULLED</Badge>
                             )}
@@ -318,9 +388,7 @@ export default function ChecklistDetail() {
                               </div>
                             </div>
                             <div className="text-right">
-                              {item?.estimatedValue && (
-                                <div className="font-bold text-green-400">{item.estimatedValue}</div>
-                              )}
+                              {/* NOTE: estimatedValue intentionally NOT shown per Whatnot compliance */}
                               <div className="text-xs text-muted-foreground">
                                 {new Date(pull.pulledAt).toLocaleDateString()}
                               </div>

@@ -35,6 +35,7 @@ interface NewCardRow {
   parallel: string;
   tier: "chase" | "hit" | "base" | "bonus";
   estimatedValue: string;
+  cardCondition: string;
   imageFile?: File;
   imagePreview?: string;
 }
@@ -49,6 +50,7 @@ function createEmptyRow(): NewCardRow {
     parallel: "",
     tier: "base",
     estimatedValue: "",
+    cardCondition: "Raw",
   };
 }
 
@@ -132,6 +134,7 @@ function AddCardsTab({ productId }: { productId: number }) {
         parallel: parts[4] || "",
         tier: mappedTier as any,
         estimatedValue: parts[6] || "",
+        cardCondition: parts[7] || "Raw",
       };
     }).filter(r => r.cardName);
 
@@ -174,6 +177,7 @@ function AddCardsTab({ productId }: { productId: number }) {
         parallel: row.parallel.trim() || undefined,
         tier: row.tier || defaultTier,
         estimatedValue: row.estimatedValue.trim() || undefined,
+        cardCondition: row.cardCondition.trim() || "Raw",
         sortOrder: index,
       }));
 
@@ -317,6 +321,7 @@ function AddCardsTab({ productId }: { productId: number }) {
                 <TableHead className="min-w-[120px]">Parallel</TableHead>
                 <TableHead className="w-24">Tier</TableHead>
                 <TableHead className="w-24">Est. Value</TableHead>
+                <TableHead className="w-24">Condition</TableHead>
                 <TableHead className="w-16">Image</TableHead>
                 <TableHead className="w-10"></TableHead>
               </TableRow>
@@ -392,6 +397,21 @@ function AddCardsTab({ productId }: { productId: number }) {
                       placeholder="$50"
                       className="h-8 text-sm border-transparent hover:border-border focus:border-primary bg-transparent w-20"
                     />
+                  </TableCell>
+                  <TableCell>
+                    <Select value={row.cardCondition || "Raw"} onValueChange={v => updateRow(row.id, "cardCondition", v)}>
+                      <SelectTrigger className="h-8 text-xs border-transparent hover:border-border w-20">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Raw">Raw</SelectItem>
+                        <SelectItem value="Near Mint">Near Mint</SelectItem>
+                        <SelectItem value="Mint">Mint</SelectItem>
+                        <SelectItem value="Excellent">Excellent</SelectItem>
+                        <SelectItem value="Good">Good</SelectItem>
+                        <SelectItem value="Graded">Graded</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </TableCell>
                   <TableCell>
                     {row.imagePreview ? (
