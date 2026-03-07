@@ -1,12 +1,14 @@
 /**
  * US Shipping Map Component
- * Color-coded SVG map showing shipping zones from Midwest HQ
+ * Accurate SVG map with real state boundaries showing shipping zones from Midwest HQ
  * Zone 1 (Midwest) = Fastest + Cheapest
  * 
+ * SVG paths sourced from Wikimedia Commons (public domain)
  * Design: NLF cosmic theme - green/purple/teal palette
  */
 
-import { useState } from "react";
+import { useState, useCallback, useRef } from "react";
+import { STATE_PATHS } from "./statePaths";
 
 // State abbreviation to full name mapping
 const stateNames: Record<string, string> = {
@@ -87,78 +89,67 @@ export const shippingZones: Record<string, { zone: number; color: string; transi
   HI: { zone: 5, color: "#5A1E8E", transit: "5–10 business days", rate: "$14.99" },
 };
 
-// SVG paths for each US state (simplified)
-const statePaths: Record<string, string> = {
-  AL: "M628,466 L628,530 L618,545 L625,555 L616,555 L608,530 L608,466",
-  AK: "M161,485 L183,485 L183,510 L194,510 L194,530 L161,530 L140,530 L130,520 L130,505 L140,495 L130,485 L140,480 L155,485",
-  AZ: "M205,430 L270,430 L280,520 L205,520 L195,490",
-  AR: "M540,460 L600,460 L600,510 L540,510",
-  CA: "M120,280 L165,280 L180,340 L195,430 L195,490 L155,490 L130,440 L110,380 L110,320",
-  CO: "M280,330 L370,330 L370,400 L280,400",
-  CT: "M830,230 L855,220 L860,240 L840,250 L830,240",
-  DE: "M790,320 L800,310 L805,330 L795,340",
-  FL: "M640,530 L700,520 L740,530 L740,570 L720,600 L690,610 L670,590 L640,570 L630,555",
-  GA: "M650,460 L700,460 L710,520 L650,530 L630,530",
-  HI: "M260,560 L290,555 L300,565 L280,575 L260,570",
-  ID: "M195,190 L235,180 L250,260 L230,300 L195,300",
-  IL: "M560,290 L590,290 L600,310 L600,400 L580,420 L560,420 L550,380 L550,310",
-  IN: "M600,290 L640,290 L640,400 L600,400",
-  IA: "M480,270 L560,270 L560,330 L480,330",
-  KS: "M380,370 L480,370 L480,420 L380,420",
-  KY: "M600,390 L700,370 L710,400 L640,420 L600,420",
-  LA: "M540,520 L590,510 L600,530 L590,560 L560,570 L540,550",
-  ME: "M860,120 L880,110 L890,150 L870,190 L850,180 L855,150",
-  MD: "M740,310 L790,300 L800,310 L790,330 L760,340 L740,330",
-  MA: "M840,210 L870,200 L880,210 L855,220 L840,215",
-  MI: "M580,180 L620,170 L640,200 L650,260 L620,280 L590,270 L580,230",
-  MN: "M440,130 L530,130 L530,240 L480,260 L440,260",
-  MS: "M580,460 L610,460 L610,545 L580,545 L570,510",
-  MO: "M480,370 L560,370 L570,420 L560,460 L480,460",
-  MT: "M220,130 L340,130 L340,200 L220,200",
-  NE: "M350,290 L470,290 L480,330 L480,360 L350,360",
-  NV: "M165,280 L210,280 L220,390 L195,430 L180,390 L165,340",
-  NH: "M850,150 L860,140 L865,190 L850,200 L845,170",
-  NJ: "M800,260 L810,250 L815,290 L800,310 L790,300",
-  NM: "M270,430 L350,430 L350,520 L270,520",
-  NY: "M730,180 L810,170 L830,210 L810,250 L780,260 L740,260 L730,230",
-  NC: "M660,400 L770,380 L790,400 L770,420 L660,440",
-  ND: "M350,130 L440,130 L440,200 L350,200",
-  OH: "M640,280 L700,270 L710,340 L700,370 L640,380",
-  OK: "M370,420 L480,420 L490,460 L540,460 L540,480 L400,480 L370,460",
-  OR: "M110,180 L195,180 L195,260 L120,260",
-  PA: "M700,250 L790,240 L800,260 L790,300 L740,310 L700,300",
-  RI: "M855,225 L865,220 L865,235 L855,238",
-  SC: "M680,440 L730,420 L740,450 L710,470 L680,460",
-  SD: "M350,200 L440,200 L440,270 L350,270",
-  TN: "M580,420 L700,400 L710,420 L700,440 L580,460",
-  TX: "M330,460 L400,480 L540,480 L540,520 L530,570 L490,600 L440,610 L390,580 L350,540 L330,500",
-  UT: "M220,280 L280,280 L280,390 L220,390",
-  VT: "M830,140 L845,135 L850,180 L835,190 L830,165",
-  VA: "M690,350 L780,330 L790,360 L770,380 L690,400",
-  WA: "M120,110 L200,110 L200,180 L120,180",
-  WV: "M700,320 L740,310 L750,350 L730,370 L710,360 L700,340",
-  WI: "M500,150 L570,150 L580,180 L570,260 L530,260 L500,240",
-  WY: "M250,200 L340,200 L340,280 L250,280",
-  DC: "M770,335 L775,330 L780,335 L775,340",
+// Approximate label positions for state abbreviations (manually adjusted for the Wikimedia SVG viewBox 0 0 959 593)
+const stateLabels: Record<string, [number, number]> = {
+  AL: [637, 430],
+  AK: [120, 540],
+  AZ: [200, 380],
+  AR: [550, 380],
+  CA: [80, 300],
+  CO: [315, 280],
+  CT: [860, 185],
+  DE: [825, 255],
+  FL: [730, 490],
+  GA: [710, 410],
+  HI: [305, 555],
+  ID: [195, 165],
+  IL: [585, 290],
+  IN: [635, 280],
+  IA: [520, 225],
+  KS: [440, 310],
+  KY: [680, 320],
+  LA: [560, 460],
+  ME: [890, 100],
+  MD: [810, 260],
+  MA: [870, 170],
+  MI: [645, 200],
+  MN: [495, 140],
+  MS: [595, 420],
+  MO: [545, 320],
+  MT: [270, 100],
+  NE: [415, 240],
+  NV: [135, 270],
+  NH: [870, 130],
+  NJ: [835, 230],
+  NM: [290, 395],
+  NY: [800, 170],
+  NC: [760, 350],
+  ND: [415, 105],
+  OH: [700, 260],
+  OK: [445, 370],
+  OR: [105, 130],
+  PA: [780, 225],
+  RI: [875, 185],
+  SC: [740, 390],
+  SD: [415, 175],
+  TN: [660, 355],
+  TX: [415, 460],
+  UT: [215, 275],
+  VT: [845, 130],
+  VA: [770, 300],
+  WA: [130, 60],
+  WV: [740, 290],
+  WI: [560, 160],
+  WY: [290, 195],
+  DC: [815, 265],
 };
 
-// State label positions (approximate center of each state)
-const stateLabels: Record<string, string> = {
-  AL: "618,500", AK: "160,510", AZ: "237,475", AR: "570,485", CA: "145,380",
-  CO: "325,365", CT: "845,235", DE: "797,325", FL: "685,565", GA: "670,490",
-  HI: "275,565", ID: "215,240", IL: "575,355", IN: "620,345", IA: "520,300",
-  KS: "430,395", KY: "655,395", LA: "565,535", ME: "870,150", MD: "770,320",
-  MA: "860,210", MI: "615,225", MN: "485,195", MS: "595,500", MO: "520,415",
-  MT: "280,165", NE: "415,325", NV: "185,340", NH: "855,170", NJ: "805,275",
-  NM: "310,475", NY: "770,215", NC: "720,410", ND: "395,165", OH: "670,325",
-  OK: "450,450", OR: "155,220", PA: "745,275", RI: "860,230", SC: "710,445",
-  SD: "395,235", TN: "640,430", TX: "440,540", UT: "250,335", VT: "840,160",
-  VA: "735,365", WA: "160,145", WV: "720,340", WI: "540,205", WY: "295,240",
-  DC: "775,337",
-};
+// Small states that need external labels with leader lines
+const SMALL_STATES = ["DC", "RI", "DE", "CT", "NH", "VT", "NJ", "MA", "MD"];
 
 interface TooltipData {
   state: string;
+  abbr: string;
   zone: number;
   transit: string;
   rate: string;
@@ -169,23 +160,27 @@ interface TooltipData {
 export default function USShippingMap() {
   const [tooltip, setTooltip] = useState<TooltipData | null>(null);
   const [activeZone, setActiveZone] = useState<number | null>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
 
-  const handleStateHover = (abbr: string, event: React.MouseEvent) => {
+  const handleStateHover = useCallback((abbr: string, event: React.MouseEvent) => {
     const info = shippingZones[abbr];
-    if (info) {
-      const rect = (event.currentTarget as SVGElement).closest("svg")?.getBoundingClientRect();
-      if (rect) {
-        setTooltip({
-          state: stateNames[abbr] || abbr,
-          zone: info.zone,
-          transit: info.transit,
-          rate: info.rate,
-          x: event.clientX - rect.left,
-          y: event.clientY - rect.top,
-        });
-      }
+    if (info && svgRef.current) {
+      const rect = svgRef.current.getBoundingClientRect();
+      setTooltip({
+        state: stateNames[abbr] || abbr,
+        abbr,
+        zone: info.zone,
+        transit: info.transit,
+        rate: info.rate,
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top,
+      });
     }
-  };
+  }, []);
+
+  const handleStateLeave = useCallback(() => {
+    setTooltip(null);
+  }, []);
 
   const zones = [
     { zone: 1, label: "Zone 1 — Midwest", color: "#00FF41", transit: "1–2 days", rate: "$5.99", desc: "Home base — fastest & cheapest" },
@@ -195,6 +190,10 @@ export default function USShippingMap() {
     { zone: 5, label: "Zone 5 — Non-Contiguous", color: "#5A1E8E", transit: "5–10 days", rate: "$14.99", desc: "Alaska & Hawaii (USPS)" },
   ];
 
+  // NLF HQ location (Minnesota) - approximate center of MN in the SVG coordinate space
+  const hqX = 490;
+  const hqY = 140;
+
   return (
     <div className="space-y-6">
       {/* Map */}
@@ -202,45 +201,65 @@ export default function USShippingMap() {
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-purple-500/5 pointer-events-none" />
         
         <svg
-          viewBox="100 100 810 530"
+          ref={svgRef}
+          viewBox="0 0 959 593"
           className="w-full h-auto"
-          onMouseLeave={() => setTooltip(null)}
+          onMouseLeave={handleStateLeave}
         >
-          {/* Background */}
-          <rect x="100" y="100" width="810" height="530" fill="transparent" />
-          
-          {/* State paths */}
-          {Object.entries(statePaths).map(([abbr, path]) => {
+          {/* Subtle grid background */}
+          <defs>
+            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.03)" strokeWidth="0.5" />
+            </pattern>
+            {/* Glow filter for HQ marker */}
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="3" result="coloredBlur" />
+              <feMerge>
+                <feMergeNode in="coloredBlur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+          <rect width="959" height="593" fill="url(#grid)" />
+
+          {/* State paths with accurate boundaries */}
+          {Object.entries(STATE_PATHS).map(([abbr, { d }]) => {
             const info = shippingZones[abbr];
             if (!info) return null;
             const isHighlighted = activeZone === null || activeZone === info.zone;
+            const isHovered = tooltip?.abbr === abbr;
+            
             return (
               <path
                 key={abbr}
-                d={path}
+                d={d}
                 fill={info.color}
-                fillOpacity={isHighlighted ? 0.7 : 0.15}
-                stroke="rgba(255,255,255,0.3)"
-                strokeWidth="1.5"
+                fillOpacity={isHovered ? 0.9 : isHighlighted ? 0.6 : 0.12}
+                stroke={isHovered ? "white" : "rgba(255,255,255,0.25)"}
+                strokeWidth={isHovered ? 2 : 0.8}
+                strokeLinejoin="round"
                 className="cursor-pointer transition-all duration-200"
                 onMouseEnter={(e) => handleStateHover(abbr, e)}
                 onMouseMove={(e) => handleStateHover(abbr, e)}
-                onMouseLeave={() => setTooltip(null)}
+                onMouseLeave={handleStateLeave}
                 style={{
-                  filter: isHighlighted ? `drop-shadow(0 0 4px ${info.color}40)` : "none",
+                  filter: isHovered
+                    ? `drop-shadow(0 0 8px ${info.color}80)`
+                    : isHighlighted
+                    ? `drop-shadow(0 0 2px ${info.color}30)`
+                    : "none",
                 }}
               />
             );
           })}
 
-          {/* State labels */}
-          {Object.entries(stateLabels).map(([abbr, coords]) => {
-            const [x, y] = coords.split(",").map(Number);
+          {/* State labels (skip small states) */}
+          {Object.entries(stateLabels).map(([abbr, [x, y]]) => {
             const info = shippingZones[abbr];
             if (!info) return null;
+            if (SMALL_STATES.includes(abbr)) return null;
             const isHighlighted = activeZone === null || activeZone === info.zone;
-            // Skip labels for very small states
-            if (["DC", "RI", "DE", "CT", "NH", "VT", "NJ", "MA", "MD"].includes(abbr)) return null;
+            
             return (
               <text
                 key={`label-${abbr}`}
@@ -249,11 +268,12 @@ export default function USShippingMap() {
                 textAnchor="middle"
                 dominantBaseline="central"
                 fill="white"
-                fontSize="11"
+                fontSize="10"
                 fontWeight="bold"
-                opacity={isHighlighted ? 0.9 : 0.2}
-                className="pointer-events-none select-none"
-                style={{ textShadow: "0 1px 3px rgba(0,0,0,0.8)" }}
+                fontFamily="system-ui, -apple-system, sans-serif"
+                opacity={isHighlighted ? 0.85 : 0.15}
+                className="pointer-events-none select-none transition-opacity duration-200"
+                style={{ textShadow: "0 1px 3px rgba(0,0,0,0.9), 0 0 6px rgba(0,0,0,0.6)" }}
               >
                 {abbr}
               </text>
@@ -261,8 +281,19 @@ export default function USShippingMap() {
           })}
 
           {/* NLF HQ Marker */}
-          <circle cx="485" cy="195" r="6" fill="#FFD700" stroke="white" strokeWidth="2" />
-          <text x="485" y="180" textAnchor="middle" fill="#FFD700" fontSize="10" fontWeight="bold" className="pointer-events-none">
+          <circle cx={hqX} cy={hqY} r="8" fill="#FFD700" fillOpacity="0.3" filter="url(#glow)" className="pointer-events-none" />
+          <circle cx={hqX} cy={hqY} r="5" fill="#FFD700" stroke="white" strokeWidth="1.5" className="pointer-events-none" />
+          <text
+            x={hqX}
+            y={hqY - 14}
+            textAnchor="middle"
+            fill="#FFD700"
+            fontSize="9"
+            fontWeight="bold"
+            fontFamily="system-ui, -apple-system, sans-serif"
+            className="pointer-events-none select-none"
+            style={{ textShadow: "0 1px 4px rgba(0,0,0,0.9)" }}
+          >
             NLF HQ
           </text>
         </svg>
@@ -272,17 +303,17 @@ export default function USShippingMap() {
           <div
             className="absolute z-50 pointer-events-none"
             style={{
-              left: `${tooltip.x + 15}px`,
+              left: `${Math.min(tooltip.x + 15, (svgRef.current?.getBoundingClientRect().width || 800) - 200)}px`,
               top: `${tooltip.y - 10}px`,
               transform: "translateY(-100%)",
             }}
           >
-            <div className="bg-black/95 border border-primary/40 rounded-lg px-3 py-2 shadow-lg shadow-primary/10 min-w-[180px]">
+            <div className="bg-black/95 border border-primary/40 rounded-lg px-3 py-2 shadow-lg shadow-primary/10 min-w-[180px] backdrop-blur-sm">
               <p className="font-bold text-white text-sm">{tooltip.state}</p>
               <div className="flex items-center gap-2 mt-1">
                 <span
                   className="w-2.5 h-2.5 rounded-full inline-block"
-                  style={{ backgroundColor: shippingZones[Object.keys(stateNames).find(k => stateNames[k] === tooltip.state) || ""]?.color || "#00FF41" }}
+                  style={{ backgroundColor: shippingZones[tooltip.abbr]?.color || "#00FF41" }}
                 />
                 <span className="text-xs text-muted-foreground">Zone {tooltip.zone}</span>
               </div>

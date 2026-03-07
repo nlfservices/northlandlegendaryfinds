@@ -218,3 +218,7 @@
 - [x] Update database with box image URLs for all 6 sets
 - [x] Redesign /cards page set cards with box images and green background matching site theme
 - [x] Add Quick Comp button to card detail pages for one-click eBay price lookup
+
+## Shipping Page Map Improvement
+- [x] Replace CSS-based US map with proper SVG map using accurate state boundaries
+- [x] Keep same green/teal/purple shipping zone color scheme
