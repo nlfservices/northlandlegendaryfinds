@@ -23,6 +23,10 @@ const faqs = [
         a: "Every NLF repack is guaranteed to contain at least one premium chase card. Most of our packs include a card in a one-touch magnetic holder or a professionally graded slab from AGS, CGC, PSA, or other top grading services. Hits can include autographed cards, relic/memorabilia cards, numbered parallel cards (/99, /50, /25, /10, /5, or even 1/1), refractors, or other high-value inserts. You will never receive a pack without a hit.",
       },
       {
+        q: "How does NLF compare to other repack sellers?",
+        a: "We build every series around three principles: a strong floor, a better middle, and a healthy ceiling. The floor means every single pack delivers real, collectible value — no junk filler or common base cards padding out the count. The ceiling means there are always legitimate chase cards worth serious money. But where we really separate ourselves is the middle — the average pack from NLF is loaded with quality cards that most competitors would consider hits. We'd rather give you a consistently great experience on every pack than stuff a few big cards into a sea of worthless filler.",
+      },
+      {
         q: "What is a one-touch card?",
         a: "A one-touch is a premium magnetic card holder that provides superior protection and display quality. When we say a repack includes a one-touch card, it means you're getting a notable card already secured in a high-quality magnetic case — ready to display or add to your collection immediately. These are typically our best pulls from hobby box breaks.",
       },
@@ -36,7 +40,7 @@ const faqs = [
       },
       {
         q: "Why are repacks limited to 500 packs?",
-        a: "We limit our production runs to maintain quality and exclusivity. With only 500 packs per series, we can ensure every single pack meets our high standards. You can track exactly how many packs remain in real time on each product page — once a run sells out, it's gone forever and the series is retired.",
+        a: "We limit our production runs to maintain quality and exclusivity. With only 500 packs per series, we can ensure every single pack meets our high standards and maintains our floor-middle-ceiling promise. Smaller runs mean we can hand-curate the card pool rather than diluting it with filler to hit a higher pack count. You can track exactly how many packs remain in real time on each product page — once a run sells out, it's gone forever and the series is retired.",
       },
       {
         q: "What sets are the cards pulled from?",

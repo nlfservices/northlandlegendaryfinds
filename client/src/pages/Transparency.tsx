@@ -90,7 +90,8 @@ export default function Transparency() {
             <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
               At Northland Legendary Finds, we believe the trading card repack industry needs more transparency, not less.
               We publish complete checklists, track every pull in real-time, and follow all platform rules — because
-              trust is earned through actions, not promises.
+              trust is earned through actions, not promises. Our repacks are built on three principles: a strong floor,
+              a better middle, and a healthy ceiling — and we give you the tools to verify it yourself.
             </p>
           </div>
         </div>
@@ -105,7 +106,9 @@ export default function Transparency() {
             </h2>
             <p className="text-muted-foreground leading-relaxed">
               The repack market has a trust problem. Too many sellers hide what's in their packs, inflate values,
-              or change the contents after sales begin. We started NLF to do things differently. Every decision
+              or pad packs with worthless filler to hit a card count. We started NLF to do things differently. We build every series
+              around a strong floor (every card has real value), a better middle (quality cards throughout, not one hit buried in junk),
+              and a healthy ceiling (legitimate chase cards in the mix). Every decision
               we make is guided by one question: <strong className="text-foreground">"Would I buy this if I were the customer?"</strong>
             </p>
             <p className="text-muted-foreground leading-relaxed mt-4">

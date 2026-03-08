@@ -27,8 +27,10 @@ export default function About() {
           </h2>
           <p className="text-lg text-muted-foreground text-center mb-12 leading-relaxed">
             At Northland Legendary Finds, we're passionate collectors who understand the thrill of the hunt. 
-            Our mission is to bring that excitement to every collector by curating premium trading card repacks 
-            with guaranteed hits. We believe in authenticity, quality, and delivering value that exceeds expectations.
+            Our mission is to bring that excitement to every collector by building repacks around three promises: 
+            a strong floor (every pack delivers real value), a better middle (quality cards throughout, not filler), 
+            and a healthy ceiling (legitimate chase cards in the mix). We believe in authenticity, transparency, 
+            and delivering a consistently great experience on every single pack.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -47,10 +49,10 @@ export default function About() {
               <div className="w-12 h-12 bg-secondary/20 rounded-full flex items-center justify-center mb-4">
                 <Star className="w-6 h-6 text-secondary" />
               </div>
-              <h3 className="text-2xl font-bold mb-3">Guaranteed Hits</h3>
+              <h3 className="text-2xl font-bold mb-3">Better Middle</h3>
               <p className="text-muted-foreground">
-                No empty boxes here. Every repack includes guaranteed chase cards, 
-                inserts, or autographs carefully curated by our expert team.
+                Where competitors stuff packs with filler, we load quality. Your average NLF pack 
+                is packed with cards most sellers would consider hits.
               </p>
             </div>
 
@@ -58,10 +60,10 @@ export default function About() {
               <div className="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center mb-4">
                 <TrendingUp className="w-6 h-6 text-accent" />
               </div>
-              <h3 className="text-2xl font-bold mb-3">Investment Value</h3>
+              <h3 className="text-2xl font-bold mb-3">Strong Floor</h3>
               <p className="text-muted-foreground">
-                We focus on cards from premium sets that hold and appreciate in value, 
-                helping you build a collection that's also an investment.
+                No junk filler, no worthless base cards. Every single card in every pack 
+                has real, collectible value. We'd rather make fewer packs than dilute quality.
               </p>
             </div>
 
@@ -69,10 +71,10 @@ export default function About() {
               <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mb-4">
                 <Package className="w-6 h-6 text-primary" />
               </div>
-              <h3 className="text-2xl font-bold mb-3">Fast & Secure</h3>
+              <h3 className="text-2xl font-bold mb-3">Healthy Ceiling</h3>
               <p className="text-muted-foreground">
-                Orders ship within 24 hours with secure packaging and tracking. 
-                Free shipping on orders over $199.
+                Real chase cards worth real money — numbered parallels, autos, and 
+                professionally graded slabs are always in the mix.
               </p>
             </div>
           </div>
@@ -92,8 +94,8 @@ export default function About() {
               we understand the excitement of opening a pack and discovering something special.
             </p>
             <p className="text-lg text-muted-foreground mb-6">
-              We started with a simple goal: create trading card repacks that deliver real value and excitement. 
-              No filler, no junk cards—just premium selections from the hottest Topps releases with guaranteed hits.
+              We started with a simple goal: create trading card repacks that deliver a consistently great experience. 
+              Strong floor, better middle, healthy ceiling — every pack built to exceed expectations, not just hit a card count.
             </p>
             <p className="text-lg text-muted-foreground">
               Today, we're proud to serve collectors across the country, helping them build amazing collections 

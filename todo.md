@@ -300,3 +300,11 @@
 ## FAQ Grading Companies Update
 - [x] Update FAQ to mention AGS, CGC, PSA as main grading companies
 - [x] Add details about grading tiers and what they mean (certification + tamper-proof case)
+
+## Value Proposition Messaging (Floor/Middle/Ceiling)
+- [x] Update FAQ answers to emphasize strong floor, better middle, healthy ceiling
+- [x] Update product descriptions with value proposition messaging
+- [x] Update homepage hero/features with floor/middle/ceiling messaging
+- [x] Update Transparency page with value commitment language
+- [x] Update About page with value proposition messaging
+- [x] Update product detail page trust badges with value tier breakdown

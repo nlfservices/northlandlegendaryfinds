@@ -84,7 +84,7 @@ export default function Home() {
               </h1>
 
               <p className="text-lg sm:text-xl text-gray-300 max-w-lg mb-8 leading-relaxed">
-                Premium <strong className="text-primary">Marvel</strong> trading card repacks with guaranteed hits in every pack. Limited to 500 packs. <strong className="text-cyan-400">Star Wars</strong> dropping June 2026.
+                Premium <strong className="text-primary">Marvel</strong> trading card repacks built different — strong floor, loaded middle, healthy ceiling. Every pack delivers. Limited to 500 packs. <strong className="text-cyan-400">Star Wars</strong> dropping June 2026.
               </p>
 
               <div className="flex flex-wrap gap-4">
@@ -131,8 +131,8 @@ export default function Home() {
               <div className="text-xs text-muted-foreground uppercase tracking-wider mt-1">Authentic Topps</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-amber-400" style={{ fontFamily: "'Anton', sans-serif" }}>GUARANTEED</div>
-              <div className="text-xs text-muted-foreground uppercase tracking-wider mt-1">Hits Every Pack</div>
+              <div className="text-3xl font-bold text-amber-400" style={{ fontFamily: "'Anton', sans-serif" }}>NO FILLER</div>
+              <div className="text-xs text-muted-foreground uppercase tracking-wider mt-1">Every Card Counts</div>
             </div>
             <div>
               <div className="text-3xl font-bold text-purple-400" style={{ fontFamily: "'Anton', sans-serif" }}>FREE</div>
@@ -210,9 +210,9 @@ export default function Home() {
               <div className="w-14 h-14 bg-cyan-500/10 rounded-xl flex items-center justify-center mx-auto mb-4">
                 <Star className="w-7 h-7 text-cyan-400" />
               </div>
-              <h3 className="font-bold text-lg mb-2">Guaranteed Hits</h3>
+              <h3 className="font-bold text-lg mb-2">Better Middle</h3>
               <p className="text-sm text-muted-foreground">
-                Every repack includes guaranteed chase cards — autos, relics, or numbered parallels.
+                Where competitors stuff filler, we load quality. Your average pack beats their best day.
               </p>
             </div>
 
@@ -220,9 +220,9 @@ export default function Home() {
               <div className="w-14 h-14 bg-amber-500/10 rounded-xl flex items-center justify-center mx-auto mb-4">
                 <TrendingUp className="w-7 h-7 text-amber-400" />
               </div>
-              <h3 className="font-bold text-lg mb-2">Investment Grade</h3>
+              <h3 className="font-bold text-lg mb-2">Strong Floor</h3>
               <p className="text-sm text-muted-foreground">
-                Cards from premium sets that hold and appreciate in value over time.
+                No junk filler, no worthless base cards. Every single pack delivers real, collectible value.
               </p>
             </div>
 
@@ -230,9 +230,9 @@ export default function Home() {
               <div className="w-14 h-14 bg-purple-500/10 rounded-xl flex items-center justify-center mx-auto mb-4">
                 <Package className="w-7 h-7 text-purple-400" />
               </div>
-              <h3 className="font-bold text-lg mb-2">Fast & Secure</h3>
+              <h3 className="font-bold text-lg mb-2">Healthy Ceiling</h3>
               <p className="text-sm text-muted-foreground">
-                Orders ship within 24 hours with secure packaging and full tracking.
+                Real chase cards worth real money — numbered parallels, autos, and graded slabs in the mix.
               </p>
             </div>
           </div>
