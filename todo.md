@@ -349,3 +349,9 @@
 - [x] Activate new pack products (draft → active)
 - [x] Duplicate 100 checklist items from 500-pack series into both new packs (placeholder data)
 - [x] Test and save checkpoint
+
+## Pack Series Fixes
+- [x] Reset 500-Pack Series pulled count to 0/500, packs remaining 500/500
+- [x] Rename "100-Card Series" to "100-Pack Series", totalPacks=100, packsRemaining=100
+- [x] Rename "50-Card Series" to "50-Pack Series", totalPacks=50, packsRemaining=50
+- [x] Update static products.ts to match new names
