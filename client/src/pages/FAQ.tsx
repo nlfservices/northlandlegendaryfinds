@@ -16,11 +16,11 @@ const faqs = [
     questions: [
       {
         q: "What is a trading card repack?",
-        a: "A repack is a curated selection of trading cards hand-picked from various premium sets and sealed in a custom pack. Our repacks feature cards from official Topps releases including Chrome, Sapphire, Mint, and more. Most of our repacks include either a one-touch magnetic case card or a professionally graded card (PSA, SGC, or BGS), giving you premium-protected hits right out of the pack.",
+        a: "A repack is a curated selection of trading cards hand-picked from various premium sets and sealed in a custom pack. Our repacks feature cards from official Topps releases including Chrome, Sapphire, Mint, and more. Most of our repacks include either a one-touch magnetic case card or a professionally graded card from AGS (Automated Grading Services), CGC (Certified Guaranty Company), PSA (Professional Sports Authenticator), and others — giving you premium-protected hits right out of the pack.",
       },
       {
         q: "What does 'guaranteed hit' mean?",
-        a: "Every NLF repack is guaranteed to contain at least one premium chase card. Most of our packs include a card in a one-touch magnetic holder or a professionally graded slab. Hits can include autographed cards, relic/memorabilia cards, numbered parallel cards (/99, /50, /25, /10, /5, or even 1/1), refractors, or other high-value inserts. You will never receive a pack without a hit.",
+        a: "Every NLF repack is guaranteed to contain at least one premium chase card. Most of our packs include a card in a one-touch magnetic holder or a professionally graded slab from AGS, CGC, PSA, or other top grading services. Hits can include autographed cards, relic/memorabilia cards, numbered parallel cards (/99, /50, /25, /10, /5, or even 1/1), refractors, or other high-value inserts. You will never receive a pack without a hit.",
       },
       {
         q: "What is a one-touch card?",
@@ -28,11 +28,11 @@ const faqs = [
       },
       {
         q: "Do your repacks include graded cards?",
-        a: "Yes! Many of our repacks include professionally graded cards from PSA, SGC, or BGS. Graded cards have been authenticated and assigned a condition grade by a third-party grading service, which adds both credibility and value. Check each product page for specifics on what's included.",
+        a: "Yes! Many of our repacks include professionally graded cards. Our main grading partners are AGS (Automated Grading Services), CGC (Certified Guaranty Company), and PSA (Professional Sports Authenticator), among others. Graded cards have been authenticated and assigned a condition grade by a third-party grading service, which adds both credibility and value. Each graded card comes with its original certification and tamper-proof case. Check each product page for specifics on what's included.",
       },
       {
         q: "Are the cards in your repacks authentic?",
-        a: "Absolutely. 100% of our cards are authentic, officially licensed Topps trading cards. We source directly from hobby boxes and never deal in counterfeits or reproductions. Every card is inspected for quality before being included in a repack. All graded cards come with their original certification from PSA, SGC, or BGS.",
+        a: "Absolutely. 100% of our cards are authentic, officially licensed Topps trading cards. We source directly from hobby boxes and never deal in counterfeits or reproductions. Every card is inspected for quality before being included in a repack. All graded cards come with their original certification from AGS, CGC, PSA, or whichever grading service authenticated the card.",
       },
       {
         q: "Why are repacks limited to 500 packs?",

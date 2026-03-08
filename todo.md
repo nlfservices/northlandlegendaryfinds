@@ -296,3 +296,7 @@
 - [x] Update repack descriptions: most include a one-touch or graded card
 - [x] Align FAQ with recent features (live pack counter, transparency, checklist, Whatnot compliance)
 - [x] Remove or update any outdated information (Shopify → Stripe, added one-touch/graded card info, new categories)
+
+## FAQ Grading Companies Update
+- [x] Update FAQ to mention AGS, CGC, PSA as main grading companies
+- [x] Add details about grading tiers and what they mean (certification + tamper-proof case)
