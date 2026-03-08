@@ -324,3 +324,10 @@
 - [x] Card flip UI already built in with IntersectionObserver lazy loading
 - [x] Images already optimized (~100KB avg, CDN handles compression)
 - [x] Responsive grid and loading skeletons already in place
+
+## Gold Base Cards - Replace Hulk Placeholders
+- [x] Generate AI character art for 23 of 25 gold cards (Hawkeye #94 and Human Torch #98 failed safety filter)
+- [x] Upload 23 gold card images to CDN
+- [x] Update 23 Gold base card records with proper character art
+- [ ] Hawkeye (#94) and Human Torch (#98) still need images
+- [ ] Save checkpoint
