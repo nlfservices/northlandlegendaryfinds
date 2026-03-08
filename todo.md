@@ -337,3 +337,9 @@
 - [x] Reorganize Chrome Playing Cards: same suit grouping and sort order
 - [x] Display in clean 4-column layout (one column per suit) with suit headers and symbols
 - [x] Test and save checkpoint
+
+## New Pack Series (100-card and 50-card)
+- [x] Create 100-card $100 pack product in database (draft status, ID 30001)
+- [x] Create 50-card $100 pack product in database (draft status, ID 30002)
+- [x] Add both packs to static products.ts for shop page (Coming Soon)
+- [x] Test and save checkpoint
