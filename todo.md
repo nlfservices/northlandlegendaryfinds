@@ -331,3 +331,9 @@
 - [x] Update 23 Gold base card records with proper character art
 - [ ] Hawkeye (#94) and Human Torch (#98) still need images
 - [ ] Save checkpoint
+
+## Marvel Mint Page - Suit Order Reorganization
+- [x] Reorganize Gambit's Deck cards: group by suit (Clubs, Diamonds, Hearts, Spades), sort 2-Ace within each suit
+- [x] Reorganize Chrome Playing Cards: same suit grouping and sort order
+- [x] Display in clean 4-column layout (one column per suit) with suit headers and symbols
+- [x] Test and save checkpoint

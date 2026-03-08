@@ -357,6 +357,102 @@ function SetBrowser() {
   );
 }
 
+// ==================== PLAYING CARD SUIT LAYOUT ====================
+
+const SUIT_ORDER = ["Clubs", "Diamonds", "Hearts", "Spades"];
+const SUIT_SYMBOLS: Record<string, string> = { Clubs: "\u2663", Diamonds: "\u2666", Hearts: "\u2665", Spades: "\u2660" };
+const SUIT_COLORS: Record<string, string> = { Clubs: "text-emerald-400", Diamonds: "text-blue-400", Hearts: "text-red-400", Spades: "text-purple-400" };
+const RANK_ORDER = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
+
+function isPlayingCardType(cardType: string) {
+  return cardType === "GAMBIT'S DECK" || cardType === "GAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS";
+}
+
+function getPlayingCardSuit(card: { cardNumber: string; characterName: string; cardType: string }): string {
+  // Gambit's Deck: "2 of Clubs", "Jack of Hearts", etc.
+  if (card.cardType === "GAMBIT'S DECK") {
+    for (const suit of SUIT_ORDER) {
+      if (card.characterName.toLowerCase().includes(suit.toLowerCase())) return suit;
+    }
+  }
+  // Chrome Playing Cards: cardNumber like C-2, D-10, H-J, S-A
+  const prefix = card.cardNumber.charAt(0);
+  const suitMap: Record<string, string> = { C: "Clubs", D: "Diamonds", H: "Hearts", S: "Spades" };
+  return suitMap[prefix] || "Clubs";
+}
+
+function getPlayingCardRank(card: { cardNumber: string; characterName: string; cardType: string }): string {
+  if (card.cardType === "GAMBIT'S DECK") {
+    const name = card.characterName.toLowerCase();
+    if (name.startsWith("ace")) return "A";
+    if (name.startsWith("king")) return "K";
+    if (name.startsWith("queen")) return "Q";
+    if (name.startsWith("jack")) return "J";
+    const num = name.match(/^(\d+)/);
+    return num ? num[1] : "?";
+  }
+  // Chrome: C-2, D-10, H-J, S-A, etc.
+  const rank = card.cardNumber.split("-")[1];
+  return rank || "?";
+}
+
+function PlayingCardSuitGrid({ cards, setName }: { cards: any[]; setName: string }) {
+  // Group cards by suit
+  const suitGroups = useMemo(() => {
+    const groups: Record<string, any[]> = {};
+    for (const suit of SUIT_ORDER) groups[suit] = [];
+    for (const card of cards) {
+      const suit = getPlayingCardSuit(card);
+      if (groups[suit]) groups[suit].push(card);
+    }
+    // Sort each suit by rank order
+    for (const suit of SUIT_ORDER) {
+      groups[suit].sort((a, b) => {
+        const rankA = RANK_ORDER.indexOf(getPlayingCardRank(a));
+        const rankB = RANK_ORDER.indexOf(getPlayingCardRank(b));
+        return rankA - rankB;
+      });
+    }
+    return groups;
+  }, [cards]);
+
+  return (
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+      {SUIT_ORDER.map(suit => (
+        <div key={suit} className="space-y-3">
+          {/* Suit header */}
+          <div className="flex items-center gap-2 pb-2 border-b border-border/50">
+            <span className={`text-2xl ${SUIT_COLORS[suit]}`}>{SUIT_SYMBOLS[suit]}</span>
+            <h3 className="font-bold text-lg">{suit}</h3>
+            <Badge variant="secondary" className="text-xs ml-auto">{suitGroups[suit].length}</Badge>
+          </div>
+          {/* Cards in this suit */}
+          <div className="space-y-3">
+            {suitGroups[suit].map(card => (
+              <article key={card.id} className="group">
+                <div className="rounded-lg overflow-hidden bg-card border border-border hover:border-primary/50 transition-all hover:shadow-lg hover:shadow-primary/5">
+                  <FlipCard
+                    frontImg={card.imageUrl || PLACEHOLDER_IMG}
+                    backImg={(card as any).backImageUrl}
+                    name={card.characterName}
+                    cardNumber={card.cardNumber}
+                  />
+                  <div className="p-2 text-center">
+                    <p className="font-semibold text-sm truncate" title={card.characterName}>
+                      {card.characterName}
+                    </p>
+                    <span className="text-xs text-muted-foreground font-mono">#{card.cardNumber}</span>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 // ==================== SET DETAIL ====================
 
 function SetDetail({ slug }: { slug: string }) {
@@ -501,7 +597,11 @@ function SetDetail({ slug }: { slug: string }) {
       {/* Cards */}
       <div className="container pb-16">
         {viewMode === "grid" ? (
-          /* Grid View with Card Images */
+          /* Check if current filter is a playing card type for special layout */
+          isPlayingCardType(filterType) ? (
+            <PlayingCardSuitGrid cards={filteredCards} setName={set.name} />
+          ) : (
+          /* Standard Grid View with Card Images */
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
             {filteredCards.map((card) => (
               <article key={card.id} className="group">
@@ -533,6 +633,7 @@ function SetDetail({ slug }: { slug: string }) {
               </article>
             ))}
           </div>
+          )
         ) : (
           /* List View */
           <div className="rounded-xl border border-border overflow-hidden bg-card">
