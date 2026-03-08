@@ -355,3 +355,9 @@
 - [x] Rename "100-Card Series" to "100-Pack Series", totalPacks=100, packsRemaining=100
 - [x] Rename "50-Card Series" to "50-Pack Series", totalPacks=50, packsRemaining=50
 - [x] Update static products.ts to match new names
+
+## Gold Base Cards - Replace AI Art with Real Photos
+- [x] Identify 25 real Gold card photos by character (all matched correctly)
+- [x] Upload 25 photos to CDN
+- [x] Update 25/25 Gold card database records with real photo URLs
+- [x] Save checkpoint
