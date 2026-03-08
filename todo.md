@@ -343,3 +343,9 @@
 - [x] Create 50-card $100 pack product in database (draft status, ID 30002)
 - [x] Add both packs to static products.ts for shop page (Coming Soon)
 - [x] Test and save checkpoint
+
+## Checklist Visibility & Duplication
+- [x] Exempt /checklists, /checklist/*, /cards, /graded, /transparency routes from coming soon gate
+- [x] Activate new pack products (draft → active)
+- [x] Duplicate 100 checklist items from 500-pack series into both new packs (placeholder data)
+- [x] Test and save checkpoint

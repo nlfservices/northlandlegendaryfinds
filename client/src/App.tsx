@@ -210,8 +210,13 @@ function AppRouter() {
     </div>
   );
 
-  // If coming soon mode is enabled AND user hasn't logged in, show countdown page
-  if (COMING_SOON_MODE && !showFullSite) {
+  // Routes that are accessible even during coming soon mode
+  const [location] = useLocation();
+  const publicRoutes = ['/checklists', '/checklist/', '/cards', '/cards/', '/graded', '/transparency'];
+  const isPublicRoute = publicRoutes.some(route => location === route || location.startsWith(route));
+
+  // If coming soon mode is enabled AND user hasn't logged in AND not on a public route, show countdown page
+  if (COMING_SOON_MODE && !showFullSite && !isPublicRoute) {
     return (
       <>
         <ComingSoon />
