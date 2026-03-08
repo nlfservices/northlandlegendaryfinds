@@ -1,0 +1,16 @@
+{
+  "query": "SELECT ms.id as setId, ms.name, ms.slug, ms.totalCards FROM marvel_sets ms WHERE ms.slug LIKE '%mint%'; SELECT mc.id, mc.cardNumber, mc.characterName, mc.cardType, mc.imageUrl, mc.back_image_url FROM marvel_cards mc WHERE mc.setId = (SELECT id FROM marvel_sets WHERE slug LIKE '%mint%') AND mc.cardType = 'Base' ORDER BY mc.sortOrder LIMIT 60;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT ms.id as setId, ms.name, ms.slug, ms.totalCards FROM marvel_sets ms WHERE ms.slug LIKE '%mint%'; SELECT mc.id, mc.cardNumber, mc.characterName, mc.cardType, mc.imageUrl, mc.back_image_url FROM marvel_cards mc WHERE mc.setId = (SELECT id FROM marvel_sets WHERE slug LIKE '%mint%') AND mc.cardType = 'Base' ORDER BY mc.sortOrder LIMIT 60;",
+  "rows": [
+    {
+      "setId": "3",
+      "name": "2025 Topps Marvel Mint",
+      "slug": "2025-topps-marvel-mint",
+      "totalCards": "156"
+    }
+  ],
+  "messages": [],
+  "stdout": "setId\tname\tslug\ttotalCards\n3\t2025 Topps Marvel Mint\t2025-topps-marvel-mint\t156\n",
+  "stderr": "",
+  "execution_time_ms": 437
+}

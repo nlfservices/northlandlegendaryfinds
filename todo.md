@@ -308,3 +308,19 @@
 - [x] Update Transparency page with value commitment language
 - [x] Update About page with value proposition messaging
 - [x] Update product detail page trust badges with value tier breakdown
+
+## Marvel Mint Card Images Update (All 4 Suits + Autographs)
+- [x] Upload 26 Clubs card images (13 front + 13 back) to CDN
+- [x] Upload 26 Diamonds card images (13 front + 13 back) to CDN
+- [x] Upload 26 Hearts card images (13 front + 13 back) to CDN
+- [x] Upload 26 Spades card images (13 front + 13 back) to CDN
+- [x] Map all 52 playing cards to Gambit's Deck (GD-1 to GD-52) with front/back
+- [x] Map all 36 Chrome Playing Cards (2-10 per suit) with front/back
+- [x] Insert 16 missing face cards (A, J, Q, K x 4 suits) into Chrome Playing Cards
+- [x] Identify 30 timestamp-named photos as 15 autograph cards (front + back)
+- [x] Upload 30 autograph photos to CDN
+- [x] Update 15 autograph card records with front/back image URLs
+- [x] Remove all Hulk placeholder images (0 remaining)
+- [x] Card flip UI already built in with IntersectionObserver lazy loading
+- [x] Images already optimized (~100KB avg, CDN handles compression)
+- [x] Responsive grid and loading skeletons already in place

@@ -1,0 +1,16 @@
+{
+  "query": "SELECT id, name, slug, totalCards FROM marvel_sets WHERE slug LIKE '%mint%';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, name, slug, totalCards FROM marvel_sets WHERE slug LIKE '%mint%';",
+  "rows": [
+    {
+      "id": "3",
+      "name": "2025 Topps Marvel Mint",
+      "slug": "2025-topps-marvel-mint",
+      "totalCards": "156"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tslug\ttotalCards\n3\t2025 Topps Marvel Mint\t2025-topps-marvel-mint\t156\n",
+  "stderr": "",
+  "execution_time_ms": 1097
+}
