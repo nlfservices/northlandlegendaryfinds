@@ -56,6 +56,8 @@ export default function ChecklistDetail() {
     return groups;
   }, [checklist]);
 
+  const [lightboxImage, setLightboxImage] = useState<{ url: string; name: string } | null>(null);
+
   const tierOrder = ["chase", "hit", "base", "bonus"];
   const tierLabels: Record<string, string> = {
     chase: "Chase Cards",
@@ -117,8 +119,6 @@ export default function ChecklistDetail() {
     : null;
 
   const finalizationStatement = product.checklistStatement || defaultFinalizationStatement;
-
-  const [lightboxImage, setLightboxImage] = useState<{ url: string; name: string } | null>(null);
 
   return (
     <div className="min-h-screen">

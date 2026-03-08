@@ -1,0 +1,8 @@
+{
+  "query": "SELECT p.id, p.name, p.dbSlug, p.totalPacks, p.packsRemaining, \n       (SELECT COUNT(*) FROM checklist_items ci WHERE ci.productId = p.id) as itemCount\nFROM products p \nWHERE p.name LIKE '%50%' OR p.dbSlug LIKE '%50%';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT p.id, p.name, p.dbSlug, p.totalPacks, p.packsRemaining, \n       (SELECT COUNT(*) FROM checklist_items ci WHERE ci.productId = p.id) as itemCount\nFROM products p \nWHERE p.name LIKE '%50%' OR p.dbSlug LIKE '%50%';",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1146 (42S02) at line 1: Table 'sghqxeh8pzjccdnfiamufi.products' doesn't exist"
+  ]
+}

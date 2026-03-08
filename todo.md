@@ -361,3 +361,18 @@
 - [x] Upload 25 photos to CDN
 - [x] Update 25/25 Gold card database records with real photo URLs
 - [x] Save checkpoint
+
+## Master AI Character Reference List
+- [x] Query all Marvel Mint characters with image status
+- [x] Create master reference document for requesting AI art later (MASTER_CHARACTER_LIST.md)
+
+## Marvel Mint Card Type Display Order
+- [x] Reorder card types: Bronze (1-50), Silver (51-75), Gold (76-100), Platinum (101-120)
+- [x] Update card type filter tabs to match this order
+- [x] Sort cards within "All" view by type order then card number
+
+## 50-Pack Series Cleanup
+- [x] Remove 50 extra placeholder items from 50-Pack Series (had 100, now has correct 50)
+
+## Bug Fixes
+- [x] Fix React hooks ordering error in ChecklistDetail.tsx (useState called after early return)

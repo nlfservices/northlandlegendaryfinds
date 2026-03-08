@@ -461,10 +461,25 @@ function SetDetail({ slug }: { slug: string }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
+  // Custom display order for card types
+  const CARD_TYPE_ORDER: Record<string, number> = {
+    "BASE CARDS – BRONZE": 1,
+    "BASE CARDS – SILVER": 2,
+    "BASE CARDS – GOLD": 3,
+    "BASE CARDS – PLATINUM": 4,
+    "Autograph": 5,
+    "GAMBIT'S DECK": 6,
+    "GAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS": 7,
+  };
+
   const cardTypes = useMemo(() => {
     if (!data?.cards) return [];
     const types = new Set(data.cards.map(c => c.cardType || 'Base'));
-    return Array.from(types).sort();
+    return Array.from(types).sort((a, b) => {
+      const orderA = CARD_TYPE_ORDER[a] ?? 99;
+      const orderB = CARD_TYPE_ORDER[b] ?? 99;
+      return orderA - orderB;
+    });
   }, [data?.cards]);
 
   const filteredCards = useMemo(() => {
@@ -480,7 +495,18 @@ function SetDetail({ slug }: { slug: string }) {
         c.cardNumber?.toLowerCase().includes(q)
       );
     }
-    return cards;
+    // Sort by card type order, then by card number within each type
+    return [...cards].sort((a, b) => {
+      const typeA = a.cardType || 'Base';
+      const typeB = b.cardType || 'Base';
+      const orderA = CARD_TYPE_ORDER[typeA] ?? 99;
+      const orderB = CARD_TYPE_ORDER[typeB] ?? 99;
+      if (orderA !== orderB) return orderA - orderB;
+      // Within same type, sort by numeric card number
+      const numA = parseInt(a.cardNumber.replace(/[^0-9]/g, '')) || 0;
+      const numB = parseInt(b.cardNumber.replace(/[^0-9]/g, '')) || 0;
+      return numA - numB;
+    });
   }, [data?.cards, filterType, searchQuery]);
 
   // SEO: set page title and description
