@@ -376,3 +376,11 @@
 
 ## Bug Fixes
 - [x] Fix React hooks ordering error in ChecklistDetail.tsx (useState called after early return)
+
+## Pre-Launch Site Changes
+- [x] Remove launch countdown page - show full site immediately (COMING_SOON_MODE = false, code preserved)
+- [x] Disable product purchases until March 13th (launchDate added to all products, countdown + disabled buttons)
+- [x] Home page shows products as not available for sale until March 13th (hero CTA updated)
+- [x] Blur checklist card details to keep contents a surprise until launch
+- [x] Blur ENTIRE checklist content (tier headers, counts, cards — everything) with "CHECKLIST HIDDEN" overlay
+- [x] Keep launch/coming soon page code intact for future reuse (COMING_SOON_MODE flag in App.tsx, set to false)

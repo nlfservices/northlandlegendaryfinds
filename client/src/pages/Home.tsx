@@ -4,12 +4,13 @@
  */
 
 import { useAuth } from "@/_core/hooks/useAuth";
-import { ShoppingCart, Shield, Star, TrendingUp, Package, ArrowRight, Zap, BookOpen, Award } from "lucide-react";
+import { ShoppingCart, Shield, Star, TrendingUp, Package, ArrowRight, Zap, BookOpen, Award, Clock, Eye } from "lucide-react";
 import CardShowcase, { type ShowcaseCard } from "@/components/CardShowcase";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { useCart } from "@/contexts/CartContext";
-import { getRepackProducts, getComingSoonProducts } from "@/lib/products";
+import { getRepackProducts, getComingSoonProducts, products } from "@/lib/products";
+import { useLaunchCountdown } from "@/hooks/useLaunchCountdown";
 import ProductCard from "@/components/ProductCard";
 
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hero-banner-jniBj55ukeiEDpJxc2aLgB.webp";
@@ -56,6 +57,8 @@ export default function Home() {
   const { addItem } = useCart();
   const repackProducts = getRepackProducts();
   const comingSoonProducts = getComingSoonProducts();
+  // All products with a launch date (for the "launching soon" section)
+  const launchProducts = products.filter(p => p.launchDate && !p.isComingSoon);
 
   return (
     <div className="min-h-screen">
@@ -87,16 +90,22 @@ export default function Home() {
                 Premium <strong className="text-primary">Marvel</strong> trading card repacks built different — strong floor, loaded middle, healthy ceiling. Every pack delivers. Limited to 500 packs. <strong className="text-cyan-400">Star Wars</strong> dropping June 2026.
               </p>
 
+              {/* Launch countdown banner */}
+              <div className="inline-flex items-center gap-3 bg-primary/10 border border-primary/30 rounded-xl px-5 py-3 mb-6">
+                <Clock className="w-5 h-5 text-primary" />
+                <span className="text-primary font-bold text-sm uppercase tracking-wider">Available Friday, March 13th at 7:00 PM CT</span>
+              </div>
+
               <div className="flex flex-wrap gap-4">
                 <Link href="/shop">
                   <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-lg px-8 py-6 shadow-lg shadow-primary/20">
-                    <ShoppingCart className="w-5 h-5 mr-2" />
-                    Shop Now
+                    <Eye className="w-5 h-5 mr-2" />
+                    Preview Products
                   </Button>
                 </Link>
-                <Link href="/about">
+                <Link href="/checklists">
                   <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10 font-bold text-lg px-8 py-6">
-                    Learn More
+                    View Checklists
                     <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
                 </Link>
@@ -297,25 +306,53 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== COMING SOON PRODUCTS ===== */}
-      <section className="py-16 lg:py-20">
-        <div className="container">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
-              <span className="text-purple-400">COMING</span> SOON
-            </h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Premium sealed products arriving soon. Sign up for notifications to be the first to know.
-            </p>
-          </div>
+      {/* ===== LAUNCHING MARCH 13TH ===== */}
+      {launchProducts.length > 0 && (
+        <section className="py-16 lg:py-20">
+          <div className="container">
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 border border-primary/30 rounded-full mb-4">
+                <Clock className="w-4 h-4 text-primary" />
+                <span className="text-primary text-sm font-bold">FRIDAY, MARCH 13TH — 7:00 PM CT</span>
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
+                <span className="text-primary">LAUNCHING</span> SOON
+              </h2>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                All products go live on March 13th. Browse now, buy on launch day.
+              </p>
+            </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {comingSoonProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              {launchProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {/* ===== COMING LATER ===== */}
+      {comingSoonProducts.length > 0 && (
+        <section className="py-16 lg:py-20 bg-card/30">
+          <div className="container">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl md:text-5xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
+                <span className="text-cyan-400">COMING</span> LATER
+              </h2>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                More products on the horizon. Sign up for notifications to be the first to know.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              {comingSoonProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ===== NEWSLETTER ===== */}
       <section className="py-16 bg-card border-y border-border">

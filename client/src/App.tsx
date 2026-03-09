@@ -39,7 +39,7 @@ import Transparency from "./pages/Transparency";
 import { useState, useEffect } from "react";
 
 // COMING SOON MODE: Set to true to show countdown page, false to show full site
-const COMING_SOON_MODE = true;
+const COMING_SOON_MODE = false;
 
 // ADMIN PASSWORD: Change this to your own password
 const ADMIN_PASSWORD = "6390";

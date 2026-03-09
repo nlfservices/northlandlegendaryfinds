@@ -16,9 +16,13 @@ import { Link, useParams } from "wouter";
 import {
   ListChecks, ArrowLeft, CheckCircle2, Loader2,
   Radio, Zap, Package, Calendar, TrendingUp, Eye,
-  ShieldCheck, FileCheck, Info, X as XIcon
+  ShieldCheck, FileCheck, Info, X as XIcon, Lock, Clock
 } from "lucide-react";
 import { useMemo, useState } from "react";
+
+// Pre-launch blur: hide card details until March 13, 2026 7:00 PM CT (UTC-5)
+const LAUNCH_DATE = new Date("2026-03-14T00:00:00Z");
+const isPreLaunch = () => new Date() < LAUNCH_DATE;
 
 const CARD_PLACEHOLDER = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/card-placeholder-AFtdwioDcmq6GHzFUFUpif.webp";
 
@@ -295,7 +299,61 @@ export default function ChecklistDetail() {
                 </Card>
               )}
 
-              {tierOrder.map(tier => {
+              {/* Pre-launch: blur the ENTIRE checklist */}
+              {isPreLaunch() && checklist && checklist.length > 0 && (
+                <div className="relative">
+                  {/* Overlay message */}
+                  <div className="absolute inset-0 z-10 flex flex-col items-center justify-start pt-24 bg-background/40 backdrop-blur-sm rounded-lg">
+                    <div className="bg-card border border-primary/30 rounded-xl p-8 text-center max-w-md shadow-2xl shadow-primary/20">
+                      <Lock className="w-10 h-10 text-primary mx-auto mb-4" />
+                      <h4 className="font-bold text-2xl mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>CHECKLIST HIDDEN</h4>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        The full checklist will be revealed on <strong className="text-foreground">Friday, March 13th at 7:00 PM CT</strong>. 
+                        We want to keep the surprise!
+                      </p>
+                      <div className="inline-flex items-center gap-2 text-primary text-sm font-bold">
+                        <Clock className="w-4 h-4" />
+                        {checklist.length} total cards across all tiers
+                      </div>
+                    </div>
+                  </div>
+                  {/* Blurred content underneath */}
+                  <div className="blur-lg select-none pointer-events-none opacity-40">
+                    {tierOrder.map(tier => {
+                      const items = grouped[tier];
+                      if (!items || items.length === 0) return null;
+                      const colors = tierColors[tier];
+                      return (
+                        <div key={tier} className="mb-8">
+                          <div className="flex items-center gap-3 mb-4">
+                            <div className={`w-10 h-10 ${colors.bg} rounded-lg flex items-center justify-center`}>
+                              {tier === 'chase' && <TrendingUp className={`w-5 h-5 ${colors.icon}`} />}
+                              {tier === 'hit' && <Zap className={`w-5 h-5 ${colors.icon}`} />}
+                              {tier === 'base' && <Package className={`w-5 h-5 ${colors.icon}`} />}
+                              {tier === 'bonus' && <Eye className={`w-5 h-5 ${colors.icon}`} />}
+                            </div>
+                            <h3 className="text-xl font-bold">{tierLabels[tier]}</h3>
+                          </div>
+                          <div className="grid gap-2">
+                            {items.slice(0, 5).map(item => (
+                              <div key={item.id} className="flex items-center gap-3 p-4 rounded-lg border bg-card border-border">
+                                <div className="w-12 h-16 bg-muted rounded-md" />
+                                <div>
+                                  <div className="h-4 w-32 bg-muted rounded" />
+                                  <div className="h-3 w-48 bg-muted/50 rounded mt-2" />
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* Post-launch: show full checklist */}
+              {!isPreLaunch() && tierOrder.map(tier => {
                 const items = grouped[tier];
                 if (!items || items.length === 0) return null;
                 const colors = tierColors[tier];
@@ -322,64 +380,66 @@ export default function ChecklistDetail() {
                     </div>
 
                     {/* Card Grid */}
-                    <div className="grid gap-2">
-                      {items.map(item => (
-                        <div
-                          key={item.id}
-                          className={`flex items-center justify-between p-4 rounded-lg border transition-all ${
-                            item.isPulled
-                              ? 'bg-green-500/5 border-green-500/20'
-                              : 'bg-card border-border hover:border-primary/20'
-                          }`}
-                        >
-                          <div className="flex items-center gap-3">
-                            {/* Card Image */}
-                            <div
-                              className="relative shrink-0 cursor-pointer group"
-                              onClick={() => item.imageUrl && setLightboxImage({ url: item.imageUrl, name: `${item.cardName}${item.parallel ? ` (${item.parallel})` : ''}` })}
-                            >
-                              <img
-                                src={item.imageUrl || CARD_PLACEHOLDER}
-                                alt={item.cardName}
-                                className={`w-12 h-16 object-cover rounded-md border transition-all ${
-                                  item.isPulled ? 'border-green-500/30 opacity-60' : 'border-border'
-                                } ${item.imageUrl ? 'group-hover:border-primary/50 group-hover:shadow-lg group-hover:shadow-primary/10' : ''}`}
-                                loading="lazy"
-                              />
-                              {item.imageUrl && !item.isPulled && (
-                                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 rounded-md transition-all flex items-center justify-center">
-                                  <Eye className="w-4 h-4 text-white opacity-0 group-hover:opacity-100 transition-opacity drop-shadow-lg" />
-                                </div>
-                              )}
-                              {item.isPulled && (
-                                <div className="absolute inset-0 flex items-center justify-center">
-                                  <CheckCircle2 className="w-5 h-5 text-green-400 drop-shadow-lg" />
-                                </div>
-                              )}
-                            </div>
-                            <div>
-                              <div className="font-medium">
-                                {item.cardName}
-                                {item.parallel && (
-                                  <span className="text-primary ml-2 text-sm font-normal">({item.parallel})</span>
+                    <div className="relative">
+                      <div className="grid gap-2">
+                        {items.map(item => (
+                          <div
+                            key={item.id}
+                            className={`flex items-center justify-between p-4 rounded-lg border transition-all ${
+                              item.isPulled
+                                ? 'bg-green-500/5 border-green-500/20'
+                                : 'bg-card border-border hover:border-primary/20'
+                            }`}
+                          >
+                            <div className="flex items-center gap-3">
+                              {/* Card Image */}
+                              <div
+                                className="relative shrink-0 cursor-pointer group"
+                                onClick={() => !isPreLaunch() && item.imageUrl && setLightboxImage({ url: item.imageUrl, name: `${item.cardName}${item.parallel ? ` (${item.parallel})` : ''}` })}
+                              >
+                                <img
+                                  src={item.imageUrl || CARD_PLACEHOLDER}
+                                  alt={item.cardName}
+                                  className={`w-12 h-16 object-cover rounded-md border transition-all ${
+                                    item.isPulled ? 'border-green-500/30 opacity-60' : 'border-border'
+                                  } ${item.imageUrl ? 'group-hover:border-primary/50 group-hover:shadow-lg group-hover:shadow-primary/10' : ''}`}
+                                  loading="lazy"
+                                />
+                                {item.imageUrl && !item.isPulled && (
+                                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 rounded-md transition-all flex items-center justify-center">
+                                    <Eye className="w-4 h-4 text-white opacity-0 group-hover:opacity-100 transition-opacity drop-shadow-lg" />
+                                  </div>
+                                )}
+                                {item.isPulled && (
+                                  <div className="absolute inset-0 flex items-center justify-center">
+                                    <CheckCircle2 className="w-5 h-5 text-green-400 drop-shadow-lg" />
+                                  </div>
                                 )}
                               </div>
-                              <div className="text-xs text-muted-foreground flex flex-wrap gap-x-1.5">
-                                {item.cardSet && <span>{item.cardSet}</span>}
-                                {item.cardYear && <span>· {item.cardYear}</span>}
-                                {item.cardNumber && <span>· #{item.cardNumber}</span>}
-                                {item.cardCondition && <span>· {item.cardCondition}</span>}
+                              <div>
+                                <div className="font-medium">
+                                  {item.cardName}
+                                  {item.parallel && (
+                                    <span className="text-primary ml-2 text-sm font-normal">({item.parallel})</span>
+                                  )}
+                                </div>
+                                <div className="text-xs text-muted-foreground flex flex-wrap gap-x-1.5">
+                                  {item.cardSet && <span>{item.cardSet}</span>}
+                                  {item.cardYear && <span>· {item.cardYear}</span>}
+                                  {item.cardNumber && <span>· #{item.cardNumber}</span>}
+                                  {item.cardCondition && <span>· {item.cardCondition}</span>}
+                                </div>
                               </div>
                             </div>
+                            <div className="flex items-center gap-3">
+                              {/* NOTE: estimatedValue intentionally NOT shown per Whatnot compliance rules */}
+                              {item.isPulled && (
+                                <Badge variant="outline" className="border-green-500/30 text-green-400 text-xs">PULLED</Badge>
+                              )}
+                            </div>
                           </div>
-                          <div className="flex items-center gap-3">
-                            {/* NOTE: estimatedValue intentionally NOT shown per Whatnot compliance rules */}
-                            {item.isPulled && (
-                              <Badge variant="outline" className="border-green-500/30 text-green-400 text-xs">PULLED</Badge>
-                            )}
-                          </div>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
                     </div>
                   </div>
                 );
