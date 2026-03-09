@@ -176,16 +176,6 @@ export default function Subscribe() {
               </p>
             </form>
 
-            {/* GoHighLevel Integration Instructions */}
-            <div className="mt-8 p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
-              <p className="text-xs text-yellow-400 font-mono">
-                <strong>To integrate GoHighLevel:</strong><br />
-                1. Get your GHL form embed code from your sub-account<br />
-                2. Replace the form section above with your embed code<br />
-                3. Update handleSubmit function to work with GHL's submission<br />
-                4. Test the form to ensure discount codes are sent correctly
-              </p>
-            </div>
           </div>
 
           {/* Social Proof */}

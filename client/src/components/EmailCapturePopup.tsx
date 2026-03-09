@@ -130,15 +130,6 @@ export default function EmailCapturePopup() {
             We respect your privacy. Unsubscribe anytime.
           </p>
 
-          {/* GoHighLevel Integration Instructions */}
-          <div className="mt-6 p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-lg text-left">
-            <p className="text-xs text-yellow-400 font-mono">
-              <strong>To integrate GoHighLevel:</strong><br />
-              1. Get your GHL form embed code<br />
-              2. Replace the form section above with your embed code<br />
-              3. Update handleSubmit to work with GHL's submission
-            </p>
-          </div>
         </div>
       </div>
     </div>

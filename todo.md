@@ -384,3 +384,6 @@
 - [x] Blur checklist card details to keep contents a surprise until launch
 - [x] Blur ENTIRE checklist content (tier headers, counts, cards — everything) with "CHECKLIST HIDDEN" overlay
 - [x] Keep launch/coming soon page code intact for future reuse (COMING_SOON_MODE flag in App.tsx, set to false)
+
+## Popup Fix
+- [x] Remove GoHighLevel developer instructions from email capture popup and Subscribe page
