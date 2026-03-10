@@ -388,3 +388,13 @@
 ## Popup Fix
 - [x] Remove GoHighLevel developer instructions from email capture popup and Subscribe page
 - [x] Replace gift emoji in popup with NLF logo image
+
+## GoHighLevel API Integration
+- [x] Get GHL API key from Private Integrations (NLF Website Integration created)
+- [x] Store GHL API key and Location ID as secrets
+- [x] Create server-side tRPC procedure for GHL contact creation (server/ghl.ts + public router)
+- [x] Connect email capture popup to GHL API
+- [x] Connect Subscribe page to GHL API
+- [x] Test email submission flow end-to-end
+- [x] Send email notification to admin@nlfservices.com for every new email form submission (via Manus notifyOwner)
+- [ ] Set up GHL workflow automation for backup email notification (scheduled for tomorrow)

@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, Loader2 } from "lucide-react";
+import { trpc } from "@/lib/trpc";
+import { toast } from "sonner";
 
 /**
  * Standalone Email Subscription Page
@@ -13,20 +15,33 @@ import { CheckCircle2 } from "lucide-react";
  * - Email signatures
  * - QR codes at events
  * 
- * To integrate GoHighLevel:
- * Replace the placeholder form with your GHL embed code
+ * Connected to GoHighLevel CRM via tRPC subscribe endpoint
  */
 
 export default function Subscribe() {
+  const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+
+  const subscribeMutation = trpc.public.subscribe.submit.useMutation({
+    onSuccess: (data) => {
+      setSubmitted(true);
+      localStorage.setItem("nlf_email_submitted", "true");
+      localStorage.setItem("nlf_popup_closed", "permanent");
+      toast.success(data.message);
+    },
+    onError: (error) => {
+      toast.error(error.message || "Something went wrong. Please try again.");
+    },
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // TODO: Replace with actual GoHighLevel form submission
-    localStorage.setItem("nlf_email_submitted", "true");
-    localStorage.setItem("nlf_popup_closed", "permanent");
-    setSubmitted(true);
+    if (!email.trim() || subscribeMutation.isPending) return;
+
+    subscribeMutation.mutate({
+      email: email.trim(),
+      source: "subscribe-page",
+    });
   };
 
   if (submitted) {
@@ -148,7 +163,7 @@ export default function Subscribe() {
             </div>
           </div>
 
-          {/* Form Section - PLACEHOLDER FOR GOHIGHLEVEL */}
+          {/* Form Section */}
           <div className="bg-gradient-to-br from-purple-900/50 to-black border-2 border-green-500/30 rounded-xl p-8 shadow-2xl">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
@@ -160,15 +175,26 @@ export default function Subscribe() {
                   type="email"
                   placeholder="collector@example.com"
                   required
-                  className="w-full px-4 py-3 bg-black/50 border border-green-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-green-500 transition-colors text-lg"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={subscribeMutation.isPending}
+                  className="w-full px-4 py-3 bg-black/50 border border-green-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-green-500 transition-colors text-lg disabled:opacity-50"
                 />
               </div>
 
               <Button
                 type="submit"
-                className="w-full bg-green-500 hover:bg-green-600 text-black font-bold py-4 text-lg rounded-lg transition-all transform hover:scale-105"
+                disabled={subscribeMutation.isPending || !email.trim()}
+                className="w-full bg-green-500 hover:bg-green-600 text-black font-bold py-4 text-lg rounded-lg transition-all transform hover:scale-105 disabled:opacity-50 disabled:hover:scale-100"
               >
-                Get My 10% Discount Code
+                {subscribeMutation.isPending ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    Subscribing...
+                  </span>
+                ) : (
+                  "Get My 10% Discount Code"
+                )}
               </Button>
 
               <p className="text-xs text-center text-gray-500">

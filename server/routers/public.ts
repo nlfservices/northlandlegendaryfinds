@@ -12,6 +12,8 @@ import {
 import { launchSubscribers } from "../../drizzle/schema";
 import { getDb } from "../db";
 import { eq, and } from "drizzle-orm";
+import { createGHLContact } from "../ghl";
+import { notifyOwner } from "../_core/notification";
 
 // ==================== PUBLIC PRODUCT ROUTES ====================
 
@@ -217,6 +219,69 @@ const publicLaunchRouter = router({
     }),
 });
 
+// ==================== EMAIL SUBSCRIBER / GHL ROUTES ====================
+
+const publicSubscribeRouter = router({
+  /** Subscribe email via popup or subscribe page — creates GHL contact + notifies admin */
+  submit: publicProcedure
+    .input(
+      z.object({
+        email: z.string().email("Please enter a valid email address"),
+        firstName: z.string().optional(),
+        lastName: z.string().optional(),
+        source: z.string().optional(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const email = input.email.toLowerCase().trim();
+      const source = input.source || "website-popup";
+
+      // 1. Create contact in GoHighLevel
+      const ghlResult = await createGHLContact({
+        email,
+        firstName: input.firstName,
+        lastName: input.lastName,
+        tags: ["website-subscriber", `source-${source}`],
+        source: `NLF Website - ${source}`,
+      });
+
+      if (!ghlResult.success && !ghlResult.isDuplicate) {
+        console.error("[Subscribe] GHL contact creation failed:", ghlResult.error);
+        // Don't fail the request — still notify owner
+      }
+
+      // 2. Send notification to admin
+      try {
+        await notifyOwner({
+          title: `New Email Subscriber: ${email}`,
+          content: [
+            `**New subscriber from ${source}**`,
+            ``,
+            `- **Email:** ${email}`,
+            input.firstName ? `- **First Name:** ${input.firstName}` : "",
+            input.lastName ? `- **Last Name:** ${input.lastName}` : "",
+            `- **Source:** ${source}`,
+            `- **GHL Status:** ${ghlResult.isDuplicate ? "Already exists" : ghlResult.success ? "Contact created" : "Failed — " + (ghlResult.error || "unknown")}`,
+            ghlResult.contactId ? `- **GHL Contact ID:** ${ghlResult.contactId}` : "",
+            `- **Time:** ${new Date().toLocaleString("en-US", { timeZone: "America/Chicago" })}`,
+          ]
+            .filter(Boolean)
+            .join("\n"),
+        });
+      } catch (notifyErr) {
+        console.warn("[Subscribe] Owner notification failed:", notifyErr);
+      }
+
+      return {
+        success: true,
+        isDuplicate: ghlResult.isDuplicate || false,
+        message: ghlResult.isDuplicate
+          ? "You're already on our list! We'll keep you updated."
+          : "Welcome to the NLF community! Check your email for your 10% discount code.",
+      };
+    }),
+});
+
 // ==================== COMBINED PUBLIC ROUTER ====================
 
 export const publicRouter = router({
@@ -227,4 +292,5 @@ export const publicRouter = router({
   marvel: publicMarvelRouter,
   graded: publicGradedRouter,
   launch: publicLaunchRouter,
+  subscribe: publicSubscribeRouter,
 });

@@ -14,4 +14,9 @@ export const ENV = {
   ebaySandboxClientSecret: process.env.EBAY_SANDBOX_CLIENT_SECRET ?? "",
   ebayVerificationToken: process.env.EBAY_VERIFICATION_TOKEN ?? "",
   ebayDeletionEndpointUrl: process.env.EBAY_DELETION_ENDPOINT_URL ?? "",
+  // GoHighLevel API credentials
+  ghlApiKey: process.env.GHL_API_KEY ?? "",
+  ghlLocationId: process.env.GHL_LOCATION_ID ?? "",
+  // Admin notification email
+  adminNotificationEmail: process.env.ADMIN_NOTIFICATION_EMAIL ?? "",
 };
