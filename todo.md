@@ -387,3 +387,4 @@
 
 ## Popup Fix
 - [x] Remove GoHighLevel developer instructions from email capture popup and Subscribe page
+- [x] Replace gift emoji in popup with NLF logo image

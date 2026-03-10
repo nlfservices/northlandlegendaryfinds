@@ -87,11 +87,13 @@ export default function EmailCapturePopup() {
 
         {/* Content */}
         <div className="p-8 text-center">
-          {/* Icon/Logo */}
+          {/* NLF Logo */}
           <div className="mb-4">
-            <div className="inline-block p-4 bg-green-500/10 rounded-full">
-              <span className="text-5xl">🎁</span>
-            </div>
+            <img
+              src="https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nlf-popup-logo_536dcd2f.jpg"
+              alt="Northland Legendary Finds"
+              className="w-28 h-28 mx-auto rounded-full object-cover border-2 border-green-500/30 shadow-lg shadow-green-500/20"
+            />
           </div>
 
           {/* Headline */}
