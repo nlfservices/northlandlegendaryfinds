@@ -398,3 +398,14 @@
 - [x] Test email submission flow end-to-end
 - [x] Send email notification to admin@nlfservices.com for every new email form submission (via Manus notifyOwner)
 - [ ] Set up GHL workflow automation for backup email notification (scheduled for tomorrow)
+
+## Replace Hulk Placeholder Images Across All Sets (In Progress)
+- [x] Audit all card sets for Hulk placeholder images (1,148 cards missing across 5 sets)
+- [x] Map existing character images to correct cards (467 reused from other sets)
+- [x] Generate AI art batch 1 (82 characters generated, 194 cards updated)
+- [x] Upload batch 1 images to CDN and update database
+- [ ] Generate AI art batch 2 (remaining ~233 unique characters) — interrupted, 478 cards still missing
+- [ ] Upload batch 2 images and update database
+- [ ] Verify all sets display correct character images
+
+Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapphire 5, Studios 329, Studios Sapphire 121
