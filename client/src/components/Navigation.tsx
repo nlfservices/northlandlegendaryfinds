@@ -19,7 +19,6 @@ export default function Navigation() {
     { path: "/shop", label: "Shop" },
     { path: "/cards", label: "Card Database" },
     { path: "/checklists", label: "Checklists" },
-    { path: "/whatnot", label: "Whatnot" },
     { path: "/about", label: "About" },
     { path: "/transparency", label: "Transparency" },
     { path: "/faq", label: "FAQ" },

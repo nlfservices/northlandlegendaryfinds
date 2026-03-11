@@ -447,4 +447,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Create/update database products (static data)
 - [x] Update homepage and shop page
 - [x] Generate product images for new series (Snap, Origins, Parallel, Legendary)
-- [ ] Save checkpoint (pending)
+- [x] Save checkpoint
+
+## Hide Whatnot from Public (Keep Shareable Link)
+- [x] Remove Whatnot from main navigation
+- [x] Remove Whatnot from homepage sections (none found)
+- [x] Remove Whatnot from footer links
+- [x] Keep /whatnot route accessible via direct URL for sharing
