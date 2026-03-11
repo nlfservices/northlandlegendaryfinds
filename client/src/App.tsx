@@ -33,7 +33,7 @@ import Whatnot from "./pages/Whatnot";
 import WhatnotChecklist from "./pages/WhatnotChecklist";
 import OrderSuccess from "./pages/OrderSuccess";
 import CardDatabase from "./pages/CardDatabase";
-import GradedInventory from "./pages/GradedInventory";
+// import GradedInventory from "./pages/GradedInventory"; // Removed from public site
 import EbayComps from "./pages/EbayComps";
 import Transparency from "./pages/Transparency";
 import { useState, useEffect } from "react";
@@ -212,7 +212,7 @@ function AppRouter() {
 
   // Routes that are accessible even during coming soon mode
   const [location] = useLocation();
-  const publicRoutes = ['/checklists', '/checklist/', '/cards', '/cards/', '/graded', '/transparency'];
+  const publicRoutes = ['/checklists', '/checklist/', '/cards', '/cards/', '/transparency'];
   const isPublicRoute = publicRoutes.some(route => location === route || location.startsWith(route));
 
   // If coming soon mode is enabled AND user hasn't logged in AND not on a public route, show countdown page
@@ -272,7 +272,6 @@ function AppRouter() {
           <Route path="/order-success" component={OrderSuccess} />
           <Route path="/cards" component={CardDatabase} />
           <Route path="/cards/:slug" component={CardDatabase} />
-          <Route path="/graded" component={GradedInventory} />
           <Route path="/admin" component={AdminDashboard} />
           <Route path="/admin/ebay-comps" component={EbayComps} />
           <Route path="/transparency" component={Transparency} />

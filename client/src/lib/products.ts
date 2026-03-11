@@ -31,7 +31,10 @@ export interface Product {
 
 // CDN URLs
 const CDN = {
-  nlfPack: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/xYmShpBhbXYuurgy.jpg",
+  nlfPack: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-nlf-variant-2CkMPP3CsZhFkFXpzSuZkV.webp",
+  shadowsPack: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-shadows-force-5Vc89DpzfiRUpbpjAb9B5C.webp",
+  pack100: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-100-pack-LsACR5odDHrd8r7na6iEeJ.webp",
+  pack50: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-50-pack-69bR4vfbrpUg9diNJEhNsC.webp",
   toppsChrome: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/jdWyPiUVXDVdmyzj.jpg",
   toppsSapphireEd: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/YyWKnervcebTDXGJ.webp",
   toppsMint: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/AMhakRyQCtQiiBVc.jpg",
@@ -79,8 +82,8 @@ export const products: Product[] = [
     subtitle: "Star Wars Trading Card Repack",
     category: "starwars",
     price: 100,
-    image: CDN.nlfPack,
-    images: [CDN.nlfPack],
+    image: CDN.shadowsPack,
+    images: [CDN.shadowsPack],
     description: "Shadows of the Force is our premium Star Wars trading card repack, launching June 2026 to coincide with The Mandalorian & Grogu theatrical release. Built with the same NLF philosophy: strong floor (every card has real value), better middle (quality cards throughout, not filler), and healthy ceiling (graded slabs, autos, and numbered parallels in the mix). Every pack delivers a curated selection of premium Topps Star Wars cards.",
     features: [
       "Strong floor — every card in every pack has real collectible value",
@@ -108,8 +111,8 @@ export const products: Product[] = [
     subtitle: "100 Marvel Packs — $100",
     category: "marvel",
     price: 100,
-    image: CDN.nlfPack,
-    images: [CDN.nlfPack],
+    image: CDN.pack100,
+    images: [CDN.pack100],
     description: "The NLF 100-Pack Series delivers 100 hand-curated Marvel trading card packs for $100. Built around our three promises: a strong floor (every card has real collectible value), a better middle (quality cards throughout, not filler), and a healthy ceiling (real chase cards worth serious money). Cards from Topps Chrome Marvel, Marvel Mint, and other premium sets.",
     features: [
       "100 hand-curated Marvel trading card packs",
@@ -136,8 +139,8 @@ export const products: Product[] = [
     subtitle: "50 Premium Marvel Packs — $100",
     category: "marvel",
     price: 100,
-    image: CDN.nlfPack,
-    images: [CDN.nlfPack],
+    image: CDN.pack50,
+    images: [CDN.pack50],
     description: "The NLF 50-Pack Series packs 50 premium Marvel trading card packs into a $100 repack — higher card-for-card value with every pull. Built around our three promises: a strong floor (every card has real collectible value), a better middle (loaded with quality hits), and a healthy ceiling (legitimate chase cards worth serious money). Cards from Topps Chrome Marvel, Marvel Mint, and other premium sets.",
     features: [
       "50 premium Marvel trading card packs",

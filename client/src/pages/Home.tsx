@@ -4,7 +4,7 @@
  */
 
 import { useAuth } from "@/_core/hooks/useAuth";
-import { ShoppingCart, Shield, Star, TrendingUp, Package, ArrowRight, Zap, BookOpen, Award, Clock, Eye } from "lucide-react";
+import { ShoppingCart, Shield, Star, TrendingUp, Package, ArrowRight, Zap, BookOpen, Clock, Eye } from "lucide-react";
 import CardShowcase, { type ShowcaseCard } from "@/components/CardShowcase";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
@@ -256,11 +256,11 @@ export default function Home() {
               EXPLORE OUR <span className="text-primary">COLLECTION</span>
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Dive into the complete card database and browse our professionally graded inventory
+              Dive into the complete card database — browse every 2025 Topps Marvel set
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 gap-6 max-w-2xl mx-auto">
             {/* Card Database */}
             <Link href="/cards">
               <div className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-blue-500/10 via-card to-purple-500/10 border border-border hover:border-primary/50 transition-all duration-300 p-8 cursor-pointer hover:shadow-lg hover:shadow-primary/5">
@@ -282,26 +282,7 @@ export default function Home() {
               </div>
             </Link>
 
-            {/* Graded Inventory */}
-            <Link href="/graded">
-              <div className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-yellow-500/10 via-card to-amber-500/10 border border-border hover:border-yellow-500/50 transition-all duration-300 p-8 cursor-pointer hover:shadow-lg hover:shadow-yellow-500/5">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="p-3 rounded-xl bg-yellow-500/15 border border-yellow-500/30">
-                    <Award className="w-8 h-8 text-yellow-400" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold group-hover:text-yellow-400 transition-colors">Graded Inventory</h3>
-                    <p className="text-sm text-muted-foreground">2,133 CGC & AGS certified cards</p>
-                  </div>
-                </div>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  View our professionally graded collection including 271 GEM MINT 10s and 14 PRISTINE 10s. Filter by grade, set, character, and grading company.
-                </p>
-                <div className="flex items-center gap-2 mt-4 text-yellow-400 text-sm font-bold">
-                  View Graded Cards <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </div>
-              </div>
-            </Link>
+
           </div>
         </div>
       </section>

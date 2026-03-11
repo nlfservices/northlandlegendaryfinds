@@ -412,3 +412,13 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 
 ## Bug Fix: getBySlug undefined error
 - [x] Fix public.products.getBySlug returning undefined for "shadows-of-the-force" product (return null instead of undefined, guard queries with dbSlug check)
+
+## Product Image Replacement
+- [x] Replace NLF Variant product image with new space/cosmic generated image
+- [x] Replace Shadows of the Force product image with new generated image
+- [x] Replace 100-Pack Series product image with new generated image
+- [x] Replace 50-Pack Series product image with new generated image
+
+## Remove Graded Inventory from Public Site
+- [x] Remove Graded Inventory from public navigation
+- [x] Remove Graded Inventory route/page from public access
