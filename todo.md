@@ -428,3 +428,23 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 
 ## Hero Image Update
 - [x] Replace hero section pack image with NLF Variant product image
+
+## Auto Card Photo Processing
+- [x] Build server-side card image processor using LLM vision + sharp
+- [x] Integrate auto-processing into admin card upload flow (always on)
+- [x] Test with sample card photos (Wolverine stand photo, Doctor Doom flat scan)
+- [x] Auto-crop to card face, remove background, place on dark themed background
+
+## Shop Restructure — New Product Lines
+- [x] Variant Series: Cosmic Drop (500 packs, $139) — available March 13th (rename from NLF Variant)
+- [x] Variant Series: Chrome Edition (100 packs, $139) — available March 13th (rename from 100-Pack)
+- [x] Remove old 50-Pack Series and Star Wars Shadows of the Force
+- [x] The Snap Collection (100pk + 500pk) — Coming Soon
+- [x] Multiverse Vault: Origins (100pk + 500pk) — Coming Soon
+- [x] Multiverse Vault: Parallel Edition (100pk + 500pk) — Coming Soon
+- [x] Multiverse Vault: Legendary Drop (100pk + 500pk) — Coming Soon
+- [x] Update products.ts with new structure
+- [x] Create/update database products (static data)
+- [x] Update homepage and shop page
+- [x] Generate product images for new series (Snap, Origins, Parallel, Legendary)
+- [ ] Save checkpoint (pending)

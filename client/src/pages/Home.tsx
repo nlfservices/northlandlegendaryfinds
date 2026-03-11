@@ -1,6 +1,6 @@
 /**
- * Homepage - E-commerce storefront inspired by Giant Sports Cards & Hit Parade
- * Design: Hero with pack image, Card Showcase highlight, featured products, trust elements
+ * Homepage - E-commerce storefront
+ * Design: Hero with pack image, Card Showcase, product lines, trust elements
  */
 
 import { useAuth } from "@/_core/hooks/useAuth";
@@ -9,7 +9,7 @@ import CardShowcase, { type ShowcaseCard } from "@/components/CardShowcase";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { useCart } from "@/contexts/CartContext";
-import { getRepackProducts, getComingSoonProducts, products } from "@/lib/products";
+import { getProductLines, getComingSoonProducts, products } from "@/lib/products";
 import { useLaunchCountdown } from "@/hooks/useLaunchCountdown";
 import ProductCard from "@/components/ProductCard";
 
@@ -18,8 +18,6 @@ const NLF_PACK = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqX
 const TRUST_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/trust-section-bg-kwnjuLkybJ2rqpCpEwiChw.webp";
 
 // ===== SHOWCASE CARDS =====
-// Add more cards here as you get photos! Each card needs raw front/back + graded front/back.
-// For cards without graded photos yet, you can reuse the raw photos as placeholders.
 const SHOWCASE_CARDS: ShowcaseCard[] = [
   {
     id: "hulk-black-refractor",
@@ -34,31 +32,15 @@ const SHOWCASE_CARDS: ShowcaseCard[] = [
     gradeLabel: "GEM MINT",
     gradingCompany: "CGC",
   },
-  // ---- ADD MORE CARDS BELOW ----
-  // Example format:
-  // {
-  //   id: "spider-man-gold",
-  //   rawFront: "https://your-cdn-url/spiderman-raw-front.jpg",
-  //   rawBack: "https://your-cdn-url/spiderman-raw-back.jpg",
-  //   gradedFront: "https://your-cdn-url/spiderman-graded-front.jpg",
-  //   gradedBack: "https://your-cdn-url/spiderman-graded-back.jpg",
-  //   cardName: "SPIDER-MAN",
-  //   setName: "2025 Topps Chrome Marvel",
-  //   serialNumber: "#1 · Gold Refractor /50",
-  //   grade: "9.5",
-  //   gradeLabel: "GEM MINT",
-  //   gradingCompany: "CGC",
-  // },
 ];
 
 export default function Home() {
   let { user, loading, error, isAuthenticated, logout } = useAuth();
 
   const { addItem } = useCart();
-  const repackProducts = getRepackProducts();
-  const comingSoonProducts = getComingSoonProducts();
-  // All products with a launch date (for the "launching soon" section)
-  const launchProducts = products.filter(p => p.launchDate && !p.isComingSoon);
+  const productLines = getProductLines();
+  const variantSeries = productLines.find(l => l.id === "variant-series");
+  const comingSoonLines = productLines.filter(l => !l.available);
 
   return (
     <div className="min-h-screen">
@@ -87,7 +69,7 @@ export default function Home() {
               </h1>
 
               <p className="text-lg sm:text-xl text-gray-300 max-w-lg mb-8 leading-relaxed">
-                Premium <strong className="text-primary">Marvel</strong> trading card repacks built different — strong floor, loaded middle, healthy ceiling. Every pack delivers. Limited to 500 packs. <strong className="text-cyan-400">Star Wars</strong> dropping June 2026.
+                Premium <strong className="text-primary">Marvel</strong> trading card repacks built different — strong floor, loaded middle, healthy ceiling. Every pack delivers.
               </p>
 
               {/* Launch countdown banner */}
@@ -132,8 +114,8 @@ export default function Home() {
         <div className="container py-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             <div>
-              <div className="text-3xl font-bold text-primary" style={{ fontFamily: "'Anton', sans-serif" }}>500</div>
-              <div className="text-xs text-muted-foreground uppercase tracking-wider mt-1">Packs Per Drop</div>
+              <div className="text-3xl font-bold text-primary" style={{ fontFamily: "'Anton', sans-serif" }}>6</div>
+              <div className="text-xs text-muted-foreground uppercase tracking-wider mt-1">Product Lines</div>
             </div>
             <div>
               <div className="text-3xl font-bold text-cyan-400" style={{ fontFamily: "'Anton', sans-serif" }}>100%</div>
@@ -157,36 +139,40 @@ export default function Home() {
         autoPlayInterval={6000}
       />
 
-      {/* ===== FEATURED REPACKS ===== */}
-      <section className="py-16 lg:py-20">
-        <div className="container">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
-              <span className="text-primary">LAUNCH</span> EXCLUSIVE REPACKS
-            </h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Our flagship Marvel trading card repack with guaranteed hits. Limited to 500 packs — once they're gone, they're gone.
-            </p>
-          </div>
+      {/* ===== THE VARIANT SERIES — LAUNCH EXCLUSIVE ===== */}
+      {variantSeries && (
+        <section className="py-16 lg:py-20">
+          <div className="container">
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 border border-primary/30 rounded-full mb-4">
+                <Zap className="w-4 h-4 text-primary" />
+                <span className="text-primary text-sm font-bold">LAUNCHING FRIDAY, MARCH 13TH</span>
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
+                THE <span className="text-primary">VARIANT</span> SERIES
+              </h2>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                {variantSeries.tagline}
+              </p>
+            </div>
 
-          <div className="flex justify-center">
-            <div className="w-full max-w-md">
-              {repackProducts.map((product) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+              {variantSeries.products.map((product) => (
                 <ProductCard key={product.id} product={product} featured />
               ))}
             </div>
-          </div>
 
-          <div className="text-center mt-10">
-            <Link href="/shop">
-              <Button variant="outline" size="lg" className="border-primary/30 text-primary hover:bg-primary/10 font-bold">
-                View All Products
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-            </Link>
+            <div className="text-center mt-10">
+              <Link href="/shop">
+                <Button variant="outline" size="lg" className="border-primary/30 text-primary hover:bg-primary/10 font-bold">
+                  View All Products
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ===== TRUST / WHY NLF ===== */}
       <section className="relative py-16 lg:py-20 overflow-hidden">
@@ -248,8 +234,45 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ===== COMING SOON PRODUCT LINES ===== */}
+      {comingSoonLines.length > 0 && (
+        <section className="py-16 lg:py-20 bg-card/30">
+          <div className="container">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl md:text-5xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
+                <span className="text-cyan-400">COMING</span> SOON
+              </h2>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                More product lines on the horizon. Sign up for notifications to be the first to know.
+              </p>
+            </div>
+
+            <div className="space-y-12">
+              {comingSoonLines.map((line) => (
+                <div key={line.id}>
+                  <div className="text-center mb-6">
+                    <h3 className="text-2xl md:text-3xl font-bold" style={{ fontFamily: "'Anton', sans-serif" }}>
+                      {line.name}
+                    </h3>
+                    <p className="text-muted-foreground text-sm mt-1">{line.tagline}</p>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                    {/* Show unique products (deduplicate 100/500 — just show one card per name) */}
+                    {line.products
+                      .filter((p, i, arr) => arr.findIndex(x => x.name === p.name) === i)
+                      .map((product) => (
+                        <ProductCard key={product.id} product={product} />
+                      ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* ===== EXPLORE OUR COLLECTION ===== */}
-      <section className="py-16 lg:py-20 bg-card/50">
+      <section className="py-16 lg:py-20">
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
@@ -261,7 +284,6 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 gap-6 max-w-2xl mx-auto">
-            {/* Card Database */}
             <Link href="/cards">
               <div className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-blue-500/10 via-card to-purple-500/10 border border-border hover:border-primary/50 transition-all duration-300 p-8 cursor-pointer hover:shadow-lg hover:shadow-primary/5">
                 <div className="flex items-center gap-4 mb-4">
@@ -281,59 +303,9 @@ export default function Home() {
                 </div>
               </div>
             </Link>
-
-
           </div>
         </div>
       </section>
-
-      {/* ===== LAUNCHING MARCH 13TH ===== */}
-      {launchProducts.length > 0 && (
-        <section className="py-16 lg:py-20">
-          <div className="container">
-            <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 border border-primary/30 rounded-full mb-4">
-                <Clock className="w-4 h-4 text-primary" />
-                <span className="text-primary text-sm font-bold">FRIDAY, MARCH 13TH — 7:00 PM CT</span>
-              </div>
-              <h2 className="text-4xl md:text-5xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
-                <span className="text-primary">LAUNCHING</span> SOON
-              </h2>
-              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                All products go live on March 13th. Browse now, buy on launch day.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-              {launchProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* ===== COMING LATER ===== */}
-      {comingSoonProducts.length > 0 && (
-        <section className="py-16 lg:py-20 bg-card/30">
-          <div className="container">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl md:text-5xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
-                <span className="text-cyan-400">COMING</span> LATER
-              </h2>
-              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                More products on the horizon. Sign up for notifications to be the first to know.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-              {comingSoonProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* ===== NEWSLETTER ===== */}
       <section className="py-16 bg-card border-y border-border">

@@ -309,19 +309,39 @@ const checklistRouter = router({
     return { success: true, count: unpulledCount };
   }),
 
-  /** Upload card image to S3 */
+  /** Upload card image to S3 (with optional auto-crop/background removal) */
   uploadImage: adminProcedure.input(z.object({
     checklistItemId: z.number(),
     imageData: z.string(), // base64 encoded image
     contentType: z.string().default("image/jpeg"),
     fileName: z.string().optional(),
+    autoProcess: z.boolean().default(true), // auto-crop and clean background
   })).mutation(async ({ input }) => {
     const { storagePut } = await import("../storage");
-    const buffer = Buffer.from(input.imageData, "base64");
-    const ext = input.contentType === "image/png" ? "png" : input.contentType === "image/webp" ? "webp" : "jpg";
+    let buffer = Buffer.from(input.imageData, "base64");
+    let finalContentType = input.contentType;
+
+    if (input.autoProcess) {
+      try {
+        const { processCardImage } = await import("../cardImageProcessor");
+        const result = await processCardImage(buffer, {
+          outputWidth: 800,
+          outputHeight: 1100,
+          backgroundColor: "#0a0f1a",
+          paddingPercent: 4,
+        });
+        buffer = result.processedBuffer;
+        finalContentType = result.contentType;
+      } catch (err) {
+        console.error("[uploadImage] Auto-process failed, using original:", err);
+        // Fall back to original image if processing fails
+      }
+    }
+
+    const ext = finalContentType === "image/png" ? "png" : finalContentType === "image/webp" ? "webp" : "jpg";
     const randomSuffix = Math.random().toString(36).substring(2, 10);
     const fileKey = `checklist-cards/${input.checklistItemId}-${randomSuffix}.${ext}`;
-    const { url } = await storagePut(fileKey, buffer, input.contentType);
+    const { url } = await storagePut(fileKey, buffer, finalContentType);
     // Update the checklist item with the image URL
     await updateChecklistItem(input.checklistItemId, { imageUrl: url });
     return { success: true, url };

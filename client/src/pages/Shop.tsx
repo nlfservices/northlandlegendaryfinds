@@ -1,33 +1,45 @@
 /**
- * Shop Page - All products grid with category filters
- * Design: Giant Sports Cards inspired dark grid layout
+ * Shop Page - Products organized by product lines
+ * Design: Product lines as sections with category filters
  */
 
 import { useState } from "react";
-import { products } from "@/lib/products";
+import { products, getProductLines } from "@/lib/products";
 import ProductCard from "@/components/ProductCard";
+import { Zap, Clock } from "lucide-react";
 
-type Filter = "all" | "marvel" | "starwars" | "repacks" | "sealed";
+type Filter = "all" | "repacks" | "sealed" | "variant-series" | "snap-collection" | "multiverse-vault";
 
 export default function Shop() {
   const [filter, setFilter] = useState<Filter>("all");
+  const productLines = getProductLines();
 
   const filteredProducts = products.filter((p) => {
     if (filter === "all") return true;
-    if (filter === "marvel") return p.category === "marvel";
-    if (filter === "starwars") return p.category === "starwars";
     if (filter === "repacks") return p.isRepack;
     if (filter === "sealed") return !p.isRepack;
+    if (filter === "variant-series") return p.productLine === "variant-series";
+    if (filter === "snap-collection") return p.productLine === "snap-collection";
+    if (filter === "multiverse-vault") return p.productLine === "multiverse-vault";
     return true;
   });
 
   const filters: { key: Filter; label: string }[] = [
     { key: "all", label: "All Products" },
-    { key: "repacks", label: "Repacks" },
-    { key: "sealed", label: "Sealed Product" },
-    { key: "marvel", label: "Marvel" },
-    { key: "starwars", label: "Star Wars" },
+    { key: "variant-series", label: "Variant Series" },
+    { key: "snap-collection", label: "Snap Collection" },
+    { key: "multiverse-vault", label: "Multiverse Vault" },
+    { key: "sealed", label: "Sealed Boxes" },
   ];
+
+  // Group filtered products by product line for organized display
+  const variantProducts = filteredProducts.filter(p => p.productLine === "variant-series");
+  const snapProducts = filteredProducts.filter(p => p.productLine === "snap-collection");
+  const mvProducts = filteredProducts.filter(p => p.productLine === "multiverse-vault");
+  const sealedProducts = filteredProducts.filter(p => !p.isRepack);
+
+  // For "all" view, show organized sections. For filtered, show flat grid.
+  const showSections = filter === "all";
 
   return (
     <div className="min-h-screen">
@@ -38,7 +50,7 @@ export default function Shop() {
             <span className="text-primary">SHOP</span> ALL
           </h1>
           <p className="text-muted-foreground text-lg">
-            Browse our complete collection of premium trading card products
+            Browse our complete collection of premium Marvel trading card repacks
           </p>
         </div>
       </section>
@@ -68,12 +80,120 @@ export default function Shop() {
             Showing {filteredProducts.length} product{filteredProducts.length !== 1 ? "s" : ""}
           </p>
 
-          {/* Product Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
+          {showSections ? (
+            <div className="space-y-16">
+              {/* THE VARIANT SERIES */}
+              {variantProducts.length > 0 && (
+                <div>
+                  <div className="mb-6">
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/30 rounded-full">
+                        <Zap className="w-3.5 h-3.5 text-primary" />
+                        <span className="text-primary text-xs font-bold">AVAILABLE MARCH 13TH</span>
+                      </div>
+                    </div>
+                    <h2 className="text-3xl md:text-4xl font-bold" style={{ fontFamily: "'Anton', sans-serif" }}>
+                      THE <span className="text-primary">VARIANT</span> SERIES
+                    </h2>
+                    <p className="text-muted-foreground text-sm mt-1">Our flagship Marvel repack line — launching March 13th</p>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    {variantProducts.map((product) => (
+                      <ProductCard key={product.id} product={product} />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* THE SNAP COLLECTION */}
+              {snapProducts.length > 0 && (
+                <div>
+                  <div className="mb-6">
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="inline-flex items-center gap-2 px-3 py-1 bg-cyan-500/10 border border-cyan-500/30 rounded-full">
+                        <Clock className="w-3.5 h-3.5 text-cyan-400" />
+                        <span className="text-cyan-400 text-xs font-bold">COMING SOON</span>
+                      </div>
+                    </div>
+                    <h2 className="text-3xl md:text-4xl font-bold" style={{ fontFamily: "'Anton', sans-serif" }}>
+                      THE <span className="text-cyan-400">SNAP</span> COLLECTION
+                    </h2>
+                    <p className="text-muted-foreground text-sm mt-1">Iconic Marvel moments in every pack</p>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    {/* Deduplicate — show one card per unique name */}
+                    {snapProducts
+                      .filter((p, i, arr) => arr.findIndex(x => x.name === p.name) === i)
+                      .map((product) => (
+                        <ProductCard key={product.id} product={product} />
+                      ))}
+                  </div>
+                </div>
+              )}
+
+              {/* MULTIVERSE VAULT */}
+              {mvProducts.length > 0 && (
+                <div>
+                  <div className="mb-6">
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="inline-flex items-center gap-2 px-3 py-1 bg-purple-500/10 border border-purple-500/30 rounded-full">
+                        <Clock className="w-3.5 h-3.5 text-purple-400" />
+                        <span className="text-purple-400 text-xs font-bold">COMING SOON</span>
+                      </div>
+                    </div>
+                    <h2 className="text-3xl md:text-4xl font-bold" style={{ fontFamily: "'Anton', sans-serif" }}>
+                      <span className="text-purple-400">MULTIVERSE</span> VAULT
+                    </h2>
+                    <p className="text-muted-foreground text-sm mt-1">Deep cuts from across the Marvel multiverse</p>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    {/* Deduplicate — show one card per unique name */}
+                    {mvProducts
+                      .filter((p, i, arr) => arr.findIndex(x => x.name === p.name) === i)
+                      .map((product) => (
+                        <ProductCard key={product.id} product={product} />
+                      ))}
+                  </div>
+                </div>
+              )}
+
+              {/* SEALED BOXES */}
+              {sealedProducts.length > 0 && (
+                <div>
+                  <div className="mb-6">
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-500/10 border border-amber-500/30 rounded-full">
+                        <Clock className="w-3.5 h-3.5 text-amber-400" />
+                        <span className="text-amber-400 text-xs font-bold">COMING SOON</span>
+                      </div>
+                    </div>
+                    <h2 className="text-3xl md:text-4xl font-bold" style={{ fontFamily: "'Anton', sans-serif" }}>
+                      <span className="text-amber-400">SEALED</span> BOXES
+                    </h2>
+                    <p className="text-muted-foreground text-sm mt-1">Factory-sealed Topps hobby boxes</p>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    {sealedProducts.map((product) => (
+                      <ProductCard key={product.id} product={product} />
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : (
+            /* Filtered flat grid */
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {filteredProducts
+                .filter((p, i, arr) => {
+                  // For coming soon lines, deduplicate by name
+                  if (p.isComingSoon) return arr.findIndex(x => x.name === p.name) === i;
+                  return true;
+                })
+                .map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+            </div>
+          )}
 
           {filteredProducts.length === 0 && (
             <div className="text-center py-20">

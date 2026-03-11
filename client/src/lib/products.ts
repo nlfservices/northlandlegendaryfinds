@@ -1,7 +1,17 @@
 /**
  * Product Data Store - NLF E-Commerce
  * All product data for the storefront
- * Shopify store: f1ipn9-h0.myshopify.com
+ *
+ * Product Lines:
+ * 1. The Variant Series (launching March 13, 2026)
+ *    - Cosmic Drop (500 packs)
+ *    - Chrome Edition (100 packs)
+ * 2. The Snap Collection (Coming Soon)
+ *    - 100-pack + 500-pack versions
+ * 3. Multiverse Vault (Coming Soon)
+ *    - Origins (100pk + 500pk)
+ *    - Parallel Edition (100pk + 500pk)
+ *    - Legendary Drop (100pk + 500pk)
  */
 
 export interface Product {
@@ -10,6 +20,8 @@ export interface Product {
   name: string;
   subtitle: string;
   category: "marvel" | "starwars";
+  /** Product line grouping for shop display */
+  productLine?: "variant-series" | "snap-collection" | "multiverse-vault";
   price: number;
   comparePrice?: number;
   image: string;
@@ -27,14 +39,20 @@ export interface Product {
   launchDate?: string;
   /** Database product slug (if different from frontend slug) for live pack counter */
   dbSlug?: string;
+  /** Pack count for display */
+  packCount?: number;
 }
 
-// CDN URLs
+// CDN URLs for product images
 const CDN = {
-  nlfPack: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-nlf-variant-2CkMPP3CsZhFkFXpzSuZkV.webp",
-  shadowsPack: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-shadows-force-5Vc89DpzfiRUpbpjAb9B5C.webp",
-  pack100: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-100-pack-LsACR5odDHrd8r7na6iEeJ.webp",
-  pack50: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-50-pack-69bR4vfbrpUg9diNJEhNsC.webp",
+  // Existing generated images (will be updated with series-specific ones)
+  cosmicDrop: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-nlf-variant-2CkMPP3CsZhFkFXpzSuZkV.webp",
+  chromeEdition: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-100-pack-LsACR5odDHrd8r7na6iEeJ.webp",
+  snapCollection: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-snap-collection-f4QERPq29N4pJDjofGfJDw.webp",
+  mvOrigins: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-mv-origins-Hy4dpNfeVzWEfn9T6vJBid.webp",
+  mvParallel: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-mv-parallel-Jbn7zBa6fvERbhh2RRhg66.webp",
+  mvLegendary: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-mv-legendary-CR5tFH2VEfA8tsmNqDGf6V.webp",
+  // Topps box images
   toppsChrome: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/jdWyPiUVXDVdmyzj.jpg",
   toppsSapphireEd: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/YyWKnervcebTDXGJ.webp",
   toppsMint: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/AMhakRyQCtQiiBVc.jpg",
@@ -45,18 +63,22 @@ const CDN = {
 export const SHOPIFY_STORE = "f1ipn9-h0.myshopify.com";
 
 export const products: Product[] = [
-  // ===== LAUNCH PRODUCTS (March 13, 2026) =====
+  // ===================================================================
+  // THE VARIANT SERIES — Launching Friday, March 13, 2026
+  // ===================================================================
   {
-    id: "nlf-variant",
-    slug: "nlf-variant",
+    id: "variant-cosmic-drop",
+    slug: "variant-cosmic-drop",
     dbSlug: "nlf-marvel-500-whatnot",
-    name: "NLF Variant",
-    subtitle: "Marvel Trading Card Repack",
+    name: "Variant Series: Cosmic Drop",
+    subtitle: "500 Marvel Trading Card Repacks",
     category: "marvel",
-    price: 100,
-    image: CDN.nlfPack,
-    images: [CDN.nlfPack],
-    description: "The NLF Variant is our flagship Marvel trading card repack, built around three promises: a strong floor (every pack delivers real, collectible value — no junk filler), a better middle (your average NLF pack is loaded with cards most competitors would call hits), and a healthy ceiling (legitimate chase cards worth serious money). Featuring cards from Topps Chrome Marvel, Marvel Mint, and more — each pack is hand-curated from premium sets to deliver a consistently great experience.",
+    productLine: "variant-series",
+    price: 139,
+    packCount: 500,
+    image: CDN.cosmicDrop,
+    images: [CDN.cosmicDrop],
+    description: "The Cosmic Drop is our flagship Marvel trading card repack — 500 hand-curated packs built around three promises: a strong floor (every pack delivers real, collectible value — no junk filler), a better middle (your average pack is loaded with cards most competitors would call hits), and a healthy ceiling (legitimate chase cards worth serious money). Featuring cards from Topps Chrome Marvel, Marvel Mint, and more.",
     features: [
       "Strong floor — every card in every pack has real collectible value",
       "Better middle — average packs loaded with quality, not filler",
@@ -71,30 +93,89 @@ export const products: Product[] = [
     inventory: 500,
     isRepack: true,
     isComingSoon: false,
-    shopifyUrl: `https://${SHOPIFY_STORE}/products/nlf-variant`,
-    // Available March 13, 2026 at 7:00 PM Central (CDT = UTC-5)
     launchDate: "2026-03-14T00:00:00Z",
   },
   {
-    id: "shadows-of-the-force",
-    slug: "shadows-of-the-force",
-    name: "Shadows of the Force",
-    subtitle: "Star Wars Trading Card Repack",
-    category: "starwars",
-    price: 100,
-    image: CDN.shadowsPack,
-    images: [CDN.shadowsPack],
-    description: "Shadows of the Force is our premium Star Wars trading card repack, launching June 2026 to coincide with The Mandalorian & Grogu theatrical release. Built with the same NLF philosophy: strong floor (every card has real value), better middle (quality cards throughout, not filler), and healthy ceiling (graded slabs, autos, and numbered parallels in the mix). Every pack delivers a curated selection of premium Topps Star Wars cards.",
+    id: "variant-chrome-edition",
+    slug: "variant-chrome-edition",
+    dbSlug: "nlf-marvel-100-series",
+    name: "Variant Series: Chrome Edition",
+    subtitle: "100 Marvel Trading Card Repacks",
+    category: "marvel",
+    productLine: "variant-series",
+    price: 139,
+    packCount: 100,
+    image: CDN.chromeEdition,
+    images: [CDN.chromeEdition],
+    description: "The Chrome Edition is a limited 100-pack Marvel repack series focused on premium chrome cards. Every pack delivers the NLF standard: strong floor, better middle, healthy ceiling. Featuring hand-selected cards from Topps Chrome Marvel and other premium chromium sets.",
     features: [
-      "Strong floor — every card in every pack has real collectible value",
-      "Better middle — quality cards throughout, not filler with one hit",
-      "Healthy ceiling — graded slabs, autos, and numbered parallels",
-      "Cards from Topps Chrome Star Wars and other premium sets",
-      "Limited to 500 packs — once they're gone, they're gone",
-      "Sealed in custom NLF holographic mylar bag",
-      "Timed with The Mandalorian & Grogu movie release",
+      "100 hand-curated Marvel chrome trading card packs",
+      "Strong floor — every card has real collectible value",
+      "Better middle — quality cards throughout, not filler",
+      "Healthy ceiling — real chase cards: autos, numbered parallels, graded slabs",
+      "Focused on premium Topps Chrome Marvel cards",
+      "Limited to 100 packs — ultra-exclusive drop",
     ],
-    badge: "COMING JUNE 2026",
+    badge: "LAUNCH EXCLUSIVE",
+    badgeColor: "green",
+    inStock: true,
+    inventory: 100,
+    isRepack: true,
+    isComingSoon: false,
+    launchDate: "2026-03-14T00:00:00Z",
+  },
+
+  // ===================================================================
+  // THE SNAP COLLECTION — Coming Soon
+  // ===================================================================
+  {
+    id: "snap-collection-100",
+    slug: "snap-collection-100",
+    name: "The Snap Collection",
+    subtitle: "100 Marvel Trading Card Repacks",
+    category: "marvel",
+    productLine: "snap-collection",
+    price: 139,
+    packCount: 100,
+    image: CDN.snapCollection,
+    images: [CDN.snapCollection],
+    description: "The Snap Collection brings together the most iconic moments in Marvel history. 100 hand-curated packs featuring cards that capture the universe-altering events, legendary heroes, and infamous villains. Built with the NLF standard: strong floor, better middle, healthy ceiling.",
+    features: [
+      "100 hand-curated Marvel trading card packs",
+      "Themed around iconic Marvel moments and events",
+      "Strong floor — every card has real collectible value",
+      "Better middle — quality cards throughout, not filler",
+      "Healthy ceiling — real chase cards worth serious money",
+      "Sealed in custom NLF holographic mylar bag",
+    ],
+    badge: "COMING SOON",
+    badgeColor: "cyan",
+    inStock: false,
+    inventory: 0,
+    isRepack: true,
+    isComingSoon: true,
+  },
+  {
+    id: "snap-collection-500",
+    slug: "snap-collection-500",
+    name: "The Snap Collection",
+    subtitle: "500 Marvel Trading Card Repacks",
+    category: "marvel",
+    productLine: "snap-collection",
+    price: 139,
+    packCount: 500,
+    image: CDN.snapCollection,
+    images: [CDN.snapCollection],
+    description: "The Snap Collection 500-pack edition — the full experience. 500 hand-curated packs featuring cards that capture the universe-altering events, legendary heroes, and infamous villains. Built with the NLF standard: strong floor, better middle, healthy ceiling.",
+    features: [
+      "500 hand-curated Marvel trading card packs",
+      "Themed around iconic Marvel moments and events",
+      "Strong floor — every card has real collectible value",
+      "Better middle — quality cards throughout, not filler",
+      "Healthy ceiling — real chase cards worth serious money",
+      "Sealed in custom NLF holographic mylar bag",
+    ],
+    badge: "COMING SOON",
     badgeColor: "cyan",
     inStock: false,
     inventory: 0,
@@ -102,65 +183,175 @@ export const products: Product[] = [
     isComingSoon: true,
   },
 
-  // ===== NEW PACK SERIES (Placeholder details — to be updated later) =====
+  // ===================================================================
+  // MULTIVERSE VAULT — Coming Soon
+  // ===================================================================
   {
-    id: "nlf-100-pack",
-    slug: "nlf-100-pack",
-    dbSlug: "nlf-marvel-100-series",
-    name: "NLF 100-Pack Series",
-    subtitle: "100 Marvel Packs — $100",
+    id: "mv-origins-100",
+    slug: "mv-origins-100",
+    name: "Multiverse Vault: Origins",
+    subtitle: "100 Marvel Trading Card Repacks",
     category: "marvel",
-    price: 100,
-    image: CDN.pack100,
-    images: [CDN.pack100],
-    description: "The NLF 100-Pack Series delivers 100 hand-curated Marvel trading card packs for $100. Built around our three promises: a strong floor (every card has real collectible value), a better middle (quality cards throughout, not filler), and a healthy ceiling (real chase cards worth serious money). Cards from Topps Chrome Marvel, Marvel Mint, and other premium sets.",
+    productLine: "multiverse-vault",
+    price: 139,
+    packCount: 100,
+    image: CDN.mvOrigins,
+    images: [CDN.mvOrigins],
+    description: "Multiverse Vault: Origins digs deep into the Marvel multiverse — 100 packs featuring origin stories, first appearances, and the characters that started it all. Built with the NLF standard: strong floor, better middle, healthy ceiling.",
     features: [
       "100 hand-curated Marvel trading card packs",
+      "Origin stories and first appearance themed cards",
       "Strong floor — every card has real collectible value",
       "Better middle — quality cards throughout, not filler",
-      "Healthy ceiling — real chase cards: autos, numbered parallels, graded slabs",
-      "Cards from Topps Chrome, Marvel Mint, and other premium sets",
-      "Limited to 500 packs — once they're gone, they're gone",
+      "Healthy ceiling — real chase cards worth serious money",
+      "Sealed in custom NLF holographic mylar bag",
     ],
     badge: "COMING SOON",
     badgeColor: "purple",
-    inStock: true,
-    inventory: 500,
+    inStock: false,
+    inventory: 0,
     isRepack: true,
-    isComingSoon: false,
-    shopifyUrl: `https://${SHOPIFY_STORE}/products/nlf-100-pack`,
-    launchDate: "2026-03-14T00:00:00Z",
+    isComingSoon: true,
   },
   {
-    id: "nlf-50-pack",
-    slug: "nlf-50-pack",
-    dbSlug: "nlf-marvel-50-series",
-    name: "NLF 50-Pack Series",
-    subtitle: "50 Premium Marvel Packs — $100",
+    id: "mv-origins-500",
+    slug: "mv-origins-500",
+    name: "Multiverse Vault: Origins",
+    subtitle: "500 Marvel Trading Card Repacks",
     category: "marvel",
-    price: 100,
-    image: CDN.pack50,
-    images: [CDN.pack50],
-    description: "The NLF 50-Pack Series packs 50 premium Marvel trading card packs into a $100 repack — higher card-for-card value with every pull. Built around our three promises: a strong floor (every card has real collectible value), a better middle (loaded with quality hits), and a healthy ceiling (legitimate chase cards worth serious money). Cards from Topps Chrome Marvel, Marvel Mint, and other premium sets.",
+    productLine: "multiverse-vault",
+    price: 139,
+    packCount: 500,
+    image: CDN.mvOrigins,
+    images: [CDN.mvOrigins],
+    description: "Multiverse Vault: Origins 500-pack edition — the full vault experience. 500 packs featuring origin stories, first appearances, and the characters that started it all. Built with the NLF standard: strong floor, better middle, healthy ceiling.",
     features: [
-      "50 premium Marvel trading card packs",
-      "Higher card-for-card value — every card hits harder",
+      "500 hand-curated Marvel trading card packs",
+      "Origin stories and first appearance themed cards",
       "Strong floor — every card has real collectible value",
-      "Better middle — loaded with quality hits",
-      "Healthy ceiling — legitimate chase cards worth serious money",
-      "Limited to 500 packs — once they're gone, they're gone",
+      "Better middle — quality cards throughout, not filler",
+      "Healthy ceiling — real chase cards worth serious money",
+      "Sealed in custom NLF holographic mylar bag",
     ],
     badge: "COMING SOON",
-    badgeColor: "blue",
-    inStock: true,
-    inventory: 500,
+    badgeColor: "purple",
+    inStock: false,
+    inventory: 0,
     isRepack: true,
-    isComingSoon: false,
-    shopifyUrl: `https://${SHOPIFY_STORE}/products/nlf-50-pack`,
-    launchDate: "2026-03-14T00:00:00Z",
+    isComingSoon: true,
+  },
+  {
+    id: "mv-parallel-100",
+    slug: "mv-parallel-100",
+    name: "Multiverse Vault: Parallel Edition",
+    subtitle: "100 Marvel Trading Card Repacks",
+    category: "marvel",
+    productLine: "multiverse-vault",
+    price: 139,
+    packCount: 100,
+    image: CDN.mvParallel,
+    images: [CDN.mvParallel],
+    description: "Multiverse Vault: Parallel Edition — 100 packs loaded with parallel variants, refractors, and numbered cards from across the Marvel multiverse. Built with the NLF standard: strong floor, better middle, healthy ceiling.",
+    features: [
+      "100 hand-curated Marvel trading card packs",
+      "Focused on parallel variants and refractors",
+      "Strong floor — every card has real collectible value",
+      "Better middle — quality cards throughout, not filler",
+      "Healthy ceiling — numbered parallels and rare variants",
+      "Sealed in custom NLF holographic mylar bag",
+    ],
+    badge: "COMING SOON",
+    badgeColor: "purple",
+    inStock: false,
+    inventory: 0,
+    isRepack: true,
+    isComingSoon: true,
+  },
+  {
+    id: "mv-parallel-500",
+    slug: "mv-parallel-500",
+    name: "Multiverse Vault: Parallel Edition",
+    subtitle: "500 Marvel Trading Card Repacks",
+    category: "marvel",
+    productLine: "multiverse-vault",
+    price: 139,
+    packCount: 500,
+    image: CDN.mvParallel,
+    images: [CDN.mvParallel],
+    description: "Multiverse Vault: Parallel Edition 500-pack — the full parallel experience. 500 packs loaded with parallel variants, refractors, and numbered cards from across the Marvel multiverse. Built with the NLF standard: strong floor, better middle, healthy ceiling.",
+    features: [
+      "500 hand-curated Marvel trading card packs",
+      "Focused on parallel variants and refractors",
+      "Strong floor — every card has real collectible value",
+      "Better middle — quality cards throughout, not filler",
+      "Healthy ceiling — numbered parallels and rare variants",
+      "Sealed in custom NLF holographic mylar bag",
+    ],
+    badge: "COMING SOON",
+    badgeColor: "purple",
+    inStock: false,
+    inventory: 0,
+    isRepack: true,
+    isComingSoon: true,
+  },
+  {
+    id: "mv-legendary-100",
+    slug: "mv-legendary-100",
+    name: "Multiverse Vault: Legendary Drop",
+    subtitle: "100 Marvel Trading Card Repacks",
+    category: "marvel",
+    productLine: "multiverse-vault",
+    price: 139,
+    packCount: 100,
+    image: CDN.mvLegendary,
+    images: [CDN.mvLegendary],
+    description: "Multiverse Vault: Legendary Drop — 100 packs featuring the most legendary cards in the Marvel universe. Premium hits, graded slabs, and cards that define collections. Built with the NLF standard: strong floor, better middle, healthy ceiling.",
+    features: [
+      "100 hand-curated Marvel trading card packs",
+      "Premium legendary-tier cards and hits",
+      "Strong floor — every card has real collectible value",
+      "Better middle — quality cards throughout, not filler",
+      "Healthy ceiling — graded slabs and premium chase cards",
+      "Sealed in custom NLF holographic mylar bag",
+    ],
+    badge: "COMING SOON",
+    badgeColor: "purple",
+    inStock: false,
+    inventory: 0,
+    isRepack: true,
+    isComingSoon: true,
+  },
+  {
+    id: "mv-legendary-500",
+    slug: "mv-legendary-500",
+    name: "Multiverse Vault: Legendary Drop",
+    subtitle: "500 Marvel Trading Card Repacks",
+    category: "marvel",
+    productLine: "multiverse-vault",
+    price: 139,
+    packCount: 500,
+    image: CDN.mvLegendary,
+    images: [CDN.mvLegendary],
+    description: "Multiverse Vault: Legendary Drop 500-pack — the ultimate vault experience. 500 packs featuring the most legendary cards in the Marvel universe. Premium hits, graded slabs, and cards that define collections. Built with the NLF standard: strong floor, better middle, healthy ceiling.",
+    features: [
+      "500 hand-curated Marvel trading card packs",
+      "Premium legendary-tier cards and hits",
+      "Strong floor — every card has real collectible value",
+      "Better middle — quality cards throughout, not filler",
+      "Healthy ceiling — graded slabs and premium chase cards",
+      "Sealed in custom NLF holographic mylar bag",
+    ],
+    badge: "COMING SOON",
+    badgeColor: "purple",
+    inStock: false,
+    inventory: 0,
+    isRepack: true,
+    isComingSoon: true,
   },
 
-  // ===== COMING SOON PRODUCTS =====
+  // ===================================================================
+  // TOPPS HOBBY BOXES — Coming Soon
+  // ===================================================================
   {
     id: "topps-marvel-chrome",
     slug: "topps-marvel-chrome",
@@ -261,4 +452,36 @@ export function getRepackProducts(): Product[] {
 
 export function getComingSoonRepacks(): Product[] {
   return products.filter((p) => p.isRepack && p.isComingSoon);
+}
+
+/** Get products by product line */
+export function getProductsByLine(line: Product["productLine"]): Product[] {
+  return products.filter((p) => p.productLine === line);
+}
+
+/** Get unique product lines with their products */
+export function getProductLines() {
+  return [
+    {
+      id: "variant-series",
+      name: "The Variant Series",
+      tagline: "Our flagship Marvel repack line — launching March 13th",
+      products: getProductsByLine("variant-series"),
+      available: true,
+    },
+    {
+      id: "snap-collection",
+      name: "The Snap Collection",
+      tagline: "Iconic Marvel moments in every pack",
+      products: getProductsByLine("snap-collection"),
+      available: false,
+    },
+    {
+      id: "multiverse-vault",
+      name: "Multiverse Vault",
+      tagline: "Deep cuts from across the Marvel multiverse",
+      products: getProductsByLine("multiverse-vault"),
+      available: false,
+    },
+  ];
 }

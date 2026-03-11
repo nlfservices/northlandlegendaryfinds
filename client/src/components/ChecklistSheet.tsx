@@ -310,12 +310,14 @@ function MasterSheet({ productId }: { productId: number }) {
     setUploadingImageId(itemId);
     try {
       const base64 = await fileToBase64(file);
+      toast.info("Processing image... auto-cropping card", { duration: 10000 });
       await uploadImage.mutateAsync({
         checklistItemId: itemId,
         imageData: base64,
         contentType: file.type || "image/jpeg",
+        autoProcess: true,
       });
-      toast.success("Image uploaded!");
+      toast.success("Image uploaded & auto-processed!");
       utils.admin.checklist.getByProduct.invalidate({ productId });
     } catch (e: any) {
       toast.error(e.message || "Failed to upload image");
@@ -764,6 +766,7 @@ function AddCardsTab({ productId }: { productId: number }) {
                 checklistItemId: match.id,
                 imageData: base64,
                 contentType: row.imageFile.type || "image/jpeg",
+                autoProcess: true,
               });
               uploadedCount++;
             } catch (e) {
