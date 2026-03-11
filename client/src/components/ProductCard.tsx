@@ -72,7 +72,8 @@ export default function ProductCard({ product, featured }: ProductCardProps) {
     e.preventDefault();
     e.stopPropagation();
     if (hasLaunchGate) {
-      toast.info("This product drops March 13th, 2026 at 7:00 PM CT!");
+      const launchStr = product.launchDate ? new Date(product.launchDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : 'soon';
+      toast.info(`This product drops ${launchStr}!`);
       return;
     }
     if (product.inStock) {
@@ -157,7 +158,7 @@ export default function ProductCard({ product, featured }: ProductCardProps) {
           )}
           {product.isRepack && !product.isComingSoon && hasLaunchGate && (
             <p className="text-xs text-primary/80 mb-3">
-              {liveTotalPacks} packs dropping March 13th
+              {liveTotalPacks} packs dropping {product.launchDate ? new Date(product.launchDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'soon'}
             </p>
           )}
           {product.isRepack && product.isComingSoon && (
@@ -200,7 +201,7 @@ export default function ProductCard({ product, featured }: ProductCardProps) {
                 className="bg-primary/20 hover:bg-primary/30 text-primary border border-primary/30"
               >
                 <Clock className="w-4 h-4 mr-1" />
-                Mar 13
+                {product.launchDate ? new Date(product.launchDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'Soon'}
               </Button>
             ) : (
               <Button

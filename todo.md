@@ -454,3 +454,20 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Remove Whatnot from homepage sections (none found)
 - [x] Remove Whatnot from footer links
 - [x] Keep /whatnot route accessible via direct URL for sharing
+
+## Product Pages for Snap Collection & Multiverse Vault
+- [ ] Ensure product detail pages handle Coming Soon products properly
+- [ ] The Snap Collection product page with image and Coming Soon status
+- [ ] Multiverse Vault: Origins product page with image and Coming Soon status
+- [ ] Multiverse Vault: Parallel Edition product page with image and Coming Soon status
+- [ ] Multiverse Vault: Legendary Drop product page with image and Coming Soon status
+- [ ] Verify all product pages display correctly with images
+
+## Launch Date Updates
+- [ ] Move Variant Series: Cosmic Drop (500 packs) launch to Friday March 27th
+- [ ] Keep Variant Series: Chrome Edition (100 packs) on March 13th
+
+## Homepage Card Showcase - Real Card Photos
+- [x] Process 6 real card photos for homepage showcase (resize/compress for fast loading)
+- [x] Upload optimized card images to CDN
+- [x] Update homepage card showcase carousel with all 6 cards (front+back): Hulk, Spider-Man, Invisible Woman, Mighty Thor, Galactus, Daredevil

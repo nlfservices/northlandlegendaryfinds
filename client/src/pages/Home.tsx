@@ -32,6 +32,46 @@ const SHOWCASE_CARDS: ShowcaseCard[] = [
     gradeLabel: "GEM MINT",
     gradingCompany: "CGC",
   },
+  {
+    id: "spiderman-ottley-auto",
+    rawFront: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/spiderman-ottley-auto-front_464b4f91.webp",
+    rawBack: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/spiderman-ottley-auto-back_30f4b891.webp",
+    cardName: "SPIDER-MAN",
+    setName: "2025 Topps Chrome Marvel",
+    serialNumber: "Ryan Ottley · Chrome Auto /50",
+  },
+  {
+    id: "galactus-orange-refractor",
+    rawFront: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/galactus-orange-refractor-front_5c5bab2d.webp",
+    rawBack: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/galactus-orange-refractor-back_77ce083a.webp",
+    cardName: "GALACTUS",
+    setName: "2025 Topps Marvel Mint",
+    serialNumber: "#86 · Orange Refractor /25",
+  },
+  {
+    id: "daredevil-platinum",
+    rawFront: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/daredevil-platinum-front_7d0d4b0e.webp",
+    rawBack: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/daredevil-platinum-back_91eaa89d.webp",
+    cardName: "DAREDEVIL",
+    setName: "2025 Topps Marvel Mint",
+    serialNumber: "#116 · Platinum Minted",
+  },
+  {
+    id: "invisible-woman-platinum",
+    rawFront: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/invisible-woman-platinum-front_2c18ecf7.webp",
+    rawBack: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/invisible-woman-platinum-back_a059c4f3.webp",
+    cardName: "INVISIBLE WOMAN",
+    setName: "2025 Topps Marvel Mint",
+    serialNumber: "#118 · Platinum Minted",
+  },
+  {
+    id: "mighty-thor-gold",
+    rawFront: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mighty-thor-gold-front_750fbb5c.webp",
+    rawBack: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mighty-thor-gold-back_d5285314.webp",
+    cardName: "MIGHTY THOR",
+    setName: "2025 Topps Marvel Mint",
+    serialNumber: "#96 · Gold Minted /50",
+  },
 ];
 
 export default function Home() {
@@ -146,7 +186,7 @@ export default function Home() {
             <div className="text-center mb-12">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 border border-primary/30 rounded-full mb-4">
                 <Zap className="w-4 h-4 text-primary" />
-                <span className="text-primary text-sm font-bold">LAUNCHING FRIDAY, MARCH 13TH</span>
+                <span className="text-primary text-sm font-bold">CHROME EDITION — MAR 13 | COSMIC DROP — MAR 27</span>
               </div>
               <h2 className="text-4xl md:text-5xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
                 THE <span className="text-primary">VARIANT</span> SERIES

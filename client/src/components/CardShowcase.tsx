@@ -14,8 +14,8 @@ export interface ShowcaseCard {
   id: string;
   rawFront: string;
   rawBack: string;
-  gradedFront: string;
-  gradedBack: string;
+  gradedFront?: string;
+  gradedBack?: string;
   cardName: string;
   setName: string;
   serialNumber: string;
@@ -77,25 +77,43 @@ export default function CardShowcase({
     setActiveIndex(index);
   }, [activeIndex]);
 
-  // Auto-play: show raw → transform → graded → next card
+  const hasGraded = !!(activeCard.gradedFront && activeCard.gradedBack);
+
+  // Auto-play: show front → flip to back (→ transform → graded if available) → next card
   useEffect(() => {
     if (isPaused || cards.length === 0) return;
 
+    const card = cards[activeIndex];
+    const cardHasGraded = !!(card?.gradedFront && card?.gradedBack);
+
     const runCycle = () => {
-      // Phase 1: Show raw front
-      timerRef.current = setTimeout(() => {
-        // Phase 2: Transform to graded
-        setPhase("transforming");
-        phaseTimerRef.current = setTimeout(() => {
-          setPhase("graded-front");
-          // Phase 3: Show graded, then move to next
-          timerRef.current = setTimeout(() => {
-            setSlideDirection("right");
-            setPhase("raw-front");
-            setActiveIndex((prev) => (prev + 1) % cards.length);
-          }, autoPlayInterval * 0.5);
-        }, 1200);
-      }, autoPlayInterval * 0.5);
+      if (cardHasGraded) {
+        // Full cycle: raw front → transform → graded front → next
+        timerRef.current = setTimeout(() => {
+          setPhase("transforming");
+          phaseTimerRef.current = setTimeout(() => {
+            setPhase("graded-front");
+            timerRef.current = setTimeout(() => {
+              setSlideDirection("right");
+              setPhase("raw-front");
+              setActiveIndex((prev) => (prev + 1) % cards.length);
+            }, autoPlayInterval * 0.5);
+          }, 1200);
+        }, autoPlayInterval * 0.5);
+      } else {
+        // Simple cycle: front → flip to back → next
+        timerRef.current = setTimeout(() => {
+          setPhase("flipping-to-raw-back");
+          phaseTimerRef.current = setTimeout(() => {
+            setPhase("raw-back");
+            timerRef.current = setTimeout(() => {
+              setSlideDirection("right");
+              setPhase("raw-front");
+              setActiveIndex((prev) => (prev + 1) % cards.length);
+            }, autoPlayInterval * 0.4);
+          }, 600);
+        }, autoPlayInterval * 0.5);
+      }
     };
 
     runCycle();
@@ -108,24 +126,41 @@ export default function CardShowcase({
     setIsPaused(true);
     clearAllTimers();
 
-    switch (phase) {
-      case "raw-front":
-        setPhase("flipping-to-raw-back");
-        phaseTimerRef.current = setTimeout(() => setPhase("raw-back"), 600);
-        break;
-      case "raw-back":
-        setPhase("transforming");
-        phaseTimerRef.current = setTimeout(() => setPhase("graded-front"), 1200);
-        break;
-      case "graded-front":
-        setPhase("flipping-to-graded-back");
-        phaseTimerRef.current = setTimeout(() => setPhase("graded-back"), 600);
-        break;
-      case "graded-back":
-        setPhase("raw-front");
-        break;
-      default:
-        break;
+    if (hasGraded) {
+      // Full 4-phase cycle: raw front → raw back → graded front → graded back → raw front
+      switch (phase) {
+        case "raw-front":
+          setPhase("flipping-to-raw-back");
+          phaseTimerRef.current = setTimeout(() => setPhase("raw-back"), 600);
+          break;
+        case "raw-back":
+          setPhase("transforming");
+          phaseTimerRef.current = setTimeout(() => setPhase("graded-front"), 1200);
+          break;
+        case "graded-front":
+          setPhase("flipping-to-graded-back");
+          phaseTimerRef.current = setTimeout(() => setPhase("graded-back"), 600);
+          break;
+        case "graded-back":
+          setPhase("raw-front");
+          break;
+        default:
+          break;
+      }
+    } else {
+      // Simple 2-phase cycle: front → back → front
+      switch (phase) {
+        case "raw-front":
+          setPhase("flipping-to-raw-back");
+          phaseTimerRef.current = setTimeout(() => setPhase("raw-back"), 600);
+          break;
+        case "raw-back":
+          setPhase("raw-front");
+          break;
+        default:
+          setPhase("raw-front");
+          break;
+      }
     }
   };
 
@@ -152,12 +187,12 @@ export default function CardShowcase({
   };
 
   const getFrontImage = () => {
-    if (isGraded || isTransforming) return activeCard.gradedFront;
+    if ((isGraded || isTransforming) && activeCard.gradedFront) return activeCard.gradedFront;
     return activeCard.rawFront;
   };
 
   const getBackImage = () => {
-    if (isGraded) return activeCard.gradedBack;
+    if (isGraded && activeCard.gradedBack) return activeCard.gradedBack;
     return activeCard.rawBack;
   };
 
@@ -215,7 +250,7 @@ export default function CardShowcase({
                       <span className="text-amber-400 text-sm font-bold tracking-wider uppercase">Raw Card</span>
                     </motion.div>
                   )}
-                  {isTransforming && (
+                  {isTransforming && hasGraded && (
                     <motion.div
                       key="transform-badge"
                       initial={{ opacity: 0, scale: 0.8 }}
@@ -227,7 +262,7 @@ export default function CardShowcase({
                       <span className="text-purple-400 text-sm font-bold tracking-wider uppercase">Grading in Progress...</span>
                     </motion.div>
                   )}
-                  {isGraded && (
+                  {isGraded && hasGraded && (
                     <motion.div
                       key="graded-badge"
                       initial={{ opacity: 0, y: -10 }}
