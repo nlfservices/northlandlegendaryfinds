@@ -425,3 +425,6 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 
 ## Hide Recent Pulled on Checklists
 - [x] Remove/hide Recent Pulled section from public checklist pages
+
+## Hero Image Update
+- [x] Replace hero section pack image with NLF Variant product image

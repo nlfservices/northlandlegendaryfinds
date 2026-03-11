@@ -14,7 +14,7 @@ import { useLaunchCountdown } from "@/hooks/useLaunchCountdown";
 import ProductCard from "@/components/ProductCard";
 
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hero-banner-jniBj55ukeiEDpJxc2aLgB.webp";
-const NLF_PACK = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/xYmShpBhbXYuurgy.jpg";
+const NLF_PACK = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-nlf-variant-2CkMPP3CsZhFkFXpzSuZkV.webp";
 const TRUST_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/trust-section-bg-kwnjuLkybJ2rqpCpEwiChw.webp";
 
 // ===== SHOWCASE CARDS =====
