@@ -68,8 +68,8 @@ export default function Checklists() {
               <div className="text-xs text-muted-foreground uppercase tracking-wider mt-1">Published Checklists</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-amber-400" style={{ fontFamily: "'Anton', sans-serif" }}>LIVE</div>
-              <div className="text-xs text-muted-foreground uppercase tracking-wider mt-1">Pull Tracking</div>
+              <div className="text-2xl font-bold text-amber-400" style={{ fontFamily: "'Anton', sans-serif" }}>FULL</div>
+              <div className="text-xs text-muted-foreground uppercase tracking-wider mt-1">Transparency</div>
             </div>
           </div>
         </div>
@@ -122,9 +122,9 @@ export default function Checklists() {
               <div className="w-14 h-14 bg-cyan-500/10 rounded-xl flex items-center justify-center mx-auto mb-4">
                 <Zap className="w-7 h-7 text-cyan-400" />
               </div>
-              <h3 className="font-bold mb-2">Real-Time Pulls</h3>
+              <h3 className="font-bold mb-2">Live Tracking</h3>
               <p className="text-sm text-muted-foreground">
-                Watch pulls happen live during streams. See what's been pulled and what's still available.
+                Track pack openings live during streams. See what's still available in real-time.
               </p>
             </div>
             <div className="text-center">
@@ -184,10 +184,7 @@ function ProductChecklistCard({ product, categoryColors, categoryLabels }: {
               <span className="text-muted-foreground">Checklist</span>
               <span className="font-bold">{stats?.totalChecklist || 0} cards</span>
             </div>
-            <div className="flex items-center justify-between text-sm">
-              <span className="text-muted-foreground">Pulled</span>
-              <span className="font-bold text-green-400">{stats?.totalPulls || 0} / {stats?.totalChecklist || 0}</span>
-            </div>
+            {/* Pulled stat hidden pre-launch */}
             <div className="flex items-center justify-between text-sm">
               <span className="text-muted-foreground">Packs Remaining</span>
               <span className="font-bold text-primary">{stats?.packsRemaining || product.packsRemaining} / {stats?.totalPacks || product.totalPacks}</span>

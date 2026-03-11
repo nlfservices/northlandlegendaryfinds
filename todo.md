@@ -422,3 +422,6 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 ## Remove Graded Inventory from Public Site
 - [x] Remove Graded Inventory from public navigation
 - [x] Remove Graded Inventory route/page from public access
+
+## Hide Recent Pulled on Checklists
+- [x] Remove/hide Recent Pulled section from public checklist pages

@@ -200,12 +200,7 @@ export default function ChecklistDetail() {
                 </div>
                 <div className="text-xs text-muted-foreground">Total Cards</div>
               </div>
-              <div className="bg-card border border-border rounded-xl p-4 text-center min-w-[100px]">
-                <div className="text-2xl font-bold text-green-400" style={{ fontFamily: "'Anton', sans-serif" }}>
-                  {stats?.totalPulls || 0}
-                </div>
-                <div className="text-xs text-muted-foreground">Pulled</div>
-              </div>
+              {/* Pulled stats hidden pre-launch */}
               <div className="bg-card border border-border rounded-xl p-4 text-center min-w-[100px]">
                 <div className="text-2xl font-bold text-cyan-400" style={{ fontFamily: "'Anton', sans-serif" }}>
                   {stats?.packsRemaining || 0}
@@ -278,9 +273,7 @@ export default function ChecklistDetail() {
               <TabsTrigger value="checklist" className="flex items-center gap-2">
                 <ListChecks className="w-4 h-4" /> Full Checklist
               </TabsTrigger>
-              <TabsTrigger value="pulls" className="flex items-center gap-2">
-                <Zap className="w-4 h-4" /> Recent Pulls
-              </TabsTrigger>
+              {/* Recent Pulls tab hidden pre-launch */}
               {productShows && productShows.length > 0 && (
                 <TabsTrigger value="shows" className="flex items-center gap-2">
                   <Calendar className="w-4 h-4" /> Shows
@@ -375,7 +368,7 @@ export default function ChecklistDetail() {
                         </div>
                       </div>
                       <Badge className={`${colors.bg} ${colors.text} ${colors.border}`}>
-                        {pulledCount}/{items.length} pulled
+                        {items.length} cards
                       </Badge>
                     </div>
 
@@ -385,11 +378,7 @@ export default function ChecklistDetail() {
                         {items.map(item => (
                           <div
                             key={item.id}
-                            className={`flex items-center justify-between p-4 rounded-lg border transition-all ${
-                              item.isPulled
-                                ? 'bg-green-500/5 border-green-500/20'
-                                : 'bg-card border-border hover:border-primary/20'
-                            }`}
+                            className={`flex items-center justify-between p-4 rounded-lg border transition-all bg-card border-border hover:border-primary/20`}
                           >
                             <div className="flex items-center gap-3">
                               {/* Card Image */}
@@ -400,9 +389,7 @@ export default function ChecklistDetail() {
                                 <img
                                   src={item.imageUrl || CARD_PLACEHOLDER}
                                   alt={item.cardName}
-                                  className={`w-12 h-16 object-cover rounded-md border transition-all ${
-                                    item.isPulled ? 'border-green-500/30 opacity-60' : 'border-border'
-                                  } ${item.imageUrl ? 'group-hover:border-primary/50 group-hover:shadow-lg group-hover:shadow-primary/10' : ''}`}
+                                   className={`w-12 h-16 object-cover rounded-md border transition-all border-border ${item.imageUrl ? 'group-hover:border-primary/50 group-hover:shadow-lg group-hover:shadow-primary/10' : ''}`}
                                   loading="lazy"
                                 />
                                 {item.imageUrl && !item.isPulled && (
@@ -410,7 +397,7 @@ export default function ChecklistDetail() {
                                     <Eye className="w-4 h-4 text-white opacity-0 group-hover:opacity-100 transition-opacity drop-shadow-lg" />
                                   </div>
                                 )}
-                                {item.isPulled && (
+                                {false && item.isPulled && (
                                   <div className="absolute inset-0 flex items-center justify-center">
                                     <CheckCircle2 className="w-5 h-5 text-green-400 drop-shadow-lg" />
                                   </div>
@@ -433,9 +420,7 @@ export default function ChecklistDetail() {
                             </div>
                             <div className="flex items-center gap-3">
                               {/* NOTE: estimatedValue intentionally NOT shown per Whatnot compliance rules */}
-                              {item.isPulled && (
-                                <Badge variant="outline" className="border-green-500/30 text-green-400 text-xs">PULLED</Badge>
-                              )}
+                              {/* PULLED badge hidden pre-launch */}
                             </div>
                           </div>
                         ))}
