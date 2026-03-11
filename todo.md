@@ -409,3 +409,6 @@
 - [ ] Verify all sets display correct character images
 
 Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapphire 5, Studios 329, Studios Sapphire 121
+
+## Bug Fix: getBySlug undefined error
+- [x] Fix public.products.getBySlug returning undefined for "shadows-of-the-force" product (return null instead of undefined, guard queries with dbSlug check)

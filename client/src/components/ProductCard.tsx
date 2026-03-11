@@ -39,10 +39,10 @@ export default function ProductCard({ product, featured }: ProductCardProps) {
     ? new Date() < new Date(product.launchDate)
     : false;
 
-  // Fetch live pack data for repack products
+  // Fetch live pack data for repack products (only if they have a dbSlug, meaning they exist in the DB)
   const { data: dbProduct } = trpc.public.products.getBySlug.useQuery(
     { slug: product.dbSlug || product.slug },
-    { enabled: product.isRepack, refetchInterval: 30000 }
+    { enabled: product.isRepack && !product.isComingSoon && !!product.dbSlug, refetchInterval: 30000 }
   );
   const livePacksRemaining = dbProduct?.packsRemaining ?? product.inventory;
   const liveTotalPacks = dbProduct?.totalPacks ?? product.inventory;

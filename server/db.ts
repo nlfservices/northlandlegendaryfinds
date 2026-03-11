@@ -126,9 +126,9 @@ export async function getActiveProducts() {
 
 export async function getProductBySlug(slug: string) {
   const db = await getDb();
-  if (!db) return undefined;
+  if (!db) return null;
   const result = await db.select().from(repackProducts).where(eq(repackProducts.slug, slug)).limit(1);
-  return result.length > 0 ? result[0] : undefined;
+  return result.length > 0 ? result[0] : null;
 }
 
 export async function getProductById(id: number) {

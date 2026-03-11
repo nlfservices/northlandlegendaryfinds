@@ -140,7 +140,7 @@ describe("Public routes - access", () => {
     const ctx = createPublicContext();
     const caller = appRouter.createCaller(ctx);
     const result = await caller.public.products.getBySlug({ slug: "non-existent-product" });
-    expect(result).toBeUndefined();
+    expect(result).toBeNull();
   });
 });
 
