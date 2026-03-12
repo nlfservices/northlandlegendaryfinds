@@ -476,3 +476,9 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Remove Daredevil and Galactus from homepage card showcase carousel (keep Hulk, Spider-Man, Invisible Woman, Mighty Thor)
 - [x] Fix upside-down card images on mobile (EXIF orientation issue - re-process images with orientation fix)
 - [x] Simplify showcase to show front-only raw card photos (no flip to back, no graded transformation)
+
+## Whatnot QR Code & Live Stream Promotion
+- [x] Process and upload Whatnot QR code images to CDN
+- [x] Redesign homepage Whatnot/live stream section with prominent QR code
+- [x] Add Whatnot QR code to other key pages (Whatnot page, footer, etc.)
+- [x] Test QR code display across desktop and mobile

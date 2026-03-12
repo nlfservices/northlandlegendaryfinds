@@ -4,7 +4,7 @@
  */
 
 import { useAuth } from "@/_core/hooks/useAuth";
-import { ShoppingCart, Shield, Star, TrendingUp, Package, ArrowRight, Zap, BookOpen, Clock, Eye } from "lucide-react";
+import { ShoppingCart, Shield, Star, TrendingUp, Package, ArrowRight, Zap, BookOpen, Clock, Eye, Radio } from "lucide-react";
 import CardShowcase, { type ShowcaseCard } from "@/components/CardShowcase";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
@@ -289,6 +289,93 @@ export default function Home() {
           </div>
         </section>
       )}
+
+      {/* ===== WATCH US LIVE ON WHATNOT ===== */}
+      <section className="relative py-16 lg:py-20 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-background to-red-900/10" />
+        <div className="absolute inset-0">
+          <div className="absolute top-10 left-1/4 w-72 h-72 bg-purple-500/8 rounded-full blur-3xl" />
+          <div className="absolute bottom-10 right-1/4 w-72 h-72 bg-red-500/8 rounded-full blur-3xl" />
+        </div>
+        <div className="container relative z-10">
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-red-500/15 border border-red-500/30 rounded-full mb-4">
+              <Radio className="w-4 h-4 text-red-400 animate-pulse" />
+              <span className="text-red-400 text-sm font-bold tracking-wide">LIVE ON WHATNOT</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
+              WATCH US <span className="text-purple-400">LIVE</span>
+            </h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Join our live streams on Whatnot — watch packs get ripped in real time, see every pull as it happens
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto items-center">
+            {/* Left: QR Code + CTA */}
+            <div className="flex flex-col items-center lg:items-start gap-6">
+              <div className="bg-card/80 backdrop-blur-sm border border-purple-500/20 rounded-2xl p-8 text-center lg:text-left w-full">
+                <div className="flex flex-col sm:flex-row items-center gap-6">
+                  {/* QR Code */}
+                  <div className="shrink-0">
+                    <div className="bg-white rounded-xl p-3 shadow-lg shadow-purple-500/10">
+                      <img
+                        src="https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/whatnot-qr-1_5cdbb693.png"
+                        alt="Scan to follow us on Whatnot"
+                        className="w-36 h-36 sm:w-40 sm:h-40"
+                      />
+                    </div>
+                    <p className="text-xs text-muted-foreground text-center mt-2">Scan to follow on Whatnot</p>
+                  </div>
+                  {/* Text */}
+                  <div className="flex-1">
+                    <h3 className="text-2xl font-bold mb-2" style={{ fontFamily: "'Anton', sans-serif" }}>
+                      <span className="text-purple-400">500-PACK</span> SERIES
+                    </h3>
+                    <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                      Our exclusive Whatnot series drops 50 packs per live show. Every pull tracked in real-time on our checklist. Limited to 500 packs total — once they're gone, they're gone.
+                    </p>
+                    <div className="flex flex-wrap gap-3">
+                      <a href="https://www.whatnot.com/user/northlandfinds" target="_blank" rel="noopener noreferrer">
+                        <Button className="bg-purple-600 hover:bg-purple-700 text-white font-bold">
+                          <Radio className="w-4 h-4 mr-2" />
+                          Follow on Whatnot
+                        </Button>
+                      </a>
+                      <Link href="/whatnot">
+                        <Button variant="outline" className="border-purple-500/30 text-purple-400 hover:bg-purple-500/10 font-bold">
+                          Learn More
+                          <ArrowRight className="w-4 h-4 ml-2" />
+                        </Button>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Live Stream Features */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-card/60 backdrop-blur-sm border border-border rounded-xl p-5 text-center hover:border-purple-500/30 transition-colors">
+                <div className="text-3xl font-bold text-purple-400 mb-1" style={{ fontFamily: "'Anton', sans-serif" }}>50</div>
+                <p className="text-xs text-muted-foreground">Packs Per Show</p>
+              </div>
+              <div className="bg-card/60 backdrop-blur-sm border border-border rounded-xl p-5 text-center hover:border-red-500/30 transition-colors">
+                <div className="text-3xl font-bold text-red-400 mb-1" style={{ fontFamily: "'Anton', sans-serif" }}>LIVE</div>
+                <p className="text-xs text-muted-foreground">Real-Time Pulls</p>
+              </div>
+              <div className="bg-card/60 backdrop-blur-sm border border-border rounded-xl p-5 text-center hover:border-primary/30 transition-colors">
+                <div className="text-3xl font-bold text-primary mb-1" style={{ fontFamily: "'Anton', sans-serif" }}>500</div>
+                <p className="text-xs text-muted-foreground">Total Packs</p>
+              </div>
+              <div className="bg-card/60 backdrop-blur-sm border border-border rounded-xl p-5 text-center hover:border-amber-500/30 transition-colors">
+                <div className="text-3xl font-bold text-amber-400 mb-1" style={{ fontFamily: "'Anton', sans-serif" }}>10</div>
+                <p className="text-xs text-muted-foreground">Shows Per Series</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* ===== EXPLORE OUR COLLECTION ===== */}
       <section className="py-16 lg:py-20">

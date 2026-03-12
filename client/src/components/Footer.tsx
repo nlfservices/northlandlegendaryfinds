@@ -80,6 +80,25 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* Whatnot QR Code Banner */}
+        <div className="border-t border-border mt-8 pt-8">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="https://www.whatnot.com/user/northlandfinds" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group">
+              <div className="bg-white rounded-lg p-1.5 shadow-sm">
+                <img
+                  src="https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/whatnot-qr-1_5cdbb693.png"
+                  alt="Scan to follow us on Whatnot"
+                  className="w-16 h-16"
+                />
+              </div>
+              <div>
+                <p className="text-sm font-bold text-purple-400 group-hover:text-purple-300 transition-colors">Follow us on Whatnot</p>
+                <p className="text-xs text-muted-foreground">Scan QR or click to watch live streams</p>
+              </div>
+            </a>
+          </div>
+        </div>
+
         {/* Bottom Bar */}
         <div className="border-t border-border mt-10 pt-6 flex flex-col md:flex-row justify-between items-center text-xs text-muted-foreground/60 gap-2">
           <p>&copy; {new Date().getFullYear()} Northland Legendary Finds. All rights reserved.</p>

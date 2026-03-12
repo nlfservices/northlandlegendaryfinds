@@ -63,6 +63,18 @@ export default function Whatnot() {
                 </Button>
               </Link>
             </div>
+
+            {/* QR Code */}
+            <div className="mt-8 flex flex-col items-center">
+              <div className="bg-white rounded-xl p-3 shadow-lg shadow-purple-500/20">
+                <img
+                  src="https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/whatnot-qr-1_5cdbb693.png"
+                  alt="Scan to follow us on Whatnot"
+                  className="w-32 h-32"
+                />
+              </div>
+              <p className="text-xs text-muted-foreground mt-2">Scan to follow on Whatnot</p>
+            </div>
           </div>
         </div>
       </section>
@@ -293,10 +305,23 @@ export default function Whatnot() {
           <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ fontFamily: "'Anton', sans-serif" }}>
             DON'T MISS THE <span className="text-purple-400">ACTION</span>
           </h2>
-          <p className="text-muted-foreground text-lg mb-8">
+          <p className="text-muted-foreground text-lg mb-6">
             Follow Northland Legendary Finds on Whatnot to get notified when we go live. 
             The 500-pack series won't last forever!
           </p>
+
+          {/* QR Code */}
+          <div className="flex flex-col items-center mb-8">
+            <div className="bg-white rounded-xl p-3 shadow-lg shadow-purple-500/20">
+              <img
+                src="https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/whatnot-qr-2_8fab5940.png"
+                alt="Scan to follow us on Whatnot"
+                className="w-36 h-36"
+              />
+            </div>
+            <p className="text-xs text-muted-foreground mt-2">Scan to follow on Whatnot</p>
+          </div>
+
           <a href={WHATNOT_STORE_URL} target="_blank" rel="noopener noreferrer">
             <Button size="lg" className="bg-purple-600 hover:bg-purple-700 text-white font-bold text-lg px-10 py-6">
               <Radio className="w-5 h-5 mr-2" />
