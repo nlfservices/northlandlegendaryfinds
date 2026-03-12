@@ -471,3 +471,6 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Process 6 real card photos for homepage showcase (resize/compress for fast loading)
 - [x] Upload optimized card images to CDN
 - [x] Update homepage card showcase carousel with all 6 cards (front+back): Hulk, Spider-Man, Invisible Woman, Mighty Thor, Galactus, Daredevil
+
+## Card Showcase Updates
+- [x] Remove Daredevil and Galactus from homepage card showcase carousel (keep Hulk, Spider-Man, Invisible Woman, Mighty Thor)

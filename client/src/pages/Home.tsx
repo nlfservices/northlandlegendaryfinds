@@ -40,22 +40,7 @@ const SHOWCASE_CARDS: ShowcaseCard[] = [
     setName: "2025 Topps Chrome Marvel",
     serialNumber: "Ryan Ottley · Chrome Auto /50",
   },
-  {
-    id: "galactus-orange-refractor",
-    rawFront: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/galactus-orange-refractor-front_5c5bab2d.webp",
-    rawBack: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/galactus-orange-refractor-back_77ce083a.webp",
-    cardName: "GALACTUS",
-    setName: "2025 Topps Marvel Mint",
-    serialNumber: "#86 · Orange Refractor /25",
-  },
-  {
-    id: "daredevil-platinum",
-    rawFront: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/daredevil-platinum-front_7d0d4b0e.webp",
-    rawBack: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/daredevil-platinum-back_91eaa89d.webp",
-    cardName: "DAREDEVIL",
-    setName: "2025 Topps Marvel Mint",
-    serialNumber: "#116 · Platinum Minted",
-  },
+
   {
     id: "invisible-woman-platinum",
     rawFront: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/invisible-woman-platinum-front_2c18ecf7.webp",
