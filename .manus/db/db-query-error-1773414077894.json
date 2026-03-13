@@ -1,0 +1,8 @@
+{
+  "query": "SELECT mc.id, mc.name, mc.cardNumber, mc.cardType, mc.imageUrl, cs.name as setName \nFROM marvel_cards mc \nJOIN card_sets cs ON mc.setId = cs.id \nWHERE cs.slug = '2025-topps-marvel-sapphire' \nAND mc.imageUrl IS NOT NULL \nAND mc.imageUrl NOT LIKE '%marvel-ai-%' \nAND mc.imageUrl NOT LIKE '%CBH-%' \nAND mc.imageUrl NOT LIKE '%placeholder%'\nAND mc.imageUrl NOT LIKE '%hulk-comic%'\nORDER BY mc.cardNumber",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT mc.id, mc.name, mc.cardNumber, mc.cardType, mc.imageUrl, cs.name as setName \nFROM marvel_cards mc \nJOIN card_sets cs ON mc.setId = cs.id \nWHERE cs.slug = '2025-topps-marvel-sapphire' \nAND mc.imageUrl IS NOT NULL \nAND mc.imageUrl NOT LIKE '%marvel-ai-%' \nAND mc.imageUrl NOT LIKE '%CBH-%' \nAND mc.imageUrl NOT LIKE '%placeholder%'\nAND mc.imageUrl NOT LIKE '%hulk-comic%'\nORDER BY mc.cardNumber",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1054 (42S22) at line 1: Unknown column 'mc.name' in 'field list'"
+  ]
+}
