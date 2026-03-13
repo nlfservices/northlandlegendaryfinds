@@ -28,7 +28,7 @@ export default function Navigation() {
     <>
       {/* Announcement Bar */}
       <div className="bg-primary text-primary-foreground text-center py-2 px-4 text-sm font-bold tracking-wide">
-        LAUNCHING MARCH 13TH — FREE SHIPPING ON ORDERS OVER $199
+        LAUNCHING MARCH 27TH — FREE SHIPPING ON ORDERS OVER $199
       </div>
 
       {/* Main Navigation */}

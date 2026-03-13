@@ -514,3 +514,14 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Remove backImageUrl references from card display
 - [x] Keep cosmic era backgrounds and glow effects on non-flipping cards
 - [x] Remove 'Click cards to flip' instruction text from set header
+
+## Launch Date Change: March 13 → March 27, 2026
+- [x] Update all frontend references from March 13 to March 27
+- [x] Update all backend/server references from March 13 to March 27
+- [x] Update database product launch dates from March 13 to March 27
+- [x] Update hero banner, announcements, countdown timers
+- [x] Test and save checkpoint
+
+## Popup Changes
+- [x] Remove discount offer from email popup
+- [x] Move popup to top right corner

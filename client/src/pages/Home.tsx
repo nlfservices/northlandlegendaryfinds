@@ -78,7 +78,7 @@ export default function Home() {
             <div className="py-12 lg:py-0">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/15 border border-primary/30 rounded-full mb-6">
                 <Zap className="w-4 h-4 text-primary" />
-                <span className="text-primary text-sm font-bold tracking-wide">LAUNCHING MARCH 13, 2026</span>
+                <span className="text-primary text-sm font-bold tracking-wide">LAUNCHING MARCH 27, 2026</span>
               </div>
 
               <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[0.9] mb-6" style={{ fontFamily: "'Anton', sans-serif" }}>
@@ -94,7 +94,7 @@ export default function Home() {
               {/* Launch countdown banner */}
               <div className="inline-flex items-center gap-3 bg-primary/10 border border-primary/30 rounded-xl px-5 py-3 mb-6">
                 <Clock className="w-5 h-5 text-primary" />
-                <span className="text-primary font-bold text-sm uppercase tracking-wider">Available Friday, March 13th at 7:00 PM CT</span>
+                <span className="text-primary font-bold text-sm uppercase tracking-wider">Available Friday, March 27th at 7:00 PM CT</span>
               </div>
 
               <div className="flex flex-wrap gap-4">
@@ -165,7 +165,7 @@ export default function Home() {
             <div className="text-center mb-12">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 border border-primary/30 rounded-full mb-4">
                 <Zap className="w-4 h-4 text-primary" />
-                <span className="text-primary text-sm font-bold">CHROME EDITION — MAR 13 | COSMIC DROP — MAR 27</span>
+                <span className="text-primary text-sm font-bold">CHROME EDITION — MAR 27 | COSMIC DROP — MAR 27</span>
               </div>
               <h2 className="text-4xl md:text-5xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
                 THE <span className="text-primary">VARIANT</span> SERIES

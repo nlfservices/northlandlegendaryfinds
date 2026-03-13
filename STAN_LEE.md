@@ -27,7 +27,7 @@ Hey there!
 
 Thanks for joining our early access list for Marvel & Star Wars trading card repacks!
 
-You'll be the FIRST to know when we launch on Friday, March 13th, 2026 at 7:00 PM Central Time.
+You'll be the FIRST to know when we launch on Friday, March 27th, 2026 at 7:00 PM Central Time.
 
 Plus, you'll get an exclusive discount code on launch day!
 
@@ -89,7 +89,7 @@ Northland Legendary Finds Team
 
 - **Countdown page is LIVE:** https://www.northlandlegendaryfinds.com
 - **Owner bypass URL:** https://www.northlandlegendaryfinds.com?preview=admin
-- **Launch date:** Friday, March 13th, 2026 at 7:00 PM Central Time
+- **Launch date:** Friday, March 27th, 2026 at 7:00 PM Central Time
 - **SSL:** ✅ Secured with HTTPS
 - **Form:** ✅ Connected to GoHighLevel
 
