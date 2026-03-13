@@ -594,9 +594,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [ ] Save checkpoint
 
 ## Marvel Studios Set — MCU Actor-Inspired Art
-- [ ] Pull full card list for 2025 Topps Marvel Studios set
-- [ ] Identify all cards needing images (NULL + duplicates + wrong character)
-- [ ] Generate stylized MCU actor-inspired art (artistic portraits, not photorealistic — copyright safe)
-- [ ] Upload to CDN and update database
+- [x] Pull full card list for 2025 Topps Marvel Studios set (543 cards, 434 needing images)
+- [x] Identify all cards needing images (NULL + duplicates + wrong character)
+- [x] Generate stylized MCU actor-inspired art — batch 1: 150/150, batch 2: 21/150 (106 unique cards matched)
+- [x] Upload 106 images to CDN and update database
+- [ ] Generate remaining ~328 Marvel Studios cards (batch 3 still needed)
 - [ ] Verify all Marvel Studios cards have unique, correct character images
 - [ ] Save checkpoint
