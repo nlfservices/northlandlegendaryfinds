@@ -19,9 +19,9 @@ export default function ComingSoon() {
   const [formLoaded, setFormLoaded] = useState(false);
 
   useEffect(() => {
-    // Target date: Friday, March 13th, 2026 at 7:00 PM Central Time
-    // March is in CDT (UTC-5), so 7pm CDT = midnight UTC March 14
-    const targetDate = new Date("2026-03-14T00:00:00Z");
+    // Target date: Friday, March 27th, 2026 at 7:00 PM Central Time
+    // March is in CDT (UTC-5), so 7pm CDT = midnight UTC March 28
+    const targetDate = new Date("2026-03-28T00:00:00Z");
 
     const calculateTimeLeft = () => {
       const now = new Date().getTime();
@@ -168,7 +168,7 @@ export default function ComingSoon() {
             LAUNCHING
           </p>
           <p className="text-2xl sm:text-3xl md:text-4xl font-bebas text-[#00FF41] tracking-wider">
-            FRIDAY, MARCH 13TH, 2026
+            FRIDAY, MARCH 27TH, 2026
           </p>
           <p className="text-lg sm:text-xl md:text-2xl font-oswald text-purple-400 mt-2">
             7:00 PM CENTRAL TIME

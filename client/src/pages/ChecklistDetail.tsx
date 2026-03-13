@@ -20,8 +20,8 @@ import {
 } from "lucide-react";
 import { useMemo, useState } from "react";
 
-// Pre-launch blur: hide card details until March 13, 2026 7:00 PM CT (UTC-5)
-const LAUNCH_DATE = new Date("2026-03-14T00:00:00Z");
+// Pre-launch blur: hide card details until March 27, 2026 7:00 PM CT (UTC-5)
+const LAUNCH_DATE = new Date("2026-03-28T00:00:00Z");
 const isPreLaunch = () => new Date() < LAUNCH_DATE;
 
 const CARD_PLACEHOLDER = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/card-placeholder-AFtdwioDcmq6GHzFUFUpif.webp";
@@ -301,7 +301,7 @@ export default function ChecklistDetail() {
                       <Lock className="w-10 h-10 text-primary mx-auto mb-4" />
                       <h4 className="font-bold text-2xl mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>CHECKLIST HIDDEN</h4>
                       <p className="text-sm text-muted-foreground mb-4">
-                        The full checklist will be revealed on <strong className="text-foreground">Friday, March 13th at 7:00 PM CT</strong>. 
+                        The full checklist will be revealed on <strong className="text-foreground">Friday, March 27th at 7:00 PM CT</strong>. 
                         We want to keep the surprise!
                       </p>
                       <div className="inline-flex items-center gap-2 text-primary text-sm font-bold">

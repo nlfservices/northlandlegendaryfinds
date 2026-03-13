@@ -89,13 +89,13 @@ export default function Shop() {
                     <div className="flex items-center gap-3 mb-2">
                       <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/30 rounded-full">
                         <Zap className="w-3.5 h-3.5 text-primary" />
-                        <span className="text-primary text-xs font-bold">AVAILABLE MARCH 13TH</span>
+                        <span className="text-primary text-xs font-bold">AVAILABLE MARCH 27TH</span>
                       </div>
                     </div>
                     <h2 className="text-3xl md:text-4xl font-bold" style={{ fontFamily: "'Anton', sans-serif" }}>
                       THE <span className="text-primary">VARIANT</span> SERIES
                     </h2>
-                    <p className="text-muted-foreground text-sm mt-1">Our flagship Marvel repack line — launching March 13th</p>
+                    <p className="text-muted-foreground text-sm mt-1">Our flagship Marvel repack line — launching March 27th</p>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     {variantProducts.map((product) => (

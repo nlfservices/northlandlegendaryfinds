@@ -525,3 +525,13 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 ## Popup Changes
 - [x] Remove discount offer from email popup
 - [x] Move popup to top right corner
+
+## Update Checklists & Remaining Dates to March 27, 2026
+- [x] Find all remaining March 13 references in code, checklists, and database
+- [x] Update checklist pages/components with March 27 dates (ChecklistDetail.tsx pre-launch blur date + reveal message)
+- [x] Update ComingSoon.tsx countdown target date to March 28 UTC
+- [x] Update Shop.tsx Variant Series section dates
+- [x] Update ProductDetail.tsx countdown, availability, and drops text
+- [x] Verified: no remaining March 13 / 2026-03-14 references in any .ts/.tsx files
+- [x] Only remaining March 13 refs are in todo.md (historical log items) — correct, no action needed
+- [x] Test and save checkpoint
