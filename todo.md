@@ -482,3 +482,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Redesign homepage Whatnot/live stream section with prominent QR code
 - [x] Add Whatnot QR code to other key pages (Whatnot page, footer, etc.)
 - [x] Test QR code display across desktop and mobile
+
+## Grading Company References Update
+- [x] Update all grading references to include AGS prominently alongside CGC, PSA, BGS
+- [x] Update homepage card showcase grading text
+- [x] Update About page grading references
+- [x] Update Star Wars page grading references
+- [x] Update eBay Comps panel with AGS grade options
+- [x] Update Inventory Manager with AGS grade options
+- [x] FAQ already had AGS references (no change needed)

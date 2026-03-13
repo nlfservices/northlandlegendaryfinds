@@ -581,6 +581,12 @@ function InventoryCardList() {
                   <SelectTrigger><SelectValue /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="raw">Raw (Ungraded)</SelectItem>
+                    <SelectItem value="ags10">AGS 10</SelectItem>
+                    <SelectItem value="ags9.5">AGS 9.5</SelectItem>
+                    <SelectItem value="ags9">AGS 9</SelectItem>
+                    <SelectItem value="cgc10">CGC 10</SelectItem>
+                    <SelectItem value="cgc9.5">CGC 9.5</SelectItem>
+                    <SelectItem value="cgc9">CGC 9</SelectItem>
                     <SelectItem value="psa10">PSA 10</SelectItem>
                     <SelectItem value="psa9">PSA 9</SelectItem>
                     <SelectItem value="psa8">PSA 8</SelectItem>

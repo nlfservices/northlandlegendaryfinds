@@ -229,7 +229,7 @@ export default function CardShowcase({
                       </div>
                       <div className="flex items-center gap-2 text-sm text-gray-400">
                         <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                        CGC, PSA & BGS grading-ready condition
+                        AGS, CGC, PSA & more grading-ready condition
                       </div>
                       <div className="flex items-center gap-2 text-sm text-gray-400">
                         <div className="w-1.5 h-1.5 rounded-full bg-purple-400" />

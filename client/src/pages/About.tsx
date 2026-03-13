@@ -74,7 +74,7 @@ export default function About() {
               <h3 className="text-2xl font-bold mb-3">Healthy Ceiling</h3>
               <p className="text-muted-foreground">
                 Real chase cards worth real money — numbered parallels, autos, and 
-                professionally graded slabs are always in the mix.
+                professionally graded slabs (AGS, CGC, PSA & more) are always in the mix.
               </p>
             </div>
           </div>

@@ -48,7 +48,7 @@ export default function StarWars() {
                   THE FORCE
                 </h2>
                 <p className="text-muted-foreground mb-6 leading-relaxed">
-                  Our premium Star Wars trading card repack is currently in grading. We're timing the release with The Mandalorian &amp; Grogu movie this summer for maximum excitement. Every pack will include professionally graded slabs and guaranteed hits.
+                  Our premium Star Wars trading card repack is currently in grading with AGS, CGC, and PSA. We're timing the release with The Mandalorian &amp; Grogu movie this summer for maximum excitement. Every pack will include professionally graded slabs and guaranteed hits.
                 </p>
                 <div className="space-y-3 mb-6">
                   <div className="flex items-center gap-3">
@@ -61,7 +61,7 @@ export default function StarWars() {
                     <div className="w-8 h-8 bg-cyan-500/10 rounded-lg flex items-center justify-center">
                       <Sparkles className="w-4 h-4 text-cyan-400" />
                     </div>
-                    <span className="text-sm text-gray-300">Includes professionally graded slabs</span>
+                    <span className="text-sm text-gray-300">Includes AGS, CGC & PSA graded slabs</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 bg-cyan-500/10 rounded-lg flex items-center justify-center">

@@ -246,7 +246,7 @@ export default function Home() {
               </div>
               <h3 className="font-bold text-lg mb-2">Healthy Ceiling</h3>
               <p className="text-sm text-muted-foreground">
-                Real chase cards worth real money — numbered parallels, autos, and graded slabs in the mix.
+                Real chase cards worth real money — numbered parallels, autos, and AGS/CGC/PSA graded slabs in the mix.
               </p>
             </div>
           </div>

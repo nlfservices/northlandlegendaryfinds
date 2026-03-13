@@ -18,6 +18,12 @@ import { useState } from "react";
 
 const GRADE_OPTIONS = [
   { value: "all", label: "All Grades" },
+  { value: "AGS 10", label: "AGS 10 (Gem Mint)" },
+  { value: "AGS 9.5", label: "AGS 9.5 (Mint+)" },
+  { value: "AGS 9", label: "AGS 9 (Mint)" },
+  { value: "CGC 10", label: "CGC 10 (Pristine)" },
+  { value: "CGC 9.5", label: "CGC 9.5 (Gem Mint)" },
+  { value: "CGC 9", label: "CGC 9 (Mint)" },
   { value: "PSA 10", label: "PSA 10 (Gem Mint)" },
   { value: "PSA 9", label: "PSA 9 (Mint)" },
   { value: "PSA 8", label: "PSA 8 (NM-MT)" },
@@ -25,9 +31,6 @@ const GRADE_OPTIONS = [
   { value: "BGS 10", label: "BGS 10 (Pristine)" },
   { value: "BGS 9.5", label: "BGS 9.5 (Gem Mint)" },
   { value: "BGS 9", label: "BGS 9 (Mint)" },
-  { value: "CGC 10", label: "CGC 10 (Pristine)" },
-  { value: "CGC 9.5", label: "CGC 9.5 (Gem Mint)" },
-  { value: "CGC 9", label: "CGC 9 (Mint)" },
   { value: "SGC 10", label: "SGC 10 (Pristine)" },
   { value: "SGC 9.5", label: "SGC 9.5 (Gem Mint)" },
   { value: "SGC 9", label: "SGC 9 (Mint)" },
