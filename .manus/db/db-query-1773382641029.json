@@ -1,0 +1,70 @@
+{
+  "query": "SELECT ms.slug, ms.name, \n  COUNT(*) as total,\n  SUM(CASE WHEN mc.imageUrl LIKE '%CBH-%' THEN 1 ELSE 0 END) as ai_images,\n  SUM(CASE WHEN mc.imageUrl LIKE '%-front%' THEN 1 ELSE 0 END) as front_photos,\n  SUM(CASE WHEN mc.imageUrl LIKE '%mintcomic%' THEN 1 ELSE 0 END) as mint_photos,\n  SUM(CASE WHEN mc.imageUrl IS NULL OR mc.imageUrl = '' THEN 1 ELSE 0 END) as no_image,\n  SUM(CASE WHEN mc.imageUrl IS NOT NULL AND mc.imageUrl != '' AND mc.imageUrl NOT LIKE '%CBH-%' AND mc.imageUrl NOT LIKE '%-front%' AND mc.imageUrl NOT LIKE '%mintcomic%' THEN 1 ELSE 0 END) as other_images\nFROM marvel_cards mc \nJOIN marvel_sets ms ON mc.setId = ms.id \nGROUP BY ms.slug, ms.name\nORDER BY ms.id;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT ms.slug, ms.name, \n  COUNT(*) as total,\n  SUM(CASE WHEN mc.imageUrl LIKE '%CBH-%' THEN 1 ELSE 0 END) as ai_images,\n  SUM(CASE WHEN mc.imageUrl LIKE '%-front%' THEN 1 ELSE 0 END) as front_photos,\n  SUM(CASE WHEN mc.imageUrl LIKE '%mintcomic%' THEN 1 ELSE 0 END) as mint_photos,\n  SUM(CASE WHEN mc.imageUrl IS NULL OR mc.imageUrl = '' THEN 1 ELSE 0 END) as no_image,\n  SUM(CASE WHEN mc.imageUrl IS NOT NULL AND mc.imageUrl != '' AND mc.imageUrl NOT LIKE '%CBH-%' AND mc.imageUrl NOT LIKE '%-front%' AND mc.imageUrl NOT LIKE '%mintcomic%' THEN 1 ELSE 0 END) as other_images\nFROM marvel_cards mc \nJOIN marvel_sets ms ON mc.setId = ms.id \nGROUP BY ms.slug, ms.name\nORDER BY ms.id;",
+  "rows": [
+    {
+      "slug": "2025-topps-chrome",
+      "name": "2025 Topps Chrome",
+      "total": "358",
+      "ai_images": "56",
+      "front_photos": "25",
+      "mint_photos": "0",
+      "no_image": "23",
+      "other_images": "254"
+    },
+    {
+      "slug": "2025-topps-comic-book-heroes",
+      "name": "2025 Topps Comic Book Heroes",
+      "total": "150",
+      "ai_images": "150",
+      "front_photos": "0",
+      "mint_photos": "0",
+      "no_image": "0",
+      "other_images": "0"
+    },
+    {
+      "slug": "2025-topps-marvel-mint",
+      "name": "2025 Topps Marvel Mint",
+      "total": "239",
+      "ai_images": "0",
+      "front_photos": "190",
+      "mint_photos": "0",
+      "no_image": "9",
+      "other_images": "40"
+    },
+    {
+      "slug": "2025-topps-marvel-sapphire",
+      "name": "2025 Topps Marvel Sapphire",
+      "total": "225",
+      "ai_images": "41",
+      "front_photos": "27",
+      "mint_photos": "0",
+      "no_image": "5",
+      "other_images": "152"
+    },
+    {
+      "slug": "2025-topps-marvel-studios",
+      "name": "2025 Topps Marvel Studios",
+      "total": "543",
+      "ai_images": "36",
+      "front_photos": "25",
+      "mint_photos": "0",
+      "no_image": "329",
+      "other_images": "153"
+    },
+    {
+      "slug": "2025-topps-marvel-studios-sapphire",
+      "name": "2025 Topps Marvel Studios Sapphire",
+      "total": "210",
+      "ai_images": "16",
+      "front_photos": "11",
+      "mint_photos": "0",
+      "no_image": "121",
+      "other_images": "62"
+    }
+  ],
+  "messages": [],
+  "stdout": "slug\tname\ttotal\tai_images\tfront_photos\tmint_photos\tno_image\tother_images\n2025-topps-chrome\t2025 Topps Chrome\t358\t56\t25\t0\t23\t254\n2025-topps-comic-book-heroes\t2025 Topps Comic Book Heroes\t150\t150\t0\t0\t0\t0\n2025-topps-marvel-mint\t2025 Topps Marvel Mint\t239\t0\t190\t0\t9\t40\n2025-topps-marvel-sapphire\t2025 Topps Marvel Sapphire\t225\t41\t27\t0\t5\t152\n2025-topps-marvel-studios\t2025 Topps Marvel Studios\t543\t36\t25\t0\t329\t153\n2025-topps-marvel-studios-sapphire\t2025 Topps Marvel Studios Sapphire\t210\t16\t11\t0\t121\t62\n",
+  "stderr": "",
+  "execution_time_ms": 385
+}

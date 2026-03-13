@@ -566,4 +566,11 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Keep Gambit set cards unchanged (no themed borders/glows) — verified
 - [x] Add "Back to Card Database" navigation button on CardDisplay
 - [x] Test all features
+- [x] Save checkpoint
+
+## Replace All Remaining Card Photos with AI Character Art
+- [x] Query database to identify all cards still using actual card photos (174 cards, 87 unique characters)
+- [x] Generate AI character art replacements for all 87 characters (parallel generation, 87/87 success)
+- [x] Upload 87 AI images to CDN and update 174 database records (0 failures)
+- [x] Verify all cards in Card Database now show AI art instead of card photos
 - [ ] Save checkpoint

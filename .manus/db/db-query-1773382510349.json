@@ -1,0 +1,460 @@
+{
+  "query": "SELECT ms.name as set_name, ms.slug, mc.id, mc.cardNumber, mc.characterName, mc.cardType, mc.imageUrl FROM marvel_cards mc JOIN marvel_sets ms ON mc.setId = ms.id WHERE mc.imageUrl IS NOT NULL AND mc.imageUrl NOT LIKE '%CBH-%' AND mc.imageUrl NOT LIKE '%placeholder%' AND mc.imageUrl NOT LIKE '%hulk-comic%' AND mc.imageUrl NOT LIKE '%generic%' ORDER BY ms.id, mc.cardNumber LIMIT 50;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT ms.name as set_name, ms.slug, mc.id, mc.cardNumber, mc.characterName, mc.cardType, mc.imageUrl FROM marvel_cards mc JOIN marvel_sets ms ON mc.setId = ms.id WHERE mc.imageUrl IS NOT NULL AND mc.imageUrl NOT LIKE '%CBH-%' AND mc.imageUrl NOT LIKE '%placeholder%' AND mc.imageUrl NOT LIKE '%hulk-comic%' AND mc.imageUrl NOT LIKE '%generic%' ORDER BY ms.id, mc.cardNumber LIMIT 50;",
+  "rows": [
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "1",
+      "cardNumber": "1",
+      "characterName": "Iron Man",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-001_Iron_Man_80cf3e9d.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "2",
+      "cardNumber": "10",
+      "characterName": "Layla El-Faouly",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-010_Layla_El-Faouly_2f60f0d9.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "3",
+      "cardNumber": "100",
+      "characterName": "Wonder Man",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-100_Wonder_Man_599b7bd7.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "4",
+      "cardNumber": "101",
+      "characterName": "Spider-Man",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-101_Spider-Man_318857c1.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "5",
+      "cardNumber": "102",
+      "characterName": "Mephisto",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-102_Mephisto_63d2f085.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "6",
+      "cardNumber": "103",
+      "characterName": "Wolverine",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-103_Wolverine_1cc49682.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "7",
+      "cardNumber": "104",
+      "characterName": "Star-Lord",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-104_Star-Lord_9c5756bc.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "8",
+      "cardNumber": "105",
+      "characterName": "Gambit",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-105_Gambit_4c11ff4d.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "9",
+      "cardNumber": "106",
+      "characterName": "Black Cat",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-106_Black_Cat_17a0d675.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "10",
+      "cardNumber": "107",
+      "characterName": "Cyclops",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-107_Cyclops_f0689438.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "11",
+      "cardNumber": "108",
+      "characterName": "Silk",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-108_Silk_b82e581d.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "12",
+      "cardNumber": "109",
+      "characterName": "The Thing",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-109_The_Thing_a5dae37c.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "13",
+      "cardNumber": "11",
+      "characterName": "Super-Skrull",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-011_Super-Skrull_93142741.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "14",
+      "cardNumber": "110",
+      "characterName": "She-Hulk",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-110_She-Hulk_bab83f86.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "15",
+      "cardNumber": "111",
+      "characterName": "Luke Cage",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-111_Luke_Cage_8dc8b164.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "16",
+      "cardNumber": "112",
+      "characterName": "Spider-Man 2099",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-112_Spider-Man_2099_ed85c96d.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "17",
+      "cardNumber": "113",
+      "characterName": "Wasp",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-113_Wasp_30401e37.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "18",
+      "cardNumber": "114",
+      "characterName": "Makkari",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-114_Makkari_b8b3f983.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "19",
+      "cardNumber": "115",
+      "characterName": "Mysterio",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-115_Mysterio_1edb63cd.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "20",
+      "cardNumber": "116",
+      "characterName": "Black Bolt",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-116_Black_Bolt_4539e7c2.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "21",
+      "cardNumber": "117",
+      "characterName": "M.O.D.O.K.",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-117_MODOK_64b4dcf3.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "22",
+      "cardNumber": "118",
+      "characterName": "Annihilus",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-118_Annihilus_2ec9b01b.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "23",
+      "cardNumber": "119",
+      "characterName": "Thor",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-119_Thor_56a124bc.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "24",
+      "cardNumber": "12",
+      "characterName": "Namor",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-012_Namor_c5dd48a5.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "25",
+      "cardNumber": "120",
+      "characterName": "Rocket Raccoon",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-120_Rocket_Raccoon_08c7cb7e.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "26",
+      "cardNumber": "121",
+      "characterName": "Quicksilver",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-121_Quicksilver_bf628da3.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "27",
+      "cardNumber": "122",
+      "characterName": "X-23",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-122_X-23_2ab1a359.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "28",
+      "cardNumber": "123",
+      "characterName": "Typhoid Mary",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-123_Typhoid_Mary_e6c2b079.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "29",
+      "cardNumber": "124",
+      "characterName": "Bucky Barnes",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-124_Bucky_Barnes_31a95177.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "30",
+      "cardNumber": "125",
+      "characterName": "Baron Zemo",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-125_Baron_Zemo_724cc2a1.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "31",
+      "cardNumber": "126",
+      "characterName": "Blade",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-126_Blade_ae176503.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "32",
+      "cardNumber": "127",
+      "characterName": "Samurai Venom",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-127_Samurai_Venom_65d3377d.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "33",
+      "cardNumber": "128",
+      "characterName": "Hulk",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-128_Hulk_dba525fc.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "34",
+      "cardNumber": "129",
+      "characterName": "Black Widow",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-129_Black_Widow_1a0102b9.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "35",
+      "cardNumber": "13",
+      "characterName": "Prowler",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-013_Prowler_ba30a757.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "36",
+      "cardNumber": "130",
+      "characterName": "Ms. Marvel",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-130_Ms_Marvel_4e3f525d.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "37",
+      "cardNumber": "131",
+      "characterName": "Jubilee",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-131_Jubilee_314b7a02.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "38",
+      "cardNumber": "132",
+      "characterName": "Abomination",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-132_Abomination_a65fdabe.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "39",
+      "cardNumber": "133",
+      "characterName": "Hawkeye",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-133_Hawkeye_d8f37193.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "40",
+      "cardNumber": "134",
+      "characterName": "Silver Surfer",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-134_Silver_Surfer_3c70aced.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "41",
+      "cardNumber": "135",
+      "characterName": "Psylocke",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-135_Psylocke_05ba7dbe.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "42",
+      "cardNumber": "136",
+      "characterName": "Black Panther",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-136_Black_Panther_118340ab.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "43",
+      "cardNumber": "137",
+      "characterName": "Iron Fist",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-137_Iron_Fist_e1aeb156.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "44",
+      "cardNumber": "138",
+      "characterName": "Ultron",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-138_Ultron_a52cb3a4.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "45",
+      "cardNumber": "139",
+      "characterName": "Vision",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-139_Vision_1d001856.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "46",
+      "cardNumber": "14",
+      "characterName": "Echo",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-014_Echo_4683f939.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "47",
+      "cardNumber": "140",
+      "characterName": "Gamora",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-140_Gamora_46279bd3.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "48",
+      "cardNumber": "141",
+      "characterName": "Ant-Man",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-141_Ant-Man_b6db983b.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "49",
+      "cardNumber": "142",
+      "characterName": "Spider-Ham",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-142_Spider-Ham_fdbba2b6.webp"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "id": "50",
+      "cardNumber": "143",
+      "characterName": "Spider-Girl",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-143_Spider-Girl_a2d83609.webp"
+    }
+  ],
+  "messages": [],
+  "stdout": "set_name\tslug\tid\tcardNumber\tcharacterName\tcardType\timageUrl\n2025 Topps Chrome\t2025-topps-chrome\t1\t1\tIron Man\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-001_Iron_Man_80cf3e9d.webp\n2025 Topps Chrome\t2025-topps-chrome\t2\t10\tLayla El-Faouly\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-010_Layla_El-Faouly_2f60f0d9.webp\n2025 Topps Chrome\t2025-topps-chrome\t3\t100\tWonder Man\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-100_Wonder_Man_599b7bd7.webp\n2025 Topps Chrome\t2025-topps-chrome\t4\t101\tSpider-Man\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-101_Spider-Man_318857c1.webp\n2025 Topps Chrome\t2025-topps-chrome\t5\t102\tMephisto\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-102_Mephisto_63d2f085.webp\n2025 Topps Chrome\t2025-topps-chrome\t6\t103\tWolverine\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-103_Wolverine_1cc49682.webp\n2025 Topps Chrome\t2025-topps-chrome\t7\t104\tStar-Lord\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-104_Star-Lord_9c5756bc.webp\n2025 Topps Chrome\t2025-topps-chrome\t8\t105\tGambit\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-105_Gambit_4c11ff4d.webp\n2025 Topps Chrome\t2025-topps-chrome\t9\t106\tBlack Cat\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-106_Black_Cat_17a0d675.webp\n2025 Topps Chrome\t2025-topps-chrome\t10\t107\tCyclops\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-107_Cyclops_f0689438.webp\n2025 Topps Chrome\t2025-topps-chrome\t11\t108\tSilk\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-108_Silk_b82e581d.webp\n2025 Topps Chrome\t2025-topps-chrome\t12\t109\tThe Thing\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-109_The_Thing_a5dae37c.webp\n2025 Topps Chrome\t2025-topps-chrome\t13\t11\tSuper-Skrull\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-011_Super-Skrull_93142741.webp\n2025 Topps Chrome\t2025-topps-chrome\t14\t110\tShe-Hulk\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-110_She-Hulk_bab83f86.webp\n2025 Topps Chrome\t2025-topps-chrome\t15\t111\tLuke Cage\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-111_Luke_Cage_8dc8b164.webp\n2025 Topps Chrome\t2025-topps-chrome\t16\t112\tSpider-Man 2099\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-112_Spider-Man_2099_ed85c96d.webp\n2025 Topps Chrome\t2025-topps-chrome\t17\t113\tWasp\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-113_Wasp_30401e37.webp\n2025 Topps Chrome\t2025-topps-chrome\t18\t114\tMakkari\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-114_Makkari_b8b3f983.webp\n2025 Topps Chrome\t2025-topps-chrome\t19\t115\tMysterio\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-115_Mysterio_1edb63cd.webp\n2025 Topps Chrome\t2025-topps-chrome\t20\t116\tBlack Bolt\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-116_Black_Bolt_4539e7c2.webp\n2025 Topps Chrome\t2025-topps-chrome\t21\t117\tM.O.D.O.K.\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-117_MODOK_64b4dcf3.webp\n2025 Topps Chrome\t2025-topps-chrome\t22\t118\tAnnihilus\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-118_Annihilus_2ec9b01b.webp\n2025 Topps Chrome\t2025-topps-chrome\t23\t119\tThor\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-119_Thor_56a124bc.webp\n2025 Topps Chrome\t2025-topps-chrome\t24\t12\tNamor\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-012_Namor_c5dd48a5.webp\n2025 Topps Chrome\t2025-topps-chrome\t25\t120\tRocket Raccoon\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-120_Rocket_Raccoon_08c7cb7e.webp\n2025 Topps Chrome\t2025-topps-chrome\t26\t121\tQuicksilver\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-121_Quicksilver_bf628da3.webp\n2025 Topps Chrome\t2025-topps-chrome\t27\t122\tX-23\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-122_X-23_2ab1a359.webp\n2025 Topps Chrome\t2025-topps-chrome\t28\t123\tTyphoid Mary\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-123_Typhoid_Mary_e6c2b079.webp\n2025 Topps Chrome\t2025-topps-chrome\t29\t124\tBucky Barnes\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-124_Bucky_Barnes_31a95177.webp\n2025 Topps Chrome\t2025-topps-chrome\t30\t125\tBaron Zemo\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-125_Baron_Zemo_724cc2a1.webp\n2025 Topps Chrome\t2025-topps-chrome\t31\t126\tBlade\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-126_Blade_ae176503.webp\n2025 Topps Chrome\t2025-topps-chrome\t32\t127\tSamurai Venom\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-127_Samurai_Venom_65d3377d.webp\n2025 Topps Chrome\t2025-topps-chrome\t33\t128\tHulk\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-128_Hulk_dba525fc.webp\n2025 Topps Chrome\t2025-topps-chrome\t34\t129\tBlack Widow\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-129_Black_Widow_1a0102b9.webp\n2025 Topps Chrome\t2025-topps-chrome\t35\t13\tProwler\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-013_Prowler_ba30a757.webp\n2025 Topps Chrome\t2025-topps-chrome\t36\t130\tMs. Marvel\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-130_Ms_Marvel_4e3f525d.webp\n2025 Topps Chrome\t2025-topps-chrome\t37\t131\tJubilee\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-131_Jubilee_314b7a02.webp\n2025 Topps Chrome\t2025-topps-chrome\t38\t132\tAbomination\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-132_Abomination_a65fdabe.webp\n2025 Topps Chrome\t2025-topps-chrome\t39\t133\tHawkeye\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-133_Hawkeye_d8f37193.webp\n2025 Topps Chrome\t2025-topps-chrome\t40\t134\tSilver Surfer\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-134_Silver_Surfer_3c70aced.webp\n2025 Topps Chrome\t2025-topps-chrome\t41\t135\tPsylocke\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-135_Psylocke_05ba7dbe.webp\n2025 Topps Chrome\t2025-topps-chrome\t42\t136\tBlack Panther\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-136_Black_Panther_118340ab.webp\n2025 Topps Chrome\t2025-topps-chrome\t43\t137\tIron Fist\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-137_Iron_Fist_e1aeb156.webp\n2025 Topps Chrome\t2025-topps-chrome\t44\t138\tUltron\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-138_Ultron_a52cb3a4.webp\n2025 Topps Chrome\t2025-topps-chrome\t45\t139\tVision\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-139_Vision_1d001856.webp\n2025 Topps Chrome\t2025-topps-chrome\t46\t14\tEcho\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-014_Echo_4683f939.webp\n2025 Topps Chrome\t2025-topps-chrome\t47\t140\tGamora\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-140_Gamora_46279bd3.webp\n2025 Topps Chrome\t2025-topps-chrome\t48\t141\tAnt-Man\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-141_Ant-Man_b6db983b.webp\n2025 Topps Chrome\t2025-topps-chrome\t49\t142\tSpider-Ham\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-142_Spider-Ham_fdbba2b6.webp\n2025 Topps Chrome\t2025-topps-chrome\t50\t143\tSpider-Girl\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-143_Spider-Girl_a2d83609.webp\n",
+  "stderr": "",
+  "execution_time_ms": 394
+}

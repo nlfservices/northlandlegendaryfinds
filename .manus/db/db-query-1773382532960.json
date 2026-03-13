@@ -1,0 +1,244 @@
+{
+  "query": "SELECT ms.name as set_name, mc.cardType, COUNT(*) as cnt, LEFT(MIN(mc.imageUrl), 100) as sample_url FROM marvel_cards mc JOIN marvel_sets ms ON mc.setId = ms.id WHERE mc.imageUrl IS NOT NULL AND mc.imageUrl NOT LIKE '%CBH-%' AND mc.imageUrl NOT LIKE '%placeholder%' AND mc.imageUrl NOT LIKE '%hulk-comic%' AND mc.imageUrl NOT LIKE '%generic%' GROUP BY ms.name, mc.cardType ORDER BY ms.name, mc.cardType;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT ms.name as set_name, mc.cardType, COUNT(*) as cnt, LEFT(MIN(mc.imageUrl), 100) as sample_url FROM marvel_cards mc JOIN marvel_sets ms ON mc.setId = ms.id WHERE mc.imageUrl IS NOT NULL AND mc.imageUrl NOT LIKE '%CBH-%' AND mc.imageUrl NOT LIKE '%placeholder%' AND mc.imageUrl NOT LIKE '%hulk-comic%' AND mc.imageUrl NOT LIKE '%generic%' GROUP BY ms.name, mc.cardType ORDER BY ms.name, mc.cardType;",
+  "rows": [
+    {
+      "set_name": "2025 Topps Chrome",
+      "cardType": "AIR MARVEL",
+      "cnt": "12",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-023_Nova_0755"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "cardType": "AVENGERS INFINITY",
+      "cnt": "2",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260308_141440_fecd"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "cardType": "Base",
+      "cnt": "197",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-001_Iron_Man_"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "cardType": "CLASSIC COMIC BOOK COVERS",
+      "cnt": "2",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/11_FFkcEiQWrPe7IIPyH"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "cardType": "FUTURE STARS",
+      "cnt": "8",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-009_Bloodline"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "cardType": "GALACTIC LEGENDS",
+      "cnt": "7",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260308_141427_5396"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "cardType": "GOLDEN ANNIVERSARIES",
+      "cnt": "4",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-098_Moon_Knig"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "cardType": "INDESTRUCTIBLE",
+      "cnt": "5",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/1_5dzU3ZjU0AnyTyBTt3"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "cardType": "MARVEL ANNIVERSARIES",
+      "cnt": "15",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/24_IKvBgRaVZVApBtBj3"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "cardType": "MARVEL ICONS",
+      "cnt": "6",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-080_Falcon_63"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "cardType": "MARVEL REFLECTIONS",
+      "cnt": "4",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260308_141427_5396"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "cardType": "THE NEW AVENGERS 20TH ANNIVERSARY",
+      "cnt": "4",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-004_Ronin_691"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "cardType": "THE NEW AVENGERS 20TH ANNIVERSARY AUTOGRAPH RELIC EDITION",
+      "cnt": "1",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_212155_157d"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "cardType": "THE ONE AND ONLY",
+      "cnt": "1",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mint-110-front_81b49"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "cardType": "TOPPS PATRIMONY",
+      "cnt": "4",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260308_141427_5396"
+    },
+    {
+      "set_name": "2025 Topps Chrome",
+      "cardType": "X MEN GIANT SIZE 50TH ANNIVERSARY",
+      "cnt": "7",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-019_Havok_bf6"
+    },
+    {
+      "set_name": "2025 Topps Marvel Mint",
+      "cardType": "Autograph",
+      "cnt": "15",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_211916_d930"
+    },
+    {
+      "set_name": "2025 Topps Marvel Mint",
+      "cardType": "BASE CARDS – BRONZE",
+      "cnt": "50",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mint-001-front_bbd15"
+    },
+    {
+      "set_name": "2025 Topps Marvel Mint",
+      "cardType": "BASE CARDS – GOLD",
+      "cnt": "25",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260308_141421_a840"
+    },
+    {
+      "set_name": "2025 Topps Marvel Mint",
+      "cardType": "BASE CARDS – PLATINUM",
+      "cnt": "20",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mint-101-front_5782f"
+    },
+    {
+      "set_name": "2025 Topps Marvel Mint",
+      "cardType": "BASE CARDS – SILVER",
+      "cnt": "16",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mint-051-front_2672f"
+    },
+    {
+      "set_name": "2025 Topps Marvel Mint",
+      "cardType": "GAMBIT'S DECK",
+      "cnt": "52",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/10Clubs-Front_1dfe9b"
+    },
+    {
+      "set_name": "2025 Topps Marvel Mint",
+      "cardType": "GAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS",
+      "cnt": "52",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/10Clubs-Front_1dfe9b"
+    },
+    {
+      "set_name": "2025 Topps Marvel Sapphire",
+      "cardType": "Base",
+      "cnt": "167",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260308_141427_5396"
+    },
+    {
+      "set_name": "2025 Topps Marvel Sapphire",
+      "cardType": "INFINITE SAPPHIRE",
+      "cnt": "2",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mint-105-front_db4fd"
+    },
+    {
+      "set_name": "2025 Topps Marvel Sapphire",
+      "cardType": "SAPPHIRE SELECTIONS",
+      "cnt": "6",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260308_141427_5396"
+    },
+    {
+      "set_name": "2025 Topps Marvel Sapphire",
+      "cardType": "THE MERRY MARVEL MARCHING SOCIETY",
+      "cnt": "4",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260308_141556_58a9"
+    },
+    {
+      "set_name": "2025 Topps Marvel Studios",
+      "cardType": "AGATHA ALL ALONG",
+      "cnt": "2",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/48_a4ksv0JSXZKJv89nt"
+    },
+    {
+      "set_name": "2025 Topps Marvel Studios",
+      "cardType": "AVENGERS SHADOWBOX",
+      "cnt": "4",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/16_SfShxBHKJ3n4NmWxc"
+    },
+    {
+      "set_name": "2025 Topps Marvel Studios",
+      "cardType": "Base",
+      "cnt": "72",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/0_qlF6XHTXLHOGeQnCZl"
+    },
+    {
+      "set_name": "2025 Topps Marvel Studios",
+      "cardType": "CAPTAIN AMERICA: BRAVE NEW WORLD",
+      "cnt": "6",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/13_lf9UI6PIDw9lcO3R2"
+    },
+    {
+      "set_name": "2025 Topps Marvel Studios",
+      "cardType": "CELESTIAL ARRIVAL",
+      "cnt": "1",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-075_Arishem_3"
+    },
+    {
+      "set_name": "2025 Topps Marvel Studios",
+      "cardType": "DAREDEVIL: BORN AGAIN",
+      "cnt": "8",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/15_ATOeAGtUYlA3fnhEt"
+    },
+    {
+      "set_name": "2025 Topps Marvel Studios",
+      "cardType": "FF-5 H.E.R.B.I.E.",
+      "cnt": "1",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-150_Galactus_"
+    },
+    {
+      "set_name": "2025 Topps Marvel Studios",
+      "cardType": "MARVEL GODS",
+      "cnt": "7",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/12_W5yj9mrweR33fnCnI"
+    },
+    {
+      "set_name": "2025 Topps Marvel Studios",
+      "cardType": "THE SNAP VARIATION",
+      "cnt": "72",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/0_qlF6XHTXLHOGeQnCZl"
+    },
+    {
+      "set_name": "2025 Topps Marvel Studios",
+      "cardType": "THE TVA PRUNING",
+      "cnt": "5",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/10_Lkk9pbxqCfyfyBdyj"
+    },
+    {
+      "set_name": "2025 Topps Marvel Studios Sapphire",
+      "cardType": "Base",
+      "cnt": "72",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/0_qlF6XHTXLHOGeQnCZl"
+    },
+    {
+      "set_name": "2025 Topps Marvel Studios Sapphire",
+      "cardType": "SAPPHIRE SELECTIONS",
+      "cnt": "1",
+      "sample_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mint-006-front_f6b0c"
+    }
+  ],
+  "messages": [],
+  "stdout": "set_name\tcardType\tcnt\tsample_url\n2025 Topps Chrome\tAIR MARVEL\t12\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-023_Nova_0755\n2025 Topps Chrome\tAVENGERS INFINITY\t2\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260308_141440_fecd\n2025 Topps Chrome\tBase\t197\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-001_Iron_Man_\n2025 Topps Chrome\tCLASSIC COMIC BOOK COVERS\t2\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/11_FFkcEiQWrPe7IIPyH\n2025 Topps Chrome\tFUTURE STARS\t8\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-009_Bloodline\n2025 Topps Chrome\tGALACTIC LEGENDS\t7\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260308_141427_5396\n2025 Topps Chrome\tGOLDEN ANNIVERSARIES\t4\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-098_Moon_Knig\n2025 Topps Chrome\tINDESTRUCTIBLE\t5\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/1_5dzU3ZjU0AnyTyBTt3\n2025 Topps Chrome\tMARVEL ANNIVERSARIES\t15\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/24_IKvBgRaVZVApBtBj3\n2025 Topps Chrome\tMARVEL ICONS\t6\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-080_Falcon_63\n2025 Topps Chrome\tMARVEL REFLECTIONS\t4\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260308_141427_5396\n2025 Topps Chrome\tTHE NEW AVENGERS 20TH ANNIVERSARY\t4\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-004_Ronin_691\n2025 Topps Chrome\tTHE NEW AVENGERS 20TH ANNIVERSARY AUTOGRAPH RELIC EDITION\t1\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_212155_157d\n2025 Topps Chrome\tTHE ONE AND ONLY\t1\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mint-110-front_81b49\n2025 Topps Chrome\tTOPPS PATRIMONY\t4\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260308_141427_5396\n2025 Topps Chrome\tX MEN GIANT SIZE 50TH ANNIVERSARY\t7\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-019_Havok_bf6\n2025 Topps Marvel Mint\tAutograph\t15\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_211916_d930\n2025 Topps Marvel Mint\tBASE CARDS – BRONZE\t50\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mint-001-front_bbd15\n2025 Topps Marvel Mint\tBASE CARDS – GOLD\t25\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260308_141421_a840\n2025 Topps Marvel Mint\tBASE CARDS – PLATINUM\t20\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mint-101-front_5782f\n2025 Topps Marvel Mint\tBASE CARDS – SILVER\t16\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mint-051-front_2672f\n2025 Topps Marvel Mint\tGAMBIT'S DECK\t52\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/10Clubs-Front_1dfe9b\n2025 Topps Marvel Mint\tGAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS\t52\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/10Clubs-Front_1dfe9b\n2025 Topps Marvel Sapphire\tBase\t167\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260308_141427_5396\n2025 Topps Marvel Sapphire\tINFINITE SAPPHIRE\t2\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mint-105-front_db4fd\n2025 Topps Marvel Sapphire\tSAPPHIRE SELECTIONS\t6\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260308_141427_5396\n2025 Topps Marvel Sapphire\tTHE MERRY MARVEL MARCHING SOCIETY\t4\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260308_141556_58a9\n2025 Topps Marvel Studios\tAGATHA ALL ALONG\t2\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/48_a4ksv0JSXZKJv89nt\n2025 Topps Marvel Studios\tAVENGERS SHADOWBOX\t4\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/16_SfShxBHKJ3n4NmWxc\n2025 Topps Marvel Studios\tBase\t72\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/0_qlF6XHTXLHOGeQnCZl\n2025 Topps Marvel Studios\tCAPTAIN AMERICA: BRAVE NEW WORLD\t6\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/13_lf9UI6PIDw9lcO3R2\n2025 Topps Marvel Studios\tCELESTIAL ARRIVAL\t1\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-075_Arishem_3\n2025 Topps Marvel Studios\tDAREDEVIL: BORN AGAIN\t8\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/15_ATOeAGtUYlA3fnhEt\n2025 Topps Marvel Studios\tFF-5 H.E.R.B.I.E.\t1\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-150_Galactus_\n2025 Topps Marvel Studios\tMARVEL GODS\t7\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/12_W5yj9mrweR33fnCnI\n2025 Topps Marvel Studios\tTHE SNAP VARIATION\t72\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/0_qlF6XHTXLHOGeQnCZl\n2025 Topps Marvel Studios\tTHE TVA PRUNING\t5\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/10_Lkk9pbxqCfyfyBdyj\n2025 Topps Marvel Studios Sapphire\tBase\t72\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/0_qlF6XHTXLHOGeQnCZl\n2025 Topps Marvel Studios Sapphire\tSAPPHIRE SELECTIONS\t1\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mint-006-front_f6b0c\n",
+  "stderr": "",
+  "execution_time_ms": 393
+}

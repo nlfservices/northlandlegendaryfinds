@@ -1,0 +1,433 @@
+{
+  "query": "SELECT ms.slug, ms.name, mc.cardType, COUNT(*) as total,\n  SUM(CASE WHEN mc.imageUrl LIKE '%CBH-%' THEN 1 ELSE 0 END) as ai_images,\n  SUM(CASE WHEN mc.imageUrl LIKE '%-front%' OR mc.imageUrl LIKE '%-back%' OR mc.imageUrl LIKE '%mintcomic%' THEN 1 ELSE 0 END) as card_photos,\n  SUM(CASE WHEN mc.imageUrl IS NULL OR mc.imageUrl = '' THEN 1 ELSE 0 END) as no_image\nFROM marvel_cards mc \nJOIN marvel_sets ms ON mc.setId = ms.id \nGROUP BY ms.slug, ms.name, mc.cardType\nORDER BY ms.id, mc.cardType\nLIMIT 60;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT ms.slug, ms.name, mc.cardType, COUNT(*) as total,\n  SUM(CASE WHEN mc.imageUrl LIKE '%CBH-%' THEN 1 ELSE 0 END) as ai_images,\n  SUM(CASE WHEN mc.imageUrl LIKE '%-front%' OR mc.imageUrl LIKE '%-back%' OR mc.imageUrl LIKE '%mintcomic%' THEN 1 ELSE 0 END) as card_photos,\n  SUM(CASE WHEN mc.imageUrl IS NULL OR mc.imageUrl = '' THEN 1 ELSE 0 END) as no_image\nFROM marvel_cards mc \nJOIN marvel_sets ms ON mc.setId = ms.id \nGROUP BY ms.slug, ms.name, mc.cardType\nORDER BY ms.id, mc.cardType\nLIMIT 60;",
+  "rows": [
+    {
+      "slug": "2025-topps-chrome",
+      "name": "2025 Topps Chrome",
+      "cardType": "AIR MARVEL",
+      "total": "22",
+      "ai_images": "8",
+      "card_photos": "7",
+      "no_image": "2"
+    },
+    {
+      "slug": "2025-topps-chrome",
+      "name": "2025 Topps Chrome",
+      "cardType": "AVENGERS INFINITY",
+      "total": "6",
+      "ai_images": "4",
+      "card_photos": "0",
+      "no_image": "0"
+    },
+    {
+      "slug": "2025-topps-chrome",
+      "name": "2025 Topps Chrome",
+      "cardType": "Base",
+      "total": "197",
+      "ai_images": "0",
+      "card_photos": "0",
+      "no_image": "0"
+    },
+    {
+      "slug": "2025-topps-chrome",
+      "name": "2025 Topps Chrome",
+      "cardType": "CLASSIC COMIC BOOK COVERS",
+      "total": "10",
+      "ai_images": "1",
+      "card_photos": "0",
+      "no_image": "7"
+    },
+    {
+      "slug": "2025-topps-chrome",
+      "name": "2025 Topps Chrome",
+      "cardType": "FUTURE STARS",
+      "total": "8",
+      "ai_images": "0",
+      "card_photos": "0",
+      "no_image": "0"
+    },
+    {
+      "slug": "2025-topps-chrome",
+      "name": "2025 Topps Chrome",
+      "cardType": "GALACTIC LEGENDS",
+      "total": "10",
+      "ai_images": "2",
+      "card_photos": "1",
+      "no_image": "1"
+    },
+    {
+      "slug": "2025-topps-chrome",
+      "name": "2025 Topps Chrome",
+      "cardType": "GOLDEN ANNIVERSARIES",
+      "total": "5",
+      "ai_images": "1",
+      "card_photos": "2",
+      "no_image": "0"
+    },
+    {
+      "slug": "2025-topps-chrome",
+      "name": "2025 Topps Chrome",
+      "cardType": "INDESTRUCTIBLE",
+      "total": "12",
+      "ai_images": "6",
+      "card_photos": "1",
+      "no_image": "1"
+    },
+    {
+      "slug": "2025-topps-chrome",
+      "name": "2025 Topps Chrome",
+      "cardType": "IRON MAN GOLD",
+      "total": "10",
+      "ai_images": "10",
+      "card_photos": "0",
+      "no_image": "0"
+    },
+    {
+      "slug": "2025-topps-chrome",
+      "name": "2025 Topps Chrome",
+      "cardType": "MARVEL ANNIVERSARIES",
+      "total": "30",
+      "ai_images": "6",
+      "card_photos": "4",
+      "no_image": "9"
+    },
+    {
+      "slug": "2025-topps-chrome",
+      "name": "2025 Topps Chrome",
+      "cardType": "MARVEL ICONS",
+      "total": "10",
+      "ai_images": "4",
+      "card_photos": "2",
+      "no_image": "0"
+    },
+    {
+      "slug": "2025-topps-chrome",
+      "name": "2025 Topps Chrome",
+      "cardType": "MARVEL REFLECTIONS",
+      "total": "5",
+      "ai_images": "1",
+      "card_photos": "0",
+      "no_image": "0"
+    },
+    {
+      "slug": "2025-topps-chrome",
+      "name": "2025 Topps Chrome",
+      "cardType": "MARVEL ZOMBIES 20TH ANNIVERSARY RELIC CARD",
+      "total": "1",
+      "ai_images": "0",
+      "card_photos": "0",
+      "no_image": "1"
+    },
+    {
+      "slug": "2025-topps-chrome",
+      "name": "2025 Topps Chrome",
+      "cardType": "THE NEW AVENGERS 20TH ANNIVERSARY",
+      "total": "10",
+      "ai_images": "6",
+      "card_photos": "2",
+      "no_image": "0"
+    },
+    {
+      "slug": "2025-topps-chrome",
+      "name": "2025 Topps Chrome",
+      "cardType": "THE NEW AVENGERS 20TH ANNIVERSARY AUTOGRAPH RELIC EDITION",
+      "total": "1",
+      "ai_images": "0",
+      "card_photos": "0",
+      "no_image": "0"
+    },
+    {
+      "slug": "2025-topps-chrome",
+      "name": "2025 Topps Chrome",
+      "cardType": "THE ONE AND ONLY",
+      "total": "5",
+      "ai_images": "3",
+      "card_photos": "1",
+      "no_image": "1"
+    },
+    {
+      "slug": "2025-topps-chrome",
+      "name": "2025 Topps Chrome",
+      "cardType": "TOPPS PATRIMONY",
+      "total": "5",
+      "ai_images": "1",
+      "card_photos": "1",
+      "no_image": "0"
+    },
+    {
+      "slug": "2025-topps-chrome",
+      "name": "2025 Topps Chrome",
+      "cardType": "X MEN GIANT SIZE 50TH ANNIVERSARY",
+      "total": "10",
+      "ai_images": "3",
+      "card_photos": "4",
+      "no_image": "0"
+    },
+    {
+      "slug": "2025-topps-chrome",
+      "name": "2025 Topps Chrome",
+      "cardType": "X MEN GIANT SIZE 50TH ANNIVERSARY RELIC CARD",
+      "total": "1",
+      "ai_images": "0",
+      "card_photos": "0",
+      "no_image": "1"
+    },
+    {
+      "slug": "2025-topps-comic-book-heroes",
+      "name": "2025 Topps Comic Book Heroes",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "total": "25",
+      "ai_images": "25",
+      "card_photos": "0",
+      "no_image": "0"
+    },
+    {
+      "slug": "2025-topps-comic-book-heroes",
+      "name": "2025 Topps Comic Book Heroes",
+      "cardType": "COMIC BOOK HEROES 1976",
+      "total": "74",
+      "ai_images": "74",
+      "card_photos": "0",
+      "no_image": "0"
+    },
+    {
+      "slug": "2025-topps-comic-book-heroes",
+      "name": "2025 Topps Comic Book Heroes",
+      "cardType": "COMIC BOOK HEROES 2025",
+      "total": "51",
+      "ai_images": "51",
+      "card_photos": "0",
+      "no_image": "0"
+    },
+    {
+      "slug": "2025-topps-marvel-mint",
+      "name": "2025 Topps Marvel Mint",
+      "cardType": "Autograph",
+      "total": "15",
+      "ai_images": "0",
+      "card_photos": "0",
+      "no_image": "0"
+    },
+    {
+      "slug": "2025-topps-marvel-mint",
+      "name": "2025 Topps Marvel Mint",
+      "cardType": "BASE CARDS – BRONZE",
+      "total": "50",
+      "ai_images": "0",
+      "card_photos": "50",
+      "no_image": "0"
+    },
+    {
+      "slug": "2025-topps-marvel-mint",
+      "name": "2025 Topps Marvel Mint",
+      "cardType": "BASE CARDS – GOLD",
+      "total": "25",
+      "ai_images": "0",
+      "card_photos": "0",
+      "no_image": "0"
+    },
+    {
+      "slug": "2025-topps-marvel-mint",
+      "name": "2025 Topps Marvel Mint",
+      "cardType": "BASE CARDS – PLATINUM",
+      "total": "20",
+      "ai_images": "0",
+      "card_photos": "20",
+      "no_image": "0"
+    },
+    {
+      "slug": "2025-topps-marvel-mint",
+      "name": "2025 Topps Marvel Mint",
+      "cardType": "BASE CARDS – SILVER",
+      "total": "25",
+      "ai_images": "0",
+      "card_photos": "16",
+      "no_image": "9"
+    },
+    {
+      "slug": "2025-topps-marvel-mint",
+      "name": "2025 Topps Marvel Mint",
+      "cardType": "GAMBIT'S DECK",
+      "total": "52",
+      "ai_images": "0",
+      "card_photos": "52",
+      "no_image": "0"
+    },
+    {
+      "slug": "2025-topps-marvel-mint",
+      "name": "2025 Topps Marvel Mint",
+      "cardType": "GAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS",
+      "total": "52",
+      "ai_images": "0",
+      "card_photos": "52",
+      "no_image": "0"
+    },
+    {
+      "slug": "2025-topps-marvel-sapphire",
+      "name": "2025 Topps Marvel Sapphire",
+      "cardType": "Base",
+      "total": "200",
+      "ai_images": "29",
+      "card_photos": "21",
+      "no_image": "4"
+    },
+    {
+      "slug": "2025-topps-marvel-sapphire",
+      "name": "2025 Topps Marvel Sapphire",
+      "cardType": "INFINITE SAPPHIRE",
+      "total": "5",
+      "ai_images": "3",
+      "card_photos": "2",
+      "no_image": "0"
+    },
+    {
+      "slug": "2025-topps-marvel-sapphire",
+      "name": "2025 Topps Marvel Sapphire",
+      "cardType": "SAPPHIRE SELECTIONS",
+      "total": "10",
+      "ai_images": "3",
+      "card_photos": "1",
+      "no_image": "1"
+    },
+    {
+      "slug": "2025-topps-marvel-sapphire",
+      "name": "2025 Topps Marvel Sapphire",
+      "cardType": "THE MERRY MARVEL MARCHING SOCIETY",
+      "total": "10",
+      "ai_images": "6",
+      "card_photos": "3",
+      "no_image": "0"
+    },
+    {
+      "slug": "2025-topps-marvel-studios",
+      "name": "2025 Topps Marvel Studios",
+      "cardType": "AGATHA ALL ALONG",
+      "total": "7",
+      "ai_images": "0",
+      "card_photos": "1",
+      "no_image": "5"
+    },
+    {
+      "slug": "2025-topps-marvel-studios",
+      "name": "2025 Topps Marvel Studios",
+      "cardType": "AVENGERS SHADOWBOX",
+      "total": "20",
+      "ai_images": "5",
+      "card_photos": "1",
+      "no_image": "11"
+    },
+    {
+      "slug": "2025-topps-marvel-studios",
+      "name": "2025 Topps Marvel Studios",
+      "cardType": "Base",
+      "total": "200",
+      "ai_images": "12",
+      "card_photos": "10",
+      "no_image": "116"
+    },
+    {
+      "slug": "2025-topps-marvel-studios",
+      "name": "2025 Topps Marvel Studios",
+      "cardType": "CAPTAIN AMERICA: BRAVE NEW WORLD",
+      "total": "25",
+      "ai_images": "4",
+      "card_photos": "3",
+      "no_image": "15"
+    },
+    {
+      "slug": "2025-topps-marvel-studios",
+      "name": "2025 Topps Marvel Studios",
+      "cardType": "CELESTIAL ARRIVAL",
+      "total": "1",
+      "ai_images": "0",
+      "card_photos": "0",
+      "no_image": "0"
+    },
+    {
+      "slug": "2025-topps-marvel-studios",
+      "name": "2025 Topps Marvel Studios",
+      "cardType": "DAREDEVIL: BORN AGAIN",
+      "total": "25",
+      "ai_images": "1",
+      "card_photos": "0",
+      "no_image": "16"
+    },
+    {
+      "slug": "2025-topps-marvel-studios",
+      "name": "2025 Topps Marvel Studios",
+      "cardType": "FF-5 H.E.R.B.I.E.",
+      "total": "6",
+      "ai_images": "0",
+      "card_photos": "0",
+      "no_image": "5"
+    },
+    {
+      "slug": "2025-topps-marvel-studios",
+      "name": "2025 Topps Marvel Studios",
+      "cardType": "MARVEL GODS",
+      "total": "25",
+      "ai_images": "0",
+      "card_photos": "0",
+      "no_image": "18"
+    },
+    {
+      "slug": "2025-topps-marvel-studios",
+      "name": "2025 Topps Marvel Studios",
+      "cardType": "REFLECTIONS",
+      "total": "5",
+      "ai_images": "2",
+      "card_photos": "0",
+      "no_image": "3"
+    },
+    {
+      "slug": "2025-topps-marvel-studios",
+      "name": "2025 Topps Marvel Studios",
+      "cardType": "THE FANTASTIC FOUR: FIRST STEPS",
+      "total": "4",
+      "ai_images": "0",
+      "card_photos": "0",
+      "no_image": "4"
+    },
+    {
+      "slug": "2025-topps-marvel-studios",
+      "name": "2025 Topps Marvel Studios",
+      "cardType": "THE SNAP VARIATION",
+      "total": "200",
+      "ai_images": "12",
+      "card_photos": "10",
+      "no_image": "116"
+    },
+    {
+      "slug": "2025-topps-marvel-studios",
+      "name": "2025 Topps Marvel Studios",
+      "cardType": "THE TVA PRUNING",
+      "total": "25",
+      "ai_images": "0",
+      "card_photos": "0",
+      "no_image": "20"
+    },
+    {
+      "slug": "2025-topps-marvel-studios-sapphire",
+      "name": "2025 Topps Marvel Studios Sapphire",
+      "cardType": "Base",
+      "total": "200",
+      "ai_images": "12",
+      "card_photos": "10",
+      "no_image": "116"
+    },
+    {
+      "slug": "2025-topps-marvel-studios-sapphire",
+      "name": "2025 Topps Marvel Studios Sapphire",
+      "cardType": "SAPPHIRE SELECTIONS",
+      "total": "10",
+      "ai_images": "4",
+      "card_photos": "1",
+      "no_image": "5"
+    }
+  ],
+  "messages": [],
+  "stdout": "slug\tname\tcardType\ttotal\tai_images\tcard_photos\tno_image\n2025-topps-chrome\t2025 Topps Chrome\tAIR MARVEL\t22\t8\t7\t2\n2025-topps-chrome\t2025 Topps Chrome\tAVENGERS INFINITY\t6\t4\t0\t0\n2025-topps-chrome\t2025 Topps Chrome\tBase\t197\t0\t0\t0\n2025-topps-chrome\t2025 Topps Chrome\tCLASSIC COMIC BOOK COVERS\t10\t1\t0\t7\n2025-topps-chrome\t2025 Topps Chrome\tFUTURE STARS\t8\t0\t0\t0\n2025-topps-chrome\t2025 Topps Chrome\tGALACTIC LEGENDS\t10\t2\t1\t1\n2025-topps-chrome\t2025 Topps Chrome\tGOLDEN ANNIVERSARIES\t5\t1\t2\t0\n2025-topps-chrome\t2025 Topps Chrome\tINDESTRUCTIBLE\t12\t6\t1\t1\n2025-topps-chrome\t2025 Topps Chrome\tIRON MAN GOLD\t10\t10\t0\t0\n2025-topps-chrome\t2025 Topps Chrome\tMARVEL ANNIVERSARIES\t30\t6\t4\t9\n2025-topps-chrome\t2025 Topps Chrome\tMARVEL ICONS\t10\t4\t2\t0\n2025-topps-chrome\t2025 Topps Chrome\tMARVEL REFLECTIONS\t5\t1\t0\t0\n2025-topps-chrome\t2025 Topps Chrome\tMARVEL ZOMBIES 20TH ANNIVERSARY RELIC CARD\t1\t0\t0\t1\n2025-topps-chrome\t2025 Topps Chrome\tTHE NEW AVENGERS 20TH ANNIVERSARY\t10\t6\t2\t0\n2025-topps-chrome\t2025 Topps Chrome\tTHE NEW AVENGERS 20TH ANNIVERSARY AUTOGRAPH RELIC EDITION\t1\t0\t0\t0\n2025-topps-chrome\t2025 Topps Chrome\tTHE ONE AND ONLY\t5\t3\t1\t1\n2025-topps-chrome\t2025 Topps Chrome\tTOPPS PATRIMONY\t5\t1\t1\t0\n2025-topps-chrome\t2025 Topps Chrome\tX MEN GIANT SIZE 50TH ANNIVERSARY\t10\t3\t4\t0\n2025-topps-chrome\t2025 Topps Chrome\tX MEN GIANT SIZE 50TH ANNIVERSARY RELIC CARD\t1\t0\t0\t1\n2025-topps-comic-book-heroes\t2025 Topps Comic Book Heroes\tCOMIC BOOK HEROES 1975\t25\t25\t0\t0\n2025-topps-comic-book-heroes\t2025 Topps Comic Book Heroes\tCOMIC BOOK HEROES 1976\t74\t74\t0\t0\n2025-topps-comic-book-heroes\t2025 Topps Comic Book Heroes\tCOMIC BOOK HEROES 2025\t51\t51\t0\t0\n2025-topps-marvel-mint\t2025 Topps Marvel Mint\tAutograph\t15\t0\t0\t0\n2025-topps-marvel-mint\t2025 Topps Marvel Mint\tBASE CARDS – BRONZE\t50\t0\t50\t0\n2025-topps-marvel-mint\t2025 Topps Marvel Mint\tBASE CARDS – GOLD\t25\t0\t0\t0\n2025-topps-marvel-mint\t2025 Topps Marvel Mint\tBASE CARDS – PLATINUM\t20\t0\t20\t0\n2025-topps-marvel-mint\t2025 Topps Marvel Mint\tBASE CARDS – SILVER\t25\t0\t16\t9\n2025-topps-marvel-mint\t2025 Topps Marvel Mint\tGAMBIT'S DECK\t52\t0\t52\t0\n2025-topps-marvel-mint\t2025 Topps Marvel Mint\tGAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS\t52\t0\t52\t0\n2025-topps-marvel-sapphire\t2025 Topps Marvel Sapphire\tBase\t200\t29\t21\t4\n2025-topps-marvel-sapphire\t2025 Topps Marvel Sapphire\tINFINITE SAPPHIRE\t5\t3\t2\t0\n2025-topps-marvel-sapphire\t2025 Topps Marvel Sapphire\tSAPPHIRE SELECTIONS\t10\t3\t1\t1\n2025-topps-marvel-sapphire\t2025 Topps Marvel Sapphire\tTHE MERRY MARVEL MARCHING SOCIETY\t10\t6\t3\t0\n2025-topps-marvel-studios\t2025 Topps Marvel Studios\tAGATHA ALL ALONG\t7\t0\t1\t5\n2025-topps-marvel-studios\t2025 Topps Marvel Studios\tAVENGERS SHADOWBOX\t20\t5\t1\t11\n2025-topps-marvel-studios\t2025 Topps Marvel Studios\tBase\t200\t12\t10\t116\n2025-topps-marvel-studios\t2025 Topps Marvel Studios\tCAPTAIN AMERICA: BRAVE NEW WORLD\t25\t4\t3\t15\n2025-topps-marvel-studios\t2025 Topps Marvel Studios\tCELESTIAL ARRIVAL\t1\t0\t0\t0\n2025-topps-marvel-studios\t2025 Topps Marvel Studios\tDAREDEVIL: BORN AGAIN\t25\t1\t0\t16\n2025-topps-marvel-studios\t2025 Topps Marvel Studios\tFF-5 H.E.R.B.I.E.\t6\t0\t0\t5\n2025-topps-marvel-studios\t2025 Topps Marvel Studios\tMARVEL GODS\t25\t0\t0\t18\n2025-topps-marvel-studios\t2025 Topps Marvel Studios\tREFLECTIONS\t5\t2\t0\t3\n2025-topps-marvel-studios\t2025 Topps Marvel Studios\tTHE FANTASTIC FOUR: FIRST STEPS\t4\t0\t0\t4\n2025-topps-marvel-studios\t2025 Topps Marvel Studios\tTHE SNAP VARIATION\t200\t12\t10\t116\n2025-topps-marvel-studios\t2025 Topps Marvel Studios\tTHE TVA PRUNING\t25\t0\t0\t20\n2025-topps-marvel-studios-sapphire\t2025 Topps Marvel Studios Sapphire\tBase\t200\t12\t10\t116\n2025-topps-marvel-studios-sapphire\t2025 Topps Marvel Studios Sapphire\tSAPPHIRE SELECTIONS\t10\t4\t1\t5\n",
+  "stderr": "",
+  "execution_time_ms": 391
+}
