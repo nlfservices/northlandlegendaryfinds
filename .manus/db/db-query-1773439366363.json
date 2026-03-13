@@ -1,0 +1,34 @@
+{
+  "query": "SELECT id, setId, cardNumber, characterName, cardType, imageUrl FROM marvel_cards WHERE cardNumber LIKE '%MZ-1%' OR cardNumber LIKE '%MR-2%' OR (cardNumber = 'I-5' AND characterName LIKE '%Daredevil%');",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, setId, cardNumber, characterName, cardType, imageUrl FROM marvel_cards WHERE cardNumber LIKE '%MZ-1%' OR cardNumber LIKE '%MR-2%' OR (cardNumber = 'I-5' AND characterName LIKE '%Daredevil%');",
+  "rows": [
+    {
+      "id": "271",
+      "setId": "1",
+      "cardNumber": "I-5",
+      "characterName": "Daredevil",
+      "cardType": "INDESTRUCTIBLE",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_I-5_Daredevil_f8aec530.png"
+    },
+    {
+      "id": "327",
+      "setId": "1",
+      "cardNumber": "MR-2",
+      "characterName": "Wolverine",
+      "cardType": "MARVEL REFLECTIONS",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_MR-2_Wolverine_381675e7.png"
+    },
+    {
+      "id": "331",
+      "setId": "1",
+      "cardNumber": "MZ-1",
+      "characterName": "Marvel Zombies",
+      "cardType": "MARVEL ZOMBIES 20TH ANNIVERSARY RELIC CARD",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_MZ-1_Marvel_Zombies_aea1cfd1.png"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tsetId\tcardNumber\tcharacterName\tcardType\timageUrl\n271\t1\tI-5\tDaredevil\tINDESTRUCTIBLE\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_I-5_Daredevil_f8aec530.png\n327\t1\tMR-2\tWolverine\tMARVEL REFLECTIONS\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_MR-2_Wolverine_381675e7.png\n331\t1\tMZ-1\tMarvel Zombies\tMARVEL ZOMBIES 20TH ANNIVERSARY RELIC CARD\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_MZ-1_Marvel_Zombies_aea1cfd1.png\n",
+  "stderr": "",
+  "execution_time_ms": 369
+}

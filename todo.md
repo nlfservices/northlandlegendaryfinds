@@ -601,3 +601,13 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [ ] Generate remaining ~328 Marvel Studios cards (batch 3 still needed)
 - [ ] Verify all Marvel Studios cards have unique, correct character images
 - [ ] Save checkpoint
+
+## Fix Marvel Zombies Card (Superman → Marvel Zombies)
+- [x] Regenerate MZ-1 Marvel Zombies card with Zombie Captain America and Zombie Iron Man (was showing Superman - DC character)
+- [x] Upload to CDN and update database
+- [x] Regenerate MR-2 Wolverine Marvel Reflections card (was showing Batman - DC character)
+- [x] Regenerate I-5 Daredevil Indestructible card (showing wrong character)
+
+## Copy Chrome Images to Sapphire Set
+- [x] Map Chrome card images to matching Sapphire cards by character/subset (197 matched out of 225)
+- [x] Update Sapphire card imageUrl fields in database (10 batches executed)

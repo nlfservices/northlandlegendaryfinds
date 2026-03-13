@@ -1,0 +1,28 @@
+{
+  "query": "SELECT id, cardNumber, characterName, cardType FROM marvel_cards WHERE cardNumber LIKE '%MZ-1%' OR cardNumber LIKE '%MR-2%' OR (cardNumber = 'I-5' AND characterName LIKE '%Daredevil%') LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, cardNumber, characterName, cardType FROM marvel_cards WHERE cardNumber LIKE '%MZ-1%' OR cardNumber LIKE '%MR-2%' OR (cardNumber = 'I-5' AND characterName LIKE '%Daredevil%') LIMIT 10;",
+  "rows": [
+    {
+      "id": "271",
+      "cardNumber": "I-5",
+      "characterName": "Daredevil",
+      "cardType": "INDESTRUCTIBLE"
+    },
+    {
+      "id": "327",
+      "cardNumber": "MR-2",
+      "characterName": "Wolverine",
+      "cardType": "MARVEL REFLECTIONS"
+    },
+    {
+      "id": "331",
+      "cardNumber": "MZ-1",
+      "characterName": "Marvel Zombies",
+      "cardType": "MARVEL ZOMBIES 20TH ANNIVERSARY RELIC CARD"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcardNumber\tcharacterName\tcardType\n271\tI-5\tDaredevil\tINDESTRUCTIBLE\n327\tMR-2\tWolverine\tMARVEL REFLECTIONS\n331\tMZ-1\tMarvel Zombies\tMARVEL ZOMBIES 20TH ANNIVERSARY RELIC CARD\n",
+  "stderr": "",
+  "execution_time_ms": 363
+}

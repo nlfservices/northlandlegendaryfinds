@@ -1,0 +1,9 @@
+{
+  "query": "SELECT id, cardNumber, characterName, cardType, imageUrl FROM marvel_cards WHERE setId = 4 AND cardNumber IN ('MZ-1', 'MR-2', 'I-5');",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, cardNumber, characterName, cardType, imageUrl FROM marvel_cards WHERE setId = 4 AND cardNumber IN ('MZ-1', 'MR-2', 'I-5');",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 350
+}
