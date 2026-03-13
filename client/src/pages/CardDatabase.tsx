@@ -12,9 +12,10 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import {
   Search, ChevronRight, BookOpen, Layers, Hash, ArrowLeft,
-  Star, X, Grid3X3, List, DollarSign
+  Star, X, Grid3X3, List, DollarSign, Sparkles
 } from "lucide-react";
 import { useLocation } from "wouter";
+import { CARD_TYPE_TO_THEME } from "./CardDisplay";
 
 // Default placeholder for cards without images
 const PLACEHOLDER_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hulk_9ebdacfa.png";
@@ -26,6 +27,10 @@ const COSMIC_BG: Record<string, string> = {
   "COMIC BOOK HEROES 1975": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-1975-gold-amber_4a450d14.png",
   "COMIC BOOK HEROES 1976": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-1976-blue-silver_6b1bd586.png",
   "COMIC BOOK HEROES 2025": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-2025-emerald-green_6d5f07b4.png",
+  "BASE CARDS \u2013 BRONZE": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-mint-bronze_ab7d9bd7.png",
+  "BASE CARDS \u2013 SILVER": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-mint-silver_4a175856.png",
+  "BASE CARDS \u2013 GOLD": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-mint-gold_d9dc1d49.png",
+  "BASE CARDS \u2013 PLATINUM": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-mint-platinum_0fe0fc77.png",
 };
 
 const ERA_THEMES: Record<string, {
@@ -256,7 +261,7 @@ function QuickCompButton({ cardName, setName, compact }: { cardName: string; set
   return (
     <button
       onClick={handleComp}
-      className="mt-2 w-full flex items-center justify-center gap-1 px-2 py-1.5 rounded-md text-[11px] font-medium bg-primary/10 text-primary hover:bg-primary/20 transition-colors border border-primary/20"
+      className="w-full flex items-center justify-center gap-1 px-2 py-1.5 rounded-md text-[11px] font-medium bg-primary/10 text-primary hover:bg-primary/20 transition-colors border border-primary/20"
       title={`Check eBay price for ${cardName}`}
     >
       <DollarSign className="w-3 h-3" />
@@ -766,8 +771,13 @@ function SetDetail({ slug }: { slug: string }) {
               <article key={card.id} className="group">
                 {(() => {
                   const theme = getEraTheme(card.cardType || '');
-                  const cosmicBgUrl = COSMIC_BG[card.cardType || ''];
+                  // Gambit cards don't get cosmic backgrounds
+                  const isGambit = isPlayingCardType(card.cardType || '');
+                  const cosmicBgUrl = isGambit ? undefined : COSMIC_BG[card.cardType || ''];
                   const hasCosmic = !!cosmicBgUrl;
+                  // Build display URL for the card display tool
+                  const themeId = CARD_TYPE_TO_THEME[card.cardType || ''];
+                  const displayUrl = `/card-display?img=${encodeURIComponent(card.imageUrl || PLACEHOLDER_IMG)}&theme=${themeId || 'gold-amber'}&name=${encodeURIComponent(card.characterName)}&from=database`;
                   return (
                     <div className={`rounded-lg overflow-hidden transition-all ${hasCosmic ? 'border-0 bg-transparent' : `border border-border ${theme.border} hover:shadow-lg ${theme.glow} ${theme.bg}`}`}>
                       {/* Cosmic card with nebula background */}
@@ -796,7 +806,25 @@ function SetDetail({ slug }: { slug: string }) {
                             {card.parallels}
                           </p>
                         )}
-                        <QuickCompButton cardName={card.characterName} setName={set.name} />
+                        <div className="flex gap-1.5 mt-2">
+                          <QuickCompButton cardName={card.characterName} setName={set.name} />
+                          {!isGambit && card.imageUrl && (
+                            <Link href={displayUrl}>
+                              <button
+                                className="w-full flex items-center justify-center gap-1 px-2 py-1.5 rounded-md text-[11px] font-medium transition-colors border"
+                                style={{
+                                  background: `${theme.borderColor?.replace('0.7', '0.1') || 'rgba(132,204,22,0.1)'}`,
+                                  color: theme.borderColor?.replace('0.7', '1') || theme.accent?.replace('text-', '') || '#a3e635',
+                                  borderColor: theme.borderColor?.replace('0.7', '0.3') || 'rgba(132,204,22,0.3)',
+                                }}
+                                title={`Display ${card.characterName} in cosmic viewer`}
+                              >
+                                <Sparkles className="w-3 h-3" />
+                                Display
+                              </button>
+                            </Link>
+                          )}
+                        </div>
                       </div>
                     </div>
                   );
@@ -818,6 +846,7 @@ function SetDetail({ slug }: { slug: string }) {
                     <th className="text-left p-3 text-sm font-semibold text-muted-foreground">Type</th>
                     <th className="text-left p-3 text-sm font-semibold text-muted-foreground">Parallels</th>
                     <th className="text-left p-3 text-sm font-semibold text-muted-foreground w-24">Comp</th>
+                    <th className="text-left p-3 text-sm font-semibold text-muted-foreground w-24">Display</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -852,6 +881,20 @@ function SetDetail({ slug }: { slug: string }) {
                       </td>
                       <td className="p-3">
                         <QuickCompButton cardName={card.characterName} setName={set.name} compact />
+                      </td>
+                      <td className="p-3">
+                        {!isPlayingCardType(card.cardType || '') && card.imageUrl && (() => {
+                          const themeId = CARD_TYPE_TO_THEME[card.cardType || ''];
+                          const displayUrl = `/card-display?img=${encodeURIComponent(card.imageUrl || PLACEHOLDER_IMG)}&theme=${themeId || 'gold-amber'}&name=${encodeURIComponent(card.characterName)}&from=database`;
+                          return (
+                            <Link href={displayUrl}>
+                              <button className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs bg-purple-500/10 text-purple-400 hover:bg-purple-500/20 transition-colors border border-purple-500/20">
+                                <Sparkles className="w-3 h-3" />
+                                Display
+                              </button>
+                            </Link>
+                          );
+                        })()}
                       </td>
                     </tr>
                   ))}

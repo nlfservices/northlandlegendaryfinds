@@ -556,4 +556,14 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add Cinzel and Crimson Text Google Fonts
 - [x] Add route to App.tsx (standalone, no nav/footer)
 - [x] Test all 7 themes — backgrounds switch, accents change, particles recolor
+- [x] Save checkpoint
+
+## Display Card Button + Download + Mint Themes
+- [x] Add "Display Card" button to Card Database cards that opens /card-display pre-loaded with card image and matching theme
+- [x] Pass card image URL and theme via URL params to /card-display
+- [x] Add download button to Card Display page (canvas-based, html2canvas doesn't support OKLCH)
+- [x] Add Marvel Mint subset themes to Card Database (Bronze, Silver, Gold, Platinum borders/glows)
+- [x] Keep Gambit set cards unchanged (no themed borders/glows) — verified
+- [x] Add "Back to Card Database" navigation button on CardDisplay
+- [x] Test all features
 - [ ] Save checkpoint
