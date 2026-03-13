@@ -499,3 +499,18 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 ## Era-Based Color Themes for Card Database
 - [x] Add era-based color themes to CBH card database page (1975=gold/amber, 1976=blue/silver, 2025=emerald/green)
 - [ ] Later: Add subset-based color themes to Marvel Mint (Bronze, Silver, Gold, Platinum)
+
+## Card Display Fix
+- [ ] Fix card database to show front of card by default (currently showing back)
+
+## Cosmic Card Backgrounds & Skill
+- [x] Download actual card image from comicbookcard.com and test composite onto cosmic background
+- [x] Update FlipCard component to use cosmic era backgrounds with glow effects
+- [ ] Create skill for importing card images onto cosmic backgrounds
+
+## Remove Card Flip & Use AI Images
+- [x] Remove card flip animation from all cards in Card Database - show front image only
+- [x] Replace card photos (from comicbookcard.com) with AI-generated images for CBH cards (Doctor Doom #4, Wolverine #99)
+- [x] Remove backImageUrl references from card display
+- [x] Keep cosmic era backgrounds and glow effects on non-flipping cards
+- [x] Remove 'Click cards to flip' instruction text from set header

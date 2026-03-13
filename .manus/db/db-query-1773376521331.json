@@ -1,0 +1,80 @@
+{
+  "query": "SELECT mc.cardNumber, mc.characterName, \n  CASE \n    WHEN mc.imageUrl LIKE '%cbh_%' THEN 'CARD_PHOTO'\n    WHEN mc.imageUrl LIKE '%comicbook%' THEN 'CARD_PHOTO'\n    WHEN mc.imageUrl IS NULL THEN 'NO_IMAGE'\n    ELSE 'AI_OR_OTHER'\n  END as image_type,\n  SUBSTRING(mc.imageUrl, 1, 100) as img_start,\n  CASE WHEN mc.back_image_url IS NOT NULL THEN 'YES' ELSE 'NO' END as has_back\nFROM marvel_cards mc \nJOIN marvel_sets ms ON mc.setId = ms.id \nWHERE ms.slug = '2025-topps-comic-book-heroes' \nORDER BY CAST(mc.cardNumber AS UNSIGNED)\nLIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT mc.cardNumber, mc.characterName, \n  CASE \n    WHEN mc.imageUrl LIKE '%cbh_%' THEN 'CARD_PHOTO'\n    WHEN mc.imageUrl LIKE '%comicbook%' THEN 'CARD_PHOTO'\n    WHEN mc.imageUrl IS NULL THEN 'NO_IMAGE'\n    ELSE 'AI_OR_OTHER'\n  END as image_type,\n  SUBSTRING(mc.imageUrl, 1, 100) as img_start,\n  CASE WHEN mc.back_image_url IS NOT NULL THEN 'YES' ELSE 'NO' END as has_back\nFROM marvel_cards mc \nJOIN marvel_sets ms ON mc.setId = ms.id \nWHERE ms.slug = '2025-topps-comic-book-heroes' \nORDER BY CAST(mc.cardNumber AS UNSIGNED)\nLIMIT 10;",
+  "rows": [
+    {
+      "cardNumber": "1",
+      "characterName": "Black Widow",
+      "image_type": "CARD_PHOTO",
+      "img_start": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-001_Black_Widow_",
+      "has_back": "YES"
+    },
+    {
+      "cardNumber": "2",
+      "characterName": "Captain America",
+      "image_type": "CARD_PHOTO",
+      "img_start": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-002_Captain_Amer",
+      "has_back": "YES"
+    },
+    {
+      "cardNumber": "3",
+      "characterName": "Daredevil",
+      "image_type": "CARD_PHOTO",
+      "img_start": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-003_Daredevil_c5",
+      "has_back": "YES"
+    },
+    {
+      "cardNumber": "4",
+      "characterName": "Doctor Doom",
+      "image_type": "AI_OR_OTHER",
+      "img_start": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/004-doctor-doom-fron",
+      "has_back": "YES"
+    },
+    {
+      "cardNumber": "5",
+      "characterName": "Doctor Octopus",
+      "image_type": "CARD_PHOTO",
+      "img_start": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-005_Doctor_Octop",
+      "has_back": "YES"
+    },
+    {
+      "cardNumber": "6",
+      "characterName": "Doctor Strange",
+      "image_type": "CARD_PHOTO",
+      "img_start": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-006_Doctor_Stran",
+      "has_back": "YES"
+    },
+    {
+      "cardNumber": "7",
+      "characterName": "Falcon",
+      "image_type": "CARD_PHOTO",
+      "img_start": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-007_Falcon_108bd",
+      "has_back": "YES"
+    },
+    {
+      "cardNumber": "8",
+      "characterName": "Ghost Rider",
+      "image_type": "CARD_PHOTO",
+      "img_start": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-008_Ghost_Rider_",
+      "has_back": "YES"
+    },
+    {
+      "cardNumber": "9",
+      "characterName": "Hawkeye",
+      "image_type": "CARD_PHOTO",
+      "img_start": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-009_Hawkeye_7d6f",
+      "has_back": "YES"
+    },
+    {
+      "cardNumber": "10",
+      "characterName": "Hulk",
+      "image_type": "CARD_PHOTO",
+      "img_start": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-010_Hulk_5021737",
+      "has_back": "YES"
+    }
+  ],
+  "messages": [],
+  "stdout": "cardNumber\tcharacterName\timage_type\timg_start\thas_back\n1\tBlack Widow\tCARD_PHOTO\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-001_Black_Widow_\tYES\n2\tCaptain America\tCARD_PHOTO\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-002_Captain_Amer\tYES\n3\tDaredevil\tCARD_PHOTO\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-003_Daredevil_c5\tYES\n4\tDoctor Doom\tAI_OR_OTHER\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/004-doctor-doom-fron\tYES\n5\tDoctor Octopus\tCARD_PHOTO\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-005_Doctor_Octop\tYES\n6\tDoctor Strange\tCARD_PHOTO\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-006_Doctor_Stran\tYES\n7\tFalcon\tCARD_PHOTO\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-007_Falcon_108bd\tYES\n8\tGhost Rider\tCARD_PHOTO\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-008_Ghost_Rider_\tYES\n9\tHawkeye\tCARD_PHOTO\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-009_Hawkeye_7d6f\tYES\n10\tHulk\tCARD_PHOTO\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-010_Hulk_5021737\tYES\n",
+  "stderr": "",
+  "execution_time_ms": 366
+}

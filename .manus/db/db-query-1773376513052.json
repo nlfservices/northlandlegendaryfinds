@@ -1,0 +1,45 @@
+{
+  "query": "SELECT mc.cardNumber, mc.characterName, mc.cardType, \n  mc.imageUrl,\n  mc.back_image_url\nFROM marvel_cards mc \nJOIN marvel_sets ms ON mc.setId = ms.id \nWHERE ms.slug = '2025-topps-comic-book-heroes' \nAND mc.cardNumber IN ('1','2','3','4','5')\nORDER BY CAST(mc.cardNumber AS UNSIGNED);",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT mc.cardNumber, mc.characterName, mc.cardType, \n  mc.imageUrl,\n  mc.back_image_url\nFROM marvel_cards mc \nJOIN marvel_sets ms ON mc.setId = ms.id \nWHERE ms.slug = '2025-topps-comic-book-heroes' \nAND mc.cardNumber IN ('1','2','3','4','5')\nORDER BY CAST(mc.cardNumber AS UNSIGNED);",
+  "rows": [
+    {
+      "cardNumber": "1",
+      "characterName": "Black Widow",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-001_Black_Widow_687e36e3.webp",
+      "back_image_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/001-black-widow-back_2b8fe730.webp"
+    },
+    {
+      "cardNumber": "2",
+      "characterName": "Captain America",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-002_Captain_America_9fb636d3.webp",
+      "back_image_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/002-captain-america-back_14cf22f8.webp"
+    },
+    {
+      "cardNumber": "3",
+      "characterName": "Daredevil",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-003_Daredevil_c52d3b5a.webp",
+      "back_image_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/003-daredevil-back_6f42edd1.webp"
+    },
+    {
+      "cardNumber": "4",
+      "characterName": "Doctor Doom",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/004-doctor-doom-front_7cef5c2a.webp",
+      "back_image_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/004-doctor-doom-back_f00b6a5d.webp"
+    },
+    {
+      "cardNumber": "5",
+      "characterName": "Doctor Octopus",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-005_Doctor_Octopus_60090c06.webp",
+      "back_image_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/005-doctor-octopus-back_5eb2e636.webp"
+    }
+  ],
+  "messages": [],
+  "stdout": "cardNumber\tcharacterName\tcardType\timageUrl\tback_image_url\n1\tBlack Widow\tCOMIC BOOK HEROES 1975\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-001_Black_Widow_687e36e3.webp\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/001-black-widow-back_2b8fe730.webp\n2\tCaptain America\tCOMIC BOOK HEROES 1975\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-002_Captain_America_9fb636d3.webp\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/002-captain-america-back_14cf22f8.webp\n3\tDaredevil\tCOMIC BOOK HEROES 1975\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-003_Daredevil_c52d3b5a.webp\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/003-daredevil-back_6f42edd1.webp\n4\tDoctor Doom\tCOMIC BOOK HEROES 1975\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/004-doctor-doom-front_7cef5c2a.webp\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/004-doctor-doom-back_f00b6a5d.webp\n5\tDoctor Octopus\tCOMIC BOOK HEROES 1975\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-005_Doctor_Octopus_60090c06.webp\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/005-doctor-octopus-back_5eb2e636.webp\n",
+  "stderr": "",
+  "execution_time_ms": 354
+}

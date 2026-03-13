@@ -1,0 +1,8 @@
+{
+  "query": "SELECT mc.id, mc.cardNumber, mc.characterName, mc.cardType, \n  SUBSTRING(mc.imageUrl, 1, 80) as imageUrl_prefix,\n  CASE WHEN mc.backImageUrl IS NOT NULL THEN 'YES' ELSE 'NO' END as has_back\nFROM marvel_cards mc \nJOIN marvel_sets ms ON mc.setId = ms.id \nWHERE ms.slug = '2025-topps-comic-book-heroes' \nORDER BY CAST(mc.cardNumber AS UNSIGNED) \nLIMIT 30;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT mc.id, mc.cardNumber, mc.characterName, mc.cardType, \n  SUBSTRING(mc.imageUrl, 1, 80) as imageUrl_prefix,\n  CASE WHEN mc.backImageUrl IS NOT NULL THEN 'YES' ELSE 'NO' END as has_back\nFROM marvel_cards mc \nJOIN marvel_sets ms ON mc.setId = ms.id \nWHERE ms.slug = '2025-topps-comic-book-heroes' \nORDER BY CAST(mc.cardNumber AS UNSIGNED) \nLIMIT 30;",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1054 (42S22) at line 1: Unknown column 'mc.backimageurl' in 'field list'"
+  ]
+}

@@ -1,0 +1,250 @@
+{
+  "query": "SELECT mc.id, mc.cardNumber, mc.characterName, mc.cardType, \n  SUBSTRING(mc.imageUrl, 1, 80) as img_prefix,\n  CASE WHEN mc.back_image_url IS NOT NULL THEN 'YES' ELSE 'NO' END as has_back\nFROM marvel_cards mc \nJOIN marvel_sets ms ON mc.setId = ms.id \nWHERE ms.slug = '2025-topps-comic-book-heroes' \nORDER BY CAST(mc.cardNumber AS UNSIGNED) \nLIMIT 30;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT mc.id, mc.cardNumber, mc.characterName, mc.cardType, \n  SUBSTRING(mc.imageUrl, 1, 80) as img_prefix,\n  CASE WHEN mc.back_image_url IS NOT NULL THEN 'YES' ELSE 'NO' END as has_back\nFROM marvel_cards mc \nJOIN marvel_sets ms ON mc.setId = ms.id \nWHERE ms.slug = '2025-topps-comic-book-heroes' \nORDER BY CAST(mc.cardNumber AS UNSIGNED) \nLIMIT 30;",
+  "rows": [
+    {
+      "id": "1337",
+      "cardNumber": "1",
+      "characterName": "Black Widow",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "img_prefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/",
+      "has_back": "YES"
+    },
+    {
+      "id": "1399",
+      "cardNumber": "2",
+      "characterName": "Captain America",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "img_prefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/",
+      "has_back": "YES"
+    },
+    {
+      "id": "1410",
+      "cardNumber": "3",
+      "characterName": "Daredevil",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "img_prefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/",
+      "has_back": "YES"
+    },
+    {
+      "id": "1421",
+      "cardNumber": "4",
+      "characterName": "Doctor Doom",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "img_prefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/",
+      "has_back": "YES"
+    },
+    {
+      "id": "1432",
+      "cardNumber": "5",
+      "characterName": "Doctor Octopus",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "img_prefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/",
+      "has_back": "YES"
+    },
+    {
+      "id": "1443",
+      "cardNumber": "6",
+      "characterName": "Doctor Strange",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "img_prefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/",
+      "has_back": "YES"
+    },
+    {
+      "id": "1454",
+      "cardNumber": "7",
+      "characterName": "Falcon",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "img_prefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/",
+      "has_back": "YES"
+    },
+    {
+      "id": "1465",
+      "cardNumber": "8",
+      "characterName": "Ghost Rider",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "img_prefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/",
+      "has_back": "YES"
+    },
+    {
+      "id": "1476",
+      "cardNumber": "9",
+      "characterName": "Hawkeye",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "img_prefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/",
+      "has_back": "YES"
+    },
+    {
+      "id": "1338",
+      "cardNumber": "10",
+      "characterName": "Hulk",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "img_prefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/",
+      "has_back": "YES"
+    },
+    {
+      "id": "1349",
+      "cardNumber": "11",
+      "characterName": "Human Torch",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "img_prefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/",
+      "has_back": "YES"
+    },
+    {
+      "id": "1360",
+      "cardNumber": "12",
+      "characterName": "Iron Fist",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "img_prefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/",
+      "has_back": "YES"
+    },
+    {
+      "id": "1371",
+      "cardNumber": "13",
+      "characterName": "Iron Man",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "img_prefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/",
+      "has_back": "YES"
+    },
+    {
+      "id": "1382",
+      "cardNumber": "14",
+      "characterName": "Ka-Zar",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "img_prefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/",
+      "has_back": "YES"
+    },
+    {
+      "id": "1393",
+      "cardNumber": "15",
+      "characterName": "Luke Cage",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "img_prefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/",
+      "has_back": "YES"
+    },
+    {
+      "id": "1395",
+      "cardNumber": "16",
+      "characterName": "Man-Thing",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "img_prefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/",
+      "has_back": "YES"
+    },
+    {
+      "id": "1396",
+      "cardNumber": "17",
+      "characterName": "Mar-Vell",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "img_prefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/",
+      "has_back": "YES"
+    },
+    {
+      "id": "1397",
+      "cardNumber": "18",
+      "characterName": "Medusa",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "img_prefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/",
+      "has_back": "YES"
+    },
+    {
+      "id": "1398",
+      "cardNumber": "19",
+      "characterName": "Mister Fantastic",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "img_prefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/",
+      "has_back": "YES"
+    },
+    {
+      "id": "1400",
+      "cardNumber": "20",
+      "characterName": "Morbius",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "img_prefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/",
+      "has_back": "YES"
+    },
+    {
+      "id": "1401",
+      "cardNumber": "21",
+      "characterName": "Namor",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "img_prefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/",
+      "has_back": "YES"
+    },
+    {
+      "id": "1402",
+      "cardNumber": "22",
+      "characterName": "Spider-Man",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "img_prefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/",
+      "has_back": "YES"
+    },
+    {
+      "id": "1403",
+      "cardNumber": "23",
+      "characterName": "Valkyrie",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "img_prefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/",
+      "has_back": "YES"
+    },
+    {
+      "id": "1404",
+      "cardNumber": "24",
+      "characterName": "The Thing",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "img_prefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/",
+      "has_back": "YES"
+    },
+    {
+      "id": "1405",
+      "cardNumber": "25",
+      "characterName": "Thor",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "img_prefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/",
+      "has_back": "YES"
+    },
+    {
+      "id": "1406",
+      "cardNumber": "26",
+      "characterName": "Volstagg",
+      "cardType": "COMIC BOOK HEROES 1976",
+      "img_prefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/",
+      "has_back": "YES"
+    },
+    {
+      "id": "1407",
+      "cardNumber": "27",
+      "characterName": "Adam Warlock",
+      "cardType": "COMIC BOOK HEROES 1976",
+      "img_prefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/",
+      "has_back": "YES"
+    },
+    {
+      "id": "1408",
+      "cardNumber": "28",
+      "characterName": "Angel",
+      "cardType": "COMIC BOOK HEROES 1976",
+      "img_prefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/",
+      "has_back": "YES"
+    },
+    {
+      "id": "1409",
+      "cardNumber": "29",
+      "characterName": "Blade",
+      "cardType": "COMIC BOOK HEROES 1976",
+      "img_prefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/",
+      "has_back": "YES"
+    },
+    {
+      "id": "1411",
+      "cardNumber": "30",
+      "characterName": "Bucky Barnes",
+      "cardType": "COMIC BOOK HEROES 1976",
+      "img_prefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/",
+      "has_back": "YES"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcardNumber\tcharacterName\tcardType\timg_prefix\thas_back\n1337\t1\tBlack Widow\tCOMIC BOOK HEROES 1975\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\tYES\n1399\t2\tCaptain America\tCOMIC BOOK HEROES 1975\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\tYES\n1410\t3\tDaredevil\tCOMIC BOOK HEROES 1975\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\tYES\n1421\t4\tDoctor Doom\tCOMIC BOOK HEROES 1975\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\tYES\n1432\t5\tDoctor Octopus\tCOMIC BOOK HEROES 1975\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\tYES\n1443\t6\tDoctor Strange\tCOMIC BOOK HEROES 1975\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\tYES\n1454\t7\tFalcon\tCOMIC BOOK HEROES 1975\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\tYES\n1465\t8\tGhost Rider\tCOMIC BOOK HEROES 1975\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\tYES\n1476\t9\tHawkeye\tCOMIC BOOK HEROES 1975\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\tYES\n1338\t10\tHulk\tCOMIC BOOK HEROES 1975\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\tYES\n1349\t11\tHuman Torch\tCOMIC BOOK HEROES 1975\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\tYES\n1360\t12\tIron Fist\tCOMIC BOOK HEROES 1975\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\tYES\n1371\t13\tIron Man\tCOMIC BOOK HEROES 1975\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\tYES\n1382\t14\tKa-Zar\tCOMIC BOOK HEROES 1975\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\tYES\n1393\t15\tLuke Cage\tCOMIC BOOK HEROES 1975\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\tYES\n1395\t16\tMan-Thing\tCOMIC BOOK HEROES 1975\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\tYES\n1396\t17\tMar-Vell\tCOMIC BOOK HEROES 1975\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\tYES\n1397\t18\tMedusa\tCOMIC BOOK HEROES 1975\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\tYES\n1398\t19\tMister Fantastic\tCOMIC BOOK HEROES 1975\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\tYES\n1400\t20\tMorbius\tCOMIC BOOK HEROES 1975\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\tYES\n1401\t21\tNamor\tCOMIC BOOK HEROES 1975\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\tYES\n1402\t22\tSpider-Man\tCOMIC BOOK HEROES 1975\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\tYES\n1403\t23\tValkyrie\tCOMIC BOOK HEROES 1975\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\tYES\n1404\t24\tThe Thing\tCOMIC BOOK HEROES 1975\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\tYES\n1405\t25\tThor\tCOMIC BOOK HEROES 1975\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\tYES\n1406\t26\tVolstagg\tCOMIC BOOK HEROES 1976\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\tYES\n1407\t27\tAdam Warlock\tCOMIC BOOK HEROES 1976\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\tYES\n1408\t28\tAngel\tCOMIC BOOK HEROES 1976\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\tYES\n1409\t29\tBlade\tCOMIC BOOK HEROES 1976\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\tYES\n1411\t30\tBucky Barnes\tCOMIC BOOK HEROES 1976\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\tYES\n",
+  "stderr": "",
+  "execution_time_ms": 354
+}

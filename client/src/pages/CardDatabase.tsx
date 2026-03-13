@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import {
   Search, ChevronRight, BookOpen, Layers, Hash, ArrowLeft,
-  Star, X, RotateCcw, Eye, Grid3X3, List, DollarSign
+  Star, X, Grid3X3, List, DollarSign
 } from "lucide-react";
 import { useLocation } from "wouter";
 
@@ -21,6 +21,13 @@ const PLACEHOLDER_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/31041966302700973
 
 // ==================== ERA COLOR THEMES ====================
 // Different color themes for each card era/subset
+// Cosmic nebula background images for CBH eras
+const COSMIC_BG: Record<string, string> = {
+  "COMIC BOOK HEROES 1975": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-1975-gold-amber_4a450d14.png",
+  "COMIC BOOK HEROES 1976": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-1976-blue-silver_6b1bd586.png",
+  "COMIC BOOK HEROES 2025": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-2025-emerald-green_6d5f07b4.png",
+};
+
 const ERA_THEMES: Record<string, {
   bg: string;       // card background gradient
   border: string;   // border color on hover
@@ -29,6 +36,8 @@ const ERA_THEMES: Record<string, {
   accent: string;   // accent text color
   headerBg: string; // section header gradient
   label: string;    // display label
+  borderColor: string; // raw border color for cosmic frame
+  glowColor: string;   // raw glow color for cosmic frame
 }> = {
   "COMIC BOOK HEROES 1975": {
     bg: "bg-gradient-to-b from-amber-950/40 via-card to-card",
@@ -38,6 +47,8 @@ const ERA_THEMES: Record<string, {
     accent: "text-amber-400",
     headerBg: "from-amber-900/30 via-amber-950/20 to-background",
     label: "1975 Era",
+    borderColor: "rgba(245, 158, 11, 0.7)",
+    glowColor: "rgba(245, 158, 11, 0.35)",
   },
   "COMIC BOOK HEROES 1976": {
     bg: "bg-gradient-to-b from-blue-950/40 via-card to-card",
@@ -47,6 +58,8 @@ const ERA_THEMES: Record<string, {
     accent: "text-blue-400",
     headerBg: "from-blue-900/30 via-blue-950/20 to-background",
     label: "1976 Era",
+    borderColor: "rgba(100, 149, 237, 0.7)",
+    glowColor: "rgba(100, 149, 237, 0.35)",
   },
   "COMIC BOOK HEROES 2025": {
     bg: "bg-gradient-to-b from-emerald-950/40 via-card to-card",
@@ -56,6 +69,8 @@ const ERA_THEMES: Record<string, {
     accent: "text-emerald-400",
     headerBg: "from-emerald-900/30 via-emerald-950/20 to-background",
     label: "2025 Era",
+    borderColor: "rgba(16, 185, 129, 0.7)",
+    glowColor: "rgba(16, 185, 129, 0.35)",
   },
   // Marvel Mint subset themes (for future use)
   "BASE CARDS – BRONZE": {
@@ -66,6 +81,8 @@ const ERA_THEMES: Record<string, {
     accent: "text-orange-400",
     headerBg: "from-orange-900/30 via-orange-950/20 to-background",
     label: "Bronze",
+    borderColor: "rgba(249, 115, 22, 0.7)",
+    glowColor: "rgba(249, 115, 22, 0.35)",
   },
   "BASE CARDS – SILVER": {
     bg: "bg-gradient-to-b from-slate-800/40 via-card to-card",
@@ -75,6 +92,8 @@ const ERA_THEMES: Record<string, {
     accent: "text-slate-300",
     headerBg: "from-slate-700/30 via-slate-800/20 to-background",
     label: "Silver",
+    borderColor: "rgba(148, 163, 184, 0.7)",
+    glowColor: "rgba(148, 163, 184, 0.35)",
   },
   "BASE CARDS – GOLD": {
     bg: "bg-gradient-to-b from-yellow-900/40 via-card to-card",
@@ -84,6 +103,8 @@ const ERA_THEMES: Record<string, {
     accent: "text-yellow-400",
     headerBg: "from-yellow-900/30 via-yellow-950/20 to-background",
     label: "Gold",
+    borderColor: "rgba(234, 179, 8, 0.7)",
+    glowColor: "rgba(234, 179, 8, 0.35)",
   },
   "BASE CARDS – PLATINUM": {
     bg: "bg-gradient-to-b from-zinc-700/40 via-card to-card",
@@ -93,6 +114,8 @@ const ERA_THEMES: Record<string, {
     accent: "text-zinc-200",
     headerBg: "from-zinc-600/30 via-zinc-800/20 to-background",
     label: "Platinum",
+    borderColor: "rgba(212, 212, 216, 0.7)",
+    glowColor: "rgba(212, 212, 216, 0.35)",
   },
 };
 
@@ -104,6 +127,8 @@ const DEFAULT_THEME = {
   accent: "text-primary",
   headerBg: "from-primary/10 via-background to-purple-900/10",
   label: "",
+  borderColor: "rgba(132, 204, 22, 0.5)",
+  glowColor: "rgba(132, 204, 22, 0.2)",
 };
 
 function getEraTheme(cardType: string) {
@@ -145,59 +170,60 @@ function LazyImage({ src, alt, className }: { src: string; alt: string; classNam
   );
 }
 
-// ==================== CARD FLIP ====================
-function FlipCard({ frontImg, backImg, name, cardNumber }: {
+// ==================== CARD IMAGE (no flip) ====================
+function CardImage({ frontImg, name, cardNumber, cosmicBg, borderColor, glowColor }: {
   frontImg: string;
-  backImg?: string | null;
   name: string;
   cardNumber: string;
+  cosmicBg?: string;
+  borderColor?: string;
+  glowColor?: string;
 }) {
-  const [flipped, setFlipped] = useState(false);
+  const hasCosmic = !!cosmicBg;
 
   return (
     <div
-      className="relative cursor-pointer group"
-      style={{ perspective: "1000px" }}
-      onClick={() => backImg && setFlipped(!flipped)}
-      title={backImg ? "Click to flip" : name}
+      className="relative group"
+      title={name}
     >
+      {/* Cosmic background container */}
+      {hasCosmic && (
+        <div
+          className="absolute inset-[-8px] rounded-xl overflow-hidden opacity-60 group-hover:opacity-80 transition-opacity duration-300"
+          style={{
+            backgroundImage: `url(${cosmicBg})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            filter: "blur(1px)",
+          }}
+        />
+      )}
+      {/* Cosmic glow ring */}
+      {hasCosmic && glowColor && (
+        <div
+          className="absolute inset-[-4px] rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          style={{
+            boxShadow: `0 0 20px 4px ${glowColor}, 0 0 40px 8px ${glowColor?.replace('0.35', '0.15')}`,
+          }}
+        />
+      )}
       <div
-        className="relative w-full transition-transform duration-500"
-        style={{
-          transformStyle: "preserve-3d",
-          transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
-          aspectRatio: "2.5/3.5",
-        }}
+        className="relative w-full"
+        style={{ aspectRatio: "2.5/3.5" }}
       >
-        {/* Front */}
-        <div className="absolute inset-0 rounded-lg overflow-hidden bg-card border border-border/50" style={{ backfaceVisibility: "hidden" }}>
+        <div
+          className="absolute inset-0 rounded-lg overflow-hidden bg-card"
+          style={{
+            border: hasCosmic ? `2px solid ${borderColor || 'rgba(255,255,255,0.3)'}` : '1px solid rgba(255,255,255,0.1)',
+            boxShadow: hasCosmic ? `0 4px 15px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)` : 'none',
+          }}
+        >
           <LazyImage
             src={frontImg}
             alt={`${name} #${cardNumber} - 2025 Topps Marvel Trading Card`}
-            className="w-full h-full scale-[1.08]"
+            className="w-full h-full"
           />
-          {backImg && (
-            <div className="absolute bottom-2 right-2 bg-black/60 rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
-              <RotateCcw className="w-3 h-3 text-white" />
-            </div>
-          )}
         </div>
-        {/* Back */}
-        {backImg && (
-          <div
-            className="absolute inset-0 rounded-lg overflow-hidden bg-card border border-border/50"
-            style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
-          >
-            <LazyImage
-              src={backImg}
-              alt={`${name} #${cardNumber} back - 2025 Topps Marvel Trading Card`}
-              className="w-full h-full"
-            />
-            <div className="absolute bottom-2 right-2 bg-black/60 rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
-              <RotateCcw className="w-3 h-3 text-white" />
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
@@ -328,28 +354,37 @@ function SetBrowser() {
               <p className="text-muted-foreground py-8 text-center">No cards found matching "{searchQuery}"</p>
             ) : (
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-                {searchResults.map((card: any) => (
-                  <article key={card.id} className="group">
-                    <div className="rounded-lg overflow-hidden bg-card border border-border hover:border-primary/50 transition-all hover:shadow-lg hover:shadow-primary/5">
-                      <FlipCard
-                        frontImg={card.imageUrl || PLACEHOLDER_IMG}
-                        backImg={card.backImageUrl}
-                        name={card.characterName}
-                        cardNumber={card.cardNumber}
-                      />
-                      <div className="p-3">
-                        <p className="font-semibold text-sm truncate">{card.characterName}</p>
-                        <div className="flex items-center justify-between mt-1">
-                          <span className="text-xs text-muted-foreground">#{card.cardNumber}</span>
-                          <Badge variant="outline" className="text-[10px] px-1.5 py-0">{card.cardType || "Base"}</Badge>
+                {searchResults.map((card: any) => {
+                  const theme = getEraTheme(card.cardType || '');
+                  const cosmicBgUrl = COSMIC_BG[card.cardType || ''];
+                  const hasCosmic = !!cosmicBgUrl;
+                  return (
+                    <article key={card.id} className="group">
+                      <div className={`rounded-lg overflow-hidden transition-all ${hasCosmic ? 'border-0 bg-transparent' : 'bg-card border border-border hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5'}`}>
+                        <div className={hasCosmic ? 'p-2 pt-3' : ''}>
+                          <CardImage
+                            frontImg={card.imageUrl || PLACEHOLDER_IMG}
+                            name={card.characterName}
+                            cardNumber={card.cardNumber}
+                            cosmicBg={cosmicBgUrl}
+                            borderColor={theme.borderColor}
+                            glowColor={theme.glowColor}
+                          />
                         </div>
-                        {card.setName && (
-                          <p className="text-[10px] text-muted-foreground mt-1 truncate">{card.setName}</p>
-                        )}
+                        <div className={`p-3 ${hasCosmic ? 'bg-black/40 backdrop-blur-sm rounded-b-lg' : ''}`}>
+                          <p className="font-semibold text-sm truncate">{card.characterName}</p>
+                          <div className="flex items-center justify-between mt-1">
+                            <span className="text-xs text-muted-foreground">#{card.cardNumber}</span>
+                            <Badge variant="outline" className={`text-[10px] px-1.5 py-0 ${theme.badge}`}>{card.cardType || "Base"}</Badge>
+                          </div>
+                          {card.setName && (
+                            <p className="text-[10px] text-muted-foreground mt-1 truncate">{card.setName}</p>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  </article>
-                ))}
+                    </article>
+                  );
+                })}
               </div>
             )}
           </div>
@@ -522,9 +557,8 @@ function PlayingCardSuitGrid({ cards, setName }: { cards: any[]; setName: string
             {suitGroups[suit].map(card => (
               <article key={card.id} className="group">
                 <div className="rounded-lg overflow-hidden bg-card border border-border hover:border-primary/50 transition-all hover:shadow-lg hover:shadow-primary/5">
-                  <FlipCard
+                  <CardImage
                     frontImg={card.imageUrl || PLACEHOLDER_IMG}
-                    backImg={(card as any).backImageUrl}
                     name={card.characterName}
                     cardNumber={card.cardNumber}
                   />
@@ -664,14 +698,7 @@ function SetDetail({ slug }: { slug: string }) {
                 </span>
               </>
             )}
-            {hasImages && (
-              <>
-                <span>&bull;</span>
-                <span className="text-primary text-sm flex items-center gap-1">
-                  <Eye className="w-3.5 h-3.5" /> Click cards to flip
-                </span>
-              </>
-            )}
+
           </div>
 
           {/* Filters */}
@@ -739,15 +766,22 @@ function SetDetail({ slug }: { slug: string }) {
               <article key={card.id} className="group">
                 {(() => {
                   const theme = getEraTheme(card.cardType || '');
+                  const cosmicBgUrl = COSMIC_BG[card.cardType || ''];
+                  const hasCosmic = !!cosmicBgUrl;
                   return (
-                    <div className={`rounded-lg overflow-hidden border border-border ${theme.border} transition-all hover:shadow-lg ${theme.glow} ${theme.bg}`}>
-                      <FlipCard
-                        frontImg={card.imageUrl || PLACEHOLDER_IMG}
-                        backImg={(card as any).backImageUrl}
-                        name={card.characterName}
-                        cardNumber={card.cardNumber}
-                      />
-                      <div className="p-2.5">
+                    <div className={`rounded-lg overflow-hidden transition-all ${hasCosmic ? 'border-0 bg-transparent' : `border border-border ${theme.border} hover:shadow-lg ${theme.glow} ${theme.bg}`}`}>
+                      {/* Cosmic card with nebula background */}
+                      <div className={hasCosmic ? 'p-2 pt-3' : ''}>
+                        <CardImage
+                          frontImg={card.imageUrl || PLACEHOLDER_IMG}
+                          name={card.characterName}
+                          cardNumber={card.cardNumber}
+                          cosmicBg={cosmicBgUrl}
+                          borderColor={theme.borderColor}
+                          glowColor={theme.glowColor}
+                        />
+                      </div>
+                      <div className={`p-2.5 ${hasCosmic ? 'bg-black/40 backdrop-blur-sm rounded-b-lg' : ''}`}>
                         <p className="font-semibold text-sm truncate" title={card.characterName}>
                           {card.characterName}
                         </p>
