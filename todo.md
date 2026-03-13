@@ -575,10 +575,28 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Verify all cards in Card Database now show AI art instead of card photos
 - [x] Save checkpoint
 
-## Replace Remaining Sapphire Card Photos (expanded to ALL remaining sets)
-- [x] Found 42 cards across all sets still using card photos (25 unique characters)
-- [x] Generated AI art for 21 new characters (4 already had AI art from previous batch)
-- [x] Uploaded 21 images to CDN and updated all 42 database records (0 failures)
-- [x] Verified: 0 remaining card photos in entire database
-- [x] Tested Sapphire set — all cards now show AI art
+## Fix Duplicate Character Images Across Subsets
+- [ ] Query all sets to find characters sharing the same image URL across different subsets
+- [ ] Generate unique AI art for each duplicate instance (new rule: same character in different subsets must have unique images)
+- [ ] Upload new images to CDN and update database
+- [ ] Verify no duplicates remain across any set
+- [ ] Save checkpoint
+
+## Remove Hulk Placeholders + Fix Duplicates + Comic-Style Art
+- [x] Find all cards using Hulk placeholder image that aren't actually Hulk
+- [x] Find all duplicate images across subsets (same character, same image in different subsets)
+- [x] Combine into master list of cards needing new unique images
+- [x] Generate unique AI art — comic-book style versions for 2025 Topps Chrome (103/111 done, 8 failed)
+- [x] Upload 103 Chrome images to CDN and update database
+- [ ] Generate remaining 8 Chrome images (Silver Surfer, Colossus, 3 Nightcrawlers, 2 Ghost Riders, Scarlet Witch)
+- [ ] Verify no Hulk placeholders remain on non-Hulk cards
+- [ ] Verify no duplicate images within any set
+- [ ] Save checkpoint
+
+## Marvel Studios Set — MCU Actor-Inspired Art
+- [ ] Pull full card list for 2025 Topps Marvel Studios set
+- [ ] Identify all cards needing images (NULL + duplicates + wrong character)
+- [ ] Generate stylized MCU actor-inspired art (artistic portraits, not photorealistic — copyright safe)
+- [ ] Upload to CDN and update database
+- [ ] Verify all Marvel Studios cards have unique, correct character images
 - [ ] Save checkpoint
