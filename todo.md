@@ -535,3 +535,25 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Verified: no remaining March 13 / 2026-03-14 references in any .ts/.tsx files
 - [x] Only remaining March 13 refs are in todo.md (historical log items) — correct, no action needed
 - [x] Test and save checkpoint
+
+## Remove Coming Soon Page
+- [x] Remove ComingSoon.tsx component file
+- [x] Remove /coming-soon route from App.tsx (was conditional, not a route)
+- [x] Remove COMING_SOON_MODE flag and all associated admin login/logout/modal logic
+- [x] Simplify AppRouter to always show full site with Navigation, CartDrawer, routes, and Footer
+- [x] EmailCapturePopup now always shown (was gated behind !COMING_SOON_MODE)
+- [x] Removed unused imports (useState, useEffect, useLocation from App.tsx)
+- [x] Test and save checkpoint
+
+## Card Display Component (7 Themes)
+- [x] Analyze reference HTML file for exact implementation details
+- [x] Generate 7 space nebula background images (one per theme color)
+- [x] Build CardDisplay page component with 7 switchable themes
+- [x] Implement card frame with corner ornaments, shimmer strip, scanline overlay
+- [x] Implement file upload with fade-in transition and remove functionality
+- [x] Implement 25 floating particles color-matched to active theme
+- [x] Implement theme switcher dots with hover tooltips
+- [x] Add Cinzel and Crimson Text Google Fonts
+- [x] Add route to App.tsx (standalone, no nav/footer)
+- [x] Test all 7 themes — backgrounds switch, accents change, particles recolor
+- [ ] Save checkpoint
