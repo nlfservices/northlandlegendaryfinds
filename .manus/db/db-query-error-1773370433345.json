@@ -1,0 +1,8 @@
+{
+  "query": "SELECT id, name, card_number, subset_name, front_image_url, back_image_url FROM cards WHERE set_name LIKE '%Comic Book Heroes%' ORDER BY card_number LIMIT 20;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, name, card_number, subset_name, front_image_url, back_image_url FROM cards WHERE set_name LIKE '%Comic Book Heroes%' ORDER BY card_number LIMIT 20;",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1146 (42S02) at line 1: Table 'sghqxeh8pzjccdnfiamufi.cards' doesn't exist"
+  ]
+}

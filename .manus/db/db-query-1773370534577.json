@@ -1,0 +1,90 @@
+{
+  "query": "SELECT mc.id, mc.characterName, mc.cardNumber, mc.cardType, mc.imageUrl, mc.back_image_url FROM marvel_cards mc JOIN marvel_sets ms ON mc.setId = ms.id WHERE ms.name LIKE '%Comic Book Heroes%' ORDER BY mc.cardNumber LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT mc.id, mc.characterName, mc.cardNumber, mc.cardType, mc.imageUrl, mc.back_image_url FROM marvel_cards mc JOIN marvel_sets ms ON mc.setId = ms.id WHERE ms.name LIKE '%Comic Book Heroes%' ORDER BY mc.cardNumber LIMIT 10;",
+  "rows": [
+    {
+      "id": "1337",
+      "characterName": "Black Widow",
+      "cardNumber": "1",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-001_Black_Widow_687e36e3.webp",
+      "back_image_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/001-black-widow-back_2b8fe730.webp"
+    },
+    {
+      "id": "1338",
+      "characterName": "Hulk",
+      "cardNumber": "10",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-010_Hulk_5021737a.webp",
+      "back_image_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/010-hulk-back_2c89ddef.webp"
+    },
+    {
+      "id": "1339",
+      "characterName": "Blue Bolt",
+      "cardNumber": "100",
+      "cardType": "COMIC BOOK HEROES 2025",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-100_Blue_Bolt_fa966fe4.webp",
+      "back_image_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/100-blue-bolt-back_46dbc3c6.webp"
+    },
+    {
+      "id": "1340",
+      "characterName": "All-New Venom",
+      "cardNumber": "101",
+      "cardType": "COMIC BOOK HEROES 2025",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-101_All-New_Venom_92a4b5d6.webp",
+      "back_image_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/101-all-new-venom-back_794f360b.webp"
+    },
+    {
+      "id": "1341",
+      "characterName": "America Chavez",
+      "cardNumber": "102",
+      "cardType": "COMIC BOOK HEROES 2025",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-102_America_Chavez_b4b2cabf.webp",
+      "back_image_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/102-america-chavez-back_fbc71252.webp"
+    },
+    {
+      "id": "1342",
+      "characterName": "Banshee",
+      "cardNumber": "103",
+      "cardType": "COMIC BOOK HEROES 2025",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-103_Banshee_9a5a3234.webp",
+      "back_image_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/103-banshee-back_b5f3752a.webp"
+    },
+    {
+      "id": "1343",
+      "characterName": "Beast",
+      "cardNumber": "104",
+      "cardType": "COMIC BOOK HEROES 2025",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-104_Beast_952274bf.webp",
+      "back_image_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/104-beast-back_b580a44f.webp"
+    },
+    {
+      "id": "1344",
+      "characterName": "Black Cat",
+      "cardNumber": "105",
+      "cardType": "COMIC BOOK HEROES 2025",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-105_Black_Cat_1fc935b9.webp",
+      "back_image_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/105-black-cat-back_7e824b5f.webp"
+    },
+    {
+      "id": "1345",
+      "characterName": "Cyborg Spider-Man",
+      "cardNumber": "106",
+      "cardType": "COMIC BOOK HEROES 2025",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-106_Cyborg_Spider-Man_aa3ac2b2.webp",
+      "back_image_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/106-cyborg-spider-man-back_ade09b15.webp"
+    },
+    {
+      "id": "1346",
+      "characterName": "Bullseye",
+      "cardNumber": "107",
+      "cardType": "COMIC BOOK HEROES 2025",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-107_Bullseye_499d38bf.webp",
+      "back_image_url": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/107-bullseye-back_9e9604a8.webp"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcharacterName\tcardNumber\tcardType\timageUrl\tback_image_url\n1337\tBlack Widow\t1\tCOMIC BOOK HEROES 1975\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-001_Black_Widow_687e36e3.webp\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/001-black-widow-back_2b8fe730.webp\n1338\tHulk\t10\tCOMIC BOOK HEROES 1975\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-010_Hulk_5021737a.webp\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/010-hulk-back_2c89ddef.webp\n1339\tBlue Bolt\t100\tCOMIC BOOK HEROES 2025\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-100_Blue_Bolt_fa966fe4.webp\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/100-blue-bolt-back_46dbc3c6.webp\n1340\tAll-New Venom\t101\tCOMIC BOOK HEROES 2025\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-101_All-New_Venom_92a4b5d6.webp\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/101-all-new-venom-back_794f360b.webp\n1341\tAmerica Chavez\t102\tCOMIC BOOK HEROES 2025\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-102_America_Chavez_b4b2cabf.webp\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/102-america-chavez-back_fbc71252.webp\n1342\tBanshee\t103\tCOMIC BOOK HEROES 2025\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-103_Banshee_9a5a3234.webp\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/103-banshee-back_b5f3752a.webp\n1343\tBeast\t104\tCOMIC BOOK HEROES 2025\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-104_Beast_952274bf.webp\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/104-beast-back_b580a44f.webp\n1344\tBlack Cat\t105\tCOMIC BOOK HEROES 2025\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-105_Black_Cat_1fc935b9.webp\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/105-black-cat-back_7e824b5f.webp\n1345\tCyborg Spider-Man\t106\tCOMIC BOOK HEROES 2025\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-106_Cyborg_Spider-Man_aa3ac2b2.webp\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/106-cyborg-spider-man-back_ade09b15.webp\n1346\tBullseye\t107\tCOMIC BOOK HEROES 2025\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-107_Bullseye_499d38bf.webp\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/107-bullseye-back_9e9604a8.webp\n",
+  "stderr": "",
+  "execution_time_ms": 356
+}

@@ -491,3 +491,11 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Update eBay Comps panel with AGS grade options
 - [x] Update Inventory Manager with AGS grade options
 - [x] FAQ already had AGS references (no change needed)
+
+## Card Database Image Replacement
+- [x] Card images already in database from previous import (CloudFront CDN)
+- [x] Set different background colors for each subset (1975, 2025, 1976)
+
+## Era-Based Color Themes for Card Database
+- [x] Add era-based color themes to CBH card database page (1975=gold/amber, 1976=blue/silver, 2025=emerald/green)
+- [ ] Later: Add subset-based color themes to Marvel Mint (Bronze, Silver, Gold, Platinum)

@@ -19,6 +19,97 @@ import { useLocation } from "wouter";
 // Default placeholder for cards without images
 const PLACEHOLDER_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hulk_9ebdacfa.png";
 
+// ==================== ERA COLOR THEMES ====================
+// Different color themes for each card era/subset
+const ERA_THEMES: Record<string, {
+  bg: string;       // card background gradient
+  border: string;   // border color on hover
+  badge: string;    // badge styling
+  glow: string;     // hover glow color
+  accent: string;   // accent text color
+  headerBg: string; // section header gradient
+  label: string;    // display label
+}> = {
+  "COMIC BOOK HEROES 1975": {
+    bg: "bg-gradient-to-b from-amber-950/40 via-card to-card",
+    border: "hover:border-amber-500/60",
+    badge: "bg-amber-500/15 text-amber-400 border-amber-500/30",
+    glow: "hover:shadow-amber-500/10",
+    accent: "text-amber-400",
+    headerBg: "from-amber-900/30 via-amber-950/20 to-background",
+    label: "1975 Era",
+  },
+  "COMIC BOOK HEROES 1976": {
+    bg: "bg-gradient-to-b from-blue-950/40 via-card to-card",
+    border: "hover:border-blue-400/60",
+    badge: "bg-blue-500/15 text-blue-400 border-blue-500/30",
+    glow: "hover:shadow-blue-500/10",
+    accent: "text-blue-400",
+    headerBg: "from-blue-900/30 via-blue-950/20 to-background",
+    label: "1976 Era",
+  },
+  "COMIC BOOK HEROES 2025": {
+    bg: "bg-gradient-to-b from-emerald-950/40 via-card to-card",
+    border: "hover:border-emerald-400/60",
+    badge: "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
+    glow: "hover:shadow-emerald-500/10",
+    accent: "text-emerald-400",
+    headerBg: "from-emerald-900/30 via-emerald-950/20 to-background",
+    label: "2025 Era",
+  },
+  // Marvel Mint subset themes (for future use)
+  "BASE CARDS – BRONZE": {
+    bg: "bg-gradient-to-b from-orange-950/40 via-card to-card",
+    border: "hover:border-orange-500/60",
+    badge: "bg-orange-500/15 text-orange-400 border-orange-500/30",
+    glow: "hover:shadow-orange-500/10",
+    accent: "text-orange-400",
+    headerBg: "from-orange-900/30 via-orange-950/20 to-background",
+    label: "Bronze",
+  },
+  "BASE CARDS – SILVER": {
+    bg: "bg-gradient-to-b from-slate-800/40 via-card to-card",
+    border: "hover:border-slate-400/60",
+    badge: "bg-slate-400/15 text-slate-300 border-slate-400/30",
+    glow: "hover:shadow-slate-400/10",
+    accent: "text-slate-300",
+    headerBg: "from-slate-700/30 via-slate-800/20 to-background",
+    label: "Silver",
+  },
+  "BASE CARDS – GOLD": {
+    bg: "bg-gradient-to-b from-yellow-900/40 via-card to-card",
+    border: "hover:border-yellow-500/60",
+    badge: "bg-yellow-500/15 text-yellow-400 border-yellow-500/30",
+    glow: "hover:shadow-yellow-500/10",
+    accent: "text-yellow-400",
+    headerBg: "from-yellow-900/30 via-yellow-950/20 to-background",
+    label: "Gold",
+  },
+  "BASE CARDS – PLATINUM": {
+    bg: "bg-gradient-to-b from-zinc-700/40 via-card to-card",
+    border: "hover:border-zinc-300/60",
+    badge: "bg-zinc-300/15 text-zinc-200 border-zinc-300/30",
+    glow: "hover:shadow-zinc-300/10",
+    accent: "text-zinc-200",
+    headerBg: "from-zinc-600/30 via-zinc-800/20 to-background",
+    label: "Platinum",
+  },
+};
+
+const DEFAULT_THEME = {
+  bg: "",
+  border: "hover:border-primary/50",
+  badge: "",
+  glow: "hover:shadow-primary/5",
+  accent: "text-primary",
+  headerBg: "from-primary/10 via-background to-purple-900/10",
+  label: "",
+};
+
+function getEraTheme(cardType: string) {
+  return ERA_THEMES[cardType] || DEFAULT_THEME;
+}
+
 // ==================== LAZY IMAGE ====================
 function LazyImage({ src, alt, className }: { src: string; alt: string; className?: string }) {
   const imgRef = useRef<HTMLImageElement>(null);
@@ -558,6 +649,21 @@ function SetDetail({ slug }: { slug: string }) {
             <span>{set.releaseYear}</span>
             <span>&bull;</span>
             <span>{cards.length} cards</span>
+            {cardTypes.length > 1 && ERA_THEMES[cardTypes[0]] && (
+              <>
+                <span>&bull;</span>
+                <span className="text-sm flex items-center gap-1.5">
+                  {cardTypes.map(type => {
+                    const theme = getEraTheme(type);
+                    return (
+                      <span key={type} className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium border ${theme.badge}`}>
+                        {theme.label || type}
+                      </span>
+                    );
+                  })}
+                </span>
+              </>
+            )}
             {hasImages && (
               <>
                 <span>&bull;</span>
@@ -631,31 +737,36 @@ function SetDetail({ slug }: { slug: string }) {
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
             {filteredCards.map((card) => (
               <article key={card.id} className="group">
-                <div className="rounded-lg overflow-hidden bg-card border border-border hover:border-primary/50 transition-all hover:shadow-lg hover:shadow-primary/5">
-                  <FlipCard
-                    frontImg={card.imageUrl || PLACEHOLDER_IMG}
-                    backImg={(card as any).backImageUrl}
-                    name={card.characterName}
-                    cardNumber={card.cardNumber}
-                  />
-                  <div className="p-2.5">
-                    <p className="font-semibold text-sm truncate" title={card.characterName}>
-                      {card.characterName}
-                    </p>
-                    <div className="flex items-center justify-between mt-1">
-                      <span className="text-xs text-muted-foreground font-mono">#{card.cardNumber}</span>
-                      <Badge variant="outline" className="text-[10px] px-1.5 py-0">
-                        {card.cardType || "Base"}
-                      </Badge>
+                {(() => {
+                  const theme = getEraTheme(card.cardType || '');
+                  return (
+                    <div className={`rounded-lg overflow-hidden border border-border ${theme.border} transition-all hover:shadow-lg ${theme.glow} ${theme.bg}`}>
+                      <FlipCard
+                        frontImg={card.imageUrl || PLACEHOLDER_IMG}
+                        backImg={(card as any).backImageUrl}
+                        name={card.characterName}
+                        cardNumber={card.cardNumber}
+                      />
+                      <div className="p-2.5">
+                        <p className="font-semibold text-sm truncate" title={card.characterName}>
+                          {card.characterName}
+                        </p>
+                        <div className="flex items-center justify-between mt-1">
+                          <span className="text-xs text-muted-foreground font-mono">#{card.cardNumber}</span>
+                          <span className={`inline-flex items-center text-[10px] px-1.5 py-0 rounded-full border font-medium ${theme.badge}`}>
+                            {theme.label || card.cardType || "Base"}
+                          </span>
+                        </div>
+                        {card.parallels && (
+                          <p className="text-[10px] text-muted-foreground mt-1.5 line-clamp-1" title={card.parallels}>
+                            {card.parallels}
+                          </p>
+                        )}
+                        <QuickCompButton cardName={card.characterName} setName={set.name} />
+                      </div>
                     </div>
-                    {card.parallels && (
-                      <p className="text-[10px] text-muted-foreground mt-1.5 line-clamp-1" title={card.parallels}>
-                        {card.parallels}
-                      </p>
-                    )}
-                    <QuickCompButton cardName={card.characterName} setName={set.name} />
-                  </div>
-                </div>
+                  );
+                })()}
               </article>
             ))}
           </div>
