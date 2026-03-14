@@ -631,12 +631,20 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Save checkpoint
 
 ## Marvel Studios Remaining Images (Batch 2-4)
-- [ ] Query remaining ~328 Marvel Studios cards needing images
-- [ ] Generate MCU-inspired art batch 1 (~150 cards, starting with Iron Man characters)
-- [ ] Generate MCU-inspired art batch 2 (~150 cards)
-- [ ] Generate MCU-inspired art batch 3 (remaining cards)
-- [ ] Upload all images to CDN and update database
-- [ ] Save checkpoint
+- [x] Query remaining 249 Marvel Studios cards needing images
+- [x] Generate Agatha All Along tarot cards (5 cards)
+- [x] Generate Avengers Shadowbox cards (19 cards)
+- [x] Generate Base cards (49 unique characters)
+- [x] Generate Captain America: Brave New World scene cards (12 cards)
+- [x] Generate Daredevil: Born Again cards (4 cards)
+- [x] Generate Fantastic Four cards (7 cards)
+- [x] Generate Marvel Gods cards (8 cards)
+- [x] Generate TVA Pruning cards (20 cards)
+- [x] Copy Base images to 75 Snap Variation cards
+- [x] Copy Studios images to 121 Sapphire Studios cards
+- [x] Generate Forge and Kid Juggernaut for Sapphire set
+- [x] Match remaining Mint Silver and Sapphire cards from existing images
+- [x] ALL 1725 CARDS NOW HAVE IMAGES (0 remaining)
 
 ## Fix DC Characters in Marvel Cards
 - [x] Fix CC-8 Giant-Size X-Men #1 Classic Comic Book Covers (was showing DC characters, now shows proper X-Men team)
@@ -644,3 +652,7 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Full image URL audit for DC-related filenames (clean)
 - [x] Full frontend code audit for DC references (clean)
 - [x] Verified all previously fixed cards (MZ-1, MR-2, I-5, CC-8) have correct Marvel images
+
+## Broken Image Fixes
+- [x] Fix Thanos MR-4 (Marvel Reflections) broken/missing image in Chrome set (regenerated, 403 URL replaced)
+- [x] Scanned all 358 Chrome card image URLs - 0 broken (all returning 200)
