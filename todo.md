@@ -628,4 +628,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add touch target minimum size (44px) for coarse pointers
 - [x] Verify lazy loading working (only 15 images loaded on Chrome page instead of 358)
 - [x] Test on mobile viewport and verify improvements
+- [x] Save checkpoint
+
+## Marvel Studios Remaining Images (Batch 2-4)
+- [ ] Query remaining ~328 Marvel Studios cards needing images
+- [ ] Generate MCU-inspired art batch 1 (~150 cards, starting with Iron Man characters)
+- [ ] Generate MCU-inspired art batch 2 (~150 cards)
+- [ ] Generate MCU-inspired art batch 3 (remaining cards)
+- [ ] Upload all images to CDN and update database
 - [ ] Save checkpoint
