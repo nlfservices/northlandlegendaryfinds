@@ -658,3 +658,16 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Reuse images across subsets where same character appears
 - [x] Verify set page renders correctly
 - [x] Save checkpoint (Collector set complete - 257/257 images)
+
+## Fix Remaining 8 Chrome Card Images
+- [x] Query 8 Chrome cards — actually only 7 Hulk placeholders found (Kitty Pryde x2, Heimdall x3, BNW scenes x2)
+- [x] Generate proper AI art for all 7 placeholder cards
+- [x] Upload to CDN and update database (0 Hulk placeholders remaining)
+- [x] Save checkpoint
+
+## Marvel Studios Remaining Images (Full Completion)
+- [ ] Query all remaining Marvel Studios cards needing images (~328 cards)
+- [ ] Generate MCU-inspired art in batches of 10
+- [ ] Upload all images to CDN and update database
+- [ ] Verify all Marvel Studios cards have images
+- [ ] Save checkpoint
