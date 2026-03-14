@@ -1,0 +1,22 @@
+{
+  "query": "SELECT id, characterName, cardNumber, cardType FROM marvel_cards WHERE characterName LIKE '%McNiven%' LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, characterName, cardNumber, cardType FROM marvel_cards WHERE characterName LIKE '%McNiven%' LIMIT 10;",
+  "rows": [
+    {
+      "id": "217",
+      "characterName": "Steve McNiven",
+      "cardNumber": "AR-1",
+      "cardType": "THE NEW AVENGERS 20TH ANNIVERSARY AUTOGRAPH RELIC EDITION"
+    },
+    {
+      "id": "1664",
+      "characterName": "Steve McNiven",
+      "cardNumber": "A-14",
+      "cardType": "Autograph"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcharacterName\tcardNumber\tcardType\n217\tSteve McNiven\tAR-1\tTHE NEW AVENGERS 20TH ANNIVERSARY AUTOGRAPH RELIC EDITION\n1664\tSteve McNiven\tA-14\tAutograph\n",
+  "stderr": "",
+  "execution_time_ms": 392
+}

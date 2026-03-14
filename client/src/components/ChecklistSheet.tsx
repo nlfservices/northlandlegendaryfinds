@@ -976,7 +976,7 @@ function AddCardsTab({ productId }: { productId: number }) {
                   <TableCell>
                     {row.imagePreview ? (
                       <div className="relative group/img">
-                        <img src={row.imagePreview} alt="" className="w-8 h-10 object-cover rounded border border-border" />
+                        <img src={row.imagePreview} alt="" className="w-8 h-10 object-cover rounded border border-border" loading="lazy" decoding="async" />
                         <button
                           onClick={() => clearImage(row.id)}
                           className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity"

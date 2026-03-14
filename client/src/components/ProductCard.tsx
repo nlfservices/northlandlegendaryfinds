@@ -109,6 +109,10 @@ export default function ProductCard({ product, featured }: ProductCardProps) {
           <img
             src={product.image}
             alt={product.name}
+            loading="lazy"
+            decoding="async"
+            width={400}
+            height={400}
             className="w-full h-full object-contain p-6 group-hover:scale-105 transition-transform duration-500"
           />
           {/* Hover overlay */}

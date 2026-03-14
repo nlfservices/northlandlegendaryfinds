@@ -83,8 +83,12 @@ export default function CartDrawer() {
                   <div className="w-20 h-20 rounded-lg overflow-hidden bg-muted flex-shrink-0">
                     <img
                       src={item.product.image}
-                      alt={item.product.name}
-                      className="w-full h-full object-cover"
+                       alt={item.product.name}
+                       loading="lazy"
+                       decoding="async"
+                       width={80}
+                       height={80}
+                       className="w-full h-full object-cover"
                     />
                   </div>
 

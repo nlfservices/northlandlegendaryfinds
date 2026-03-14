@@ -85,7 +85,7 @@ export default function CBHSet() {
             )}
 
             {/* Stats */}
-            <div className="grid grid-cols-4 gap-4 max-w-3xl mx-auto mt-8">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto mt-8">
               <div className="text-center">
                 <div className="text-4xl font-bold text-secondary">{cards.length}</div>
                 <div className="text-sm text-muted-foreground">Total Cards</div>
@@ -117,7 +117,7 @@ export default function CBHSet() {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-4 lg:gap-6">
               {filteredCards.map((card) => (
                 <Card 
                   key={card.number}
@@ -131,6 +131,10 @@ export default function CBHSet() {
                         alt={`${card.character} - CBH #${card.number}`}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                         loading="lazy"
+                        decoding="async"
+                        width={250}
+                        height={350}
+                        sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 200px"
                       />
                       
                       {/* Overlay on Hover */}

@@ -64,10 +64,10 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* ===== HERO SECTION ===== */}
-      <section className="relative min-h-[600px] lg:min-h-[700px] flex items-center overflow-hidden">
+      <section className="relative min-h-[450px] sm:min-h-[600px] lg:min-h-[700px] flex items-center overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0">
-          <img src={HERO_BG} alt="" className="w-full h-full object-cover" />
+          <img src={HERO_BG} alt="" className="w-full h-full object-cover" loading="eager" decoding="async" fetchPriority="high" />
           <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/40" />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
         </div>
@@ -81,7 +81,7 @@ export default function Home() {
                 <span className="text-primary text-sm font-bold tracking-wide">LAUNCHING MARCH 27, 2026</span>
               </div>
 
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[0.9] mb-6" style={{ fontFamily: "'Anton', sans-serif" }}>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[0.9] mb-4 sm:mb-6" style={{ fontFamily: "'Anton', sans-serif" }}>
                 <span className="text-white">UNBOX THE</span>
                 <br />
                 <span className="text-primary">LEGENDARY</span>
@@ -120,6 +120,10 @@ export default function Home() {
                 <img
                   src={NLF_PACK}
                   alt="NLF Repack"
+                  loading="eager"
+                  decoding="async"
+                  width={384}
+                  height={384}
                   className="relative w-80 xl:w-96 drop-shadow-[0_0_40px_rgba(0,255,65,0.2)] hover:scale-105 transition-transform duration-500"
                 />
               </div>
@@ -131,7 +135,7 @@ export default function Home() {
       {/* ===== STATS BAR ===== */}
       <section className="bg-card border-y border-border">
         <div className="container py-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 text-center">
             <div>
               <div className="text-3xl font-bold text-primary" style={{ fontFamily: "'Anton', sans-serif" }}>6</div>
               <div className="text-xs text-muted-foreground uppercase tracking-wider mt-1">Product Lines</div>
@@ -196,7 +200,7 @@ export default function Home() {
       {/* ===== TRUST / WHY NLF ===== */}
       <section className="relative py-16 lg:py-20 overflow-hidden">
         <div className="absolute inset-0">
-          <img src={TRUST_BG} alt="" className="w-full h-full object-cover opacity-30" />
+          <img src={TRUST_BG} alt="" className="w-full h-full object-cover opacity-30" loading="lazy" decoding="async" />
           <div className="absolute inset-0 bg-background/90" />
         </div>
         <div className="container relative z-10">
@@ -209,7 +213,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
             <div className="bg-card/80 backdrop-blur-sm border border-border rounded-xl p-6 text-center hover:border-primary/30 transition-colors">
               <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-4">
                 <Shield className="w-7 h-7 text-primary" />

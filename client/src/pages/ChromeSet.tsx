@@ -116,7 +116,7 @@ export default function ChromeSet() {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-4 lg:gap-6">
               {filteredCards.map((card) => (
                 <Card 
                   key={card.number}
@@ -130,6 +130,10 @@ export default function ChromeSet() {
                         alt={`${card.character} - Chrome #${card.number}`}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                         loading="lazy"
+                        decoding="async"
+                        width={250}
+                        height={350}
+                        sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 200px"
                       />
                       
                       {/* Overlay on Hover */}

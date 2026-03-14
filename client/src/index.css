@@ -141,6 +141,18 @@
     @apply bg-background text-foreground;
     font-family: 'Inter', sans-serif;
   }
+  
+  /* Global image optimization */
+  img {
+    content-visibility: auto;
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Prevent layout shift on card images */
+  img[width][height] {
+    aspect-ratio: attr(width) / attr(height);
+  }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
   [type="button"]:not(:disabled),
@@ -158,6 +170,20 @@
     font-family: 'Anton', 'Impact', sans-serif;
     text-transform: uppercase;
     letter-spacing: 0.02em;
+  }
+  
+  /* Mobile-first typography scaling */
+  @media (max-width: 640px) {
+    h1 {
+      font-size: 2rem;
+      line-height: 1.1;
+    }
+    h2 {
+      font-size: 1.5rem;
+    }
+    h3 {
+      font-size: 1.25rem;
+    }
   }
 }
 
@@ -209,6 +235,33 @@
   .glow-gold {
     box-shadow: 0 0 20px oklch(0.75 0.15 85 / 0.3),
                 0 0 40px oklch(0.75 0.15 85 / 0.1);
+  }
+  
+  /* Mobile card grid optimization */
+  @media (max-width: 640px) {
+    .card-grid-mobile {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+    }
+    
+    /* Tighter padding on mobile */
+    .container {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+    }
+    
+    /* Smaller card text on mobile */
+    .card-text-mobile {
+      font-size: 0.75rem;
+    }
+  }
+  
+  /* Touch target minimum size */
+  @media (pointer: coarse) {
+    button, a, [role="button"] {
+      min-height: 44px;
+      min-width: 44px;
+    }
   }
   
   /* GHL Form Dark Theme Override */

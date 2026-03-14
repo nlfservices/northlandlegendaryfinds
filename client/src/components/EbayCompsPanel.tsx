@@ -329,8 +329,9 @@ export default function EbayCompsPanel({ initialQuery }: { initialQuery?: string
                       <img
                         src={item.imageUrl}
                         alt={item.title}
-                        className="w-full h-full object-cover"
                         loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover"
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-muted-foreground text-xs">

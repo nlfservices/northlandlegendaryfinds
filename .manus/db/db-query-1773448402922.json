@@ -1,0 +1,26 @@
+{
+  "query": "SELECT id, characterName, cardNumber, cardType, setId, imageUrl FROM marvel_cards WHERE characterName LIKE '%McNiven%';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, characterName, cardNumber, cardType, setId, imageUrl FROM marvel_cards WHERE characterName LIKE '%McNiven%';",
+  "rows": [
+    {
+      "id": "217",
+      "characterName": "Steve McNiven",
+      "cardNumber": "AR-1",
+      "cardType": "THE NEW AVENGERS 20TH ANNIVERSARY AUTOGRAPH RELIC EDITION",
+      "setId": "1",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_212155_157d6607.jpg"
+    },
+    {
+      "id": "1664",
+      "characterName": "Steve McNiven",
+      "cardNumber": "A-14",
+      "cardType": "Autograph",
+      "setId": "3",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_212155_157d6607.jpg"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcharacterName\tcardNumber\tcardType\tsetId\timageUrl\n217\tSteve McNiven\tAR-1\tTHE NEW AVENGERS 20TH ANNIVERSARY AUTOGRAPH RELIC EDITION\t1\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_212155_157d6607.jpg\n1664\tSteve McNiven\tA-14\tAutograph\t3\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_212155_157d6607.jpg\n",
+  "stderr": "",
+  "execution_time_ms": 357
+}

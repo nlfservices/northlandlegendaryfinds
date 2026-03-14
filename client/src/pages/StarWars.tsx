@@ -18,7 +18,7 @@ export default function StarWars() {
       {/* Hero */}
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0">
-          <img src={STARWARS_BG} alt="" className="w-full h-full object-cover" />
+          <img src={STARWARS_BG} alt="" className="w-full h-full object-cover" loading="eager" decoding="async" />
           <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/50" />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
         </div>

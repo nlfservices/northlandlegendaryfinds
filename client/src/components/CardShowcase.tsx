@@ -88,7 +88,7 @@ export default function CardShowcase({
     <section className={`relative overflow-hidden ${className}`}>
       {/* Background */}
       <div className="absolute inset-0">
-        <img src={SHOWCASE_BG} alt="" className="w-full h-full object-cover" />
+        <img src={SHOWCASE_BG} alt="" className="w-full h-full object-cover" loading="lazy" decoding="async" />
         <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
         <div className="absolute inset-0 bg-black/30" />
       </div>
@@ -183,6 +183,10 @@ export default function CardShowcase({
                         <img
                           src={displayImage}
                           alt={`${activeCard.cardName} - ${isGraded ? "Graded" : "Raw"}`}
+                          loading="lazy"
+                          decoding="async"
+                          width={300}
+                          height={420}
                           className="w-full h-full object-cover"
                         />
                         {/* Shimmer on hover */}

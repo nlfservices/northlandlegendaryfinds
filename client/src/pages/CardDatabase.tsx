@@ -142,16 +142,17 @@ function getEraTheme(cardType: string) {
 
 // ==================== LAZY IMAGE ====================
 function LazyImage({ src, alt, className }: { src: string; alt: string; className?: string }) {
-  const imgRef = useRef<HTMLImageElement>(null);
+  const imgRef = useRef<HTMLDivElement>(null);
   const [loaded, setLoaded] = useState(false);
   const [inView, setInView] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const el = imgRef.current;
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) { setInView(true); observer.disconnect(); } },
-      { rootMargin: "200px" }
+      { rootMargin: "300px" }
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -159,17 +160,27 @@ function LazyImage({ src, alt, className }: { src: string; alt: string; classNam
 
   return (
     <div ref={imgRef} className={`relative ${className || ""}`}>
-      {!loaded && (
+      {!loaded && !error && (
         <div className="absolute inset-0 bg-muted/30 animate-pulse rounded-lg" />
       )}
-      {inView && (
+      {inView && !error && (
         <img
           src={src}
           alt={alt}
           loading="lazy"
+          decoding="async"
+          sizes="(max-width: 640px) 45vw, (max-width: 768px) 30vw, (max-width: 1024px) 22vw, 16vw"
           onLoad={() => setLoaded(true)}
+          onError={() => setError(true)}
           className={`w-full h-full object-cover transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"}`}
         />
+      )}
+      {error && (
+        <div className="absolute inset-0 flex items-center justify-center bg-muted/50 rounded-lg">
+          <div className="w-6 h-6 text-muted-foreground">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+          </div>
+        </div>
       )}
     </div>
   );
@@ -358,7 +369,7 @@ function SetBrowser() {
             {searchResults.length === 0 ? (
               <p className="text-muted-foreground py-8 text-center">No cards found matching "{searchQuery}"</p>
             ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-4">
                 {searchResults.map((card: any) => {
                   const theme = getEraTheme(card.cardType || '');
                   const cosmicBgUrl = COSMIC_BG[card.cardType || ''];
@@ -766,7 +777,7 @@ function SetDetail({ slug }: { slug: string }) {
             <PlayingCardSuitGrid cards={filteredCards} setName={set.name} />
           ) : (
           /* Standard Grid View with Card Images */
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-4">
             {filteredCards.map((card) => (
               <article key={card.id} className="group">
                 {(() => {

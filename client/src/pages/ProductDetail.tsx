@@ -249,6 +249,10 @@ export default function ProductDetail() {
                   <img
                     src={product.image}
                     alt={product.name}
+                    loading="eager"
+                    decoding="async"
+                    width={600}
+                    height={600}
                     className="max-w-full max-h-full object-contain drop-shadow-[0_0_30px_rgba(0,255,65,0.1)]"
                   />
                 </div>

@@ -57,8 +57,12 @@ export default function Cart() {
                       <div className="w-28 h-28 rounded-lg overflow-hidden bg-muted flex-shrink-0 cursor-pointer">
                         <img
                           src={item.product.image}
-                          alt={item.product.name}
-                          className="w-full h-full object-contain p-2"
+                           alt={item.product.name}
+                           loading="lazy"
+                           decoding="async"
+                           width={96}
+                           height={96}
+                           className="w-full h-full object-contain p-2"
                         />
                       </div>
                     </Link>

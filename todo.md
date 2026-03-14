@@ -611,3 +611,21 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 ## Copy Chrome Images to Sapphire Set
 - [x] Map Chrome card images to matching Sapphire cards by character/subset (197 matched out of 225)
 - [x] Update Sapphire card imageUrl fields in database (10 batches executed)
+
+## Comic-Book Style Artist Card Art
+- [x] Generate comic-book style AI art version of Steve McNiven autograph card (artist as comic character alongside Captain America)
+- [x] Assign comic artist art to Chrome AR-1 Steve McNiven card
+
+## Image Optimization & Mobile Responsiveness
+- [x] Audit current image sizes and loading performance
+- [x] Add loading="lazy" and decoding="async" to all img tags across all components
+- [x] Add width/height/sizes attributes to card images for layout shift prevention
+- [x] Add global CSS image optimization (content-visibility, max-width, object-fit)
+- [x] Tighten mobile card grid gaps (gap-2 on mobile, gap-4 on tablet, gap-6 on desktop)
+- [x] Make stats grids responsive (2-col on mobile, 4-col on desktop)
+- [x] Optimize Home hero section for mobile (smaller min-height, better text scaling)
+- [x] Add mobile-first typography scaling
+- [x] Add touch target minimum size (44px) for coarse pointers
+- [x] Verify lazy loading working (only 15 images loaded on Chrome page instead of 358)
+- [x] Test on mobile viewport and verify improvements
+- [ ] Save checkpoint

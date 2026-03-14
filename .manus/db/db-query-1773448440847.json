@@ -1,0 +1,9 @@
+{
+  "query": "UPDATE marvel_cards SET imageUrl = 'https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/comic_artist_card_art-LA7DefEZJQL2PBvtcqy9yp.webp' WHERE id IN (217, 1664);",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute UPDATE marvel_cards SET imageUrl = 'https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/comic_artist_card_art-LA7DefEZJQL2PBvtcqy9yp.webp' WHERE id IN (217, 1664);",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 361
+}
