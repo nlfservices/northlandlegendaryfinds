@@ -4,7 +4,6 @@
  * Lazy loading images for performance
  */
 
-import SEO, { schemas } from "@/components/SEO";
 import { useState, useMemo, useRef, useCallback, useEffect } from "react";
 import { trpc } from "@/lib/trpc";
 import { Link, useRoute } from "wouter";
@@ -161,12 +160,6 @@ function LazyImage({ src, alt, className }: { src: string; alt: string; classNam
 
   return (
     <div ref={imgRef} className={`relative ${className || ""}`}>
-      <SEO
-        title="2025 Topps Marvel Card Database | 1,725+ Cards"
-        description="Browse every 2025 Topps Marvel trading card across Chrome, Comic Book Heroes, Mint, Sapphire, and Studios sets. 1,725+ cards with images, parallels, and details."
-        path="/cards"
-        jsonLd={schemas.breadcrumbList([{"name":"Home","url":"/"},{"name":"Card Database","url":"/cards"}])}
-      />
       {!loaded && !error && (
         <div className="absolute inset-0 bg-muted/30 animate-pulse rounded-lg" />
       )}
@@ -799,24 +792,20 @@ function SetDetail({ slug }: { slug: string }) {
                   return (
                     <div className={`rounded-lg overflow-hidden transition-all ${hasCosmic ? 'border-0 bg-transparent' : `border border-border ${theme.border} hover:shadow-lg ${theme.glow} ${theme.bg}`}`}>
                       {/* Cosmic card with nebula background */}
-                      <Link href={`/cards/${set.slug}/${card.characterName.toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').trim()}-${card.cardNumber.toLowerCase().replace(/[^a-z0-9-]/g, '')}`} className="block cursor-pointer">
-                        <div className={hasCosmic ? 'p-2 pt-3' : ''}>
-                          <CardImage
-                            frontImg={card.imageUrl || PLACEHOLDER_IMG}
-                            name={card.characterName}
-                            cardNumber={card.cardNumber}
-                            cosmicBg={cosmicBgUrl}
-                            borderColor={theme.borderColor}
-                            glowColor={theme.glowColor}
-                          />
-                        </div>
-                      </Link>
+                      <div className={hasCosmic ? 'p-2 pt-3' : ''}>
+                        <CardImage
+                          frontImg={card.imageUrl || PLACEHOLDER_IMG}
+                          name={card.characterName}
+                          cardNumber={card.cardNumber}
+                          cosmicBg={cosmicBgUrl}
+                          borderColor={theme.borderColor}
+                          glowColor={theme.glowColor}
+                        />
+                      </div>
                       <div className={`p-2.5 ${hasCosmic ? 'bg-black/40 backdrop-blur-sm rounded-b-lg' : ''}`}>
-                        <Link href={`/cards/${set.slug}/${card.characterName.toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').trim()}-${card.cardNumber.toLowerCase().replace(/[^a-z0-9-]/g, '')}`}>
-                          <p className="font-semibold text-sm truncate hover:text-primary transition-colors cursor-pointer" title={card.characterName}>
-                            {card.characterName}
-                          </p>
-                        </Link>
+                        <p className="font-semibold text-sm truncate" title={card.characterName}>
+                          {card.characterName}
+                        </p>
                         <div className="flex items-center justify-between mt-1">
                           <span className="text-xs text-muted-foreground font-mono">#{card.cardNumber}</span>
                           <span className={`inline-flex items-center text-[10px] px-1.5 py-0 rounded-full border font-medium ${theme.badge}`}>

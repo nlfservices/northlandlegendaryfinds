@@ -3,7 +3,6 @@
  * Explains NLF's commitment to platform rules, Whatnot compliance,
  * and full transparency in repack products.
  */
-import SEO, { schemas } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -75,12 +74,6 @@ const CHECKLIST_FIELDS = [
 export default function Transparency() {
   return (
     <div className="min-h-screen">
-      <SEO
-        title="Transparency & Compliance"
-        description="Full transparency on NLF repack composition, Whatnot compliance, and our commitment to honest trading card repacks. Public checklists for every series."
-        path="/transparency"
-        jsonLd={schemas.breadcrumbList([{"name":"Home","url":"/"},{"name":"Transparency","url":"/transparency"}])}
-      />
       {/* Hero Section */}
       <section className="relative py-16 lg:py-24 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-green-900/20 to-transparent" />

@@ -2,7 +2,6 @@
  * Marvel Category Page - Marvel products with themed hero
  */
 
-import SEO, { schemas } from "@/components/SEO";
 import { getProductsByCategory } from "@/lib/products";
 import ProductCard from "@/components/ProductCard";
 
@@ -13,12 +12,6 @@ export default function Marvel() {
 
   return (
     <div className="min-h-screen">
-      <SEO
-        title="Marvel Trading Card Repacks"
-        description="Premium Marvel trading card repacks featuring 2025 Topps Chrome, Sapphire, Mint, and Comic Book Heroes. Guaranteed hits, numbered parallels, and graded slabs."
-        path="/marvel"
-        jsonLd={schemas.breadcrumbList([{"name":"Home","url":"/"},{"name":"Marvel","url":"/marvel"}])}
-      />
       {/* Hero */}
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0">

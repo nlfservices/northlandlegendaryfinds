@@ -631,64 +631,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Save checkpoint
 
 ## Marvel Studios Remaining Images (Batch 2-4)
-- [x] Query remaining 249 Marvel Studios cards needing images
-- [x] Generate Agatha All Along tarot cards (5 cards)
-- [x] Generate Avengers Shadowbox cards (19 cards)
-- [x] Generate Base cards (49 unique characters)
-- [x] Generate Captain America: Brave New World scene cards (12 cards)
-- [x] Generate Daredevil: Born Again cards (4 cards)
-- [x] Generate Fantastic Four cards (7 cards)
-- [x] Generate Marvel Gods cards (8 cards)
-- [x] Generate TVA Pruning cards (20 cards)
-- [x] Copy Base images to 75 Snap Variation cards
-- [x] Copy Studios images to 121 Sapphire Studios cards
-- [x] Generate Forge and Kid Juggernaut for Sapphire set
-- [x] Match remaining Mint Silver and Sapphire cards from existing images
-- [x] ALL 1725 CARDS NOW HAVE IMAGES (0 remaining)
+- [ ] Query remaining ~328 Marvel Studios cards needing images
+- [ ] Generate MCU-inspired art batch 1 (~150 cards, starting with Iron Man characters)
+- [ ] Generate MCU-inspired art batch 2 (~150 cards)
+- [ ] Generate MCU-inspired art batch 3 (remaining cards)
+- [ ] Upload all images to CDN and update database
+- [ ] Save checkpoint
 
-## Fix DC Characters in Marvel Cards
-- [x] Fix CC-8 Giant-Size X-Men #1 Classic Comic Book Covers (was showing DC characters, now shows proper X-Men team)
-- [x] Full database audit for DC character names (clean - only Cyborg Spider-Man which is Marvel)
-- [x] Full image URL audit for DC-related filenames (clean)
-- [x] Full frontend code audit for DC references (clean)
-- [x] Verified all previously fixed cards (MZ-1, MR-2, I-5, CC-8) have correct Marvel images
-
-## Broken Image Fixes
-- [x] Fix Thanos MR-4 (Marvel Reflections) broken/missing image in Chrome set (regenerated, 403 URL replaced)
-- [x] Scanned all 358 Chrome card image URLs - 0 broken (all returning 200)
-
-## SEO Sitemap & Crawl Control System
-- [x] Scan repository for all routes, pages, and DB content types
-- [x] Create sitemap generation system (server-side Express routes, dynamic from DB)
-- [x] Generate sitemap-pages.xml for 20 core static pages
-- [x] Generate sitemap-cards-{1-6}.xml for 1,725 individual card pages (one per set)
-- [x] Generate sitemap-sets.xml for 6 set listing pages
-- [x] Generate sitemap-products.xml for 3 repack products
-- [x] Image sitemap extension included in card sitemaps (image:image tags)
-- [x] Create sitemap.xml index referencing all 10 sub-sitemaps
-- [x] Create robots.txt with sitemap reference and crawl directives
-- [x] Add canonical tags to ALL 17 pages (react-helmet-async + reusable SEO component)
-- [x] Add meta tags (title, description, OG, Twitter Card) to ALL 17 pages
-- [x] Add JSON-LD: Organization + WebSite (home), FAQPage (FAQ), BreadcrumbList (all), Product (cards)
-- [ ] Build validation and reporting system
-- [ ] Create CI-ready single command for generation + validation
-- [x] Verified sitemap outputs (1,725 card URLs, 20 pages, 6 sets, 3 products)
-
-## Individual Card Detail Pages
-- [x] Create card detail page component with unique SEO per card
-- [x] Add card detail route to App.tsx (/cards/:setSlug/:cardSlug)
-- [x] Generate unique meta title/description per card
-- [x] Add Product JSON-LD structured data per card
-- [x] Cross-link related characters across sets ("Iron Man in Other Sets")
-- [x] Prev/Next card navigation within set
-- [x] Breadcrumb navigation (Home > Card Database > Set > Card)
-- [x] Parallels display with badges
-- [x] Card image with themed border
-- [x] Make card grid items clickable to detail pages
-- [x] Review SELF_EXECUTING_SEO_AUDIT_SPELL_PACK.zip and integrate findings
-- [x] Created reusable <SEO> component with schemas helper (client/src/components/SEO.tsx)
-- [x] Added SEO to all 17 pages: Home, Shop, About, FAQ, Contact, Shipping, Terms, Privacy, Refund, Transparency, Checklists, Subscribe, Marvel, StarWars, Whatnot, CardDatabase, CardDetail
-- [x] Created Top 10 SEO Strategy document (SEO_TOP_10_STRATEGY.md)
-- [x] Ensure every new page auto-registers in sitemap (dynamic, not static)
-- [x] Add sitemap link to footer of homepage
-- [x] Write vitest tests for card detail API (6 tests passing)
+## TypeScript Error Fixes
+- [x] Fix 20 TS errors across stripe-webhook.ts, CsvUploader, EbayCompsPanel, InventoryManager, ChecklistDetail, Checklists, WhatnotChecklist, db.ts, admin.ts (0 errors remaining)

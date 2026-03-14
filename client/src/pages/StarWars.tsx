@@ -2,7 +2,6 @@
  * Star Wars Category Page - Coming June 2026 with Mandalorian movie tie-in
  */
 
-import SEO, { schemas } from "@/components/SEO";
 import { getProductsByCategory } from "@/lib/products";
 import ProductCard from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
@@ -16,12 +15,6 @@ export default function StarWars() {
 
   return (
     <div className="min-h-screen">
-      <SEO
-        title="Star Wars Trading Card Repacks — Coming June 2026"
-        description="Star Wars trading card repacks coming June 2026 from Northland Legendary Finds. Sign up for early access to our Star Wars repack series."
-        path="/star-wars"
-        jsonLd={schemas.breadcrumbList([{"name":"Home","url":"/"},{"name":"Star Wars","url":"/star-wars"}])}
-      />
       {/* Hero */}
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0">

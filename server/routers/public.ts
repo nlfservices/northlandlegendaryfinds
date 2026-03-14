@@ -8,7 +8,6 @@ import {
   getProductStats,
   getAllMarvelSets, getMarvelSetBySlug, getMarvelCardsBySetId, searchMarvelCards,
   getAllGradedCards, getGradedCardStats, getGradedCardGradeDistribution, getGradedCardSets,
-  getMarvelCardBySetAndSlug, getRelatedCards, getAdjacentCards,
 } from "../db";
 import { launchSubscribers } from "../../drizzle/schema";
 import { getDb } from "../db";
@@ -116,23 +115,6 @@ const publicMarvelRouter = router({
   /** Search cards across all sets */
   search: publicProcedure.input(z.object({ query: z.string(), limit: z.number().default(50) })).query(async ({ input }) => {
     return searchMarvelCards(input.query, input.limit);
-  }),
-
-  /** Get a single card by set slug + card slug (for detail page) */
-  getCardBySlug: publicProcedure.input(z.object({
-    setSlug: z.string(),
-    cardSlug: z.string(),
-  })).query(async ({ input }) => {
-    const card = await getMarvelCardBySetAndSlug(input.setSlug, input.cardSlug);
-    if (!card) return null;
-
-    // Fetch related cards (same character in other sets) and adjacent cards
-    const [related, adjacent] = await Promise.all([
-      getRelatedCards(card.characterName, card.id),
-      getAdjacentCards(card.setId, card.sortOrder),
-    ]);
-
-    return { card, related, adjacent };
   }),
 });
 

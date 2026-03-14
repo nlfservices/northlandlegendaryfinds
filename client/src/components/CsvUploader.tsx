@@ -20,8 +20,8 @@ interface CsvUploaderProps {
   columns: CsvColumn[];
   templateName: string;
   onImport: (rows: Record<string, string>[]) => Promise<{ success: boolean; count?: number; errors?: string[] }>;
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
 }
 
 function parseCSV(text: string): string[][] {
@@ -146,7 +146,7 @@ export default function CsvUploader({ columns, templateName, onImport, title, de
         const obj: Record<string, string> = {};
         let hasData = false;
 
-        for (const [colIdx, key] of headerMap.entries()) {
+        for (const [colIdx, key] of Array.from(headerMap.entries())) {
           const val = row[colIdx]?.trim() || "";
           if (val) {
             obj[key] = val;

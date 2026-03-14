@@ -3,7 +3,6 @@
  * Design: Product lines as sections with category filters
  */
 
-import SEO, { schemas } from "@/components/SEO";
 import { useState } from "react";
 import { products, getProductLines } from "@/lib/products";
 import ProductCard from "@/components/ProductCard";
@@ -44,12 +43,6 @@ export default function Shop() {
 
   return (
     <div className="min-h-screen">
-      <SEO
-        title="Shop Marvel Trading Card Repacks"
-        description="Browse premium Marvel trading card repacks from Northland Legendary Finds. Chrome Edition, Cosmic Drop, and more. Guaranteed hits in every pack."
-        path="/shop"
-        jsonLd={schemas.breadcrumbList([{"name":"Home","url":"/"},{"name":"Shop","url":"/shop"}])}
-      />
       {/* Header */}
       <section className="py-12 border-b border-border">
         <div className="container">

@@ -2,7 +2,6 @@
  * Whatnot Page - Exclusive live stream repacks
  * Showcases the 500-pack series, upcoming shows, and past show results
  */
-import SEO, { schemas } from "@/components/SEO";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -26,12 +25,6 @@ export default function Whatnot() {
 
   return (
     <div className="min-h-screen">
-      <SEO
-        title="Live on Whatnot | Watch Packs Ripped Live"
-        description="Join Northland Legendary Finds live on Whatnot. Watch Marvel trading card repacks opened in real time. 500-pack series, live pulls, real-time checklist updates."
-        path="/whatnot"
-        jsonLd={schemas.breadcrumbList([{"name":"Home","url":"/"},{"name":"Whatnot","url":"/whatnot"}])}
-      />
       {/* Hero Section */}
       <section className="relative py-16 lg:py-24 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 via-transparent to-transparent" />
