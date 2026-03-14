@@ -598,9 +598,9 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Identify all cards needing images (NULL + duplicates + wrong character)
 - [x] Generate stylized MCU actor-inspired art — batch 1: 150/150, batch 2: 21/150 (106 unique cards matched)
 - [x] Upload 106 images to CDN and update database
-- [ ] Generate remaining ~328 Marvel Studios cards (batch 3 still needed)
-- [ ] Verify all Marvel Studios cards have unique, correct character images
-- [ ] Save checkpoint
+- [x] Generate remaining ~328 Marvel Studios cards (batch 3 still needed)
+- [x] Verify all Marvel Studios cards have unique, correct character images
+- [x] Save checkpoint
 
 ## Fix Marvel Zombies Card (Superman → Marvel Zombies)
 - [x] Regenerate MZ-1 Marvel Zombies card with Zombie Captain America and Zombie Iron Man (was showing Superman - DC character)
@@ -631,12 +631,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Save checkpoint
 
 ## Marvel Studios Remaining Images (Batch 2-4)
-- [ ] Query remaining ~328 Marvel Studios cards needing images
-- [ ] Generate MCU-inspired art batch 1 (~150 cards, starting with Iron Man characters)
-- [ ] Generate MCU-inspired art batch 2 (~150 cards)
-- [ ] Generate MCU-inspired art batch 3 (remaining cards)
-- [ ] Upload all images to CDN and update database
-- [ ] Save checkpoint
+- [x] Query remaining ~328 Marvel Studios cards needing images
+- [x] Generate MCU-inspired art batch 1 (~150 cards, starting with Iron Man characters)
+- [x] Generate MCU-inspired art batch 2 (~150 cards)
+- [x] Generate MCU-inspired art batch 3 (remaining cards)
+- [x] Upload all images to CDN and update database
+- [x] Save checkpoint
 
 ## TypeScript Error Fixes
 - [x] Fix 20 TS errors across stripe-webhook.ts, CsvUploader, EbayCompsPanel, InventoryManager, ChecklistDetail, Checklists, WhatnotChecklist, db.ts, admin.ts (0 errors remaining)
@@ -666,8 +666,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Save checkpoint
 
 ## Marvel Studios Remaining Images (Full Completion)
-- [ ] Query all remaining Marvel Studios cards needing images (~328 cards)
-- [ ] Generate MCU-inspired art in batches of 10
-- [ ] Upload all images to CDN and update database
-- [ ] Verify all Marvel Studios cards have images
-- [ ] Save checkpoint
+- [x] Query all remaining Marvel Studios cards needing images (~203 unique images needed)
+- [x] Generate MCU-inspired art in batches of 10 (18 batches total)
+- [x] Upload all images to CDN and update database
+- [x] Fix 22 base cards with wrong character images
+- [x] Generate all 192 Snap Variation unique images with disintegration effect
+- [x] Verify all Marvel Studios cards have images (540 unique, 0 null)
+- [x] Save checkpoint
