@@ -656,3 +656,36 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 ## Broken Image Fixes
 - [x] Fix Thanos MR-4 (Marvel Reflections) broken/missing image in Chrome set (regenerated, 403 URL replaced)
 - [x] Scanned all 358 Chrome card image URLs - 0 broken (all returning 200)
+
+## SEO Sitemap & Crawl Control System
+- [x] Scan repository for all routes, pages, and DB content types
+- [x] Create sitemap generation system (server-side Express routes, dynamic from DB)
+- [x] Generate sitemap-pages.xml for 20 core static pages
+- [x] Generate sitemap-cards-{1-6}.xml for 1,725 individual card pages (one per set)
+- [x] Generate sitemap-sets.xml for 6 set listing pages
+- [x] Generate sitemap-products.xml for 3 repack products
+- [x] Image sitemap extension included in card sitemaps (image:image tags)
+- [x] Create sitemap.xml index referencing all 10 sub-sitemaps
+- [x] Create robots.txt with sitemap reference and crawl directives
+- [x] Add canonical tags to card detail pages (react-helmet-async)
+- [x] Add meta tags (title, description, OG) to card detail pages
+- [x] Add Product JSON-LD structured data to card detail pages
+- [ ] Build validation and reporting system
+- [ ] Create CI-ready single command for generation + validation
+- [x] Verified sitemap outputs (1,725 card URLs, 20 pages, 6 sets, 3 products)
+
+## Individual Card Detail Pages
+- [x] Create card detail page component with unique SEO per card
+- [x] Add card detail route to App.tsx (/cards/:setSlug/:cardSlug)
+- [x] Generate unique meta title/description per card
+- [x] Add Product JSON-LD structured data per card
+- [x] Cross-link related characters across sets ("Iron Man in Other Sets")
+- [x] Prev/Next card navigation within set
+- [x] Breadcrumb navigation (Home > Card Database > Set > Card)
+- [x] Parallels display with badges
+- [x] Card image with themed border
+- [x] Make card grid items clickable to detail pages
+- [ ] Review SELF_EXECUTING_SEO_AUDIT_SPELL_PACK.zip and integrate findings
+- [x] Ensure every new page auto-registers in sitemap (dynamic, not static)
+- [x] Add sitemap link to footer of homepage
+- [x] Write vitest tests for card detail API (6 tests passing)

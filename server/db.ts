@@ -1,4 +1,4 @@
-import { eq, desc, asc, and, sql } from "drizzle-orm";
+import { eq, desc, asc, and, sql, lt, gt, ne, isNotNull } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import {
   InsertUser, users,
@@ -644,6 +644,104 @@ export async function searchMarvelCards(query: string, limit: number = 50): Prom
     .orderBy(asc(marvelCards.characterName))
     .limit(limit);
   return results;
+}
+
+/**
+ * Get a single card by set slug + card slug (characterName-cardNumber)
+ * Used for individual card detail pages
+ */
+export async function getMarvelCardBySetAndSlug(
+  setSlug: string,
+  cardSlugStr: string
+): Promise<(MarvelCard & { setName: string; setSlug: string }) | undefined> {
+  const db = await getDb();
+  if (!db) return undefined;
+
+  // First get the set
+  const setResult = await db.select().from(marvelSets).where(eq(marvelSets.slug, setSlug)).limit(1);
+  if (setResult.length === 0) return undefined;
+  const set = setResult[0];
+
+  // Get all cards in the set and match by slug
+  const cards = await db.select().from(marvelCards)
+    .where(eq(marvelCards.setId, set.id));
+
+  // Generate slug from character name + card number and match
+  const makeSlug = (name: string, num: string) => {
+    const n = name.toLowerCase().replace(/[^a-z0-9\s-]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-").trim();
+    const c = num.toLowerCase().replace(/[^a-z0-9-]/g, "");
+    return `${n}-${c}`;
+  };
+
+  const card = cards.find(c => makeSlug(c.characterName, c.cardNumber) === cardSlugStr);
+  if (!card) return undefined;
+
+  return { ...card, setName: set.name, setSlug: set.slug };
+}
+
+/**
+ * Get the same character across other sets (for cross-linking)
+ */
+export async function getRelatedCards(
+  characterName: string,
+  excludeCardId: number,
+  limit: number = 12
+) {
+  const db = await getDb();
+  if (!db) return [];
+
+  const results = await db.select({
+    id: marvelCards.id,
+    setId: marvelCards.setId,
+    cardNumber: marvelCards.cardNumber,
+    characterName: marvelCards.characterName,
+    cardType: marvelCards.cardType,
+    parallels: marvelCards.parallels,
+    rarity: marvelCards.rarity,
+    imageUrl: marvelCards.imageUrl,
+    backImageUrl: marvelCards.backImageUrl,
+    description: marvelCards.description,
+    sortOrder: marvelCards.sortOrder,
+    sourceId: marvelCards.sourceId,
+    createdAt: marvelCards.createdAt,
+    setName: marvelSets.name,
+    setSlug: marvelSets.slug,
+  }).from(marvelCards)
+    .leftJoin(marvelSets, eq(marvelCards.setId, marvelSets.id))
+    .where(and(
+      eq(marvelCards.characterName, characterName),
+      ne(marvelCards.id, excludeCardId)
+    ))
+    .orderBy(asc(marvelSets.name))
+    .limit(limit);
+
+  return results;
+}
+
+/**
+ * Get adjacent cards in the same set (for prev/next navigation)
+ */
+export async function getAdjacentCards(
+  setId: number,
+  sortOrder: number
+): Promise<{ prev: MarvelCard | null; next: MarvelCard | null }> {
+  const db = await getDb();
+  if (!db) return { prev: null, next: null };
+
+  const prevResult = await db.select().from(marvelCards)
+    .where(and(eq(marvelCards.setId, setId), lt(marvelCards.sortOrder, sortOrder)))
+    .orderBy(desc(marvelCards.sortOrder))
+    .limit(1);
+
+  const nextResult = await db.select().from(marvelCards)
+    .where(and(eq(marvelCards.setId, setId), gt(marvelCards.sortOrder, sortOrder)))
+    .orderBy(asc(marvelCards.sortOrder))
+    .limit(1);
+
+  return {
+    prev: prevResult.length > 0 ? prevResult[0] : null,
+    next: nextResult.length > 0 ? nextResult[0] : null,
+  };
 }
 
 // ==================== GRADED CARDS HELPERS ====================
