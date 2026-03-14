@@ -673,3 +673,6 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Generate all 192 Snap Variation unique images with disintegration effect
 - [x] Verify all Marvel Studios cards have images (540 unique, 0 null)
 - [x] Save checkpoint
+
+## Popup Mobile Optimization
+- [x] Optimize email signup popup for mobile devices (sizing, layout, touch targets)
