@@ -7,11 +7,18 @@
  * Damaged items: report within 48 hours, DO NOT open
  */
 
+import SEO, { schemas } from "@/components/SEO";
 import { AlertTriangle, ShieldX, Package, HelpCircle } from "lucide-react";
 
 export default function RefundPolicy() {
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Refund Policy"
+        description="Refund and return policy for Northland Legendary Finds Marvel trading card repacks. All repack sales are final. Damaged item claims within 48 hours."
+        path="/refund-policy"
+        jsonLd={schemas.breadcrumbList([{"name":"Home","url":"/"},{"name":"Refund Policy","url":"/refund-policy"}])}
+      />
       {/* Header */}
       <section className="py-12 border-b border-border">
         <div className="container">

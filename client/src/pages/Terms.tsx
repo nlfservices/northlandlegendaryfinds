@@ -2,9 +2,18 @@
  * Terms of Service Page
  */
 
+import SEO, { schemas } from "@/components/SEO";
+
 export default function Terms() {
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Terms of Service"
+        description="Terms of service for Northland Legendary Finds. Read our policies on purchases, returns, and use of our Marvel trading card repack website."
+        path="/terms"
+        noIndex
+        jsonLd={schemas.breadcrumbList([{"name":"Home","url":"/"},{"name":"Terms of Service","url":"/terms"}])}
+      />
       <section className="py-12 border-b border-border">
         <div className="container">
           <h1 className="text-5xl md:text-6xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>

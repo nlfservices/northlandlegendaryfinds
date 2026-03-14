@@ -7,6 +7,7 @@
  * Industry-standard policies modeled after Blowout Cards, Giant Sports Cards, Hit Parade
  */
 
+import SEO, { schemas } from "@/components/SEO";
 import { Package, Truck, Clock, Shield, Zap, AlertTriangle, MapPin } from "lucide-react";
 import { Link } from "wouter";
 import USShippingMap from "../components/USShippingMap";
@@ -14,6 +15,12 @@ import USShippingMap from "../components/USShippingMap";
 export default function Shipping() {
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Shipping Zones & Delivery Times"
+        description="Northland Legendary Finds shipping rates, delivery zones, and estimated transit times. Free shipping on orders over $199. Same-day processing before 2 PM CST."
+        path="/shipping"
+        jsonLd={schemas.breadcrumbList([{"name":"Home","url":"/"},{"name":"Shipping","url":"/shipping"}])}
+      />
       {/* Header */}
       <section className="py-12 border-b border-border">
         <div className="container">

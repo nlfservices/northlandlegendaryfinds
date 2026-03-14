@@ -667,9 +667,9 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Image sitemap extension included in card sitemaps (image:image tags)
 - [x] Create sitemap.xml index referencing all 10 sub-sitemaps
 - [x] Create robots.txt with sitemap reference and crawl directives
-- [x] Add canonical tags to card detail pages (react-helmet-async)
-- [x] Add meta tags (title, description, OG) to card detail pages
-- [x] Add Product JSON-LD structured data to card detail pages
+- [x] Add canonical tags to ALL 17 pages (react-helmet-async + reusable SEO component)
+- [x] Add meta tags (title, description, OG, Twitter Card) to ALL 17 pages
+- [x] Add JSON-LD: Organization + WebSite (home), FAQPage (FAQ), BreadcrumbList (all), Product (cards)
 - [ ] Build validation and reporting system
 - [ ] Create CI-ready single command for generation + validation
 - [x] Verified sitemap outputs (1,725 card URLs, 20 pages, 6 sets, 3 products)
@@ -685,7 +685,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Parallels display with badges
 - [x] Card image with themed border
 - [x] Make card grid items clickable to detail pages
-- [ ] Review SELF_EXECUTING_SEO_AUDIT_SPELL_PACK.zip and integrate findings
+- [x] Review SELF_EXECUTING_SEO_AUDIT_SPELL_PACK.zip and integrate findings
+- [x] Created reusable <SEO> component with schemas helper (client/src/components/SEO.tsx)
+- [x] Added SEO to all 17 pages: Home, Shop, About, FAQ, Contact, Shipping, Terms, Privacy, Refund, Transparency, Checklists, Subscribe, Marvel, StarWars, Whatnot, CardDatabase, CardDetail
+- [x] Created Top 10 SEO Strategy document (SEO_TOP_10_STRATEGY.md)
 - [x] Ensure every new page auto-registers in sitemap (dynamic, not static)
 - [x] Add sitemap link to footer of homepage
 - [x] Write vitest tests for card detail API (6 tests passing)

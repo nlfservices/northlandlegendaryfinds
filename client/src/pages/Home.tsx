@@ -4,6 +4,7 @@
  */
 
 import { useAuth } from "@/_core/hooks/useAuth";
+import SEO, { schemas } from "@/components/SEO";
 import { ShoppingCart, Shield, Star, TrendingUp, Package, ArrowRight, Zap, BookOpen, Clock, Eye, Radio } from "lucide-react";
 import CardShowcase, { type ShowcaseCard } from "@/components/CardShowcase";
 import { Button } from "@/components/ui/button";
@@ -63,6 +64,12 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Northland Legendary Finds | Premium Marvel Trading Card Repacks"
+        description="Premium Marvel trading card repacks with guaranteed hits. Featuring 2025 Topps Chrome, Sapphire, Mint & more. Strong floor, loaded middle, healthy ceiling. Free shipping over $199."
+        path="/"
+        jsonLd={[schemas.organization(), schemas.webSite()]}
+      />
       {/* ===== HERO SECTION ===== */}
       <section className="relative min-h-[450px] sm:min-h-[600px] lg:min-h-[700px] flex items-center overflow-hidden">
         {/* Background */}

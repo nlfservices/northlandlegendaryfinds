@@ -2,6 +2,7 @@
  * Public Checklists Page - Browse all product checklists
  * The HIGHLIGHT feature of the site - builds trust through transparency
  */
+import SEO, { schemas } from "@/components/SEO";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -33,6 +34,12 @@ export default function Checklists() {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="2025 Topps Marvel Card Checklists"
+        description="Complete checklists for every NLF repack series. See every card, track pulls in real time, and verify pack contents. Full transparency on every series."
+        path="/checklists"
+        jsonLd={schemas.breadcrumbList([{"name":"Home","url":"/"},{"name":"Checklists","url":"/checklists"}])}
+      />
       {/* Hero Section */}
       <section className="relative py-16 lg:py-24 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />

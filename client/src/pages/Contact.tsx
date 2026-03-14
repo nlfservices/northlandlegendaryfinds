@@ -2,6 +2,7 @@
  * Contact Page - Contact form and information
  */
 
+import SEO, { schemas } from "@/components/SEO";
 import { useState } from "react";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -30,6 +31,12 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Contact Us"
+        description="Get in touch with Northland Legendary Finds. Questions about Marvel trading card repacks, orders, shipping, or partnerships? We are here to help."
+        path="/contact"
+        jsonLd={schemas.breadcrumbList([{"name":"Home","url":"/"},{"name":"Contact","url":"/contact"}])}
+      />
       {/* Hero Section */}
       <section className="relative h-[300px] flex items-center justify-center space-bg overflow-hidden">
         <div className="container relative z-10 text-center">

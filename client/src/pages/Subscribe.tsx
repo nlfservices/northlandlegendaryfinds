@@ -1,3 +1,4 @@
+import SEO, { schemas } from "@/components/SEO";
 import { useState } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
@@ -47,6 +48,12 @@ export default function Subscribe() {
   if (submitted) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-black via-purple-900/20 to-black flex items-center justify-center p-4">
+      <SEO
+        title="Subscribe for Early Access & Drops"
+        description="Sign up for Northland Legendary Finds notifications. Be the first to know about new Marvel trading card repack drops, exclusive offers, and collector tips."
+        path="/subscribe"
+        jsonLd={schemas.breadcrumbList([{"name":"Home","url":"/"},{"name":"Subscribe","url":"/subscribe"}])}
+      />
         <div className="max-w-md w-full text-center">
           {/* Success Icon */}
           <div className="mb-6">

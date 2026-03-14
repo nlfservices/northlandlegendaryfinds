@@ -2,11 +2,18 @@
  * About Page - Company information and mission
  */
 
+import SEO, { schemas } from "@/components/SEO";
 import { Shield, Star, TrendingUp, Package } from "lucide-react";
 
 export default function About() {
   return (
     <div className="min-h-screen">
+      <SEO
+        title="About Northland Legendary Finds"
+        description="Meet the team behind NLF. We build premium Marvel trading card repacks with strong floors, loaded middles, and healthy ceilings. 100% authentic Topps cards."
+        path="/about"
+        jsonLd={schemas.breadcrumbList([{"name":"Home","url":"/"},{"name":"About","url":"/about"}])}
+      />
       {/* Hero Section */}
       <section className="relative h-[400px] flex items-center justify-center space-bg overflow-hidden">
         <div className="container relative z-10 text-center">

@@ -4,6 +4,7 @@
  * Lazy loading images for performance
  */
 
+import SEO, { schemas } from "@/components/SEO";
 import { useState, useMemo, useRef, useCallback, useEffect } from "react";
 import { trpc } from "@/lib/trpc";
 import { Link, useRoute } from "wouter";
@@ -160,6 +161,12 @@ function LazyImage({ src, alt, className }: { src: string; alt: string; classNam
 
   return (
     <div ref={imgRef} className={`relative ${className || ""}`}>
+      <SEO
+        title="2025 Topps Marvel Card Database | 1,725+ Cards"
+        description="Browse every 2025 Topps Marvel trading card across Chrome, Comic Book Heroes, Mint, Sapphire, and Studios sets. 1,725+ cards with images, parallels, and details."
+        path="/cards"
+        jsonLd={schemas.breadcrumbList([{"name":"Home","url":"/"},{"name":"Card Database","url":"/cards"}])}
+      />
       {!loaded && !error && (
         <div className="absolute inset-0 bg-muted/30 animate-pulse rounded-lg" />
       )}

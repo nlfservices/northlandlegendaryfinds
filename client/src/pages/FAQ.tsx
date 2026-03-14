@@ -9,6 +9,7 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { Link } from "wouter";
+import SEO, { schemas } from "@/components/SEO";
 
 const faqs = [
   {
@@ -182,8 +183,23 @@ export default function FAQ() {
     });
   };
 
+  // Flatten all FAQ questions for JSON-LD
+  const allQuestions = faqs.flatMap(section => section.questions);
+
   return (
     <div className="min-h-screen">
+      <SEO
+        title="FAQ | Marvel Card Repacks & Collecting"
+        description="Answers to common questions about Northland Legendary Finds Marvel trading card repacks, shipping, grading, checklists, transparency, and what makes NLF different."
+        path="/faq"
+        jsonLd={[
+          schemas.faqPage(allQuestions),
+          schemas.breadcrumbList([
+            { name: "Home", url: "/" },
+            { name: "FAQ", url: "/faq" },
+          ]),
+        ]}
+      />
       {/* Header */}
       <section className="py-12 border-b border-border">
         <div className="container">
