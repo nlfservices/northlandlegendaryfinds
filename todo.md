@@ -642,19 +642,19 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Fix 20 TS errors across stripe-webhook.ts, CsvUploader, EbayCompsPanel, InventoryManager, ChecklistDetail, Checklists, WhatnotChecklist, db.ts, admin.ts (0 errors remaining)
 
 ## 2025 Topps Marvel Studios: The Collector Set
-- [ ] Upload box image to CDN
-- [ ] Create set in database with slug 2025-marvel-the-collector
-- [ ] Insert 85 MCU Perfection base cards (#1-85) with parallels
-- [ ] Insert 25 Marvel Tomorrow cards (MT-1 to MT-25) with parallels
-- [ ] Insert 25 Villainy cards (V-01 to V-25) with parallels
-- [ ] Insert 25 Show Stoppers cards (ST-1 to ST-25) with parallels
-- [ ] Insert 6 Infinity Gauntlet cards (IG-1 to IG-6) with parallels
-- [ ] Insert autograph card entries (MCU Perfection Auto, Dual Auto, Treasures of Asgard, IG Auto, Collector's Museum)
-- [ ] Generate AI images for MCU Perfection cards (actor-likeness style)
-- [ ] Generate AI images for Marvel Tomorrow cards
-- [ ] Generate AI images for Villainy cards
-- [ ] Generate AI images for Show Stoppers cards (scene-based)
-- [ ] Generate AI images for Infinity Gauntlet cards (Thanos)
-- [ ] Reuse images across subsets where same character appears
-- [ ] Verify set page renders correctly
-- [ ] Save checkpoint
+- [x] Upload box image to CDN
+- [x] Create set in database with slug 2025-marvel-the-collector
+- [x] Insert 85 MCU Perfection base cards (#1-85) with parallels
+- [x] Insert 25 Marvel Tomorrow cards (MT-1 to MT-25) with parallels
+- [x] Insert 25 Villainy cards (V-01 to V-25) with parallels
+- [x] Insert 25 Show Stoppers cards (ST-1 to ST-25) with parallels
+- [x] Insert 6 Infinity Gauntlet cards (IG-1 to IG-6) with parallels
+- [x] Insert autograph card entries (MCU Perfection Auto, Dual Auto, Treasures of Asgard, IG Auto, Collector's Museum)
+- [x] Generate AI images for MCU Perfection cards (actor-likeness style)
+- [x] Generate AI images for Marvel Tomorrow cards
+- [x] Generate AI images for Villainy cards
+- [x] Generate AI images for Show Stoppers cards (scene-based)
+- [x] Generate AI images for Infinity Gauntlet cards (Thanos)
+- [x] Reuse images across subsets where same character appears
+- [x] Verify set page renders correctly
+- [x] Save checkpoint (Collector set complete - 257/257 images)
