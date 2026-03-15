@@ -9,7 +9,7 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { Link } from "wouter";
-import SEO, { breadcrumbJsonLd } from "@/components/SEO";
+import SEO, { breadcrumbJsonLd, faqJsonLd } from "@/components/SEO";
 
 const faqs = [
   {
@@ -189,7 +189,17 @@ export default function FAQ() {
         title="Frequently Asked Questions"
         description="Find answers to common questions about Northland Legendary Finds repacks, shipping, grading, and our transparent pack-opening process."
         path="/faq"
-        jsonLd={breadcrumbJsonLd([{ name: "Home", url: "/" }, { name: "FAQ", url: "/faq" }])}
+        jsonLd={[
+          breadcrumbJsonLd([{ name: "Home", url: "/" }, { name: "FAQ", url: "/faq" }]),
+          faqJsonLd(
+            faqs.flatMap((section) =>
+              section.questions.map((item) => ({
+                question: item.q,
+                answer: item.a,
+              }))
+            )
+          ),
+        ]}
       />
       {/* Header */}
       <section className="py-12 border-b border-border">

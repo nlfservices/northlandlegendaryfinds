@@ -652,3 +652,6 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add canonical URLs to prevent duplicate content
 - [x] Move noscript pixel to body to fix parse5 errors
 - [x] Test and save checkpoint
+
+## FAQ Schema Integration
+- [x] Wire faqJsonLd helper into FAQ page with all 31 Q&A pairs for Google rich results
