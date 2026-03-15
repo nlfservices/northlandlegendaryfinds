@@ -87,6 +87,22 @@ export default function CharacterPage() {
     }
   }, [data?.content?.keyFacts]);
 
+  // Pick the best representative image: prefer cards whose image filename contains the character name
+  const characterImage = useMemo(() => {
+    if (!data?.cards?.length) return PLACEHOLDER_IMG;
+    const charWords = data.characterName.toLowerCase().split(/\s+/).filter(w => w.length > 2);
+    // Try to find a card whose image URL contains the character name
+    const matchingCard = data.cards.find(c => {
+      if (!c.imageUrl) return false;
+      const filename = c.imageUrl.split('/').pop()?.toLowerCase() || '';
+      return charWords.some(w => filename.includes(w));
+    });
+    if (matchingCard?.imageUrl) return matchingCard.imageUrl;
+    // Fallback: first card with an image
+    const firstWithImage = data.cards.find(c => c.imageUrl);
+    return firstWithImage?.imageUrl || PLACEHOLDER_IMG;
+  }, [data?.cards, data?.characterName]);
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background">
@@ -128,7 +144,6 @@ export default function CharacterPage() {
     );
   }
 
-  const characterImage = data.cards?.[0]?.imageUrl || PLACEHOLDER_IMG;
   const metaDesc = data.content?.metaDescription ||
     `Explore ${data.characterName}'s history, powers, and ${data.cardCount} trading cards across multiple Marvel sets at Northland Legendary Finds.`;
 

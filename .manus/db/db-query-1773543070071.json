@@ -1,0 +1,106 @@
+{
+  "query": "SELECT mc.id, mc.cardNumber, mc.characterName, mc.cardType, mc.imageUrl, ms.name as setName FROM marvel_cards mc JOIN marvel_sets ms ON mc.setId = ms.id WHERE mc.characterName = 'Nightcrawler' ORDER BY ms.name, mc.sortOrder;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT mc.id, mc.cardNumber, mc.characterName, mc.cardType, mc.imageUrl, ms.name as setName FROM marvel_cards mc JOIN marvel_sets ms ON mc.setId = ms.id WHERE mc.characterName = 'Nightcrawler' ORDER BY ms.name, mc.sortOrder;",
+  "rows": [
+    {
+      "id": "88",
+      "cardNumber": "178",
+      "characterName": "Nightcrawler",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-178_Star-Lord_170f9346.webp",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "id": "247",
+      "cardNumber": "GA-2",
+      "characterName": "Nightcrawler",
+      "cardType": "GOLDEN ANNIVERSARIES",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nightcrawler_3c80ff3d.png",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "id": "267",
+      "cardNumber": "I-10",
+      "characterName": "Nightcrawler",
+      "cardType": "INDESTRUCTIBLE",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_I-10_Nightcrawler_9836e5eb.png",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "id": "332",
+      "cardNumber": "NC-1",
+      "characterName": "Nightcrawler",
+      "cardType": "AIR MARVEL",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_NC-1_Nightcrawler_a99be745.png",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "id": "333",
+      "cardNumber": "NC-2",
+      "characterName": "Nightcrawler",
+      "cardType": "AIR MARVEL",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_NC-2_Nightcrawler_ca692fe6.png",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "id": "334",
+      "cardNumber": "NC-3",
+      "characterName": "Nightcrawler",
+      "cardType": "AIR MARVEL",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nightcrawler_3c80ff3d.png",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "id": "335",
+      "cardNumber": "NC-4",
+      "characterName": "Nightcrawler",
+      "cardType": "AIR MARVEL",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_NC-4_Nightcrawler_e8249ab4.png",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "id": "336",
+      "cardNumber": "NC-5",
+      "characterName": "Nightcrawler",
+      "cardType": "AIR MARVEL",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nightcrawler_3c80ff3d.png",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "id": "352",
+      "cardNumber": "XM-3",
+      "characterName": "Nightcrawler",
+      "cardType": "X MEN GIANT SIZE 50TH ANNIVERSARY",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nightcrawler_3c80ff3d.png",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "id": "1370",
+      "cardNumber": "129",
+      "characterName": "Nightcrawler",
+      "cardType": "COMIC BOOK HEROES 2025",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-129_Nightcrawler_9509d7be.webp",
+      "setName": "2025 Topps Comic Book Heroes"
+    },
+    {
+      "id": "1613",
+      "cardNumber": "58",
+      "characterName": "Nightcrawler",
+      "cardType": "BASE CARDS – SILVER",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nightcrawler_3c80ff3d.png",
+      "setName": "2025 Topps Marvel Mint"
+    },
+    {
+      "id": "446",
+      "cardNumber": "178",
+      "characterName": "Nightcrawler",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-178_Star-Lord_170f9346.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcardNumber\tcharacterName\tcardType\timageUrl\tsetName\n88\t178\tNightcrawler\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-178_Star-Lord_170f9346.webp\t2025 Topps Chrome\n247\tGA-2\tNightcrawler\tGOLDEN ANNIVERSARIES\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nightcrawler_3c80ff3d.png\t2025 Topps Chrome\n267\tI-10\tNightcrawler\tINDESTRUCTIBLE\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_I-10_Nightcrawler_9836e5eb.png\t2025 Topps Chrome\n332\tNC-1\tNightcrawler\tAIR MARVEL\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_NC-1_Nightcrawler_a99be745.png\t2025 Topps Chrome\n333\tNC-2\tNightcrawler\tAIR MARVEL\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_NC-2_Nightcrawler_ca692fe6.png\t2025 Topps Chrome\n334\tNC-3\tNightcrawler\tAIR MARVEL\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nightcrawler_3c80ff3d.png\t2025 Topps Chrome\n335\tNC-4\tNightcrawler\tAIR MARVEL\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_NC-4_Nightcrawler_e8249ab4.png\t2025 Topps Chrome\n336\tNC-5\tNightcrawler\tAIR MARVEL\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nightcrawler_3c80ff3d.png\t2025 Topps Chrome\n352\tXM-3\tNightcrawler\tX MEN GIANT SIZE 50TH ANNIVERSARY\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nightcrawler_3c80ff3d.png\t2025 Topps Chrome\n1370\t129\tNightcrawler\tCOMIC BOOK HEROES 2025\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-129_Nightcrawler_9509d7be.webp\t2025 Topps Comic Book Heroes\n1613\t58\tNightcrawler\tBASE CARDS – SILVER\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nightcrawler_3c80ff3d.png\t2025 Topps Marvel Mint\n446\t178\tNightcrawler\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-178_Star-Lord_170f9346.webp\t2025 Topps Marvel Sapphire\n",
+  "stderr": "",
+  "execution_time_ms": 418
+}

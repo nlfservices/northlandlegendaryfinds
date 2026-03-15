@@ -695,3 +695,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add Random Card shuffle icon button to navigation bar (desktop + mobile menu)
 - [x] Test end-to-end in browser (3 clicks: Fisk #DD-25, Iron Man #IM-6, Agatha Harkness #6 - all different)
 - [x] Save checkpoint
+
+## Bug Fix: Wrong Hero Image on Character Pages
+- [x] Investigated: Card #178 in Chrome/Sapphire has characterName='Nightcrawler' but image file is 'CHROME-178_Star-Lord' (data import mismatch)
+- [x] Fixed image selection: useMemo now prefers cards whose image filename contains the character name words, falls back to first card with image
+- [x] Moved useMemo before early returns to fix React hooks order error
+- [x] Tested: Nightcrawler page now correctly shows CBH-129_Nightcrawler image instead of Star-Lord
+- [x] Save checkpoint
