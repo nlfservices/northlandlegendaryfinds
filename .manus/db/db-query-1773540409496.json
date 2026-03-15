@@ -1,0 +1,55 @@
+{
+  "query": "SELECT id, setId, cardNumber, characterName, cardType, imageUrl, description FROM marvel_cards WHERE characterName = 'Iron Man' AND setId = (SELECT id FROM marvel_sets WHERE slug = '2025-topps-chrome') LIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, setId, cardNumber, characterName, cardType, imageUrl, description FROM marvel_cards WHERE characterName = 'Iron Man' AND setId = (SELECT id FROM marvel_sets WHERE slug = '2025-topps-chrome') LIMIT 5;",
+  "rows": [
+    {
+      "id": "1",
+      "setId": "1",
+      "cardNumber": "1",
+      "characterName": "Iron Man",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-001_Iron_Man_80cf3e9d.webp",
+      "description": "NULL"
+    },
+    {
+      "id": "227",
+      "setId": "1",
+      "cardNumber": "AV-9",
+      "characterName": "Iron Man",
+      "cardType": "THE NEW AVENGERS 20TH ANNIVERSARY",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-045_Iron_Man_eef484d5.webp",
+      "description": "NULL"
+    },
+    {
+      "id": "276",
+      "setId": "1",
+      "cardNumber": "IM-1",
+      "characterName": "Iron Man",
+      "cardType": "IRON MAN GOLD",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_IM-1_Iron_Man_fc82751c.png",
+      "description": "NULL"
+    },
+    {
+      "id": "277",
+      "setId": "1",
+      "cardNumber": "IM-10",
+      "characterName": "Iron Man",
+      "cardType": "IRON MAN GOLD",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_IM-10_Iron_Man_7c7fa4dd.png",
+      "description": "NULL"
+    },
+    {
+      "id": "278",
+      "setId": "1",
+      "cardNumber": "IM-2",
+      "characterName": "Iron Man",
+      "cardType": "IRON MAN GOLD",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_IM-2_Iron_Man_8caf410e.png",
+      "description": "NULL"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tsetId\tcardNumber\tcharacterName\tcardType\timageUrl\tdescription\n1\t1\t1\tIron Man\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-001_Iron_Man_80cf3e9d.webp\tNULL\n227\t1\tAV-9\tIron Man\tTHE NEW AVENGERS 20TH ANNIVERSARY\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-045_Iron_Man_eef484d5.webp\tNULL\n276\t1\tIM-1\tIron Man\tIRON MAN GOLD\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_IM-1_Iron_Man_fc82751c.png\tNULL\n277\t1\tIM-10\tIron Man\tIRON MAN GOLD\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_IM-10_Iron_Man_7c7fa4dd.png\tNULL\n278\t1\tIM-2\tIron Man\tIRON MAN GOLD\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_IM-2_Iron_Man_8caf410e.png\tNULL\n",
+  "stderr": "",
+  "execution_time_ms": 767
+}

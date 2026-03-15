@@ -9,6 +9,7 @@ import {
   cardSets, InsertCardSet, CardSet,
   inventoryCards, InsertInventoryCard, InventoryCard,
   characterContent, InsertCharacterContent, CharacterContent,
+  cardDetailContent, InsertCardDetailContent, CardDetailContent,
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -891,4 +892,230 @@ export async function getRelatedCharacters(characterName: string, limit: number 
     cardCount: Number(r.cardCount),
     imageUrl: r.imageUrl as string | null,
   }));
+}
+
+// ==================== CARD DETAIL PAGE HELPERS ====================
+
+/** Get a single card by set slug and card number, with set info */
+export async function getCardBySetAndNumber(setSlug: string, cardNumber: string) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const results = await db.select({
+    id: marvelCards.id,
+    setId: marvelCards.setId,
+    cardNumber: marvelCards.cardNumber,
+    characterName: marvelCards.characterName,
+    cardType: marvelCards.cardType,
+    parallels: marvelCards.parallels,
+    rarity: marvelCards.rarity,
+    imageUrl: marvelCards.imageUrl,
+    description: marvelCards.description,
+    sortOrder: marvelCards.sortOrder,
+    sourceId: marvelCards.sourceId,
+    createdAt: marvelCards.createdAt,
+    setName: marvelSets.name,
+    setSlug: marvelSets.slug,
+    setYear: marvelSets.releaseYear,
+    setDescription: marvelSets.description,
+  }).from(marvelCards)
+    .innerJoin(marvelSets, eq(marvelCards.setId, marvelSets.id))
+    .where(and(
+      eq(marvelSets.slug, setSlug),
+      eq(marvelCards.cardNumber, cardNumber)
+    ))
+    .limit(1);
+  return results.length > 0 ? results[0] : undefined;
+}
+
+/** Get prev/next cards in the same set for navigation */
+export async function getAdjacentCards(setId: number, sortOrder: number) {
+  const db = await getDb();
+  if (!db) return { prev: undefined, next: undefined };
+
+  const [prevResults, nextResults] = await Promise.all([
+    db.select({
+      cardNumber: marvelCards.cardNumber,
+      characterName: marvelCards.characterName,
+      imageUrl: marvelCards.imageUrl,
+      cardType: marvelCards.cardType,
+    }).from(marvelCards)
+      .where(and(eq(marvelCards.setId, setId), sql`${marvelCards.sortOrder} < ${sortOrder}`))
+      .orderBy(desc(marvelCards.sortOrder))
+      .limit(1),
+    db.select({
+      cardNumber: marvelCards.cardNumber,
+      characterName: marvelCards.characterName,
+      imageUrl: marvelCards.imageUrl,
+      cardType: marvelCards.cardType,
+    }).from(marvelCards)
+      .where(and(eq(marvelCards.setId, setId), sql`${marvelCards.sortOrder} > ${sortOrder}`))
+      .orderBy(asc(marvelCards.sortOrder))
+      .limit(1),
+  ]);
+
+  return {
+    prev: prevResults.length > 0 ? prevResults[0] : undefined,
+    next: nextResults.length > 0 ? nextResults[0] : undefined,
+  };
+}
+
+/** Get other cards of the same character in the same set */
+export async function getSameCharacterCardsInSet(setId: number, characterName: string, excludeCardId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({
+    id: marvelCards.id,
+    cardNumber: marvelCards.cardNumber,
+    characterName: marvelCards.characterName,
+    cardType: marvelCards.cardType,
+    imageUrl: marvelCards.imageUrl,
+    parallels: marvelCards.parallels,
+  }).from(marvelCards)
+    .where(and(
+      eq(marvelCards.setId, setId),
+      eq(marvelCards.characterName, characterName),
+      sql`${marvelCards.id} != ${excludeCardId}`
+    ))
+    .orderBy(asc(marvelCards.sortOrder));
+}
+
+/** Get card detail content by card ID */
+export async function getCardDetailContentByCardId(cardId: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(cardDetailContent)
+    .where(eq(cardDetailContent.cardId, cardId))
+    .limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+/** Upsert card detail content */
+export async function upsertCardDetailContent(data: InsertCardDetailContent) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const existing = await db.select({ id: cardDetailContent.id })
+    .from(cardDetailContent)
+    .where(eq(cardDetailContent.cardId, data.cardId))
+    .limit(1);
+
+  if (existing.length > 0) {
+    await db.update(cardDetailContent)
+      .set({
+        contentMarkdown: data.contentMarkdown,
+        metaDescription: data.metaDescription,
+        status: data.status,
+      })
+      .where(eq(cardDetailContent.id, existing[0].id));
+  } else {
+    await db.insert(cardDetailContent).values(data);
+  }
+}
+
+/** Get all card slugs for sitemap (setSlug + cardNumber pairs) */
+export async function getAllCardDetailSlugs() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({
+    cardNumber: marvelCards.cardNumber,
+    setSlug: marvelSets.slug,
+  }).from(marvelCards)
+    .innerJoin(marvelSets, eq(marvelCards.setId, marvelSets.id))
+    .orderBy(asc(marvelSets.slug), asc(marvelCards.sortOrder));
+}
+
+/**
+ * Parse parallels string into structured data.
+ * Filters out plain "Base", "Base Cards", and unnumbered single-word entries.
+ * Keeps numbered parallels (/99, /25, etc.), color-named with numbers, PP, etc.
+ */
+export function parseParallels(parallelsStr: string | null): Array<{ name: string; printRun: number | null; isNumbered: boolean }> {
+  if (!parallelsStr) return [];
+
+  const parts = parallelsStr.split(",").map(p => p.trim()).filter(Boolean);
+  const result: Array<{ name: string; printRun: number | null; isNumbered: boolean }> = [];
+
+  for (const part of parts) {
+    // Skip plain "Base" and "Base Cards"
+    if (/^base(\s+cards)?$/i.test(part)) continue;
+
+    // Match /NUMBER or /NUMBER-SUFFIX patterns (e.g., /99, /25-2, /5-P)
+    const slashMatch = part.match(/^\/(\d+)(-\w+)?$/);
+    if (slashMatch) {
+      const num = parseInt(slashMatch[1], 10);
+      const suffix = slashMatch[2] || "";
+      result.push({
+        name: num === 1 ? `1/1${suffix}` : `/${num}${suffix}`,
+        printRun: num,
+        isNumbered: true,
+      });
+      continue;
+    }
+
+    // Match NUMBER-G patterns (Gold variants like 25-G, 10-G)
+    const goldMatch = part.match(/^(\d+)-G$/i);
+    if (goldMatch) {
+      result.push({
+        name: `Gold /${goldMatch[1]}`,
+        printRun: parseInt(goldMatch[1], 10),
+        isNumbered: true,
+      });
+      continue;
+    }
+
+    // Match "Color /NUMBER" patterns (The Collector style: "Purple /455")
+    const colorMatch = part.match(/^(\w+)\s+\/(\d+)$/);
+    if (colorMatch) {
+      result.push({
+        name: `${colorMatch[1]} /${colorMatch[2]}`,
+        printRun: parseInt(colorMatch[2], 10),
+        isNumbered: true,
+      });
+      continue;
+    }
+
+    // PP = Printing Plate (always 1/1 effectively)
+    if (/^PP(-\w+)?$/i.test(part)) {
+      result.push({
+        name: `Printing Plate${part.length > 2 ? ` (${part})` : ""}`,
+        printRun: 1,
+        isNumbered: true,
+      });
+      continue;
+    }
+
+    // "Base Platinum", "Base /NUMBER" etc.
+    const baseNumMatch = part.match(/^Base\s+\/(\d+)$/i);
+    if (baseNumMatch) {
+      result.push({
+        name: `Base /${baseNumMatch[1]}`,
+        printRun: parseInt(baseNumMatch[1], 10),
+        isNumbered: true,
+      });
+      continue;
+    }
+
+    // "Base WORD" like "Base Platinum" - keep as named variant
+    const baseVariant = part.match(/^Base\s+(\w+)$/i);
+    if (baseVariant) {
+      result.push({
+        name: part,
+        printRun: null,
+        isNumbered: false,
+      });
+      continue;
+    }
+
+    // Single word insert names (Gambits Deck, Infinite Sapphire, etc.) - skip unnumbered
+    if (!/\d/.test(part)) continue;
+
+    // Anything else with a number
+    result.push({
+      name: part,
+      printRun: null,
+      isNumbered: false,
+    });
+  }
+
+  return result;
 }

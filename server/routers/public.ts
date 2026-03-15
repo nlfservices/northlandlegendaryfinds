@@ -10,6 +10,9 @@ import {
   getAllGradedCards, getGradedCardStats, getGradedCardGradeDistribution, getGradedCardSets,
   getCharacterContentBySlug, getCardsByCharacterName, upsertCharacterContent,
   characterNameToSlug, getAllCharacterSlugs, getRelatedCharacters,
+  getCardBySetAndNumber, getAdjacentCards, getSameCharacterCardsInSet,
+  getCardDetailContentByCardId, upsertCardDetailContent, getAllCardDetailSlugs,
+  parseParallels,
 } from "../db";
 import { launchSubscribers } from "../../drizzle/schema";
 import { getDb } from "../db";
@@ -297,6 +300,138 @@ Format the response as JSON with these fields:
       characters: all.slice(start, end),
       total: all.length,
     };
+  }),
+
+  /** Get individual card detail with set info, parallels, adjacent cards */
+  cardDetail: publicProcedure.input(z.object({ setSlug: z.string(), cardNumber: z.string() })).query(async ({ input }) => {
+    const card = await getCardBySetAndNumber(input.setSlug, input.cardNumber);
+    if (!card) return null;
+
+    const [adjacent, sameCharCards, detailContent] = await Promise.all([
+      getAdjacentCards(card.setId, card.sortOrder),
+      getSameCharacterCardsInSet(card.setId, card.characterName, card.id),
+      getCardDetailContentByCardId(card.id),
+    ]);
+
+    const parallels = parseParallels(card.parallels);
+    const characterSlug = characterNameToSlug(card.characterName);
+
+    return {
+      card,
+      parallels,
+      adjacent,
+      sameCharCards,
+      characterSlug,
+      detailContent,
+    };
+  }),
+
+  /** Generate card-specific content via LLM */
+  generateCardContent: publicProcedure.input(z.object({ setSlug: z.string(), cardNumber: z.string() })).mutation(async ({ input }) => {
+    const { invokeLLM } = await import("../_core/llm");
+
+    const card = await getCardBySetAndNumber(input.setSlug, input.cardNumber);
+    if (!card) throw new Error("Card not found");
+
+    // Check if already generating
+    const existing = await getCardDetailContentByCardId(card.id);
+    if (existing?.status === "generating") return { status: "generating" };
+    if (existing?.status === "generated" && existing.contentMarkdown) {
+      return { status: "generated", content: existing.contentMarkdown };
+    }
+
+    // Mark as generating
+    await upsertCardDetailContent({
+      cardId: card.id,
+      setSlug: input.setSlug,
+      cardNumber: input.cardNumber,
+      status: "generating",
+    });
+
+    const parallels = parseParallels(card.parallels);
+    const numberedParallels = parallels.filter(p => p.isNumbered).map(p => p.name);
+    const sameCharCards = await getSameCharacterCardsInSet(card.setId, card.characterName, card.id);
+
+    try {
+      const response = await invokeLLM({
+        messages: [
+          {
+            role: "system",
+            content: `You are a Marvel trading card expert writing for Northland Legendary Finds, a premium Marvel card shop. Write engaging, collector-focused content about specific trading cards. Use a knowledgeable but approachable tone. Focus on what makes this specific card and its parallels collectible.`
+          },
+          {
+            role: "user",
+            content: `Write a 500-700 word article about the ${card.characterName} card #${card.cardNumber} from the ${card.setName} set.
+
+Card details:
+- Card Type/Subset: ${card.cardType || "Base"}
+- Available Numbered Parallels: ${numberedParallels.length > 0 ? numberedParallels.join(", ") : "Standard parallels"}
+- Other ${card.characterName} cards in this set: ${sameCharCards.length > 0 ? sameCharCards.map(c => `#${c.cardNumber} (${c.cardType})`).join(", ") : "None"}
+
+Structure the article with these sections:
+## About This Card
+Describe what makes this specific card special in the ${card.setName} set. Discuss the card type "${card.cardType || "Base"}" and its significance.
+
+## The Parallel Breakdown
+Detail the available parallels and refractors for this card. Explain what each numbered parallel means for collectors (print run, rarity, value). ${numberedParallels.length > 0 ? `Cover these specific parallels: ${numberedParallels.join(", ")}` : "Discuss the standard parallel structure."}
+
+## ${card.characterName} in ${card.setName}
+Discuss why ${card.characterName} is featured in this set and what the character means to Marvel card collectors.
+
+## Collector's Notes
+Provide tips on what to look for, which parallels are most sought-after, and why this card belongs in a collection.
+
+Write for the Northland Legendary Finds audience - serious Marvel card collectors who appreciate detail about print runs, parallels, and card value.`
+          }
+        ],
+        response_format: {
+          type: "json_schema",
+          json_schema: {
+            name: "card_detail_content",
+            strict: true,
+            schema: {
+              type: "object",
+              properties: {
+                article: { type: "string", description: "Full markdown article, 500-700 words" },
+                metaDescription: { type: "string", description: "SEO meta description, 150-160 chars" },
+              },
+              required: ["article", "metaDescription"],
+              additionalProperties: false
+            }
+          }
+        }
+      });
+
+      const content = response.choices[0]?.message?.content;
+      if (!content || typeof content !== "string") throw new Error("No content returned from LLM");
+
+      const parsed = JSON.parse(content);
+
+      await upsertCardDetailContent({
+        cardId: card.id,
+        setSlug: input.setSlug,
+        cardNumber: input.cardNumber,
+        contentMarkdown: parsed.article,
+        metaDescription: parsed.metaDescription,
+        status: "generated",
+      });
+
+      return { status: "generated", content: parsed.article };
+    } catch (err) {
+      console.error("[Card Detail Content] Generation failed:", err);
+      await upsertCardDetailContent({
+        cardId: card.id,
+        setSlug: input.setSlug,
+        cardNumber: input.cardNumber,
+        status: "error",
+      });
+      throw new Error("Content generation failed. Please try again.");
+    }
+  }),
+
+  /** Get all card detail slugs for sitemap */
+  allCardSlugs: publicProcedure.query(async () => {
+    return getAllCardDetailSlugs();
   }),
 });
 

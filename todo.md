@@ -677,3 +677,14 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Write vitest tests for related characters endpoint (5 new tests, 19 total passing)
 - [x] Test end-to-end in browser (Spider-Man → Iron Man navigation verified)
 - [x] Save checkpoint
+
+## Individual Card Detail Pages
+- [x] Review card data structure and plan card detail page schema (card_detail_content table added)
+- [x] Build backend DB helpers (getCardBySetAndNumber, getAdjacentCards, getSameCharacterCardsInSet, getCardDetailContentByCardId, upsertCardDetailContent, getAllCardDetailSlugs, parseParallels)
+- [x] Build tRPC procedures for card detail data + LLM-generated set-specific character content (cardDetail, generateCardContent)
+- [x] Build CardDetailPage component (card art, parallel breakdown with rarity colors, set-specific character story, prev/next navigation, more cards of same character)
+- [x] Wire up routing (/cards/:setSlug/:cardNumber) and link card images from card database (grid view, table view, search results)
+- [x] Add card detail pages to sitemap
+- [x] Write vitest tests for card detail endpoints (18 tests: 12 parseParallels + 6 DB helpers)
+- [x] Test end-to-end in browser (Iron Man #1 Chrome verified with all sections)
+- [x] Save checkpoint

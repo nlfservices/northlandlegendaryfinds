@@ -1,0 +1,106 @@
+{
+  "query": "SELECT mc.id, mc.cardNumber, mc.characterName, mc.cardType, mc.imageUrl, mc.parallels, mc.rarity, mc.description, ms.name as setName, ms.slug as setSlug FROM marvel_cards mc JOIN marvel_sets ms ON mc.setId = ms.id WHERE mc.characterName = 'Iron Man' ORDER BY mc.setId, mc.sortOrder LIMIT 8;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT mc.id, mc.cardNumber, mc.characterName, mc.cardType, mc.imageUrl, mc.parallels, mc.rarity, mc.description, ms.name as setName, ms.slug as setSlug FROM marvel_cards mc JOIN marvel_sets ms ON mc.setId = ms.id WHERE mc.characterName = 'Iron Man' ORDER BY mc.setId, mc.sortOrder LIMIT 8;",
+  "rows": [
+    {
+      "id": "1",
+      "cardNumber": "1",
+      "characterName": "Iron Man",
+      "cardType": "Base",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-001_Iron_Man_80cf3e9d.webp",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "rarity": "NULL",
+      "description": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setSlug": "2025-topps-chrome"
+    },
+    {
+      "id": "227",
+      "cardNumber": "AV-9",
+      "characterName": "Iron Man",
+      "cardType": "THE NEW AVENGERS 20TH ANNIVERSARY",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-045_Iron_Man_eef484d5.webp",
+      "parallels": "NULL",
+      "rarity": "NULL",
+      "description": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setSlug": "2025-topps-chrome"
+    },
+    {
+      "id": "276",
+      "cardNumber": "IM-1",
+      "characterName": "Iron Man",
+      "cardType": "IRON MAN GOLD",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_IM-1_Iron_Man_fc82751c.png",
+      "parallels": "NULL",
+      "rarity": "NULL",
+      "description": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setSlug": "2025-topps-chrome"
+    },
+    {
+      "id": "277",
+      "cardNumber": "IM-10",
+      "characterName": "Iron Man",
+      "cardType": "IRON MAN GOLD",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_IM-10_Iron_Man_7c7fa4dd.png",
+      "parallels": "NULL",
+      "rarity": "NULL",
+      "description": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setSlug": "2025-topps-chrome"
+    },
+    {
+      "id": "278",
+      "cardNumber": "IM-2",
+      "characterName": "Iron Man",
+      "cardType": "IRON MAN GOLD",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_IM-2_Iron_Man_8caf410e.png",
+      "parallels": "NULL",
+      "rarity": "NULL",
+      "description": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setSlug": "2025-topps-chrome"
+    },
+    {
+      "id": "279",
+      "cardNumber": "IM-3",
+      "characterName": "Iron Man",
+      "cardType": "IRON MAN GOLD",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_IM-3_Iron_Man_b4e29493.png",
+      "parallels": "NULL",
+      "rarity": "NULL",
+      "description": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setSlug": "2025-topps-chrome"
+    },
+    {
+      "id": "280",
+      "cardNumber": "IM-4",
+      "characterName": "Iron Man",
+      "cardType": "IRON MAN GOLD",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_IM-4_Iron_Man_ddc1cdbd.png",
+      "parallels": "NULL",
+      "rarity": "NULL",
+      "description": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setSlug": "2025-topps-chrome"
+    },
+    {
+      "id": "281",
+      "cardNumber": "IM-5",
+      "characterName": "Iron Man",
+      "cardType": "IRON MAN GOLD",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_IM-5_Iron_Man_ded143be.png",
+      "parallels": "NULL",
+      "rarity": "NULL",
+      "description": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setSlug": "2025-topps-chrome"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcardNumber\tcharacterName\tcardType\timageUrl\tparallels\trarity\tdescription\tsetName\tsetSlug\n1\t1\tIron Man\tBase\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-001_Iron_Man_80cf3e9d.webp\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\tNULL\tNULL\t2025 Topps Chrome\t2025-topps-chrome\n227\tAV-9\tIron Man\tTHE NEW AVENGERS 20TH ANNIVERSARY\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-045_Iron_Man_eef484d5.webp\tNULL\tNULL\tNULL\t2025 Topps Chrome\t2025-topps-chrome\n276\tIM-1\tIron Man\tIRON MAN GOLD\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_IM-1_Iron_Man_fc82751c.png\tNULL\tNULL\tNULL\t2025 Topps Chrome\t2025-topps-chrome\n277\tIM-10\tIron Man\tIRON MAN GOLD\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_IM-10_Iron_Man_7c7fa4dd.png\tNULL\tNULL\tNULL\t2025 Topps Chrome\t2025-topps-chrome\n278\tIM-2\tIron Man\tIRON MAN GOLD\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_IM-2_Iron_Man_8caf410e.png\tNULL\tNULL\tNULL\t2025 Topps Chrome\t2025-topps-chrome\n279\tIM-3\tIron Man\tIRON MAN GOLD\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_IM-3_Iron_Man_b4e29493.png\tNULL\tNULL\tNULL\t2025 Topps Chrome\t2025-topps-chrome\n280\tIM-4\tIron Man\tIRON MAN GOLD\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_IM-4_Iron_Man_ddc1cdbd.png\tNULL\tNULL\tNULL\t2025 Topps Chrome\t2025-topps-chrome\n281\tIM-5\tIron Man\tIRON MAN GOLD\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_IM-5_Iron_Man_ded143be.png\tNULL\tNULL\tNULL\t2025 Topps Chrome\t2025-topps-chrome\n",
+  "stderr": "",
+  "execution_time_ms": 359
+}

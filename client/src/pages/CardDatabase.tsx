@@ -381,8 +381,10 @@ function SetBrowser() {
                   const theme = getEraTheme(card.cardType || '');
                   const cosmicBgUrl = COSMIC_BG[card.cardType || ''];
                   const hasCosmic = !!cosmicBgUrl;
+                  const setSlugForLink = card.setSlug || (sets?.find((s: any) => s.id === card.setId)?.slug);
                   return (
-                    <article key={card.id} className="group">
+                    <Link key={card.id} href={setSlugForLink ? `/cards/${setSlugForLink}/${encodeURIComponent(card.cardNumber)}` : '#'} className="group block">
+                      <article>
                       <div className={`rounded-lg overflow-hidden transition-all ${hasCosmic ? 'border-0 bg-transparent' : 'bg-card border border-border hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5'}`}>
                         <div className={hasCosmic ? 'p-2 pt-3' : ''}>
                           <CardImage
@@ -406,6 +408,7 @@ function SetBrowser() {
                         </div>
                       </div>
                     </article>
+                    </Link>
                   );
                 })}
               </div>
@@ -799,6 +802,7 @@ function SetDetail({ slug }: { slug: string }) {
                   return (
                     <div className={`rounded-lg overflow-hidden transition-all ${hasCosmic ? 'border-0 bg-transparent' : `border border-border ${theme.border} hover:shadow-lg ${theme.glow} ${theme.bg}`}`}>
                       {/* Cosmic card with nebula background */}
+                      <Link href={`/cards/${set.slug}/${encodeURIComponent(card.cardNumber)}`} className="block">
                       <div className={hasCosmic ? 'p-2 pt-3' : ''}>
                         <CardImage
                           frontImg={card.imageUrl || PLACEHOLDER_IMG}
@@ -809,6 +813,7 @@ function SetDetail({ slug }: { slug: string }) {
                           glowColor={theme.glowColor}
                         />
                       </div>
+                      </Link>
                       <div className={`p-2.5 ${hasCosmic ? 'bg-black/40 backdrop-blur-sm rounded-b-lg' : ''}`}>
                         <Link href={`/characters/${card.characterName?.toLowerCase().replace(/['\u2019]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`}>
                           <p className="font-semibold text-sm truncate hover:text-primary transition-colors cursor-pointer" title={card.characterName}>
@@ -874,16 +879,22 @@ function SetDetail({ slug }: { slug: string }) {
                     <tr key={card.id} className={`border-b border-border/50 hover:bg-muted/20 transition-colors ${idx % 2 === 0 ? '' : 'bg-muted/5'}`}>
                       {hasImages && (
                         <td className="p-2">
-                          <div className="w-10 h-14 rounded overflow-hidden">
+                          <Link href={`/cards/${set.slug}/${encodeURIComponent(card.cardNumber)}`}>
+                          <div className="w-10 h-14 rounded overflow-hidden hover:ring-2 hover:ring-primary/50 transition-all">
                             <LazyImage
                               src={card.imageUrl || PLACEHOLDER_IMG}
                               alt={`${card.characterName} trading card`}
                               className="w-full h-full"
                             />
                           </div>
+                          </Link>
                         </td>
                       )}
-                      <td className="p-3 text-sm font-mono text-muted-foreground">{card.cardNumber}</td>
+                      <td className="p-3 text-sm font-mono">
+                        <Link href={`/cards/${set.slug}/${encodeURIComponent(card.cardNumber)}`} className="text-muted-foreground hover:text-primary transition-colors">
+                          {card.cardNumber}
+                        </Link>
+                      </td>
                       <td className="p-3">
                         <Link href={`/characters/${card.characterName?.toLowerCase().replace(/['\u2019]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`}>
                           <span className="font-medium hover:text-primary transition-colors cursor-pointer">{card.characterName}</span>

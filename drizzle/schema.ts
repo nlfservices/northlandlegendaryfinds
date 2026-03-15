@@ -436,3 +436,28 @@ export const characterContent = mysqlTable("character_content", {
 
 export type CharacterContent = typeof characterContent.$inferSelect;
 export type InsertCharacterContent = typeof characterContent.$inferInsert;
+
+/**
+ * Card Detail Content - LLM-generated content for individual card pages
+ * Each card gets a unique page with set-specific character context
+ */
+export const cardDetailContent = mysqlTable("card_detail_content", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Reference to the marvel_cards row */
+  cardId: int("cardId").notNull(),
+  /** Set slug for URL routing (e.g., "2025-topps-chrome") */
+  setSlug: varchar("setSlug", { length: 255 }).notNull(),
+  /** Card number for URL routing (e.g., "1", "AV-9", "IM-1") */
+  cardNumber: varchar("cardNumber", { length: 50 }).notNull(),
+  /** LLM-generated content in Markdown (500-800 words) about the character in this set's context */
+  contentMarkdown: text("contentMarkdown"),
+  /** Short summary for meta description (150-160 chars) */
+  metaDescription: varchar("metaDescription", { length: 320 }),
+  /** Content generation status */
+  status: mysqlEnum("status", ["pending", "generating", "generated", "error"]).notNull().default("pending"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type CardDetailContent = typeof cardDetailContent.$inferSelect;
+export type InsertCardDetailContent = typeof cardDetailContent.$inferInsert;

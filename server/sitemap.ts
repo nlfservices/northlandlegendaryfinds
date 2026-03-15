@@ -1,5 +1,5 @@
 import type { Express } from "express";
-import { getAllMarvelSets, getAllCharacterSlugs } from "./db";
+import { getAllMarvelSets, getAllCharacterSlugs, getAllCardDetailSlugs } from "./db";
 
 const SITE_URL = "https://northlandlegendaryfinds.com";
 
@@ -100,6 +100,16 @@ export function registerSitemapRoute(app: Express) {
         }
       } catch {
         console.warn("[Sitemap] Failed to fetch character slugs from database");
+      }
+
+      // Dynamic individual card detail pages
+      try {
+        const cardSlugs = await getAllCardDetailSlugs();
+        for (const card of cardSlugs) {
+          entries.push(buildUrlEntry(`/cards/${card.setSlug}/${encodeURIComponent(card.cardNumber)}`, "0.5", "monthly", today));
+        }
+      } catch {
+        console.warn("[Sitemap] Failed to fetch card detail slugs from database");
       }
 
       const xml = `<?xml version="1.0" encoding="UTF-8"?>

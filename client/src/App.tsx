@@ -38,6 +38,7 @@ import Transparency from "./pages/Transparency";
 import CardDisplay from "./pages/CardDisplay";
 import Characters from "./pages/Characters";
 import CharacterPage from "./pages/CharacterPage";
+import CardDetailPage from "./pages/CardDetailPage";
 
 // Routes that render as full-screen standalone experiences (no nav/footer)
 const STANDALONE_ROUTES = ["/card-display"];
@@ -84,6 +85,7 @@ function AppRouter() {
           <Route path="/whatnot/checklist/:slug" component={WhatnotChecklist} />
           <Route path="/order-success" component={OrderSuccess} />
           <Route path="/cards" component={CardDatabase} />
+          <Route path="/cards/:setSlug/:cardNumber" component={CardDetailPage} />
           <Route path="/cards/:slug" component={CardDatabase} />
           <Route path="/characters" component={Characters} />
           <Route path="/characters/:slug" component={CharacterPage} />
