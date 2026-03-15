@@ -703,67 +703,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Tested: Nightcrawler page now correctly shows CBH-129_Nightcrawler image instead of Star-Lord
 - [x] Save checkpoint
 
-## Email Popup Fixes
-- [x] Restyle popup with green theme (gradient from green-950 to emerald-950, green glow border)
-- [x] Center popup in middle of screen with backdrop blur overlay (fixed inset-0 flex items-center justify-center p-4)
-- [x] Changed delay from 2s to 3 seconds before showing popup
-- [x] Added Sparkles icon, improved heading to "Join the Collectors Club", mail icon in input
-- [x] Tested on desktop (centered, green theme, 3s delay confirmed)
-- [x] Mobile-ready: max-w-sm w-full with p-4 padding ensures proper centering on all screen sizes
+## Popup Behavior Overhaul
+- [x] Show popup after 3 seconds on page load
+- [x] If user closes popup (without subscribing), show ONE more time on exit-intent
+- [x] If user closes the exit-intent popup too, done for that session (no more popups)
+- [x] Returning visitors should see the popup again (no permanent localStorage suppression)
+- [x] Only permanently suppress popup after successful subscription
 - [x] Save checkpoint
-
-## Popup Improvements
-- [x] Customize exit-intent popup with "Wait — Here's 10% Off!" and discount code LEGENDARY10 (yellow theme variant)
-- [x] Fixed exit-intent handler to read localStorage inside handler (not stale closure)
-- [x] Add confetti celebration on successful subscription (green/gold bursts from both sides + star shapes)
-- [x] Success state shows "Welcome to the Legend!" with copyable discount code badge
-- [x] Auto-closes after 5 seconds to let users enjoy confetti + see discount
-- [x] Tested: initial popup (3s delay, green), exit-intent (discount offer), subscription flow
-- [x] Save checkpoint
-
-## Stripe LEGENDARY10 Promo Code
-- [x] Create 10% off coupon in Stripe via API (coupon ID: UfCnvmZf)
-- [x] Create promotion code "LEGENDARY10" linked to the coupon (promo ID: promo_1TBHmc7tIPzCZL9pwm95Enjs)
-- [ ] Verify coupon works with test checkout
-
-## Pre-generate Top 30 Character Articles
-- [x] Identified top 30 characters by card count
-- [x] Generated articles for all 30 (25 new + 6 already cached)
-- [x] Articles cached in database
-- [ ] Generate remaining ~850 characters (running in background, 5 at a time alphabetically)
-
-## Card of the Day Homepage Spotlight
-- [ ] Build backend procedure to get a daily rotating card
-- [ ] Build Card of the Day component with card art, parallel info, and link
-- [ ] Add Card of the Day section to homepage
-- [ ] Write vitest tests for Card of the Day endpoint
-- [ ] Save checkpoint
-
-## SEO Optimization for AI Search
-- [x] Add JSON-LD structured data (Article, FAQPage, BreadcrumbList, CollectionPage) to character pages
-- [x] Add Open Graph and Twitter Card meta tags for social sharing
-- [x] Add canonical URLs to prevent duplicate content
-- [x] Improve semantic HTML5 elements (article, section, aside) for AI crawlers
-- [x] Add FAQ schema markup for AI snippet extraction
-- [x] Apply same SEO improvements to card detail pages
-- [x] Add CollectionPage schema to Characters index
-- [x] Save checkpoint
-
-## Comprehensive SEO Strategy (from content strategy doc)
-- [x] Add "Quick Answer" box near top of character pages (AEO/GEO/AIO optimization)
-- [x] Add author byline with credibility signals ("collecting since 1993")
-- [x] Add "Last Updated" timestamps to all content pages
-- [x] Add Table of Contents / jump links on long character articles
-- [x] Weave "Northland Legendary Finds" brand name naturally into LLM-generated content
-- [x] Update LLM prompt for collector voice (not corporate), 1990s nostalgia, real experience references
-- [x] Ensure FAQ sections target "People Also Ask" questions
-- [x] Add internal links to 3+ related pages from every content page
-- [x] Ensure all images have descriptive alt text with character/set/year
-- [x] Add robots.txt crawl access (already done in earlier phase)
-- [ ] Save checkpoint
-
-## Fix React Hooks Ordering Bug
-- [x] Fix CharacterPage.tsx: moved useMemo hooks (seoKeywords, characterFaqs, wordCount, metaDesc, jsonLdSchemas) before early returns to prevent "Rendered more hooks than during the previous render" error
-- [x] Fix CardDetailPage.tsx: moved useMemo hook (cardFaqs) before early returns to prevent same error
-- [x] All 127 vitest tests passing (14 test files)
-- [x] Both pages verified working in browser
