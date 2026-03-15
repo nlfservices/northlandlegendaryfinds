@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -30,6 +31,12 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Contact Us"
+        description="Get in touch with Northland Legendary Finds. Questions about orders, card repacks, or collaborations? We are here to help."
+        path="/contact"
+        jsonLd={breadcrumbJsonLd([{ name: "Home", url: "/" }, { name: "Contact", url: "/contact" }])}
+      />
       {/* Hero Section */}
       <section className="relative h-[300px] flex items-center justify-center space-bg overflow-hidden">
         <div className="container relative z-10 text-center">

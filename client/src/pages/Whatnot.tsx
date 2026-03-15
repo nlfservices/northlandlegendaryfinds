@@ -12,6 +12,7 @@ import {
   Radio, Zap, Package, Calendar, ArrowRight, ExternalLink,
   Loader2, Clock, Users, TrendingUp, Eye, Star
 } from "lucide-react";
+import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 
 const WHATNOT_STORE_URL = "https://www.whatnot.com/user/northlandfinds";
 
@@ -25,6 +26,12 @@ export default function Whatnot() {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Live on Whatnot"
+        description="Watch Northland Legendary Finds live pack openings on Whatnot. Join our streams for real-time Marvel trading card breaks and exclusive deals."
+        path="/whatnot"
+        jsonLd={breadcrumbJsonLd([{ name: "Home", url: "/" }, { name: "Whatnot", url: "/whatnot" }])}
+      />
       {/* Hero Section */}
       <section className="relative py-16 lg:py-24 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 via-transparent to-transparent" />

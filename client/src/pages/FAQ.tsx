@@ -9,6 +9,7 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { Link } from "wouter";
+import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 
 const faqs = [
   {
@@ -184,6 +185,12 @@ export default function FAQ() {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Frequently Asked Questions"
+        description="Find answers to common questions about Northland Legendary Finds repacks, shipping, grading, and our transparent pack-opening process."
+        path="/faq"
+        jsonLd={breadcrumbJsonLd([{ name: "Home", url: "/" }, { name: "FAQ", url: "/faq" }])}
+      />
       {/* Header */}
       <section className="py-12 border-b border-border">
         <div className="container">

@@ -7,6 +7,7 @@ import ProductCard from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { ArrowRight, Calendar, Film, Sparkles } from "lucide-react";
+import SEO from "@/components/SEO";
 
 const STARWARS_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/starwars-category-bg-WqLKRyttqRtq3ztxa82myb.webp";
 
@@ -15,6 +16,11 @@ export default function StarWars() {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Star Wars Trading Cards"
+        description="Star Wars trading card collection coming soon to Northland Legendary Finds. Premium repacks featuring the galaxy far, far away."
+        path="/star-wars"
+      />
       {/* Hero */}
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0">

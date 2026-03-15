@@ -7,6 +7,7 @@ import { ShoppingCart, Minus, Plus, Trash2, ArrowLeft, ShieldCheck } from "lucid
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
 import { SHOPIFY_STORE } from "@/lib/products";
+import SEO from "@/components/SEO";
 
 export default function Cart() {
   const { items, removeItem, updateQuantity, totalPrice, clearCart } = useCart();
@@ -19,6 +20,11 @@ export default function Cart() {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Shopping Cart"
+        description="Review your Northland Legendary Finds shopping cart. Premium Marvel trading card repacks ready for checkout."
+        path="/cart"
+      />
       {/* Header */}
       <section className="py-12 border-b border-border">
         <div className="container">

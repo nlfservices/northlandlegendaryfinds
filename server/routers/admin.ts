@@ -330,7 +330,7 @@ const checklistRouter = router({
           backgroundColor: "#0a0f1a",
           paddingPercent: 4,
         });
-        buffer = Buffer.from(result.processedBuffer);
+        buffer = result.processedBuffer;
         finalContentType = result.contentType;
       } catch (err) {
         console.error("[uploadImage] Auto-process failed, using original:", err);

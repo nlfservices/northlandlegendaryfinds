@@ -5,10 +5,7 @@ import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 
 /**
- * Smart Email Capture Popup Component
- * 
- * Mobile: Full-width bottom sheet with backdrop overlay
- * Desktop: Top-right corner card (unchanged behavior)
+ * Smart Email Capture Popup Component — Top Right Corner Style
  * 
  * Behavior:
  * - Shows 2 seconds after page load on first visit
@@ -56,8 +53,9 @@ export default function EmailCapturePopup() {
       setIsOpen(true);
     }, 2000);
 
-    // Exit intent detection (desktop only)
+    // Exit intent detection
     const handleMouseLeave = (e: MouseEvent) => {
+      // Only trigger if mouse leaves from top of page (navigating away)
       if (e.clientY <= 0 && hasClosedPopup === "temporary") {
         setIsExitIntent(true);
         setIsOpen(true);
@@ -74,13 +72,8 @@ export default function EmailCapturePopup() {
 
   const handleClose = () => {
     setIsOpen(false);
+    // Mark as temporarily closed (will show exit intent)
     localStorage.setItem("nlf_popup_closed", "temporary");
-  };
-
-  const handleBackdropClick = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) {
-      handleClose();
-    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -96,121 +89,87 @@ export default function EmailCapturePopup() {
   if (!isOpen) return null;
 
   return (
-    <>
-      {/* Mobile: backdrop overlay */}
-      <div
-        className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm md:bg-transparent md:backdrop-blur-none md:pointer-events-none"
-        onClick={handleBackdropClick}
-      >
-        {/* Mobile: bottom sheet | Desktop: top-right corner */}
-        <div
-          className="
-            fixed z-50 pointer-events-auto
-            bottom-0 left-0 right-0
-            md:bottom-auto md:left-auto md:right-4 md:top-4
-            animate-in slide-in-from-bottom duration-300
-            md:slide-in-from-right
-          "
-          onClick={(e) => e.stopPropagation()}
+    <div className="fixed top-4 right-4 z-50 animate-in slide-in-from-right duration-300">
+      <div className="relative w-80 bg-gradient-to-br from-gray-900 to-black border border-green-500/30 rounded-xl shadow-2xl shadow-black/50">
+        {/* Close button */}
+        <button
+          onClick={handleClose}
+          className="absolute top-3 right-3 text-gray-500 hover:text-white transition-colors"
+          aria-label="Close popup"
         >
-          <div
-            className="
-              relative bg-gradient-to-br from-gray-900 to-black
-              border border-green-500/30 shadow-2xl shadow-black/50
-              rounded-t-2xl
-              md:rounded-xl md:w-80
-            "
-          >
-            {/* Drag handle — mobile only */}
-            <div className="flex justify-center pt-3 md:hidden">
-              <div className="w-10 h-1 rounded-full bg-gray-600" />
+          <X className="w-5 h-5" />
+        </button>
+
+        {/* Content */}
+        <div className="p-5">
+          {submitted ? (
+            /* Success state */
+            <div className="py-2 text-center">
+              <CheckCircle className="w-12 h-12 text-green-400 mx-auto mb-3" />
+              <h3 className="text-lg font-bold text-green-400 mb-1">
+                You're In!
+              </h3>
+              <p className="text-gray-400 text-sm">
+                Welcome to the NLF community! We'll keep you posted.
+              </p>
             </div>
-
-            {/* Close button */}
-            <button
-              onClick={handleClose}
-              className="absolute top-3 right-3 md:top-3 md:right-3 w-8 h-8 md:w-auto md:h-auto flex items-center justify-center rounded-full bg-gray-800/50 md:bg-transparent text-gray-400 hover:text-white transition-colors"
-              aria-label="Close popup"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            {/* Content */}
-            <div className="px-5 pb-6 pt-3 md:p-5">
-              {submitted ? (
-                /* Success state */
-                <div className="py-4 md:py-2 text-center">
-                  <CheckCircle className="w-14 h-14 md:w-12 md:h-12 text-green-400 mx-auto mb-3" />
-                  <h3 className="text-xl md:text-lg font-bold text-green-400 mb-1">
-                    You're In!
+          ) : (
+            /* Form state */
+            <>
+              {/* Header with icon */}
+              <div className="flex items-start gap-3 mb-3">
+                <div className="flex-shrink-0 w-10 h-10 bg-primary/15 border border-primary/30 rounded-lg flex items-center justify-center">
+                  <Mail className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-white leading-tight">
+                    {isExitIntent ? "Wait — Stay in the Loop!" : "Stay in the Loop"}
                   </h3>
-                  <p className="text-gray-400 text-base md:text-sm">
-                    Welcome to the NLF community! We'll keep you posted.
+                  <p className="text-sm text-gray-400 mt-0.5">
+                    {isExitIntent 
+                      ? "Get notified when we drop new products!"
+                      : "Join our collectors community for launch updates and exclusive drops."
+                    }
                   </p>
                 </div>
-              ) : (
-                /* Form state */
-                <>
-                  {/* Header with icon */}
-                  <div className="flex items-start gap-3 mb-4 md:mb-3">
-                    <div className="flex-shrink-0 w-12 h-12 md:w-10 md:h-10 bg-primary/15 border border-primary/30 rounded-lg flex items-center justify-center">
-                      <Mail className="w-6 h-6 md:w-5 md:h-5 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg md:text-base font-bold text-white leading-tight">
-                        {isExitIntent ? "Wait — Stay in the Loop!" : "Stay in the Loop"}
-                      </h3>
-                      <p className="text-sm text-gray-400 mt-1 md:mt-0.5">
-                        {isExitIntent 
-                          ? "Get notified when we drop new products!"
-                          : "Join our collectors community for launch updates and exclusive drops."
-                        }
-                      </p>
-                    </div>
-                  </div>
+              </div>
 
-                  {/* Form */}
-                  <form onSubmit={handleSubmit} className="space-y-3">
-                    <input
-                      type="email"
-                      placeholder="Enter your email"
-                      required
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      disabled={subscribeMutation.isPending}
-                      autoComplete="email"
-                      className="w-full px-4 py-3 md:px-3 md:py-2.5 bg-black/50 border border-green-500/20 rounded-lg text-white text-base md:text-sm placeholder-gray-500 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500/30 transition-colors disabled:opacity-50"
-                    />
-                    
-                    <Button
-                      type="submit"
-                      disabled={subscribeMutation.isPending || !email.trim()}
-                      className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold py-3 md:py-2.5 text-base md:text-sm rounded-lg transition-all disabled:opacity-50 min-h-[48px] md:min-h-0"
-                    >
-                      {subscribeMutation.isPending ? (
-                        <span className="flex items-center justify-center gap-2">
-                          <Loader2 className="w-4 h-4 animate-spin" />
-                          Subscribing...
-                        </span>
-                      ) : (
-                        "Subscribe"
-                      )}
-                    </Button>
-                  </form>
+              {/* Form */}
+              <form onSubmit={handleSubmit} className="space-y-3">
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={subscribeMutation.isPending}
+                  className="w-full px-3 py-2.5 bg-black/50 border border-green-500/20 rounded-lg text-white text-sm placeholder-gray-500 focus:outline-none focus:border-green-500 transition-colors disabled:opacity-50"
+                />
+                
+                <Button
+                  type="submit"
+                  disabled={subscribeMutation.isPending || !email.trim()}
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold py-2.5 rounded-lg transition-all disabled:opacity-50"
+                >
+                  {subscribeMutation.isPending ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      Subscribing...
+                    </span>
+                  ) : (
+                    "Subscribe"
+                  )}
+                </Button>
+              </form>
 
-                  {/* Fine print */}
-                  <p className="text-xs md:text-[11px] text-gray-600 mt-3 text-center">
-                    We respect your privacy. Unsubscribe anytime.
-                  </p>
-                </>
-              )}
-            </div>
-
-            {/* Safe area padding for phones with home indicator */}
-            <div className="h-[env(safe-area-inset-bottom,0px)] md:hidden" />
-          </div>
+              {/* Fine print */}
+              <p className="text-[11px] text-gray-600 mt-3 text-center">
+                We respect your privacy. Unsubscribe anytime.
+              </p>
+            </>
+          )}
         </div>
       </div>
-    </>
+    </div>
   );
 }

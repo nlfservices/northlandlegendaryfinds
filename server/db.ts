@@ -643,7 +643,7 @@ export async function searchMarvelCards(query: string, limit: number = 50): Prom
     .where(like(marvelCards.characterName, `%${query}%`))
     .orderBy(asc(marvelCards.characterName))
     .limit(limit);
-  return results as any;
+  return results;
 }
 
 // ==================== GRADED CARDS HELPERS ====================

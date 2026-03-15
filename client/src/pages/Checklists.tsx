@@ -11,6 +11,7 @@ import {
   ListChecks, ArrowRight, Package, Zap, Radio,
   CheckCircle2, Circle, Loader2, TrendingUp, Eye
 } from "lucide-react";
+import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 
 export default function Checklists() {
   const { data: products, isLoading } = trpc.public.products.list.useQuery();
@@ -33,6 +34,12 @@ export default function Checklists() {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Card Set Checklists"
+        description="Complete checklists for all Marvel trading card sets included in Northland Legendary Finds repacks. Track your collection progress."
+        path="/checklists"
+        jsonLd={breadcrumbJsonLd([{ name: "Home", url: "/" }, { name: "Checklists", url: "/checklists" }])}
+      />
       {/* Hero Section */}
       <section className="relative py-16 lg:py-24 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
@@ -150,7 +157,7 @@ function ProductChecklistCard({ product, categoryColors, categoryLabels }: {
 }) {
   const { data: stats } = trpc.public.products.stats.useQuery({ id: product.id });
 
-  const progressPercent = stats?.totalPacks ? Math.round((((stats.totalPacks ?? 0) - stats.packsRemaining) / (stats.totalPacks ?? 1)) * 100) : 0;
+  const progressPercent = stats ? Math.round(((stats.totalPacks - stats.packsRemaining) / stats.totalPacks) * 100) : 0;
 
   return (
     <Link href={`/checklist/${product.slug}`}>

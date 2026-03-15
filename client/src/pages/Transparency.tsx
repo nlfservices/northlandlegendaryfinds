@@ -12,6 +12,7 @@ import {
   ArrowRight, CheckCircle2, Lock, Scale, Users,
   BookOpen, Zap, Package, AlertTriangle
 } from "lucide-react";
+import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 
 const PRINCIPLES = [
   {
@@ -74,6 +75,12 @@ const CHECKLIST_FIELDS = [
 export default function Transparency() {
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Pack Transparency & Pull Rates"
+        description="Full transparency on Northland Legendary Finds pack contents and pull rates. Every pack opened on camera, every hit tracked and verified."
+        path="/transparency"
+        jsonLd={breadcrumbJsonLd([{ name: "Home", url: "/" }, { name: "Transparency", url: "/transparency" }])}
+      />
       {/* Hero Section */}
       <section className="relative py-16 lg:py-24 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-green-900/20 to-transparent" />

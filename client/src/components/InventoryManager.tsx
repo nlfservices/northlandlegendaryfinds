@@ -369,21 +369,19 @@ function InventoryCardList() {
     }
   };
 
-  const handleCsvImport = async (rows: Record<string, string>[]): Promise<{ success: boolean; count?: number; errors?: string[] }> => {
+  const handleCsvImport = async (rows: any[]) => {
     if (!csvSetId) {
       toast.error("Please select a card set first");
-      return { success: false, errors: ["Please select a card set first"] };
+      return;
     }
     try {
-      const result = await csvImport.mutateAsync({ cardSetId: csvSetId, rows: rows as any });
+      const result = await csvImport.mutateAsync({ cardSetId: csvSetId, rows });
       utils.admin.inventory.list.invalidate();
       utils.admin.inventory.stats.invalidate();
       toast.success(`Imported ${result.count} cards`);
       setShowCsvUpload(false);
-      return { success: true, count: result.count };
     } catch (e: any) {
       toast.error(e.message || "Import failed");
-      return { success: false, errors: [e.message || "Import failed"] };
     }
   };
 
@@ -438,19 +436,9 @@ function InventoryCardList() {
               {csvSetId && (
                 <CsvUploader
                   onImport={handleCsvImport}
-                  templateName="inventory_import"
-                  columns={[
-                    { key: "cardName", label: "Card Name", required: true },
-                    { key: "cardNumber", label: "Card Number" },
-                    { key: "parallel", label: "Parallel" },
-                    { key: "serialNumber", label: "Serial Number" },
-                    { key: "condition", label: "Condition" },
-                    { key: "quantity", label: "Quantity" },
-                    { key: "purchasePrice", label: "Purchase Price" },
-                    { key: "estimatedValue", label: "Estimated Value" },
-                    { key: "source", label: "Source" },
-                    { key: "notes", label: "Notes" },
-                  ]}
+                  isLoading={csvImport.isPending}
+                  requiredColumns={["cardName"]}
+                  optionalColumns={["cardNumber", "parallel", "serialNumber", "condition", "quantity", "purchasePrice", "estimatedValue", "source", "notes"]}
                 />
               )}
             </CardContent>

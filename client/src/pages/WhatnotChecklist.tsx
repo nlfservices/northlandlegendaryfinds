@@ -159,8 +159,8 @@ export default function WhatnotChecklist() {
   // Stats
   const totalCards = checklist?.length || 0;
   const pulledCards = checklist?.filter(c => c.isPulled).length || 0;
-  const progressPercent = stats?.totalPacks ? Math.round((((stats.totalPacks ?? 0) - stats.packsRemaining) / (stats.totalPacks ?? 1)) * 100) : 0;
-  const packsOpened = stats?.totalPacks ? (stats.totalPacks ?? 0) - stats.packsRemaining : 0;
+  const progressPercent = stats ? Math.round(((stats.totalPacks - stats.packsRemaining) / stats.totalPacks) * 100) : 0;
+  const packsOpened = stats ? stats.totalPacks - stats.packsRemaining : 0;
 
   if (productLoading || checklistLoading) {
     return (

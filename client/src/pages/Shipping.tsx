@@ -10,10 +10,17 @@
 import { Package, Truck, Clock, Shield, Zap, AlertTriangle, MapPin } from "lucide-react";
 import { Link } from "wouter";
 import USShippingMap from "../components/USShippingMap";
+import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 
 export default function Shipping() {
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Shipping Information"
+        description="Shipping rates, delivery times, and policies for Northland Legendary Finds Marvel trading card repacks. Free shipping on orders over $200."
+        path="/shipping"
+        jsonLd={breadcrumbJsonLd([{ name: "Home", url: "/" }, { name: "Shipping", url: "/shipping" }])}
+      />
       {/* Header */}
       <section className="py-12 border-b border-border">
         <div className="container">

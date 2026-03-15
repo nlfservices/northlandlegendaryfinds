@@ -8,10 +8,17 @@
  */
 
 import { AlertTriangle, ShieldX, Package, HelpCircle } from "lucide-react";
+import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 
 export default function RefundPolicy() {
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Refund Policy"
+        description="Refund and return policy for Northland Legendary Finds trading card repacks. Learn about our satisfaction guarantee and return process."
+        path="/refund-policy"
+        jsonLd={breadcrumbJsonLd([{ name: "Home", url: "/" }, { name: "Refund Policy", url: "/refund-policy" }])}
+      />
       {/* Header */}
       <section className="py-12 border-b border-border">
         <div className="container">

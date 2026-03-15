@@ -598,9 +598,9 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Identify all cards needing images (NULL + duplicates + wrong character)
 - [x] Generate stylized MCU actor-inspired art — batch 1: 150/150, batch 2: 21/150 (106 unique cards matched)
 - [x] Upload 106 images to CDN and update database
-- [x] Generate remaining ~328 Marvel Studios cards (batch 3 still needed)
-- [x] Verify all Marvel Studios cards have unique, correct character images
-- [x] Save checkpoint
+- [ ] Generate remaining ~328 Marvel Studios cards (batch 3 still needed)
+- [ ] Verify all Marvel Studios cards have unique, correct character images
+- [ ] Save checkpoint
 
 ## Fix Marvel Zombies Card (Superman → Marvel Zombies)
 - [x] Regenerate MZ-1 Marvel Zombies card with Zombie Captain America and Zombie Iron Man (was showing Superman - DC character)
@@ -631,48 +631,24 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Save checkpoint
 
 ## Marvel Studios Remaining Images (Batch 2-4)
-- [x] Query remaining ~328 Marvel Studios cards needing images
-- [x] Generate MCU-inspired art batch 1 (~150 cards, starting with Iron Man characters)
-- [x] Generate MCU-inspired art batch 2 (~150 cards)
-- [x] Generate MCU-inspired art batch 3 (remaining cards)
-- [x] Upload all images to CDN and update database
-- [x] Save checkpoint
+- [ ] Query remaining ~328 Marvel Studios cards needing images
+- [ ] Generate MCU-inspired art batch 1 (~150 cards, starting with Iron Man characters)
+- [ ] Generate MCU-inspired art batch 2 (~150 cards)
+- [ ] Generate MCU-inspired art batch 3 (remaining cards)
+- [ ] Upload all images to CDN and update database
+- [ ] Save checkpoint
 
-## TypeScript Error Fixes
-- [x] Fix 20 TS errors across stripe-webhook.ts, CsvUploader, EbayCompsPanel, InventoryManager, ChecklistDetail, Checklists, WhatnotChecklist, db.ts, admin.ts (0 errors remaining)
-
-## 2025 Topps Marvel Studios: The Collector Set
-- [x] Upload box image to CDN
-- [x] Create set in database with slug 2025-marvel-the-collector
-- [x] Insert 85 MCU Perfection base cards (#1-85) with parallels
-- [x] Insert 25 Marvel Tomorrow cards (MT-1 to MT-25) with parallels
-- [x] Insert 25 Villainy cards (V-01 to V-25) with parallels
-- [x] Insert 25 Show Stoppers cards (ST-1 to ST-25) with parallels
-- [x] Insert 6 Infinity Gauntlet cards (IG-1 to IG-6) with parallels
-- [x] Insert autograph card entries (MCU Perfection Auto, Dual Auto, Treasures of Asgard, IG Auto, Collector's Museum)
-- [x] Generate AI images for MCU Perfection cards (actor-likeness style)
-- [x] Generate AI images for Marvel Tomorrow cards
-- [x] Generate AI images for Villainy cards
-- [x] Generate AI images for Show Stoppers cards (scene-based)
-- [x] Generate AI images for Infinity Gauntlet cards (Thanos)
-- [x] Reuse images across subsets where same character appears
-- [x] Verify set page renders correctly
-- [x] Save checkpoint (Collector set complete - 257/257 images)
-
-## Fix Remaining 8 Chrome Card Images
-- [x] Query 8 Chrome cards — actually only 7 Hulk placeholders found (Kitty Pryde x2, Heimdall x3, BNW scenes x2)
-- [x] Generate proper AI art for all 7 placeholder cards
-- [x] Upload to CDN and update database (0 Hulk placeholders remaining)
-- [x] Save checkpoint
-
-## Marvel Studios Remaining Images (Full Completion)
-- [x] Query all remaining Marvel Studios cards needing images (~203 unique images needed)
-- [x] Generate MCU-inspired art in batches of 10 (18 batches total)
-- [x] Upload all images to CDN and update database
-- [x] Fix 22 base cards with wrong character images
-- [x] Generate all 192 Snap Variation unique images with disintegration effect
-- [x] Verify all Marvel Studios cards have images (540 unique, 0 null)
-- [x] Save checkpoint
-
-## Popup Mobile Optimization
-- [x] Optimize email signup popup for mobile devices (sizing, layout, touch targets)
+## Comprehensive SEO Implementation
+- [x] Install react-helmet-async for per-page meta tag management
+- [x] Build reusable SEO component (title, description, OG tags, Twitter Cards, canonical URL)
+- [x] Add default OG meta tags to index.html (og:title, og:description, og:image, og:url)
+- [x] Add Twitter Card meta tags to index.html
+- [x] Add JSON-LD structured data: Organization schema
+- [x] Add JSON-LD structured data: Product schema on product pages
+- [x] Add JSON-LD structured data: BreadcrumbList on key pages
+- [x] Create robots.txt in client/public
+- [x] Create dynamic sitemap.xml server route with all public pages (includes 7 card sets)
+- [x] Add per-page SEO to Home, Shop, About, FAQ, Shipping, Cards, Checklists, etc. (18 pages)
+- [x] Add canonical URLs to prevent duplicate content
+- [x] Move noscript pixel to body to fix parse5 errors
+- [x] Test and save checkpoint

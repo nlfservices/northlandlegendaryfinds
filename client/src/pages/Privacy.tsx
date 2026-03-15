@@ -2,9 +2,16 @@
  * Privacy Policy Page
  */
 
+import SEO from "@/components/SEO";
+
 export default function Privacy() {
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Privacy Policy"
+        description="Privacy policy for Northland Legendary Finds. Learn how we collect, use, and protect your personal information."
+        path="/privacy"
+      />
       <section className="py-12 border-b border-border">
         <div className="container">
           <h1 className="text-5xl md:text-6xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>

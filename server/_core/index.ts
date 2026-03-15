@@ -6,6 +6,7 @@ import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerOAuthRoutes } from "./oauth";
 import { registerStripeWebhook } from "../stripe-webhook";
 import { registerEbayDeletionEndpoint } from "../ebay-deletion";
+import { registerSitemapRoute } from "../sitemap";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
@@ -41,6 +42,8 @@ async function startServer() {
   registerOAuthRoutes(app);
   // eBay marketplace account deletion/closure notification endpoint
   registerEbayDeletionEndpoint(app);
+  // Dynamic sitemap.xml
+  registerSitemapRoute(app);
   // tRPC API
   app.use(
     "/api/trpc",

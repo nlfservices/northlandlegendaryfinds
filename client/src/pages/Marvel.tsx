@@ -4,6 +4,7 @@
 
 import { getProductsByCategory } from "@/lib/products";
 import ProductCard from "@/components/ProductCard";
+import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 
 const MARVEL_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/marvel-category-bg-H7jvz2QMRU6BGR7bwwNJ89.webp";
 
@@ -12,6 +13,12 @@ export default function Marvel() {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Marvel Trading Cards Collection"
+        description="Explore our Marvel trading card collection featuring 2025 Topps Chrome, Comic Book Heroes, Marvel Mint, and Sapphire editions. Premium repacks with guaranteed hits."
+        path="/marvel"
+        jsonLd={breadcrumbJsonLd([{ name: "Home", url: "/" }, { name: "Marvel", url: "/marvel" }])}
+      />
       {/* Hero */}
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0">

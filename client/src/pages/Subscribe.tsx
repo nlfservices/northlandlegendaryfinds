@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle2, Loader2 } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
+import SEO from "@/components/SEO";
 
 /**
  * Standalone Email Subscription Page
@@ -47,6 +48,11 @@ export default function Subscribe() {
   if (submitted) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-black via-purple-900/20 to-black flex items-center justify-center p-4">
+      <SEO
+        title="Subscribe for Updates"
+        description="Subscribe to Northland Legendary Finds for exclusive deals, new product launches, and Marvel trading card news delivered to your inbox."
+        path="/subscribe"
+      />
         <div className="max-w-md w-full text-center">
           {/* Success Icon */}
           <div className="mb-6">

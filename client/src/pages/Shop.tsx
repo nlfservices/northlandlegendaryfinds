@@ -7,6 +7,7 @@ import { useState } from "react";
 import { products, getProductLines } from "@/lib/products";
 import ProductCard from "@/components/ProductCard";
 import { Zap, Clock } from "lucide-react";
+import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 
 type Filter = "all" | "repacks" | "sealed" | "variant-series" | "snap-collection" | "multiverse-vault";
 
@@ -43,6 +44,12 @@ export default function Shop() {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Shop Premium Marvel Trading Card Repacks"
+        description="Browse our collection of premium Marvel trading card repacks. Strong floor, loaded middle, healthy ceiling. Featuring Topps Chrome, Comic Book Heroes, and Marvel Mint."
+        path="/shop"
+        jsonLd={breadcrumbJsonLd([{ name: "Home", url: "/" }, { name: "Shop", url: "/shop" }])}
+      />
       {/* Header */}
       <section className="py-12 border-b border-border">
         <div className="container">

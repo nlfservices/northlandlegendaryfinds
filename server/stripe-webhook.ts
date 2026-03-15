@@ -93,18 +93,16 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
   }
 
   // Extract shipping address
-  // Note: shipping_details exists on Stripe Session but may not be in the installed type definitions
-  const sessionAny = session as any;
   let shippingAddress = null;
-  if (sessionAny.shipping_details?.address) {
+  if (session.shipping_details?.address) {
     shippingAddress = {
-      name: sessionAny.shipping_details.name,
-      line1: sessionAny.shipping_details.address.line1,
-      line2: sessionAny.shipping_details.address.line2,
-      city: sessionAny.shipping_details.address.city,
-      state: sessionAny.shipping_details.address.state,
-      postalCode: sessionAny.shipping_details.address.postal_code,
-      country: sessionAny.shipping_details.address.country,
+      name: session.shipping_details.name,
+      line1: session.shipping_details.address.line1,
+      line2: session.shipping_details.address.line2,
+      city: session.shipping_details.address.city,
+      state: session.shipping_details.address.state,
+      postalCode: session.shipping_details.address.postal_code,
+      country: session.shipping_details.address.country,
     };
   }
 

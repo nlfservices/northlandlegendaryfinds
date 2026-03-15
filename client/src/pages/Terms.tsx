@@ -2,9 +2,16 @@
  * Terms of Service Page
  */
 
+import SEO from "@/components/SEO";
+
 export default function Terms() {
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Terms of Service"
+        description="Terms of service for Northland Legendary Finds. Read our policies on purchases, returns, and use of our website."
+        path="/terms"
+      />
       <section className="py-12 border-b border-border">
         <div className="container">
           <h1 className="text-5xl md:text-6xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>

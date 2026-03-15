@@ -12,6 +12,7 @@ import { useCart } from "@/contexts/CartContext";
 import { getProductLines, getComingSoonProducts, products } from "@/lib/products";
 import { useLaunchCountdown } from "@/hooks/useLaunchCountdown";
 import ProductCard from "@/components/ProductCard";
+import SEO, { organizationJsonLd, websiteJsonLd, localBusinessJsonLd } from "@/components/SEO";
 
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hero-banner-jniBj55ukeiEDpJxc2aLgB.webp";
 const NLF_PACK = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-nlf-variant-2CkMPP3CsZhFkFXpzSuZkV.webp";
@@ -63,6 +64,11 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        path="/"
+        noSuffix
+        jsonLd={[organizationJsonLd(), websiteJsonLd(), localBusinessJsonLd()]}
+      />
       {/* ===== HERO SECTION ===== */}
       <section className="relative min-h-[450px] sm:min-h-[600px] lg:min-h-[700px] flex items-center overflow-hidden">
         {/* Background */}

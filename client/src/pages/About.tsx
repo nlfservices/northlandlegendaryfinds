@@ -3,10 +3,17 @@
  */
 
 import { Shield, Star, TrendingUp, Package } from "lucide-react";
+import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 
 export default function About() {
   return (
     <div className="min-h-screen">
+      <SEO
+        title="About Northland Legendary Finds"
+        description="Learn about Northland Legendary Finds — a premium Marvel trading card repack business built on transparency, quality, and community. Based in Minnesota."
+        path="/about"
+        jsonLd={breadcrumbJsonLd([{ name: "Home", url: "/" }, { name: "About", url: "/about" }])}
+      />
       {/* Hero Section */}
       <section className="relative h-[400px] flex items-center justify-center space-bg overflow-hidden">
         <div className="container relative z-10 text-center">

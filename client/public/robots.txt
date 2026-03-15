@@ -1,0 +1,13 @@
+# Northland Legendary Finds - robots.txt
+User-agent: *
+Allow: /
+
+# Disallow admin and internal routes
+Disallow: /admin
+Disallow: /admin/
+Disallow: /order-success
+Disallow: /card-display
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://northlandlegendaryfinds.com/sitemap.xml

@@ -15,6 +15,7 @@ import { toast } from "sonner";
 import { trpc } from "@/lib/trpc";
 import { useLaunchCountdown } from "@/hooks/useLaunchCountdown";
 import { useAuth } from "@/_core/hooks/useAuth";
+import SEO, { productJsonLd, breadcrumbJsonLd } from "@/components/SEO";
 
 function NotifyMeForm({ productSlug }: { productSlug: string }) {
   const { user } = useAuth();
@@ -227,6 +228,29 @@ export default function ProductDetail() {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title={product.name}
+        description={product.description.substring(0, 155)}
+        path={`/product/${product.slug}`}
+        image={product.image}
+        type="product"
+        jsonLd={[
+          productJsonLd({
+            name: product.name,
+            description: product.description,
+            image: product.image,
+            price: product.price,
+            availability: product.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+            url: `/product/${product.slug}`,
+            sku: product.slug,
+          }),
+          breadcrumbJsonLd([
+            { name: "Home", url: "/" },
+            { name: "Shop", url: "/shop" },
+            { name: product.name, url: `/product/${product.slug}` },
+          ]),
+        ]}
+      />
       {/* Breadcrumb */}
       <div className="container py-4">
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
