@@ -702,3 +702,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Moved useMemo before early returns to fix React hooks order error
 - [x] Tested: Nightcrawler page now correctly shows CBH-129_Nightcrawler image instead of Star-Lord
 - [x] Save checkpoint
+
+## Email Popup Fixes
+- [x] Restyle popup with green theme (gradient from green-950 to emerald-950, green glow border)
+- [x] Center popup in middle of screen with backdrop blur overlay (fixed inset-0 flex items-center justify-center p-4)
+- [x] Changed delay from 2s to 3 seconds before showing popup
+- [x] Added Sparkles icon, improved heading to "Join the Collectors Club", mail icon in input
+- [x] Tested on desktop (centered, green theme, 3s delay confirmed)
+- [x] Mobile-ready: max-w-sm w-full with p-4 padding ensures proper centering on all screen sizes
+- [x] Save checkpoint
