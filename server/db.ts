@@ -1119,3 +1119,19 @@ export function parseParallels(parallelsStr: string | null): Array<{ name: strin
 
   return result;
 }
+
+// ==================== RANDOM CARD HELPER ====================
+
+/** Get a random card with its set slug for navigation */
+export async function getRandomCard(): Promise<{ cardNumber: string; setSlug: string } | null> {
+  const db = await getDb();
+  if (!db) return null;
+  const result = await db.select({
+    cardNumber: marvelCards.cardNumber,
+    setSlug: marvelSets.slug,
+  }).from(marvelCards)
+    .innerJoin(marvelSets, eq(marvelCards.setId, marvelSets.id))
+    .orderBy(sql`RAND()`)
+    .limit(1);
+  return result[0] ?? null;
+}

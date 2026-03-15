@@ -13,6 +13,7 @@ import {
   getCardBySetAndNumber, getAdjacentCards, getSameCharacterCardsInSet,
   getCardDetailContentByCardId, upsertCardDetailContent, getAllCardDetailSlugs,
   parseParallels,
+  getRandomCard,
 } from "../db";
 import { launchSubscribers } from "../../drizzle/schema";
 import { getDb } from "../db";
@@ -432,6 +433,11 @@ Write for the Northland Legendary Finds audience - serious Marvel card collector
   /** Get all card detail slugs for sitemap */
   allCardSlugs: publicProcedure.query(async () => {
     return getAllCardDetailSlugs();
+  }),
+
+  /** Get a random card for the Random Card button */
+  randomCard: publicProcedure.query(async () => {
+    return getRandomCard();
   }),
 });
 

@@ -3,17 +3,21 @@
  * Design: Announcement bar + sticky nav with logo, links, cart
  */
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Link, useLocation } from "wouter";
-import { ShoppingCart, Menu, X, ChevronDown } from "lucide-react";
+import { ShoppingCart, Menu, X, Shuffle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
+import { trpc } from "@/lib/trpc";
+import { toast } from "sonner";
 
 export default function Navigation() {
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [shopDropdownOpen, setShopDropdownOpen] = useState(false);
+  const [isRandomizing, setIsRandomizing] = useState(false);
   const { totalItems, setIsOpen: setCartOpen } = useCart();
+  const utils = trpc.useUtils();
 
   const navItems = [
     { path: "/shop", label: "Shop" },
@@ -24,6 +28,24 @@ export default function Navigation() {
     { path: "/transparency", label: "Transparency" },
     { path: "/faq", label: "FAQ" },
   ];
+
+  const handleRandomCard = useCallback(async () => {
+    if (isRandomizing) return;
+    setIsRandomizing(true);
+    try {
+      const result = await utils.public.marvel.randomCard.fetch();
+      if (result) {
+        setLocation(`/cards/${result.setSlug}/${result.cardNumber}`);
+        setMobileMenuOpen(false);
+      } else {
+        toast.error("No cards found in the database");
+      }
+    } catch (err) {
+      toast.error("Failed to get a random card. Please try again.");
+    } finally {
+      setIsRandomizing(false);
+    }
+  }, [isRandomizing, utils, setLocation]);
 
   return (
     <>
@@ -74,7 +96,17 @@ export default function Navigation() {
             </div>
 
             {/* Right Side */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1">
+              {/* Random Card Button */}
+              <button
+                onClick={handleRandomCard}
+                disabled={isRandomizing}
+                className="relative text-foreground/70 hover:text-primary transition-all p-2 group"
+                title="Random Card"
+              >
+                <Shuffle className={`w-5 h-5 ${isRandomizing ? "animate-spin" : "group-hover:scale-110 transition-transform"}`} />
+              </button>
+
               {/* Cart Button */}
               <button
                 onClick={() => setCartOpen(true)}
@@ -123,6 +155,15 @@ export default function Navigation() {
                   </Link>
                 );
               })}
+              {/* Random Card in mobile menu */}
+              <button
+                onClick={handleRandomCard}
+                disabled={isRandomizing}
+                className="w-full px-4 py-3 rounded-lg font-bold tracking-wide transition-colors text-foreground/80 hover:bg-primary/5 hover:text-primary flex items-center gap-2"
+              >
+                <Shuffle className={`w-4 h-4 ${isRandomizing ? "animate-spin" : ""}`} />
+                {isRandomizing ? "Finding card..." : "Random Card"}
+              </button>
             </div>
           </div>
         )}

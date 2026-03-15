@@ -688,3 +688,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Write vitest tests for card detail endpoints (18 tests: 12 parseParallels + 6 DB helpers)
 - [x] Test end-to-end in browser (Iron Man #1 Chrome verified with all sections)
 - [x] Save checkpoint
+
+## Random Card Button
+- [x] Build backend tRPC procedure (randomCard) using SQL RAND() to return a random card
+- [x] Add getRandomCard DB helper to db.ts
+- [x] Add Random Card shuffle icon button to navigation bar (desktop + mobile menu)
+- [x] Test end-to-end in browser (3 clicks: Fisk #DD-25, Iron Man #IM-6, Agatha Harkness #6 - all different)
+- [x] Save checkpoint
