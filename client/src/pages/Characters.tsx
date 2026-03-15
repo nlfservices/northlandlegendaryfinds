@@ -12,7 +12,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import {
   Search, Users, ChevronRight, Layers, ArrowLeft, ArrowRight
 } from "lucide-react";
-import SEO, { breadcrumbJsonLd } from "@/components/SEO";
+import SEO, { breadcrumbJsonLd, collectionPageJsonLd } from "@/components/SEO";
 
 const ALPHABET = "#ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 const PAGE_SIZE = 60;
@@ -63,13 +63,23 @@ export default function Characters() {
     <div className="min-h-screen bg-background">
       <SEO
         title="Marvel Characters - Complete Trading Card Character Database"
-        description="Browse 880+ Marvel characters with detailed histories, powers, and trading card appearances across all Northland Legendary Finds card sets."
+        description="Browse 880+ Marvel characters with detailed histories, powers, and trading card appearances across all 2025 Topps card sets. Each character page features 1000+ word histories, key facts, and complete card checklists."
         path="/characters"
-        jsonLd={breadcrumbJsonLd([
-          { name: "Home", url: "/" },
-          { name: "Characters", url: "/characters" },
-        ])}
-      />
+        jsonLd={[
+          breadcrumbJsonLd([
+            { name: "Home", url: "/" },
+            { name: "Characters", url: "/characters" },
+          ]),
+          collectionPageJsonLd({
+            name: "Marvel Characters - Complete Trading Card Character Database",
+            description: "Browse 880+ Marvel characters with detailed histories, powers, and trading card appearances across all 2025 Topps card sets.",
+            url: "/characters",
+            numberOfItems: data?.characters?.length || 881,
+          }),
+        ]}
+      >
+        <meta name="keywords" content="Marvel characters, trading cards, 2025 Topps, character database, Spider-Man cards, Iron Man cards, Wolverine cards, Marvel card checklist" />
+      </SEO>
 
       {/* Hero */}
       <section className="relative border-b border-border/50 overflow-hidden">

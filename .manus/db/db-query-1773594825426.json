@@ -1,0 +1,15 @@
+{
+  "query": "SELECT COUNT(*) as total, SUM(CASE WHEN status = 'generated' THEN 1 ELSE 0 END) as gen_count, SUM(CASE WHEN status = 'error' THEN 1 ELSE 0 END) as err_count FROM character_content",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT COUNT(*) as total, SUM(CASE WHEN status = 'generated' THEN 1 ELSE 0 END) as gen_count, SUM(CASE WHEN status = 'error' THEN 1 ELSE 0 END) as err_count FROM character_content",
+  "rows": [
+    {
+      "total": "31",
+      "gen_count": "31",
+      "err_count": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "total\tgen_count\terr_count\n31\t31\t0\n",
+  "stderr": "",
+  "execution_time_ms": 437
+}

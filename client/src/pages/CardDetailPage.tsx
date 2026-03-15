@@ -1,9 +1,10 @@
 /**
  * Card Detail Page - Individual card page with parallel breakdown,
- * set-specific character content, card art, and navigation
+ * set-specific character content, card art, navigation, Quick Answer,
+ * author byline, FAQ section, and LLMO-optimized structure
  */
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useParams, Link, useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
@@ -23,7 +24,11 @@ import {
   RefreshCw,
   User,
   BookOpen,
+  Zap,
+  Clock,
+  HelpCircle,
 } from "lucide-react";
+import SEO, { breadcrumbJsonLd, articleJsonLd, collectibleCardJsonLd, faqJsonLd } from "@/components/SEO";
 
 /** Rarity color mapping for parallel badges */
 function getParallelColor(printRun: number | null): string {
@@ -82,11 +87,30 @@ export default function CardDetailPage() {
     setAutoTriggered(false);
   }, [setSlug, cardNumber]);
 
-  // Update page title
-  useEffect(() => {
-    if (data?.card) {
-      document.title = `${data.card.characterName} #${data.card.cardNumber} - ${data.card.setName} | Northland Legendary Finds`;
-    }
+  // Build FAQ targeting "People Also Ask" (must be before early returns)
+  const cardFaqs = useMemo(() => {
+    if (!data?.card) return [];
+    const { card, parallels } = data;
+    return [
+      {
+        question: `What parallels are available for ${card.characterName} #${card.cardNumber} in ${card.setName}?`,
+        answer: parallels.length > 0
+          ? `${card.characterName} #${card.cardNumber} has ${parallels.length} parallel versions at Northland Legendary Finds: ${parallels.map((p: any) => p.printRun ? `${p.name} (/${p.printRun})` : p.name).join(", ")}. The lower the print run, the more valuable and collectible the card.`
+          : `${card.characterName} #${card.cardNumber} is a base card in ${card.setName}. Check Northland Legendary Finds for availability.`,
+      },
+      {
+        question: `What set is ${card.characterName} card #${card.cardNumber} from?`,
+        answer: `This card is from the ${card.setName} trading card set by Topps, featuring Marvel characters. Browse the full set checklist at Northland Legendary Finds.`,
+      },
+      {
+        question: `How much is ${card.characterName} #${card.cardNumber} worth?`,
+        answer: `The value of ${card.characterName} #${card.cardNumber} from ${card.setName} depends on the parallel version and condition. ${parallels.some((p: any) => p.printRun === 1) ? "The 1/1 Superfractor is the most valuable." : parallels.length > 0 ? `Numbered parallels like ${parallels.filter((p: any) => p.printRun && p.printRun <= 25).map((p: any) => `/${p.printRun}`).join(", ") || "low print runs"} command the highest prices.` : "Base versions are the most accessible for collectors."} Check recent sales on eBay for current market values.`,
+      },
+      {
+        question: `Is ${card.characterName} #${card.cardNumber} a good card to collect?`,
+        answer: `${card.characterName} is a popular Marvel character with strong collector demand. The ${card.setName} set features premium card design and multiple parallel tiers, making it appealing for both casual collectors and investors. Visit Northland Legendary Finds for the complete parallel breakdown and availability.`,
+      },
+    ];
   }, [data]);
 
   if (isLoading) {
@@ -126,8 +150,70 @@ export default function CardDetailPage() {
   const contentMarkdown = detailContent?.contentMarkdown || generateContent.data?.content;
   const isGenerating = generateContent.isPending || detailContent?.status === "generating";
 
+  // Build SEO data
+  const cardTitle = `${card.characterName} #${card.cardNumber} - ${card.setName} | Northland Legendary Finds`;
+  const cardMetaDesc = `Complete guide to ${card.characterName} card #${card.cardNumber} from ${card.setName} at Northland Legendary Finds. ${parallels.length > 0 ? `${parallels.length} parallel versions including ${parallels.map((p: any) => p.printRun ? `/${p.printRun}` : p.name).slice(0, 4).join(", ")}.` : ""} Card art, collecting tips, and parallel breakdown.`;
+  const cardUrl = `/cards/${card.setSlug}/${card.cardNumber}`;
+
+  const jsonLdSchemas: Record<string, unknown>[] = [
+    breadcrumbJsonLd([
+      { name: "Home", url: "/" },
+      { name: "Card Database", url: "/card-database" },
+      { name: card.setName, url: `/cards/${card.setSlug}` },
+      { name: `#${card.cardNumber} ${card.characterName}`, url: cardUrl },
+    ]),
+    collectibleCardJsonLd({
+      name: cardTitle,
+      description: cardMetaDesc,
+      image: card.imageUrl || undefined,
+      url: cardUrl,
+      cardNumber: card.cardNumber,
+      setName: card.setName,
+      characterName: card.characterName,
+    }),
+    faqJsonLd(cardFaqs),
+  ];
+
+  if (contentMarkdown) {
+    jsonLdSchemas.push(
+      articleJsonLd({
+        title: `${card.characterName} in ${card.setName} - Collector's Guide | Northland Legendary Finds`,
+        description: cardMetaDesc,
+        url: cardUrl,
+        image: card.imageUrl || undefined,
+        datePublished: "2025-03-15",
+        dateModified: new Date().toISOString().split("T")[0],
+        keywords: [
+          card.characterName,
+          card.setName,
+          `${card.characterName} trading card`,
+          `card #${card.cardNumber}`,
+          "2025 Topps",
+          "Marvel cards",
+          "parallel checklist",
+          "Northland Legendary Finds",
+        ],
+        about: {
+          name: card.characterName,
+          description: `${card.characterName} trading card from ${card.setName}`,
+        },
+      })
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title={cardTitle}
+        description={cardMetaDesc}
+        path={cardUrl}
+        image={card.imageUrl || undefined}
+        type="article"
+        jsonLd={jsonLdSchemas}
+      >
+        <meta name="keywords" content={`${card.characterName}, ${card.setName}, trading card, parallels, #${card.cardNumber}, Marvel, Topps, 2025, Northland Legendary Finds`} />
+      </SEO>
+
       {/* Breadcrumb */}
       <div className="border-b border-border/50 bg-card/30">
         <div className="container py-3">
@@ -153,7 +239,7 @@ export default function CardDetailPage() {
                 {card.imageUrl ? (
                   <img
                     src={card.imageUrl}
-                    alt={`${card.characterName} #${card.cardNumber} - ${card.setName}`}
+                    alt={`${card.characterName} #${card.cardNumber} ${card.setName} trading card - Northland Legendary Finds`}
                     className="w-full rounded-xl shadow-2xl shadow-black/40 border border-border/30 transition-transform duration-300 group-hover:scale-[1.02]"
                   />
                 ) : (
@@ -219,6 +305,18 @@ export default function CardDetailPage() {
                 Card #{card.cardNumber}
               </p>
 
+              {/* Author Byline & Last Updated */}
+              <div className="flex flex-wrap items-center gap-4 mt-3 text-xs text-muted-foreground">
+                <div className="flex items-center gap-1.5">
+                  <User className="w-3.5 h-3.5" />
+                  <span>By <strong className="text-foreground">Northland Legendary Finds</strong> &middot; Collecting Since 1993</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <Clock className="w-3.5 h-3.5" />
+                  <span>Last updated: {new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}</span>
+                </div>
+              </div>
+
               {/* Quick links */}
               <div className="flex flex-wrap gap-3 mt-4">
                 <Link href={`/characters/${characterSlug}`}>
@@ -236,6 +334,27 @@ export default function CardDetailPage() {
               </div>
             </div>
 
+            {/* Quick Answer Box - AEO/GEO/AIO Optimization */}
+            <div className="bg-primary/5 border border-primary/20 rounded-xl p-5">
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 rounded-lg bg-primary/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <Zap className="w-4 h-4 text-primary" />
+                </div>
+                <div>
+                  <h2 className="text-sm font-bold text-primary mb-1">Quick Answer</h2>
+                  <p className="text-sm text-foreground leading-relaxed">
+                    {card.characterName} #{card.cardNumber} from <strong>{card.setName}</strong>
+                    {parallels.length > 0 ? (
+                      <> has <strong>{parallels.length} parallel versions</strong>, including {parallels.filter((p: any) => p.printRun).slice(0, 3).map((p: any) => `/${p.printRun}`).join(", ")}{parallels.some((p: any) => p.printRun === 1) ? ", and a 1/1 Superfractor" : ""}.</>
+                    ) : (
+                      <> is a base card in this set.</>
+                    )}
+                    {" "}Browse the full parallel breakdown and collecting guide below at Northland Legendary Finds.
+                  </p>
+                </div>
+              </div>
+            </div>
+
             <Separator className="bg-border/30" />
 
             {/* Parallel Breakdown */}
@@ -246,7 +365,7 @@ export default function CardDetailPage() {
                   Parallel Breakdown
                 </h2>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-                  {parallels.map((p, i) => {
+                  {parallels.map((p: any, i: number) => {
                     const rarityLabel = getRarityLabel(p.printRun);
                     return (
                       <div
@@ -319,6 +438,31 @@ export default function CardDetailPage() {
               )}
             </div>
 
+            {/* FAQ Section - Targeting "People Also Ask" */}
+            <section className="pt-6 border-t border-border/30">
+              <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
+                <HelpCircle className="w-6 h-6 text-primary" />
+                Frequently Asked Questions
+              </h2>
+              <div className="space-y-3">
+                {cardFaqs.map((faq, i) => (
+                  <details
+                    key={i}
+                    className="bg-card border border-border rounded-xl group"
+                    open={i === 0}
+                  >
+                    <summary className="p-4 cursor-pointer text-foreground font-medium hover:text-primary transition-colors list-none flex items-center justify-between">
+                      <span className="text-sm">{faq.question}</span>
+                      <ChevronRight className="w-4 h-4 text-muted-foreground group-open:rotate-90 transition-transform flex-shrink-0 ml-2" />
+                    </summary>
+                    <div className="px-4 pb-4 text-sm text-muted-foreground leading-relaxed border-t border-border/30 pt-3">
+                      {faq.answer}
+                    </div>
+                  </details>
+                ))}
+              </div>
+            </section>
+
             {/* Other cards of same character in this set */}
             {sameCharCards.length > 0 && (
               <>
@@ -329,7 +473,7 @@ export default function CardDetailPage() {
                     More {card.characterName} in {card.setName}
                   </h2>
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                    {sameCharCards.map((sc) => (
+                    {sameCharCards.map((sc: any) => (
                       <Link
                         key={sc.id}
                         href={`/cards/${card.setSlug}/${encodeURIComponent(sc.cardNumber)}`}
@@ -339,7 +483,7 @@ export default function CardDetailPage() {
                           {sc.imageUrl ? (
                             <img
                               src={sc.imageUrl}
-                              alt={`${sc.characterName} #${sc.cardNumber}`}
+                              alt={`${sc.characterName} #${sc.cardNumber} ${card.setName} - Northland Legendary Finds`}
                               className="w-full aspect-[2/3] object-cover transition-transform duration-300 group-hover:scale-105"
                             />
                           ) : (
@@ -358,6 +502,38 @@ export default function CardDetailPage() {
                 </div>
               </>
             )}
+
+            {/* Internal Links Section */}
+            <section className="pt-6 border-t border-border/30">
+              <h3 className="text-sm font-bold text-muted-foreground mb-3 uppercase tracking-wider">Continue Exploring at Northland Legendary Finds</h3>
+              <div className="flex flex-wrap gap-2">
+                <Link href={`/characters/${characterSlug}`}>
+                  <Badge variant="outline" className="hover:border-primary/40 hover:text-primary transition-colors cursor-pointer">
+                    {card.characterName} Character Profile
+                  </Badge>
+                </Link>
+                <Link href={`/cards/${card.setSlug}`}>
+                  <Badge variant="outline" className="hover:border-primary/40 hover:text-primary transition-colors cursor-pointer">
+                    {card.setName} Full Checklist
+                  </Badge>
+                </Link>
+                <Link href="/characters">
+                  <Badge variant="outline" className="hover:border-primary/40 hover:text-primary transition-colors cursor-pointer">
+                    Browse All 880+ Characters
+                  </Badge>
+                </Link>
+                <Link href="/cards">
+                  <Badge variant="outline" className="hover:border-primary/40 hover:text-primary transition-colors cursor-pointer">
+                    Full Card Database
+                  </Badge>
+                </Link>
+                <Link href="/shop">
+                  <Badge variant="outline" className="hover:border-primary/40 hover:text-primary transition-colors cursor-pointer">
+                    Shop Repack Packs
+                  </Badge>
+                </Link>
+              </div>
+            </section>
           </div>
         </div>
       </div>

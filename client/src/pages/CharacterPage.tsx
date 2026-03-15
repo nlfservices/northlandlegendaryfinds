@@ -1,6 +1,7 @@
 /**
  * Character Page - SEO-optimized individual character pages
- * Features: 1000+ word LLM-generated history, key facts sidebar, card gallery across sets
+ * Features: Quick Answer box, author byline, TOC, 1000+ word LLM-generated history,
+ * key facts sidebar, card gallery across sets, FAQ section, LLMO-optimized structure
  * Content is generated on-demand and cached in the database
  */
 
@@ -13,12 +14,27 @@ import { Skeleton } from "@/components/ui/skeleton";
 import {
   ArrowLeft, BookOpen, Sparkles, Shield, Zap, Users,
   Calendar, Pen, Layers, ChevronRight, Loader2, RefreshCw,
-  ExternalLink
+  ExternalLink, List, Clock, User, HelpCircle
 } from "lucide-react";
-import SEO, { breadcrumbJsonLd } from "@/components/SEO";
+import SEO, { breadcrumbJsonLd, articleJsonLd, faqJsonLd } from "@/components/SEO";
 import { Streamdown } from "streamdown";
 
 const PLACEHOLDER_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hulk_9ebdacfa.png";
+
+/** Extract H2 headings from markdown for Table of Contents */
+function extractTocFromMarkdown(md: string): { id: string; text: string }[] {
+  const headings: { id: string; text: string }[] = [];
+  const lines = md.split("\n");
+  for (const line of lines) {
+    const match = line.match(/^##\s+(.+)/);
+    if (match) {
+      const text = match[1].replace(/[*_`]/g, "").trim();
+      const id = text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+      headings.push({ id, text });
+    }
+  }
+  return headings;
+}
 
 export default function CharacterPage() {
   const [, params] = useRoute("/characters/:slug");
@@ -87,21 +103,126 @@ export default function CharacterPage() {
     }
   }, [data?.content?.keyFacts]);
 
-  // Pick the best representative image: prefer cards whose image filename contains the character name
+  // Pick the best representative image
   const characterImage = useMemo(() => {
     if (!data?.cards?.length) return PLACEHOLDER_IMG;
     const charWords = data.characterName.toLowerCase().split(/\s+/).filter(w => w.length > 2);
-    // Try to find a card whose image URL contains the character name
     const matchingCard = data.cards.find(c => {
       if (!c.imageUrl) return false;
       const filename = c.imageUrl.split('/').pop()?.toLowerCase() || '';
       return charWords.some(w => filename.includes(w));
     });
     if (matchingCard?.imageUrl) return matchingCard.imageUrl;
-    // Fallback: first card with an image
     const firstWithImage = data.cards.find(c => c.imageUrl);
     return firstWithImage?.imageUrl || PLACEHOLDER_IMG;
   }, [data?.cards, data?.characterName]);
+
+  // Extract TOC from markdown
+  const toc = useMemo(() => {
+    if (!data?.content?.historyMarkdown) return [];
+    return extractTocFromMarkdown(data.content.historyMarkdown);
+  }, [data?.content?.historyMarkdown]);
+
+  // Build SEO keywords (must be before early returns)
+  const seoKeywords = useMemo(() => {
+    if (!data) return [];
+    const kw = [
+      data.characterName,
+      `${data.characterName} trading cards`,
+      `${data.characterName} Marvel cards`,
+      `${data.characterName} 2025 Topps`,
+      "Marvel trading cards",
+      "card checklist",
+      "Northland Legendary Finds",
+    ];
+    if (keyFacts?.teams) kw.push(...keyFacts.teams);
+    if (keyFacts?.notablePowers) kw.push(...keyFacts.notablePowers.slice(0, 3));
+    return kw;
+  }, [data?.characterName, keyFacts]);
+
+  // Build FAQ schema targeting "People Also Ask" questions (must be before early returns)
+  const characterFaqs = useMemo(() => {
+    if (!data) return [];
+    const faqs: { question: string; answer: string }[] = [];
+    faqs.push({
+      question: `How many ${data.characterName} trading cards are in the 2025 Topps Marvel sets?`,
+      answer: `${data.characterName} appears on ${data.cardCount} trading cards across ${cardsBySet.length} different 2025 Topps Marvel sets at Northland Legendary Finds${cardsBySet.length > 0 ? `, including ${cardsBySet.map(s => s.setName).join(", ")}` : ""}. Each card features unique artwork and multiple parallel versions for collectors.`,
+    });
+    if (keyFacts?.firstAppearance) {
+      faqs.push({
+        question: `When did ${data.characterName} first appear in Marvel Comics?`,
+        answer: `${data.characterName} first appeared in ${keyFacts.firstAppearance}${keyFacts.creators ? `, created by ${keyFacts.creators}` : ""}. This debut is a key milestone for collectors tracking ${data.characterName}'s trading card history.`,
+      });
+    }
+    if (keyFacts?.notablePowers?.length) {
+      faqs.push({
+        question: `What are ${data.characterName}'s powers and abilities?`,
+        answer: `${data.characterName}'s notable powers and abilities include ${keyFacts.notablePowers.join(", ")}. These iconic abilities are frequently featured across ${data.characterName}'s trading card artwork in 2025 Topps sets.`,
+      });
+    }
+    if (keyFacts?.teams?.length) {
+      faqs.push({
+        question: `What Marvel teams is ${data.characterName} a member of?`,
+        answer: `${data.characterName} is a member of ${keyFacts.teams.join(", ")}. Many of these team affiliations are represented in special insert and subset cards available at Northland Legendary Finds.`,
+      });
+    }
+    faqs.push({
+      question: `What are the best ${data.characterName} cards to collect in 2025?`,
+      answer: `The most sought-after ${data.characterName} cards in 2025 include numbered parallels from Topps Chrome (/199, /99, /25, /5, and 1/1 Superfractors), Marvel Mint refractors, and special insert cards. Check the full ${data.characterName} card checklist at Northland Legendary Finds for the complete breakdown.`,
+    });
+    faqs.push({
+      question: `Are ${data.characterName} trading cards a good investment?`,
+      answer: `${data.characterName} trading cards, especially low-numbered parallels and graded copies (PSA 10, CGC 10), have shown strong collector demand. The 2025 Topps sets offer multiple parallel tiers, making them accessible for both casual collectors and serious investors. Visit Northland Legendary Finds for current availability and pricing.`,
+    });
+    return faqs;
+  }, [data, keyFacts, cardsBySet]);
+
+  // Estimate word count (must be before early returns)
+  const wordCount = useMemo(() => {
+    if (!data?.content?.historyMarkdown) return undefined;
+    return data.content.historyMarkdown.split(/\s+/).length;
+  }, [data?.content?.historyMarkdown]);
+
+  // Build all JSON-LD schemas (must be before early returns)
+  const metaDesc = useMemo(() => {
+    if (!data) return "";
+    return data.content?.metaDescription ||
+      `Explore ${data.characterName}'s complete trading card history at Northland Legendary Finds. ${data.cardCount} cards across ${cardsBySet.length} sets with parallel breakdowns, collecting tips, and character history.`;
+  }, [data, cardsBySet.length]);
+
+  const jsonLdSchemas = useMemo(() => {
+    if (!data) return [];
+    const slug_ = params?.slug || "";
+    const schemas: Record<string, unknown>[] = [
+      breadcrumbJsonLd([
+        { name: "Home", url: "/" },
+        { name: "Characters", url: "/characters" },
+        { name: data.characterName, url: `/characters/${slug_}` },
+      ]),
+    ];
+    if (data.content?.historyMarkdown) {
+      schemas.push(
+        articleJsonLd({
+          title: `${data.characterName} - Complete Marvel Trading Card History & Collector's Guide | Northland Legendary Finds`,
+          description: metaDesc,
+          url: `/characters/${slug_}`,
+          image: characterImage,
+          datePublished: "2025-03-15",
+          dateModified: new Date().toISOString().split("T")[0],
+          keywords: seoKeywords,
+          wordCount,
+          about: {
+            name: data.characterName,
+            description: metaDesc,
+          },
+        })
+      );
+    }
+    if (characterFaqs.length > 0) {
+      schemas.push(faqJsonLd(characterFaqs));
+    }
+    return schemas;
+  }, [data, params?.slug, metaDesc, characterImage, seoKeywords, characterFaqs, wordCount]);
 
   if (isLoading) {
     return (
@@ -144,22 +265,21 @@ export default function CharacterPage() {
     );
   }
 
-  const metaDesc = data.content?.metaDescription ||
-    `Explore ${data.characterName}'s history, powers, and ${data.cardCount} trading cards across multiple Marvel sets at Northland Legendary Finds.`;
-
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title={`${data.characterName} - Marvel Trading Cards & Character History`}
+        title={`${data.characterName} - Marvel Trading Cards & Character History | Northland Legendary Finds`}
         description={metaDesc}
         path={`/characters/${slug}`}
         image={characterImage}
-        jsonLd={breadcrumbJsonLd([
-          { name: "Home", url: "/" },
-          { name: "Characters", url: "/characters" },
-          { name: data.characterName, url: `/characters/${slug}` },
-        ])}
-      />
+        type="article"
+        jsonLd={jsonLdSchemas}
+      >
+        <meta name="keywords" content={seoKeywords.join(", ")} />
+        <meta name="article:section" content="Marvel Trading Cards" />
+        <meta name="article:tag" content={data.characterName} />
+        <meta property="og:article:section" content="Marvel Trading Cards" />
+      </SEO>
 
       {/* Hero Section */}
       <section className="relative border-b border-border/50 overflow-hidden">
@@ -179,7 +299,7 @@ export default function CharacterPage() {
             <div className="w-32 h-44 md:w-40 md:h-56 flex-shrink-0 rounded-xl overflow-hidden border-2 border-primary/30 shadow-lg shadow-primary/10">
               <img
                 src={characterImage}
-                alt={data.characterName}
+                alt={`${data.characterName} 2025 Topps Marvel trading card - Northland Legendary Finds`}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -220,6 +340,18 @@ export default function CharacterPage() {
                   ))}
                 </div>
               )}
+
+              {/* Author Byline & Last Updated */}
+              <div className="flex flex-wrap items-center gap-4 mt-4 pt-4 border-t border-border/30 text-xs text-muted-foreground">
+                <div className="flex items-center gap-1.5">
+                  <User className="w-3.5 h-3.5" />
+                  <span>By <strong className="text-foreground">Northland Legendary Finds</strong> &middot; Collecting Since 1993</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <Clock className="w-3.5 h-3.5" />
+                  <span>Last updated: {new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -230,6 +362,55 @@ export default function CharacterPage() {
         <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
           {/* Article Content - Left 2/3 */}
           <div className="lg:col-span-2">
+
+            {/* Quick Answer Box - AEO/GEO/AIO Optimization */}
+            {data.content?.historyMarkdown && (
+              <div className="bg-primary/5 border border-primary/20 rounded-xl p-5 mb-8">
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-primary/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <Zap className="w-4 h-4 text-primary" />
+                  </div>
+                  <div>
+                    <h2 className="text-sm font-bold text-primary mb-1">Quick Answer</h2>
+                    <p className="text-sm text-foreground leading-relaxed">
+                      {data.characterName} has <strong>{data.cardCount} trading cards</strong> across{" "}
+                      <strong>{cardsBySet.length} sets</strong> in the 2025 Topps Marvel lineup
+                      {cardsBySet.length > 0 && (
+                        <>, including {cardsBySet.slice(0, 3).map(s => s.setName).join(", ")}{cardsBySet.length > 3 ? `, and ${cardsBySet.length - 3} more` : ""}</>
+                      )}.
+                      {keyFacts?.firstAppearance && (
+                        <> First appearing in {keyFacts.firstAppearance}, {data.characterName} remains one of Marvel's most collected characters.</>
+                      )}
+                      {" "}Browse the complete checklist and parallel breakdown below at Northland Legendary Finds.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Table of Contents */}
+            {toc.length > 3 && (
+              <nav className="bg-card border border-border rounded-xl p-5 mb-8">
+                <h2 className="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
+                  <List className="w-4 h-4 text-primary" />
+                  In This Article
+                </h2>
+                <ol className="space-y-1.5 text-sm">
+                  {toc.map((item, i) => (
+                    <li key={item.id}>
+                      <a
+                        href={`#${item.id}`}
+                        className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-2"
+                      >
+                        <span className="text-primary/50 text-xs font-mono w-5">{i + 1}.</span>
+                        {item.text}
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              </nav>
+            )}
+
             {/* Content Loading / Generation State */}
             {(!data.content || isGenerating || generateContent.isPending) && (
               <div className="bg-card border border-border rounded-xl p-8 text-center space-y-4">
@@ -289,6 +470,67 @@ export default function CharacterPage() {
               ">
                 <Streamdown>{data.content.historyMarkdown}</Streamdown>
               </article>
+            )}
+
+            {/* FAQ Section - Targeting "People Also Ask" */}
+            {data.content?.historyMarkdown && characterFaqs.length > 0 && (
+              <section className="mt-12 pt-8 border-t border-border/30">
+                <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-2">
+                  <HelpCircle className="w-6 h-6 text-primary" />
+                  Frequently Asked Questions About {data.characterName}
+                </h2>
+                <div className="space-y-4">
+                  {characterFaqs.map((faq, i) => (
+                    <details
+                      key={i}
+                      className="bg-card border border-border rounded-xl group"
+                      open={i === 0}
+                    >
+                      <summary className="p-4 cursor-pointer text-foreground font-medium hover:text-primary transition-colors list-none flex items-center justify-between">
+                        <span>{faq.question}</span>
+                        <ChevronRight className="w-4 h-4 text-muted-foreground group-open:rotate-90 transition-transform flex-shrink-0 ml-2" />
+                      </summary>
+                      <div className="px-4 pb-4 text-sm text-muted-foreground leading-relaxed border-t border-border/30 pt-3">
+                        {faq.answer}
+                      </div>
+                    </details>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* Internal Links Section */}
+            {data.content?.historyMarkdown && (
+              <section className="mt-8 pt-6 border-t border-border/30">
+                <h3 className="text-sm font-bold text-muted-foreground mb-3 uppercase tracking-wider">Continue Exploring at Northland Legendary Finds</h3>
+                <div className="flex flex-wrap gap-2">
+                  <Link href="/characters">
+                    <Badge variant="outline" className="hover:border-primary/40 hover:text-primary transition-colors cursor-pointer">
+                      Browse All 880+ Characters
+                    </Badge>
+                  </Link>
+                  <Link href="/cards">
+                    <Badge variant="outline" className="hover:border-primary/40 hover:text-primary transition-colors cursor-pointer">
+                      Full Card Database
+                    </Badge>
+                  </Link>
+                  <Link href="/checklists">
+                    <Badge variant="outline" className="hover:border-primary/40 hover:text-primary transition-colors cursor-pointer">
+                      Set Checklists
+                    </Badge>
+                  </Link>
+                  <Link href="/graded">
+                    <Badge variant="outline" className="hover:border-primary/40 hover:text-primary transition-colors cursor-pointer">
+                      Graded Card Inventory
+                    </Badge>
+                  </Link>
+                  <Link href="/shop">
+                    <Badge variant="outline" className="hover:border-primary/40 hover:text-primary transition-colors cursor-pointer">
+                      Shop Repack Packs
+                    </Badge>
+                  </Link>
+                </div>
+              </section>
             )}
           </div>
 
@@ -355,23 +597,27 @@ export default function CharacterPage() {
                   </Link>
                   <div className="grid grid-cols-3 gap-2">
                     {group.cards.slice(0, 6).map((card: any) => (
-                      <div
+                      <Link
                         key={card.id}
-                        className="relative aspect-[2.5/3.5] rounded-lg overflow-hidden border border-border/50 hover:border-primary/50 transition-colors group"
-                        title={`${card.characterName} #${card.cardNumber} - ${card.cardType || ""}`}
+                        href={`/cards/${group.setSlug}/${card.cardNumber}`}
                       >
-                        <img
-                          src={card.imageUrl || PLACEHOLDER_IMG}
-                          alt={`${card.characterName} #${card.cardNumber}`}
-                          loading="lazy"
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 to-transparent p-1">
-                          <p className="text-[10px] text-white/80 truncate">
-                            #{card.cardNumber}
-                          </p>
+                        <div
+                          className="relative aspect-[2.5/3.5] rounded-lg overflow-hidden border border-border/50 hover:border-primary/50 transition-colors group cursor-pointer"
+                          title={`${card.characterName} #${card.cardNumber} - ${card.cardType || "Base"}`}
+                        >
+                          <img
+                            src={card.imageUrl || PLACEHOLDER_IMG}
+                            alt={`${card.characterName} #${card.cardNumber} ${group.setName} trading card - Northland Legendary Finds`}
+                            loading="lazy"
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 to-transparent p-1">
+                            <p className="text-[10px] text-white/80 truncate">
+                              #{card.cardNumber}
+                            </p>
+                          </div>
                         </div>
-                      </div>
+                      </Link>
                     ))}
                   </div>
                   {group.cards.length > 6 && (
@@ -452,7 +698,7 @@ function RelatedCharactersSection({ slug, characterName }: { slug: string; chara
         Related Characters
       </h2>
       <p className="text-sm text-muted-foreground mb-6">
-        Characters who appear alongside {characterName} across multiple card sets
+        Characters who appear alongside {characterName} across multiple card sets at Northland Legendary Finds
       </p>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
         {related.map((char) => (
@@ -461,7 +707,7 @@ function RelatedCharactersSection({ slug, characterName }: { slug: string; chara
               <div className="relative aspect-[2.5/3.5] rounded-xl overflow-hidden border-2 border-border/50 group-hover:border-primary/60 transition-all duration-300 shadow-md group-hover:shadow-primary/20 group-hover:shadow-lg">
                 <img
                   src={char.imageUrl || PLACEHOLDER_IMG}
-                  alt={char.characterName}
+                  alt={`${char.characterName} Marvel trading card - Northland Legendary Finds`}
                   loading="lazy"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
