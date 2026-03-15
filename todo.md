@@ -717,3 +717,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Monitor and verify completion (881/881 characters now have generated articles)
 - [x] Verified pages load instantly in browser (Wolverine, Gambit tested)
 - [x] Save checkpoint
+
+## Batch Card Detail Article Generation
+- [ ] Review card detail content generation logic (LLM prompt, DB schema)
+- [ ] Create batch generation script for all ~1,976 remaining card detail pages
+- [ ] Run batch generation and monitor progress
+- [ ] Verify completion (all 1,982 cards have pre-generated content)
+- [ ] Save checkpoint
