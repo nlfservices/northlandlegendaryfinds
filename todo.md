@@ -711,3 +711,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Tested on desktop (centered, green theme, 3s delay confirmed)
 - [x] Mobile-ready: max-w-sm w-full with p-4 padding ensures proper centering on all screen sizes
 - [x] Save checkpoint
+
+## Popup Improvements
+- [x] Customize exit-intent popup with "Wait — Here's 10% Off!" and discount code LEGENDARY10 (yellow theme variant)
+- [x] Fixed exit-intent handler to read localStorage inside handler (not stale closure)
+- [x] Add confetti celebration on successful subscription (green/gold bursts from both sides + star shapes)
+- [x] Success state shows "Welcome to the Legend!" with copyable discount code badge
+- [x] Auto-closes after 5 seconds to let users enjoy confetti + see discount
+- [x] Tested: initial popup (3s delay, green), exit-intent (discount offer), subscription flow
+- [x] Save checkpoint
