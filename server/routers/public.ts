@@ -9,7 +9,7 @@ import {
   getAllMarvelSets, getMarvelSetBySlug, getMarvelCardsBySetId, searchMarvelCards,
   getAllGradedCards, getGradedCardStats, getGradedCardGradeDistribution, getGradedCardSets,
   getCharacterContentBySlug, getCardsByCharacterName, upsertCharacterContent,
-  characterNameToSlug, getAllCharacterSlugs,
+  characterNameToSlug, getAllCharacterSlugs, getRelatedCharacters,
 } from "../db";
 import { launchSubscribers } from "../../drizzle/schema";
 import { getDb } from "../db";
@@ -277,6 +277,15 @@ Format the response as JSON with these fields:
       });
       throw new Error("Content generation failed. Please try again.");
     }
+  }),
+
+  /** Get related characters for a given character (shared sets, similar card presence) */
+  relatedCharacters: publicProcedure.input(z.object({ slug: z.string(), limit: z.number().default(12) })).query(async ({ input }) => {
+    // Find the character name from slug
+    const allChars = await getAllCharacterSlugs();
+    const match = allChars.find((c: any) => characterNameToSlug(c.characterName) === input.slug);
+    if (!match) return [];
+    return getRelatedCharacters(match.characterName, input.limit);
   }),
 
   /** Get all character slugs for sitemap/index */

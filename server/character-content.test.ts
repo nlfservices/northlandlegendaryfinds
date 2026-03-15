@@ -15,6 +15,7 @@ vi.mock("./db", () => ({
   ),
   getAllCharacterSlugs: vi.fn(),
   getAllMarvelSets: vi.fn(),
+  getRelatedCharacters: vi.fn(),
 }));
 
 import {
@@ -23,6 +24,7 @@ import {
   upsertCharacterContent,
   characterNameToSlug,
   getAllCharacterSlugs,
+  getRelatedCharacters,
 } from "./db";
 
 const mockedGetCharacterContentBySlug = vi.mocked(getCharacterContentBySlug);
@@ -30,6 +32,7 @@ const mockedGetCardsByCharacterName = vi.mocked(getCardsByCharacterName);
 const mockedUpsertCharacterContent = vi.mocked(upsertCharacterContent);
 const mockedCharacterNameToSlug = vi.mocked(characterNameToSlug);
 const mockedGetAllCharacterSlugs = vi.mocked(getAllCharacterSlugs);
+const mockedGetRelatedCharacters = vi.mocked(getRelatedCharacters);
 
 describe("Character Content Helpers", () => {
   beforeEach(() => {
@@ -210,6 +213,74 @@ describe("Character Content Helpers", () => {
         })
       );
     });
+  });
+});
+
+describe("getRelatedCharacters", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it("returns related characters sorted by shared sets", async () => {
+    const mockRelated = [
+      { characterName: "Captain America", slug: "captain-america", sharedSets: 5, cardCount: 18, imageUrl: "https://example.com/cap.png" },
+      { characterName: "Thor", slug: "thor", sharedSets: 4, cardCount: 14, imageUrl: "https://example.com/thor.png" },
+      { characterName: "Hulk", slug: "hulk", sharedSets: 4, cardCount: 12, imageUrl: "https://example.com/hulk.png" },
+      { characterName: "Black Widow", slug: "black-widow", sharedSets: 3, cardCount: 10, imageUrl: null },
+    ];
+    mockedGetRelatedCharacters.mockResolvedValue(mockRelated);
+
+    const result = await getRelatedCharacters("Iron Man", 12);
+    expect(result).toHaveLength(4);
+    expect(result[0].characterName).toBe("Captain America");
+    expect(result[0].sharedSets).toBe(5);
+    expect(result[0].slug).toBe("captain-america");
+    // Sorted by sharedSets descending
+    expect(result[0].sharedSets).toBeGreaterThanOrEqual(result[1].sharedSets);
+  });
+
+  it("does not include the queried character in results", async () => {
+    const mockRelated = [
+      { characterName: "Spider-Man", slug: "spider-man", sharedSets: 4, cardCount: 15, imageUrl: "https://example.com/spidey.png" },
+    ];
+    mockedGetRelatedCharacters.mockResolvedValue(mockRelated);
+
+    const result = await getRelatedCharacters("Iron Man", 12);
+    expect(result.every(c => c.characterName !== "Iron Man")).toBe(true);
+  });
+
+  it("returns empty array for character with no related characters", async () => {
+    mockedGetRelatedCharacters.mockResolvedValue([]);
+
+    const result = await getRelatedCharacters("Obscure Hero", 12);
+    expect(result).toHaveLength(0);
+  });
+
+  it("respects the limit parameter", async () => {
+    const mockRelated = Array.from({ length: 6 }, (_, i) => ({
+      characterName: `Hero ${i}`,
+      slug: `hero-${i}`,
+      sharedSets: 5 - Math.floor(i / 2),
+      cardCount: 10 - i,
+      imageUrl: null,
+    }));
+    mockedGetRelatedCharacters.mockResolvedValue(mockRelated);
+
+    const result = await getRelatedCharacters("Iron Man", 6);
+    expect(result).toHaveLength(6);
+    expect(mockedGetRelatedCharacters).toHaveBeenCalledWith("Iron Man", 6);
+  });
+
+  it("includes imageUrl which may be null", async () => {
+    const mockRelated = [
+      { characterName: "Hawkeye", slug: "hawkeye", sharedSets: 2, cardCount: 5, imageUrl: null },
+      { characterName: "Thor", slug: "thor", sharedSets: 4, cardCount: 14, imageUrl: "https://example.com/thor.png" },
+    ];
+    mockedGetRelatedCharacters.mockResolvedValue(mockRelated);
+
+    const result = await getRelatedCharacters("Iron Man", 12);
+    expect(result[0].imageUrl).toBeNull();
+    expect(result[1].imageUrl).toBe("https://example.com/thor.png");
   });
 });
 

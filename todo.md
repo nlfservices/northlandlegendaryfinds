@@ -668,3 +668,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add Characters link to navigation bar and footer
 - [x] Write vitest tests for character content endpoints (14 tests passing)
 - [x] Save checkpoint
+
+## Related Characters Section
+- [x] Build backend tRPC procedure for fetching related characters (shared sets ranking)
+- [x] Build getRelatedCharacters DB helper (SQL query: shared sets + card count ranking)
+- [x] Build frontend RelatedCharactersSection component with 6-col card grid, images, hover effects
+- [x] Link related character cards to their individual character pages
+- [x] Write vitest tests for related characters endpoint (5 new tests, 19 total passing)
+- [x] Test end-to-end in browser (Spider-Man → Iron Man navigation verified)
+- [x] Save checkpoint

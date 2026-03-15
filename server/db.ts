@@ -846,3 +846,49 @@ export async function getGeneratedCharacterSlugs() {
     .where(eq(characterContent.status, "generated"))
     .orderBy(asc(characterContent.characterName));
 }
+
+/** Get related characters based on shared sets (characters appearing in the same card sets) */
+export async function getRelatedCharacters(characterName: string, limit: number = 12) {
+  const db = await getDb();
+  if (!db) return [];
+
+  // Step 1: Find which sets this character appears in
+  const charSets = await db.select({ setId: marvelCards.setId })
+    .from(marvelCards)
+    .where(eq(marvelCards.characterName, characterName))
+    .groupBy(marvelCards.setId);
+
+  if (charSets.length === 0) return [];
+
+  const setIds = charSets.map(s => s.setId);
+
+  // Step 2: Find other characters in those same sets, ranked by how many sets they share
+  // Also grab one representative image per character
+  const results = await db.execute(sql`
+    SELECT 
+      mc.characterName,
+      COUNT(DISTINCT mc.setId) as sharedSets,
+      COUNT(*) as cardCount,
+      (SELECT mc2.imageUrl FROM marvel_cards mc2 
+       WHERE mc2.characterName = mc.characterName AND mc2.imageUrl IS NOT NULL 
+       LIMIT 1) as imageUrl
+    FROM marvel_cards mc
+    WHERE mc.characterName != ${characterName}
+      AND mc.characterName IS NOT NULL
+      AND mc.characterName != ''
+      AND mc.setId IN (${sql.join(setIds.map(id => sql`${id}`), sql`, `)})
+    GROUP BY mc.characterName
+    ORDER BY sharedSets DESC, cardCount DESC
+    LIMIT ${limit}
+  `);
+
+  // results is [rows, fields] from mysql2
+  const rows = (results as any)[0] || results;
+  return (Array.isArray(rows) ? rows : []).map((r: any) => ({
+    characterName: r.characterName as string,
+    slug: characterNameToSlug(r.characterName as string),
+    sharedSets: Number(r.sharedSets),
+    cardCount: Number(r.cardCount),
+    imageUrl: r.imageUrl as string | null,
+  }));
+}

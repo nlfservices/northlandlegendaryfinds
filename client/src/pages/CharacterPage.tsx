@@ -394,7 +394,76 @@ export default function CharacterPage() {
             </div>
           </aside>
         </div>
+
+        {/* Related Characters Section */}
+        <RelatedCharactersSection slug={slug} characterName={data.characterName} />
       </div>
     </div>
+  );
+}
+
+/** Related Characters grid component */
+function RelatedCharactersSection({ slug, characterName }: { slug: string; characterName: string }) {
+  const { data: related, isLoading } = trpc.public.marvel.relatedCharacters.useQuery(
+    { slug, limit: 12 },
+    { enabled: !!slug }
+  );
+
+  if (isLoading) {
+    return (
+      <section className="mt-12 pt-8 border-t border-border/50">
+        <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-2">
+          <Users className="w-6 h-6 text-primary" />
+          Related Characters
+        </h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div key={i} className="space-y-2">
+              <Skeleton className="aspect-[2.5/3.5] w-full rounded-xl" />
+              <Skeleton className="h-4 w-3/4" />
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+  }
+
+  if (!related || related.length === 0) return null;
+
+  return (
+    <section className="mt-12 pt-8 border-t border-border/50">
+      <h2 className="text-2xl font-bold text-foreground mb-2 flex items-center gap-2">
+        <Users className="w-6 h-6 text-primary" />
+        Related Characters
+      </h2>
+      <p className="text-sm text-muted-foreground mb-6">
+        Characters who appear alongside {characterName} across multiple card sets
+      </p>
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        {related.map((char) => (
+          <Link key={char.slug} href={`/characters/${char.slug}`}>
+            <div className="group cursor-pointer">
+              <div className="relative aspect-[2.5/3.5] rounded-xl overflow-hidden border-2 border-border/50 group-hover:border-primary/60 transition-all duration-300 shadow-md group-hover:shadow-primary/20 group-hover:shadow-lg">
+                <img
+                  src={char.imageUrl || PLACEHOLDER_IMG}
+                  alt={char.characterName}
+                  loading="lazy"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                <div className="absolute bottom-0 inset-x-0 p-2">
+                  <p className="text-white text-xs font-bold truncate">
+                    {char.characterName}
+                  </p>
+                  <p className="text-white/60 text-[10px]">
+                    {char.cardCount} cards &middot; {char.sharedSets} shared {char.sharedSets === 1 ? 'set' : 'sets'}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </section>
   );
 }
