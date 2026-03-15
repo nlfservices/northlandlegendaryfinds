@@ -8,6 +8,8 @@ import {
   getProductStats,
   getAllMarvelSets, getMarvelSetBySlug, getMarvelCardsBySetId, searchMarvelCards,
   getAllGradedCards, getGradedCardStats, getGradedCardGradeDistribution, getGradedCardSets,
+  getCharacterContentBySlug, getCardsByCharacterName, upsertCharacterContent,
+  characterNameToSlug, getAllCharacterSlugs,
 } from "../db";
 import { launchSubscribers } from "../../drizzle/schema";
 import { getDb } from "../db";
@@ -115,6 +117,177 @@ const publicMarvelRouter = router({
   /** Search cards across all sets */
   search: publicProcedure.input(z.object({ query: z.string(), limit: z.number().default(50) })).query(async ({ input }) => {
     return searchMarvelCards(input.query, input.limit);
+  }),
+
+  /** Get character page data by slug */
+  getCharacter: publicProcedure.input(z.object({ slug: z.string() })).query(async ({ input }) => {
+    // 1. Get existing content from DB
+    const content = await getCharacterContentBySlug(input.slug);
+    if (!content) {
+      // Find character name from slug by checking all characters
+      const allChars = await getAllCharacterSlugs();
+      const match = allChars.find((c: any) => characterNameToSlug(c.characterName) === input.slug);
+      if (!match) return null;
+      
+      // Return cards but no content yet (will be generated on demand)
+      const cards = await getCardsByCharacterName(match.characterName);
+      return {
+        characterName: match.characterName,
+        slug: input.slug,
+        cards,
+        content: null,
+        cardCount: match.cardCount,
+      };
+    }
+    
+    const cards = await getCardsByCharacterName(content.characterName);
+    return {
+      characterName: content.characterName,
+      slug: content.slug,
+      cards,
+      content: {
+        historyMarkdown: content.historyMarkdown,
+        metaDescription: content.metaDescription,
+        keyFacts: content.keyFacts,
+        status: content.status,
+      },
+      cardCount: cards.length,
+    };
+  }),
+
+  /** Generate character content on demand */
+  generateCharacterContent: publicProcedure.input(z.object({ slug: z.string() })).mutation(async ({ input }) => {
+    const { invokeLLM } = await import("../_core/llm");
+    
+    // Find character name from slug
+    const allChars = await getAllCharacterSlugs();
+    const match = allChars.find((c: any) => characterNameToSlug(c.characterName) === input.slug);
+    if (!match) throw new Error("Character not found");
+    
+    // Check if already generating
+    const existing = await getCharacterContentBySlug(input.slug);
+    if (existing?.status === "generating") return { status: "generating" };
+    if (existing?.status === "generated" && existing.historyMarkdown) {
+      return { status: "generated", content: existing.historyMarkdown };
+    }
+    
+    // Mark as generating
+    await upsertCharacterContent({
+      characterName: match.characterName,
+      slug: input.slug,
+      status: "generating",
+    });
+    
+    // Get cards for context
+    const cards = await getCardsByCharacterName(match.characterName);
+    const setNames = Array.from(new Set(cards.map((c: any) => c.setName).filter(Boolean)));
+    const cardTypes = Array.from(new Set(cards.map((c: any) => c.cardType).filter(Boolean)));
+    
+    try {
+      const response = await invokeLLM({
+        messages: [
+          {
+            role: "system",
+            content: `You are an expert Marvel comics and MCU historian writing for a premium trading card shop website called "Northland Legendary Finds". Write engaging, SEO-optimized content about Marvel characters. Your content should be informative, passionate, and appeal to both casual fans and serious collectors. Use Markdown formatting with headers (##), bold text, and organized sections. Do NOT use any images or links. Write in a professional but enthusiastic tone.`
+          },
+          {
+            role: "user",
+            content: `Write a comprehensive 1000-1200 word article about the Marvel character "${match.characterName}". This character appears on ${cards.length} trading cards across these sets: ${setNames.join(", ")}. Card types include: ${cardTypes.join(", ")}.
+
+Structure the article with these sections:
+## Origin Story & First Appearance
+Cover their comic book origins, first appearance issue, and creators.
+
+## Powers & Abilities  
+Detail their superpowers, skills, and notable abilities.
+
+## Key Story Arcs & Moments
+Highlight 3-5 of their most important comic storylines or MCU moments.
+
+## MCU Appearances
+If applicable, cover their Marvel Cinematic Universe appearances and portrayal.
+
+## Trading Card Legacy
+Discuss their presence in Marvel trading cards, why collectors value cards featuring this character, and mention they appear in ${cards.length} cards across ${setNames.length} sets in the Northland Legendary Finds collection including ${setNames.slice(0, 3).join(", ")}.
+
+## Why Collectors Love ${match.characterName}
+End with why this character is beloved by both fans and card collectors.
+
+Also provide:
+1. A meta description (150-160 characters) for SEO
+2. Key facts as JSON: {"realName": "...", "firstAppearance": "...", "creators": "...", "teams": ["..."], "notablePowers": ["..."]}
+
+Format the response as JSON with these fields:
+- "article": the full markdown article
+- "metaDescription": the SEO meta description  
+- "keyFacts": the key facts object`
+          }
+        ],
+        response_format: {
+          type: "json_schema",
+          json_schema: {
+            name: "character_content",
+            strict: true,
+            schema: {
+              type: "object",
+              properties: {
+                article: { type: "string", description: "Full markdown article, 1000-1200 words" },
+                metaDescription: { type: "string", description: "SEO meta description, 150-160 chars" },
+                keyFacts: {
+                  type: "object",
+                  properties: {
+                    realName: { type: "string" },
+                    firstAppearance: { type: "string" },
+                    creators: { type: "string" },
+                    teams: { type: "array", items: { type: "string" } },
+                    notablePowers: { type: "array", items: { type: "string" } }
+                  },
+                  required: ["realName", "firstAppearance", "creators", "teams", "notablePowers"],
+                  additionalProperties: false
+                }
+              },
+              required: ["article", "metaDescription", "keyFacts"],
+              additionalProperties: false
+            }
+          }
+        }
+      });
+      
+      const content = response.choices[0]?.message?.content;
+      if (!content || typeof content !== "string") throw new Error("No content returned from LLM");
+      
+      const parsed = JSON.parse(content);
+      
+      await upsertCharacterContent({
+        characterName: match.characterName,
+        slug: input.slug,
+        historyMarkdown: parsed.article,
+        metaDescription: parsed.metaDescription,
+        keyFacts: parsed.keyFacts,
+        status: "generated",
+      });
+      
+      return { status: "generated", content: parsed.article };
+    } catch (err) {
+      console.error("[Character Content] Generation failed:", err);
+      await upsertCharacterContent({
+        characterName: match.characterName,
+        slug: input.slug,
+        status: "error",
+      });
+      throw new Error("Content generation failed. Please try again.");
+    }
+  }),
+
+  /** Get all character slugs for sitemap/index */
+  allCharacters: publicProcedure.input(z.object({ limit: z.number().default(100), offset: z.number().default(0) }).optional()).query(async ({ input }) => {
+    const all = await getAllCharacterSlugs();
+    const start = input?.offset ?? 0;
+    const end = start + (input?.limit ?? 100);
+    return {
+      characters: all.slice(start, end),
+      total: all.length,
+    };
   }),
 });
 

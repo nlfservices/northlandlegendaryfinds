@@ -18,6 +18,7 @@ export default function Navigation() {
   const navItems = [
     { path: "/shop", label: "Shop" },
     { path: "/cards", label: "Card Database" },
+    { path: "/characters", label: "Characters" },
     { path: "/checklists", label: "Checklists" },
     { path: "/about", label: "About" },
     { path: "/transparency", label: "Transparency" },

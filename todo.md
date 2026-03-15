@@ -655,3 +655,16 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 
 ## FAQ Schema Integration
 - [x] Wire faqJsonLd helper into FAQ page with all 31 Q&A pairs for Google rich results
+
+## Individual Character Pages (SEO Content)
+- [x] Create character_content table in database schema (characterName, slug, setId, historyMarkdown, metaDescription, keyFacts, status)
+- [x] Build tRPC procedures for character page data (getCharacter, generateCharacterContent, allCharacters)
+- [x] Build CharacterPage component with 1000+ word LLM-generated history, card gallery, key facts sidebar, SEO meta tags
+- [x] Generate character history content via LLM on first visit (auto-triggers, cached in DB)
+- [x] Build Characters index page (/characters) with search, alphabet filter, pagination (881 characters)
+- [x] Add character page routes to App.tsx (/characters and /characters/:slug)
+- [x] Add character pages to dynamic sitemap.xml (881 character URLs)
+- [x] Link character names from Card Database grid/table views to character pages
+- [x] Add Characters link to navigation bar and footer
+- [x] Write vitest tests for character content endpoints (14 tests passing)
+- [x] Save checkpoint

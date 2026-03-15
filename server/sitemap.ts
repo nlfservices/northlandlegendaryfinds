@@ -1,5 +1,5 @@
 import type { Express } from "express";
-import { getAllMarvelSets } from "./db";
+import { getAllMarvelSets, getAllCharacterSlugs } from "./db";
 
 const SITE_URL = "https://northlandlegendaryfinds.com";
 
@@ -20,6 +20,7 @@ const STATIC_PAGES: { path: string; priority: string; changefreq: string }[] = [
   { path: "/terms", priority: "0.3", changefreq: "yearly" },
   { path: "/privacy", priority: "0.3", changefreq: "yearly" },
   { path: "/refund-policy", priority: "0.3", changefreq: "yearly" },
+  { path: "/characters", priority: "0.8", changefreq: "weekly" },
 ];
 
 // Product slugs (static, from products.ts)
@@ -89,6 +90,16 @@ export function registerSitemapRoute(app: Express) {
       } catch {
         // If DB query fails, still serve sitemap with static pages
         console.warn("[Sitemap] Failed to fetch card sets from database");
+      }
+
+      // Dynamic character pages from database
+      try {
+        const characters = await getAllCharacterSlugs();
+        for (const char of characters) {
+          entries.push(buildUrlEntry(`/characters/${char.slug}`, "0.6", "weekly", today));
+        }
+      } catch {
+        console.warn("[Sitemap] Failed to fetch character slugs from database");
       }
 
       const xml = `<?xml version="1.0" encoding="UTF-8"?>

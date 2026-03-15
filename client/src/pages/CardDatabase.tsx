@@ -810,9 +810,11 @@ function SetDetail({ slug }: { slug: string }) {
                         />
                       </div>
                       <div className={`p-2.5 ${hasCosmic ? 'bg-black/40 backdrop-blur-sm rounded-b-lg' : ''}`}>
-                        <p className="font-semibold text-sm truncate" title={card.characterName}>
-                          {card.characterName}
-                        </p>
+                        <Link href={`/characters/${card.characterName?.toLowerCase().replace(/['\u2019]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`}>
+                          <p className="font-semibold text-sm truncate hover:text-primary transition-colors cursor-pointer" title={card.characterName}>
+                            {card.characterName}
+                          </p>
+                        </Link>
                         <div className="flex items-center justify-between mt-1">
                           <span className="text-xs text-muted-foreground font-mono">#{card.cardNumber}</span>
                           <span className={`inline-flex items-center text-[10px] px-1.5 py-0 rounded-full border font-medium ${theme.badge}`}>
@@ -883,7 +885,9 @@ function SetDetail({ slug }: { slug: string }) {
                       )}
                       <td className="p-3 text-sm font-mono text-muted-foreground">{card.cardNumber}</td>
                       <td className="p-3">
-                        <span className="font-medium">{card.characterName}</span>
+                        <Link href={`/characters/${card.characterName?.toLowerCase().replace(/['\u2019]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`}>
+                          <span className="font-medium hover:text-primary transition-colors cursor-pointer">{card.characterName}</span>
+                        </Link>
                       </td>
                       <td className="p-3">
                         <Badge variant={card.cardType === 'Base' ? 'secondary' : 'outline'} className="text-xs">

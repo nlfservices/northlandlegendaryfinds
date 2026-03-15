@@ -1,249 +1,400 @@
 /**
- * Individual Character Page
- * Design: Detailed character page with card appearances
- * - Character name and basic info
- * - Base cards section showing all appearances
- * - Placeholder sections for refractors/autos (future)
+ * Character Page - SEO-optimized individual character pages
+ * Features: 1000+ word LLM-generated history, key facts sidebar, card gallery across sets
+ * Content is generated on-demand and cached in the database
  */
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
+import { trpc } from "@/lib/trpc";
 import { useRoute, Link } from "wouter";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Sparkles } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
+import {
+  ArrowLeft, BookOpen, Sparkles, Shield, Zap, Users,
+  Calendar, Pen, Layers, ChevronRight, Loader2, RefreshCw,
+  ExternalLink
+} from "lucide-react";
+import SEO, { breadcrumbJsonLd } from "@/components/SEO";
+import { Streamdown } from "streamdown";
 
-interface CharacterAppearance {
-  set: string;
-  number: number;
-  image: string;
-}
-
-interface Character {
-  name: string;
-  appearances: CharacterAppearance[];
-}
+const PLACEHOLDER_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hulk_9ebdacfa.png";
 
 export default function CharacterPage() {
-  const [, params] = useRoute("/character/:name");
-  const characterName = params?.name ? decodeURIComponent(params.name) : "";
-  
-  const [character, setCharacter] = useState<Character | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [, params] = useRoute("/characters/:slug");
+  const slug = params?.slug || "";
 
+  const { data, isLoading, error } = trpc.public.marvel.getCharacter.useQuery(
+    { slug },
+    { enabled: !!slug }
+  );
+
+  const generateContent = trpc.public.marvel.generateCharacterContent.useMutation();
+  const utils = trpc.useUtils();
+
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [hasTriggered, setHasTriggered] = useState(false);
+
+  // Auto-generate content if not available (only trigger once)
   useEffect(() => {
-    if (!characterName) return;
-    
-    fetch('/data/characters.json')
-      .then(res => res.json())
-      .then((data: Character[]) => {
-        const found = data.find(c => c.name === characterName);
-        setCharacter(found || null);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error('Failed to load character:', err);
-        setLoading(false);
-      });
-  }, [characterName]);
-
-  const getSetInfo = (set: string) => {
-    switch (set) {
-      case 'chrome':
-        return { name: 'Topps Chrome Marvel', color: 'text-primary', bgColor: 'bg-primary/20', borderColor: 'border-primary/50' };
-      case 'cbh':
-        return { name: '2025 Comic Book Heroes', color: 'text-secondary', bgColor: 'bg-secondary/20', borderColor: 'border-secondary/50' };
-      case 'mint':
-        return { name: 'Marvel Mint', color: 'text-accent', bgColor: 'bg-accent/20', borderColor: 'border-accent/50' };
-      default:
-        return { name: set, color: 'text-muted-foreground', bgColor: 'bg-muted', borderColor: 'border-border' };
+    if (data && !data.content && !isGenerating && !hasTriggered && !generateContent.isPending) {
+      setIsGenerating(true);
+      setHasTriggered(true);
+      generateContent.mutate(
+        { slug },
+        {
+          onSuccess: () => {
+            utils.public.marvel.getCharacter.invalidate({ slug });
+            setIsGenerating(false);
+          },
+          onError: () => {
+            setIsGenerating(false);
+          },
+        }
+      );
     }
-  };
+  }, [data?.content, slug, hasTriggered]);
 
-  if (loading) {
+  // Reset trigger when slug changes
+  useEffect(() => {
+    setHasTriggered(false);
+    setIsGenerating(false);
+  }, [slug]);
+
+  // Group cards by set
+  const cardsBySet = useMemo(() => {
+    if (!data?.cards) return [];
+    const groups: Record<string, { setName: string; setSlug: string; cards: typeof data.cards }> = {};
+    for (const card of data.cards) {
+      const key = card.setName || "Unknown Set";
+      if (!groups[key]) {
+        groups[key] = { setName: key, setSlug: card.setSlug || "", cards: [] };
+      }
+      groups[key].cards.push(card);
+    }
+    return Object.values(groups);
+  }, [data?.cards]);
+
+  // Parse key facts
+  const keyFacts = useMemo(() => {
+    if (!data?.content?.keyFacts) return null;
+    try {
+      return typeof data.content.keyFacts === "string"
+        ? JSON.parse(data.content.keyFacts)
+        : data.content.keyFacts;
+    } catch {
+      return null;
+    }
+  }, [data?.content?.keyFacts]);
+
+  if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-muted-foreground">Loading character...</p>
+      <div className="min-h-screen bg-background">
+        <div className="container max-w-6xl py-8">
+          <Skeleton className="h-8 w-48 mb-4" />
+          <Skeleton className="h-12 w-96 mb-8" />
+          <div className="grid lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2 space-y-4">
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-5/6" />
+              <Skeleton className="h-4 w-4/5" />
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-3/4" />
+            </div>
+            <div className="space-y-4">
+              <Skeleton className="h-48 w-full rounded-xl" />
+              <Skeleton className="h-32 w-full rounded-xl" />
+            </div>
+          </div>
         </div>
       </div>
     );
   }
 
-  if (!character) {
+  if (error || !data) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold mb-4">Character Not Found</h1>
-          <p className="text-muted-foreground mb-8">
-            The character "{characterName}" could not be found in our database.
-          </p>
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <h1 className="text-2xl font-bold text-foreground">Character Not Found</h1>
+          <p className="text-muted-foreground">The character you're looking for doesn't exist in our database.</p>
           <Link href="/characters">
-            <Button>
-              <ArrowLeft className="mr-2 w-4 h-4" />
-              Back to Characters
+            <Button variant="outline">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Browse All Characters
             </Button>
           </Link>
         </div>
       </div>
     );
   }
+
+  const characterImage = data.cards?.[0]?.imageUrl || PLACEHOLDER_IMG;
+  const metaDesc = data.content?.metaDescription ||
+    `Explore ${data.characterName}'s history, powers, and ${data.cardCount} trading cards across multiple Marvel sets at Northland Legendary Finds.`;
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
+      <SEO
+        title={`${data.characterName} - Marvel Trading Cards & Character History`}
+        description={metaDesc}
+        path={`/characters/${slug}`}
+        image={characterImage}
+        jsonLd={breadcrumbJsonLd([
+          { name: "Home", url: "/" },
+          { name: "Characters", url: "/characters" },
+          { name: data.characterName, url: `/characters/${slug}` },
+        ])}
+      />
+
       {/* Hero Section */}
-      <section className="relative py-24 overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-cover bg-center opacity-20"
-          style={{
-            backgroundImage: "url('/banners/marvel_heroes_leaders_banner.png')",
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
-        
-        <div className="relative z-10 container mx-auto px-4">
-          <Link href="/characters">
-            <Button variant="ghost" className="mb-6">
-              <ArrowLeft className="mr-2 w-4 h-4" />
-              Back to Characters
-            </Button>
-          </Link>
-          
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-6xl md:text-7xl font-bold mb-6">
-              {character.name}
-            </h1>
-            
-            <div className="flex items-center justify-center space-x-4 text-muted-foreground">
-              <span>Marvel Character</span>
-              <span>•</span>
-              <span>{character.appearances.length} Card{character.appearances.length !== 1 ? 's' : ''}</span>
+      <section className="relative border-b border-border/50 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-background to-background" />
+        <div className="container max-w-6xl relative py-8 lg:py-12">
+          {/* Breadcrumb */}
+          <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
+            <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
+            <ChevronRight className="w-3 h-3" />
+            <Link href="/characters" className="hover:text-foreground transition-colors">Characters</Link>
+            <ChevronRight className="w-3 h-3" />
+            <span className="text-foreground font-medium">{data.characterName}</span>
+          </nav>
+
+          <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-start">
+            {/* Character Image */}
+            <div className="w-32 h-44 md:w-40 md:h-56 flex-shrink-0 rounded-xl overflow-hidden border-2 border-primary/30 shadow-lg shadow-primary/10">
+              <img
+                src={characterImage}
+                alt={data.characterName}
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            {/* Character Info */}
+            <div className="flex-1">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-3">
+                {data.characterName}
+              </h1>
+              {keyFacts?.realName && keyFacts.realName !== data.characterName && (
+                <p className="text-lg text-muted-foreground mb-4">
+                  Real Name: <span className="text-foreground">{keyFacts.realName}</span>
+                </p>
+              )}
+              <div className="flex flex-wrap gap-2 mb-4">
+                <Badge variant="outline" className="border-primary/40 text-primary">
+                  <Layers className="w-3 h-3 mr-1" />
+                  {data.cardCount} Cards
+                </Badge>
+                <Badge variant="outline" className="border-blue-500/40 text-blue-400">
+                  <BookOpen className="w-3 h-3 mr-1" />
+                  {cardsBySet.length} Sets
+                </Badge>
+                {keyFacts?.firstAppearance && (
+                  <Badge variant="outline" className="border-amber-500/40 text-amber-400">
+                    <Calendar className="w-3 h-3 mr-1" />
+                    {keyFacts.firstAppearance}
+                  </Badge>
+                )}
+              </div>
+              {keyFacts?.notablePowers && keyFacts.notablePowers.length > 0 && (
+                <div className="flex flex-wrap gap-1.5">
+                  {keyFacts.notablePowers.slice(0, 6).map((power: string, i: number) => (
+                    <Badge key={i} className="bg-primary/10 text-primary border-primary/20 text-xs">
+                      <Zap className="w-3 h-3 mr-1" />
+                      {power}
+                    </Badge>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Base Cards Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="flex items-center space-x-3 mb-8">
-              <Sparkles className="w-8 h-8 text-primary" />
-              <h2 className="text-4xl font-bold">BASE CARDS</h2>
-            </div>
-            
-            <p className="text-lg text-muted-foreground mb-8">
-              {character.name} appears in <span className="text-primary font-semibold">{character.appearances.length} base card{character.appearances.length !== 1 ? 's' : ''}</span> across our Marvel trading card sets.
-            </p>
+      {/* Main Content */}
+      <div className="container max-w-6xl py-8 lg:py-12">
+        <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
+          {/* Article Content - Left 2/3 */}
+          <div className="lg:col-span-2">
+            {/* Content Loading / Generation State */}
+            {(!data.content || isGenerating || generateContent.isPending) && (
+              <div className="bg-card border border-border rounded-xl p-8 text-center space-y-4">
+                <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
+                  <Loader2 className="w-8 h-8 text-primary animate-spin" />
+                </div>
+                <h3 className="text-lg font-semibold text-foreground">
+                  Generating Character History
+                </h3>
+                <p className="text-muted-foreground max-w-md mx-auto">
+                  Our AI is writing a comprehensive history of {data.characterName}. 
+                  This takes about 10-15 seconds...
+                </p>
+              </div>
+            )}
 
-            {/* Cards Grid */}
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4 lg:gap-8">
-              {character.appearances.map((appearance, index) => {
-                const setInfo = getSetInfo(appearance.set);
-                
-                return (
-                  <Card 
-                    key={index}
-                    className={`group relative overflow-hidden bg-card/50 backdrop-blur border-2 ${setInfo.borderColor} hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2 transition-all`}
+            {/* Error State */}
+            {generateContent.isError && !data.content && (
+              <div className="bg-card border border-destructive/30 rounded-xl p-8 text-center space-y-4">
+                <h3 className="text-lg font-semibold text-foreground">
+                  Content Generation Failed
+                </h3>
+                <p className="text-muted-foreground">
+                  We couldn't generate the character history. Please try again.
+                </p>
+                <Button
+                  onClick={() => {
+                    setIsGenerating(true);
+                    generateContent.mutate(
+                      { slug },
+                      {
+                        onSuccess: () => {
+                          utils.public.marvel.getCharacter.invalidate({ slug });
+                          setIsGenerating(false);
+                        },
+                        onError: () => setIsGenerating(false),
+                      }
+                    );
+                  }}
+                  variant="outline"
+                >
+                  <RefreshCw className="w-4 h-4 mr-2" />
+                  Retry
+                </Button>
+              </div>
+            )}
+
+            {/* Generated Article */}
+            {data.content?.historyMarkdown && (
+              <article className="prose prose-invert prose-lg max-w-none
+                prose-headings:text-foreground prose-headings:font-bold
+                prose-h2:text-2xl prose-h2:mt-8 prose-h2:mb-4 prose-h2:border-b prose-h2:border-border/30 prose-h2:pb-2
+                prose-p:text-muted-foreground prose-p:leading-relaxed
+                prose-strong:text-foreground
+                prose-li:text-muted-foreground
+                prose-a:text-primary prose-a:no-underline hover:prose-a:underline
+              ">
+                <Streamdown>{data.content.historyMarkdown}</Streamdown>
+              </article>
+            )}
+          </div>
+
+          {/* Sidebar - Right 1/3 */}
+          <aside className="space-y-6">
+            {/* Key Facts Card */}
+            {keyFacts && (
+              <div className="bg-card border border-border rounded-xl p-5 space-y-4">
+                <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
+                  <Shield className="w-5 h-5 text-primary" />
+                  Key Facts
+                </h3>
+                <dl className="space-y-3 text-sm">
+                  {keyFacts.realName && (
+                    <div>
+                      <dt className="text-muted-foreground font-medium">Real Name</dt>
+                      <dd className="text-foreground">{keyFacts.realName}</dd>
+                    </div>
+                  )}
+                  {keyFacts.firstAppearance && (
+                    <div>
+                      <dt className="text-muted-foreground font-medium">First Appearance</dt>
+                      <dd className="text-foreground">{keyFacts.firstAppearance}</dd>
+                    </div>
+                  )}
+                  {keyFacts.creators && (
+                    <div>
+                      <dt className="text-muted-foreground font-medium">Creators</dt>
+                      <dd className="text-foreground">{keyFacts.creators}</dd>
+                    </div>
+                  )}
+                  {keyFacts.teams && keyFacts.teams.length > 0 && (
+                    <div>
+                      <dt className="text-muted-foreground font-medium flex items-center gap-1">
+                        <Users className="w-3 h-3" /> Teams
+                      </dt>
+                      <dd className="flex flex-wrap gap-1 mt-1">
+                        {keyFacts.teams.map((team: string, i: number) => (
+                          <Badge key={i} variant="outline" className="text-xs">
+                            {team}
+                          </Badge>
+                        ))}
+                      </dd>
+                    </div>
+                  )}
+                </dl>
+              </div>
+            )}
+
+            {/* Card Gallery by Set */}
+            <div className="bg-card border border-border rounded-xl p-5 space-y-4">
+              <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-primary" />
+                Trading Cards ({data.cardCount})
+              </h3>
+              {cardsBySet.map((group) => (
+                <div key={group.setName} className="space-y-2">
+                  <Link
+                    href={`/cards/${group.setSlug}`}
+                    className="text-sm font-semibold text-primary hover:underline flex items-center gap-1"
                   >
-                    <CardContent className="p-0">
-                      {/* Card Image */}
-                      <div className="relative aspect-[2.5/3.5] overflow-hidden bg-muted">
+                    {group.setName}
+                    <ExternalLink className="w-3 h-3" />
+                  </Link>
+                  <div className="grid grid-cols-3 gap-2">
+                    {group.cards.slice(0, 6).map((card: any) => (
+                      <div
+                        key={card.id}
+                        className="relative aspect-[2.5/3.5] rounded-lg overflow-hidden border border-border/50 hover:border-primary/50 transition-colors group"
+                        title={`${card.characterName} #${card.cardNumber} - ${card.cardType || ""}`}
+                      >
                         <img
-                          src={appearance.image}
-                          alt={`${character.name} - ${setInfo.name} #${appearance.number}`}
+                          src={card.imageUrl || PLACEHOLDER_IMG}
+                          alt={`${card.characterName} #${card.cardNumber}`}
                           loading="lazy"
-                          decoding="async"
-                          width={250}
-                          height={350}
-                          sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 200px"
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                          className="w-full h-full object-cover"
                         />
-                        
-                        {/* Set Badge */}
-                        <div className={`absolute top-3 right-3 ${setInfo.bgColor} backdrop-blur px-3 py-1 rounded border ${setInfo.borderColor}`}>
-                          <span className={`text-xs font-bold ${setInfo.color}`}>
-                            {appearance.set.toUpperCase()}
-                          </span>
+                        <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 to-transparent p-1">
+                          <p className="text-[10px] text-white/80 truncate">
+                            #{card.cardNumber}
+                          </p>
                         </div>
                       </div>
-
-                      {/* Card Info */}
-                      <div className="p-6">
-                        <p className={`text-sm font-bold ${setInfo.color} mb-2`}>
-                          {setInfo.name}
-                        </p>
-                        <p className="text-2xl font-bold text-foreground mb-1">
-                          #{appearance.number}
-                        </p>
-                        <p className="text-muted-foreground">
-                          {character.name}
-                        </p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Placeholder Sections */}
-      <section className="py-16 bg-card/30">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-4 md:gap-8">
-              {/* Refractors Placeholder */}
-              <Card className="bg-card/50 backdrop-blur border-2 border-primary/30">
-                <CardContent className="p-12 text-center">
-                  <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Sparkles className="w-8 h-8 text-primary" />
+                    ))}
                   </div>
-                  <h3 className="text-2xl font-bold mb-3">REFRACTORS</h3>
-                  <p className="text-muted-foreground">
-                    Refractor and parallel variations coming soon. Check back for rare chrome variants and numbered parallels.
-                  </p>
-                </CardContent>
-              </Card>
-
-              {/* Autographs Placeholder */}
-              <Card className="bg-card/50 backdrop-blur border-2 border-secondary/30">
-                <CardContent className="p-12 text-center">
-                  <div className="w-16 h-16 bg-secondary/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Sparkles className="w-8 h-8 text-secondary" />
-                  </div>
-                  <h3 className="text-2xl font-bold mb-3">AUTOGRAPHS</h3>
-                  <p className="text-muted-foreground">
-                    Autographed cards and special inserts coming soon. Track artist signatures and exclusive variants.
-                  </p>
-                </CardContent>
-              </Card>
+                  {group.cards.length > 6 && (
+                    <p className="text-xs text-muted-foreground">
+                      +{group.cards.length - 6} more cards in this set
+                    </p>
+                  )}
+                </div>
+              ))}
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Related Characters CTA */}
-      <section className="py-24">
-        <div className="container mx-auto px-4">
-          <Card className="relative overflow-hidden bg-gradient-to-br from-primary/20 via-secondary/10 to-accent/20 border-2 border-primary/50">
-            <CardContent className="p-12 text-center">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                EXPLORE MORE CHARACTERS
-              </h2>
-              <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Browse our complete database of 208 unique Marvel characters and discover their card appearances.
-              </p>
-              <Link href="/characters">
-                <Button size="lg" className="bg-primary hover:bg-primary/90">
-                  View All Characters
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
+            {/* Browse More Characters */}
+            <div className="bg-card border border-border rounded-xl p-5">
+              <h3 className="text-sm font-bold text-foreground mb-3">Explore More</h3>
+              <div className="space-y-2">
+                <Link href="/characters">
+                  <Button variant="outline" size="sm" className="w-full justify-start">
+                    <Users className="w-4 h-4 mr-2" />
+                    Browse All Characters
+                  </Button>
+                </Link>
+                <Link href="/cards">
+                  <Button variant="outline" size="sm" className="w-full justify-start">
+                    <Layers className="w-4 h-4 mr-2" />
+                    Card Database
+                  </Button>
+                </Link>
+                <Link href="/shop">
+                  <Button variant="outline" size="sm" className="w-full justify-start">
+                    <Sparkles className="w-4 h-4 mr-2" />
+                    Shop Packs
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </aside>
         </div>
-      </section>
+      </div>
     </div>
   );
 }

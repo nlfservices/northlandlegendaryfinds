@@ -36,6 +36,8 @@ import CardDatabase from "./pages/CardDatabase";
 import EbayComps from "./pages/EbayComps";
 import Transparency from "./pages/Transparency";
 import CardDisplay from "./pages/CardDisplay";
+import Characters from "./pages/Characters";
+import CharacterPage from "./pages/CharacterPage";
 
 // Routes that render as full-screen standalone experiences (no nav/footer)
 const STANDALONE_ROUTES = ["/card-display"];
@@ -83,6 +85,8 @@ function AppRouter() {
           <Route path="/order-success" component={OrderSuccess} />
           <Route path="/cards" component={CardDatabase} />
           <Route path="/cards/:slug" component={CardDatabase} />
+          <Route path="/characters" component={Characters} />
+          <Route path="/characters/:slug" component={CharacterPage} />
           <Route path="/admin" component={AdminDashboard} />
           <Route path="/admin/ebay-comps" component={EbayComps} />
           <Route path="/transparency" component={Transparency} />

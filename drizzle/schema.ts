@@ -406,3 +406,33 @@ export const launchSubscribers = mysqlTable("launch_subscribers", {
 
 export type LaunchSubscriber = typeof launchSubscribers.$inferSelect;
 export type InsertLaunchSubscriber = typeof launchSubscribers.$inferInsert;
+
+/**
+ * Character Content - SEO-optimized character history pages
+ * Each row = one character's content for a specific set
+ * Content is generated via LLM and cached here
+ */
+export const characterContent = mysqlTable("character_content", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Character name exactly as it appears in marvel_cards */
+  characterName: varchar("characterName", { length: 255 }).notNull(),
+  /** URL-friendly slug (e.g., "iron-man", "spider-man") */
+  slug: varchar("slug", { length: 255 }).notNull(),
+  /** Which set this content is for (null = global/shared) */
+  setId: int("setId"),
+  /** Full history content in Markdown (1000+ words) */
+  historyMarkdown: text("historyMarkdown"),
+  /** Short summary for meta description (150-160 chars) */
+  metaDescription: varchar("metaDescription", { length: 320 }),
+  /** Key facts JSON: first appearance, creators, real name, etc. */
+  keyFacts: json("keyFacts"),
+  /** Whether content has been reviewed/approved */
+  isApproved: boolean("isApproved").notNull().default(false),
+  /** Content generation status */
+  status: mysqlEnum("status", ["pending", "generating", "generated", "approved", "error"]).notNull().default("pending"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type CharacterContent = typeof characterContent.$inferSelect;
+export type InsertCharacterContent = typeof characterContent.$inferInsert;

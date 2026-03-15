@@ -8,6 +8,7 @@ import {
   shows, InsertShow, Show,
   cardSets, InsertCardSet, CardSet,
   inventoryCards, InsertInventoryCard, InventoryCard,
+  characterContent, InsertCharacterContent, CharacterContent,
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -620,7 +621,7 @@ export async function getMarvelCardsBySetId(setId: number): Promise<MarvelCard[]
     .orderBy(asc(marvelCards.sortOrder));
 }
 
-export async function searchMarvelCards(query: string, limit: number = 50): Promise<(MarvelCard & { setName?: string })[]> {
+export async function searchMarvelCards(query: string, limit: number = 50) {
   const db = await getDb();
   if (!db) return [];
   const results = await db.select({
@@ -735,4 +736,113 @@ export async function getGradedCardSets() {
   return Object.entries(sets)
     .map(([name, count]) => ({ name, count }))
     .sort((a, b) => b.count - a.count);
+}
+
+// ==================== CHARACTER CONTENT HELPERS ====================
+
+/** Create a slug from a character name */
+export function characterNameToSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[()]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+/** Get character content by slug */
+export async function getCharacterContentBySlug(slug: string) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(characterContent).where(eq(characterContent.slug, slug)).limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+/** Get character content by character name */
+export async function getCharacterContentByName(name: string) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(characterContent).where(eq(characterContent.characterName, name)).limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+/** Upsert character content */
+export async function upsertCharacterContent(data: InsertCharacterContent) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const existing = await db.select({ id: characterContent.id })
+    .from(characterContent)
+    .where(eq(characterContent.slug, data.slug))
+    .limit(1);
+  
+  if (existing.length > 0) {
+    await db.update(characterContent)
+      .set({
+        historyMarkdown: data.historyMarkdown,
+        metaDescription: data.metaDescription,
+        keyFacts: data.keyFacts,
+        status: data.status,
+      })
+      .where(eq(characterContent.id, existing[0].id));
+  } else {
+    await db.insert(characterContent).values(data);
+  }
+}
+
+/** Get all cards for a specific character name across all sets */
+export async function getCardsByCharacterName(name: string) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({
+    id: marvelCards.id,
+    setId: marvelCards.setId,
+    cardNumber: marvelCards.cardNumber,
+    characterName: marvelCards.characterName,
+    cardType: marvelCards.cardType,
+    parallels: marvelCards.parallels,
+    rarity: marvelCards.rarity,
+    imageUrl: marvelCards.imageUrl,
+    backImageUrl: marvelCards.backImageUrl,
+    description: marvelCards.description,
+    sortOrder: marvelCards.sortOrder,
+    sourceId: marvelCards.sourceId,
+    createdAt: marvelCards.createdAt,
+    setName: marvelSets.name,
+    setSlug: marvelSets.slug,
+  }).from(marvelCards)
+    .leftJoin(marvelSets, eq(marvelCards.setId, marvelSets.id))
+    .where(eq(marvelCards.characterName, name))
+    .orderBy(asc(marvelSets.name), asc(marvelCards.sortOrder));
+}
+
+/** Get all unique character names with card counts */
+export async function getAllCharacterSlugs() {
+  const db = await getDb();
+  if (!db) return [];
+  const results = await db.select({
+    characterName: marvelCards.characterName,
+    cardCount: sql<number>`COUNT(*)`,
+  }).from(marvelCards)
+    .where(sql`${marvelCards.characterName} IS NOT NULL AND ${marvelCards.characterName} != ''`)
+    .groupBy(marvelCards.characterName)
+    .orderBy(sql`COUNT(*) DESC`);
+  
+  return results.map(r => ({
+    characterName: r.characterName!,
+    slug: characterNameToSlug(r.characterName!),
+    cardCount: Number(r.cardCount),
+  }));
+}
+
+/** Get character content list (for sitemap / index pages) */
+export async function getGeneratedCharacterSlugs() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({
+    slug: characterContent.slug,
+    characterName: characterContent.characterName,
+    updatedAt: characterContent.updatedAt,
+  }).from(characterContent)
+    .where(eq(characterContent.status, "generated"))
+    .orderBy(asc(characterContent.characterName));
 }

@@ -1,205 +1,206 @@
 /**
- * Characters Database Page
- * Design: Searchable character index with card appearances
- * - Search functionality
- * - Character cards with hover effects
- * - Links to individual character pages
+ * Characters Index Page - Browse all Marvel characters with their card counts
+ * SEO-optimized with paginated grid, search, and alphabetical filtering
  */
 
-import { useState, useEffect } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Search, ArrowRight } from "lucide-react";
+import { useState, useMemo } from "react";
+import { trpc } from "@/lib/trpc";
 import { Link } from "wouter";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Search, Users, ChevronRight, Layers, ArrowLeft, ArrowRight
+} from "lucide-react";
+import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 
-interface CharacterAppearance {
-  set: string;
-  number: number;
-  image: string;
-}
+const ALPHABET = "#ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+const PAGE_SIZE = 60;
 
-interface Character {
-  name: string;
-  appearances: CharacterAppearance[];
+function characterNameToSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/['']/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
 }
 
 export default function Characters() {
-  const [characters, setCharacters] = useState<Character[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [letterFilter, setLetterFilter] = useState<string | null>(null);
+  const [page, setPage] = useState(0);
 
-  useEffect(() => {
-    // Load character data
-    fetch('/data/characters.json')
-      .then(res => res.json())
-      .then(data => {
-        setCharacters(data);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error('Failed to load characters:', err);
-        setLoading(false);
-      });
-  }, []);
-
-  const filteredCharacters = characters.filter(char =>
-    char.name.toLowerCase().includes(searchQuery.toLowerCase())
+  const { data, isLoading } = trpc.public.marvel.allCharacters.useQuery(
+    { limit: 2000, offset: 0 }
   );
 
-  const getSetBadgeColor = (set: string) => {
-    switch (set) {
-      case 'chrome': return 'bg-primary/20 text-primary border-primary/50';
-      case 'cbh': return 'bg-secondary/20 text-secondary border-secondary/50';
-      case 'mint': return 'bg-accent/20 text-accent border-accent/50';
-      default: return 'bg-muted text-muted-foreground';
-    }
-  };
+  const filtered = useMemo(() => {
+    if (!data?.characters) return [];
+    let chars = data.characters;
 
-  const getSetName = (set: string) => {
-    switch (set) {
-      case 'chrome': return 'Chrome';
-      case 'cbh': return 'CBH';
-      case 'mint': return 'Mint';
-      default: return set;
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      chars = chars.filter((c: any) => c.characterName.toLowerCase().includes(q));
     }
-  };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-muted-foreground">Loading characters...</p>
-        </div>
-      </div>
-    );
-  }
+    if (letterFilter) {
+      if (letterFilter === "#") {
+        chars = chars.filter((c: any) => /^[^a-zA-Z]/.test(c.characterName));
+      } else {
+        chars = chars.filter((c: any) =>
+          c.characterName.toUpperCase().startsWith(letterFilter)
+        );
+      }
+    }
+
+    return chars;
+  }, [data?.characters, searchQuery, letterFilter]);
+
+  const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
+  const paged = filtered.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
 
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative py-24 overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-cover bg-center opacity-20"
-          style={{
-            backgroundImage: "url('/banners/marvel_heroes_leaders_banner.png')",
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
-        
-        <div className="relative z-10 container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center mb-12">
-            <h1 className="text-6xl md:text-7xl font-bold mb-6">
-              CHARACTER DATABASE
-            </h1>
-            <p className="text-xl text-muted-foreground mb-8">
-              Browse <span className="text-primary font-semibold">{characters.length} unique Marvel characters</span> and discover which cards feature your favorite heroes and villains.
-            </p>
-            
-            {/* Search Bar */}
-            <div className="relative max-w-2xl mx-auto">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+    <div className="min-h-screen bg-background">
+      <SEO
+        title="Marvel Characters - Complete Trading Card Character Database"
+        description="Browse 880+ Marvel characters with detailed histories, powers, and trading card appearances across all Northland Legendary Finds card sets."
+        path="/characters"
+        jsonLd={breadcrumbJsonLd([
+          { name: "Home", url: "/" },
+          { name: "Characters", url: "/characters" },
+        ])}
+      />
+
+      {/* Hero */}
+      <section className="relative border-b border-border/50 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-background to-background" />
+        <div className="container max-w-6xl relative py-8 lg:py-12">
+          <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
+            <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
+            <ChevronRight className="w-3 h-3" />
+            <span className="text-foreground font-medium">Characters</span>
+          </nav>
+
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+            <div>
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-2">
+                Marvel Characters
+              </h1>
+              <p className="text-muted-foreground text-lg">
+                {data?.total ?? "..."} characters across all trading card sets
+              </p>
+            </div>
+            <div className="relative w-full md:w-80">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <Input
-                type="text"
-                placeholder="Search characters... (e.g., Spider-Man, Wolverine, Iron Man)"
+                placeholder="Search characters..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-12 pr-4 py-6 text-lg bg-card/50 backdrop-blur border-2 border-primary/30 focus:border-primary"
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setPage(0);
+                }}
+                className="pl-10"
               />
             </div>
-            
-            {searchQuery && (
-              <p className="mt-4 text-muted-foreground">
-                Found {filteredCharacters.length} character{filteredCharacters.length !== 1 ? 's' : ''}
-              </p>
-            )}
           </div>
         </div>
       </section>
+
+      {/* Alphabet Filter */}
+      <div className="border-b border-border/50 bg-card/30 sticky top-0 z-10">
+        <div className="container max-w-6xl py-2 overflow-x-auto">
+          <div className="flex gap-1 min-w-max">
+            <Button
+              variant={letterFilter === null ? "default" : "ghost"}
+              size="sm"
+              className="h-8 px-3 text-xs"
+              onClick={() => { setLetterFilter(null); setPage(0); }}
+            >
+              All
+            </Button>
+            {ALPHABET.map((letter) => (
+              <Button
+                key={letter}
+                variant={letterFilter === letter ? "default" : "ghost"}
+                size="sm"
+                className="h-8 w-8 p-0 text-xs"
+                onClick={() => { setLetterFilter(letter); setPage(0); }}
+              >
+                {letter}
+              </Button>
+            ))}
+          </div>
+        </div>
+      </div>
 
       {/* Characters Grid */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          {filteredCharacters.length === 0 ? (
-            <div className="text-center py-24">
-              <p className="text-2xl text-muted-foreground">
-                No characters found matching "{searchQuery}"
-              </p>
-              <Button 
-                variant="outline" 
-                className="mt-6"
-                onClick={() => setSearchQuery("")}
-              >
-                Clear Search
-              </Button>
-            </div>
-          ) : (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {filteredCharacters.map((character) => (
-                <Card 
-                  key={character.name}
-                  className="group relative overflow-hidden bg-card/50 backdrop-blur border-2 border-border hover:border-primary transition-all hover:shadow-xl hover:shadow-primary/20 hover:-translate-y-1"
-                >
-                  <CardContent className="p-6">
-                    <h3 className="text-xl font-bold mb-4 group-hover:text-primary transition-colors">
-                      {character.name}
-                    </h3>
-                    
-                    <div className="space-y-2 mb-4">
-                      <p className="text-sm text-muted-foreground">
-                        Appears in {character.appearances.length} card{character.appearances.length !== 1 ? 's' : ''}
-                      </p>
-                      
-                      <div className="flex flex-wrap gap-2">
-                        {character.appearances.map((app, i) => (
-                          <span 
-                            key={i}
-                            className={`text-xs px-2 py-1 rounded border ${getSetBadgeColor(app.set)}`}
-                          >
-                            {getSetName(app.set)} #{app.number}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                    
-                    <Link href={`/character/${encodeURIComponent(character.name)}`}>
-                      <Button 
-                        variant="ghost" 
-                        size="sm"
-                        className="w-full group-hover:bg-primary/10 group-hover:text-primary"
-                      >
-                        View Details
-                        <ArrowRight className="ml-2 w-4 h-4" />
-                      </Button>
-                    </Link>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* Stats Section */}
-      <section className="py-24 bg-card/30">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto text-center">
-            <div>
-              <div className="text-5xl font-bold text-primary mb-2">{characters.length}</div>
-              <div className="text-muted-foreground">Unique Characters</div>
-            </div>
-            <div>
-              <div className="text-5xl font-bold text-secondary mb-2">387</div>
-              <div className="text-muted-foreground">Total Cards</div>
-            </div>
-            <div>
-              <div className="text-5xl font-bold text-accent mb-2">3</div>
-              <div className="text-muted-foreground">Card Sets</div>
-            </div>
+      <div className="container max-w-6xl py-8">
+        {isLoading ? (
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+            {Array.from({ length: 24 }).map((_, i) => (
+              <Skeleton key={i} className="h-24 rounded-xl" />
+            ))}
           </div>
-        </div>
-      </section>
+        ) : filtered.length === 0 ? (
+          <div className="text-center py-16">
+            <Users className="w-12 h-12 mx-auto text-muted-foreground/50 mb-4" />
+            <h3 className="text-lg font-semibold text-foreground mb-2">No Characters Found</h3>
+            <p className="text-muted-foreground">
+              {searchQuery ? `No results for "${searchQuery}"` : "No characters match this filter."}
+            </p>
+          </div>
+        ) : (
+          <>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
+              {paged.map((char: any) => {
+                const slug = characterNameToSlug(char.characterName);
+                return (
+                  <Link
+                    key={char.characterName}
+                    href={`/characters/${slug}`}
+                    className="group bg-card border border-border/50 rounded-xl p-4 hover:border-primary/50 hover:bg-card/80 transition-all"
+                  >
+                    <h3 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors truncate mb-1">
+                      {char.characterName}
+                    </h3>
+                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                      <Layers className="w-3 h-3" />
+                      <span>{char.cardCount} cards</span>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div className="flex items-center justify-center gap-4 mt-8">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  disabled={page === 0}
+                  onClick={() => setPage(p => p - 1)}
+                >
+                  <ArrowLeft className="w-4 h-4 mr-1" />
+                  Previous
+                </Button>
+                <span className="text-sm text-muted-foreground">
+                  Page {page + 1} of {totalPages} ({filtered.length} characters)
+                </span>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  disabled={page >= totalPages - 1}
+                  onClick={() => setPage(p => p + 1)}
+                >
+                  Next
+                  <ArrowRight className="w-4 h-4 ml-1" />
+                </Button>
+              </div>
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 }
