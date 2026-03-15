@@ -710,3 +710,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Returning visitors should see the popup again (no permanent localStorage suppression)
 - [x] Only permanently suppress popup after successful subscription
 - [x] Save checkpoint
+
+## Background Character Article Generation (Batch)
+- [x] Review current generation progress (31 of 881 characters done)
+- [x] Run batch generation script for remaining ~850 characters (850 generated, 0 errors, 54.2 minutes)
+- [x] Monitor and verify completion (881/881 characters now have generated articles)
+- [x] Verified pages load instantly in browser (Wolverine, Gambit tested)
+- [x] Save checkpoint
