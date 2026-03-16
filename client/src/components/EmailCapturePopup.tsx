@@ -9,7 +9,7 @@ import { toast } from "sonner";
  * Design: Medieval/fantasy heraldic shield silhouette (pointed bottom).
  * Background: green nebula space image clipped to the shield shape.
  * Border: thick green glowing stroke.
- * Fully draggable via the top grip area.
+ * Fully draggable — grab anywhere on the shield to move it.
  */
 
 const NEBULA_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/shield-nebula-bg_11372b2d.png";
@@ -154,7 +154,9 @@ export default function EmailCapturePopup() {
   return (
     <div
       ref={popupRef}
-      className="fixed z-50 animate-in fade-in slide-in-from-bottom-4 duration-300"
+      onMouseDown={handleMouseDown}
+      onTouchStart={handleTouchStart}
+      className="fixed z-50 animate-in fade-in slide-in-from-bottom-4 duration-300 cursor-grab active:cursor-grabbing"
       style={{
         left: `${position.x}px`,
         top: `${position.y}px`,
@@ -213,24 +215,20 @@ export default function EmailCapturePopup() {
           />
         </svg>
 
-        {/* Draggable grip area at top of shield */}
+        {/* Subtle drag indicator at top */}
         <div
-          onMouseDown={handleMouseDown}
-          onTouchStart={handleTouchStart}
-          className="absolute top-0 left-0 right-0 z-10 flex items-center justify-center gap-2 cursor-grab active:cursor-grabbing pt-3 pb-1"
+          className="absolute top-0 left-0 right-0 z-10 flex items-center justify-center gap-2 pt-3 pb-1 pointer-events-none"
           style={{ height: 40 }}
         >
-          <GripHorizontal className="w-4 h-4 text-green-300/80" />
-          <span className="text-[10px] font-bold text-green-300/80 uppercase tracking-widest select-none">
-            Drag
-          </span>
-          <GripHorizontal className="w-4 h-4 text-green-300/80" />
+          <GripHorizontal className="w-4 h-4 text-green-300/50" />
         </div>
 
         {/* Close button */}
         <button
           onClick={handleClose}
-          className="absolute top-2 right-6 z-20 text-green-300/70 hover:text-white transition-colors"
+          onMouseDown={(e) => e.stopPropagation()}
+          onTouchStart={(e) => e.stopPropagation()}
+          className="absolute top-2 right-6 z-20 text-green-300/70 hover:text-white transition-colors cursor-pointer"
           aria-label="Close popup"
         >
           <X className="w-4 h-4" />
@@ -309,14 +307,18 @@ export default function EmailCapturePopup() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={subscribeMutation.isPending}
-                  className="w-full px-3 py-2 bg-black/40 border-2 border-green-500 rounded-lg text-white text-xs placeholder-white/50 focus:outline-none focus:border-green-300 focus:ring-1 focus:ring-green-300 transition-colors disabled:opacity-50"
+                  onMouseDown={(e) => e.stopPropagation()}
+                  onTouchStart={(e) => e.stopPropagation()}
+                  className="w-full px-3 py-2 bg-black/40 border-2 border-green-500 rounded-lg text-white text-xs placeholder-white/50 focus:outline-none focus:border-green-300 focus:ring-1 focus:ring-green-300 transition-colors disabled:opacity-50 cursor-text"
                   style={{ backdropFilter: "blur(4px)" }}
                 />
                 
                 <button
                   type="submit"
                   disabled={subscribeMutation.isPending || !email.trim()}
-                  className="w-full font-bold py-2 rounded-lg transition-all disabled:opacity-50 text-white text-sm hover:brightness-110"
+                  onMouseDown={(e) => e.stopPropagation()}
+                  onTouchStart={(e) => e.stopPropagation()}
+                  className="w-full font-bold py-2 rounded-lg transition-all disabled:opacity-50 text-white text-sm hover:brightness-110 cursor-pointer"
                   style={{
                     background: "linear-gradient(135deg, #16a34a, #22c55e)",
                     border: "2px solid #15803d",
