@@ -163,7 +163,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== HERO / VILLAIN OF THE DAY ===== */}
+      {/* ===== HEROES & VILLAINS OF THE DAY ===== */}
       <HeroOfTheDay />
 
       {/* ===== CARD SHOWCASE - THE HIGHLIGHT ===== */}

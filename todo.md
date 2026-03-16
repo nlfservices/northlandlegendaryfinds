@@ -716,4 +716,11 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Mobile responsive design
 - [x] Classify as Hero or Villain with appropriate color theming (green/red)
 - [x] Write vitest tests for characterOfTheDay endpoint (6 tests passing)
-- [ ] Save checkpoint
+- [x] Save checkpoint
+
+## Heroes & Villains of the Day - Fixes
+- [x] Fix broken card image not displaying (fixed 43 cards with upload log text in imageUrl)
+- [x] Rename section from "Hero/Villain of the Day" to "Heroes & Villains of the Day"
+- [x] Update color scheme: bright orange letter bordering with neon green solid letters
+- [x] Update vitest tests for renamed section (8 tests passing)
+- [x] Save checkpoint

@@ -27,26 +27,30 @@ export default function HeroOfTheDay() {
   if (!data) return null;
 
   const isVillain = data.type === "villain";
-  const accentColor = isVillain ? "text-red-500" : "text-primary";
-  const accentBg = isVillain ? "bg-red-500/10 border-red-500/30" : "bg-primary/10 border-primary/30";
-  const accentGlow = isVillain
-    ? "shadow-[0_0_40px_rgba(239,68,68,0.15)]"
-    : "shadow-[0_0_40px_rgba(0,255,65,0.15)]";
-  const gradientFrom = isVillain ? "from-red-500/5" : "from-primary/5";
 
   return (
-    <section className={`py-10 lg:py-14 bg-gradient-to-r ${gradientFrom} via-transparent to-transparent`}>
-      <div className="container">
-        {/* Section Header */}
+    <section className="py-10 lg:py-14 relative overflow-hidden">
+      {/* Subtle background glow */}
+      <div className="absolute inset-0 bg-gradient-to-r from-orange-500/5 via-transparent to-green-500/5 pointer-events-none" />
+
+      <div className="container relative z-10">
+        {/* Section Header - "Heroes & Villains of the Day" */}
         <div className="text-center mb-8">
-          <div className={`inline-flex items-center gap-2 px-4 py-1.5 ${accentBg} border rounded-full mb-3`}>
+          <div className="inline-flex items-center gap-2 px-5 py-2 bg-black/40 border-2 border-orange-500 rounded-full mb-3 shadow-[0_0_15px_rgba(249,115,22,0.3)]">
             {isVillain ? (
-              <Skull className="w-4 h-4 text-red-500" />
+              <Skull className="w-5 h-5 text-[#39ff14]" />
             ) : (
-              <Shield className="w-4 h-4 text-primary" />
+              <Shield className="w-5 h-5 text-[#39ff14]" />
             )}
-            <span className={`${accentColor} text-sm font-bold tracking-wide uppercase`}>
-              {isVillain ? "Villain" : "Hero"} of the Day
+            <span
+              className="text-sm font-black tracking-wider uppercase"
+              style={{
+                color: "#39ff14",
+                textShadow: "0 0 8px rgba(57,255,20,0.5)",
+                WebkitTextStroke: "0.5px rgba(249,115,22,0.7)",
+              }}
+            >
+              Heroes & Villains of the Day
             </span>
           </div>
         </div>
@@ -55,26 +59,31 @@ export default function HeroOfTheDay() {
         <div className="flex flex-col md:flex-row items-center gap-8 lg:gap-12 max-w-4xl mx-auto">
           {/* Card Image */}
           <Link href={`/characters/${data.slug}`}>
-            <div className={`relative group cursor-pointer flex-shrink-0`}>
-              <div className={`absolute -inset-2 rounded-2xl ${accentGlow} opacity-60 group-hover:opacity-100 transition-opacity`} />
+            <div className="relative group cursor-pointer flex-shrink-0">
+              <div className="absolute -inset-2 rounded-2xl shadow-[0_0_40px_rgba(249,115,22,0.25)] opacity-60 group-hover:opacity-100 transition-opacity" />
               {data.cardImage ? (
                 <img
                   src={data.cardImage}
                   alt={data.characterName}
-                  className="relative w-48 lg:w-56 rounded-xl border border-border/50 group-hover:scale-[1.03] transition-transform duration-300"
+                  className="relative w-48 lg:w-56 rounded-xl border-2 border-orange-500/60 group-hover:border-orange-400 group-hover:scale-[1.03] transition-all duration-300"
                   loading="lazy"
                 />
               ) : (
-                <div className="relative w-48 lg:w-56 h-64 lg:h-72 rounded-xl border border-border/50 bg-muted flex items-center justify-center">
+                <div className="relative w-48 lg:w-56 h-64 lg:h-72 rounded-xl border-2 border-orange-500/60 bg-muted flex items-center justify-center">
                   <Swords className="w-16 h-16 text-muted-foreground/30" />
                 </div>
               )}
               {/* Type Badge */}
-              <div className={`absolute -top-2 -right-2 px-2.5 py-1 rounded-full text-xs font-bold border ${
-                isVillain
-                  ? "bg-red-500/20 border-red-500/50 text-red-400"
-                  : "bg-primary/20 border-primary/50 text-primary"
-              }`}>
+              <div
+                className={`absolute -top-2 -right-2 px-2.5 py-1 rounded-full text-xs font-black border-2 ${
+                  isVillain
+                    ? "bg-black/80 border-orange-500 text-[#39ff14]"
+                    : "bg-black/80 border-orange-500 text-[#39ff14]"
+                }`}
+                style={{
+                  textShadow: "0 0 6px rgba(57,255,20,0.5)",
+                }}
+              >
                 {isVillain ? "VILLAIN" : "HERO"}
               </div>
             </div>
@@ -83,10 +92,16 @@ export default function HeroOfTheDay() {
           {/* Character Info */}
           <div className="flex-1 text-center md:text-left">
             <h2
-              className="text-4xl lg:text-5xl font-bold mb-2"
-              style={{ fontFamily: "'Anton', sans-serif" }}
+              className="text-4xl lg:text-5xl font-black mb-2 uppercase"
+              style={{
+                fontFamily: "'Anton', sans-serif",
+                color: "#39ff14",
+                textShadow: "0 0 10px rgba(57,255,20,0.4), 0 0 20px rgba(57,255,20,0.2)",
+                WebkitTextStroke: "1.5px rgba(249,115,22,0.9)",
+                paintOrder: "stroke fill",
+              }}
             >
-              <span className={accentColor}>{data.characterName.toUpperCase()}</span>
+              {data.characterName}
             </h2>
 
             {data.realName && (
@@ -105,19 +120,18 @@ export default function HeroOfTheDay() {
             {/* Key Facts */}
             <div className="flex flex-wrap gap-3 justify-center md:justify-start mb-5">
               {data.firstAppearance && (
-                <div className="flex items-center gap-1.5 text-xs text-muted-foreground bg-card/80 border border-border/50 rounded-full px-3 py-1.5">
-                  <Calendar className="w-3.5 h-3.5" />
+                <div className="flex items-center gap-1.5 text-xs text-muted-foreground bg-card/80 border border-orange-500/30 rounded-full px-3 py-1.5">
+                  <Calendar className="w-3.5 h-3.5 text-orange-400" />
                   <span>{data.firstAppearance}</span>
                 </div>
               )}
               {data.powers?.map((power, i) => (
                 <div
                   key={i}
-                  className={`flex items-center gap-1.5 text-xs ${
-                    isVillain ? "text-red-400/80" : "text-primary/80"
-                  } bg-card/80 border border-border/50 rounded-full px-3 py-1.5`}
+                  className="flex items-center gap-1.5 text-xs bg-card/80 border border-orange-500/30 rounded-full px-3 py-1.5"
+                  style={{ color: "#39ff14" }}
                 >
-                  <Zap className="w-3.5 h-3.5" />
+                  <Zap className="w-3.5 h-3.5 text-orange-400" />
                   <span>{power}</span>
                 </div>
               ))}
@@ -127,18 +141,22 @@ export default function HeroOfTheDay() {
             <div className="flex flex-wrap items-center gap-3 justify-center md:justify-start">
               {data.cardSet && (
                 <span className="text-xs text-muted-foreground">
-                  Featured in <span className="text-foreground font-medium">{data.totalCards} cards</span> across our collection
+                  Featured in{" "}
+                  <span className="font-medium" style={{ color: "#39ff14" }}>
+                    {data.totalCards} cards
+                  </span>{" "}
+                  across our collection
                 </span>
               )}
               <Link href={`/characters/${data.slug}`}>
                 <Button
                   size="sm"
                   variant="outline"
-                  className={`${
-                    isVillain
-                      ? "border-red-500/30 text-red-400 hover:bg-red-500/10"
-                      : "border-primary/30 text-primary hover:bg-primary/10"
-                  } font-bold`}
+                  className="border-orange-500/50 hover:bg-orange-500/10 font-bold"
+                  style={{
+                    color: "#39ff14",
+                    textShadow: "0 0 4px rgba(57,255,20,0.3)",
+                  }}
                 >
                   View Profile
                   <ArrowRight className="w-3.5 h-3.5 ml-1.5" />

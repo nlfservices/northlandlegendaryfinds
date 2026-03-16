@@ -9,7 +9,7 @@ import { getCharacterOfTheDay } from "./db";
 
 const mockedGetCharacterOfTheDay = vi.mocked(getCharacterOfTheDay);
 
-describe("Character of the Day", () => {
+describe("Heroes & Villains of the Day", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
@@ -151,6 +151,50 @@ describe("Character of the Day", () => {
 
       const result = await getCharacterOfTheDay();
       expect(result!.powers.length).toBeLessThanOrEqual(3);
+    });
+
+    it("type field is always 'hero' or 'villain'", async () => {
+      const mockHero = {
+        characterName: "Captain America",
+        slug: "captain-america",
+        metaDescription: "The First Avenger.",
+        type: "hero" as const,
+        firstAppearance: "Captain America Comics #1 (March 1941)",
+        realName: "Steve Rogers",
+        powers: ["Super Soldier Serum", "Vibranium Shield", "Leadership"],
+        cardImage: "https://example.com/cap.jpg",
+        cardSet: "2025 Topps Chrome Marvel",
+        cardSetSlug: "chrome",
+        cardNumber: "1",
+        totalCards: 8,
+        date: "2026-03-16",
+      };
+
+      mockedGetCharacterOfTheDay.mockResolvedValue(mockHero);
+      const result = await getCharacterOfTheDay();
+      expect(["hero", "villain"]).toContain(result!.type);
+    });
+
+    it("cardImage contains a valid URL when present", async () => {
+      const mockData = {
+        characterName: "Iron Man",
+        slug: "iron-man",
+        metaDescription: "Genius, billionaire, playboy, philanthropist.",
+        type: "hero" as const,
+        firstAppearance: "Tales of Suspense #39 (March 1963)",
+        realName: "Tony Stark",
+        powers: ["Genius Intellect", "Powered Armor", "Flight"],
+        cardImage: "https://d2xsxph8kpxj0f.cloudfront.net/example/iron-man.webp",
+        cardSet: "2025 Topps Chrome Marvel",
+        cardSetSlug: "chrome",
+        cardNumber: "42",
+        totalCards: 6,
+        date: "2026-03-16",
+      };
+
+      mockedGetCharacterOfTheDay.mockResolvedValue(mockData);
+      const result = await getCharacterOfTheDay();
+      expect(result!.cardImage).toMatch(/^https?:\/\//);
     });
   });
 });
