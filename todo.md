@@ -703,9 +703,7 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Tested: Nightcrawler page now correctly shows CBH-129_Nightcrawler image instead of Star-Lord
 - [x] Save checkpoint
 
-## Image Generation — Marvel Studios + Chrome Remaining
-- [ ] Query all cards needing images (Marvel Studios ~328 + Chrome 8)
-- [ ] Generate images in batches of 10 with checkpoints after each batch
-- [ ] Upload to CDN and update database after each batch
-- [ ] Verify all cards display correct images
-- [ ] Save final checkpoint
+## Mobile Layout Centering Fix
+- [x] Fix product cards not centering on mobile (The Snap Collection section shows card left-aligned)
+- [x] Ensure all product grid sections center cards properly on mobile across the entire site
+- [x] Verify mobile layout consistency across all pages

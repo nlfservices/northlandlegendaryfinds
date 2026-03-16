@@ -185,9 +185,11 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+            <div className="flex flex-wrap justify-center gap-6 max-w-3xl mx-auto">
               {variantSeries.products.map((product) => (
-                <ProductCard key={product.id} product={product} featured />
+                <div key={product.id} className="w-full max-w-sm sm:w-[calc(50%-0.75rem)]">
+                  <ProductCard product={product} featured />
+                </div>
               ))}
             </div>
 
@@ -285,12 +287,14 @@ export default function Home() {
                     </h3>
                     <p className="text-muted-foreground text-sm mt-1">{line.tagline}</p>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                  <div className="flex flex-wrap justify-center gap-6 max-w-5xl mx-auto">
                     {/* Show unique products (deduplicate 100/500 — just show one card per name) */}
                     {line.products
                       .filter((p, i, arr) => arr.findIndex(x => x.name === p.name) === i)
                       .map((product) => (
-                        <ProductCard key={product.id} product={product} />
+                        <div key={product.id} className="w-full max-w-sm sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]">
+                          <ProductCard product={product} />
+                        </div>
                       ))}
                   </div>
                 </div>
