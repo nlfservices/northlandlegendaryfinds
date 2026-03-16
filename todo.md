@@ -719,14 +719,15 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Save checkpoint
 
 ## Batch Card Detail Article Generation
-- [ ] Review card detail content generation logic (LLM prompt, DB schema)
-- [ ] Create batch generation script for all ~1,976 remaining card detail pages
-- [ ] Run batch generation and monitor progress
-- [ ] Verify completion (all 1,982 cards have pre-generated content)
+- [x] Review card detail content generation logic (LLM prompt, DB schema)
+- [x] Create batch generation script for all ~1,976 remaining card detail pages
+- [x] Run batch generation and monitor progress
+- [x] Verify completion — ALL 1,975 cards generated, 0 errors, 94.4 minutes
 - [x] Checkpoint at 705 cards (zero errors)
 - [x] Checkpoint at 1,035 cards (zero errors)
 - [x] Checkpoint at 1,230 cards (zero errors)
 - [x] Checkpoint at 1,370 cards (zero errors)
 - [x] Checkpoint at 1,570 cards (zero errors)
 - [x] Checkpoint at 1,685 cards (zero errors)
-- [ ] Save final checkpoint
+- [x] COMPLETE: 1,975/1,975 cards generated (0 errors, 94.4 min)
+- [x] Save final checkpoint
