@@ -723,3 +723,8 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Keep draggable
 - [x] Verify in browser
 - [x] Save checkpoint
+
+## Revert to Old Shield Shape with Nebula Background
+- [x] Revert popup to heraldic pointed shield shape with green nebula background fill
+- [x] Keep thick green border, draggable, NLF logo
+- [x] Save checkpoint
