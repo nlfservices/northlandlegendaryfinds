@@ -1123,6 +1123,98 @@ export function parseParallels(parallelsStr: string | null): Array<{ name: strin
 // ==================== RANDOM CARD HELPER ====================
 
 /** Get a random card with its set slug for navigation */
+/** Get the Hero or Villain of the Day - deterministic per date */
+export async function getCharacterOfTheDay() {
+  const db = await getDb();
+  if (!db) return null;
+
+  // Use date string as seed for deterministic daily selection
+  const today = new Date();
+  const dateStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+  
+  // Simple hash from date string to get a stable index
+  let hash = 0;
+  for (let i = 0; i < dateStr.length; i++) {
+    hash = ((hash << 5) - hash) + dateStr.charCodeAt(i);
+    hash |= 0;
+  }
+  hash = Math.abs(hash);
+
+  // Get all characters that have content AND at least one card with an image
+  const allChars = await db.select({
+    characterName: characterContent.characterName,
+    slug: characterContent.slug,
+    metaDescription: characterContent.metaDescription,
+    keyFacts: characterContent.keyFacts,
+  }).from(characterContent)
+    .where(sql`${characterContent.status} = 'approved' OR ${characterContent.historyMarkdown} IS NOT NULL`)
+    .orderBy(asc(characterContent.characterName));
+
+  if (allChars.length === 0) return null;
+
+  // Pick character based on date hash
+  const index = hash % allChars.length;
+  const char = allChars[index];
+
+  // Get a representative card image for this character
+  const cards = await db.select({
+    imageUrl: marvelCards.imageUrl,
+    cardNumber: marvelCards.cardNumber,
+    cardType: marvelCards.cardType,
+    setName: marvelSets.name,
+    setSlug: marvelSets.slug,
+  }).from(marvelCards)
+    .leftJoin(marvelSets, eq(marvelCards.setId, marvelSets.id))
+    .where(and(
+      eq(marvelCards.characterName, char.characterName),
+      sql`${marvelCards.imageUrl} IS NOT NULL AND ${marvelCards.imageUrl} != ''`
+    ))
+    .orderBy(asc(marvelCards.sortOrder))
+    .limit(5);
+
+  // Pick the best image - prefer one whose URL contains the character name
+  const nameParts = char.characterName.toLowerCase().split(/[\s-]+/);
+  let bestCard = cards[0];
+  for (const card of cards) {
+    const urlLower = (card.imageUrl || '').toLowerCase();
+    if (nameParts.some(part => part.length > 2 && urlLower.includes(part))) {
+      bestCard = card;
+      break;
+    }
+  }
+
+  // Parse keyFacts
+  const keyFacts = typeof char.keyFacts === 'string' ? JSON.parse(char.keyFacts) : (char.keyFacts || {});
+
+  // Determine hero vs villain based on teams/keywords
+  const teams = (keyFacts.teams || []).map((t: string) => t.toLowerCase()).join(' ');
+  const isVillain = teams.includes('villain') || teams.includes('sinister') || teams.includes('brotherhood') ||
+    teams.includes('hydra') || teams.includes('cabal') || teams.includes('dark') ||
+    ['Thanos', 'Doctor Doom', 'Venom', 'Loki', 'Magneto', 'Green Goblin', 'Ultron', 'Apocalypse',
+     'Mephisto', 'Kingpin', 'Bullseye', 'Doctor Octopus', 'Mystique', 'Juggernaut', 'Sabretooth',
+     'Dormammu', 'Galactus', 'Annihilus', 'Hela', 'Gorr', 'Ronan', 'Killmonger', 'Baron Zemo',
+     'Abomination', 'Rhino', 'Onslaught', 'Mister Sinister', 'The Hood', 'Crossbones',
+     'Lady Deathstrike', 'Omega Red', 'Mandarin', 'Attuma', 'Dreykov', 'Taskmaster',
+     'Super-Skrull', 'Fin Fang Foom', 'Sentinel', 'Swarm', 'Typhoid Mary'
+    ].includes(char.characterName);
+
+  return {
+    characterName: char.characterName,
+    slug: char.slug,
+    metaDescription: char.metaDescription,
+    type: isVillain ? 'villain' as const : 'hero' as const,
+    firstAppearance: keyFacts.firstAppearance || null,
+    realName: keyFacts.realName || null,
+    powers: (keyFacts.notablePowers || []).slice(0, 3) as string[],
+    cardImage: bestCard?.imageUrl || null,
+    cardSet: bestCard?.setName || null,
+    cardSetSlug: bestCard?.setSlug || null,
+    cardNumber: bestCard?.cardNumber || null,
+    totalCards: cards.length,
+    date: dateStr,
+  };
+}
+
 export async function getRandomCard(): Promise<{ cardNumber: string; setSlug: string } | null> {
   const db = await getDb();
   if (!db) return null;

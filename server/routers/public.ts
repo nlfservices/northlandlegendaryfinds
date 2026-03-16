@@ -14,6 +14,7 @@ import {
   getCardDetailContentByCardId, upsertCardDetailContent, getAllCardDetailSlugs,
   parseParallels,
   getRandomCard,
+  getCharacterOfTheDay,
 } from "../db";
 import { launchSubscribers } from "../../drizzle/schema";
 import { getDb } from "../db";
@@ -438,6 +439,11 @@ Write for the Northland Legendary Finds audience - serious Marvel card collector
   /** Get a random card for the Random Card button */
   randomCard: publicProcedure.query(async () => {
     return getRandomCard();
+  }),
+
+  /** Get the Hero or Villain of the Day */
+  characterOfTheDay: publicProcedure.query(async () => {
+    return getCharacterOfTheDay();
   }),
 });
 

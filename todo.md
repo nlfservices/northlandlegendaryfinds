@@ -707,3 +707,13 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Fix product cards not centering on mobile (The Snap Collection section shows card left-aligned)
 - [x] Ensure all product grid sections center cards properly on mobile across the entire site
 - [x] Verify mobile layout consistency across all pages
+
+## Hero or Villain of the Day Feature
+- [x] Build Hero/Villain of the Day section on homepage (below hero banner + stats bar)
+- [x] Pull random character from database each day (seeded by date for consistency)
+- [x] Display character card image, name, and info (powers, first appearance, real name, View Profile link)
+- [x] Position section prominently near top of homepage (after stats bar, before Card Showcase)
+- [x] Mobile responsive design
+- [x] Classify as Hero or Villain with appropriate color theming (green/red)
+- [x] Write vitest tests for characterOfTheDay endpoint (6 tests passing)
+- [ ] Save checkpoint
