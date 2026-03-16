@@ -703,13 +703,9 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Tested: Nightcrawler page now correctly shows CBH-129_Nightcrawler image instead of Star-Lord
 - [x] Save checkpoint
 
-## Hero/Villain of the Day Rebrand
-- [x] Rebrand "Card of the Day" as "Hero of the Day" / "Villain of the Day"
-- [x] Build getCharacterOfTheDay backend procedure (deterministic daily character from pre-generated content)
-- [x] Build HeroVillainOfTheDay component with hero/villain detection and color theming
-- [x] Move section to top of homepage (right after stats bar, before Card Showcase)
-- [x] Show character image, name, real name, first appearance, teams, powers, content snippet
-- [x] Green theme for heroes, red/crimson theme for villains
-- [x] "Explore [Character]" and "View Featured Card" CTA buttons
-- [x] Tested: Starfox correctly shown as Hero of the Day with all key facts
-- [x] Save checkpoint
+## Image Generation — Marvel Studios + Chrome Remaining
+- [ ] Query all cards needing images (Marvel Studios ~328 + Chrome 8)
+- [ ] Generate images in batches of 10 with checkpoints after each batch
+- [ ] Upload to CDN and update database after each batch
+- [ ] Verify all cards display correct images
+- [ ] Save final checkpoint
