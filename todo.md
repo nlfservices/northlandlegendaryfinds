@@ -727,4 +727,5 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Checkpoint at 1,035 cards (zero errors)
 - [x] Checkpoint at 1,230 cards (zero errors)
 - [x] Checkpoint at 1,370 cards (zero errors)
+- [x] Checkpoint at 1,570 cards (zero errors)
 - [ ] Save final checkpoint
