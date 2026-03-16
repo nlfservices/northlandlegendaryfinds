@@ -13,7 +13,6 @@ import { getProductLines, getComingSoonProducts, products } from "@/lib/products
 import { useLaunchCountdown } from "@/hooks/useLaunchCountdown";
 import ProductCard from "@/components/ProductCard";
 import SEO, { organizationJsonLd, websiteJsonLd, localBusinessJsonLd } from "@/components/SEO";
-import HeroOfTheDay from "@/components/HeroOfTheDay";
 
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hero-banner-jniBj55ukeiEDpJxc2aLgB.webp";
 const NLF_PACK = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-nlf-variant-2CkMPP3CsZhFkFXpzSuZkV.webp";
@@ -163,9 +162,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== HEROES & VILLAINS OF THE DAY ===== */}
-      <HeroOfTheDay />
-
       {/* ===== CARD SHOWCASE - THE HIGHLIGHT ===== */}
       <CardShowcase
         cards={SHOWCASE_CARDS}
@@ -189,11 +185,9 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="flex flex-wrap justify-center gap-6 max-w-3xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
               {variantSeries.products.map((product) => (
-                <div key={product.id} className="w-full max-w-sm sm:w-[calc(50%-0.75rem)]">
-                  <ProductCard product={product} featured />
-                </div>
+                <ProductCard key={product.id} product={product} featured />
               ))}
             </div>
 
@@ -291,14 +285,12 @@ export default function Home() {
                     </h3>
                     <p className="text-muted-foreground text-sm mt-1">{line.tagline}</p>
                   </div>
-                  <div className="flex flex-wrap justify-center gap-6 max-w-5xl mx-auto">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
                     {/* Show unique products (deduplicate 100/500 — just show one card per name) */}
                     {line.products
                       .filter((p, i, arr) => arr.findIndex(x => x.name === p.name) === i)
                       .map((product) => (
-                        <div key={product.id} className="w-full max-w-sm sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]">
-                          <ProductCard product={product} />
-                        </div>
+                        <ProductCard key={product.id} product={product} />
                       ))}
                   </div>
                 </div>
@@ -338,7 +330,7 @@ export default function Home() {
                   <div className="shrink-0">
                     <div className="bg-white rounded-xl p-3 shadow-lg shadow-purple-500/10">
                       <img
-                        src="https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nlf-whatnot-qr_34822631.jpg"
+                        src="https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/whatnot-qr-1_5cdbb693.png"
                         alt="Scan to follow us on Whatnot"
                         className="w-36 h-36 sm:w-40 sm:h-40"
                       />

@@ -87,7 +87,7 @@ export default function Footer() {
             <a href="https://www.whatnot.com/user/northlandfinds" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group">
               <div className="bg-white rounded-lg p-1.5 shadow-sm">
                 <img
-                  src="https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nlf-whatnot-qr_34822631.jpg"
+                  src="https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/whatnot-qr-1_5cdbb693.png"
                   alt="Scan to follow us on Whatnot"
                   className="w-16 h-16"
                 />

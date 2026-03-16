@@ -104,7 +104,7 @@ export default function Shop() {
                     </h2>
                     <p className="text-muted-foreground text-sm mt-1">Our flagship Marvel repack line — launching March 27th</p>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6 justify-items-center sm:justify-items-stretch max-w-sm sm:max-w-none mx-auto">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
                     {variantProducts.map((product) => (
                       <ProductCard key={product.id} product={product} />
                     ))}
@@ -127,7 +127,7 @@ export default function Shop() {
                     </h2>
                     <p className="text-muted-foreground text-sm mt-1">Iconic Marvel moments in every pack</p>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6 justify-items-center sm:justify-items-stretch max-w-sm sm:max-w-none mx-auto">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
                     {/* Deduplicate — show one card per unique name */}
                     {snapProducts
                       .filter((p, i, arr) => arr.findIndex(x => x.name === p.name) === i)
@@ -153,7 +153,7 @@ export default function Shop() {
                     </h2>
                     <p className="text-muted-foreground text-sm mt-1">Deep cuts from across the Marvel multiverse</p>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6 justify-items-center sm:justify-items-stretch max-w-sm sm:max-w-none mx-auto">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
                     {/* Deduplicate — show one card per unique name */}
                     {mvProducts
                       .filter((p, i, arr) => arr.findIndex(x => x.name === p.name) === i)
@@ -179,7 +179,7 @@ export default function Shop() {
                     </h2>
                     <p className="text-muted-foreground text-sm mt-1">Factory-sealed Topps hobby boxes</p>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6 justify-items-center sm:justify-items-stretch max-w-sm sm:max-w-none mx-auto">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
                     {sealedProducts.map((product) => (
                       <ProductCard key={product.id} product={product} />
                     ))}
@@ -189,7 +189,7 @@ export default function Shop() {
             </div>
           ) : (
             /* Filtered flat grid */
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6 justify-items-center sm:justify-items-stretch max-w-sm sm:max-w-none mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
               {filteredProducts
                 .filter((p, i, arr) => {
                   // For coming soon lines, deduplicate by name

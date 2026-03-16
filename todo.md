@@ -703,34 +703,8 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Tested: Nightcrawler page now correctly shows CBH-129_Nightcrawler image instead of Star-Lord
 - [x] Save checkpoint
 
-## Mobile Layout Centering Fix
-- [x] Fix product cards not centering on mobile (The Snap Collection section shows card left-aligned)
-- [x] Ensure all product grid sections center cards properly on mobile across the entire site
-- [x] Verify mobile layout consistency across all pages
-
-## Hero or Villain of the Day Feature
-- [x] Build Hero/Villain of the Day section on homepage (below hero banner + stats bar)
-- [x] Pull random character from database each day (seeded by date for consistency)
-- [x] Display character card image, name, and info (powers, first appearance, real name, View Profile link)
-- [x] Position section prominently near top of homepage (after stats bar, before Card Showcase)
-- [x] Mobile responsive design
-- [x] Classify as Hero or Villain with appropriate color theming (green/red)
-- [x] Write vitest tests for characterOfTheDay endpoint (6 tests passing)
-- [x] Save checkpoint
-
-## Heroes & Villains of the Day - Fixes
-- [x] Fix broken card image not displaying (fixed 43 cards with upload log text in imageUrl)
-- [x] Rename section from "Hero/Villain of the Day" to "Heroes & Villains of the Day"
-- [x] Update color scheme: bright orange letter bordering with neon green solid letters
-- [x] Update vitest tests for renamed section (8 tests passing)
-- [x] Save checkpoint
-
-## Email Subscribe Popup Redesign
-- [x] Make popup draggable (grab and move with mouse)
-- [x] Reposition popup to a less intrusive location (bottom-left)
-- [x] Update popup styling: green border, orange background
-- [x] Save checkpoint
-
-## Whatnot QR Code Fix
-- [x] Replace wrong QR code with correct Whatnot QR code provided by user (Home.tsx + Footer.tsx)
+## Shield-Shaped Popup Redesign
+- [x] Redesign popup as shield shape inspired by NLF dragon shield logo
+- [x] Keep draggable, green border, orange background
+- [x] Verify in browser
 - [x] Save checkpoint
