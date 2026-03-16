@@ -738,3 +738,8 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Investigate and restore missing Heroes & Villains of the Day section (recreated component, endpoint, and db function)
 - [x] Fix centering issues on homepage (section restored and centered properly)
 - [x] Save checkpoint
+
+## Heroes & Villains Badge Rename + Reposition
+- [x] Rename "VILLAIN OF THE DAY" / "HERO OF THE DAY" badge to "HEROES & VILLAINS OF THE DAY"
+- [x] Move Heroes & Villains section above "Our Collection" on homepage
+- [x] Save checkpoint

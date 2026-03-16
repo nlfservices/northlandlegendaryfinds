@@ -163,6 +163,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ===== HEROES & VILLAINS OF THE DAY ===== */}
+      <HeroOfTheDay />
+
       {/* ===== CARD SHOWCASE - THE HIGHLIGHT ===== */}
       <CardShowcase
         cards={SHOWCASE_CARDS}
@@ -263,9 +266,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* ===== HEROES & VILLAINS OF THE DAY ===== */}
-      <HeroOfTheDay />
 
       {/* ===== COMING SOON PRODUCT LINES ===== */}
       {comingSoonLines.length > 0 && (

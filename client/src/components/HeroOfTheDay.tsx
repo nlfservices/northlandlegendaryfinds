@@ -130,9 +130,9 @@ export default function HeroOfTheDay() {
                     )}
                     <span
                       className="text-xs font-bold tracking-widest"
-                      style={{ color: isVillain ? "#f87171" : "#39ff14" }}
+                      style={{ color: "#39ff14" }}
                     >
-                      {alignment} OF THE DAY
+                      HEROES & VILLAINS OF THE DAY
                     </span>
                   </div>
 
