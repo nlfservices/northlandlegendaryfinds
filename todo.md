@@ -708,3 +708,7 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Keep draggable, green border, orange background
 - [x] Verify in browser
 - [x] Save checkpoint
+
+## Shield Popup Color Update
+- [x] Change shield popup fill from orange to cyan-400 blue (matching "100%" in stats bar)
+- [x] Save checkpoint

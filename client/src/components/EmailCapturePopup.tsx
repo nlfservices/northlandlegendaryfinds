@@ -7,7 +7,7 @@ import { toast } from "sonner";
  * Shield-Shaped Email Capture Popup — Draggable, Bottom-Left Default
  * 
  * Design: Medieval/fantasy shield silhouette inspired by the NLF dragon shield logo.
- * Uses an SVG-based shield shape with green border and orange fill.
+ * Uses an SVG-based shield shape with green border and cyan-400 blue fill (matching '100%' stats bar).
  * Fully draggable via the top grip area.
  */
 
@@ -196,10 +196,10 @@ export default function EmailCapturePopup() {
             strokeWidth="5"
             filter="url(#shield-glow)"
           />
-          {/* Orange fill */}
+          {/* Cyan fill */}
           <path
             d={SHIELD_PATH}
-            fill="#E87A1E"
+            fill="#22d3ee"
             stroke="#22c55e"
             strokeWidth="3"
           />
