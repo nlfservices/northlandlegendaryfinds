@@ -13,7 +13,7 @@ import {
   getCardBySetAndNumber, getAdjacentCards, getSameCharacterCardsInSet,
   getCardDetailContentByCardId, upsertCardDetailContent, getAllCardDetailSlugs,
   parseParallels,
-  getRandomCard,
+  getRandomCard, getCardOfTheDay,
 } from "../db";
 import { launchSubscribers } from "../../drizzle/schema";
 import { getDb } from "../db";
@@ -438,6 +438,11 @@ Write for the Northland Legendary Finds audience - serious Marvel card collector
   /** Get a random card for the Random Card button */
   randomCard: publicProcedure.query(async () => {
     return getRandomCard();
+  }),
+
+  /** Card of the Day - deterministic daily card selection */
+  cardOfTheDay: publicProcedure.query(async () => {
+    return getCardOfTheDay();
   }),
 });
 

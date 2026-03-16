@@ -731,3 +731,20 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Checkpoint at 1,685 cards (zero errors)
 - [x] COMPLETE: 1,975/1,975 cards generated (0 errors, 94.4 min)
 - [x] Save final checkpoint
+
+## Roadmap — Prioritized Next Steps
+
+### High Priority (Before Launch March 27)
+- [ ] Fix 19 TypeScript errors in stripe-webhook.ts (shipping_details type issues)
+- [ ] Test full checkout flow end-to-end (cart, Stripe checkout, order confirmation, webhook) with test card 4242 4242 4242 4242
+- [ ] Submit XML sitemap to Google Search Console — get all 2,900+ pages indexed before launch
+
+### Medium Priority (Nice to Have for Launch)
+- [x] "Card of the Day" homepage spotlight — rotating daily featured card for fresh content and re-crawl signals
+- [ ] Generate remaining Marvel Studios card images (~328 cards still need unique MCU-inspired artwork)
+- [ ] Add discount/incentive to exit-intent popup ("Get 10% off your first order")
+
+### Post-Launch
+- [ ] Blog/content section — long-form articles like "Top 10 Most Valuable 2025 Topps Chrome Pulls" for SEO
+- [ ] User collection tracker — let logged-in users mark which cards they own from checklists
+- [ ] eBay price integration on card pages — show recent sold comps alongside card details

@@ -1120,6 +1120,87 @@ export function parseParallels(parallelsStr: string | null): Array<{ name: strin
   return result;
 }
 
+// ==================== CARD OF THE DAY ====================
+
+/** Get a deterministic "Card of the Day" based on the current date.
+ *  Uses a date-based seed so everyone sees the same card each day.
+ *  Returns card info + set info + pre-generated content snippet if available.
+ */
+export async function getCardOfTheDay(): Promise<{
+  cardId: number;
+  cardNumber: string;
+  characterName: string;
+  cardType: string | null;
+  imageUrl: string | null;
+  parallels: string | null;
+  setSlug: string;
+  setName: string;
+  setShortName: string | null;
+  contentSnippet: string | null;
+  characterSlug: string;
+} | null> {
+  const db = await getDb();
+  if (!db) return null;
+
+  // Get total card count
+  const countResult = await db.select({ count: sql<number>`COUNT(*)` }).from(marvelCards);
+  const totalCards = countResult[0]?.count ?? 0;
+  if (totalCards === 0) return null;
+
+  // Deterministic seed from today's date (UTC)
+  const today = new Date();
+  const dateStr = `${today.getUTCFullYear()}-${today.getUTCMonth()}-${today.getUTCDate()}`;
+  let hash = 0;
+  for (let i = 0; i < dateStr.length; i++) {
+    hash = ((hash << 5) - hash + dateStr.charCodeAt(i)) | 0;
+  }
+  const offset = Math.abs(hash) % totalCards;
+
+  // Select the card at that offset
+  const result = await db.select({
+    cardId: marvelCards.id,
+    cardNumber: marvelCards.cardNumber,
+    characterName: marvelCards.characterName,
+    cardType: marvelCards.cardType,
+    imageUrl: marvelCards.imageUrl,
+    parallels: marvelCards.parallels,
+    setSlug: marvelSets.slug,
+    setName: marvelSets.name,
+    setShortName: marvelSets.shortName,
+  }).from(marvelCards)
+    .innerJoin(marvelSets, eq(marvelCards.setId, marvelSets.id))
+    .orderBy(marvelCards.id)
+    .limit(1)
+    .offset(offset);
+
+  if (!result[0]) return null;
+
+  const card = result[0];
+
+  // Try to get a content snippet from card_detail_content
+  let contentSnippet: string | null = null;
+  const contentResult = await db.select({
+    contentMarkdown: cardDetailContent.contentMarkdown,
+  }).from(cardDetailContent)
+    .where(eq(cardDetailContent.cardId, card.cardId))
+    .limit(1);
+
+  if (contentResult[0]?.contentMarkdown) {
+    // Extract first ~200 chars as snippet, stripping markdown headers
+    const raw = contentResult[0].contentMarkdown
+      .replace(/^#+\s.*$/gm, '')
+      .replace(/\*\*/g, '')
+      .replace(/\n+/g, ' ')
+      .trim();
+    contentSnippet = raw.length > 200 ? raw.slice(0, 200) + '...' : raw;
+  }
+
+  // Build character slug
+  const characterSlug = characterNameToSlug(card.characterName);
+
+  return { ...card, contentSnippet, characterSlug };
+}
+
 // ==================== RANDOM CARD HELPER ====================
 
 /** Get a random card with its set slug for navigation */
