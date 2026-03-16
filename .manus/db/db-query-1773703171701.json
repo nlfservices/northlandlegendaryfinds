@@ -1,0 +1,210 @@
+{
+  "query": "SELECT characterName, COUNT(*) as card_count FROM marvel_cards WHERE characterName IS NOT NULL AND characterName != '' AND imageUrl IS NOT NULL AND imageUrl != '' GROUP BY characterName ORDER BY characterName LIMIT 50;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT characterName, COUNT(*) as card_count FROM marvel_cards WHERE characterName IS NOT NULL AND characterName != '' AND imageUrl IS NOT NULL AND imageUrl != '' GROUP BY characterName ORDER BY characterName LIMIT 50;",
+  "rows": [
+    {
+      "characterName": "\"The Mandarin\" Trevor Slattery Iron Man 3 Phase Two",
+      "card_count": "3"
+    },
+    {
+      "characterName": "10 of Clubs",
+      "card_count": "1"
+    },
+    {
+      "characterName": "10 of Diamonds",
+      "card_count": "1"
+    },
+    {
+      "characterName": "10 of Hearts",
+      "card_count": "1"
+    },
+    {
+      "characterName": "10 of Spades",
+      "card_count": "1"
+    },
+    {
+      "characterName": "2 of Clubs",
+      "card_count": "1"
+    },
+    {
+      "characterName": "2 of Diamonds",
+      "card_count": "1"
+    },
+    {
+      "characterName": "2 of Hearts",
+      "card_count": "1"
+    },
+    {
+      "characterName": "2 of Spades",
+      "card_count": "1"
+    },
+    {
+      "characterName": "3 of Clubs",
+      "card_count": "1"
+    },
+    {
+      "characterName": "3 of Diamonds",
+      "card_count": "1"
+    },
+    {
+      "characterName": "3 of Hearts",
+      "card_count": "1"
+    },
+    {
+      "characterName": "3 of Spades",
+      "card_count": "1"
+    },
+    {
+      "characterName": "4 of Clubs",
+      "card_count": "1"
+    },
+    {
+      "characterName": "4 of Diamonds",
+      "card_count": "1"
+    },
+    {
+      "characterName": "4 of Hearts",
+      "card_count": "1"
+    },
+    {
+      "characterName": "4 of Spades",
+      "card_count": "1"
+    },
+    {
+      "characterName": "5 of Clubs",
+      "card_count": "1"
+    },
+    {
+      "characterName": "5 of Diamonds",
+      "card_count": "1"
+    },
+    {
+      "characterName": "5 of Hearts",
+      "card_count": "1"
+    },
+    {
+      "characterName": "5 of Spades",
+      "card_count": "1"
+    },
+    {
+      "characterName": "6 of Clubs",
+      "card_count": "1"
+    },
+    {
+      "characterName": "6 of Diamonds",
+      "card_count": "1"
+    },
+    {
+      "characterName": "6 of Hearts",
+      "card_count": "1"
+    },
+    {
+      "characterName": "6 of Spades",
+      "card_count": "1"
+    },
+    {
+      "characterName": "60 Years Of S.H.I.E.L.D.",
+      "card_count": "1"
+    },
+    {
+      "characterName": "7 of Clubs",
+      "card_count": "1"
+    },
+    {
+      "characterName": "7 of Diamonds",
+      "card_count": "1"
+    },
+    {
+      "characterName": "7 of Hearts",
+      "card_count": "1"
+    },
+    {
+      "characterName": "7 of Spades",
+      "card_count": "1"
+    },
+    {
+      "characterName": "8 of Clubs",
+      "card_count": "1"
+    },
+    {
+      "characterName": "8 of Diamonds",
+      "card_count": "1"
+    },
+    {
+      "characterName": "8 of Hearts",
+      "card_count": "1"
+    },
+    {
+      "characterName": "8 of Spades",
+      "card_count": "1"
+    },
+    {
+      "characterName": "9 of Clubs",
+      "card_count": "1"
+    },
+    {
+      "characterName": "9 of Diamonds",
+      "card_count": "1"
+    },
+    {
+      "characterName": "9 of Hearts",
+      "card_count": "1"
+    },
+    {
+      "characterName": "9 of Spades",
+      "card_count": "1"
+    },
+    {
+      "characterName": "A Legacy Lives On",
+      "card_count": "1"
+    },
+    {
+      "characterName": "A Universal Threat Emerges",
+      "card_count": "1"
+    },
+    {
+      "characterName": "Abomination",
+      "card_count": "2"
+    },
+    {
+      "characterName": "Ace of Clubs",
+      "card_count": "1"
+    },
+    {
+      "characterName": "Ace of Diamonds",
+      "card_count": "1"
+    },
+    {
+      "characterName": "Ace of Hearts",
+      "card_count": "1"
+    },
+    {
+      "characterName": "Ace of Spades",
+      "card_count": "1"
+    },
+    {
+      "characterName": "Adam Kubert",
+      "card_count": "1"
+    },
+    {
+      "characterName": "Adam Warlock",
+      "card_count": "4"
+    },
+    {
+      "characterName": "Adam Warlock Guardians of the Galaxy Vol. 3 Phase Five",
+      "card_count": "3"
+    },
+    {
+      "characterName": "Agatha Harkness",
+      "card_count": "4"
+    },
+    {
+      "characterName": "Agatha Harkness (Kathryn Hahn)",
+      "card_count": "2"
+    }
+  ],
+  "messages": [],
+  "stdout": "characterName\tcard_count\n\"The Mandarin\" Trevor Slattery Iron Man 3 Phase Two\t3\n10 of Clubs\t1\n10 of Diamonds\t1\n10 of Hearts\t1\n10 of Spades\t1\n2 of Clubs\t1\n2 of Diamonds\t1\n2 of Hearts\t1\n2 of Spades\t1\n3 of Clubs\t1\n3 of Diamonds\t1\n3 of Hearts\t1\n3 of Spades\t1\n4 of Clubs\t1\n4 of Diamonds\t1\n4 of Hearts\t1\n4 of Spades\t1\n5 of Clubs\t1\n5 of Diamonds\t1\n5 of Hearts\t1\n5 of Spades\t1\n6 of Clubs\t1\n6 of Diamonds\t1\n6 of Hearts\t1\n6 of Spades\t1\n60 Years Of S.H.I.E.L.D.\t1\n7 of Clubs\t1\n7 of Diamonds\t1\n7 of Hearts\t1\n7 of Spades\t1\n8 of Clubs\t1\n8 of Diamonds\t1\n8 of Hearts\t1\n8 of Spades\t1\n9 of Clubs\t1\n9 of Diamonds\t1\n9 of Hearts\t1\n9 of Spades\t1\nA Legacy Lives On\t1\nA Universal Threat Emerges\t1\nAbomination\t2\nAce of Clubs\t1\nAce of Diamonds\t1\nAce of Hearts\t1\nAce of Spades\t1\nAdam Kubert\t1\nAdam Warlock\t4\nAdam Warlock Guardians of the Galaxy Vol. 3 Phase Five\t3\nAgatha Harkness\t4\nAgatha Harkness (Kathryn Hahn)\t2\n",
+  "stderr": "",
+  "execution_time_ms": 373
+}

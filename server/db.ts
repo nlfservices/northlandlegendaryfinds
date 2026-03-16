@@ -1144,13 +1144,14 @@ export async function getRandomCard(): Promise<{ cardNumber: string; setSlug: st
  * Uses a hash of the date string to pick a character from all unique characters
  * that have card images. Returns character info + a random card image.
  */
-export async function getCharacterOfTheDay() {
+export async function getCharacterOfTheDay(dayOffset: number = 0) {
   const db = await getDb();
   if (!db) return null;
 
-  // Get today's date string (CT timezone)
+  // Get today's date string (CT timezone), then apply offset
   const now = new Date();
   const ctDate = new Date(now.toLocaleString("en-US", { timeZone: "America/Chicago" }));
+  ctDate.setDate(ctDate.getDate() + dayOffset);
   const dateStr = `${ctDate.getFullYear()}-${String(ctDate.getMonth() + 1).padStart(2, "0")}-${String(ctDate.getDate()).padStart(2, "0")}`;
 
   // Get all unique characters that have at least one card with an image

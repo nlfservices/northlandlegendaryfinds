@@ -743,3 +743,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Rename "VILLAIN OF THE DAY" / "HERO OF THE DAY" badge to "HEROES & VILLAINS OF THE DAY"
 - [x] Move Heroes & Villains section above "Our Collection" on homepage
 - [x] Save checkpoint
+
+## Heroes & Villains Prev/Next Day Navigation
+- [x] Update backend characterOfTheDay endpoint to accept a dayOffset parameter
+- [x] Update frontend HeroOfTheDay component with prev/next arrow buttons
+- [x] Test navigation in browser (verified: different characters for each day offset)
+- [x] Run vitest tests
+- [x] Save checkpoint

@@ -609,10 +609,12 @@ const publicSubscribeRouter = router({
 // ==================== HEROES & VILLAINS OF THE DAY ====================
 
 const publicCharacterOfTheDayRouter = router({
-  /** Get the Heroes & Villains of the Day — deterministic per date */
-  get: publicProcedure.query(async () => {
-    return getCharacterOfTheDay();
-  }),
+  /** Get the Heroes & Villains of the Day — deterministic per date, with optional day offset */
+  get: publicProcedure
+    .input(z.object({ dayOffset: z.number().int().min(-365).max(365) }))
+    .query(async ({ input }) => {
+      return getCharacterOfTheDay(input.dayOffset);
+    }),
 });
 
 // ==================== COMBINED PUBLIC ROUTER ====================

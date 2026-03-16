@@ -1,6 +1,7 @@
+import { useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { Link } from "wouter";
-import { Loader2, Swords, Shield, Sparkles } from "lucide-react";
+import { Loader2, Swords, Shield, Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
 
 /**
  * Heroes & Villains of the Day
@@ -8,11 +9,31 @@ import { Loader2, Swords, Shield, Sparkles } from "lucide-react";
  * Shows a daily featured Marvel character with their card image.
  * Color scheme: Bright orange bordering with neon green solid letters.
  * The character changes each day based on a deterministic hash.
+ * Users can navigate to previous/next days with arrow buttons.
  */
 export default function HeroOfTheDay() {
-  const { data, isLoading, error } = trpc.public.characterOfTheDay.get.useQuery();
+  const [dayOffset, setDayOffset] = useState(0);
 
-  if (isLoading) {
+  const { data, isLoading, error } = trpc.public.characterOfTheDay.get.useQuery(
+    { dayOffset },
+    { keepPreviousData: true }
+  );
+
+  const goToPrevDay = () => setDayOffset((prev) => prev - 1);
+  const goToNextDay = () => setDayOffset((prev) => prev + 1);
+  const goToToday = () => setDayOffset(0);
+
+  // Format the date label
+  const getDateLabel = () => {
+    if (dayOffset === 0) return "Today";
+    if (dayOffset === -1) return "Yesterday";
+    if (dayOffset === 1) return "Tomorrow";
+    const d = new Date();
+    d.setDate(d.getDate() + dayOffset);
+    return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  };
+
+  if (isLoading && !data) {
     return (
       <section className="py-16 lg:py-20">
         <div className="container">
@@ -28,8 +49,7 @@ export default function HeroOfTheDay() {
 
   // Determine hero vs villain based on character name hash
   const nameHash = data.characterName.split("").reduce((acc: number, c: string) => acc + c.charCodeAt(0), 0);
-  const isVillain = nameHash % 3 === 0; // roughly 1/3 are villains
-  const alignment = isVillain ? "VILLAIN" : "HERO";
+  const isVillain = nameHash % 3 === 0;
 
   return (
     <section className="relative py-16 lg:py-20 overflow-hidden" id="heroes-villains">
@@ -81,8 +101,55 @@ export default function HeroOfTheDay() {
           </h3>
         </div>
 
+        {/* Day navigation */}
+        <div className="flex items-center justify-center gap-4 mb-8">
+          <button
+            onClick={goToPrevDay}
+            className="group flex items-center justify-center w-10 h-10 rounded-full transition-all hover:scale-110"
+            style={{
+              border: "2px solid #f97316",
+              background: "rgba(249, 115, 22, 0.15)",
+            }}
+            aria-label="Previous day"
+          >
+            <ChevronLeft className="w-5 h-5 group-hover:scale-110 transition-transform" style={{ color: "#39ff14" }} />
+          </button>
+
+          <button
+            onClick={goToToday}
+            className="px-4 py-1.5 rounded-full text-sm font-bold tracking-wide transition-all hover:scale-105 min-w-[120px]"
+            style={{
+              border: "2px solid #f97316",
+              background: dayOffset === 0 ? "rgba(57, 255, 20, 0.15)" : "rgba(249, 115, 22, 0.1)",
+              color: "#39ff14",
+              textShadow: "0 0 8px rgba(57,255,20,0.3)",
+            }}
+          >
+            {getDateLabel()}
+          </button>
+
+          <button
+            onClick={goToNextDay}
+            className="group flex items-center justify-center w-10 h-10 rounded-full transition-all hover:scale-110"
+            style={{
+              border: "2px solid #f97316",
+              background: "rgba(249, 115, 22, 0.15)",
+            }}
+            aria-label="Next day"
+          >
+            <ChevronRight className="w-5 h-5 group-hover:scale-110 transition-transform" style={{ color: "#39ff14" }} />
+          </button>
+        </div>
+
         {/* Card display */}
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto relative">
+          {/* Loading overlay when switching days */}
+          {isLoading && (
+            <div className="absolute inset-0 z-20 flex items-center justify-center bg-background/50 backdrop-blur-sm rounded-2xl">
+              <Loader2 className="w-8 h-8 animate-spin text-green-400" />
+            </div>
+          )}
+
           <div
             className="rounded-2xl p-1 relative overflow-hidden"
             style={{
@@ -209,7 +276,44 @@ export default function HeroOfTheDay() {
               </div>
             </div>
           </div>
+
+          {/* Mobile-friendly prev/next arrows on the card itself */}
+          <button
+            onClick={goToPrevDay}
+            className="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full flex items-center justify-center transition-all hover:scale-110 md:hidden"
+            style={{
+              border: "2px solid #f97316",
+              background: "rgba(0,0,0,0.7)",
+            }}
+            aria-label="Previous day"
+          >
+            <ChevronLeft className="w-5 h-5" style={{ color: "#39ff14" }} />
+          </button>
+          <button
+            onClick={goToNextDay}
+            className="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full flex items-center justify-center transition-all hover:scale-110 md:hidden"
+            style={{
+              border: "2px solid #f97316",
+              background: "rgba(0,0,0,0.7)",
+            }}
+            aria-label="Next day"
+          >
+            <ChevronRight className="w-5 h-5" style={{ color: "#39ff14" }} />
+          </button>
         </div>
+
+        {/* Back to today hint */}
+        {dayOffset !== 0 && (
+          <div className="text-center mt-4">
+            <button
+              onClick={goToToday}
+              className="text-xs font-medium transition-colors hover:underline"
+              style={{ color: "#f97316" }}
+            >
+              ← Back to Today's Pick
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
