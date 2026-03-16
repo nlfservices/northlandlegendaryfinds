@@ -724,3 +724,9 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Update color scheme: bright orange letter bordering with neon green solid letters
 - [x] Update vitest tests for renamed section (8 tests passing)
 - [x] Save checkpoint
+
+## Email Subscribe Popup Redesign
+- [x] Make popup draggable (grab and move with mouse)
+- [x] Reposition popup to a less intrusive location (bottom-left)
+- [x] Update popup styling: green border, orange background
+- [x] Save checkpoint
