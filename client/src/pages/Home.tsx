@@ -338,7 +338,7 @@ export default function Home() {
                   <div className="shrink-0">
                     <div className="bg-white rounded-xl p-3 shadow-lg shadow-purple-500/10">
                       <img
-                        src="https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/whatnot-qr-1_5cdbb693.png"
+                        src="https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nlf-whatnot-qr_34822631.jpg"
                         alt="Scan to follow us on Whatnot"
                         className="w-36 h-36 sm:w-40 sm:h-40"
                       />

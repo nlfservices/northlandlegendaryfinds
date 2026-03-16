@@ -730,3 +730,7 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Reposition popup to a less intrusive location (bottom-left)
 - [x] Update popup styling: green border, orange background
 - [x] Save checkpoint
+
+## Whatnot QR Code Fix
+- [x] Replace wrong QR code with correct Whatnot QR code provided by user (Home.tsx + Footer.tsx)
+- [x] Save checkpoint
