@@ -712,3 +712,14 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 ## Shield Popup Color Update
 - [x] Change shield popup fill from orange to cyan-400 blue (matching "100%" in stats bar)
 - [x] Save checkpoint
+
+## Captain America Shield Popup Redesign
+- [x] Upload green nebula background to CDN
+- [x] Redesign popup as circular Captain America-style shield with concentric rings
+- [x] Use green nebula image as background fill
+- [x] Thick green border rings
+- [x] NLF logo in center circle (where email icon was)
+- [x] Green text with white fill
+- [x] Keep draggable
+- [x] Verify in browser
+- [x] Save checkpoint
