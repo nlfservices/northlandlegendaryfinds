@@ -733,3 +733,8 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Make entire shield surface draggable (not just top grip)
 - [x] Show grab cursor on hover over the shield
 - [x] Save checkpoint
+
+## Heroes & Villains Missing + Centering Fix
+- [x] Investigate and restore missing Heroes & Villains of the Day section (recreated component, endpoint, and db function)
+- [x] Fix centering issues on homepage (section restored and centered properly)
+- [x] Save checkpoint

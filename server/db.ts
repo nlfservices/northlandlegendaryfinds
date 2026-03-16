@@ -1135,3 +1135,93 @@ export async function getRandomCard(): Promise<{ cardNumber: string; setSlug: st
     .limit(1);
   return result[0] ?? null;
 }
+
+
+// ==================== HEROES & VILLAINS OF THE DAY ====================
+
+/**
+ * Get a deterministic "character of the day" based on the current date.
+ * Uses a hash of the date string to pick a character from all unique characters
+ * that have card images. Returns character info + a random card image.
+ */
+export async function getCharacterOfTheDay() {
+  const db = await getDb();
+  if (!db) return null;
+
+  // Get today's date string (CT timezone)
+  const now = new Date();
+  const ctDate = new Date(now.toLocaleString("en-US", { timeZone: "America/Chicago" }));
+  const dateStr = `${ctDate.getFullYear()}-${String(ctDate.getMonth() + 1).padStart(2, "0")}-${String(ctDate.getDate()).padStart(2, "0")}`;
+
+  // Get all unique characters that have at least one card with an image
+  const characters = await db.select({
+    characterName: marvelCards.characterName,
+    cardCount: sql<number>`COUNT(*)`,
+  }).from(marvelCards)
+    .where(sql`${marvelCards.characterName} IS NOT NULL AND ${marvelCards.characterName} != '' AND ${marvelCards.imageUrl} IS NOT NULL AND ${marvelCards.imageUrl} != ''`)
+    .groupBy(marvelCards.characterName)
+    .orderBy(asc(marvelCards.characterName));
+
+  if (characters.length === 0) return null;
+
+  // Simple hash of date string to pick a character deterministically
+  let hash = 0;
+  for (let i = 0; i < dateStr.length; i++) {
+    hash = ((hash << 5) - hash + dateStr.charCodeAt(i)) | 0;
+  }
+  const index = Math.abs(hash) % characters.length;
+  const chosen = characters[index];
+
+  // Get a card with an image for this character
+  const cards = await db.select({
+    id: marvelCards.id,
+    cardNumber: marvelCards.cardNumber,
+    characterName: marvelCards.characterName,
+    cardType: marvelCards.cardType,
+    imageUrl: marvelCards.imageUrl,
+    setId: marvelCards.setId,
+  }).from(marvelCards)
+    .where(
+      and(
+        eq(marvelCards.characterName, chosen.characterName),
+        sql`${marvelCards.imageUrl} IS NOT NULL AND ${marvelCards.imageUrl} != ''`
+      )
+    )
+    .limit(5);
+
+  if (cards.length === 0) return null;
+
+  // Pick a card based on the date hash
+  const cardIndex = Math.abs(hash * 31) % cards.length;
+  const card = cards[cardIndex];
+
+  // Get the set name
+  const setResult = await db.select({ name: marvelSets.name, shortName: marvelSets.shortName })
+    .from(marvelSets)
+    .where(eq(marvelSets.id, card.setId))
+    .limit(1);
+  const setName = setResult[0]?.shortName || setResult[0]?.name || "Unknown Set";
+
+  // Get character content if available (for bio/alignment info)
+  const content = await db.select({
+    keyFacts: characterContent.keyFacts,
+  }).from(characterContent)
+    .where(eq(characterContent.characterName, chosen.characterName))
+    .limit(1);
+
+  const keyFacts = content[0]?.keyFacts as any;
+
+  return {
+    characterName: chosen.characterName,
+    slug: characterNameToSlug(chosen.characterName),
+    cardImage: card.imageUrl,
+    cardNumber: card.cardNumber,
+    cardType: card.cardType,
+    setName,
+    cardCount: Number(chosen.cardCount),
+    realName: keyFacts?.realName || null,
+    teams: keyFacts?.teams || [],
+    notablePowers: keyFacts?.notablePowers || [],
+    date: dateStr,
+  };
+}

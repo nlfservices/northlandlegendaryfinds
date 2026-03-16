@@ -14,6 +14,7 @@ import {
   getCardDetailContentByCardId, upsertCardDetailContent, getAllCardDetailSlugs,
   parseParallels,
   getRandomCard,
+  getCharacterOfTheDay,
 } from "../db";
 import { launchSubscribers } from "../../drizzle/schema";
 import { getDb } from "../db";
@@ -605,6 +606,15 @@ const publicSubscribeRouter = router({
     }),
 });
 
+// ==================== HEROES & VILLAINS OF THE DAY ====================
+
+const publicCharacterOfTheDayRouter = router({
+  /** Get the Heroes & Villains of the Day — deterministic per date */
+  get: publicProcedure.query(async () => {
+    return getCharacterOfTheDay();
+  }),
+});
+
 // ==================== COMBINED PUBLIC ROUTER ====================
 
 export const publicRouter = router({
@@ -616,4 +626,5 @@ export const publicRouter = router({
   graded: publicGradedRouter,
   launch: publicLaunchRouter,
   subscribe: publicSubscribeRouter,
+  characterOfTheDay: publicCharacterOfTheDayRouter,
 });
