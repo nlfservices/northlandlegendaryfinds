@@ -1120,11 +1120,27 @@ export function parseParallels(parallelsStr: string | null): Array<{ name: strin
   return result;
 }
 
+// ==================== RANDOM CARD HELPER ====================
+
+/** Get a random card with its set slug for navigation */
+export async function getRandomCard(): Promise<{ cardNumber: string; setSlug: string } | null> {
+  const db = await getDb();
+  if (!db) return null;
+  const result = await db.select({
+    cardNumber: marvelCards.cardNumber,
+    setSlug: marvelSets.slug,
+  }).from(marvelCards)
+    .innerJoin(marvelSets, eq(marvelCards.setId, marvelSets.id))
+    .orderBy(sql`RAND()`)
+    .limit(1);
+  return result[0] ?? null;
+}
+
 // ==================== CARD OF THE DAY ====================
 
-/** Get a deterministic "Card of the Day" based on the current date.
- *  Uses a date-based seed so everyone sees the same card each day.
- *  Returns card info + set info + pre-generated content snippet if available.
+/**
+ * Get a deterministic "Card of the Day" based on today's date.
+ * Returns card info + set info + pre-generated content snippet if available.
  */
 export async function getCardOfTheDay(): Promise<{
   cardId: number;
@@ -1142,7 +1158,6 @@ export async function getCardOfTheDay(): Promise<{
   const db = await getDb();
   if (!db) return null;
 
-  // Get total card count
   const countResult = await db.select({ count: sql<number>`COUNT(*)` }).from(marvelCards);
   const totalCards = countResult[0]?.count ?? 0;
   if (totalCards === 0) return null;
@@ -1156,7 +1171,6 @@ export async function getCardOfTheDay(): Promise<{
   }
   const offset = Math.abs(hash) % totalCards;
 
-  // Select the card at that offset
   const result = await db.select({
     cardId: marvelCards.id,
     cardNumber: marvelCards.cardNumber,
@@ -1174,10 +1188,8 @@ export async function getCardOfTheDay(): Promise<{
     .offset(offset);
 
   if (!result[0]) return null;
-
   const card = result[0];
 
-  // Try to get a content snippet from card_detail_content
   let contentSnippet: string | null = null;
   const contentResult = await db.select({
     contentMarkdown: cardDetailContent.contentMarkdown,
@@ -1186,7 +1198,6 @@ export async function getCardOfTheDay(): Promise<{
     .limit(1);
 
   if (contentResult[0]?.contentMarkdown) {
-    // Extract first ~200 chars as snippet, stripping markdown headers
     const raw = contentResult[0].contentMarkdown
       .replace(/^#+\s.*$/gm, '')
       .replace(/\*\*/g, '')
@@ -1195,24 +1206,98 @@ export async function getCardOfTheDay(): Promise<{
     contentSnippet = raw.length > 200 ? raw.slice(0, 200) + '...' : raw;
   }
 
-  // Build character slug
   const characterSlug = characterNameToSlug(card.characterName);
-
   return { ...card, contentSnippet, characterSlug };
 }
 
-// ==================== RANDOM CARD HELPER ====================
+// ==================== CHARACTER OF THE DAY ====================
 
-/** Get a random card with its set slug for navigation */
-export async function getRandomCard(): Promise<{ cardNumber: string; setSlug: string } | null> {
+/**
+ * Get a deterministic "Character of the Day" based on today's date.
+ * Returns character info + a featured card + content snippet.
+ * Only picks characters that have pre-generated content.
+ */
+export async function getCharacterOfTheDay(): Promise<{
+  characterName: string;
+  characterSlug: string;
+  metaDescription: string | null;
+  contentSnippet: string | null;
+  keyFacts: Record<string, unknown> | null;
+  featuredCard: {
+    cardNumber: string;
+    setSlug: string;
+    setName: string;
+    imageUrl: string | null;
+    cardType: string | null;
+    parallels: string | null;
+  } | null;
+  totalCards: number;
+} | null> {
   const db = await getDb();
   if (!db) return null;
-  const result = await db.select({
+
+  // Get all characters with pre-generated content
+  const characters = await db.select({
+    id: characterContent.id,
+    characterName: characterContent.characterName,
+    slug: characterContent.slug,
+    metaDescription: characterContent.metaDescription,
+    historyMarkdown: characterContent.historyMarkdown,
+    keyFacts: characterContent.keyFacts,
+  }).from(characterContent)
+    .where(sql`${characterContent.historyMarkdown} IS NOT NULL`)
+    .orderBy(characterContent.id);
+
+  if (characters.length === 0) return null;
+
+  // Deterministic seed from today's date (UTC)
+  const today = new Date();
+  const dateStr = `${today.getUTCFullYear()}-${today.getUTCMonth()}-${today.getUTCDate()}`;
+  let hash = 0;
+  for (let i = 0; i < dateStr.length; i++) {
+    hash = ((hash << 5) - hash + dateStr.charCodeAt(i)) | 0;
+  }
+  const offset = Math.abs(hash) % characters.length;
+  const character = characters[offset];
+
+  // Extract a content snippet from the history markdown
+  let contentSnippet: string | null = null;
+  if (character.historyMarkdown) {
+    const raw = character.historyMarkdown
+      .replace(/^#+\s.*$/gm, '')
+      .replace(/\*\*/g, '')
+      .replace(/\n+/g, ' ')
+      .trim();
+    contentSnippet = raw.length > 250 ? raw.slice(0, 250) + '...' : raw;
+  }
+
+  // Get a featured card for this character (prefer one with an image)
+  const cards = await db.select({
     cardNumber: marvelCards.cardNumber,
     setSlug: marvelSets.slug,
+    setName: marvelSets.name,
+    imageUrl: marvelCards.imageUrl,
+    cardType: marvelCards.cardType,
+    parallels: marvelCards.parallels,
   }).from(marvelCards)
     .innerJoin(marvelSets, eq(marvelCards.setId, marvelSets.id))
-    .orderBy(sql`RAND()`)
+    .where(eq(marvelCards.characterName, character.characterName))
+    .orderBy(sql`${marvelCards.imageUrl} IS NULL ASC, ${marvelCards.id} ASC`)
     .limit(1);
-  return result[0] ?? null;
+
+  // Count total cards for this character
+  const countResult = await db.select({ count: sql<number>`COUNT(*)` })
+    .from(marvelCards)
+    .where(eq(marvelCards.characterName, character.characterName));
+  const totalCards = countResult[0]?.count ?? 0;
+
+  return {
+    characterName: character.characterName,
+    characterSlug: character.slug,
+    metaDescription: character.metaDescription,
+    contentSnippet,
+    keyFacts: character.keyFacts as Record<string, unknown> | null,
+    featuredCard: cards[0] ?? null,
+    totalCards,
+  };
 }

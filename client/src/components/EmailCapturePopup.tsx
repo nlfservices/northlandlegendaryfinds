@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { X, Loader2, CheckCircle, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
@@ -6,14 +6,14 @@ import { toast } from "sonner";
 
 /**
  * Smart Email Capture Popup Component — Top Right Corner Style
- *
+ * 
  * Behavior:
- * 1. Shows 3 seconds after page load
- * 2. If user closes without subscribing → show ONE more time on exit-intent
- * 3. If user closes the exit-intent popup too → done for this session
- * 4. Returning visitors see the popup again (no permanent localStorage block)
- * 5. Only permanently suppress after successful subscription (localStorage)
- * 6. Submits email to GoHighLevel CRM via tRPC + notifies admin
+ * - Shows 2 seconds after page load on first visit
+ * - If closed without submitting -> doesn't show again
+ * - If closed without submitting AND user tries to leave -> shows exit-intent popup
+ * - Uses localStorage to remember user's choice
+ * - Never shows to users who already submitted
+ * - Submits email to GoHighLevel CRM via tRPC + notifies admin
  */
 
 export default function EmailCapturePopup() {
@@ -22,15 +22,11 @@ export default function EmailCapturePopup() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
-  // Session-level tracking (resets on page refresh / new visit)
-  const dismissCountRef = useRef(0); // 0 = not shown yet, 1 = closed once, 2 = done for session
-  const hasShownInitialRef = useRef(false);
-
   const subscribeMutation = trpc.public.subscribe.submit.useMutation({
     onSuccess: (data) => {
       setSubmitted(true);
-      // Only localStorage item: permanently suppress after subscription
       localStorage.setItem("nlf_email_submitted", "true");
+      localStorage.setItem("nlf_popup_closed", "permanent");
       toast.success(data.message);
       // Auto-close after 3 seconds
       setTimeout(() => {
@@ -42,41 +38,42 @@ export default function EmailCapturePopup() {
     },
   });
 
-  // Exit-intent handler — show popup one more time if user closed the first one
-  const handleMouseLeave = useCallback((e: MouseEvent) => {
-    if (e.clientY <= 0 && dismissCountRef.current === 1) {
-      setIsExitIntent(true);
-      setIsOpen(true);
-    }
-  }, []);
-
   useEffect(() => {
-    // If user already subscribed (permanent), never show again
-    const hasSubscribed = localStorage.getItem("nlf_email_submitted");
-    if (hasSubscribed) return;
+    // Check if user has already interacted with popup
+    const hasClosedPopup = localStorage.getItem("nlf_popup_closed");
+    const hasSubmitted = localStorage.getItem("nlf_email_submitted");
 
-    // Show popup after 3 seconds
+    // Don't show if user already submitted or permanently closed
+    if (hasSubmitted || hasClosedPopup === "permanent") {
+      return;
+    }
+
+    // Show popup after 2 seconds on first visit
     const timer = setTimeout(() => {
-      if (!hasShownInitialRef.current) {
-        hasShownInitialRef.current = true;
+      setIsOpen(true);
+    }, 2000);
+
+    // Exit intent detection
+    const handleMouseLeave = (e: MouseEvent) => {
+      // Only trigger if mouse leaves from top of page (navigating away)
+      if (e.clientY <= 0 && hasClosedPopup === "temporary") {
+        setIsExitIntent(true);
         setIsOpen(true);
       }
-    }, 3000);
+    };
 
-    // Register exit-intent listener
     document.addEventListener("mouseleave", handleMouseLeave);
 
     return () => {
       clearTimeout(timer);
       document.removeEventListener("mouseleave", handleMouseLeave);
     };
-  }, [handleMouseLeave]);
+  }, []);
 
   const handleClose = () => {
     setIsOpen(false);
-    dismissCountRef.current += 1;
-    // After 2 dismissals (initial + exit-intent), we're done for this session
-    // No localStorage write — returning visitors will see it fresh
+    // Mark as temporarily closed (will show exit intent)
+    localStorage.setItem("nlf_popup_closed", "temporary");
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -126,14 +123,13 @@ export default function EmailCapturePopup() {
                 </div>
                 <div>
                   <h3 className="text-base font-bold text-white leading-tight">
-                    {isExitIntent
-                      ? "Wait — Stay in the Loop!"
-                      : "Stay in the Loop"}
+                    {isExitIntent ? "Wait — Stay in the Loop!" : "Stay in the Loop"}
                   </h3>
                   <p className="text-sm text-gray-400 mt-0.5">
-                    {isExitIntent
+                    {isExitIntent 
                       ? "Get notified when we drop new products!"
-                      : "Join our collectors community for launch updates and exclusive drops."}
+                      : "Join our collectors community for launch updates and exclusive drops."
+                    }
                   </p>
                 </div>
               </div>
@@ -149,7 +145,7 @@ export default function EmailCapturePopup() {
                   disabled={subscribeMutation.isPending}
                   className="w-full px-3 py-2.5 bg-black/50 border border-green-500/20 rounded-lg text-white text-sm placeholder-gray-500 focus:outline-none focus:border-green-500 transition-colors disabled:opacity-50"
                 />
-
+                
                 <Button
                   type="submit"
                   disabled={subscribeMutation.isPending || !email.trim()}

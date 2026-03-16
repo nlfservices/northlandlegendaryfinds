@@ -703,48 +703,13 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Tested: Nightcrawler page now correctly shows CBH-129_Nightcrawler image instead of Star-Lord
 - [x] Save checkpoint
 
-## Popup Behavior Overhaul
-- [x] Show popup after 3 seconds on page load
-- [x] If user closes popup (without subscribing), show ONE more time on exit-intent
-- [x] If user closes the exit-intent popup too, done for that session (no more popups)
-- [x] Returning visitors should see the popup again (no permanent localStorage suppression)
-- [x] Only permanently suppress popup after successful subscription
+## Hero/Villain of the Day Rebrand
+- [x] Rebrand "Card of the Day" as "Hero of the Day" / "Villain of the Day"
+- [x] Build getCharacterOfTheDay backend procedure (deterministic daily character from pre-generated content)
+- [x] Build HeroVillainOfTheDay component with hero/villain detection and color theming
+- [x] Move section to top of homepage (right after stats bar, before Card Showcase)
+- [x] Show character image, name, real name, first appearance, teams, powers, content snippet
+- [x] Green theme for heroes, red/crimson theme for villains
+- [x] "Explore [Character]" and "View Featured Card" CTA buttons
+- [x] Tested: Starfox correctly shown as Hero of the Day with all key facts
 - [x] Save checkpoint
-
-## Background Character Article Generation (Batch)
-- [x] Review current generation progress (31 of 881 characters done)
-- [x] Run batch generation script for remaining ~850 characters (850 generated, 0 errors, 54.2 minutes)
-- [x] Monitor and verify completion (881/881 characters now have generated articles)
-- [x] Verified pages load instantly in browser (Wolverine, Gambit tested)
-- [x] Save checkpoint
-
-## Batch Card Detail Article Generation
-- [x] Review card detail content generation logic (LLM prompt, DB schema)
-- [x] Create batch generation script for all ~1,976 remaining card detail pages
-- [x] Run batch generation and monitor progress
-- [x] Verify completion — ALL 1,975 cards generated, 0 errors, 94.4 minutes
-- [x] Checkpoint at 705 cards (zero errors)
-- [x] Checkpoint at 1,035 cards (zero errors)
-- [x] Checkpoint at 1,230 cards (zero errors)
-- [x] Checkpoint at 1,370 cards (zero errors)
-- [x] Checkpoint at 1,570 cards (zero errors)
-- [x] Checkpoint at 1,685 cards (zero errors)
-- [x] COMPLETE: 1,975/1,975 cards generated (0 errors, 94.4 min)
-- [x] Save final checkpoint
-
-## Roadmap — Prioritized Next Steps
-
-### High Priority (Before Launch March 27)
-- [ ] Fix 19 TypeScript errors in stripe-webhook.ts (shipping_details type issues)
-- [ ] Test full checkout flow end-to-end (cart, Stripe checkout, order confirmation, webhook) with test card 4242 4242 4242 4242
-- [ ] Submit XML sitemap to Google Search Console — get all 2,900+ pages indexed before launch
-
-### Medium Priority (Nice to Have for Launch)
-- [x] "Card of the Day" homepage spotlight — rotating daily featured card for fresh content and re-crawl signals
-- [ ] Generate remaining Marvel Studios card images (~328 cards still need unique MCU-inspired artwork)
-- [ ] Add discount/incentive to exit-intent popup ("Get 10% off your first order")
-
-### Post-Launch
-- [ ] Blog/content section — long-form articles like "Top 10 Most Valuable 2025 Topps Chrome Pulls" for SEO
-- [ ] User collection tracker — let logged-in users mark which cards they own from checklists
-- [ ] eBay price integration on card pages — show recent sold comps alongside card details
