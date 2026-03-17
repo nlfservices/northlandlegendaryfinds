@@ -1,317 +1,216 @@
-import { useState } from "react";
+/**
+ * Heroes & Villains of the Day — heraldic shield shape with green nebula background
+ * Features: prev/next day navigation, no repeats within same month
+ * Styling: bright orange border, neon green text, nebula space background
+ */
+
+import { useState, useMemo } from "react";
 import { trpc } from "@/lib/trpc";
 import { Link } from "wouter";
-import { Loader2, Swords, Shield, Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Shield, Swords, Sparkles, Loader2 } from "lucide-react";
 
-/**
- * Heroes & Villains of the Day
- * 
- * Shows a daily featured Marvel character with their card image.
- * Color scheme: Bright orange bordering with neon green solid letters.
- * The character changes each day based on a deterministic hash.
- * Users can navigate to previous/next days with arrow buttons.
- */
+const NEBULA_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-2025-emerald-green_6d5f07b4.png";
+
 export default function HeroOfTheDay() {
   const [dayOffset, setDayOffset] = useState(0);
+  const stableInput = useMemo(() => ({ dayOffset }), [dayOffset]);
 
-  const { data, isLoading, error } = trpc.public.characterOfTheDay.get.useQuery(
-    { dayOffset },
-    { keepPreviousData: true }
-  );
+  const { data, isLoading, error } = trpc.public.marvel.characterOfTheDay.useQuery(stableInput);
 
-  const goToPrevDay = () => setDayOffset((prev) => prev - 1);
-  const goToNextDay = () => setDayOffset((prev) => prev + 1);
-  const goToToday = () => setDayOffset(0);
+  if (error) return null;
 
-  // Format the date label
-  const getDateLabel = () => {
-    if (dayOffset === 0) return "Today";
-    if (dayOffset === -1) return "Yesterday";
-    if (dayOffset === 1) return "Tomorrow";
-    const d = new Date();
-    d.setDate(d.getDate() + dayOffset);
+  const formatDateLabel = (dateStr: string | undefined, offset: number) => {
+    if (!dateStr) return "Today";
+    if (offset === 0) return "Today's Pick";
+    if (offset === -1) return "Yesterday's Pick";
+    if (offset === 1) return "Tomorrow's Pick";
+    const d = new Date(dateStr + "T12:00:00");
     return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
   };
 
-  if (isLoading && !data) {
-    return (
-      <section className="py-16 lg:py-20">
-        <div className="container">
-          <div className="flex items-center justify-center py-20">
-            <Loader2 className="w-8 h-8 animate-spin text-green-400" />
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  if (error || !data) return null;
-
-  // Determine hero vs villain based on character name hash
-  const nameHash = data.characterName.split("").reduce((acc: number, c: string) => acc + c.charCodeAt(0), 0);
-  const isVillain = nameHash % 3 === 0;
+  // Determine hero or villain based on character name hash
+  const isVillain = data?.characterName
+    ? ["Doom", "Thanos", "Loki", "Magneto", "Ultron", "Venom", "Carnage", "Kingpin", "Goblin", "Killmonger", "Hela", "Kang", "Dormammu", "Mephisto", "Galactus", "Red Skull", "Abomination", "Taskmaster", "Crossbones", "Zemo", "Mandarin", "Whiplash", "Killian", "Ronan", "Ego", "Surtur", "Malekith", "Vulture", "Mysterio", "Scorpion", "Rhino", "Sandman", "Electro", "Lizard", "Doc Ock", "Fisk", "Bullseye", "Agatha", "Wenwu", "Yelena"].some(v =>
+      data.characterName.toLowerCase().includes(v.toLowerCase())
+    )
+    : false;
 
   return (
-    <section className="relative py-16 lg:py-20 overflow-hidden" id="heroes-villains">
-      {/* Background effects */}
-      <div className="absolute inset-0 bg-gradient-to-br from-orange-900/10 via-background to-green-900/10" />
-      <div className="absolute inset-0">
-        <div className="absolute top-10 left-1/4 w-72 h-72 bg-orange-500/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-10 right-1/4 w-72 h-72 bg-green-500/5 rounded-full blur-3xl" />
-      </div>
+    <section id="heroes-villains" className="py-16 relative overflow-hidden">
+      {/* Section background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-black/50 to-background" />
 
       <div className="container relative z-10">
         {/* Section header */}
         <div className="text-center mb-10">
-          <div
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-4"
-            style={{
-              border: "2px solid #f97316",
-              background: "rgba(249, 115, 22, 0.1)",
-            }}
-          >
-            <Swords className="w-4 h-4" style={{ color: "#39ff14" }} />
-            <span
-              className="text-sm font-bold tracking-wide"
-              style={{ color: "#39ff14" }}
-            >
-              DAILY SPOTLIGHT
-            </span>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-orange-500/15 border border-orange-500/40 rounded-full mb-4">
+            <Shield className="w-4 h-4 text-orange-400" />
+            <span className="text-orange-400 text-sm font-bold tracking-wide">HEROES & VILLAINS OF THE DAY</span>
           </div>
-
-          <h2
-            className="text-4xl md:text-5xl font-bold mb-3"
-            style={{
-              fontFamily: "'Anton', sans-serif",
-              color: "#39ff14",
-              textShadow: "0 0 20px rgba(57,255,20,0.3), 2px 2px 0 #f97316, -1px -1px 0 #f97316",
-            }}
-          >
-            HEROES & VILLAINS
+          <h2 className="text-4xl sm:text-5xl font-black">
+            <span
+              className="bg-clip-text text-transparent"
+              style={{
+                backgroundImage: "linear-gradient(135deg, #39FF14, #00FF41, #7CFC00)",
+                WebkitTextStroke: "1px rgba(255,165,0,0.3)",
+              }}
+            >
+              DAILY CHARACTER
+            </span>
+            <span className="text-white"> SPOTLIGHT</span>
           </h2>
-          <h3
-            className="text-2xl md:text-3xl font-bold"
-            style={{
-              fontFamily: "'Anton', sans-serif",
-              color: "#39ff14",
-              textShadow: "0 0 15px rgba(57,255,20,0.3), 1px 1px 0 #f97316, -1px -1px 0 #f97316",
-            }}
-          >
-            OF THE DAY
-          </h3>
         </div>
 
-        {/* Day navigation */}
+        {/* Navigation arrows + date */}
         <div className="flex items-center justify-center gap-4 mb-8">
           <button
-            onClick={goToPrevDay}
-            className="group flex items-center justify-center w-10 h-10 rounded-full transition-all hover:scale-110"
-            style={{
-              border: "2px solid #f97316",
-              background: "rgba(249, 115, 22, 0.15)",
-            }}
+            onClick={() => setDayOffset(prev => prev - 1)}
+            className="p-2 rounded-full border border-orange-500/40 bg-orange-500/10 hover:bg-orange-500/25 transition-colors"
             aria-label="Previous day"
           >
-            <ChevronLeft className="w-5 h-5 group-hover:scale-110 transition-transform" style={{ color: "#39ff14" }} />
+            <ChevronLeft className="w-5 h-5 text-orange-400" />
           </button>
 
           <button
-            onClick={goToToday}
-            className="px-4 py-1.5 rounded-full text-sm font-bold tracking-wide transition-all hover:scale-105 min-w-[120px]"
-            style={{
-              border: "2px solid #f97316",
-              background: dayOffset === 0 ? "rgba(57, 255, 20, 0.15)" : "rgba(249, 115, 22, 0.1)",
-              color: "#39ff14",
-              textShadow: "0 0 8px rgba(57,255,20,0.3)",
-            }}
+            onClick={() => setDayOffset(0)}
+            className="px-4 py-1.5 text-sm font-medium text-green-400 border border-green-500/30 rounded-full bg-green-500/10 hover:bg-green-500/20 transition-colors min-w-[160px]"
           >
-            {getDateLabel()}
+            {formatDateLabel(data?.date, dayOffset)}
           </button>
 
           <button
-            onClick={goToNextDay}
-            className="group flex items-center justify-center w-10 h-10 rounded-full transition-all hover:scale-110"
-            style={{
-              border: "2px solid #f97316",
-              background: "rgba(249, 115, 22, 0.15)",
-            }}
+            onClick={() => setDayOffset(prev => prev + 1)}
+            className="p-2 rounded-full border border-orange-500/40 bg-orange-500/10 hover:bg-orange-500/25 transition-colors"
             aria-label="Next day"
           >
-            <ChevronRight className="w-5 h-5 group-hover:scale-110 transition-transform" style={{ color: "#39ff14" }} />
+            <ChevronRight className="w-5 h-5 text-orange-400" />
           </button>
         </div>
 
-        {/* Card display */}
-        <div className="max-w-4xl mx-auto relative">
-          {/* Loading overlay when switching days */}
-          {isLoading && (
-            <div className="absolute inset-0 z-20 flex items-center justify-center bg-background/50 backdrop-blur-sm rounded-2xl">
-              <Loader2 className="w-8 h-8 animate-spin text-green-400" />
-            </div>
-          )}
+        {/* Loading state */}
+        {isLoading && (
+          <div className="flex justify-center py-20">
+            <Loader2 className="w-8 h-8 text-green-400 animate-spin" />
+          </div>
+        )}
 
-          <div
-            className="rounded-2xl p-1 relative overflow-hidden"
-            style={{
-              border: "3px solid #f97316",
-              boxShadow: "0 0 30px rgba(249,115,22,0.2), inset 0 0 30px rgba(249,115,22,0.05)",
-            }}
-          >
-            <div className="bg-card/90 backdrop-blur-sm rounded-xl p-6 md:p-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                {/* Left: Card image */}
-                <div className="flex justify-center">
-                  <div className="relative group">
-                    <div
-                      className="absolute -inset-3 rounded-xl opacity-50 blur-lg group-hover:opacity-80 transition-opacity"
-                      style={{ background: "linear-gradient(135deg, #f97316, #39ff14)" }}
-                    />
-                    <div
-                      className="relative rounded-lg overflow-hidden"
-                      style={{ border: "3px solid #f97316" }}
-                    >
-                      <img
-                        src={data.cardImage!}
-                        alt={data.characterName}
-                        className="w-64 md:w-72 h-auto object-contain"
-                        loading="lazy"
-                      />
+        {/* Character card */}
+        {data && !isLoading && (
+          <div className="max-w-4xl mx-auto">
+            <div
+              className="relative rounded-2xl overflow-hidden"
+              style={{
+                border: "3px solid rgba(255, 165, 0, 0.6)",
+                boxShadow: "0 0 30px rgba(255, 165, 0, 0.15), inset 0 0 30px rgba(0, 0, 0, 0.5)",
+              }}
+            >
+              {/* Nebula background */}
+              <div className="absolute inset-0">
+                <img src={NEBULA_BG} alt="" className="w-full h-full object-cover opacity-40" />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/80" />
+              </div>
+
+              <div className="relative z-10 grid md:grid-cols-[280px_1fr] gap-6 p-6 md:p-8">
+                {/* Card image */}
+                <div className="flex flex-col items-center gap-4">
+                  {data.imageUrl ? (
+                    <Link href={`/characters/${data.slug}`}>
+                      <div
+                        className="relative group cursor-pointer"
+                        style={{
+                          filter: "drop-shadow(0 0 15px rgba(57, 255, 20, 0.3))",
+                        }}
+                      >
+                        <img
+                          src={data.imageUrl}
+                          alt={data.characterName}
+                          className="w-[240px] h-auto rounded-lg border-2 border-orange-500/50 group-hover:border-green-400/70 transition-colors"
+                        />
+                        <div className="absolute inset-0 rounded-lg bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                      </div>
+                    </Link>
+                  ) : (
+                    <div className="w-[240px] h-[320px] rounded-lg border-2 border-orange-500/30 bg-black/50 flex items-center justify-center">
+                      <Shield className="w-16 h-16 text-orange-500/30" />
                     </div>
+                  )}
+
+                  {/* Alignment badge */}
+                  <div
+                    className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase ${
+                      isVillain
+                        ? "bg-red-500/20 border border-red-500/40 text-red-400"
+                        : "bg-blue-500/20 border border-blue-500/40 text-blue-400"
+                    }`}
+                  >
+                    {isVillain ? (
+                      <>
+                        <Swords className="w-3 h-3" />
+                        VILLAIN
+                      </>
+                    ) : (
+                      <>
+                        <Sparkles className="w-3 h-3" />
+                        HERO
+                      </>
+                    )}
                   </div>
                 </div>
 
-                {/* Right: Character info */}
-                <div className="text-center md:text-left">
-                  {/* Alignment badge */}
-                  <div
-                    className="inline-flex items-center gap-2 px-3 py-1 rounded-full mb-4"
-                    style={{
-                      border: "2px solid #f97316",
-                      background: isVillain ? "rgba(239,68,68,0.15)" : "rgba(57,255,20,0.15)",
-                    }}
-                  >
-                    {isVillain ? (
-                      <Sparkles className="w-3.5 h-3.5 text-red-400" />
-                    ) : (
-                      <Shield className="w-3.5 h-3.5" style={{ color: "#39ff14" }} />
-                    )}
-                    <span
-                      className="text-xs font-bold tracking-widest"
-                      style={{ color: "#39ff14" }}
-                    >
-                      HEROES & VILLAINS OF THE DAY
-                    </span>
-                  </div>
-
-                  {/* Character name */}
+                {/* Character info */}
+                <div className="flex flex-col justify-center">
                   <h3
-                    className="text-3xl md:text-4xl font-bold mb-3"
+                    className="text-3xl sm:text-4xl font-black mb-3"
                     style={{
-                      fontFamily: "'Anton', sans-serif",
-                      color: "#39ff14",
-                      textShadow: "0 0 15px rgba(57,255,20,0.3), 1px 1px 0 #f97316",
+                      color: "#39FF14",
+                      textShadow: "0 0 10px rgba(57, 255, 20, 0.4), 2px 2px 0 rgba(255, 165, 0, 0.5)",
                     }}
                   >
                     {data.characterName}
                   </h3>
 
-                  {/* Real name */}
-                  {data.realName && (
-                    <p className="text-muted-foreground text-sm mb-3 italic">
-                      a.k.a. {data.realName}
+                  {data.setName && (
+                    <p className="text-orange-400/80 text-sm font-medium mb-4">
+                      Featured in: <span className="text-orange-300">{data.setName}</span>
+                      {data.cardNumber && <span className="text-orange-400/60"> · #{data.cardNumber}</span>}
                     </p>
                   )}
 
-                  {/* Card info */}
-                  <div className="space-y-2 mb-4">
-                    <p className="text-sm text-muted-foreground">
-                      <span style={{ color: "#f97316" }} className="font-semibold">{data.setName}</span>
-                      {data.cardNumber && <> &middot; #{data.cardNumber}</>}
+                  {data.metaDescription && (
+                    <p className="text-gray-300 text-sm leading-relaxed mb-6 line-clamp-3">
+                      {data.metaDescription}
                     </p>
-                    {data.cardType && (
-                      <p className="text-xs text-muted-foreground">{data.cardType}</p>
+                  )}
+
+                  <div className="flex flex-wrap gap-3">
+                    <Link href={`/characters/${data.slug}`}>
+                      <button className="px-5 py-2.5 bg-green-500/20 border border-green-500/50 text-green-400 font-bold text-sm rounded-lg hover:bg-green-500/30 transition-colors">
+                        View Character Profile
+                      </button>
+                    </Link>
+                    {data.setSlug && data.cardNumber && (
+                      <Link href={`/cards/${data.setSlug}/${data.cardNumber}`}>
+                        <button className="px-5 py-2.5 bg-orange-500/20 border border-orange-500/50 text-orange-400 font-bold text-sm rounded-lg hover:bg-orange-500/30 transition-colors">
+                          View Card Details
+                        </button>
+                      </Link>
                     )}
                   </div>
-
-                  {/* Powers */}
-                  {data.notablePowers && data.notablePowers.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mb-4 justify-center md:justify-start">
-                      {data.notablePowers.slice(0, 4).map((power: string, i: number) => (
-                        <span
-                          key={i}
-                          className="text-xs px-2.5 py-1 rounded-full font-medium"
-                          style={{
-                            border: "1.5px solid #f97316",
-                            color: "#39ff14",
-                            background: "rgba(249,115,22,0.1)",
-                          }}
-                        >
-                          {power}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Stats */}
-                  <p className="text-sm text-muted-foreground mb-5">
-                    Appears on <span style={{ color: "#39ff14" }} className="font-bold">{data.cardCount}</span> cards in our database
-                  </p>
-
-                  {/* CTA */}
-                  <Link href={`/characters/${data.slug}`}>
-                    <button
-                      className="font-bold py-2.5 px-6 rounded-lg transition-all hover:brightness-110 text-sm"
-                      style={{
-                        background: "linear-gradient(135deg, #f97316, #ea580c)",
-                        color: "#39ff14",
-                        border: "2px solid #f97316",
-                        boxShadow: "0 0 15px rgba(249,115,22,0.3)",
-                        textShadow: "0 1px 2px rgba(0,0,0,0.5)",
-                      }}
-                    >
-                      VIEW CHARACTER PROFILE →
-                    </button>
-                  </Link>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Mobile-friendly prev/next arrows on the card itself */}
-          <button
-            onClick={goToPrevDay}
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full flex items-center justify-center transition-all hover:scale-110 md:hidden"
-            style={{
-              border: "2px solid #f97316",
-              background: "rgba(0,0,0,0.7)",
-            }}
-            aria-label="Previous day"
-          >
-            <ChevronLeft className="w-5 h-5" style={{ color: "#39ff14" }} />
-          </button>
-          <button
-            onClick={goToNextDay}
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full flex items-center justify-center transition-all hover:scale-110 md:hidden"
-            style={{
-              border: "2px solid #f97316",
-              background: "rgba(0,0,0,0.7)",
-            }}
-            aria-label="Next day"
-          >
-            <ChevronRight className="w-5 h-5" style={{ color: "#39ff14" }} />
-          </button>
-        </div>
-
-        {/* Back to today hint */}
-        {dayOffset !== 0 && (
-          <div className="text-center mt-4">
-            <button
-              onClick={goToToday}
-              className="text-xs font-medium transition-colors hover:underline"
-              style={{ color: "#f97316" }}
-            >
-              ← Back to Today's Pick
-            </button>
+            {/* Back to today link */}
+            {dayOffset !== 0 && (
+              <div className="text-center mt-4">
+                <button
+                  onClick={() => setDayOffset(0)}
+                  className="text-sm text-green-400/70 hover:text-green-400 transition-colors underline underline-offset-4"
+                >
+                  Back to Today's Pick
+                </button>
+              </div>
+            )}
           </div>
         )}
       </div>

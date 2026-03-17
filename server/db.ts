@@ -1137,27 +1137,22 @@ export async function getRandomCard(): Promise<{ cardNumber: string; setSlug: st
 }
 
 
-// ==================== HEROES & VILLAINS OF THE DAY ====================
+// ==================== CHARACTER OF THE DAY ====================
 
 /**
- * Get a deterministic "character of the day" based on the current date.
- * Uses a hash of the date string to pick a character from all unique characters
- * that have card images. Returns character info + a random card image.
+ * Get the "Character of the Day" for a given date.
+ * Uses a deterministic shuffle seeded by year+month so that:
+ * 1. Every day in the same month gets a DIFFERENT character (no repeats within a month)
+ * 2. The same day always returns the same character (deterministic)
+ * 3. The dayOffset parameter lets users browse previous/next days
  */
 export async function getCharacterOfTheDay(dayOffset: number = 0) {
   const db = await getDb();
   if (!db) return null;
 
-  // Get today's date string (CT timezone), then apply offset
-  const now = new Date();
-  const ctDate = new Date(now.toLocaleString("en-US", { timeZone: "America/Chicago" }));
-  ctDate.setDate(ctDate.getDate() + dayOffset);
-  const dateStr = `${ctDate.getFullYear()}-${String(ctDate.getMonth() + 1).padStart(2, "0")}-${String(ctDate.getDate()).padStart(2, "0")}`;
-
-  // Get all unique characters that have at least one card with an image
+  // Get all unique characters that have images
   const characters = await db.select({
     characterName: marvelCards.characterName,
-    cardCount: sql<number>`COUNT(*)`,
   }).from(marvelCards)
     .where(sql`${marvelCards.characterName} IS NOT NULL AND ${marvelCards.characterName} != '' AND ${marvelCards.imageUrl} IS NOT NULL AND ${marvelCards.imageUrl} != ''`)
     .groupBy(marvelCards.characterName)
@@ -1165,64 +1160,76 @@ export async function getCharacterOfTheDay(dayOffset: number = 0) {
 
   if (characters.length === 0) return null;
 
-  // Simple hash of date string to pick a character deterministically
-  let hash = 0;
-  for (let i = 0; i < dateStr.length; i++) {
-    hash = ((hash << 5) - hash + dateStr.charCodeAt(i)) | 0;
-  }
-  const index = Math.abs(hash) % characters.length;
-  const chosen = characters[index];
+  // Calculate the target date
+  const now = new Date();
+  const targetDate = new Date(now);
+  targetDate.setDate(targetDate.getDate() + dayOffset);
 
-  // Get a card with an image for this character
+  const year = targetDate.getFullYear();
+  const month = targetDate.getMonth(); // 0-indexed
+  const dayOfMonth = targetDate.getDate(); // 1-indexed
+
+  // Create a deterministic shuffle for this year+month
+  // Simple seeded PRNG (mulberry32)
+  function mulberry32(seed: number) {
+    return function() {
+      let t = seed += 0x6D2B79F5;
+      t = Math.imul(t ^ t >>> 15, t | 1);
+      t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+
+  // Seed based on year and month so each month gets a unique shuffle
+  const seed = year * 13 + month * 7919;
+  const rng = mulberry32(seed);
+
+  // Fisher-Yates shuffle with our seeded RNG
+  const indices = characters.map((_, i) => i);
+  for (let i = indices.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [indices[i], indices[j]] = [indices[j], indices[i]];
+  }
+
+  // dayOfMonth is 1-indexed, use modulo to wrap around if more days than characters
+  const charIndex = indices[(dayOfMonth - 1) % indices.length];
+  const selected = characters[charIndex];
+
+  // Get the best card image for this character (prefer cards with images)
   const cards = await db.select({
-    id: marvelCards.id,
-    cardNumber: marvelCards.cardNumber,
     characterName: marvelCards.characterName,
-    cardType: marvelCards.cardType,
     imageUrl: marvelCards.imageUrl,
-    setId: marvelCards.setId,
+    cardNumber: marvelCards.cardNumber,
+    cardType: marvelCards.cardType,
+    setName: marvelSets.name,
+    setSlug: marvelSets.slug,
   }).from(marvelCards)
-    .where(
-      and(
-        eq(marvelCards.characterName, chosen.characterName),
-        sql`${marvelCards.imageUrl} IS NOT NULL AND ${marvelCards.imageUrl} != ''`
-      )
-    )
+    .leftJoin(marvelSets, eq(marvelCards.setId, marvelSets.id))
+    .where(eq(marvelCards.characterName, selected.characterName))
+    .orderBy(asc(marvelCards.sortOrder))
     .limit(5);
 
-  if (cards.length === 0) return null;
+  const bestCard = cards.find(c => c.imageUrl) || cards[0];
 
-  // Pick a card based on the date hash
-  const cardIndex = Math.abs(hash * 31) % cards.length;
-  const card = cards[cardIndex];
-
-  // Get the set name
-  const setResult = await db.select({ name: marvelSets.name, shortName: marvelSets.shortName })
-    .from(marvelSets)
-    .where(eq(marvelSets.id, card.setId))
-    .limit(1);
-  const setName = setResult[0]?.shortName || setResult[0]?.name || "Unknown Set";
-
-  // Get character content if available (for bio/alignment info)
-  const content = await db.select({
-    keyFacts: characterContent.keyFacts,
-  }).from(characterContent)
-    .where(eq(characterContent.characterName, chosen.characterName))
+  // Get character content for bio/alignment info
+  const slug = characterNameToSlug(selected.characterName);
+  const content = await db.select().from(characterContent)
+    .where(eq(characterContent.slug, slug))
     .limit(1);
 
-  const keyFacts = content[0]?.keyFacts as any;
+  const dateStr = targetDate.toISOString().split("T")[0];
 
   return {
-    characterName: chosen.characterName,
-    slug: characterNameToSlug(chosen.characterName),
-    cardImage: card.imageUrl,
-    cardNumber: card.cardNumber,
-    cardType: card.cardType,
-    setName,
-    cardCount: Number(chosen.cardCount),
-    realName: keyFacts?.realName || null,
-    teams: keyFacts?.teams || [],
-    notablePowers: keyFacts?.notablePowers || [],
+    characterName: selected.characterName,
+    slug,
+    imageUrl: bestCard?.imageUrl || null,
+    cardNumber: bestCard?.cardNumber || null,
+    cardType: bestCard?.cardType || null,
+    setName: bestCard?.setName || null,
+    setSlug: bestCard?.setSlug || null,
+    alignment: content[0]?.keyFacts || null,
+    metaDescription: content[0]?.metaDescription || null,
     date: dateStr,
+    totalCharacters: characters.length,
   };
 }

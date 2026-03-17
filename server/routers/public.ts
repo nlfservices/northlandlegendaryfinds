@@ -440,6 +440,13 @@ Write for the Northland Legendary Finds audience - serious Marvel card collector
   randomCard: publicProcedure.query(async () => {
     return getRandomCard();
   }),
+
+  /** Get character of the day (no repeats within same month) */
+  characterOfTheDay: publicProcedure
+    .input(z.object({ dayOffset: z.number().default(0) }))
+    .query(async ({ input }) => {
+      return getCharacterOfTheDay(input.dayOffset);
+    }),
 });
 
 // ==================== PUBLIC GRADED CARDS ROUTES ====================
@@ -606,17 +613,6 @@ const publicSubscribeRouter = router({
     }),
 });
 
-// ==================== HEROES & VILLAINS OF THE DAY ====================
-
-const publicCharacterOfTheDayRouter = router({
-  /** Get the Heroes & Villains of the Day — deterministic per date, with optional day offset */
-  get: publicProcedure
-    .input(z.object({ dayOffset: z.number().int().min(-365).max(365) }))
-    .query(async ({ input }) => {
-      return getCharacterOfTheDay(input.dayOffset);
-    }),
-});
-
 // ==================== COMBINED PUBLIC ROUTER ====================
 
 export const publicRouter = router({
@@ -628,5 +624,4 @@ export const publicRouter = router({
   graded: publicGradedRouter,
   launch: publicLaunchRouter,
   subscribe: publicSubscribeRouter,
-  characterOfTheDay: publicCharacterOfTheDayRouter,
 });

@@ -703,50 +703,9 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Tested: Nightcrawler page now correctly shows CBH-129_Nightcrawler image instead of Star-Lord
 - [x] Save checkpoint
 
-## Shield-Shaped Popup Redesign
-- [x] Redesign popup as shield shape inspired by NLF dragon shield logo
-- [x] Keep draggable, green border, orange background
-- [x] Verify in browser
-- [x] Save checkpoint
-
-## Shield Popup Color Update
-- [x] Change shield popup fill from orange to cyan-400 blue (matching "100%" in stats bar)
-- [x] Save checkpoint
-
-## Captain America Shield Popup Redesign
-- [x] Upload green nebula background to CDN
-- [x] Redesign popup as circular Captain America-style shield with concentric rings
-- [x] Use green nebula image as background fill
-- [x] Thick green border rings
-- [x] NLF logo in center circle (where email icon was)
-- [x] Green text with white fill
-- [x] Keep draggable
-- [x] Verify in browser
-- [x] Save checkpoint
-
-## Revert to Old Shield Shape with Nebula Background
-- [x] Revert popup to heraldic pointed shield shape with green nebula background fill
-- [x] Keep thick green border, draggable, NLF logo
-- [x] Save checkpoint
-
-## Full-Surface Draggable Shield
-- [x] Make entire shield surface draggable (not just top grip)
-- [x] Show grab cursor on hover over the shield
-- [x] Save checkpoint
-
-## Heroes & Villains Missing + Centering Fix
-- [x] Investigate and restore missing Heroes & Villains of the Day section (recreated component, endpoint, and db function)
-- [x] Fix centering issues on homepage (section restored and centered properly)
-- [x] Save checkpoint
-
-## Heroes & Villains Badge Rename + Reposition
-- [x] Rename "VILLAIN OF THE DAY" / "HERO OF THE DAY" badge to "HEROES & VILLAINS OF THE DAY"
-- [x] Move Heroes & Villains section above "Our Collection" on homepage
-- [x] Save checkpoint
-
-## Heroes & Villains Prev/Next Day Navigation
-- [x] Update backend characterOfTheDay endpoint to accept a dayOffset parameter
-- [x] Update frontend HeroOfTheDay component with prev/next arrow buttons
-- [x] Test navigation in browser (verified: different characters for each day offset)
-- [x] Run vitest tests
+## Heroes & Villains No Repeat in Same Month
+- [x] Update character-of-the-day algorithm to never repeat same character within a month (seeded Fisher-Yates shuffle per month)
+- [x] Test that all days in a month produce unique characters (6 days verified, all different)
+- [x] Fixed GROUP BY SQL error (ONLY_FULL_GROUP_BY mode)
+- [x] Rebuilt HeroOfTheDay component + endpoint after template upgrade loss
 - [x] Save checkpoint
