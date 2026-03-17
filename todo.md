@@ -703,9 +703,9 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Tested: Nightcrawler page now correctly shows CBH-129_Nightcrawler image instead of Star-Lord
 - [x] Save checkpoint
 
-## Heroes & Villains No Repeat in Same Month
-- [x] Update character-of-the-day algorithm to never repeat same character within a month (seeded Fisher-Yates shuffle per month)
-- [x] Test that all days in a month produce unique characters (6 days verified, all different)
-- [x] Fixed GROUP BY SQL error (ONLY_FULL_GROUP_BY mode)
-- [x] Rebuilt HeroOfTheDay component + endpoint after template upgrade loss
-- [x] Save checkpoint
+## Sports Card Shows Directory
+- [x] Research sports card shows across lower 48 states (March-December 2026)
+- [x] Build Card Shows Directory page with A-Z state sorting and date sorting
+- [x] Add route and navigation link
+- [x] Style to match dark/green/orange theme
+- [ ] Write tests

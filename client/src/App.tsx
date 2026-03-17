@@ -36,6 +36,7 @@ import CardDatabase from "./pages/CardDatabase";
 import EbayComps from "./pages/EbayComps";
 import Transparency from "./pages/Transparency";
 import CardDisplay from "./pages/CardDisplay";
+import CardShows from "./pages/CardShows";
 import Characters from "./pages/Characters";
 import CharacterPage from "./pages/CharacterPage";
 import CardDetailPage from "./pages/CardDetailPage";
@@ -92,6 +93,7 @@ function AppRouter() {
           <Route path="/admin" component={AdminDashboard} />
           <Route path="/admin/ebay-comps" component={EbayComps} />
           <Route path="/transparency" component={Transparency} />
+          <Route path="/card-shows" component={CardShows} />
           <Route path="/404" component={NotFound} />
           <Route component={NotFound} />
         </Switch>

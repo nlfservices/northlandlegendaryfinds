@@ -14,7 +14,6 @@ import {
   getCardDetailContentByCardId, upsertCardDetailContent, getAllCardDetailSlugs,
   parseParallels,
   getRandomCard,
-  getCharacterOfTheDay,
 } from "../db";
 import { launchSubscribers } from "../../drizzle/schema";
 import { getDb } from "../db";
@@ -440,13 +439,6 @@ Write for the Northland Legendary Finds audience - serious Marvel card collector
   randomCard: publicProcedure.query(async () => {
     return getRandomCard();
   }),
-
-  /** Get character of the day (no repeats within same month) */
-  characterOfTheDay: publicProcedure
-    .input(z.object({ dayOffset: z.number().default(0) }))
-    .query(async ({ input }) => {
-      return getCharacterOfTheDay(input.dayOffset);
-    }),
 });
 
 // ==================== PUBLIC GRADED CARDS ROUTES ====================
