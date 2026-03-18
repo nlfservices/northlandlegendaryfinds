@@ -703,9 +703,16 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Tested: Nightcrawler page now correctly shows CBH-129_Nightcrawler image instead of Star-Lord
 - [x] Save checkpoint
 
-## Sports Card Shows Directory
-- [x] Research sports card shows across lower 48 states (March-December 2026)
-- [x] Build Card Shows Directory page with A-Z state sorting and date sorting
-- [x] Add route and navigation link
-- [x] Style to match dark/green/orange theme
+## Card Shows Directory SEO Enhancement
+- [x] Research full street addresses for all 462 shows (342 with full addresses)
+- [x] Research website URLs for all show promoters (144 with websites)
+- [x] Add address and website fields to show data structure
+- [x] Add JSON-LD structured data (Event schema) for SEO
+- [x] Add comprehensive meta tags (title, description, Open Graph, Twitter)
+- [x] Add SEO-rich intro content and FAQ section (6 FAQs)
+- [x] Add Google Maps links for addresses
+- [x] Add internal linking and breadcrumbs
+- [x] Make show cards display address and website prominently
+- [x] Fix multi-word city name parsing (63 entries fixed)
 - [ ] Write tests
+- [ ] Save checkpoint
