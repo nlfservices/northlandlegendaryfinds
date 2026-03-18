@@ -741,3 +741,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Write tests for all new auth features (16 tests passing)
 - [x] Test end-to-end in browser
 - [x] Save checkpoint
+
+## Subscriber-Only Section
+- [x] Build subscriberProcedure middleware (requires subscriber or admin role)
+- [x] Build subscriber-only backend procedures for early access repacks and exclusive checklists
+- [x] Build Subscriber Hub page (/subscribers) with early access repacks and exclusive checklists
+- [x] Add subscriber gating UI (blurred content + upgrade CTA for non-subscribers)
+- [x] Add route and navigation link ("The Vault" with crown icon in nav)
+- [x] Write tests for subscriber gating (25 tests covering role gating, data integrity, preview security)
+- [ ] Save checkpoint

@@ -5,7 +5,8 @@
 
 import { useState, useCallback } from "react";
 import { Link, useLocation } from "wouter";
-import { ShoppingCart, Menu, X, Shuffle } from "lucide-react";
+import { ShoppingCart, Menu, X, Shuffle, Crown } from "lucide-react";
+import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
 import { trpc } from "@/lib/trpc";
@@ -18,6 +19,7 @@ export default function Navigation() {
   const [isRandomizing, setIsRandomizing] = useState(false);
   const { totalItems, setIsOpen: setCartOpen } = useCart();
   const utils = trpc.useUtils();
+  const { user } = useAuth();
 
   const navItems = [
     { path: "/shop", label: "Shop" },
@@ -27,6 +29,7 @@ export default function Navigation() {
     { path: "/about", label: "About" },
     { path: "/transparency", label: "Transparency" },
     { path: "/card-shows", label: "Card Shows" },
+    { path: "/subscribers", label: "The Vault", icon: "crown" },
     { path: "/faq", label: "FAQ" },
   ];
 
@@ -80,15 +83,17 @@ export default function Navigation() {
             <div className="hidden lg:flex items-center gap-1">
               {navItems.map((item) => {
                 const isActive = location === item.path;
+                const isVault = item.icon === "crown";
                 return (
                   <Link key={item.path} href={item.path}>
                     <button
-                      className={`px-4 py-2 text-sm font-bold tracking-wide rounded-lg transition-all ${
+                      className={`px-4 py-2 text-sm font-bold tracking-wide rounded-lg transition-all flex items-center gap-1.5 ${
                         isActive
-                          ? "text-primary bg-primary/10"
-                          : "text-foreground/80 hover:text-primary hover:bg-primary/5"
+                          ? isVault ? "text-[oklch(0.75_0.15_85)] bg-[oklch(0.75_0.15_85/0.1)]" : "text-primary bg-primary/10"
+                          : isVault ? "text-[oklch(0.75_0.15_85/0.8)] hover:text-[oklch(0.75_0.15_85)] hover:bg-[oklch(0.75_0.15_85/0.1)]" : "text-foreground/80 hover:text-primary hover:bg-primary/5"
                       }`}
                     >
+                      {isVault && <Crown className="w-3.5 h-3.5" />}
                       {item.label}
                     </button>
                   </Link>
@@ -138,6 +143,7 @@ export default function Navigation() {
             <div className="container py-4 space-y-1">
               {navItems.map((item) => {
                 const isActive = location === item.path;
+                const isVault = item.icon === "crown";
                 return (
                   <Link
                     key={item.path}
@@ -145,12 +151,13 @@ export default function Navigation() {
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <div
-                      className={`px-4 py-3 rounded-lg font-bold tracking-wide transition-colors ${
+                      className={`px-4 py-3 rounded-lg font-bold tracking-wide transition-colors flex items-center gap-2 ${
                         isActive
-                          ? "bg-primary/10 text-primary"
-                          : "text-foreground/80 hover:bg-primary/5 hover:text-primary"
+                          ? isVault ? "bg-[oklch(0.75_0.15_85/0.1)] text-[oklch(0.75_0.15_85)]" : "bg-primary/10 text-primary"
+                          : isVault ? "text-[oklch(0.75_0.15_85/0.8)] hover:bg-[oklch(0.75_0.15_85/0.1)] hover:text-[oklch(0.75_0.15_85)]" : "text-foreground/80 hover:bg-primary/5 hover:text-primary"
                       }`}
                     >
+                      {isVault && <Crown className="w-4 h-4" />}
                       {item.label}
                     </div>
                   </Link>

@@ -41,6 +41,7 @@ import CharacterPage from "./pages/CharacterPage";
 import CardDetailPage from "./pages/CardDetailPage";
 import CardShows from "./pages/CardShows";
 import SubmitShow from "./pages/SubmitShow";
+import SubscriberHub from "./pages/SubscriberHub";
 import { useSessionManager } from "./hooks/useSessionManager";
 
 // Routes that render as full-screen standalone experiences (no nav/footer)
@@ -97,6 +98,7 @@ function AppRouter() {
           <Route path="/transparency" component={Transparency} />
           <Route path="/card-shows" component={CardShows} />
           <Route path="/submit-show" component={SubmitShow} />
+          <Route path="/subscribers" component={SubscriberHub} />
           <Route path="/404" component={NotFound} />
           <Route component={NotFound} />
         </Switch>
