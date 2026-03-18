@@ -703,16 +703,21 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Tested: Nightcrawler page now correctly shows CBH-129_Nightcrawler image instead of Star-Lord
 - [x] Save checkpoint
 
-## Card Shows Directory SEO Enhancement
-- [x] Research full street addresses for all 462 shows (342 with full addresses)
-- [x] Research website URLs for all show promoters (144 with websites)
-- [x] Add address and website fields to show data structure
-- [x] Add JSON-LD structured data (Event schema) for SEO
-- [x] Add comprehensive meta tags (title, description, Open Graph, Twitter)
-- [x] Add SEO-rich intro content and FAQ section (6 FAQs)
-- [x] Add Google Maps links for addresses
-- [x] Add internal linking and breadcrumbs
-- [x] Make show cards display address and website prominently
-- [x] Fix multi-word city name parsing (63 entries fixed)
-- [ ] Write tests
-- [ ] Save checkpoint
+## Submit Your Show Form
+- [x] Create database table for show submissions (showSubmissions)
+- [x] Build tRPC procedure for submitting a show (public)
+- [x] Build Submit Your Show page with form (name, dates, venue, address, city, state, hours, tables, admission, website, email, phone, description)
+- [x] Add route and navigation link from Card Shows page
+- [x] Send owner notification on new submission
+- [x] Style to match dark/green/orange theme
+- [x] Write tests (6 tests passing)
+
+## Homepage Card Shows CTA
+- [x] Add "Find a Card Show Near You" banner/CTA section to homepage
+- [x] Style to match cosmic theme with map/calendar imagery
+- [x] Link to /card-shows page
+
+## Card Shows Hero Map Enhancement
+- [x] Add US map silhouette (lower 48 states) to Card Shows hero section with text/stats inside the map shape
+- [x] Interactive clickable states that jump to show listings
+- [x] Highlighted states that have shows in the directory

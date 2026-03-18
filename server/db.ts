@@ -1135,3 +1135,36 @@ export async function getRandomCard(): Promise<{ cardNumber: string; setSlug: st
     .limit(1);
   return result[0] ?? null;
 }
+
+// ==================== SHOW SUBMISSION HELPERS ====================
+
+import { showSubmissions, InsertShowSubmission, ShowSubmission } from "../drizzle/schema";
+
+/** Insert a new show submission */
+export async function insertShowSubmission(data: InsertShowSubmission): Promise<number | null> {
+  const db = await getDb();
+  if (!db) return null;
+  const [result] = await db.insert(showSubmissions).values(data).$returningId();
+  return result?.id ?? null;
+}
+
+/** Get all show submissions (admin) */
+export async function getAllShowSubmissions(): Promise<ShowSubmission[]> {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(showSubmissions).orderBy(sql`${showSubmissions.createdAt} DESC`);
+}
+
+/** Update show submission status (admin) */
+export async function updateShowSubmissionStatus(
+  id: number,
+  status: "pending" | "approved" | "rejected",
+  adminNotes?: string
+): Promise<boolean> {
+  const db = await getDb();
+  if (!db) return false;
+  const result = await db.update(showSubmissions)
+    .set({ status, ...(adminNotes !== undefined ? { adminNotes } : {}) })
+    .where(eq(showSubmissions.id, id));
+  return (result as any)[0]?.affectedRows > 0;
+}

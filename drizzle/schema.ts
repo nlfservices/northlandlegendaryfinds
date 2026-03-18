@@ -461,3 +461,58 @@ export const cardDetailContent = mysqlTable("card_detail_content", {
 
 export type CardDetailContent = typeof cardDetailContent.$inferSelect;
 export type InsertCardDetailContent = typeof cardDetailContent.$inferInsert;
+
+/**
+ * Show Submissions - promoters submit their card shows for the directory
+ * Admin reviews and approves before they appear in the public directory
+ */
+export const showSubmissions = mysqlTable("show_submissions", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Show/event name */
+  showName: varchar("showName", { length: 255 }).notNull(),
+  /** Promoter/organizer name */
+  promoterName: varchar("promoterName", { length: 255 }).notNull(),
+  /** Contact email */
+  email: varchar("email", { length: 320 }).notNull(),
+  /** Contact phone */
+  phone: varchar("phone", { length: 50 }),
+  /** Show website URL */
+  website: varchar("website", { length: 500 }),
+  /** Venue name */
+  venue: varchar("venue", { length: 255 }),
+  /** Full street address */
+  address: varchar("address", { length: 500 }),
+  /** City */
+  city: varchar("city", { length: 100 }).notNull(),
+  /** State (2-letter code) */
+  state: varchar("state", { length: 2 }).notNull(),
+  /** ZIP code */
+  zipCode: varchar("zipCode", { length: 10 }),
+  /** Start date (stored as UTC timestamp in ms) */
+  startDate: bigint("startDate", { mode: "number" }).notNull(),
+  /** End date (stored as UTC timestamp in ms, same as start for single-day) */
+  endDate: bigint("endDate", { mode: "number" }).notNull(),
+  /** Hours of operation (e.g., "Sat 9am-4pm; Sun 10am-3pm") */
+  hours: varchar("hours", { length: 255 }),
+  /** Number of dealer tables */
+  tableCount: int("tableCount"),
+  /** Admission price description (e.g., "FREE", "$5", "EA $15; GA $10") */
+  admission: varchar("admission", { length: 100 }),
+  /** Additional description/notes */
+  description: text("description"),
+  /** Whether this is a recurring show */
+  isRecurring: boolean("isRecurring").notNull().default(false),
+  /** Recurrence description (e.g., "First Sunday of every month") */
+  recurrenceNote: varchar("recurrenceNote", { length: 255 }),
+  /** Review status */
+  status: mysqlEnum("status", ["pending", "approved", "rejected"]).notNull().default("pending"),
+  /** Admin notes */
+  adminNotes: text("adminNotes"),
+  /** User ID if submitted by logged-in user */
+  submittedByUserId: int("submittedByUserId"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type ShowSubmission = typeof showSubmissions.$inferSelect;
+export type InsertShowSubmission = typeof showSubmissions.$inferInsert;

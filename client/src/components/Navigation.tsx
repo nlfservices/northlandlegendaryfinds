@@ -26,8 +26,8 @@ export default function Navigation() {
     { path: "/checklists", label: "Checklists" },
     { path: "/about", label: "About" },
     { path: "/transparency", label: "Transparency" },
-    { path: "/faq", label: "FAQ" },
     { path: "/card-shows", label: "Card Shows" },
+    { path: "/faq", label: "FAQ" },
   ];
 
   const handleRandomCard = useCallback(async () => {

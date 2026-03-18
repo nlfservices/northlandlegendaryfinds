@@ -36,10 +36,11 @@ import CardDatabase from "./pages/CardDatabase";
 import EbayComps from "./pages/EbayComps";
 import Transparency from "./pages/Transparency";
 import CardDisplay from "./pages/CardDisplay";
-import CardShows from "./pages/CardShows";
 import Characters from "./pages/Characters";
 import CharacterPage from "./pages/CharacterPage";
 import CardDetailPage from "./pages/CardDetailPage";
+import CardShows from "./pages/CardShows";
+import SubmitShow from "./pages/SubmitShow";
 
 // Routes that render as full-screen standalone experiences (no nav/footer)
 const STANDALONE_ROUTES = ["/card-display"];
@@ -94,6 +95,7 @@ function AppRouter() {
           <Route path="/admin/ebay-comps" component={EbayComps} />
           <Route path="/transparency" component={Transparency} />
           <Route path="/card-shows" component={CardShows} />
+          <Route path="/submit-show" component={SubmitShow} />
           <Route path="/404" component={NotFound} />
           <Route component={NotFound} />
         </Switch>
