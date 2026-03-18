@@ -17,6 +17,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import SEO from "@/components/SEO";
 import { trpc } from "@/lib/trpc";
+import HoneypotField from "@/components/HoneypotField";
 
 const US_STATES = [
   { value: "AL", label: "Alabama" }, { value: "AZ", label: "Arizona" }, { value: "AR", label: "Arkansas" },
@@ -60,6 +61,8 @@ export default function SubmitShow() {
     isRecurring: false,
     recurrenceNote: "",
   });
+  const [honeypot, setHoneypot] = useState("");
+  const [formLoadedAt] = useState(() => Date.now());
 
   const submitMutation = trpc.public.cardShows.submit.useMutation({
     onSuccess: () => {
@@ -73,6 +76,17 @@ export default function SubmitShow() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Bot protection: honeypot check
+    if (honeypot) {
+      toast.success("Show submitted successfully!"); // Fake success for bots
+      return;
+    }
+    // Bot protection: time-based check (form filled too fast = bot)
+    if (Date.now() - formLoadedAt < 3000) {
+      toast.success("Show submitted successfully!"); // Fake success for bots
+      return;
+    }
 
     // Validate required fields
     if (!form.showName || !form.promoterName || !form.email || !form.city || !form.state || !form.startDate) {
@@ -174,6 +188,7 @@ export default function SubmitShow() {
       <section className="pb-16">
         <div className="container max-w-3xl">
           <form onSubmit={handleSubmit} className="space-y-8">
+            <HoneypotField value={honeypot} onChange={setHoneypot} />
 
             {/* Show Details */}
             <div className="rounded-xl border border-border bg-card p-6 space-y-5">

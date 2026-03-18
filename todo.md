@@ -721,3 +721,23 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add US map silhouette (lower 48 states) to Card Shows hero section with text/stats inside the map shape
 - [x] Interactive clickable states that jump to show listings
 - [x] Highlighted states that have shows in the directory
+
+## Auth System Enhancement
+- [x] Update users table: add subscriber role, isActive field, sessionToken field
+- [x] Create activity_logs table for tracking all auth events
+- [x] Push database migrations
+- [x] Build activity logging service (login, logout, role changes, deactivation)
+- [x] Build bot protection: honeypot fields + rate limiting on public forms
+- [x] Build single-session enforcement (one active session per user)
+- [x] Add isActive checks to auth middleware (block disabled accounts)
+- [x] Build SendGrid email service for welcome/notification emails
+- [x] Build GoHighLevel CRM sync (create contacts on registration)
+- [x] Build Admin User Management page (list users, change roles, toggle active, view logs)
+- [x] Build client-side inactivity timeout (15 min) with Remember Me (7 days)
+- [x] Add session warning toast at 14 minutes
+- [x] Add session polling (validate every 30 seconds + on window focus)
+- [x] Add bot protection to existing public forms (show submissions, newsletter)
+- [x] Add role helper functions: isSubscriber(), canAccessPremium()
+- [x] Write tests for all new auth features (16 tests passing)
+- [x] Test end-to-end in browser
+- [x] Save checkpoint

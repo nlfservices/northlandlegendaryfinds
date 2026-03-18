@@ -292,6 +292,17 @@ class SDKServer {
       throw ForbiddenError("User not found");
     }
 
+    // Check if account is active
+    if (!user.isActive) {
+      throw ForbiddenError("Account has been deactivated. Please contact support.");
+    }
+
+    // Single-session enforcement: validate session token matches
+    const sessionTokenCookie = cookies.get("nlf_session_id");
+    if (user.sessionToken && sessionTokenCookie && user.sessionToken !== sessionTokenCookie) {
+      throw ForbiddenError("Session expired. You have been logged in from another device.");
+    }
+
     await db.upsertUser({
       openId: user.openId,
       lastSignedIn: signedInAt,

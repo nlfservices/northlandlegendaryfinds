@@ -41,6 +41,7 @@ import CharacterPage from "./pages/CharacterPage";
 import CardDetailPage from "./pages/CardDetailPage";
 import CardShows from "./pages/CardShows";
 import SubmitShow from "./pages/SubmitShow";
+import { useSessionManager } from "./hooks/useSessionManager";
 
 // Routes that render as full-screen standalone experiences (no nav/footer)
 const STANDALONE_ROUTES = ["/card-display"];
@@ -105,6 +106,12 @@ function AppRouter() {
   );
 }
 
+/** Session manager wrapper - must be inside tRPC provider */
+function SessionGuard({ children }: { children: React.ReactNode }) {
+  useSessionManager();
+  return <>{children}</>;
+}
+
 function App() {
   return (
     <ErrorBoundary>
@@ -112,8 +119,10 @@ function App() {
         <CartProvider>
           <TooltipProvider>
             <Toaster />
-            <EmailCapturePopup />
-            <AppRouter />
+            <SessionGuard>
+              <EmailCapturePopup />
+              <AppRouter />
+            </SessionGuard>
           </TooltipProvider>
         </CartProvider>
       </ThemeProvider>

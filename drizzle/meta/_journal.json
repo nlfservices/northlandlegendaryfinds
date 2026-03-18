@@ -78,6 +78,13 @@
       "when": 1773860269073,
       "tag": "0010_luxuriant_stick",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "5",
+      "when": 1773866432210,
+      "tag": "0011_safe_manta",
+      "breakpoints": true
     }
   ]
 }

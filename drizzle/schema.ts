@@ -1,7 +1,8 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, boolean, json, bigint, decimal } from "drizzle-orm/mysql-core";
+import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, boolean, json, bigint, decimal, index } from "drizzle-orm/mysql-core";
 
 /**
  * Core user table backing auth flow.
+ * Roles: free (default for new signups), subscriber (paid/premium), admin (full access)
  */
 export const users = mysqlTable("users", {
   id: int("id").autoincrement().primaryKey(),
@@ -9,7 +10,13 @@ export const users = mysqlTable("users", {
   name: text("name"),
   email: varchar("email", { length: 320 }),
   loginMethod: varchar("loginMethod", { length: 64 }),
-  role: mysqlEnum("role", ["user", "admin"]).default("user").notNull(),
+  role: mysqlEnum("role", ["free", "subscriber", "admin"]).default("free").notNull(),
+  /** Whether the account is active (0 = disabled by admin) */
+  isActive: boolean("isActive").notNull().default(true),
+  /** Active session token for single-session enforcement (64-char hex) */
+  sessionToken: varchar("sessionToken", { length: 64 }),
+  /** Whether user chose "Remember Me" on login */
+  rememberMe: boolean("rememberMe").notNull().default(false),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
   lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(),
@@ -19,6 +26,36 @@ export const users = mysqlTable("users", {
 
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
+
+/**
+ * Activity Logs — tracks all auth-related events for audit trail
+ * Captures IP, user agent, and contextual details for each action
+ */
+export const activityLogs = mysqlTable("activity_logs", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Reference to users.id */
+  userId: int("userId").notNull(),
+  /** Email at time of action (denormalized for audit) */
+  userEmail: varchar("userEmail", { length: 320 }).notNull(),
+  /** Display name at time of action (denormalized for audit) */
+  userName: varchar("userName", { length: 255 }).notNull(),
+  /** Action type: login, login_failed, logout, password_reset, user_invited, user_role_changed, user_deactivated, user_activated, session_invalidated */
+  action: varchar("action", { length: 100 }).notNull(),
+  /** JSON string with extra context */
+  details: text("details"),
+  /** Client IP address */
+  ipAddress: varchar("ipAddress", { length: 45 }),
+  /** Browser user agent */
+  userAgent: text("userAgent"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => ({
+  userIdIdx: index("activity_logs_userId_idx").on(table.userId),
+  actionIdx: index("activity_logs_action_idx").on(table.action),
+  createdAtIdx: index("activity_logs_createdAt_idx").on(table.createdAt),
+}));
+
+export type ActivityLog = typeof activityLogs.$inferSelect;
+export type InsertActivityLog = typeof activityLogs.$inferInsert;
 
 /**
  * Repack products - each represents a repack series (e.g., "NLF Variant Vol. 1")

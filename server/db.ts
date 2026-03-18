@@ -1,7 +1,7 @@
 import { eq, desc, asc, and, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import {
-  InsertUser, users,
+  InsertUser, users, User,
   repackProducts, InsertRepackProduct, RepackProduct,
   checklistItems, InsertChecklistItem, ChecklistItem,
   pulls, InsertPull, Pull,
@@ -10,6 +10,7 @@ import {
   inventoryCards, InsertInventoryCard, InventoryCard,
   characterContent, InsertCharacterContent, CharacterContent,
   cardDetailContent, InsertCardDetailContent, CardDetailContent,
+  activityLogs, InsertActivityLog, ActivityLog,
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -1167,4 +1168,123 @@ export async function updateShowSubmissionStatus(
     .set({ status, ...(adminNotes !== undefined ? { adminNotes } : {}) })
     .where(eq(showSubmissions.id, id));
   return (result as any)[0]?.affectedRows > 0;
+}
+
+
+// ==================== ACTIVITY LOG HELPERS ====================
+
+/** Log an activity event */
+export async function logActivity(log: InsertActivityLog): Promise<void> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot log activity: database not available");
+    return;
+  }
+  try {
+    await db.insert(activityLogs).values(log);
+  } catch (error) {
+    console.error("[Database] Failed to log activity:", error);
+  }
+}
+
+/** Get activity logs for a specific user */
+export async function getActivityLogsByUserId(userId: number, limit = 50): Promise<ActivityLog[]> {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(activityLogs)
+    .where(eq(activityLogs.userId, userId))
+    .orderBy(desc(activityLogs.createdAt))
+    .limit(limit);
+}
+
+/** Get recent activity logs (admin) */
+export async function getRecentActivityLogs(limit = 100): Promise<ActivityLog[]> {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(activityLogs)
+    .orderBy(desc(activityLogs.createdAt))
+    .limit(limit);
+}
+
+/** Get activity logs filtered by action type */
+export async function getActivityLogsByAction(action: string, limit = 50): Promise<ActivityLog[]> {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(activityLogs)
+    .where(eq(activityLogs.action, action))
+    .orderBy(desc(activityLogs.createdAt))
+    .limit(limit);
+}
+
+// ==================== USER MANAGEMENT HELPERS ====================
+
+/** Get all users (admin) */
+export async function getAllUsers(): Promise<User[]> {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(users).orderBy(desc(users.createdAt));
+}
+
+/** Get user by ID */
+export async function getUserById(id: number): Promise<User | null> {
+  const db = await getDb();
+  if (!db) return null;
+  const result = await db.select().from(users).where(eq(users.id, id)).limit(1);
+  return result[0] ?? null;
+}
+
+/** Update user role */
+export async function updateUserRole(id: number, role: "free" | "subscriber" | "admin"): Promise<boolean> {
+  const db = await getDb();
+  if (!db) return false;
+  const result = await db.update(users).set({ role }).where(eq(users.id, id));
+  return (result as any)[0]?.affectedRows > 0;
+}
+
+/** Toggle user active status */
+export async function setUserActive(id: number, isActive: boolean): Promise<boolean> {
+  const db = await getDb();
+  if (!db) return false;
+  const updateData: Record<string, unknown> = { isActive };
+  // If deactivating, also clear their session token to force logout
+  if (!isActive) {
+    updateData.sessionToken = null;
+  }
+  const result = await db.update(users).set(updateData).where(eq(users.id, id));
+  return (result as any)[0]?.affectedRows > 0;
+}
+
+/** Update user session token (for single-session enforcement) */
+export async function updateUserSessionToken(openId: string, sessionToken: string | null): Promise<boolean> {
+  const db = await getDb();
+  if (!db) return false;
+  const result = await db.update(users).set({ sessionToken }).where(eq(users.openId, openId));
+  return (result as any)[0]?.affectedRows > 0;
+}
+
+/** Get user session token for validation */
+export async function getUserSessionToken(openId: string): Promise<string | null> {
+  const db = await getDb();
+  if (!db) return null;
+  const result = await db.select({ sessionToken: users.sessionToken }).from(users).where(eq(users.openId, openId)).limit(1);
+  return result[0]?.sessionToken ?? null;
+}
+
+/** Update user rememberMe preference */
+export async function updateUserRememberMe(openId: string, rememberMe: boolean): Promise<boolean> {
+  const db = await getDb();
+  if (!db) return false;
+  const result = await db.update(users).set({ rememberMe }).where(eq(users.openId, openId));
+  return (result as any)[0]?.affectedRows > 0;
+}
+
+/** Get user count by role */
+export async function getUserCountByRole(): Promise<{ role: string; count: number }[]> {
+  const db = await getDb();
+  if (!db) return [];
+  const result = await db.select({
+    role: users.role,
+    count: sql<number>`COUNT(*)`,
+  }).from(users).groupBy(users.role);
+  return result.map(r => ({ role: r.role, count: Number(r.count) }));
 }

@@ -3,6 +3,7 @@ import { X, Loader2, CheckCircle, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
+import HoneypotField from "@/components/HoneypotField";
 
 /**
  * Smart Email Capture Popup Component — Top Right Corner Style
@@ -21,6 +22,7 @@ export default function EmailCapturePopup() {
   const [isExitIntent, setIsExitIntent] = useState(false);
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [honeypot, setHoneypot] = useState("");
 
   const subscribeMutation = trpc.public.subscribe.submit.useMutation({
     onSuccess: (data) => {
@@ -78,6 +80,11 @@ export default function EmailCapturePopup() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    // Bot protection
+    if (honeypot) {
+      setSubmitted(true);
+      return;
+    }
     if (!email.trim() || subscribeMutation.isPending) return;
 
     subscribeMutation.mutate({
@@ -136,6 +143,7 @@ export default function EmailCapturePopup() {
 
               {/* Form */}
               <form onSubmit={handleSubmit} className="space-y-3">
+                <HoneypotField value={honeypot} onChange={setHoneypot} />
                 <input
                   type="email"
                   placeholder="Enter your email"
