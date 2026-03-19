@@ -775,4 +775,27 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add user login icon button to public nav bar (for regular customers)
 - [x] Block /matrix from robots.txt and sitemap
 - [x] Write tests for access code gate and lockout (13 tests)
+- [x] Save checkpoint (d3cc4a03)
+
+## Forgot PIN - Temporary Bypass Link
+- [x] Server-side: generate one-time bypass token (crypto random, 15 min expiry)
+- [x] Server-side: send bypass link to admin email via notification system
+- [x] Server-side: verify bypass token endpoint (single-use, expires after 15 min)
+- [x] Frontend: add "Forgot PIN?" link to Matrix gate page
+- [x] Frontend: handle bypass token from URL, auto-grant access
+- [x] Write tests for bypass token generation, verification, and expiry (24 tests)
 - [ ] Save checkpoint
+
+## Branded Downloadable PDF Checklists
+- [ ] Build server-side PDF generator with NLF branding (logo, colors, footer)
+- [ ] Include full card list with checkboxes for each parallel/variant
+- [ ] Include odds table if data available
+- [ ] Add QR code linking back to set page on northlandlegendaryfinds.com
+- [ ] Add download link/button on set pages
+- [ ] Write tests for PDF generation endpoint
+
+## Card Database Page Redesign
+- [ ] Make set cards more informative (release date, description, box types, etc.)
+- [ ] Add upcoming/future set placeholders for 2026 sets
+- [ ] Improve page layout and organization
+- [ ] Add download checklist button to each set card
