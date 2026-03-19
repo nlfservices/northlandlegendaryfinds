@@ -751,7 +751,7 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Seed database with current Top 5 data
 - [x] Write tests for Top 5 CRUD routes (15 tests passing)
 - [x] Verify in browser and run pre-checkpoint verification
-- [ ] Save checkpoint
+- [x] Save checkpoint (8b6d666e)
 
 ## Auto-Crop Card Upload Feature (Green Screen Removal)
 - [x] Build server-side green screen removal endpoint using sharp (chroma key)
@@ -760,4 +760,7 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Seed database with current Top 5 data
 - [x] Write tests for auto-crop and Top 5 CRUD (15 tests)
 - [x] Verify in browser and run pre-checkpoint verification
-- [ ] Save checkpoint
+- [x] Save checkpoint (8b6d666e)
+
+## Card Detail Page Heading Fix
+- [x] Change "About This Card" heading to "About This Character" (images are character art, not card photos)
