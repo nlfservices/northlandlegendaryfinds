@@ -13,6 +13,7 @@ import { useLaunchCountdown } from "@/hooks/useLaunchCountdown";
 import ProductCard from "@/components/ProductCard";
 import SEO, { organizationJsonLd, websiteJsonLd, localBusinessJsonLd } from "@/components/SEO";
 import DoomsdaySection from "@/components/DoomsdaySection";
+import MarvelousTop5 from "@/components/MarvelousTop5";
 
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hero-banner-jniBj55ukeiEDpJxc2aLgB.webp";
 const NLF_PACK = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-nlf-variant-2CkMPP3CsZhFkFXpzSuZkV.webp";
@@ -129,6 +130,9 @@ export default function Home() {
 
       {/* ===== DOOMSDAY — CHARACTER INTEL HUB ===== */}
       <DoomsdaySection />
+
+      {/* ===== MARVELOUS TOP 5 ===== */}
+      <MarvelousTop5 />
 
       {/* ===== THE VARIANT SERIES — LAUNCH EXCLUSIVE ===== */}
       {variantSeries && (

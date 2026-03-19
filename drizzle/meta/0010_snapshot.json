@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "445c0dc4-5ac5-4bda-b68c-0ace73d04589",
+  "id": "9a9ce1f9-69fb-464c-a839-9a5a3b494050",
   "prevId": "4d466e31-9282-4fae-9154-e4be1403ab09",
   "tables": {
     "articles": {
@@ -1753,7 +1753,7 @@
         },
         "role": {
           "name": "role",
-          "type": "enum('user','admin')",
+          "type": "enum('user','admin','subscriber')",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,

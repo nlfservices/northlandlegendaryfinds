@@ -732,3 +732,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] RULE ESTABLISHED: Before every checkpoint, run verification checklist from RULES.md
 - [x] RULE ESTABLISHED: Baseline is checkpoint 65b9c153 — no content may be removed unless user explicitly requests it
 - [x] RULE ESTABLISHED: See /RULES.md for full details and verification script
+
+## Marvelous Top 5 Homepage Section
+- [x] Research current top Marvel buzz topics and find matching cards in NLF database (5 characters, all with card images)
+- [x] Build MarvelousTop5 component with ranking list, spotlight panel, card images, backstory, and source backlinks
+- [x] Insert into Home.tsx after Doomsday section using targeted edit (no full rewrite)
+- [x] Verify in browser — all sections intact, Doomsday present, no CardShowcase
+- [x] All 174 tests passing (16 test files)
+- [x] Pre-checkpoint verification checklist: ALL PASSED
+- [ ] Save checkpoint
