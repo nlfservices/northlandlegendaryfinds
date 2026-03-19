@@ -1,0 +1,9 @@
+{
+  "query": "SELECT DISTINCT cardName FROM inventory_cards WHERE cardName LIKE '%Thor%' OR cardName LIKE '%Spider%' OR cardName LIKE '%Doom%' OR cardName LIKE '%Hulk%' OR cardName LIKE '%Loki%' OR cardName LIKE '%Magneto%' OR cardName LIKE '%Cyclops%' LIMIT 20;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT DISTINCT cardName FROM inventory_cards WHERE cardName LIKE '%Thor%' OR cardName LIKE '%Spider%' OR cardName LIKE '%Doom%' OR cardName LIKE '%Hulk%' OR cardName LIKE '%Loki%' OR cardName LIKE '%Magneto%' OR cardName LIKE '%Cyclops%' LIMIT 20;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 363
+}

@@ -703,18 +703,17 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Tested: Nightcrawler page now correctly shows CBH-129_Nightcrawler image instead of Star-Lord
 - [x] Save checkpoint
 
-## Transparency Page Redesign
-- [x] Research repack industry crackdown articles (Athlon Sports, CLLCT)
-- [x] Audit current Transparency page content and layout
-- [x] Generate images for Transparency page (5 images: hero, industry crisis split, reputation workspace, live streaming, checklist verification)
-- [x] Redesign Transparency page with industry context, reputation-first messaging, and images
-- [x] Add references to Whatnot repack crackdown and industry issues (linked both articles)
-- [x] Emphasize NLF's commitment to building reputation as top priority
-- [x] Verify in browser — all sections rendering correctly, 127 tests passing
-- [x] Save checkpoint
+## Heroes and Villains Section Restoration
+- [ ] Find the Heroes and Villains section from git history
+- [ ] Restore the section to Home.tsx
+- [ ] Verify in browser
+- [ ] Save checkpoint
 
-## Customer Testimonials on Transparency Page
-- [x] Review current Transparency page structure and find best placement
-- [x] Design and implement customer testimonials section with social proof (featured + 6 cards + stats bar)
+## Doomsday Homepage Section
+- [x] Research Avengers: Doomsday confirmed cast and characters
+- [x] Research character-specific news, rumors, and article backlinks for each Doomsday character (20 characters, parallel research)
+- [x] Cross-reference Doomsday characters with NLF card database images (15 of 16 have cards)
+- [x] Generate Doctor Doom hero image and section background visuals
+- [x] Build rotating character spotlight section with news intel and backlinks (16 characters, 32 article links)
 - [x] Verify in browser and run tests (127 tests passing)
 - [ ] Save checkpoint
