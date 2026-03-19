@@ -799,7 +799,15 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Write tests for PDF download links (8 tests)
 
 ## Card Database Page Redesign
-- [ ] Make set cards more informative (release date, description, box types, etc.)
-- [ ] Add upcoming/future set placeholders for 2026 sets
-- [ ] Improve page layout and organization
+- [x] Make set cards more informative (release date, description, box types, etc.)
+- [x] Add upcoming/future set placeholders for 2026 sets (Chrome Deadpool, Studios Chrome, Brooklyn Collection Cap, Finest FF)
+- [x] Improve page layout and organization (2-column grid, tier badges, highlight tags)
 - [x] Add download checklist button to each set card
+
+## Card Database Page Redesign (Full)
+- [x] Add release dates, descriptions, and box type info to each set card
+- [x] Add 2026 upcoming set placeholders (Coming Soon styling with dashed borders)
+- [x] Improve overall page layout and organization
+- [ ] Verify Matrix admin portal works end-to-end
+- [ ] Verify Legendary Gallery upload flow works
+- [ ] Save checkpoint

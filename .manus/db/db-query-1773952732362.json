@@ -1,0 +1,73 @@
+{
+  "query": "SELECT id, name, shortName, slug, releaseYear, totalCards, description FROM marvel_sets ORDER BY name;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, name, shortName, slug, releaseYear, totalCards, description FROM marvel_sets ORDER BY name;",
+  "rows": [
+    {
+      "id": "1",
+      "name": "2025 Topps Chrome",
+      "shortName": "Chrome",
+      "slug": "2025-topps-chrome",
+      "releaseYear": "2025",
+      "totalCards": "361",
+      "description": "NULL"
+    },
+    {
+      "id": "2",
+      "name": "2025 Topps Comic Book Heroes",
+      "shortName": "Comic Heroes",
+      "slug": "2025-topps-comic-book-heroes",
+      "releaseYear": "2025",
+      "totalCards": "150",
+      "description": "NULL"
+    },
+    {
+      "id": "3",
+      "name": "2025 Topps Marvel Mint",
+      "shortName": "Marvel Mint",
+      "slug": "2025-topps-marvel-mint",
+      "releaseYear": "2025",
+      "totalCards": "156",
+      "description": "NULL"
+    },
+    {
+      "id": "4",
+      "name": "2025 Topps Marvel Sapphire",
+      "shortName": "Sapphire",
+      "slug": "2025-topps-marvel-sapphire",
+      "releaseYear": "2025",
+      "totalCards": "225",
+      "description": "NULL"
+    },
+    {
+      "id": "5",
+      "name": "2025 Topps Marvel Studios",
+      "shortName": "Marvel Studios",
+      "slug": "2025-topps-marvel-studios",
+      "releaseYear": "2025",
+      "totalCards": "543",
+      "description": "NULL"
+    },
+    {
+      "id": "6",
+      "name": "2025 Topps Marvel Studios Sapphire",
+      "shortName": "Studios Sapphire",
+      "slug": "2025-topps-marvel-studios-sapphire",
+      "releaseYear": "2025",
+      "totalCards": "210",
+      "description": "NULL"
+    },
+    {
+      "id": "30001",
+      "name": "2025 Topps Marvel Studios: The Collector",
+      "shortName": "The Collector",
+      "slug": "2025-marvel-the-collector",
+      "releaseYear": "2025",
+      "totalCards": "257",
+      "description": "2025 Topps Marvel Studios: The Collector features MCU Perfection base cards, Marvel Tomorrow inserts, Villainy villains, Show Stoppers action scenes, Infinity Gauntlet Thanos cards, plus autographs from top MCU actors including Treasures of Asgard and The Collector's Museum relic cards. 3 packs per box, 1 card per pack."
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tshortName\tslug\treleaseYear\ttotalCards\tdescription\n1\t2025 Topps Chrome\tChrome\t2025-topps-chrome\t2025\t361\tNULL\n2\t2025 Topps Comic Book Heroes\tComic Heroes\t2025-topps-comic-book-heroes\t2025\t150\tNULL\n3\t2025 Topps Marvel Mint\tMarvel Mint\t2025-topps-marvel-mint\t2025\t156\tNULL\n4\t2025 Topps Marvel Sapphire\tSapphire\t2025-topps-marvel-sapphire\t2025\t225\tNULL\n5\t2025 Topps Marvel Studios\tMarvel Studios\t2025-topps-marvel-studios\t2025\t543\tNULL\n6\t2025 Topps Marvel Studios Sapphire\tStudios Sapphire\t2025-topps-marvel-studios-sapphire\t2025\t210\tNULL\n30001\t2025 Topps Marvel Studios: The Collector\tThe Collector\t2025-marvel-the-collector\t2025\t257\t2025 Topps Marvel Studios: The Collector features MCU Perfection base cards, Marvel Tomorrow inserts, Villainy villains, Show Stoppers action scenes, Infinity Gauntlet Thanos cards, plus autographs from top MCU actors including Treasures of Asgard and The Collector's Museum relic cards. 3 packs per box, 1 card per pack.\n",
+  "stderr": "",
+  "execution_time_ms": 394
+}

@@ -12,9 +12,11 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import {
   Search, ChevronRight, BookOpen, Layers, Hash, ArrowLeft,
-  Star, X, Grid3X3, List, DollarSign, Sparkles, Download, FileText, BarChart3
+  Star, X, Grid3X3, List, DollarSign, Sparkles, Download, FileText, BarChart3,
+  Calendar, Package, Crown, Gem, Clock, Rocket, Info
 } from "lucide-react";
 import { getSetPdfLinks } from "@/lib/pdfDownloads";
+import { getSetMetadata, getTierStyle, UPCOMING_SETS, type SetMetadata } from "@/lib/setMetadata";
 import { useLocation } from "wouter";
 import { CARD_TYPE_TO_THEME } from "./CardDisplay";
 import SEO, { breadcrumbJsonLd } from "@/components/SEO";
@@ -315,9 +317,13 @@ function SetBrowser() {
     document.title = "Marvel Card Database | 2025 Topps Sets | Northland Legendary Finds";
     const meta = document.querySelector('meta[name="description"]');
     if (meta) {
-      meta.setAttribute("content", "Browse every 2025 Topps Marvel trading card set. Complete checklists for Chrome, Comic Book Heroes, Marvel Mint, Sapphire, and more. Know what you could pull in NLF repacks.");
+      meta.setAttribute("content", "Browse every 2025 Topps Marvel trading card set. Complete checklists, odds sheets, and card info for Chrome, Comic Book Heroes, Marvel Mint, Sapphire, and more.");
     }
   }, []);
+
+  // Separate 2024 and 2025 sets
+  const sets2025 = useMemo(() => sets?.filter(s => s.releaseYear === 2025) || [], [sets]);
+  const sets2024 = useMemo(() => sets?.filter(s => s.releaseYear === 2024) || [], [sets]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -337,12 +343,33 @@ function SetBrowser() {
               <BookOpen className="w-8 h-8 text-primary" />
             </div>
             <div>
-              <h1 className="text-3xl lg:text-4xl font-bold">Card Database</h1>
-              <p className="text-muted-foreground mt-1">
-                Browse every 2025 Topps Marvel card set — know what you could pull
+              <h1 className="text-3xl lg:text-4xl font-bold">Marvel Card Database</h1>
+              <p className="text-muted-foreground mt-1 max-w-xl">
+                Your complete guide to every 2024-2025 Topps Marvel trading card set. Browse checklists, download odds sheets, and discover what you could pull.
               </p>
             </div>
           </div>
+
+          {/* Stats bar */}
+          {sets && (
+            <div className="flex items-center gap-6 mt-4 text-sm">
+              <div className="flex items-center gap-2 text-primary">
+                <Layers className="w-4 h-4" />
+                <span className="font-semibold">{sets.length}</span>
+                <span className="text-muted-foreground">sets</span>
+              </div>
+              <div className="flex items-center gap-2 text-primary">
+                <Hash className="w-4 h-4" />
+                <span className="font-semibold">{sets.reduce((sum, s) => sum + (s.totalCards ?? 0), 0).toLocaleString()}</span>
+                <span className="text-muted-foreground">total cards</span>
+              </div>
+              <div className="flex items-center gap-2 text-primary">
+                <FileText className="w-4 h-4" />
+                <span className="font-semibold">17</span>
+                <span className="text-muted-foreground">downloadable PDFs</span>
+              </div>
+            </div>
+          )}
 
           {/* Search */}
           <div className="relative max-w-lg mt-6">
@@ -420,108 +447,144 @@ function SetBrowser() {
         {/* Set Grid */}
         {(!searchQuery || searchQuery.length < 2) && (
           <>
+            {/* ===== 2025 SETS ===== */}
             <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
               <Layers className="w-5 h-5 text-primary" />
               2025 Topps Marvel Sets
             </h2>
 
             {isLoading ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {[1, 2, 3, 4, 5, 6].map((i) => (
-                  <div key={i} className="h-72 rounded-xl bg-card animate-pulse border border-border" />
+                  <div key={i} className="h-64 rounded-xl bg-card animate-pulse border border-border" />
                 ))}
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {sets?.map((set) => (
-                  <Link key={set.id} href={`/cards/${set.slug}`}>
-                    <article className="group relative overflow-hidden rounded-xl border-2 border-primary/20 hover:border-primary/60 transition-all duration-300 hover:shadow-xl hover:shadow-primary/15 cursor-pointer">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {sets2025.map((set) => {
+                  const meta = getSetMetadata(set.slug);
+                  const tierStyle = meta ? getTierStyle(meta.tier) : null;
+                  const pdfs = getSetPdfLinks(set.slug);
+                  return (
+                    <article key={set.id} className="group relative overflow-hidden rounded-xl border-2 border-primary/20 hover:border-primary/60 transition-all duration-300 hover:shadow-xl hover:shadow-primary/15">
                       {/* Green gradient background */}
                       <div className="absolute inset-0 bg-gradient-to-br from-[oklch(0.20_0.08_145)] via-[oklch(0.15_0.06_155)] to-[oklch(0.12_0.04_165)]" />
                       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,oklch(0.30_0.12_145/0.3),transparent_60%)]" />
                       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,oklch(0.25_0.10_195/0.2),transparent_60%)]" />
                       
                       <div className="relative z-10 p-5">
-                        {/* Box image + info layout */}
+                        {/* Top row: Box image + info */}
                         <div className="flex gap-4 items-start">
                           {/* Box image */}
-                          <div className="shrink-0 w-28 h-36 rounded-lg overflow-hidden border border-primary/20 bg-black/30 shadow-lg group-hover:scale-105 transition-transform duration-300">
-                            {set.imageUrl ? (
-                              <img
-                                src={set.imageUrl}
-                                alt={`${set.name} box`}
-                                className="w-full h-full object-contain p-1"
-                                loading="lazy"
-                              />
-                            ) : (
-                              <div className="w-full h-full flex items-center justify-center">
-                                <Layers className="w-10 h-10 text-primary/40" />
-                              </div>
-                            )}
-                          </div>
+                          <Link href={`/cards/${set.slug}`}>
+                            <div className="shrink-0 w-28 h-36 rounded-lg overflow-hidden border border-primary/20 bg-black/30 shadow-lg group-hover:scale-105 transition-transform duration-300 cursor-pointer">
+                              {set.imageUrl ? (
+                                <img
+                                  src={set.imageUrl}
+                                  alt={`${set.name} box`}
+                                  className="w-full h-full object-contain p-1"
+                                  loading="lazy"
+                                />
+                              ) : (
+                                <div className="w-full h-full flex items-center justify-center">
+                                  <Layers className="w-10 h-10 text-primary/40" />
+                                </div>
+                              )}
+                            </div>
+                          </Link>
 
                           {/* Set info */}
                           <div className="flex-1 min-w-0">
-                            <h3 className="font-bold text-base leading-tight text-foreground group-hover:text-primary transition-colors">
-                              {set.name}
-                            </h3>
-                            {set.shortName && set.shortName !== set.name && (
-                              <p className="text-xs text-primary/70 font-medium mt-0.5">{set.shortName}</p>
-                            )}
+                            <div className="flex items-start justify-between gap-2">
+                              <Link href={`/cards/${set.slug}`}>
+                                <h3 className="font-bold text-base leading-tight text-foreground group-hover:text-primary transition-colors cursor-pointer">
+                                  {set.name}
+                                </h3>
+                              </Link>
+                              {tierStyle && (
+                                <span className={`shrink-0 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold border ${tierStyle.bg} ${tierStyle.text}`}>
+                                  {meta?.tier === 'ultra-premium' && <Crown className="w-3 h-3" />}
+                                  {meta?.tier === 'premium' && <Gem className="w-3 h-3" />}
+                                  {tierStyle.label}
+                                </span>
+                              )}
+                            </div>
 
-                            <div className="flex items-center gap-3 mt-3 text-sm">
+                            {/* Release date + card count + box types */}
+                            <div className="flex items-center gap-3 mt-2 text-sm flex-wrap">
+                              {meta && (
+                                <div className="flex items-center gap-1.5 text-muted-foreground">
+                                  <Calendar className="w-3.5 h-3.5" />
+                                  <span>{meta.releaseDate}</span>
+                                </div>
+                              )}
                               <div className="flex items-center gap-1.5 text-primary/80">
                                 <Hash className="w-3.5 h-3.5" />
                                 <span className="font-semibold">{set.totalCards}</span>
                                 <span className="text-muted-foreground text-xs">cards</span>
                               </div>
-                              <div className="flex items-center gap-1.5 text-primary/80">
-                                <Star className="w-3.5 h-3.5" />
-                                <span className="font-semibold">{set.releaseYear}</span>
-                              </div>
+                              {meta && meta.boxTypes.length > 0 && (
+                                <div className="flex items-center gap-1.5 text-muted-foreground">
+                                  <Package className="w-3.5 h-3.5" />
+                                  <span className="text-xs">{meta.boxTypes.join(', ')}</span>
+                                </div>
+                              )}
                             </div>
 
-                            {/* View button + Download links */}
-                            <div className="mt-4 flex items-center gap-2 flex-wrap">
-                              <div className="flex items-center gap-1.5 text-xs font-semibold text-primary group-hover:translate-x-1 transition-transform">
-                                <span>View Full Set</span>
-                                <ChevronRight className="w-3.5 h-3.5" />
+                            {/* Description */}
+                            {meta && (
+                              <p className="text-xs text-muted-foreground mt-2 line-clamp-2">
+                                {meta.description}
+                              </p>
+                            )}
+
+                            {/* Highlights */}
+                            {meta && meta.highlights.length > 0 && (
+                              <div className="flex items-center gap-1.5 mt-2 flex-wrap">
+                                {meta.highlights.map((h, i) => (
+                                  <span key={i} className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium bg-primary/10 text-primary/80 border border-primary/15">
+                                    <Sparkles className="w-2.5 h-2.5" />
+                                    {h}
+                                  </span>
+                                ))}
                               </div>
-                              {(() => {
-                                const pdfs = getSetPdfLinks(set.slug);
-                                if (!pdfs) return null;
-                                return (
-                                  <div className="flex items-center gap-1.5 ml-auto" onClick={(e) => e.preventDefault()}>
-                                    {pdfs.checklist && (
-                                      <a
-                                        href={pdfs.checklist}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-1 px-2 py-1 rounded text-[10px] font-medium bg-primary/10 text-primary hover:bg-primary/20 border border-primary/20 transition-colors"
-                                        title="Download Checklist"
-                                        onClick={(e) => e.stopPropagation()}
-                                      >
-                                        <FileText className="w-3 h-3" />
-                                        Checklist
-                                      </a>
-                                    )}
-                                    {pdfs.odds && (
-                                      <a
-                                        href={pdfs.odds}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-1 px-2 py-1 rounded text-[10px] font-medium bg-primary/10 text-primary hover:bg-primary/20 border border-primary/20 transition-colors"
-                                        title="Download Odds Sheet"
-                                        onClick={(e) => e.stopPropagation()}
-                                      >
-                                        <BarChart3 className="w-3 h-3" />
-                                        Odds
-                                      </a>
-                                    )}
-                                  </div>
-                                );
-                              })()}
-                            </div>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Bottom row: Actions */}
+                        <div className="flex items-center gap-2 mt-4 pt-3 border-t border-primary/10">
+                          <Link href={`/cards/${set.slug}`}>
+                            <Button variant="ghost" size="sm" className="gap-1.5 text-xs font-semibold text-primary hover:text-primary hover:bg-primary/10 h-8 px-3">
+                              View Full Set
+                              <ChevronRight className="w-3.5 h-3.5" />
+                            </Button>
+                          </Link>
+                          <div className="flex items-center gap-1.5 ml-auto">
+                            {pdfs?.checklist && (
+                              <a
+                                href={pdfs.checklist}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1 px-2 py-1 rounded text-[10px] font-medium bg-primary/10 text-primary hover:bg-primary/20 border border-primary/20 transition-colors"
+                                title="Download Checklist"
+                              >
+                                <FileText className="w-3 h-3" />
+                                Checklist
+                              </a>
+                            )}
+                            {pdfs?.odds && (
+                              <a
+                                href={pdfs.odds}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1 px-2 py-1 rounded text-[10px] font-medium bg-primary/10 text-primary hover:bg-primary/20 border border-primary/20 transition-colors"
+                                title="Download Odds Sheet"
+                              >
+                                <BarChart3 className="w-3 h-3" />
+                                Odds
+                              </a>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -529,14 +592,131 @@ function SetBrowser() {
                       {/* Bottom accent line */}
                       <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary/0 via-primary/60 to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </article>
-                  </Link>
-                ))}
+                  );
+                })}
               </div>
             )}
 
+            {/* ===== 2024 SETS ===== */}
+            {sets2024.length > 0 && (
+              <div className="mt-12">
+                <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
+                  <Layers className="w-5 h-5 text-muted-foreground" />
+                  2024 Topps Marvel Sets
+                </h2>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {sets2024.map((set) => {
+                    const pdfs = getSetPdfLinks(set.slug);
+                    return (
+                      <Link key={set.id} href={`/cards/${set.slug}`}>
+                        <article className="group relative overflow-hidden rounded-xl border border-border/60 hover:border-primary/40 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 cursor-pointer">
+                          <div className="absolute inset-0 bg-gradient-to-br from-[oklch(0.15_0.04_145)] via-[oklch(0.12_0.03_155)] to-[oklch(0.10_0.02_165)]" />
+                          <div className="relative z-10 p-5">
+                            <div className="flex gap-4 items-start">
+                              <div className="shrink-0 w-24 h-32 rounded-lg overflow-hidden border border-border/40 bg-black/30 shadow-lg group-hover:scale-105 transition-transform duration-300">
+                                {set.imageUrl ? (
+                                  <img src={set.imageUrl} alt={`${set.name} box`} className="w-full h-full object-contain p-1" loading="lazy" />
+                                ) : (
+                                  <div className="w-full h-full flex items-center justify-center">
+                                    <Layers className="w-8 h-8 text-muted-foreground/40" />
+                                  </div>
+                                )}
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <h3 className="font-bold text-base leading-tight text-foreground group-hover:text-primary transition-colors">{set.name}</h3>
+                                <div className="flex items-center gap-3 mt-2 text-sm">
+                                  <div className="flex items-center gap-1.5 text-muted-foreground">
+                                    <Hash className="w-3.5 h-3.5" />
+                                    <span className="font-semibold">{set.totalCards}</span>
+                                    <span className="text-xs">cards</span>
+                                  </div>
+                                  <div className="flex items-center gap-1.5 text-muted-foreground">
+                                    <Star className="w-3.5 h-3.5" />
+                                    <span>{set.releaseYear}</span>
+                                  </div>
+                                </div>
+                                <div className="flex items-center gap-2 mt-3">
+                                  <div className="flex items-center gap-1.5 text-xs font-semibold text-primary group-hover:translate-x-1 transition-transform">
+                                    <span>View Full Set</span>
+                                    <ChevronRight className="w-3.5 h-3.5" />
+                                  </div>
+                                  {pdfs && (
+                                    <div className="flex items-center gap-1.5 ml-auto" onClick={(e) => e.preventDefault()}>
+                                      {pdfs.checklist && (
+                                        <a href={pdfs.checklist} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 px-2 py-1 rounded text-[10px] font-medium bg-primary/10 text-primary hover:bg-primary/20 border border-primary/20 transition-colors" onClick={(e) => e.stopPropagation()}>
+                                          <FileText className="w-3 h-3" /> Checklist
+                                        </a>
+                                      )}
+                                      {pdfs.odds && (
+                                        <a href={pdfs.odds} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 px-2 py-1 rounded text-[10px] font-medium bg-primary/10 text-primary hover:bg-primary/20 border border-primary/20 transition-colors" onClick={(e) => e.stopPropagation()}>
+                                          <BarChart3 className="w-3 h-3" /> Odds
+                                        </a>
+                                      )}
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </article>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* ===== UPCOMING SETS ===== */}
+            <div className="mt-12">
+              <h2 className="text-xl font-bold mb-2 flex items-center gap-2">
+                <Rocket className="w-5 h-5 text-amber-400" />
+                Upcoming &amp; Announced Sets
+              </h2>
+              <p className="text-sm text-muted-foreground mb-6">
+                New Marvel card sets on the horizon. Check back for updates as release dates and checklists are confirmed.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {UPCOMING_SETS.map((upcoming, idx) => (
+                  <article key={idx} className="relative overflow-hidden rounded-xl border border-dashed border-amber-500/30 bg-gradient-to-br from-amber-950/10 via-background to-background">
+                    <div className="p-5">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex-1">
+                          <h3 className="font-bold text-base text-foreground">{upcoming.name}</h3>
+                          <div className="flex items-center gap-3 mt-2 text-sm">
+                            <div className="flex items-center gap-1.5 text-amber-400">
+                              <Calendar className="w-3.5 h-3.5" />
+                              <span>{upcoming.releaseDate}</span>
+                            </div>
+                            <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold border ${
+                              upcoming.status === 'pre-order' 
+                                ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30' 
+                                : upcoming.status === 'coming-soon'
+                                ? 'bg-blue-500/15 text-blue-400 border-blue-500/30'
+                                : 'bg-amber-500/15 text-amber-400 border-amber-500/30'
+                            }`}>
+                              <Clock className="w-3 h-3" />
+                              {upcoming.status === 'pre-order' ? 'Pre-Order' : upcoming.status === 'coming-soon' ? 'Coming Soon' : 'Announced'}
+                            </span>
+                          </div>
+                          <p className="text-xs text-muted-foreground mt-2 line-clamp-2">{upcoming.description}</p>
+                        </div>
+                        <div className="shrink-0 w-16 h-20 rounded-lg border border-dashed border-amber-500/20 bg-amber-500/5 flex items-center justify-center">
+                          <Sparkles className="w-6 h-6 text-amber-500/40" />
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+
+            {/* Stats footer */}
             {sets && (
-              <div className="mt-8 text-center text-muted-foreground">
-                <p>{sets.length} sets &bull; {sets.reduce((sum, s) => sum + (s.totalCards ?? 0), 0)} total cards in database</p>
+              <div className="mt-12 text-center">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 border border-primary/10 text-sm text-muted-foreground">
+                  <Info className="w-4 h-4 text-primary" />
+                  <span>{sets.length} sets &bull; {sets.reduce((sum, s) => sum + (s.totalCards ?? 0), 0).toLocaleString()} total cards in database &bull; Updated regularly</span>
+                </div>
               </div>
             )}
           </>

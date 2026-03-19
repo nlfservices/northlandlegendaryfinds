@@ -1,0 +1,25 @@
+{
+  "query": "SHOW TABLES LIKE '%card%';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SHOW TABLES LIKE '%card%';",
+  "rows": [
+    {
+      "Tables_in_SGHqXeh8PZJcCDnFiAMuFi (%card%)": "card_detail_content"
+    },
+    {
+      "Tables_in_SGHqXeh8PZJcCDnFiAMuFi (%card%)": "card_sets"
+    },
+    {
+      "Tables_in_SGHqXeh8PZJcCDnFiAMuFi (%card%)": "graded_cards"
+    },
+    {
+      "Tables_in_SGHqXeh8PZJcCDnFiAMuFi (%card%)": "inventory_cards"
+    },
+    {
+      "Tables_in_SGHqXeh8PZJcCDnFiAMuFi (%card%)": "marvel_cards"
+    }
+  ],
+  "messages": [],
+  "stdout": "Tables_in_SGHqXeh8PZJcCDnFiAMuFi (%card%)\ncard_detail_content\ncard_sets\ngraded_cards\ninventory_cards\nmarvel_cards\n",
+  "stderr": "",
+  "execution_time_ms": 404
+}
