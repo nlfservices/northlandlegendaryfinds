@@ -784,18 +784,22 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Frontend: add "Forgot PIN?" link to Matrix gate page
 - [x] Frontend: handle bypass token from URL, auto-grant access
 - [x] Write tests for bypass token generation, verification, and expiry (24 tests)
-- [ ] Save checkpoint
+- [x] Save checkpoint (ba37eb71)
 
 ## Branded Downloadable PDF Checklists
-- [ ] Build server-side PDF generator with NLF branding (logo, colors, footer)
-- [ ] Include full card list with checkboxes for each parallel/variant
-- [ ] Include odds table if data available
-- [ ] Add QR code linking back to set page on northlandlegendaryfinds.com
-- [ ] Add download link/button on set pages
-- [ ] Write tests for PDF generation endpoint
+- [x] Build Python PDF generator with NLF branding (logo, cosmic header, green theme)
+- [x] Parse all 17 source PDFs (checklists + odds sheets for 9 sets)
+- [x] Include full card list with checkboxes for each parallel/variant
+- [x] Include odds tables with Hobby Pack and Value Box columns
+- [x] Add QR code linking back to set page on northlandlegendaryfinds.com
+- [x] Upload all 17 branded PDFs to CDN
+- [x] Add download buttons on set grid cards (Checklist + Odds)
+- [x] Add download buttons on set detail page header
+- [x] Fix slug mapping for The Collector set
+- [x] Write tests for PDF download links (8 tests)
 
 ## Card Database Page Redesign
 - [ ] Make set cards more informative (release date, description, box types, etc.)
 - [ ] Add upcoming/future set placeholders for 2026 sets
 - [ ] Improve page layout and organization
-- [ ] Add download checklist button to each set card
+- [x] Add download checklist button to each set card

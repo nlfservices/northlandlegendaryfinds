@@ -12,8 +12,9 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import {
   Search, ChevronRight, BookOpen, Layers, Hash, ArrowLeft,
-  Star, X, Grid3X3, List, DollarSign, Sparkles
+  Star, X, Grid3X3, List, DollarSign, Sparkles, Download, FileText, BarChart3
 } from "lucide-react";
+import { getSetPdfLinks } from "@/lib/pdfDownloads";
 import { useLocation } from "wouter";
 import { CARD_TYPE_TO_THEME } from "./CardDisplay";
 import SEO, { breadcrumbJsonLd } from "@/components/SEO";
@@ -480,10 +481,46 @@ function SetBrowser() {
                               </div>
                             </div>
 
-                            {/* View button */}
-                            <div className="mt-4 flex items-center gap-1.5 text-xs font-semibold text-primary group-hover:translate-x-1 transition-transform">
-                              <span>View Full Set</span>
-                              <ChevronRight className="w-3.5 h-3.5" />
+                            {/* View button + Download links */}
+                            <div className="mt-4 flex items-center gap-2 flex-wrap">
+                              <div className="flex items-center gap-1.5 text-xs font-semibold text-primary group-hover:translate-x-1 transition-transform">
+                                <span>View Full Set</span>
+                                <ChevronRight className="w-3.5 h-3.5" />
+                              </div>
+                              {(() => {
+                                const pdfs = getSetPdfLinks(set.slug);
+                                if (!pdfs) return null;
+                                return (
+                                  <div className="flex items-center gap-1.5 ml-auto" onClick={(e) => e.preventDefault()}>
+                                    {pdfs.checklist && (
+                                      <a
+                                        href={pdfs.checklist}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-1 px-2 py-1 rounded text-[10px] font-medium bg-primary/10 text-primary hover:bg-primary/20 border border-primary/20 transition-colors"
+                                        title="Download Checklist"
+                                        onClick={(e) => e.stopPropagation()}
+                                      >
+                                        <FileText className="w-3 h-3" />
+                                        Checklist
+                                      </a>
+                                    )}
+                                    {pdfs.odds && (
+                                      <a
+                                        href={pdfs.odds}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-1 px-2 py-1 rounded text-[10px] font-medium bg-primary/10 text-primary hover:bg-primary/20 border border-primary/20 transition-colors"
+                                        title="Download Odds Sheet"
+                                        onClick={(e) => e.stopPropagation()}
+                                      >
+                                        <BarChart3 className="w-3 h-3" />
+                                        Odds
+                                      </a>
+                                    )}
+                                  </div>
+                                );
+                              })()}
                             </div>
                           </div>
                         </div>
@@ -704,11 +741,13 @@ function SetDetail({ slug }: { slug: string }) {
               </Button>
             </Link>
           </div>
-          <h1 className="text-2xl lg:text-3xl font-bold mb-2">{set.name}</h1>
-          <div className="flex items-center gap-4 text-muted-foreground">
-            <span>{set.releaseYear}</span>
-            <span>&bull;</span>
-            <span>{cards.length} cards</span>
+          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+            <div>
+              <h1 className="text-2xl lg:text-3xl font-bold mb-2">{set.name}</h1>
+              <div className="flex items-center gap-4 text-muted-foreground">
+                <span>{set.releaseYear}</span>
+                <span>&bull;</span>
+                <span>{cards.length} cards</span>
             {cardTypes.length > 1 && ERA_THEMES[cardTypes[0]] && (
               <>
                 <span>&bull;</span>
@@ -725,6 +764,40 @@ function SetDetail({ slug }: { slug: string }) {
               </>
             )}
 
+              </div>
+            </div>
+
+            {/* PDF Download Buttons */}
+            {(() => {
+              const pdfs = getSetPdfLinks(slug);
+              if (!pdfs) return null;
+              return (
+                <div className="flex items-center gap-2 shrink-0">
+                  {pdfs.checklist && (
+                    <a
+                      href={pdfs.checklist}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium bg-primary/10 text-primary hover:bg-primary/20 border border-primary/30 transition-colors"
+                    >
+                      <Download className="w-4 h-4" />
+                      Checklist PDF
+                    </a>
+                  )}
+                  {pdfs.odds && (
+                    <a
+                      href={pdfs.odds}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium bg-primary/10 text-primary hover:bg-primary/20 border border-primary/30 transition-colors"
+                    >
+                      <Download className="w-4 h-4" />
+                      Odds Sheet
+                    </a>
+                  )}
+                </div>
+              );
+            })()}
           </div>
 
           {/* Filters */}
