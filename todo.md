@@ -713,4 +713,16 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Generate hero images and seed 6 initial articles with real MCU news
 - [x] Add MCU Intel navigation link and route
 - [x] Write 22 tests for article CRUD routes (admin access control, public access, data integrity)
+- [x] Save checkpoint
+
+## BUG FIX: Home.tsx Recurring Regression
+- [x] Investigate root cause (git divergence during checkpoint drops files from earlier checkpoints)
+- [x] Restore DoomsdaySection component from git history (commit 371357e)
+- [x] Restore SubscriberHub page, subscriber router, subscriber tests from git history (commit 87c2eec6)
+- [x] Re-add subscriberProcedure to trpc.ts and subscriber role to schema
+- [x] Re-add The Vault route to App.tsx and crown icon to Navigation
+- [x] Fix ArticleManager tRPC paths (adminArticles)
+- [x] Fix SubscriberHub getLoginUrl() calls
+- [x] Remove legacy files causing type conflicts (UserManager, cardShowsData)
+- [x] All 174 tests passing (16 test files)
 - [ ] Save checkpoint

@@ -78,6 +78,13 @@
       "when": 1773926626850,
       "tag": "0010_yummy_zaladane",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "5",
+      "when": 1773928825618,
+      "tag": "0011_friendly_captain_cross",
+      "breakpoints": true
     }
   ]
 }

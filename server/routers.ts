@@ -7,6 +7,7 @@ import { publicRouter } from "./routers/public";
 import { checkoutRouter } from "./routers/checkout";
 import { ebayRouter } from "./routers/ebay";
 import { articleAdminRouter, articlePublicRouter } from "./routers/articles";
+import { subscriberRouter } from "./routers/subscriber";
 
 export const appRouter = router({
   system: systemRouter,
@@ -32,6 +33,9 @@ export const appRouter = router({
 
   // eBay API routes (admin only)
   ebay: ebayRouter,
+
+  // Subscriber routes (The Vault)
+  subscriber: subscriberRouter,
 
   // Article routes (MCU Intel)
   articles: articlePublicRouter,

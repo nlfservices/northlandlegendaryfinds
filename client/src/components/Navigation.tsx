@@ -5,7 +5,7 @@
 
 import { useState, useCallback } from "react";
 import { Link, useLocation } from "wouter";
-import { ShoppingCart, Menu, X, Shuffle } from "lucide-react";
+import { ShoppingCart, Menu, X, Shuffle, Crown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
 import { trpc } from "@/lib/trpc";
@@ -24,6 +24,7 @@ export default function Navigation() {
     { path: "/cards", label: "Card Database" },
     { path: "/characters", label: "Characters" },
     { path: "/checklists", label: "Checklists" },
+    { path: "/subscribers", label: "The Vault" },
     { path: "/mcu-intel", label: "MCU Intel" },
     { path: "/about", label: "About" },
     { path: "/transparency", label: "Transparency" },
@@ -89,6 +90,7 @@ export default function Navigation() {
                           : "text-foreground/80 hover:text-primary hover:bg-primary/5"
                       }`}
                     >
+                      {item.label === "The Vault" && <Crown className="w-3.5 h-3.5 mr-1 inline text-[oklch(0.75_0.15_85)]" />}
                       {item.label}
                     </button>
                   </Link>
@@ -151,6 +153,7 @@ export default function Navigation() {
                           : "text-foreground/80 hover:bg-primary/5 hover:text-primary"
                       }`}
                     >
+                      {item.label === "The Vault" && <Crown className="w-4 h-4 mr-1 inline text-[oklch(0.75_0.15_85)]" />}
                       {item.label}
                     </div>
                   </Link>

@@ -41,6 +41,7 @@ import CharacterPage from "./pages/CharacterPage";
 import CardDetailPage from "./pages/CardDetailPage";
 import MCUIntel from "./pages/MCUIntel";
 import MCUIntelArticle from "./pages/MCUIntelArticle";
+import SubscriberHub from "./pages/SubscriberHub";
 
 // Routes that render as full-screen standalone experiences (no nav/footer)
 const STANDALONE_ROUTES = ["/card-display"];
@@ -96,6 +97,7 @@ function AppRouter() {
           <Route path="/transparency" component={Transparency} />
           <Route path="/mcu-intel" component={MCUIntel} />
           <Route path="/mcu-intel/:slug" component={MCUIntelArticle} />
+          <Route path="/subscribers" component={SubscriberHub} />
           <Route path="/404" component={NotFound} />
           <Route component={NotFound} />
         </Switch>
