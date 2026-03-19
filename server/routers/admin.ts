@@ -15,15 +15,8 @@ import {
   updateInventoryCard, deleteInventoryCard, allocateCardsToRepack, deallocateCardsFromRepack,
   getInventoryStats,
 } from "../db";
-import {
-  getAllUsers, getUserById, updateUserRole, setUserActive,
-  getActivityLogsByUserId, getRecentActivityLogs, getUserCountByRole,
-} from "../db";
-import { logRoleChange, logActiveStatusChange } from "../activityLogger";
-import { sendRoleChangeEmail } from "../emailService";
-import { updateGHLContactRole } from "../ghlSync";
 
-// ==================== ADMIN PRODUCT ROUTES =====================
+// ==================== ADMIN PRODUCT ROUTES ====================
 
 const productInput = z.object({
   name: z.string().min(1),
@@ -733,121 +726,6 @@ const launchSubscriberRouter = router({
     }),
 });
 
-// ==================== ADMIN USER MANAGEMENT ROUTES ====================
-
-const userManagementRouter = router({
-  /** List all users with role counts */
-  list: adminProcedure.query(async () => {
-    const [usersList, roleCounts] = await Promise.all([
-      getAllUsers(),
-      getUserCountByRole(),
-    ]);
-    return {
-      users: usersList.map(u => ({
-        id: u.id,
-        name: u.name,
-        email: u.email,
-        role: u.role,
-        isActive: u.isActive,
-        loginMethod: u.loginMethod,
-        lastSignedIn: u.lastSignedIn,
-        createdAt: u.createdAt,
-      })),
-      roleCounts,
-    };
-  }),
-
-  /** Get a single user's details with activity logs */
-  getById: adminProcedure
-    .input(z.object({ id: z.number() }))
-    .query(async ({ input }) => {
-      const user = await getUserById(input.id);
-      if (!user) throw new TRPCError({ code: "NOT_FOUND", message: "User not found" });
-      const logs = await getActivityLogsByUserId(input.id, 50);
-      return {
-        user: {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          role: user.role,
-          isActive: user.isActive,
-          loginMethod: user.loginMethod,
-          lastSignedIn: user.lastSignedIn,
-          createdAt: user.createdAt,
-          openId: user.openId,
-        },
-        activityLogs: logs,
-      };
-    }),
-
-  /** Change a user's role */
-  updateRole: adminProcedure
-    .input(z.object({
-      userId: z.number(),
-      newRole: z.enum(["free", "subscriber", "admin"]),
-    }))
-    .mutation(async ({ input, ctx }) => {
-      const targetUser = await getUserById(input.userId);
-      if (!targetUser) throw new TRPCError({ code: "NOT_FOUND", message: "User not found" });
-
-      // Prevent demoting yourself
-      if (targetUser.id === ctx.user!.id && input.newRole !== "admin") {
-        throw new TRPCError({ code: "BAD_REQUEST", message: "Cannot change your own role" });
-      }
-
-      const oldRole = targetUser.role;
-      await updateUserRole(input.userId, input.newRole);
-
-      // Log the change
-      logRoleChange(targetUser, oldRole, input.newRole, ctx.user!, ctx.req).catch(() => {});
-
-      // Send email notification
-      if (targetUser.email) {
-        sendRoleChangeEmail(targetUser.email, targetUser.name ?? "", input.newRole).catch(() => {});
-      }
-
-      // Update GHL contact
-      updateGHLContactRole(targetUser, input.newRole).catch(() => {});
-
-      return { success: true, oldRole, newRole: input.newRole };
-    }),
-
-  /** Toggle user active status */
-  toggleActive: adminProcedure
-    .input(z.object({
-      userId: z.number(),
-      isActive: z.boolean(),
-    }))
-    .mutation(async ({ input, ctx }) => {
-      const targetUser = await getUserById(input.userId);
-      if (!targetUser) throw new TRPCError({ code: "NOT_FOUND", message: "User not found" });
-
-      // Prevent deactivating yourself
-      if (targetUser.id === ctx.user!.id && !input.isActive) {
-        throw new TRPCError({ code: "BAD_REQUEST", message: "Cannot deactivate your own account" });
-      }
-
-      await setUserActive(input.userId, input.isActive);
-
-      // Log the change
-      logActiveStatusChange(targetUser, input.isActive, ctx.user!, ctx.req).catch(() => {});
-
-      return { success: true, isActive: input.isActive };
-    }),
-
-  /** Get recent activity logs (all users) */
-  activityLogs: adminProcedure
-    .input(z.object({ limit: z.number().min(1).max(500).default(100) }).optional())
-    .query(async ({ input }) => {
-      return getRecentActivityLogs(input?.limit ?? 100);
-    }),
-
-  /** Get role distribution stats */
-  roleStats: adminProcedure.query(async () => {
-    return getUserCountByRole();
-  }),
-});
-
 // ==================== COMBINED ADMIN ROUTER ====================
 export const adminRouter = router({
   products: productRouter,
@@ -857,5 +735,4 @@ export const adminRouter = router({
   cardSets: cardSetRouter,
   inventory: inventoryRouter,
   launchSubscribers: launchSubscriberRouter,
-  users: userManagementRouter,
 });

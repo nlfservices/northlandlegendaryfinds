@@ -703,50 +703,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Tested: Nightcrawler page now correctly shows CBH-129_Nightcrawler image instead of Star-Lord
 - [x] Save checkpoint
 
-## Submit Your Show Form
-- [x] Create database table for show submissions (showSubmissions)
-- [x] Build tRPC procedure for submitting a show (public)
-- [x] Build Submit Your Show page with form (name, dates, venue, address, city, state, hours, tables, admission, website, email, phone, description)
-- [x] Add route and navigation link from Card Shows page
-- [x] Send owner notification on new submission
-- [x] Style to match dark/green/orange theme
-- [x] Write tests (6 tests passing)
-
-## Homepage Card Shows CTA
-- [x] Add "Find a Card Show Near You" banner/CTA section to homepage
-- [x] Style to match cosmic theme with map/calendar imagery
-- [x] Link to /card-shows page
-
-## Card Shows Hero Map Enhancement
-- [x] Add US map silhouette (lower 48 states) to Card Shows hero section with text/stats inside the map shape
-- [x] Interactive clickable states that jump to show listings
-- [x] Highlighted states that have shows in the directory
-
-## Auth System Enhancement
-- [x] Update users table: add subscriber role, isActive field, sessionToken field
-- [x] Create activity_logs table for tracking all auth events
-- [x] Push database migrations
-- [x] Build activity logging service (login, logout, role changes, deactivation)
-- [x] Build bot protection: honeypot fields + rate limiting on public forms
-- [x] Build single-session enforcement (one active session per user)
-- [x] Add isActive checks to auth middleware (block disabled accounts)
-- [x] Build SendGrid email service for welcome/notification emails
-- [x] Build GoHighLevel CRM sync (create contacts on registration)
-- [x] Build Admin User Management page (list users, change roles, toggle active, view logs)
-- [x] Build client-side inactivity timeout (15 min) with Remember Me (7 days)
-- [x] Add session warning toast at 14 minutes
-- [x] Add session polling (validate every 30 seconds + on window focus)
-- [x] Add bot protection to existing public forms (show submissions, newsletter)
-- [x] Add role helper functions: isSubscriber(), canAccessPremium()
-- [x] Write tests for all new auth features (16 tests passing)
-- [x] Test end-to-end in browser
-- [x] Save checkpoint
-
-## Subscriber-Only Section
-- [x] Build subscriberProcedure middleware (requires subscriber or admin role)
-- [x] Build subscriber-only backend procedures for early access repacks and exclusive checklists
-- [x] Build Subscriber Hub page (/subscribers) with early access repacks and exclusive checklists
-- [x] Add subscriber gating UI (blurred content + upgrade CTA for non-subscribers)
-- [x] Add route and navigation link ("The Vault" with crown icon in nav)
-- [x] Write tests for subscriber gating (25 tests covering role gating, data integrity, preview security)
+## Transparency Page Redesign
+- [x] Research repack industry crackdown articles (Athlon Sports, CLLCT)
+- [x] Audit current Transparency page content and layout
+- [x] Generate images for Transparency page (5 images: hero, industry crisis split, reputation workspace, live streaming, checklist verification)
+- [x] Redesign Transparency page with industry context, reputation-first messaging, and images
+- [x] Add references to Whatnot repack crackdown and industry issues (linked both articles)
+- [x] Emphasize NLF's commitment to building reputation as top priority
+- [x] Verify in browser — all sections rendering correctly, 127 tests passing
 - [ ] Save checkpoint

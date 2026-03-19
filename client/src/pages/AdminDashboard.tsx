@@ -21,7 +21,7 @@ import { getLoginUrl } from "@/const";
 import {
   Package, ListChecks, Zap, Radio, Plus, Trash2, Edit, Eye,
   CheckCircle2, Circle, ArrowLeft, Loader2, Calendar, ExternalLink,
-  ShoppingBag, Truck, CreditCard, Boxes, Hammer, Download, BarChart3, FileSpreadsheet, Users
+  ShoppingBag, Truck, CreditCard, Boxes, Hammer, Download, BarChart3, FileSpreadsheet
 } from "lucide-react";
 import { useState, useMemo, useEffect } from "react";
 import { Link } from "wouter";
@@ -30,7 +30,6 @@ import InventoryManager from "@/components/InventoryManager";
 import RepackBuilder from "@/components/RepackBuilder";
 import EbayCompsPanel from "@/components/EbayCompsPanel";
 import ChecklistSheet from "@/components/ChecklistSheet";
-import UserManager from "@/components/UserManager";
 
 // ==================== PRODUCT MANAGEMENT ====================
 
@@ -1466,9 +1465,6 @@ export default function AdminDashboard() {
             <TabsTrigger value="ebay-comps" className="flex items-center gap-2">
               <BarChart3 className="w-4 h-4" /> eBay Comps
             </TabsTrigger>
-            <TabsTrigger value="users" className="flex items-center gap-2">
-              <Users className="w-4 h-4" /> Users
-            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="products">
@@ -1497,9 +1493,6 @@ export default function AdminDashboard() {
           </TabsContent>
           <TabsContent value="ebay-comps">
             <EbayCompsPanel />
-          </TabsContent>
-          <TabsContent value="users">
-            <UserManager />
           </TabsContent>
         </Tabs>
       </div>

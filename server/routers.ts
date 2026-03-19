@@ -6,7 +6,6 @@ import { adminRouter } from "./routers/admin";
 import { publicRouter } from "./routers/public";
 import { checkoutRouter } from "./routers/checkout";
 import { ebayRouter } from "./routers/ebay";
-import { subscriberRouter } from "./routers/subscriber";
 
 export const appRouter = router({
   system: systemRouter,
@@ -32,9 +31,6 @@ export const appRouter = router({
 
   // eBay API routes (admin only)
   ebay: ebayRouter,
-
-  // Subscriber-only content
-  subscriber: subscriberRouter,
 });
 
 export type AppRouter = typeof appRouter;

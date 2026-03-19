@@ -39,10 +39,6 @@ import CardDisplay from "./pages/CardDisplay";
 import Characters from "./pages/Characters";
 import CharacterPage from "./pages/CharacterPage";
 import CardDetailPage from "./pages/CardDetailPage";
-import CardShows from "./pages/CardShows";
-import SubmitShow from "./pages/SubmitShow";
-import SubscriberHub from "./pages/SubscriberHub";
-import { useSessionManager } from "./hooks/useSessionManager";
 
 // Routes that render as full-screen standalone experiences (no nav/footer)
 const STANDALONE_ROUTES = ["/card-display"];
@@ -96,9 +92,6 @@ function AppRouter() {
           <Route path="/admin" component={AdminDashboard} />
           <Route path="/admin/ebay-comps" component={EbayComps} />
           <Route path="/transparency" component={Transparency} />
-          <Route path="/card-shows" component={CardShows} />
-          <Route path="/submit-show" component={SubmitShow} />
-          <Route path="/subscribers" component={SubscriberHub} />
           <Route path="/404" component={NotFound} />
           <Route component={NotFound} />
         </Switch>
@@ -108,12 +101,6 @@ function AppRouter() {
   );
 }
 
-/** Session manager wrapper - must be inside tRPC provider */
-function SessionGuard({ children }: { children: React.ReactNode }) {
-  useSessionManager();
-  return <>{children}</>;
-}
-
 function App() {
   return (
     <ErrorBoundary>
@@ -121,10 +108,8 @@ function App() {
         <CartProvider>
           <TooltipProvider>
             <Toaster />
-            <SessionGuard>
-              <EmailCapturePopup />
-              <AppRouter />
-            </SessionGuard>
+            <EmailCapturePopup />
+            <AppRouter />
           </TooltipProvider>
         </CartProvider>
       </ThemeProvider>

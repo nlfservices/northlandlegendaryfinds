@@ -1,8 +1,7 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, boolean, json, bigint, decimal, index } from "drizzle-orm/mysql-core";
+import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, boolean, json, bigint, decimal } from "drizzle-orm/mysql-core";
 
 /**
  * Core user table backing auth flow.
- * Roles: free (default for new signups), subscriber (paid/premium), admin (full access)
  */
 export const users = mysqlTable("users", {
   id: int("id").autoincrement().primaryKey(),
@@ -10,13 +9,7 @@ export const users = mysqlTable("users", {
   name: text("name"),
   email: varchar("email", { length: 320 }),
   loginMethod: varchar("loginMethod", { length: 64 }),
-  role: mysqlEnum("role", ["free", "subscriber", "admin"]).default("free").notNull(),
-  /** Whether the account is active (0 = disabled by admin) */
-  isActive: boolean("isActive").notNull().default(true),
-  /** Active session token for single-session enforcement (64-char hex) */
-  sessionToken: varchar("sessionToken", { length: 64 }),
-  /** Whether user chose "Remember Me" on login */
-  rememberMe: boolean("rememberMe").notNull().default(false),
+  role: mysqlEnum("role", ["user", "admin"]).default("user").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
   lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(),
@@ -26,36 +19,6 @@ export const users = mysqlTable("users", {
 
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
-
-/**
- * Activity Logs — tracks all auth-related events for audit trail
- * Captures IP, user agent, and contextual details for each action
- */
-export const activityLogs = mysqlTable("activity_logs", {
-  id: int("id").autoincrement().primaryKey(),
-  /** Reference to users.id */
-  userId: int("userId").notNull(),
-  /** Email at time of action (denormalized for audit) */
-  userEmail: varchar("userEmail", { length: 320 }).notNull(),
-  /** Display name at time of action (denormalized for audit) */
-  userName: varchar("userName", { length: 255 }).notNull(),
-  /** Action type: login, login_failed, logout, password_reset, user_invited, user_role_changed, user_deactivated, user_activated, session_invalidated */
-  action: varchar("action", { length: 100 }).notNull(),
-  /** JSON string with extra context */
-  details: text("details"),
-  /** Client IP address */
-  ipAddress: varchar("ipAddress", { length: 45 }),
-  /** Browser user agent */
-  userAgent: text("userAgent"),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
-}, (table) => ({
-  userIdIdx: index("activity_logs_userId_idx").on(table.userId),
-  actionIdx: index("activity_logs_action_idx").on(table.action),
-  createdAtIdx: index("activity_logs_createdAt_idx").on(table.createdAt),
-}));
-
-export type ActivityLog = typeof activityLogs.$inferSelect;
-export type InsertActivityLog = typeof activityLogs.$inferInsert;
 
 /**
  * Repack products - each represents a repack series (e.g., "NLF Variant Vol. 1")
@@ -498,58 +461,3 @@ export const cardDetailContent = mysqlTable("card_detail_content", {
 
 export type CardDetailContent = typeof cardDetailContent.$inferSelect;
 export type InsertCardDetailContent = typeof cardDetailContent.$inferInsert;
-
-/**
- * Show Submissions - promoters submit their card shows for the directory
- * Admin reviews and approves before they appear in the public directory
- */
-export const showSubmissions = mysqlTable("show_submissions", {
-  id: int("id").autoincrement().primaryKey(),
-  /** Show/event name */
-  showName: varchar("showName", { length: 255 }).notNull(),
-  /** Promoter/organizer name */
-  promoterName: varchar("promoterName", { length: 255 }).notNull(),
-  /** Contact email */
-  email: varchar("email", { length: 320 }).notNull(),
-  /** Contact phone */
-  phone: varchar("phone", { length: 50 }),
-  /** Show website URL */
-  website: varchar("website", { length: 500 }),
-  /** Venue name */
-  venue: varchar("venue", { length: 255 }),
-  /** Full street address */
-  address: varchar("address", { length: 500 }),
-  /** City */
-  city: varchar("city", { length: 100 }).notNull(),
-  /** State (2-letter code) */
-  state: varchar("state", { length: 2 }).notNull(),
-  /** ZIP code */
-  zipCode: varchar("zipCode", { length: 10 }),
-  /** Start date (stored as UTC timestamp in ms) */
-  startDate: bigint("startDate", { mode: "number" }).notNull(),
-  /** End date (stored as UTC timestamp in ms, same as start for single-day) */
-  endDate: bigint("endDate", { mode: "number" }).notNull(),
-  /** Hours of operation (e.g., "Sat 9am-4pm; Sun 10am-3pm") */
-  hours: varchar("hours", { length: 255 }),
-  /** Number of dealer tables */
-  tableCount: int("tableCount"),
-  /** Admission price description (e.g., "FREE", "$5", "EA $15; GA $10") */
-  admission: varchar("admission", { length: 100 }),
-  /** Additional description/notes */
-  description: text("description"),
-  /** Whether this is a recurring show */
-  isRecurring: boolean("isRecurring").notNull().default(false),
-  /** Recurrence description (e.g., "First Sunday of every month") */
-  recurrenceNote: varchar("recurrenceNote", { length: 255 }),
-  /** Review status */
-  status: mysqlEnum("status", ["pending", "approved", "rejected"]).notNull().default("pending"),
-  /** Admin notes */
-  adminNotes: text("adminNotes"),
-  /** User ID if submitted by logged-in user */
-  submittedByUserId: int("submittedByUserId"),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
-});
-
-export type ShowSubmission = typeof showSubmissions.$inferSelect;
-export type InsertShowSubmission = typeof showSubmissions.$inferInsert;
