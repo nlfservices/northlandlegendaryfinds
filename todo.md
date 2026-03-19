@@ -716,4 +716,8 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Generate Doctor Doom hero image and section background visuals
 - [x] Build rotating character spotlight section with news intel and backlinks (16 characters, 32 article links)
 - [x] Verify in browser and run tests (127 tests passing)
+- [x] Save checkpoint
+
+## Remove Raw & Graded Card Showcase
+- [x] Remove CardShowcase component from homepage
 - [ ] Save checkpoint
