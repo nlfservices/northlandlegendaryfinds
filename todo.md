@@ -725,4 +725,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Fix SubscriberHub getLoginUrl() calls
 - [x] Remove legacy files causing type conflicts (UserManager, cardShowsData)
 - [x] All 174 tests passing (16 test files)
-- [ ] Save checkpoint
+- [x] Save checkpoint
+
+## PERMANENT RULE: No File Regression
+- [x] RULE ESTABLISHED: Never overwrite existing files with `file write` — only use `file edit` for targeted changes
+- [x] RULE ESTABLISHED: Before every checkpoint, run verification checklist from RULES.md
+- [x] RULE ESTABLISHED: Baseline is checkpoint 65b9c153 — no content may be removed unless user explicitly requests it
+- [x] RULE ESTABLISHED: See /RULES.md for full details and verification script
