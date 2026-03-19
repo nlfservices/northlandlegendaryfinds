@@ -9,6 +9,7 @@ import { ebayRouter } from "./routers/ebay";
 import { articleAdminRouter, articlePublicRouter } from "./routers/articles";
 import { subscriberRouter } from "./routers/subscriber";
 import { top5AdminRouter, top5PublicRouter } from "./routers/top5";
+import { matrixRouter } from "./routers/matrix";
 
 export const appRouter = router({
   system: systemRouter,
@@ -45,6 +46,9 @@ export const appRouter = router({
   // Marvelous Top 5 routes
   top5: top5PublicRouter,
   adminTop5: top5AdminRouter,
+
+  // Hidden admin portal gate
+  matrix: matrixRouter,
 });
 
 export type AppRouter = typeof appRouter;

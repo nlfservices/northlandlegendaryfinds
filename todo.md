@@ -764,3 +764,15 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 
 ## Card Detail Page Heading Fix
 - [x] Change "About This Card" heading to "About This Character" (images are character art, not card photos)
+- [x] Bulk replace "About This Card" with "About This Character" in all 1,985 existing card pages in database
+
+## Hidden Admin Portal (/matrix) + Public Login
+- [x] Create ADMIN_ACCESS_CODE secret for the access code gate
+- [x] Build /matrix access code gate page (PIN entry screen, no login visible until correct code)
+- [x] Move admin panel from /admin to /matrix (redirect /admin to 404)
+- [x] Server-side access code verification endpoint
+- [x] IP-based failed attempt tracking (lock after 5 fails for 30 min)
+- [x] Add user login icon button to public nav bar (for regular customers)
+- [x] Block /matrix from robots.txt and sitemap
+- [x] Write tests for access code gate and lockout (13 tests)
+- [ ] Save checkpoint

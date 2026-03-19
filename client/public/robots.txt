@@ -2,9 +2,9 @@
 User-agent: *
 Allow: /
 
-# Disallow admin and internal routes
-Disallow: /admin
-Disallow: /admin/
+# Disallow internal routes
+Disallow: /matrix
+Disallow: /matrix/
 Disallow: /order-success
 Disallow: /card-display
 Disallow: /api/

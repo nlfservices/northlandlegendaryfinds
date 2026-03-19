@@ -5,7 +5,9 @@
 
 import { useState, useCallback } from "react";
 import { Link, useLocation } from "wouter";
-import { ShoppingCart, Menu, X, Shuffle, Crown } from "lucide-react";
+import { ShoppingCart, Menu, X, Shuffle, Crown, User, LogOut } from "lucide-react";
+import { useAuth } from "@/_core/hooks/useAuth";
+import { getLoginUrl } from "@/const";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
 import { trpc } from "@/lib/trpc";
@@ -18,6 +20,8 @@ export default function Navigation() {
   const [isRandomizing, setIsRandomizing] = useState(false);
   const { totalItems, setIsOpen: setCartOpen } = useCart();
   const utils = trpc.useUtils();
+  const { user, isAuthenticated, logout } = useAuth();
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
 
   const navItems = [
     { path: "/shop", label: "Shop" },
@@ -109,6 +113,48 @@ export default function Navigation() {
               >
                 <Shuffle className={`w-5 h-5 ${isRandomizing ? "animate-spin" : "group-hover:scale-110 transition-transform"}`} />
               </button>
+
+              {/* User Login/Profile Button */}
+              {isAuthenticated && user ? (
+                <div className="relative">
+                  <button
+                    onClick={() => setUserMenuOpen(!userMenuOpen)}
+                    className="relative text-foreground/70 hover:text-primary transition-all p-2 group"
+                    title={user.name || "Account"}
+                  >
+                    <User className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                  </button>
+                  {userMenuOpen && (
+                    <>
+                      <div className="fixed inset-0 z-40" onClick={() => setUserMenuOpen(false)} />
+                      <div className="absolute right-0 top-full mt-2 w-48 bg-card border border-border rounded-lg shadow-xl z-50 py-1 animate-in fade-in slide-in-from-top-2">
+                        <div className="px-3 py-2 border-b border-border">
+                          <p className="text-sm font-medium text-foreground truncate">{user.name || "User"}</p>
+                          <p className="text-xs text-muted-foreground truncate">{user.email}</p>
+                        </div>
+                        <button
+                          onClick={() => {
+                            logout();
+                            setUserMenuOpen(false);
+                          }}
+                          className="w-full px-3 py-2 text-sm text-left text-muted-foreground hover:text-foreground hover:bg-muted/50 flex items-center gap-2 transition-colors"
+                        >
+                          <LogOut className="w-3.5 h-3.5" />
+                          Sign Out
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </div>
+              ) : (
+                <a
+                  href={getLoginUrl()}
+                  className="relative text-foreground/70 hover:text-primary transition-all p-2 group"
+                  title="Sign In"
+                >
+                  <User className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                </a>
+              )}
 
               {/* Cart Button */}
               <button
