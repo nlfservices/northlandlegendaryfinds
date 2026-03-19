@@ -740,4 +740,24 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Verify in browser — all sections intact, Doomsday present, no CardShowcase
 - [x] All 174 tests passing (16 test files)
 - [x] Pre-checkpoint verification checklist: ALL PASSED
+- [x] Save checkpoint
+
+## Marvelous Top 5 Admin Panel (with Card Upload & Cosmic Frames)
+- [x] Upload 7 cosmic frame templates to CDN
+- [x] Update database schema: add frontImage, backImage, frameTemplate columns to top5_buzz_items
+- [x] Build backend CRUD routes with image upload support (front/back card images)
+- [x] Build admin Top 5 Manager UI (card upload front+back, frame picker, backstory editor, reorder)
+- [x] Update MarvelousTop5 homepage component: fetch from DB, render cards in cosmic frames with 3D flip
+- [x] Seed database with current Top 5 data
+- [x] Write tests for Top 5 CRUD routes (15 tests passing)
+- [x] Verify in browser and run pre-checkpoint verification
+- [ ] Save checkpoint
+
+## Auto-Crop Card Upload Feature (Green Screen Removal)
+- [x] Build server-side green screen removal endpoint using sharp (chroma key)
+- [x] Composite card (transparent bg) onto cosmic frame template
+- [x] Integrate into Top 5 Manager upload flow (front + back)
+- [x] Seed database with current Top 5 data
+- [x] Write tests for auto-crop and Top 5 CRUD (15 tests)
+- [x] Verify in browser and run pre-checkpoint verification
 - [ ] Save checkpoint

@@ -8,6 +8,7 @@ import { checkoutRouter } from "./routers/checkout";
 import { ebayRouter } from "./routers/ebay";
 import { articleAdminRouter, articlePublicRouter } from "./routers/articles";
 import { subscriberRouter } from "./routers/subscriber";
+import { top5AdminRouter, top5PublicRouter } from "./routers/top5";
 
 export const appRouter = router({
   system: systemRouter,
@@ -40,6 +41,10 @@ export const appRouter = router({
   // Article routes (MCU Intel)
   articles: articlePublicRouter,
   adminArticles: articleAdminRouter,
+
+  // Marvelous Top 5 routes
+  top5: top5PublicRouter,
+  adminTop5: top5AdminRouter,
 });
 
 export type AppRouter = typeof appRouter;

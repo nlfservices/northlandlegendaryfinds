@@ -508,3 +508,46 @@ export const articles = mysqlTable("articles", {
 
 export type Article = typeof articles.$inferSelect;
 export type InsertArticle = typeof articles.$inferInsert;
+
+/**
+ * Marvelous Top 5 — admin-managed weekly buzz rankings on the homepage
+ * Each row is one ranked entry with character, backstory, card image, and sources
+ */
+export const top5BuzzItems = mysqlTable("top5_buzz_items", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Rank position (1-5) */
+  rank: int("rank").notNull(),
+  /** Display title (e.g., "Spider-Man: Brand New Day") */
+  title: varchar("title", { length: 500 }).notNull(),
+  /** Character name (e.g., "Spider-Man") */
+  character: varchar("character", { length: 255 }).notNull(),
+  /** Short tagline (e.g., "The trailer just dropped — and the hype is unreal") */
+  tagline: varchar("tagline", { length: 500 }).notNull(),
+  /** Full backstory paragraph */
+  backstory: text("backstory").notNull(),
+  /** Card image URL from NLF database */
+  cardImage: text("cardImage").notNull(),
+  /** Front card image (uploaded by admin) */
+  frontImage: text("frontImage"),
+  /** Back card image (uploaded by admin, optional) */
+  backImage: text("backImage"),
+  /** Cosmic frame template key */
+  frameTemplate: varchar("frameTemplate", { length: 100 }).default("marvel_mint_gold"),
+  /** Card label (e.g., "2025 Topps Chrome #101") */
+  cardLabel: varchar("cardLabel", { length: 255 }).notNull(),
+  /** Card detail page link (e.g., "/cards/chrome/101") */
+  cardLink: varchar("cardLink", { length: 500 }).notNull(),
+  /** Source links as JSON array of {title, url} */
+  sources: json("sources").notNull(),
+  /** Heat level for visual badge */
+  heatLevel: mysqlEnum("heatLevel", ["blazing", "hot", "rising"]).notNull().default("rising"),
+  /** Category label (e.g., "Movie", "Movie / Comics") */
+  category: varchar("category", { length: 100 }).notNull().default("Movie"),
+  /** Whether this item is active (shown on homepage) */
+  isActive: boolean("isActive").notNull().default(true),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Top5BuzzItem = typeof top5BuzzItems.$inferSelect;
+export type InsertTop5BuzzItem = typeof top5BuzzItems.$inferInsert;

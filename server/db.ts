@@ -10,6 +10,7 @@ import {
   inventoryCards, InsertInventoryCard, InventoryCard,
   characterContent, InsertCharacterContent, CharacterContent,
   cardDetailContent, InsertCardDetailContent, CardDetailContent,
+  top5BuzzItems, InsertTop5BuzzItem, Top5BuzzItem,
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -1239,4 +1240,47 @@ export async function toggleArticlePublished(id: number): Promise<void> {
     isPublished: !article.isPublished,
     publishedAt: !article.isPublished ? now : article.publishedAt,
   }).where(eq(articles.id, id));
+}
+
+
+// ==================== TOP 5 BUZZ ITEMS HELPERS ====================
+
+export async function getActiveTop5Items() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(top5BuzzItems)
+    .where(eq(top5BuzzItems.isActive, true))
+    .orderBy(asc(top5BuzzItems.rank));
+}
+
+export async function getAllTop5Items() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(top5BuzzItems).orderBy(asc(top5BuzzItems.rank));
+}
+
+export async function getTop5ItemById(id: number) {
+  const db = await getDb();
+  if (!db) return null;
+  const rows = await db.select().from(top5BuzzItems).where(eq(top5BuzzItems.id, id));
+  return rows[0] ?? null;
+}
+
+export async function createTop5Item(data: InsertTop5BuzzItem) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const result = await db.insert(top5BuzzItems).values(data);
+  return result[0].insertId;
+}
+
+export async function updateTop5Item(id: number, data: Partial<InsertTop5BuzzItem>) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  await db.update(top5BuzzItems).set(data).where(eq(top5BuzzItems.id, id));
+}
+
+export async function deleteTop5Item(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  await db.delete(top5BuzzItems).where(eq(top5BuzzItems.id, id));
 }

@@ -21,7 +21,7 @@ import { getLoginUrl } from "@/const";
 import {
   Package, ListChecks, Zap, Radio, Plus, Trash2, Edit, Eye,
   CheckCircle2, Circle, ArrowLeft, Loader2, Calendar, ExternalLink,
-  ShoppingBag, Truck, CreditCard, Boxes, Hammer, Download, BarChart3, FileSpreadsheet
+  ShoppingBag, Truck, CreditCard, Boxes, Hammer, Download, BarChart3, FileSpreadsheet, Flame
 } from "lucide-react";
 import { useState, useMemo, useEffect } from "react";
 import { Link } from "wouter";
@@ -31,6 +31,7 @@ import RepackBuilder from "@/components/RepackBuilder";
 import EbayCompsPanel from "@/components/EbayCompsPanel";
 import ChecklistSheet from "@/components/ChecklistSheet";
 import ArticleManager from "@/components/ArticleManager";
+import Top5Manager from "@/components/Top5Manager";
 
 // ==================== PRODUCT MANAGEMENT ====================
 
@@ -1466,6 +1467,9 @@ export default function AdminDashboard() {
             <TabsTrigger value="articles" className="flex items-center gap-2">
               <FileSpreadsheet className="w-4 h-4" /> MCU Intel
             </TabsTrigger>
+            <TabsTrigger value="top5" className="flex items-center gap-2">
+              <Flame className="w-4 h-4" /> Top 5
+            </TabsTrigger>
             <TabsTrigger value="ebay-comps" className="flex items-center gap-2">
               <BarChart3 className="w-4 h-4" /> eBay Comps
             </TabsTrigger>
@@ -1500,6 +1504,9 @@ export default function AdminDashboard() {
           </TabsContent>
           <TabsContent value="articles">
             <ArticleManager />
+          </TabsContent>
+          <TabsContent value="top5">
+            <Top5Manager />
           </TabsContent>
         </Tabs>
       </div>

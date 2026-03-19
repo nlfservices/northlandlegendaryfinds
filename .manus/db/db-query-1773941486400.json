@@ -1,0 +1,50 @@
+{
+  "query": "SELECT id, `rank`, `character`, heatLevel, frameTemplate, isActive FROM top5_buzz_items ORDER BY `rank`;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, `rank`, `character`, heatLevel, frameTemplate, isActive FROM top5_buzz_items ORDER BY `rank`;",
+  "rows": [
+    {
+      "id": "4",
+      "rank": "1",
+      "character": "Spider-Man",
+      "heatLevel": "blazing",
+      "frameTemplate": "marvel_mint_gold",
+      "isActive": "1"
+    },
+    {
+      "id": "5",
+      "rank": "2",
+      "character": "Doctor Doom",
+      "heatLevel": "blazing",
+      "frameTemplate": "marvel_mint_platinum",
+      "isActive": "1"
+    },
+    {
+      "id": "6",
+      "rank": "3",
+      "character": "Sentry",
+      "heatLevel": "hot",
+      "frameTemplate": "1976_era_blue_silver",
+      "isActive": "1"
+    },
+    {
+      "id": "7",
+      "rank": "4",
+      "character": "Wolverine",
+      "heatLevel": "hot",
+      "frameTemplate": "2025_era_emerald_green",
+      "isActive": "1"
+    },
+    {
+      "id": "8",
+      "rank": "5",
+      "character": "Captain America",
+      "heatLevel": "rising",
+      "frameTemplate": "1975_era_gold_amber",
+      "isActive": "1"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\trank\tcharacter\theatLevel\tframeTemplate\tisActive\n4\t1\tSpider-Man\tblazing\tmarvel_mint_gold\t1\n5\t2\tDoctor Doom\tblazing\tmarvel_mint_platinum\t1\n6\t3\tSentry\thot\t1976_era_blue_silver\t1\n7\t4\tWolverine\thot\t2025_era_emerald_green\t1\n8\t5\tCaptain America\trising\t1975_era_gold_amber\t1\n",
+  "stderr": "",
+  "execution_time_ms": 512
+}
