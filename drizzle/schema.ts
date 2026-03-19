@@ -461,3 +461,50 @@ export const cardDetailContent = mysqlTable("card_detail_content", {
 
 export type CardDetailContent = typeof cardDetailContent.$inferSelect;
 export type InsertCardDetailContent = typeof cardDetailContent.$inferInsert;
+
+// ============================================================
+// MCU INTEL - News, Articles & Market Impact
+// ============================================================
+
+/**
+ * Articles - MCU news, rumors, and card market analysis
+ * Admin-managed content hub for the MCU Intel page
+ */
+export const articles = mysqlTable("articles", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Article title */
+  title: varchar("title", { length: 500 }).notNull(),
+  /** URL-friendly slug */
+  slug: varchar("slug", { length: 500 }).notNull().unique(),
+  /** Short excerpt for cards/previews (max 300 chars) */
+  excerpt: text("excerpt"),
+  /** Full article content in Markdown */
+  contentMarkdown: text("contentMarkdown").notNull(),
+  /** Featured image URL */
+  featuredImageUrl: text("featuredImageUrl"),
+  /** Article category */
+  category: mysqlEnum("category", ["movie_news", "show_news", "casting", "card_market", "release_dates", "rumors", "analysis"]).notNull().default("movie_news"),
+  /** Tags as JSON array (e.g., ["Avengers", "Doomsday", "Doctor Doom"]) */
+  tags: json("tags"),
+  /** Card market impact note (e.g., "Doctor Doom cards up 40% since casting news") */
+  cardMarketImpact: text("cardMarketImpact"),
+  /** Related character names for cross-linking to character pages */
+  relatedCharacters: json("relatedCharacters"),
+  /** Source URLs for citations (JSON array of {title, url}) */
+  sources: json("sources"),
+  /** Whether the article is featured (shown prominently) */
+  isFeatured: boolean("isFeatured").notNull().default(false),
+  /** Whether the article is published */
+  isPublished: boolean("isPublished").notNull().default(false),
+  /** Author name */
+  authorName: varchar("authorName", { length: 255 }).default("NLF Team"),
+  /** Publish date (UTC timestamp in ms) */
+  publishedAt: bigint("publishedAt", { mode: "number" }),
+  /** SEO meta description */
+  metaDescription: varchar("metaDescription", { length: 320 }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Article = typeof articles.$inferSelect;
+export type InsertArticle = typeof articles.$inferInsert;

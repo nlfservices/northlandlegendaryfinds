@@ -1135,3 +1135,108 @@ export async function getRandomCard(): Promise<{ cardNumber: string; setSlug: st
     .limit(1);
   return result[0] ?? null;
 }
+
+
+// ==================== ARTICLE HELPERS ====================
+
+import { articles, InsertArticle, Article } from "../drizzle/schema";
+
+/** Get all articles (admin - includes drafts) */
+export async function getAllArticles(): Promise<Article[]> {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(articles).orderBy(desc(articles.publishedAt));
+}
+
+/** Get published articles (public) */
+export async function getPublishedArticles(limit?: number): Promise<Article[]> {
+  const db = await getDb();
+  if (!db) return [];
+  let query = db.select().from(articles)
+    .where(eq(articles.isPublished, true))
+    .orderBy(desc(articles.publishedAt));
+  if (limit) {
+    query = query.limit(limit) as typeof query;
+  }
+  return query;
+}
+
+/** Get published articles by category */
+export async function getPublishedArticlesByCategory(category: string): Promise<Article[]> {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(articles)
+    .where(and(eq(articles.isPublished, true), eq(articles.category, category as any)))
+    .orderBy(desc(articles.publishedAt));
+}
+
+/** Get featured published articles */
+export async function getFeaturedArticles(): Promise<Article[]> {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(articles)
+    .where(and(eq(articles.isPublished, true), eq(articles.isFeatured, true)))
+    .orderBy(desc(articles.publishedAt))
+    .limit(3);
+}
+
+/** Get article by slug (public - must be published) */
+export async function getPublishedArticleBySlug(slug: string): Promise<Article | null> {
+  const db = await getDb();
+  if (!db) return null;
+  const result = await db.select().from(articles)
+    .where(and(eq(articles.slug, slug), eq(articles.isPublished, true)))
+    .limit(1);
+  return result[0] ?? null;
+}
+
+/** Get article by ID (admin) */
+export async function getArticleById(id: number): Promise<Article | null> {
+  const db = await getDb();
+  if (!db) return null;
+  const result = await db.select().from(articles).where(eq(articles.id, id)).limit(1);
+  return result[0] ?? null;
+}
+
+/** Create article */
+export async function createArticle(data: InsertArticle): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  await db.insert(articles).values(data);
+}
+
+/** Update article */
+export async function updateArticle(id: number, data: Partial<InsertArticle>): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  await db.update(articles).set(data).where(eq(articles.id, id));
+}
+
+/** Delete article */
+export async function deleteArticle(id: number): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  await db.delete(articles).where(eq(articles.id, id));
+}
+
+/** Toggle article featured status */
+export async function toggleArticleFeatured(id: number): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const article = await getArticleById(id);
+  if (!article) throw new Error("Article not found");
+  await db.update(articles).set({ isFeatured: !article.isFeatured }).where(eq(articles.id, id));
+}
+
+/** Toggle article published status */
+export async function toggleArticlePublished(id: number): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const article = await getArticleById(id);
+  if (!article) throw new Error("Article not found");
+  const now = Date.now();
+  await db.update(articles).set({
+    isPublished: !article.isPublished,
+    publishedAt: !article.isPublished ? now : article.publishedAt,
+  }).where(eq(articles.id, id));
+}

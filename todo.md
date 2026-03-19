@@ -703,21 +703,14 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Tested: Nightcrawler page now correctly shows CBH-129_Nightcrawler image instead of Star-Lord
 - [x] Save checkpoint
 
-## Heroes and Villains Section Restoration
-- [ ] Find the Heroes and Villains section from git history
-- [ ] Restore the section to Home.tsx
-- [ ] Verify in browser
-- [ ] Save checkpoint
-
-## Doomsday Homepage Section
-- [x] Research Avengers: Doomsday confirmed cast and characters
-- [x] Research character-specific news, rumors, and article backlinks for each Doomsday character (20 characters, parallel research)
-- [x] Cross-reference Doomsday characters with NLF card database images (15 of 16 have cards)
-- [x] Generate Doctor Doom hero image and section background visuals
-- [x] Build rotating character spotlight section with news intel and backlinks (16 characters, 32 article links)
-- [x] Verify in browser and run tests (127 tests passing)
-- [x] Save checkpoint
-
-## Remove Raw & Graded Card Showcase
-- [x] Remove CardShowcase component from homepage
+## MCU News & Intel Page
+- [x] Research current MCU news and plan page structure
+- [x] Design database schema for articles (title, slug, content, category, featured image, card market impact, publish date)
+- [x] Build admin CMS backend (CRUD routes for articles — create, update, delete, toggleFeatured, togglePublished)
+- [x] Build admin ArticleManager CMS component (create, edit, delete, toggle publish/featured, filters)
+- [x] Build public MCU Intel page with hero, featured articles, Phase 6 timeline, category filters, search, card market pulse sidebar
+- [x] Build individual article detail page with markdown rendering, sources, related characters
+- [x] Generate hero images and seed 6 initial articles with real MCU news
+- [x] Add MCU Intel navigation link and route
+- [x] Write 22 tests for article CRUD routes (admin access control, public access, data integrity)
 - [ ] Save checkpoint

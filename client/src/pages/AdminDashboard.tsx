@@ -30,6 +30,7 @@ import InventoryManager from "@/components/InventoryManager";
 import RepackBuilder from "@/components/RepackBuilder";
 import EbayCompsPanel from "@/components/EbayCompsPanel";
 import ChecklistSheet from "@/components/ChecklistSheet";
+import ArticleManager from "@/components/ArticleManager";
 
 // ==================== PRODUCT MANAGEMENT ====================
 
@@ -1462,6 +1463,9 @@ export default function AdminDashboard() {
             <TabsTrigger value="repack-builder" className="flex items-center gap-2">
               <Hammer className="w-4 h-4" /> Repack Builder
             </TabsTrigger>
+            <TabsTrigger value="articles" className="flex items-center gap-2">
+              <FileSpreadsheet className="w-4 h-4" /> MCU Intel
+            </TabsTrigger>
             <TabsTrigger value="ebay-comps" className="flex items-center gap-2">
               <BarChart3 className="w-4 h-4" /> eBay Comps
             </TabsTrigger>
@@ -1493,6 +1497,9 @@ export default function AdminDashboard() {
           </TabsContent>
           <TabsContent value="ebay-comps">
             <EbayCompsPanel />
+          </TabsContent>
+          <TabsContent value="articles">
+            <ArticleManager />
           </TabsContent>
         </Tabs>
       </div>

@@ -71,6 +71,13 @@
       "when": 1773540515125,
       "tag": "0009_even_dazzler",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "5",
+      "when": 1773926626850,
+      "tag": "0010_yummy_zaladane",
+      "breakpoints": true
     }
   ]
 }

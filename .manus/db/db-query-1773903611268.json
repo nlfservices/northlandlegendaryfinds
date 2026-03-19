@@ -1,9 +1,0 @@
-{
-  "query": "SELECT mc.characterName, mc.imageUrl, mc.cardNumber, ms.name\nFROM marvel_cards mc \nJOIN marvel_sets ms ON mc.setId = ms.id \nWHERE mc.characterName IN ('Loki', 'Mr. Fantastic', 'Captain Marvel', 'Mighty Thor')\nAND mc.cardType = 'Base'\nORDER BY mc.characterName;",
-  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT mc.characterName, mc.imageUrl, mc.cardNumber, ms.name\nFROM marvel_cards mc \nJOIN marvel_sets ms ON mc.setId = ms.id \nWHERE mc.characterName IN ('Loki', 'Mr. Fantastic', 'Captain Marvel', 'Mighty Thor')\nAND mc.cardType = 'Base'\nORDER BY mc.characterName;",
-  "rows": [],
-  "messages": [],
-  "stdout": "",
-  "stderr": "",
-  "execution_time_ms": 352
-}

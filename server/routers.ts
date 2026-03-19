@@ -6,6 +6,7 @@ import { adminRouter } from "./routers/admin";
 import { publicRouter } from "./routers/public";
 import { checkoutRouter } from "./routers/checkout";
 import { ebayRouter } from "./routers/ebay";
+import { articleAdminRouter, articlePublicRouter } from "./routers/articles";
 
 export const appRouter = router({
   system: systemRouter,
@@ -31,6 +32,10 @@ export const appRouter = router({
 
   // eBay API routes (admin only)
   ebay: ebayRouter,
+
+  // Article routes (MCU Intel)
+  articles: articlePublicRouter,
+  adminArticles: articleAdminRouter,
 });
 
 export type AppRouter = typeof appRouter;
