@@ -1,13 +1,14 @@
 /**
  * Jarvis Protocol - Branded Login/Signup Page
  * Marvel-themed authentication gateway with NLF cosmic styling
+ * Two equal paths: New Users (Create Account) and Existing Users (Sign In)
  * Frames OAuth as "Secure Sign-In Partner" to hide Manus branding
  */
 
 import { useAuth } from "@/_core/hooks/useAuth";
-import { getLoginUrl } from "@/const";
+import { getLoginUrl, getSignUpUrl } from "@/const";
 import { Button } from "@/components/ui/button";
-import { Link, useLocation } from "wouter";
+import { Link } from "wouter";
 import {
   Shield,
   Zap,
@@ -18,12 +19,12 @@ import {
   Lock,
   Fingerprint,
   ArrowLeft,
-  Loader2,
   LogOut,
   User,
   ShoppingBag,
+  UserPlus,
+  KeyRound,
 } from "lucide-react";
-import { useEffect } from "react";
 
 const NLF_LOGO = "/logo.png";
 
@@ -52,9 +53,8 @@ const BENEFITS = [
 
 export default function JarvisProtocol() {
   const { user, loading, isAuthenticated, logout } = useAuth();
-  const [, setLocation] = useLocation();
 
-  // If already authenticated, show account dashboard
+  // Loading state
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
@@ -72,10 +72,10 @@ export default function JarvisProtocol() {
     );
   }
 
+  // Authenticated — show account dashboard
   if (isAuthenticated && user) {
     return (
       <div className="min-h-screen bg-background">
-        {/* Subtle grid background */}
         <div className="absolute inset-0 opacity-5">
           <div
             className="w-full h-full"
@@ -90,15 +90,12 @@ export default function JarvisProtocol() {
         </div>
 
         <div className="container relative z-10 py-16 max-w-2xl mx-auto">
-          {/* Back link */}
           <Link href="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors mb-8">
             <ArrowLeft className="w-4 h-4" />
             <span className="text-sm">Back to Home</span>
           </Link>
 
-          {/* Welcome Card */}
           <div className="bg-card border border-border rounded-2xl overflow-hidden">
-            {/* Header */}
             <div className="bg-gradient-to-r from-primary/20 via-primary/10 to-transparent p-8 border-b border-border">
               <div className="flex items-center gap-4">
                 <div className="w-16 h-16 rounded-full bg-primary/20 border-2 border-primary/40 flex items-center justify-center">
@@ -114,7 +111,6 @@ export default function JarvisProtocol() {
               </div>
             </div>
 
-            {/* Account Actions */}
             <div className="p-8 space-y-4">
               <h2 className="text-lg font-semibold text-foreground mb-4">Your Account</h2>
 
@@ -144,7 +140,6 @@ export default function JarvisProtocol() {
                 </button>
               </Link>
 
-              {/* Logout */}
               <button
                 onClick={() => logout()}
                 className="w-full flex items-center gap-4 p-4 rounded-xl bg-background hover:bg-destructive/5 border border-border hover:border-destructive/30 transition-all group mt-6"
@@ -164,14 +159,14 @@ export default function JarvisProtocol() {
     );
   }
 
-  // Not authenticated — show login gateway
+  // ========================================
+  // Not authenticated — Two-path login page
+  // ========================================
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0">
-        {/* Radial gradient from center */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(34,197,94,0.08)_0%,_transparent_70%)]" />
-        {/* Grid pattern */}
         <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
@@ -182,13 +177,10 @@ export default function JarvisProtocol() {
             backgroundSize: "40px 40px",
           }}
         />
-        {/* Animated scan line */}
         <div className="absolute inset-0 overflow-hidden">
           <div
             className="absolute w-full h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent"
-            style={{
-              animation: "scanline 4s ease-in-out infinite",
-            }}
+            style={{ animation: "scanline 4s ease-in-out infinite" }}
           />
         </div>
       </div>
@@ -200,10 +192,6 @@ export default function JarvisProtocol() {
           90% { opacity: 1; }
           100% { top: 110%; opacity: 0; }
         }
-        @keyframes hexPulse {
-          0%, 100% { opacity: 0.03; }
-          50% { opacity: 0.08; }
-        }
       `}</style>
 
       <div className="container relative z-10 py-12 lg:py-20">
@@ -213,7 +201,7 @@ export default function JarvisProtocol() {
           <span className="text-sm">Back to Home</span>
         </Link>
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start max-w-6xl mx-auto">
           {/* Left Side — Branding & Benefits */}
           <div>
             {/* Protocol Header */}
@@ -254,68 +242,117 @@ export default function JarvisProtocol() {
             </div>
           </div>
 
-          {/* Right Side — Login Card */}
-          <div>
-            <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-2xl shadow-primary/5">
+          {/* Right Side — Two Login Options */}
+          <div className="space-y-5">
+            {/* ===== NEW USER CARD ===== */}
+            <div className="bg-card border-2 border-primary/40 rounded-2xl overflow-hidden shadow-2xl shadow-primary/10">
               {/* Card Header */}
-              <div className="p-8 pb-6 text-center border-b border-border bg-gradient-to-b from-primary/5 to-transparent">
-                <div className="w-20 h-20 mx-auto mb-5 relative">
-                  <div className="absolute inset-0 border-2 border-primary/20 rounded-full" />
-                  <div className="absolute inset-1 border border-primary/10 rounded-full" />
-                  <div className="absolute inset-3 bg-primary/10 rounded-full flex items-center justify-center">
-                    <Fingerprint className="w-8 h-8 text-primary" />
+              <div className="p-6 pb-4 bg-gradient-to-b from-primary/10 to-transparent">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-12 h-12 rounded-xl bg-primary/20 border border-primary/30 flex items-center justify-center">
+                    <UserPlus className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <h2 className="text-xl font-bold text-foreground">New Here?</h2>
+                    <p className="text-primary text-sm font-medium">Create your free account</p>
                   </div>
                 </div>
-                <h2 className="text-xl font-bold text-foreground mb-1">Access Required</h2>
-                <p className="text-muted-foreground text-sm">Authenticate to initialize the protocol</p>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  Join the NLF community in seconds. Sign up with your email, Google, Facebook, Apple, or Microsoft account — no special account needed.
+                </p>
               </div>
 
-              {/* Login Action */}
-              <div className="p-8 space-y-6">
+              <div className="p-6 pt-4">
                 <Button
                   size="lg"
-                  className="w-full h-14 text-base font-bold tracking-wide gap-3 bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl shadow-lg shadow-primary/20"
+                  className="w-full h-14 text-base font-bold tracking-wide gap-3 bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl shadow-lg shadow-primary/25"
+                  onClick={() => {
+                    window.location.href = getSignUpUrl();
+                  }}
+                >
+                  <UserPlus className="w-5 h-5" />
+                  Create Account — It's Free
+                  <ChevronRight className="w-5 h-5" />
+                </Button>
+
+                <div className="flex items-center gap-4 mt-4">
+                  <div className="flex -space-x-1">
+                    {["Google", "Facebook", "Apple", "Microsoft"].map((provider) => (
+                      <div
+                        key={provider}
+                        className="w-7 h-7 rounded-full bg-background border border-border flex items-center justify-center text-[10px] font-bold text-muted-foreground"
+                        title={`Sign up with ${provider}`}
+                      >
+                        {provider[0]}
+                      </div>
+                    ))}
+                  </div>
+                  <span className="text-xs text-muted-foreground">
+                    Sign up with Google, Facebook, Apple, Microsoft, or Email
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* ===== EXISTING USER CARD ===== */}
+            <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-xl shadow-black/10">
+              {/* Card Header */}
+              <div className="p-6 pb-4">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-12 h-12 rounded-xl bg-muted/50 border border-border flex items-center justify-center">
+                    <KeyRound className="w-6 h-6 text-foreground/70" />
+                  </div>
+                  <div>
+                    <h2 className="text-xl font-bold text-foreground">Already a Member?</h2>
+                    <p className="text-muted-foreground text-sm">Welcome back, Agent</p>
+                  </div>
+                </div>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  Sign in with the same method you used to create your account.
+                </p>
+              </div>
+
+              <div className="p-6 pt-2">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="w-full h-14 text-base font-bold tracking-wide gap-3 border-2 border-primary/50 text-primary hover:bg-primary/10 hover:border-primary rounded-xl"
                   onClick={() => {
                     window.location.href = getLoginUrl();
                   }}
                 >
                   <Shield className="w-5 h-5" />
-                  Initialize Jarvis Protocol
+                  Sign In to Your Account
                   <ChevronRight className="w-5 h-5" />
                 </Button>
+              </div>
+            </div>
 
-                <p className="text-center text-muted-foreground text-xs">
-                  Don't have an account? Click above to create one — it's free.
-                </p>
+            {/* Security & Trust */}
+            <div className="flex items-center justify-center gap-3 pt-2">
+              <Lock className="w-4 h-4 text-muted-foreground" />
+              <span className="text-xs text-muted-foreground">
+                Protected by <span className="text-foreground/70 font-medium">Secure Sign-In Partner</span>
+              </span>
+            </div>
 
-                {/* Security Badge */}
-                <div className="flex items-center justify-center gap-3 pt-4 border-t border-border">
-                  <Lock className="w-4 h-4 text-muted-foreground" />
-                  <span className="text-xs text-muted-foreground">
-                    Protected by <span className="text-foreground/70 font-medium">Secure Sign-In Partner</span>
-                  </span>
-                </div>
-
-                {/* Trust indicators */}
-                <div className="grid grid-cols-3 gap-3 pt-2">
-                  <div className="text-center p-3 rounded-lg bg-background border border-border">
-                    <Shield className="w-4 h-4 text-primary mx-auto mb-1" />
-                    <p className="text-[10px] text-muted-foreground leading-tight">256-bit<br />Encryption</p>
-                  </div>
-                  <div className="text-center p-3 rounded-lg bg-background border border-border">
-                    <Lock className="w-4 h-4 text-primary mx-auto mb-1" />
-                    <p className="text-[10px] text-muted-foreground leading-tight">Zero Data<br />Sharing</p>
-                  </div>
-                  <div className="text-center p-3 rounded-lg bg-background border border-border">
-                    <Fingerprint className="w-4 h-4 text-primary mx-auto mb-1" />
-                    <p className="text-[10px] text-muted-foreground leading-tight">Secure<br />Auth</p>
-                  </div>
-                </div>
+            <div className="grid grid-cols-3 gap-3">
+              <div className="text-center p-3 rounded-lg bg-card border border-border">
+                <Shield className="w-4 h-4 text-primary mx-auto mb-1" />
+                <p className="text-[10px] text-muted-foreground leading-tight">256-bit<br />Encryption</p>
+              </div>
+              <div className="text-center p-3 rounded-lg bg-card border border-border">
+                <Lock className="w-4 h-4 text-primary mx-auto mb-1" />
+                <p className="text-[10px] text-muted-foreground leading-tight">Zero Data<br />Sharing</p>
+              </div>
+              <div className="text-center p-3 rounded-lg bg-card border border-border">
+                <Fingerprint className="w-4 h-4 text-primary mx-auto mb-1" />
+                <p className="text-[10px] text-muted-foreground leading-tight">Secure<br />Auth</p>
               </div>
             </div>
 
             {/* Help text */}
-            <p className="text-center text-muted-foreground text-xs mt-4">
+            <p className="text-center text-muted-foreground text-xs">
               Having trouble? Contact{" "}
               <a href="mailto:admin@nlfservices.com" className="text-primary hover:underline">
                 admin@nlfservices.com

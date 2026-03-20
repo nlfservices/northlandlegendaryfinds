@@ -723,4 +723,11 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] /matrix renders as standalone (no nav/footer)
 - [x] Block /matrix from robots.txt
 - [x] Write vitest tests for access code verification (24 tests)
+- [x] Save checkpoint (236fc644)
+
+## Jarvis Protocol Login Page - Two-Path Redesign
+- [x] Redesign login page with two equal prominent options: New User + Existing User
+- [x] Both paths lead to same OAuth but with different messaging
+- [x] Remove single "Initialize Jarvis Protocol" button
+- [x] Make it clear no prior account is needed
 - [ ] Save checkpoint
