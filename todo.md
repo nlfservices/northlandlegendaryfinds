@@ -737,3 +737,11 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Include search, state filter, month filter, tier filter
 - [x] Run integrity check before checkpoint (81/81 passed)
 - [x] Save checkpoint
+
+## Redesign Card Shows page: Side-by-side layout for Card Shows + Comic Cons
+- [x] Read current CardShows.tsx and ComicConsSection.tsx layout
+- [x] Redesign page with unified hero and tabbed/side-by-side navigation
+- [x] Merge card shows and comic cons into a single browsable experience
+- [x] Verify rendering and responsiveness
+- [x] Run integrity check before checkpoint (81/81 passed)
+- [x] Save checkpoint
