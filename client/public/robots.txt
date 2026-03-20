@@ -5,8 +5,6 @@ Allow: /
 # Disallow admin and internal routes
 Disallow: /admin
 Disallow: /admin/
-Disallow: /matrix
-Disallow: /matrix/
 Disallow: /order-success
 Disallow: /card-display
 Disallow: /api/

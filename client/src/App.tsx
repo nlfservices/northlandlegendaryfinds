@@ -39,22 +39,9 @@ import CardDisplay from "./pages/CardDisplay";
 import Characters from "./pages/Characters";
 import CharacterPage from "./pages/CharacterPage";
 import CardDetailPage from "./pages/CardDetailPage";
-import JarvisProtocol from "./pages/JarvisProtocol";
-import MatrixPortal from "./pages/MatrixPortal";
-import MCUIntel from "./pages/MCUIntel";
-import MCUIntelArticle from "./pages/MCUIntelArticle";
-import SubscriberHub from "./pages/SubscriberHub";
-import CardShows from "./pages/CardShows";
-import SubmitShow from "./pages/SubmitShow";
-import MarketIntel from "./pages/MarketIntel";
-import MarketIntel2024vs2025 from "./pages/MarketIntel2024vs2025";
-import MarketIntelToppsVsUpperDeck from "./pages/MarketIntelToppsVsUpperDeck";
-import MarketIntelMarvelVsPokemon from "./pages/MarketIntelMarvelVsPokemon";
-import MarketIntelFanatics from "./pages/MarketIntelFanatics";
-import MarketIntelBestCards from "./pages/MarketIntelBestCards";
 
 // Routes that render as full-screen standalone experiences (no nav/footer)
-const STANDALONE_ROUTES = ["/card-display", "/matrix"];
+const STANDALONE_ROUTES = ["/card-display"];
 
 function AppRouter() {
   const [location] = useLocation();
@@ -65,7 +52,6 @@ function AppRouter() {
     return (
       <Switch>
         <Route path="/card-display" component={CardDisplay} />
-        <Route path="/matrix" component={MatrixPortal} />
       </Switch>
     );
   }
@@ -103,22 +89,9 @@ function AppRouter() {
           <Route path="/cards/:slug" component={CardDatabase} />
           <Route path="/characters" component={Characters} />
           <Route path="/characters/:slug" component={CharacterPage} />
-          <Route path="/matrix" component={MatrixPortal} />
           <Route path="/admin" component={AdminDashboard} />
           <Route path="/admin/ebay-comps" component={EbayComps} />
           <Route path="/transparency" component={Transparency} />
-          <Route path="/mcu-intel" component={MCUIntel} />
-          <Route path="/mcu-intel/:slug" component={MCUIntelArticle} />
-          <Route path="/subscribers" component={SubscriberHub} />
-          <Route path="/card-shows" component={CardShows} />
-          <Route path="/submit-show" component={SubmitShow} />
-          <Route path="/market-intel" component={MarketIntel} />
-          <Route path="/market-intel/2024-vs-2025-topps-marvel" component={MarketIntel2024vs2025} />
-          <Route path="/market-intel/topps-vs-upper-deck-marvel" component={MarketIntelToppsVsUpperDeck} />
-          <Route path="/market-intel/marvel-vs-pokemon-cards" component={MarketIntelMarvelVsPokemon} />
-          <Route path="/market-intel/why-fanatics-trading-cards" component={MarketIntelFanatics} />
-          <Route path="/market-intel/best-topps-marvel-cards" component={MarketIntelBestCards} />
-          <Route path="/login" component={JarvisProtocol} />
           <Route path="/404" component={NotFound} />
           <Route component={NotFound} />
         </Switch>

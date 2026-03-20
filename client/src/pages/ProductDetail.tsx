@@ -115,7 +115,7 @@ function LaunchCountdownBlock({ launchDateUtc, productSlug }: { launchDateUtc: s
         <div className="flex items-center justify-center gap-2 mb-3">
           <Clock className="w-5 h-5 text-primary" />
           <span className="text-primary font-bold text-sm uppercase tracking-wider">
-            Available March 27th at 7:00 PM CT
+            Available April 27th at 7:00 PM CT
           </span>
         </div>
 
@@ -143,7 +143,7 @@ function LaunchCountdownBlock({ launchDateUtc, productSlug }: { launchDateUtc: s
         </div>
 
         <p className="text-sm text-muted-foreground">
-          This product drops <strong className="text-foreground">Friday, March 27th, 2026</strong> at 7:00 PM Central Time.
+          This product drops <strong className="text-foreground">Sunday, April 27th, 2026</strong> at 7:00 PM Central Time.
         </p>
       </div>
 
@@ -157,7 +157,7 @@ function LaunchCountdownBlock({ launchDateUtc, productSlug }: { launchDateUtc: s
         className="w-full bg-muted text-muted-foreground font-bold text-lg py-6 cursor-not-allowed"
       >
         <Clock className="w-5 h-5 mr-2" />
-        Available March 27th
+        Available April 27th
       </Button>
       <p className="text-xs text-muted-foreground text-center">
         Checkout will be enabled when the countdown reaches zero.
@@ -327,7 +327,7 @@ export default function ProductDetail() {
                   <>
                     <Zap className="w-4 h-4 text-primary" />
                     <span className="text-sm text-primary font-bold">
-                      Drops March 27th — packs available at launch
+                      Drops April 27th — packs available at launch
                     </span>
                   </>
                 ) : (

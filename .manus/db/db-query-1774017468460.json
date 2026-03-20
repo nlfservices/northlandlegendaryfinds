@@ -1,0 +1,1386 @@
+{
+  "query": "SELECT mc.characterName, mc.cardNumber, mc.cardType, mc.parallels, ms.name as setName, ms.id as setId\nFROM marvel_cards mc\nJOIN marvel_sets ms ON mc.setId = ms.id\nWHERE mc.characterName IN ('Spider-Man', 'Wolverine', 'Iron Man', 'Captain America', 'Thor', 'Mister Fantastic', 'Doctor Doom', 'Rogue', 'Hulk', 'Doctor Strange', 'Blade', 'Storm', 'Black Widow', 'Venom', 'Magneto', 'Daredevil', 'Professor X', 'Invisible Woman', 'Gambit', 'Black Panther')\nORDER BY mc.characterName, ms.name, mc.cardType\nLIMIT 200;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT mc.characterName, mc.cardNumber, mc.cardType, mc.parallels, ms.name as setName, ms.id as setId\nFROM marvel_cards mc\nJOIN marvel_sets ms ON mc.setId = ms.id\nWHERE mc.characterName IN ('Spider-Man', 'Wolverine', 'Iron Man', 'Captain America', 'Thor', 'Mister Fantastic', 'Doctor Doom', 'Rogue', 'Hulk', 'Doctor Strange', 'Blade', 'Storm', 'Black Widow', 'Venom', 'Magneto', 'Daredevil', 'Professor X', 'Invisible Woman', 'Gambit', 'Black Panther')\nORDER BY mc.characterName, ms.name, mc.cardType\nLIMIT 200;",
+  "rows": [
+    {
+      "characterName": "Black Panther",
+      "cardNumber": "AI-6",
+      "cardType": "AVENGERS INFINITY",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Black Panther",
+      "cardNumber": "136",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Black Panther",
+      "cardNumber": "I-4",
+      "cardType": "INDESTRUCTIBLE",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Black Panther",
+      "cardNumber": "61",
+      "cardType": "COMIC BOOK HEROES 1976",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Black Panther",
+      "cardNumber": "120",
+      "cardType": "BASE CARDS – PLATINUM",
+      "parallels": "Base Platinum, /1-P, /5-P, /10-P, /99, PP-P",
+      "setName": "2025 Topps Marvel Mint",
+      "setId": "3"
+    },
+    {
+      "characterName": "Black Panther",
+      "cardNumber": "136",
+      "cardType": "Base",
+      "parallels": "Base, /99, /75, /50, /25, /15, /10, /5, /1",
+      "setName": "2025 Topps Marvel Sapphire",
+      "setId": "4"
+    },
+    {
+      "characterName": "Black Panther",
+      "cardNumber": "MM-2",
+      "cardType": "THE MERRY MARVEL MARCHING SOCIETY",
+      "parallels": "Merry Marvel Marching",
+      "setName": "2025 Topps Marvel Sapphire",
+      "setId": "4"
+    },
+    {
+      "characterName": "Black Panther",
+      "cardNumber": "MT-4",
+      "cardType": "Marvel Tomorrow",
+      "parallels": "Base, Orange /57, Purple /94, Black /141, Red /279, Gold /1347",
+      "setName": "2025 Topps Marvel Studios: The Collector",
+      "setId": "30001"
+    },
+    {
+      "characterName": "Black Widow",
+      "cardNumber": "129",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Black Widow",
+      "cardNumber": "MI-6",
+      "cardType": "MARVEL ICONS",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Black Widow",
+      "cardNumber": "1",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Black Widow",
+      "cardNumber": "62",
+      "cardType": "COMIC BOOK HEROES 1976",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Black Widow",
+      "cardNumber": "113",
+      "cardType": "BASE CARDS – PLATINUM",
+      "parallels": "Base Platinum, /1-P, /5-P, /10-P, /99, PP-P",
+      "setName": "2025 Topps Marvel Mint",
+      "setId": "3"
+    },
+    {
+      "characterName": "Black Widow",
+      "cardNumber": "129",
+      "cardType": "Base",
+      "parallels": "Base, /99, /75, /50, /25, /15, /10, /5, /1",
+      "setName": "2025 Topps Marvel Sapphire",
+      "setId": "4"
+    },
+    {
+      "characterName": "Black Widow",
+      "cardNumber": "IS-3",
+      "cardType": "INFINITE SAPPHIRE",
+      "parallels": "Infinite Sapphire",
+      "setName": "2025 Topps Marvel Sapphire",
+      "setId": "4"
+    },
+    {
+      "characterName": "Black Widow",
+      "cardNumber": "MM-6",
+      "cardType": "THE MERRY MARVEL MARCHING SOCIETY",
+      "parallels": "Merry Marvel Marching",
+      "setName": "2025 Topps Marvel Sapphire",
+      "setId": "4"
+    },
+    {
+      "characterName": "Black Widow",
+      "cardNumber": "77",
+      "cardType": "MCU Perfection",
+      "parallels": "Base, Orange /17, Purple /28, Black /42, Red /83, Gold /406",
+      "setName": "2025 Topps Marvel Studios: The Collector",
+      "setId": "30001"
+    },
+    {
+      "characterName": "Blade",
+      "cardNumber": "126",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Blade",
+      "cardNumber": "29",
+      "cardType": "COMIC BOOK HEROES 1976",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Blade",
+      "cardNumber": "111",
+      "cardType": "BASE CARDS – PLATINUM",
+      "parallels": "Base Platinum, /1-P, /5-P, /10-P, /99, PP-P",
+      "setName": "2025 Topps Marvel Mint",
+      "setId": "3"
+    },
+    {
+      "characterName": "Blade",
+      "cardNumber": "126",
+      "cardType": "Base",
+      "parallels": "Base, /99, /75, /50, /25, /15, /10, /5, /1",
+      "setName": "2025 Topps Marvel Sapphire",
+      "setId": "4"
+    },
+    {
+      "characterName": "Captain America",
+      "cardNumber": "185",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Captain America",
+      "cardNumber": "I-3",
+      "cardType": "INDESTRUCTIBLE",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Captain America",
+      "cardNumber": "AV-6",
+      "cardType": "THE NEW AVENGERS 20TH ANNIVERSARY",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Captain America",
+      "cardNumber": "2",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Captain America",
+      "cardNumber": "65",
+      "cardType": "COMIC BOOK HEROES 1976",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Captain America",
+      "cardNumber": "31",
+      "cardType": "COMIC BOOK HEROES 1976",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Captain America",
+      "cardNumber": "108",
+      "cardType": "COMIC BOOK HEROES 2025",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Captain America",
+      "cardNumber": "89",
+      "cardType": "BASE CARDS – GOLD",
+      "parallels": "Base, /1, /5, /10, /25, /50, /75, PP",
+      "setName": "2025 Topps Marvel Mint",
+      "setId": "3"
+    },
+    {
+      "characterName": "Captain America",
+      "cardNumber": "104",
+      "cardType": "BASE CARDS – PLATINUM",
+      "parallels": "Base Platinum, /1-P, /5-P, /10-P, /99, PP-P",
+      "setName": "2025 Topps Marvel Mint",
+      "setId": "3"
+    },
+    {
+      "characterName": "Captain America",
+      "cardNumber": "185",
+      "cardType": "Base",
+      "parallels": "Base, /99, /75, /50, /25, /15, /10, /5, /1",
+      "setName": "2025 Topps Marvel Sapphire",
+      "setId": "4"
+    },
+    {
+      "characterName": "Captain America",
+      "cardNumber": "MM-4",
+      "cardType": "THE MERRY MARVEL MARCHING SOCIETY",
+      "parallels": "Merry Marvel Marching",
+      "setName": "2025 Topps Marvel Sapphire",
+      "setId": "4"
+    },
+    {
+      "characterName": "Captain America",
+      "cardNumber": "BNW-10",
+      "cardType": "CAPTAIN AMERICA: BRAVE NEW WORLD",
+      "parallels": "Brave New World",
+      "setName": "2025 Topps Marvel Studios",
+      "setId": "5"
+    },
+    {
+      "characterName": "Captain America",
+      "cardNumber": "BNW-1",
+      "cardType": "CAPTAIN AMERICA: BRAVE NEW WORLD",
+      "parallels": "Brave New World",
+      "setName": "2025 Topps Marvel Studios",
+      "setId": "5"
+    },
+    {
+      "characterName": "Captain America",
+      "cardNumber": "MT-10",
+      "cardType": "Marvel Tomorrow",
+      "parallels": "Base, Orange /57, Purple /94, Black /141, Red /279, Gold /1347",
+      "setName": "2025 Topps Marvel Studios: The Collector",
+      "setId": "30001"
+    },
+    {
+      "characterName": "Captain America",
+      "cardNumber": "12",
+      "cardType": "MCU Perfection",
+      "parallels": "Base, Orange /17, Purple /28, Black /42, Red /83, Gold /406",
+      "setName": "2025 Topps Marvel Studios: The Collector",
+      "setId": "30001"
+    },
+    {
+      "characterName": "Captain America",
+      "cardNumber": "81",
+      "cardType": "MCU Perfection",
+      "parallels": "Base, Orange /17, Purple /28, Black /42, Red /83, Gold /406",
+      "setName": "2025 Topps Marvel Studios: The Collector",
+      "setId": "30001"
+    },
+    {
+      "characterName": "Daredevil",
+      "cardNumber": "97",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Daredevil",
+      "cardNumber": "I-5",
+      "cardType": "INDESTRUCTIBLE",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Daredevil",
+      "cardNumber": "AV-3",
+      "cardType": "THE NEW AVENGERS 20TH ANNIVERSARY",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Daredevil",
+      "cardNumber": "3",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Daredevil",
+      "cardNumber": "33",
+      "cardType": "COMIC BOOK HEROES 1976",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Daredevil",
+      "cardNumber": "112",
+      "cardType": "COMIC BOOK HEROES 2025",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Daredevil",
+      "cardNumber": "116",
+      "cardType": "BASE CARDS – PLATINUM",
+      "parallels": "Base Platinum, /1-P, /5-P, /10-P, /99, PP-P",
+      "setName": "2025 Topps Marvel Mint",
+      "setId": "3"
+    },
+    {
+      "characterName": "Daredevil",
+      "cardNumber": "97",
+      "cardType": "Base",
+      "parallels": "Base, /99, /75, /50, /25, /15, /10, /5, /1",
+      "setName": "2025 Topps Marvel Sapphire",
+      "setId": "4"
+    },
+    {
+      "characterName": "Daredevil",
+      "cardNumber": "MM-7",
+      "cardType": "THE MERRY MARVEL MARCHING SOCIETY",
+      "parallels": "Merry Marvel Marching",
+      "setName": "2025 Topps Marvel Sapphire",
+      "setId": "4"
+    },
+    {
+      "characterName": "Daredevil",
+      "cardNumber": "DD-1",
+      "cardType": "DAREDEVIL: BORN AGAIN",
+      "parallels": "Daredevil Born Again",
+      "setName": "2025 Topps Marvel Studios",
+      "setId": "5"
+    },
+    {
+      "characterName": "Doctor Doom",
+      "cardNumber": "148",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Doctor Doom",
+      "cardNumber": "MI-1",
+      "cardType": "MARVEL ICONS",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Doctor Doom",
+      "cardNumber": "MR-1",
+      "cardType": "MARVEL REFLECTIONS",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Doctor Doom",
+      "cardNumber": "4",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Doctor Doom",
+      "cardNumber": "35",
+      "cardType": "COMIC BOOK HEROES 1976",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Doctor Doom",
+      "cardNumber": "115",
+      "cardType": "COMIC BOOK HEROES 2025",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Doctor Doom",
+      "cardNumber": "107",
+      "cardType": "BASE CARDS – PLATINUM",
+      "parallels": "Base Platinum, /1-P, /5-P, /10-P, /99, PP-P",
+      "setName": "2025 Topps Marvel Mint",
+      "setId": "3"
+    },
+    {
+      "characterName": "Doctor Doom",
+      "cardNumber": "148",
+      "cardType": "Base",
+      "parallels": "Base, /99, /75, /50, /25, /15, /10, /5, /1",
+      "setName": "2025 Topps Marvel Sapphire",
+      "setId": "4"
+    },
+    {
+      "characterName": "Doctor Strange",
+      "cardNumber": "TO-2",
+      "cardType": "THE ONE AND ONLY",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Doctor Strange",
+      "cardNumber": "6",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Doctor Strange",
+      "cardNumber": "36",
+      "cardType": "COMIC BOOK HEROES 1976",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Doctor Strange",
+      "cardNumber": "110",
+      "cardType": "BASE CARDS – PLATINUM",
+      "parallels": "Base Platinum, /1-P, /5-P, /10-P, /99, PP-P",
+      "setName": "2025 Topps Marvel Mint",
+      "setId": "3"
+    },
+    {
+      "characterName": "Doctor Strange",
+      "cardNumber": "MM-8",
+      "cardType": "THE MERRY MARVEL MARCHING SOCIETY",
+      "parallels": "Merry Marvel Marching",
+      "setName": "2025 Topps Marvel Sapphire",
+      "setId": "4"
+    },
+    {
+      "characterName": "Doctor Strange",
+      "cardNumber": "63",
+      "cardType": "MCU Perfection",
+      "parallels": "Base, Orange /17, Purple /28, Black /42, Red /83, Gold /406",
+      "setName": "2025 Topps Marvel Studios: The Collector",
+      "setId": "30001"
+    },
+    {
+      "characterName": "Gambit",
+      "cardNumber": "105",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Gambit",
+      "cardNumber": "MA-25",
+      "cardType": "MARVEL ANNIVERSARIES",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Gambit",
+      "cardNumber": "117",
+      "cardType": "COMIC BOOK HEROES 2025",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Gambit",
+      "cardNumber": "119",
+      "cardType": "BASE CARDS – PLATINUM",
+      "parallels": "Base Platinum, /1-P, /5-P, /10-P, /99, PP-P",
+      "setName": "2025 Topps Marvel Mint",
+      "setId": "3"
+    },
+    {
+      "characterName": "Gambit",
+      "cardNumber": "105",
+      "cardType": "Base",
+      "parallels": "Base, /99, /75, /50, /25, /15, /10, /5, /1",
+      "setName": "2025 Topps Marvel Sapphire",
+      "setId": "4"
+    },
+    {
+      "characterName": "Gambit",
+      "cardNumber": "SS-8",
+      "cardType": "SAPPHIRE SELECTIONS",
+      "parallels": "Sapphire Selections",
+      "setName": "2025 Topps Marvel Sapphire",
+      "setId": "4"
+    },
+    {
+      "characterName": "Hulk",
+      "cardNumber": "128",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Hulk",
+      "cardNumber": "10",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Hulk",
+      "cardNumber": "41",
+      "cardType": "COMIC BOOK HEROES 1976",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Hulk",
+      "cardNumber": "71",
+      "cardType": "COMIC BOOK HEROES 1976",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Hulk",
+      "cardNumber": "121",
+      "cardType": "COMIC BOOK HEROES 2025",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Hulk",
+      "cardNumber": "109",
+      "cardType": "BASE CARDS – PLATINUM",
+      "parallels": "Base Platinum, /1-P, /5-P, /10-P, /99, PP-P",
+      "setName": "2025 Topps Marvel Mint",
+      "setId": "3"
+    },
+    {
+      "characterName": "Hulk",
+      "cardNumber": "128",
+      "cardType": "Base",
+      "parallels": "Base, /99, /75, /50, /25, /15, /10, /5, /1",
+      "setName": "2025 Topps Marvel Sapphire",
+      "setId": "4"
+    },
+    {
+      "characterName": "Hulk",
+      "cardNumber": "IS-4",
+      "cardType": "INFINITE SAPPHIRE",
+      "parallels": "Infinite Sapphire",
+      "setName": "2025 Topps Marvel Sapphire",
+      "setId": "4"
+    },
+    {
+      "characterName": "Hulk",
+      "cardNumber": "MM-9",
+      "cardType": "THE MERRY MARVEL MARCHING SOCIETY",
+      "parallels": "Merry Marvel Marching",
+      "setName": "2025 Topps Marvel Sapphire",
+      "setId": "4"
+    },
+    {
+      "characterName": "Hulk",
+      "cardNumber": "82",
+      "cardType": "MCU Perfection",
+      "parallels": "Base, Orange /17, Purple /28, Black /42, Red /83, Gold /406",
+      "setName": "2025 Topps Marvel Studios: The Collector",
+      "setId": "30001"
+    },
+    {
+      "characterName": "Invisible Woman",
+      "cardNumber": "174",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Invisible Woman",
+      "cardNumber": "73",
+      "cardType": "COMIC BOOK HEROES 1976",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Invisible Woman",
+      "cardNumber": "44",
+      "cardType": "COMIC BOOK HEROES 1976",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Invisible Woman",
+      "cardNumber": "118",
+      "cardType": "BASE CARDS – PLATINUM",
+      "parallels": "Base Platinum, /1-P, /5-P, /10-P, /99, PP-P",
+      "setName": "2025 Topps Marvel Mint",
+      "setId": "3"
+    },
+    {
+      "characterName": "Invisible Woman",
+      "cardNumber": "174",
+      "cardType": "Base",
+      "parallels": "Base, /99, /75, /50, /25, /15, /10, /5, /1",
+      "setName": "2025 Topps Marvel Sapphire",
+      "setId": "4"
+    },
+    {
+      "characterName": "Invisible Woman",
+      "cardNumber": "MT-22",
+      "cardType": "Marvel Tomorrow",
+      "parallels": "Base, Orange /57, Purple /94, Black /141, Red /279, Gold /1347",
+      "setName": "2025 Topps Marvel Studios: The Collector",
+      "setId": "30001"
+    },
+    {
+      "characterName": "Invisible Woman",
+      "cardNumber": "2",
+      "cardType": "MCU Perfection",
+      "parallels": "Base, Orange /17, Purple /28, Black /42, Red /83, Gold /406",
+      "setName": "2025 Topps Marvel Studios: The Collector",
+      "setId": "30001"
+    },
+    {
+      "characterName": "Iron Man",
+      "cardNumber": "1",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Iron Man",
+      "cardNumber": "IM-10",
+      "cardType": "IRON MAN GOLD",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Iron Man",
+      "cardNumber": "IM-5",
+      "cardType": "IRON MAN GOLD",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Iron Man",
+      "cardNumber": "IM-2",
+      "cardType": "IRON MAN GOLD",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Iron Man",
+      "cardNumber": "IM-1",
+      "cardType": "IRON MAN GOLD",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Iron Man",
+      "cardNumber": "IM-6",
+      "cardType": "IRON MAN GOLD",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Iron Man",
+      "cardNumber": "IM-3",
+      "cardType": "IRON MAN GOLD",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Iron Man",
+      "cardNumber": "IM-7",
+      "cardType": "IRON MAN GOLD",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Iron Man",
+      "cardNumber": "IM-8",
+      "cardType": "IRON MAN GOLD",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Iron Man",
+      "cardNumber": "IM-9",
+      "cardType": "IRON MAN GOLD",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Iron Man",
+      "cardNumber": "IM-4",
+      "cardType": "IRON MAN GOLD",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Iron Man",
+      "cardNumber": "MI-7",
+      "cardType": "MARVEL ICONS",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Iron Man",
+      "cardNumber": "AV-9",
+      "cardType": "THE NEW AVENGERS 20TH ANNIVERSARY",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Iron Man",
+      "cardNumber": "13",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Iron Man",
+      "cardNumber": "75",
+      "cardType": "COMIC BOOK HEROES 1976",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Iron Man",
+      "cardNumber": "45",
+      "cardType": "COMIC BOOK HEROES 1976",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Iron Man",
+      "cardNumber": "122",
+      "cardType": "COMIC BOOK HEROES 2025",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Iron Man",
+      "cardNumber": "103",
+      "cardType": "BASE CARDS – PLATINUM",
+      "parallels": "Base Platinum, /1-P, /5-P, /10-P, /99, PP-P",
+      "setName": "2025 Topps Marvel Mint",
+      "setId": "3"
+    },
+    {
+      "characterName": "Iron Man",
+      "cardNumber": "1",
+      "cardType": "Base",
+      "parallels": "Base, /99, /75, /50, /25, /15, /10, /5, /1",
+      "setName": "2025 Topps Marvel Sapphire",
+      "setId": "4"
+    },
+    {
+      "characterName": "Iron Man",
+      "cardNumber": "IS-5",
+      "cardType": "INFINITE SAPPHIRE",
+      "parallels": "Infinite Sapphire",
+      "setName": "2025 Topps Marvel Sapphire",
+      "setId": "4"
+    },
+    {
+      "characterName": "Iron Man",
+      "cardNumber": "MM-10",
+      "cardType": "THE MERRY MARVEL MARCHING SOCIETY",
+      "parallels": "Merry Marvel Marching",
+      "setName": "2025 Topps Marvel Sapphire",
+      "setId": "4"
+    },
+    {
+      "characterName": "Iron Man",
+      "cardNumber": "83",
+      "cardType": "MCU Perfection",
+      "parallels": "Base, Orange /17, Purple /28, Black /42, Red /83, Gold /406",
+      "setName": "2025 Topps Marvel Studios: The Collector",
+      "setId": "30001"
+    },
+    {
+      "characterName": "Magneto",
+      "cardNumber": "169",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Magneto",
+      "cardNumber": "115",
+      "cardType": "BASE CARDS – PLATINUM",
+      "parallels": "Base Platinum, /1-P, /5-P, /10-P, /99, PP-P",
+      "setName": "2025 Topps Marvel Mint",
+      "setId": "3"
+    },
+    {
+      "characterName": "Magneto",
+      "cardNumber": "169",
+      "cardType": "Base",
+      "parallels": "Base, /99, /75, /50, /25, /15, /10, /5, /1",
+      "setName": "2025 Topps Marvel Sapphire",
+      "setId": "4"
+    },
+    {
+      "characterName": "Mister Fantastic",
+      "cardNumber": "89",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Mister Fantastic",
+      "cardNumber": "MI-2",
+      "cardType": "MARVEL ICONS",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Mister Fantastic",
+      "cardNumber": "19",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Mister Fantastic",
+      "cardNumber": "81",
+      "cardType": "COMIC BOOK HEROES 1976",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Mister Fantastic",
+      "cardNumber": "106",
+      "cardType": "BASE CARDS – PLATINUM",
+      "parallels": "Base Platinum, /1-P, /5-P, /10-P, /99, PP-P",
+      "setName": "2025 Topps Marvel Mint",
+      "setId": "3"
+    },
+    {
+      "characterName": "Mister Fantastic",
+      "cardNumber": "89",
+      "cardType": "Base",
+      "parallels": "Base, /99, /75, /50, /25, /15, /10, /5, /1",
+      "setName": "2025 Topps Marvel Sapphire",
+      "setId": "4"
+    },
+    {
+      "characterName": "Mister Fantastic",
+      "cardNumber": "SS-3",
+      "cardType": "SAPPHIRE SELECTIONS",
+      "parallels": "Sapphire Selections",
+      "setName": "2025 Topps Marvel Sapphire",
+      "setId": "4"
+    },
+    {
+      "characterName": "Mister Fantastic",
+      "cardNumber": "MT-1",
+      "cardType": "Marvel Tomorrow",
+      "parallels": "Base, Orange /57, Purple /94, Black /141, Red /279, Gold /1347",
+      "setName": "2025 Topps Marvel Studios: The Collector",
+      "setId": "30001"
+    },
+    {
+      "characterName": "Mister Fantastic",
+      "cardNumber": "1",
+      "cardType": "MCU Perfection",
+      "parallels": "Base, Orange /17, Purple /28, Black /42, Red /83, Gold /406",
+      "setName": "2025 Topps Marvel Studios: The Collector",
+      "setId": "30001"
+    },
+    {
+      "characterName": "Professor X",
+      "cardNumber": "XM-8",
+      "cardType": "X MEN GIANT SIZE 50TH ANNIVERSARY",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Professor X",
+      "cardNumber": "117",
+      "cardType": "BASE CARDS – PLATINUM",
+      "parallels": "Base Platinum, /1-P, /5-P, /10-P, /99, PP-P",
+      "setName": "2025 Topps Marvel Mint",
+      "setId": "3"
+    },
+    {
+      "characterName": "Rogue",
+      "cardNumber": "189",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Rogue",
+      "cardNumber": "87",
+      "cardType": "COMIC BOOK HEROES 1976",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Rogue",
+      "cardNumber": "137",
+      "cardType": "COMIC BOOK HEROES 2025",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Rogue",
+      "cardNumber": "108",
+      "cardType": "BASE CARDS – PLATINUM",
+      "parallels": "Base Platinum, /1-P, /5-P, /10-P, /99, PP-P",
+      "setName": "2025 Topps Marvel Mint",
+      "setId": "3"
+    },
+    {
+      "characterName": "Rogue",
+      "cardNumber": "189",
+      "cardType": "Base",
+      "parallels": "Base, /99, /75, /50, /25, /15, /10, /5, /1",
+      "setName": "2025 Topps Marvel Sapphire",
+      "setId": "4"
+    },
+    {
+      "characterName": "Spider-Man",
+      "cardNumber": "AM-1",
+      "cardType": "AIR MARVEL",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Spider-Man",
+      "cardNumber": "AI-4",
+      "cardType": "AVENGERS INFINITY",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Spider-Man",
+      "cardNumber": "101",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Spider-Man",
+      "cardNumber": "I-1",
+      "cardType": "INDESTRUCTIBLE",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Spider-Man",
+      "cardNumber": "MR-3",
+      "cardType": "MARVEL REFLECTIONS",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Spider-Man",
+      "cardNumber": "AV-1",
+      "cardType": "THE NEW AVENGERS 20TH ANNIVERSARY",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Spider-Man",
+      "cardNumber": "22",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Spider-Man",
+      "cardNumber": "51",
+      "cardType": "COMIC BOOK HEROES 1976",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Spider-Man",
+      "cardNumber": "93",
+      "cardType": "COMIC BOOK HEROES 1976",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Spider-Man",
+      "cardNumber": "142",
+      "cardType": "COMIC BOOK HEROES 2025",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Spider-Man",
+      "cardNumber": "101",
+      "cardType": "BASE CARDS – PLATINUM",
+      "parallels": "Base Platinum, /1-P, /5-P, /10-P, /99, PP-P",
+      "setName": "2025 Topps Marvel Mint",
+      "setId": "3"
+    },
+    {
+      "characterName": "Spider-Man",
+      "cardNumber": "101",
+      "cardType": "Base",
+      "parallels": "Base, /99, /75, /50, /25, /15, /10, /5, /1",
+      "setName": "2025 Topps Marvel Sapphire",
+      "setId": "4"
+    },
+    {
+      "characterName": "Spider-Man",
+      "cardNumber": "IS-1",
+      "cardType": "INFINITE SAPPHIRE",
+      "parallels": "Infinite Sapphire",
+      "setName": "2025 Topps Marvel Sapphire",
+      "setId": "4"
+    },
+    {
+      "characterName": "Spider-Man",
+      "cardNumber": "MM-1",
+      "cardType": "THE MERRY MARVEL MARCHING SOCIETY",
+      "parallels": "Merry Marvel Marching",
+      "setName": "2025 Topps Marvel Sapphire",
+      "setId": "4"
+    },
+    {
+      "characterName": "Spider-Man",
+      "cardNumber": "84",
+      "cardType": "MCU Perfection",
+      "parallels": "Base, Orange /17, Purple /28, Black /42, Red /83, Gold /406",
+      "setName": "2025 Topps Marvel Studios: The Collector",
+      "setId": "30001"
+    },
+    {
+      "characterName": "Storm",
+      "cardNumber": "AM-2",
+      "cardType": "AIR MARVEL",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Storm",
+      "cardNumber": "95",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Storm",
+      "cardNumber": "GA-3",
+      "cardType": "GOLDEN ANNIVERSARIES",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Storm",
+      "cardNumber": "XM-4",
+      "cardType": "X MEN GIANT SIZE 50TH ANNIVERSARY",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Storm",
+      "cardNumber": "95",
+      "cardType": "COMIC BOOK HEROES 1976",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Storm",
+      "cardNumber": "112",
+      "cardType": "BASE CARDS – PLATINUM",
+      "parallels": "Base Platinum, /1-P, /5-P, /10-P, /99, PP-P",
+      "setName": "2025 Topps Marvel Mint",
+      "setId": "3"
+    },
+    {
+      "characterName": "Storm",
+      "cardNumber": "95",
+      "cardType": "Base",
+      "parallels": "Base, /99, /75, /50, /25, /15, /10, /5, /1",
+      "setName": "2025 Topps Marvel Sapphire",
+      "setId": "4"
+    },
+    {
+      "characterName": "Thor",
+      "cardNumber": "AM-7",
+      "cardType": "AIR MARVEL",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Thor",
+      "cardNumber": "119",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Thor",
+      "cardNumber": "MI-3",
+      "cardType": "MARVEL ICONS",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Thor",
+      "cardNumber": "25",
+      "cardType": "COMIC BOOK HEROES 1975",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Thor",
+      "cardNumber": "97",
+      "cardType": "COMIC BOOK HEROES 1976",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Thor",
+      "cardNumber": "54",
+      "cardType": "COMIC BOOK HEROES 1976",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Thor",
+      "cardNumber": "105",
+      "cardType": "BASE CARDS – PLATINUM",
+      "parallels": "Base Platinum, /1-P, /5-P, /10-P, /99, PP-P",
+      "setName": "2025 Topps Marvel Mint",
+      "setId": "3"
+    },
+    {
+      "characterName": "Thor",
+      "cardNumber": "119",
+      "cardType": "Base",
+      "parallels": "Base, /99, /75, /50, /25, /15, /10, /5, /1",
+      "setName": "2025 Topps Marvel Sapphire",
+      "setId": "4"
+    },
+    {
+      "characterName": "Thor",
+      "cardNumber": "IS-2",
+      "cardType": "INFINITE SAPPHIRE",
+      "parallels": "Infinite Sapphire",
+      "setName": "2025 Topps Marvel Sapphire",
+      "setId": "4"
+    },
+    {
+      "characterName": "Thor",
+      "cardNumber": "MM-3",
+      "cardType": "THE MERRY MARVEL MARCHING SOCIETY",
+      "parallels": "Merry Marvel Marching",
+      "setName": "2025 Topps Marvel Sapphire",
+      "setId": "4"
+    },
+    {
+      "characterName": "Thor",
+      "cardNumber": "36",
+      "cardType": "MCU Perfection",
+      "parallels": "Base, Orange /17, Purple /28, Black /42, Red /83, Gold /406",
+      "setName": "2025 Topps Marvel Studios: The Collector",
+      "setId": "30001"
+    },
+    {
+      "characterName": "Venom",
+      "cardNumber": "149",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Venom",
+      "cardNumber": "I-7",
+      "cardType": "INDESTRUCTIBLE",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Venom",
+      "cardNumber": "84",
+      "cardType": "COMIC BOOK HEROES 1976",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Venom",
+      "cardNumber": "147",
+      "cardType": "COMIC BOOK HEROES 2025",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Venom",
+      "cardNumber": "114",
+      "cardType": "BASE CARDS – PLATINUM",
+      "parallels": "Base Platinum, /1-P, /5-P, /10-P, /99, PP-P",
+      "setName": "2025 Topps Marvel Mint",
+      "setId": "3"
+    },
+    {
+      "characterName": "Venom",
+      "cardNumber": "149",
+      "cardType": "Base",
+      "parallels": "Base, /99, /75, /50, /25, /15, /10, /5, /1",
+      "setName": "2025 Topps Marvel Sapphire",
+      "setId": "4"
+    },
+    {
+      "characterName": "Wolverine",
+      "cardNumber": "103",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Wolverine",
+      "cardNumber": "MR-2",
+      "cardType": "MARVEL REFLECTIONS",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Wolverine",
+      "cardNumber": "AV-7",
+      "cardType": "THE NEW AVENGERS 20TH ANNIVERSARY",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Wolverine",
+      "cardNumber": "XM-1",
+      "cardType": "X MEN GIANT SIZE 50TH ANNIVERSARY",
+      "parallels": "NULL",
+      "setName": "2025 Topps Chrome",
+      "setId": "1"
+    },
+    {
+      "characterName": "Wolverine",
+      "cardNumber": "99",
+      "cardType": "COMIC BOOK HEROES 1976",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Wolverine",
+      "cardNumber": "148",
+      "cardType": "COMIC BOOK HEROES 2025",
+      "parallels": "Base, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1",
+      "setName": "2025 Topps Comic Book Heroes",
+      "setId": "2"
+    },
+    {
+      "characterName": "Wolverine",
+      "cardNumber": "102",
+      "cardType": "BASE CARDS – PLATINUM",
+      "parallels": "Base Platinum, /1-P, /5-P, /10-P, /99, PP-P",
+      "setName": "2025 Topps Marvel Mint",
+      "setId": "3"
+    },
+    {
+      "characterName": "Wolverine",
+      "cardNumber": "103",
+      "cardType": "Base",
+      "parallels": "Base, /99, /75, /50, /25, /15, /10, /5, /1",
+      "setName": "2025 Topps Marvel Sapphire",
+      "setId": "4"
+    }
+  ],
+  "messages": [],
+  "stdout": "characterName\tcardNumber\tcardType\tparallels\tsetName\tsetId\nBlack Panther\tAI-6\tAVENGERS INFINITY\tNULL\t2025 Topps Chrome\t1\nBlack Panther\t136\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\t1\nBlack Panther\tI-4\tINDESTRUCTIBLE\tNULL\t2025 Topps Chrome\t1\nBlack Panther\t61\tCOMIC BOOK HEROES 1976\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nBlack Panther\t120\tBASE CARDS – PLATINUM\tBase Platinum, /1-P, /5-P, /10-P, /99, PP-P\t2025 Topps Marvel Mint\t3\nBlack Panther\t136\tBase\tBase, /99, /75, /50, /25, /15, /10, /5, /1\t2025 Topps Marvel Sapphire\t4\nBlack Panther\tMM-2\tTHE MERRY MARVEL MARCHING SOCIETY\tMerry Marvel Marching\t2025 Topps Marvel Sapphire\t4\nBlack Panther\tMT-4\tMarvel Tomorrow\tBase, Orange /57, Purple /94, Black /141, Red /279, Gold /1347\t2025 Topps Marvel Studios: The Collector\t30001\nBlack Widow\t129\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\t1\nBlack Widow\tMI-6\tMARVEL ICONS\tNULL\t2025 Topps Chrome\t1\nBlack Widow\t1\tCOMIC BOOK HEROES 1975\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nBlack Widow\t62\tCOMIC BOOK HEROES 1976\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nBlack Widow\t113\tBASE CARDS – PLATINUM\tBase Platinum, /1-P, /5-P, /10-P, /99, PP-P\t2025 Topps Marvel Mint\t3\nBlack Widow\t129\tBase\tBase, /99, /75, /50, /25, /15, /10, /5, /1\t2025 Topps Marvel Sapphire\t4\nBlack Widow\tIS-3\tINFINITE SAPPHIRE\tInfinite Sapphire\t2025 Topps Marvel Sapphire\t4\nBlack Widow\tMM-6\tTHE MERRY MARVEL MARCHING SOCIETY\tMerry Marvel Marching\t2025 Topps Marvel Sapphire\t4\nBlack Widow\t77\tMCU Perfection\tBase, Orange /17, Purple /28, Black /42, Red /83, Gold /406\t2025 Topps Marvel Studios: The Collector\t30001\nBlade\t126\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\t1\nBlade\t29\tCOMIC BOOK HEROES 1976\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nBlade\t111\tBASE CARDS – PLATINUM\tBase Platinum, /1-P, /5-P, /10-P, /99, PP-P\t2025 Topps Marvel Mint\t3\nBlade\t126\tBase\tBase, /99, /75, /50, /25, /15, /10, /5, /1\t2025 Topps Marvel Sapphire\t4\nCaptain America\t185\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\t1\nCaptain America\tI-3\tINDESTRUCTIBLE\tNULL\t2025 Topps Chrome\t1\nCaptain America\tAV-6\tTHE NEW AVENGERS 20TH ANNIVERSARY\tNULL\t2025 Topps Chrome\t1\nCaptain America\t2\tCOMIC BOOK HEROES 1975\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nCaptain America\t65\tCOMIC BOOK HEROES 1976\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nCaptain America\t31\tCOMIC BOOK HEROES 1976\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nCaptain America\t108\tCOMIC BOOK HEROES 2025\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nCaptain America\t89\tBASE CARDS – GOLD\tBase, /1, /5, /10, /25, /50, /75, PP\t2025 Topps Marvel Mint\t3\nCaptain America\t104\tBASE CARDS – PLATINUM\tBase Platinum, /1-P, /5-P, /10-P, /99, PP-P\t2025 Topps Marvel Mint\t3\nCaptain America\t185\tBase\tBase, /99, /75, /50, /25, /15, /10, /5, /1\t2025 Topps Marvel Sapphire\t4\nCaptain America\tMM-4\tTHE MERRY MARVEL MARCHING SOCIETY\tMerry Marvel Marching\t2025 Topps Marvel Sapphire\t4\nCaptain America\tBNW-10\tCAPTAIN AMERICA: BRAVE NEW WORLD\tBrave New World\t2025 Topps Marvel Studios\t5\nCaptain America\tBNW-1\tCAPTAIN AMERICA: BRAVE NEW WORLD\tBrave New World\t2025 Topps Marvel Studios\t5\nCaptain America\tMT-10\tMarvel Tomorrow\tBase, Orange /57, Purple /94, Black /141, Red /279, Gold /1347\t2025 Topps Marvel Studios: The Collector\t30001\nCaptain America\t12\tMCU Perfection\tBase, Orange /17, Purple /28, Black /42, Red /83, Gold /406\t2025 Topps Marvel Studios: The Collector\t30001\nCaptain America\t81\tMCU Perfection\tBase, Orange /17, Purple /28, Black /42, Red /83, Gold /406\t2025 Topps Marvel Studios: The Collector\t30001\nDaredevil\t97\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\t1\nDaredevil\tI-5\tINDESTRUCTIBLE\tNULL\t2025 Topps Chrome\t1\nDaredevil\tAV-3\tTHE NEW AVENGERS 20TH ANNIVERSARY\tNULL\t2025 Topps Chrome\t1\nDaredevil\t3\tCOMIC BOOK HEROES 1975\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nDaredevil\t33\tCOMIC BOOK HEROES 1976\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nDaredevil\t112\tCOMIC BOOK HEROES 2025\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nDaredevil\t116\tBASE CARDS – PLATINUM\tBase Platinum, /1-P, /5-P, /10-P, /99, PP-P\t2025 Topps Marvel Mint\t3\nDaredevil\t97\tBase\tBase, /99, /75, /50, /25, /15, /10, /5, /1\t2025 Topps Marvel Sapphire\t4\nDaredevil\tMM-7\tTHE MERRY MARVEL MARCHING SOCIETY\tMerry Marvel Marching\t2025 Topps Marvel Sapphire\t4\nDaredevil\tDD-1\tDAREDEVIL: BORN AGAIN\tDaredevil Born Again\t2025 Topps Marvel Studios\t5\nDoctor Doom\t148\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\t1\nDoctor Doom\tMI-1\tMARVEL ICONS\tNULL\t2025 Topps Chrome\t1\nDoctor Doom\tMR-1\tMARVEL REFLECTIONS\tNULL\t2025 Topps Chrome\t1\nDoctor Doom\t4\tCOMIC BOOK HEROES 1975\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nDoctor Doom\t35\tCOMIC BOOK HEROES 1976\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nDoctor Doom\t115\tCOMIC BOOK HEROES 2025\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nDoctor Doom\t107\tBASE CARDS – PLATINUM\tBase Platinum, /1-P, /5-P, /10-P, /99, PP-P\t2025 Topps Marvel Mint\t3\nDoctor Doom\t148\tBase\tBase, /99, /75, /50, /25, /15, /10, /5, /1\t2025 Topps Marvel Sapphire\t4\nDoctor Strange\tTO-2\tTHE ONE AND ONLY\tNULL\t2025 Topps Chrome\t1\nDoctor Strange\t6\tCOMIC BOOK HEROES 1975\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nDoctor Strange\t36\tCOMIC BOOK HEROES 1976\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nDoctor Strange\t110\tBASE CARDS – PLATINUM\tBase Platinum, /1-P, /5-P, /10-P, /99, PP-P\t2025 Topps Marvel Mint\t3\nDoctor Strange\tMM-8\tTHE MERRY MARVEL MARCHING SOCIETY\tMerry Marvel Marching\t2025 Topps Marvel Sapphire\t4\nDoctor Strange\t63\tMCU Perfection\tBase, Orange /17, Purple /28, Black /42, Red /83, Gold /406\t2025 Topps Marvel Studios: The Collector\t30001\nGambit\t105\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\t1\nGambit\tMA-25\tMARVEL ANNIVERSARIES\tNULL\t2025 Topps Chrome\t1\nGambit\t117\tCOMIC BOOK HEROES 2025\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nGambit\t119\tBASE CARDS – PLATINUM\tBase Platinum, /1-P, /5-P, /10-P, /99, PP-P\t2025 Topps Marvel Mint\t3\nGambit\t105\tBase\tBase, /99, /75, /50, /25, /15, /10, /5, /1\t2025 Topps Marvel Sapphire\t4\nGambit\tSS-8\tSAPPHIRE SELECTIONS\tSapphire Selections\t2025 Topps Marvel Sapphire\t4\nHulk\t128\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\t1\nHulk\t10\tCOMIC BOOK HEROES 1975\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nHulk\t41\tCOMIC BOOK HEROES 1976\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nHulk\t71\tCOMIC BOOK HEROES 1976\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nHulk\t121\tCOMIC BOOK HEROES 2025\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nHulk\t109\tBASE CARDS – PLATINUM\tBase Platinum, /1-P, /5-P, /10-P, /99, PP-P\t2025 Topps Marvel Mint\t3\nHulk\t128\tBase\tBase, /99, /75, /50, /25, /15, /10, /5, /1\t2025 Topps Marvel Sapphire\t4\nHulk\tIS-4\tINFINITE SAPPHIRE\tInfinite Sapphire\t2025 Topps Marvel Sapphire\t4\nHulk\tMM-9\tTHE MERRY MARVEL MARCHING SOCIETY\tMerry Marvel Marching\t2025 Topps Marvel Sapphire\t4\nHulk\t82\tMCU Perfection\tBase, Orange /17, Purple /28, Black /42, Red /83, Gold /406\t2025 Topps Marvel Studios: The Collector\t30001\nInvisible Woman\t174\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\t1\nInvisible Woman\t73\tCOMIC BOOK HEROES 1976\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nInvisible Woman\t44\tCOMIC BOOK HEROES 1976\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nInvisible Woman\t118\tBASE CARDS – PLATINUM\tBase Platinum, /1-P, /5-P, /10-P, /99, PP-P\t2025 Topps Marvel Mint\t3\nInvisible Woman\t174\tBase\tBase, /99, /75, /50, /25, /15, /10, /5, /1\t2025 Topps Marvel Sapphire\t4\nInvisible Woman\tMT-22\tMarvel Tomorrow\tBase, Orange /57, Purple /94, Black /141, Red /279, Gold /1347\t2025 Topps Marvel Studios: The Collector\t30001\nInvisible Woman\t2\tMCU Perfection\tBase, Orange /17, Purple /28, Black /42, Red /83, Gold /406\t2025 Topps Marvel Studios: The Collector\t30001\nIron Man\t1\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\t1\nIron Man\tIM-10\tIRON MAN GOLD\tNULL\t2025 Topps Chrome\t1\nIron Man\tIM-5\tIRON MAN GOLD\tNULL\t2025 Topps Chrome\t1\nIron Man\tIM-2\tIRON MAN GOLD\tNULL\t2025 Topps Chrome\t1\nIron Man\tIM-1\tIRON MAN GOLD\tNULL\t2025 Topps Chrome\t1\nIron Man\tIM-6\tIRON MAN GOLD\tNULL\t2025 Topps Chrome\t1\nIron Man\tIM-3\tIRON MAN GOLD\tNULL\t2025 Topps Chrome\t1\nIron Man\tIM-7\tIRON MAN GOLD\tNULL\t2025 Topps Chrome\t1\nIron Man\tIM-8\tIRON MAN GOLD\tNULL\t2025 Topps Chrome\t1\nIron Man\tIM-9\tIRON MAN GOLD\tNULL\t2025 Topps Chrome\t1\nIron Man\tIM-4\tIRON MAN GOLD\tNULL\t2025 Topps Chrome\t1\nIron Man\tMI-7\tMARVEL ICONS\tNULL\t2025 Topps Chrome\t1\nIron Man\tAV-9\tTHE NEW AVENGERS 20TH ANNIVERSARY\tNULL\t2025 Topps Chrome\t1\nIron Man\t13\tCOMIC BOOK HEROES 1975\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nIron Man\t75\tCOMIC BOOK HEROES 1976\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nIron Man\t45\tCOMIC BOOK HEROES 1976\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nIron Man\t122\tCOMIC BOOK HEROES 2025\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nIron Man\t103\tBASE CARDS – PLATINUM\tBase Platinum, /1-P, /5-P, /10-P, /99, PP-P\t2025 Topps Marvel Mint\t3\nIron Man\t1\tBase\tBase, /99, /75, /50, /25, /15, /10, /5, /1\t2025 Topps Marvel Sapphire\t4\nIron Man\tIS-5\tINFINITE SAPPHIRE\tInfinite Sapphire\t2025 Topps Marvel Sapphire\t4\nIron Man\tMM-10\tTHE MERRY MARVEL MARCHING SOCIETY\tMerry Marvel Marching\t2025 Topps Marvel Sapphire\t4\nIron Man\t83\tMCU Perfection\tBase, Orange /17, Purple /28, Black /42, Red /83, Gold /406\t2025 Topps Marvel Studios: The Collector\t30001\nMagneto\t169\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\t1\nMagneto\t115\tBASE CARDS – PLATINUM\tBase Platinum, /1-P, /5-P, /10-P, /99, PP-P\t2025 Topps Marvel Mint\t3\nMagneto\t169\tBase\tBase, /99, /75, /50, /25, /15, /10, /5, /1\t2025 Topps Marvel Sapphire\t4\nMister Fantastic\t89\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\t1\nMister Fantastic\tMI-2\tMARVEL ICONS\tNULL\t2025 Topps Chrome\t1\nMister Fantastic\t19\tCOMIC BOOK HEROES 1975\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nMister Fantastic\t81\tCOMIC BOOK HEROES 1976\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nMister Fantastic\t106\tBASE CARDS – PLATINUM\tBase Platinum, /1-P, /5-P, /10-P, /99, PP-P\t2025 Topps Marvel Mint\t3\nMister Fantastic\t89\tBase\tBase, /99, /75, /50, /25, /15, /10, /5, /1\t2025 Topps Marvel Sapphire\t4\nMister Fantastic\tSS-3\tSAPPHIRE SELECTIONS\tSapphire Selections\t2025 Topps Marvel Sapphire\t4\nMister Fantastic\tMT-1\tMarvel Tomorrow\tBase, Orange /57, Purple /94, Black /141, Red /279, Gold /1347\t2025 Topps Marvel Studios: The Collector\t30001\nMister Fantastic\t1\tMCU Perfection\tBase, Orange /17, Purple /28, Black /42, Red /83, Gold /406\t2025 Topps Marvel Studios: The Collector\t30001\nProfessor X\tXM-8\tX MEN GIANT SIZE 50TH ANNIVERSARY\tNULL\t2025 Topps Chrome\t1\nProfessor X\t117\tBASE CARDS – PLATINUM\tBase Platinum, /1-P, /5-P, /10-P, /99, PP-P\t2025 Topps Marvel Mint\t3\nRogue\t189\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\t1\nRogue\t87\tCOMIC BOOK HEROES 1976\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nRogue\t137\tCOMIC BOOK HEROES 2025\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nRogue\t108\tBASE CARDS – PLATINUM\tBase Platinum, /1-P, /5-P, /10-P, /99, PP-P\t2025 Topps Marvel Mint\t3\nRogue\t189\tBase\tBase, /99, /75, /50, /25, /15, /10, /5, /1\t2025 Topps Marvel Sapphire\t4\nSpider-Man\tAM-1\tAIR MARVEL\tNULL\t2025 Topps Chrome\t1\nSpider-Man\tAI-4\tAVENGERS INFINITY\tNULL\t2025 Topps Chrome\t1\nSpider-Man\t101\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\t1\nSpider-Man\tI-1\tINDESTRUCTIBLE\tNULL\t2025 Topps Chrome\t1\nSpider-Man\tMR-3\tMARVEL REFLECTIONS\tNULL\t2025 Topps Chrome\t1\nSpider-Man\tAV-1\tTHE NEW AVENGERS 20TH ANNIVERSARY\tNULL\t2025 Topps Chrome\t1\nSpider-Man\t22\tCOMIC BOOK HEROES 1975\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nSpider-Man\t51\tCOMIC BOOK HEROES 1976\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nSpider-Man\t93\tCOMIC BOOK HEROES 1976\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nSpider-Man\t142\tCOMIC BOOK HEROES 2025\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nSpider-Man\t101\tBASE CARDS – PLATINUM\tBase Platinum, /1-P, /5-P, /10-P, /99, PP-P\t2025 Topps Marvel Mint\t3\nSpider-Man\t101\tBase\tBase, /99, /75, /50, /25, /15, /10, /5, /1\t2025 Topps Marvel Sapphire\t4\nSpider-Man\tIS-1\tINFINITE SAPPHIRE\tInfinite Sapphire\t2025 Topps Marvel Sapphire\t4\nSpider-Man\tMM-1\tTHE MERRY MARVEL MARCHING SOCIETY\tMerry Marvel Marching\t2025 Topps Marvel Sapphire\t4\nSpider-Man\t84\tMCU Perfection\tBase, Orange /17, Purple /28, Black /42, Red /83, Gold /406\t2025 Topps Marvel Studios: The Collector\t30001\nStorm\tAM-2\tAIR MARVEL\tNULL\t2025 Topps Chrome\t1\nStorm\t95\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\t1\nStorm\tGA-3\tGOLDEN ANNIVERSARIES\tNULL\t2025 Topps Chrome\t1\nStorm\tXM-4\tX MEN GIANT SIZE 50TH ANNIVERSARY\tNULL\t2025 Topps Chrome\t1\nStorm\t95\tCOMIC BOOK HEROES 1976\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nStorm\t112\tBASE CARDS – PLATINUM\tBase Platinum, /1-P, /5-P, /10-P, /99, PP-P\t2025 Topps Marvel Mint\t3\nStorm\t95\tBase\tBase, /99, /75, /50, /25, /15, /10, /5, /1\t2025 Topps Marvel Sapphire\t4\nThor\tAM-7\tAIR MARVEL\tNULL\t2025 Topps Chrome\t1\nThor\t119\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\t1\nThor\tMI-3\tMARVEL ICONS\tNULL\t2025 Topps Chrome\t1\nThor\t25\tCOMIC BOOK HEROES 1975\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nThor\t97\tCOMIC BOOK HEROES 1976\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nThor\t54\tCOMIC BOOK HEROES 1976\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nThor\t105\tBASE CARDS – PLATINUM\tBase Platinum, /1-P, /5-P, /10-P, /99, PP-P\t2025 Topps Marvel Mint\t3\nThor\t119\tBase\tBase, /99, /75, /50, /25, /15, /10, /5, /1\t2025 Topps Marvel Sapphire\t4\nThor\tIS-2\tINFINITE SAPPHIRE\tInfinite Sapphire\t2025 Topps Marvel Sapphire\t4\nThor\tMM-3\tTHE MERRY MARVEL MARCHING SOCIETY\tMerry Marvel Marching\t2025 Topps Marvel Sapphire\t4\nThor\t36\tMCU Perfection\tBase, Orange /17, Purple /28, Black /42, Red /83, Gold /406\t2025 Topps Marvel Studios: The Collector\t30001\nVenom\t149\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\t1\nVenom\tI-7\tINDESTRUCTIBLE\tNULL\t2025 Topps Chrome\t1\nVenom\t84\tCOMIC BOOK HEROES 1976\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nVenom\t147\tCOMIC BOOK HEROES 2025\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nVenom\t114\tBASE CARDS – PLATINUM\tBase Platinum, /1-P, /5-P, /10-P, /99, PP-P\t2025 Topps Marvel Mint\t3\nVenom\t149\tBase\tBase, /99, /75, /50, /25, /15, /10, /5, /1\t2025 Topps Marvel Sapphire\t4\nWolverine\t103\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\t1\nWolverine\tMR-2\tMARVEL REFLECTIONS\tNULL\t2025 Topps Chrome\t1\nWolverine\tAV-7\tTHE NEW AVENGERS 20TH ANNIVERSARY\tNULL\t2025 Topps Chrome\t1\nWolverine\tXM-1\tX MEN GIANT SIZE 50TH ANNIVERSARY\tNULL\t2025 Topps Chrome\t1\nWolverine\t99\tCOMIC BOOK HEROES 1976\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nWolverine\t148\tCOMIC BOOK HEROES 2025\tBase, /199, /150, /125, /99, /75, /50, /24, /10, /5, /2, /1\t2025 Topps Comic Book Heroes\t2\nWolverine\t102\tBASE CARDS – PLATINUM\tBase Platinum, /1-P, /5-P, /10-P, /99, PP-P\t2025 Topps Marvel Mint\t3\nWolverine\t103\tBase\tBase, /99, /75, /50, /25, /15, /10, /5, /1\t2025 Topps Marvel Sapphire\t4\n",
+  "stderr": "",
+  "execution_time_ms": 416
+}

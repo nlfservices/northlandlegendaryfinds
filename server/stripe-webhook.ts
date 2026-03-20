@@ -94,16 +94,15 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
 
   // Extract shipping address
   let shippingAddress = null;
-  const shippingDetails = (session as any).shipping_details;
-  if (shippingDetails?.address) {
+  if (session.shipping_details?.address) {
     shippingAddress = {
-      name: shippingDetails.name,
-      line1: shippingDetails.address.line1,
-      line2: shippingDetails.address.line2,
-      city: shippingDetails.address.city,
-      state: shippingDetails.address.state,
-      postalCode: shippingDetails.address.postal_code,
-      country: shippingDetails.address.country,
+      name: session.shipping_details.name,
+      line1: session.shipping_details.address.line1,
+      line2: session.shipping_details.address.line2,
+      city: session.shipping_details.address.city,
+      state: session.shipping_details.address.state,
+      postalCode: session.shipping_details.address.postal_code,
+      country: session.shipping_details.address.country,
     };
   }
 

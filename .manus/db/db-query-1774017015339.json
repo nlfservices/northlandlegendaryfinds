@@ -1,0 +1,45 @@
+{
+  "query": "SELECT mc.characterName, mc.cardNumber, mc.cardType, mc.parallels, ms.name as setName\nFROM marvel_cards mc\nJOIN marvel_sets ms ON mc.setId = ms.id\nWHERE mc.parallels IS NOT NULL AND mc.parallels != 'NULL' AND mc.parallels LIKE '%/%'\nAND mc.characterName IN (\n    SELECT characterName FROM (\n        SELECT characterName, SUM(\n            (LENGTH(parallels) - LENGTH(REPLACE(parallels, '/', '')))\n        ) as slash_count\n        FROM marvel_cards\n        WHERE parallels IS NOT NULL AND parallels != 'NULL' AND parallels LIKE '%/%'\n        GROUP BY characterName\n        ORDER BY slash_count ASC\n        LIMIT 5\n    ) sub\n)\nORDER BY mc.characterName;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT mc.characterName, mc.cardNumber, mc.cardType, mc.parallels, ms.name as setName\nFROM marvel_cards mc\nJOIN marvel_sets ms ON mc.setId = ms.id\nWHERE mc.parallels IS NOT NULL AND mc.parallels != 'NULL' AND mc.parallels LIKE '%/%'\nAND mc.characterName IN (\n    SELECT characterName FROM (\n        SELECT characterName, SUM(\n            (LENGTH(parallels) - LENGTH(REPLACE(parallels, '/', '')))\n        ) as slash_count\n        FROM marvel_cards\n        WHERE parallels IS NOT NULL AND parallels != 'NULL' AND parallels LIKE '%/%'\n        GROUP BY characterName\n        ORDER BY slash_count ASC\n        LIMIT 5\n    ) sub\n)\nORDER BY mc.characterName;",
+  "rows": [
+    {
+      "characterName": "Peggy Carter",
+      "cardNumber": "80",
+      "cardType": "MCU Perfection",
+      "parallels": "Base, Orange /17, Purple /28, Black /42, Red /83, Gold /406",
+      "setName": "2025 Topps Marvel Studios: The Collector"
+    },
+    {
+      "characterName": "Professor X",
+      "cardNumber": "117",
+      "cardType": "BASE CARDS – PLATINUM",
+      "parallels": "Base Platinum, /1-P, /5-P, /10-P, /99, PP-P",
+      "setName": "2025 Topps Marvel Mint"
+    },
+    {
+      "characterName": "Sylvie",
+      "cardNumber": "MT-23",
+      "cardType": "Marvel Tomorrow",
+      "parallels": "Base, Orange /57, Purple /94, Black /141, Red /279, Gold /1347",
+      "setName": "2025 Topps Marvel Studios: The Collector"
+    },
+    {
+      "characterName": "Thor Confronts Gorr",
+      "cardNumber": "ST-13",
+      "cardType": "Show Stoppers",
+      "parallels": "Base, Orange /57, Purple /94, Black /141, Red /279, Gold /1347",
+      "setName": "2025 Topps Marvel Studios: The Collector"
+    },
+    {
+      "characterName": "Wenwu",
+      "cardNumber": "V-21",
+      "cardType": "Villainy",
+      "parallels": "Base, Orange /57, Purple /94, Black /141, Red /279, Gold /1347",
+      "setName": "2025 Topps Marvel Studios: The Collector"
+    }
+  ],
+  "messages": [],
+  "stdout": "characterName\tcardNumber\tcardType\tparallels\tsetName\nPeggy Carter\t80\tMCU Perfection\tBase, Orange /17, Purple /28, Black /42, Red /83, Gold /406\t2025 Topps Marvel Studios: The Collector\nProfessor X\t117\tBASE CARDS – PLATINUM\tBase Platinum, /1-P, /5-P, /10-P, /99, PP-P\t2025 Topps Marvel Mint\nSylvie\tMT-23\tMarvel Tomorrow\tBase, Orange /57, Purple /94, Black /141, Red /279, Gold /1347\t2025 Topps Marvel Studios: The Collector\nThor Confronts Gorr\tST-13\tShow Stoppers\tBase, Orange /57, Purple /94, Black /141, Red /279, Gold /1347\t2025 Topps Marvel Studios: The Collector\nWenwu\tV-21\tVillainy\tBase, Orange /57, Purple /94, Black /141, Red /279, Gold /1347\t2025 Topps Marvel Studios: The Collector\n",
+  "stderr": "",
+  "execution_time_ms": 414
+}

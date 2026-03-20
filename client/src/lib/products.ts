@@ -3,7 +3,7 @@
  * All product data for the storefront
  *
  * Product Lines:
- * 1. The Variant Series (launching March 27, 2026)
+ * 1. The Variant Series (launching April 27, 2026)
  *    - Cosmic Drop (500 packs)
  *    - Chrome Edition (100 packs)
  * 2. The Snap Collection (Coming Soon)
@@ -64,7 +64,7 @@ export const SHOPIFY_STORE = "f1ipn9-h0.myshopify.com";
 
 export const products: Product[] = [
   // ===================================================================
-  // THE VARIANT SERIES — Launching Friday, March 27, 2026
+  // THE VARIANT SERIES — Launching Sunday, April 27, 2026
   // ===================================================================
   {
     id: "variant-cosmic-drop",
@@ -87,13 +87,13 @@ export const products: Product[] = [
       "Limited to 500 packs — once they're gone, they're gone",
       "Sealed in custom NLF holographic mylar bag",
     ],
-    badge: "DROPPING MAR 27",
+    badge: "DROPPING APR 27",
     badgeColor: "cyan",
     inStock: true,
     inventory: 500,
     isRepack: true,
     isComingSoon: false,
-    launchDate: "2026-03-28T00:00:00Z",
+    launchDate: "2026-04-28T00:00:00Z",
   },
   {
     id: "variant-chrome-edition",
@@ -122,7 +122,7 @@ export const products: Product[] = [
     inventory: 100,
     isRepack: true,
     isComingSoon: false,
-    launchDate: "2026-03-28T00:00:00Z",
+    launchDate: "2026-04-28T00:00:00Z",
   },
 
   // ===================================================================
@@ -375,7 +375,7 @@ export const products: Product[] = [
     inventory: 0,
     isRepack: false,
     isComingSoon: false,
-    launchDate: "2026-03-28T00:00:00Z",
+    launchDate: "2026-04-28T00:00:00Z",
   },
   {
     id: "topps-chrome-sapphire",
@@ -401,7 +401,7 @@ export const products: Product[] = [
     inventory: 0,
     isRepack: false,
     isComingSoon: false,
-    launchDate: "2026-03-28T00:00:00Z",
+    launchDate: "2026-04-28T00:00:00Z",
   },
   {
     id: "topps-marvel-mint",
@@ -426,7 +426,7 @@ export const products: Product[] = [
     inventory: 0,
     isRepack: false,
     isComingSoon: false,
-    launchDate: "2026-03-28T00:00:00Z",
+    launchDate: "2026-04-28T00:00:00Z",
   },
 ];
 
@@ -465,7 +465,7 @@ export function getProductLines() {
     {
       id: "variant-series",
       name: "The Variant Series",
-      tagline: "Our flagship Marvel repack line — launching March 27th",
+      tagline: "Our flagship Marvel repack line — launching April 27th",
       products: getProductsByLine("variant-series"),
       available: true,
     },

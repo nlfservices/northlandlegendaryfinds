@@ -39,7 +39,7 @@ export const checkoutRouter = router({
         throw new Error(`Product not found: ${input.productSlug}`);
       }
 
-      // Enforce launch date: NLF Variant cannot be purchased before March 27, 2026 7pm CT
+      // Enforce launch date: NLF Variant cannot be purchased before April 27, 2026 7pm CT
       if (input.productSlug === 'nlf-variant') {
         const now = new Date();
         const launchDate = new Date(LAUNCH_DATE_UTC);

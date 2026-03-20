@@ -43,20 +43,3 @@ export const adminProcedure = t.procedure.use(
     });
   }),
 );
-
-export const subscriberProcedure = t.procedure.use(
-  t.middleware(async opts => {
-    const { ctx, next } = opts;
-
-    if (!ctx.user || (ctx.user.role !== 'subscriber' && ctx.user.role !== 'admin')) {
-      throw new TRPCError({ code: "FORBIDDEN", message: "Subscriber access required" });
-    }
-
-    return next({
-      ctx: {
-        ...ctx,
-        user: ctx.user,
-      },
-    });
-  }),
-);

@@ -1,0 +1,170 @@
+{
+  "query": "SELECT mc.id, mc.characterName, mc.cardNumber, mc.cardType, mc.parallels, ms.name as setName \nFROM marvel_cards mc \nJOIN marvel_sets ms ON mc.setId = ms.id \nWHERE mc.parallels IS NOT NULL AND mc.parallels != '' \nLIMIT 20;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT mc.id, mc.characterName, mc.cardNumber, mc.cardType, mc.parallels, ms.name as setName \nFROM marvel_cards mc \nJOIN marvel_sets ms ON mc.setId = ms.id \nWHERE mc.parallels IS NOT NULL AND mc.parallels != '' \nLIMIT 20;",
+  "rows": [
+    {
+      "id": "1",
+      "characterName": "Iron Man",
+      "cardNumber": "1",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "id": "2",
+      "characterName": "Layla El-Faouly",
+      "cardNumber": "10",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "id": "3",
+      "characterName": "Wonder Man",
+      "cardNumber": "100",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "id": "4",
+      "characterName": "Spider-Man",
+      "cardNumber": "101",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "id": "5",
+      "characterName": "Mephisto",
+      "cardNumber": "102",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "id": "6",
+      "characterName": "Wolverine",
+      "cardNumber": "103",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "id": "7",
+      "characterName": "Star-Lord",
+      "cardNumber": "104",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "id": "8",
+      "characterName": "Gambit",
+      "cardNumber": "105",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "id": "9",
+      "characterName": "Black Cat",
+      "cardNumber": "106",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "id": "10",
+      "characterName": "Cyclops",
+      "cardNumber": "107",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "id": "11",
+      "characterName": "Silk",
+      "cardNumber": "108",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "id": "12",
+      "characterName": "The Thing",
+      "cardNumber": "109",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "id": "13",
+      "characterName": "Super-Skrull",
+      "cardNumber": "11",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "id": "14",
+      "characterName": "She-Hulk",
+      "cardNumber": "110",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "id": "15",
+      "characterName": "Luke Cage",
+      "cardNumber": "111",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "id": "16",
+      "characterName": "Spider-Man 2099",
+      "cardNumber": "112",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "id": "17",
+      "characterName": "Wasp",
+      "cardNumber": "113",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "id": "18",
+      "characterName": "Makkari",
+      "cardNumber": "114",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "id": "19",
+      "characterName": "Mysterio",
+      "cardNumber": "115",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "id": "20",
+      "characterName": "Black Bolt",
+      "cardNumber": "116",
+      "cardType": "Base",
+      "parallels": "Base, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1",
+      "setName": "2025 Topps Chrome"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcharacterName\tcardNumber\tcardType\tparallels\tsetName\n1\tIron Man\t1\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\n2\tLayla El-Faouly\t10\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\n3\tWonder Man\t100\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\n4\tSpider-Man\t101\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\n5\tMephisto\t102\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\n6\tWolverine\t103\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\n7\tStar-Lord\t104\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\n8\tGambit\t105\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\n9\tBlack Cat\t106\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\n10\tCyclops\t107\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\n11\tSilk\t108\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\n12\tThe Thing\t109\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\n13\tSuper-Skrull\t11\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\n14\tShe-Hulk\t110\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\n15\tLuke Cage\t111\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\n16\tSpider-Man 2099\t112\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\n17\tWasp\t113\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\n18\tMakkari\t114\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\n19\tMysterio\t115\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\n20\tBlack Bolt\t116\tBase\tBase, /399, /299, /199, /100, /99, /75, /62, /50, /40, /39, /25, /25-2, /10, /5, /5-2, /1\t2025 Topps Chrome\n",
+  "stderr": "",
+  "execution_time_ms": 1270
+}

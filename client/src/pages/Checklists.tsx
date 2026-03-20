@@ -157,7 +157,7 @@ function ProductChecklistCard({ product, categoryColors, categoryLabels }: {
 }) {
   const { data: stats } = trpc.public.products.stats.useQuery({ id: product.id });
 
-  const progressPercent = stats?.totalPacks ? Math.round(((stats.totalPacks - stats.packsRemaining) / stats.totalPacks) * 100) : 0;
+  const progressPercent = stats ? Math.round(((stats.totalPacks - stats.packsRemaining) / stats.totalPacks) * 100) : 0;
 
   return (
     <Link href={`/checklist/${product.slug}`}>
