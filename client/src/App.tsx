@@ -40,9 +40,10 @@ import Characters from "./pages/Characters";
 import CharacterPage from "./pages/CharacterPage";
 import CardDetailPage from "./pages/CardDetailPage";
 import JarvisProtocol from "./pages/JarvisProtocol";
+import MatrixPortal from "./pages/MatrixPortal";
 
 // Routes that render as full-screen standalone experiences (no nav/footer)
-const STANDALONE_ROUTES = ["/card-display"];
+const STANDALONE_ROUTES = ["/card-display", "/matrix"];
 
 function AppRouter() {
   const [location] = useLocation();
@@ -53,6 +54,7 @@ function AppRouter() {
     return (
       <Switch>
         <Route path="/card-display" component={CardDisplay} />
+        <Route path="/matrix" component={MatrixPortal} />
       </Switch>
     );
   }
@@ -90,6 +92,7 @@ function AppRouter() {
           <Route path="/cards/:slug" component={CardDatabase} />
           <Route path="/characters" component={Characters} />
           <Route path="/characters/:slug" component={CharacterPage} />
+          <Route path="/matrix" component={MatrixPortal} />
           <Route path="/admin" component={AdminDashboard} />
           <Route path="/admin/ebay-comps" component={EbayComps} />
           <Route path="/transparency" component={Transparency} />

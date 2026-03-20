@@ -461,3 +461,45 @@ export const cardDetailContent = mysqlTable("card_detail_content", {
 
 export type CardDetailContent = typeof cardDetailContent.$inferSelect;
 export type InsertCardDetailContent = typeof cardDetailContent.$inferInsert;
+
+
+/**
+ * Matrix Attempts - tracks failed access code attempts for IP lockout
+ * After 5 failed attempts from the same IP, lock out for 15 minutes
+ */
+export const matrixAttempts = mysqlTable("matrix_attempts", {
+  id: int("id").autoincrement().primaryKey(),
+  /** IP address of the requester */
+  ipAddress: varchar("ipAddress", { length: 45 }).notNull(),
+  /** Number of failed attempts */
+  failedAttempts: int("failedAttempts").notNull().default(0),
+  /** When the lockout expires (null = not locked out) */
+  lockedUntil: timestamp("lockedUntil"),
+  /** Last attempt timestamp */
+  lastAttemptAt: timestamp("lastAttemptAt").defaultNow().notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type MatrixAttempt = typeof matrixAttempts.$inferSelect;
+export type InsertMatrixAttempt = typeof matrixAttempts.$inferInsert;
+
+/**
+ * Matrix Bypass Tokens - one-time use tokens for "Forgot PIN" bypass
+ * Sent via notification email, expire after 15 minutes
+ */
+export const matrixBypassTokens = mysqlTable("matrix_bypass_tokens", {
+  id: int("id").autoincrement().primaryKey(),
+  /** The bypass token (UUID) */
+  token: varchar("token", { length: 64 }).notNull().unique(),
+  /** IP address that requested the bypass */
+  requestedByIp: varchar("requestedByIp", { length: 45 }).notNull(),
+  /** Whether the token has been used */
+  isUsed: boolean("isUsed").notNull().default(false),
+  /** When the token expires */
+  expiresAt: timestamp("expiresAt").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type MatrixBypassToken = typeof matrixBypassTokens.$inferSelect;
+export type InsertMatrixBypassToken = typeof matrixBypassTokens.$inferInsert;

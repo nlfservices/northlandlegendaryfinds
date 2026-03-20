@@ -711,4 +711,16 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Update nav login icon to link to /login instead of direct OAuth redirect
 - [x] Authenticated view shows account dashboard (Browse Shop, Card Database, Sign Out)
 - [x] Green dot indicator on nav icon when logged in
+- [x] Save checkpoint (1b882004)
+
+## Matrix Admin Portal - Rebuild 3-Layer Security
+- [x] Add matrixAttempts table to schema for IP lockout tracking
+- [x] Add server-side access code verification endpoint (tRPC)
+- [x] Build Matrix gate page at /matrix with access code input
+- [x] IP lockout after 5 failed attempts (15 min cooldown)
+- [x] Forgot PIN bypass link via notification email
+- [x] Update App.tsx to add /matrix route
+- [x] /matrix renders as standalone (no nav/footer)
+- [x] Block /matrix from robots.txt
+- [x] Write vitest tests for access code verification (24 tests)
 - [ ] Save checkpoint
