@@ -733,10 +733,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Save checkpoint (afdab761)
 
 ## Home Page Bug Fix - Raw Cards Section Returned
-- [ ] Investigate Home.tsx for Raw & Graded Hits section that should have been removed
-- [ ] Remove any sections that were previously removed but came back
-- [ ] Verify home page matches the intended design
-- [ ] Save checkpoint
+- [x] Investigate Home.tsx for Raw & Graded Hits section that should have been removed
+- [x] Remove any sections that were previously removed but came back
+- [x] Verify home page matches the intended design
+- [x] Save checkpoint (7f2c7e44)
 
 ## CRITICAL: Restore Avengers Doomsday + Top 5 to Home Page
 - [x] Recover correct Home.tsx from git history (before template upgrade)
@@ -744,9 +744,33 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Restore Top 5 list section
 - [x] Remove old Raw & Graded Hits / CardShowcase section
 - [x] Verify all homepage sections match intended design
-- [ ] Save checkpoint
+- [x] Save checkpoint (7f2c7e44)
 
 ## PERMANENT RULES
 - NEVER bring back "Raw & Graded Hits" section on homepage
 - NEVER revert Home.tsx to old version with CardShowcase
 - Homepage MUST have: Avengers Doomsday section + Top 5 list
+
+## FULL RESTORATION: All Missing Features from Template Upgrade
+- [x] Restore schema tables: articles, top5BuzzItems, showSubmissions
+- [x] Restore db.ts functions: article CRUD, top5 CRUD, showSubmission
+- [x] Restore server/routers/articles.ts (admin + public)
+- [x] Restore server/routers/subscriber.ts
+- [x] Restore server/routers/top5.ts (admin + public)
+- [x] Restore server/ghlSync.ts
+- [x] Wire articles, subscriber, top5 routers into routers.ts
+- [x] Restore client/src/pages/MCUIntel.tsx
+- [x] Restore client/src/pages/MCUIntelArticle.tsx
+- [x] Restore client/src/pages/SubscriberHub.tsx
+- [x] Restore client/src/components/ArticleManager.tsx
+- [x] Restore client/src/components/Top5Manager.tsx
+- [x] Restore admin dashboard tabs: articles + top5
+- [x] Add routes to App.tsx: /mcu-intel, /mcu-intel/:slug, /subscribers
+- [x] Restore CardShows.tsx, SubmitShow.tsx, cardShowsData.ts
+- [x] Restore USMapSVG.tsx, USMapSilhouette.tsx, HoneypotField.tsx
+- [x] Add card shows routes to App.tsx: /card-shows, /submit-show
+- [x] Restore server/lib/greenscreen.ts
+- [x] Run pnpm db:push for schema changes
+- [x] Verify all pages load in browser (all return 200)
+- [x] Fix all TypeScript errors (0 errors from tsc)
+- [ ] Save checkpoint

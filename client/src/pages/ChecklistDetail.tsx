@@ -111,7 +111,7 @@ export default function ChecklistDetail() {
     );
   }
 
-  const progressPercent = stats ? Math.round(((stats.totalPacks - stats.packsRemaining) / stats.totalPacks) * 100) : 0;
+  const progressPercent = stats?.totalPacks ? Math.round(((stats.totalPacks - stats.packsRemaining) / stats.totalPacks) * 100) : 0;
 
   // Build the finalization statement
   const finalizedDate = product.checklistFinalizedAt

@@ -41,6 +41,11 @@ import CharacterPage from "./pages/CharacterPage";
 import CardDetailPage from "./pages/CardDetailPage";
 import JarvisProtocol from "./pages/JarvisProtocol";
 import MatrixPortal from "./pages/MatrixPortal";
+import MCUIntel from "./pages/MCUIntel";
+import MCUIntelArticle from "./pages/MCUIntelArticle";
+import SubscriberHub from "./pages/SubscriberHub";
+import CardShows from "./pages/CardShows";
+import SubmitShow from "./pages/SubmitShow";
 
 // Routes that render as full-screen standalone experiences (no nav/footer)
 const STANDALONE_ROUTES = ["/card-display", "/matrix"];
@@ -96,6 +101,11 @@ function AppRouter() {
           <Route path="/admin" component={AdminDashboard} />
           <Route path="/admin/ebay-comps" component={EbayComps} />
           <Route path="/transparency" component={Transparency} />
+          <Route path="/mcu-intel" component={MCUIntel} />
+          <Route path="/mcu-intel/:slug" component={MCUIntelArticle} />
+          <Route path="/subscribers" component={SubscriberHub} />
+          <Route path="/card-shows" component={CardShows} />
+          <Route path="/submit-show" component={SubmitShow} />
           <Route path="/login" component={JarvisProtocol} />
           <Route path="/404" component={NotFound} />
           <Route component={NotFound} />

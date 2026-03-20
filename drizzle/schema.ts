@@ -9,7 +9,7 @@ export const users = mysqlTable("users", {
   name: text("name"),
   email: varchar("email", { length: 320 }),
   loginMethod: varchar("loginMethod", { length: 64 }),
-  role: mysqlEnum("role", ["user", "admin"]).default("user").notNull(),
+  role: mysqlEnum("role", ["user", "admin", "subscriber"]).default("user").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
   lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(),
@@ -503,3 +503,118 @@ export const matrixBypassTokens = mysqlTable("matrix_bypass_tokens", {
 
 export type MatrixBypassToken = typeof matrixBypassTokens.$inferSelect;
 export type InsertMatrixBypassToken = typeof matrixBypassTokens.$inferInsert;
+
+/**
+ * MCU Intel Articles — news articles about MCU movies, shows, card market impact
+ */
+export const articles = mysqlTable("articles", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Article title */
+  title: varchar("title", { length: 500 }).notNull(),
+  /** URL-friendly slug */
+  slug: varchar("slug", { length: 500 }).notNull().unique(),
+  /** Short excerpt for cards/previews (max 300 chars) */
+  excerpt: text("excerpt"),
+  /** Full article content in Markdown */
+  contentMarkdown: text("contentMarkdown").notNull(),
+  /** Featured image URL */
+  featuredImageUrl: text("featuredImageUrl"),
+  /** Article category */
+  category: mysqlEnum("category", ["movie_news", "show_news", "casting", "card_market", "release_dates", "rumors", "analysis"]).notNull().default("movie_news"),
+  /** Tags as JSON array (e.g., ["Avengers", "Doomsday", "Doctor Doom"]) */
+  tags: json("tags"),
+  /** Card market impact note (e.g., "Doctor Doom cards up 40% since casting news") */
+  cardMarketImpact: text("cardMarketImpact"),
+  /** Related character names for cross-linking to character pages */
+  relatedCharacters: json("relatedCharacters"),
+  /** Source URLs for citations (JSON array of {title, url}) */
+  sources: json("sources"),
+  /** Whether the article is featured (shown prominently) */
+  isFeatured: boolean("isFeatured").notNull().default(false),
+  /** Whether the article is published */
+  isPublished: boolean("isPublished").notNull().default(false),
+  /** Author name */
+  authorName: varchar("authorName", { length: 255 }).default("NLF Team"),
+  /** Publish date (UTC timestamp in ms) */
+  publishedAt: bigint("publishedAt", { mode: "number" }),
+  /** SEO meta description */
+  metaDescription: varchar("metaDescription", { length: 320 }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Article = typeof articles.$inferSelect;
+export type InsertArticle = typeof articles.$inferInsert;
+
+/**
+ * Marvelous Top 5 — admin-managed weekly buzz rankings on the homepage
+ * Each row is one ranked entry with character, backstory, card image, and sources
+ */
+export const top5BuzzItems = mysqlTable("top5_buzz_items", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Rank position (1-5) */
+  rank: int("rank").notNull(),
+  /** Display title (e.g., "Spider-Man: Brand New Day") */
+  title: varchar("title", { length: 500 }).notNull(),
+  /** Character name (e.g., "Spider-Man") */
+  character: varchar("character", { length: 255 }).notNull(),
+  /** Short tagline (e.g., "The trailer just dropped — and the hype is unreal") */
+  tagline: varchar("tagline", { length: 500 }).notNull(),
+  /** Full backstory paragraph */
+  backstory: text("backstory").notNull(),
+  /** Card image URL from NLF database */
+  cardImage: text("cardImage").notNull(),
+  /** Front card image (uploaded by admin) */
+  frontImage: text("frontImage"),
+  /** Back card image (uploaded by admin, optional) */
+  backImage: text("backImage"),
+  /** Cosmic frame template key */
+  frameTemplate: varchar("frameTemplate", { length: 100 }).default("marvel_mint_gold"),
+  /** Card label (e.g., "2025 Topps Chrome #101") */
+  cardLabel: varchar("cardLabel", { length: 255 }).notNull(),
+  /** Card detail page link (e.g., "/cards/chrome/101") */
+  cardLink: varchar("cardLink", { length: 500 }).notNull(),
+  /** Source links as JSON array of {title, url} */
+  sources: json("sources").notNull(),
+  /** Heat level for visual badge */
+  heatLevel: mysqlEnum("heatLevel", ["blazing", "hot", "rising"]).notNull().default("rising"),
+  /** Category label (e.g., "Movie", "Movie / Comics") */
+  category: varchar("category", { length: 100 }).notNull().default("Movie"),
+  /** Whether this item is active (shown on homepage) */
+  isActive: boolean("isActive").notNull().default(true),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Top5BuzzItem = typeof top5BuzzItems.$inferSelect;
+export type InsertTop5BuzzItem = typeof top5BuzzItems.$inferInsert;
+
+// ==================== SHOW SUBMISSIONS ====================
+export const showSubmissions = mysqlTable("show_submissions", {
+  id: int("id").autoincrement().primaryKey(),
+  showName: varchar("showName", { length: 255 }).notNull(),
+  promoterName: varchar("promoterName", { length: 255 }).notNull(),
+  email: varchar("email", { length: 320 }).notNull(),
+  phone: varchar("phone", { length: 50 }),
+  website: varchar("website", { length: 500 }),
+  venue: varchar("venue", { length: 255 }),
+  address: varchar("address", { length: 500 }),
+  city: varchar("city", { length: 100 }).notNull(),
+  state: varchar("state", { length: 2 }).notNull(),
+  zipCode: varchar("zipCode", { length: 10 }),
+  startDate: bigint("startDate", { mode: "number" }).notNull(),
+  endDate: bigint("endDate", { mode: "number" }).notNull(),
+  hours: varchar("hours", { length: 255 }),
+  tableCount: int("tableCount"),
+  admission: varchar("admission", { length: 100 }),
+  description: text("description"),
+  isRecurring: boolean("isRecurring").notNull().default(false),
+  recurrenceNote: varchar("recurrenceNote", { length: 255 }),
+  status: mysqlEnum("status", ["pending", "approved", "rejected"]).notNull().default("pending"),
+  adminNotes: text("adminNotes"),
+  submittedByUserId: int("submittedByUserId"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+export type ShowSubmission = typeof showSubmissions.$inferSelect;
+export type InsertShowSubmission = typeof showSubmissions.$inferInsert;
