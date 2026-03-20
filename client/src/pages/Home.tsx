@@ -5,6 +5,7 @@
 
 import { useAuth } from "@/_core/hooks/useAuth";
 import { ShoppingCart, Shield, Star, TrendingUp, Package, ArrowRight, Zap, BookOpen, Clock, Eye, Radio } from "lucide-react";
+import CardShowcase, { type ShowcaseCard } from "@/components/CardShowcase";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { useCart } from "@/contexts/CartContext";
@@ -12,13 +13,46 @@ import { getProductLines, getComingSoonProducts, products } from "@/lib/products
 import { useLaunchCountdown } from "@/hooks/useLaunchCountdown";
 import ProductCard from "@/components/ProductCard";
 import SEO, { organizationJsonLd, websiteJsonLd, localBusinessJsonLd } from "@/components/SEO";
-import DoomsdaySection from "@/components/DoomsdaySection";
-import MarvelousTop5 from "@/components/MarvelousTop5";
 
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hero-banner-jniBj55ukeiEDpJxc2aLgB.webp";
 const NLF_PACK = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-nlf-variant-2CkMPP3CsZhFkFXpzSuZkV.webp";
 const TRUST_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/trust-section-bg-kwnjuLkybJ2rqpCpEwiChw.webp";
 
+// ===== SHOWCASE CARDS =====
+const SHOWCASE_CARDS: ShowcaseCard[] = [
+  {
+    id: "hulk-black-refractor",
+    rawFront: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hulk-raw-front_44893b76.jpg",
+    gradedFront: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hulk-graded-front_aab29f02.jpg",
+    cardName: "HULK",
+    setName: "2025 Topps Marvel Mint",
+    serialNumber: "#109 \u00b7 Black Refractor /10",
+    grade: "10",
+    gradeLabel: "GEM MINT",
+    gradingCompany: "CGC",
+  },
+  {
+    id: "spiderman-ottley-auto",
+    rawFront: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/spiderman-ottley-auto-front_5e07cb1d.webp",
+    cardName: "SPIDER-MAN",
+    setName: "2025 Topps Chrome Marvel",
+    serialNumber: "Ryan Ottley \u00b7 Chrome Auto /50",
+  },
+  {
+    id: "invisible-woman-platinum",
+    rawFront: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/invisible-woman-platinum-front_b753448f.webp",
+    cardName: "INVISIBLE WOMAN",
+    setName: "2025 Topps Marvel Mint",
+    serialNumber: "#118 \u00b7 Platinum Minted",
+  },
+  {
+    id: "mighty-thor-gold",
+    rawFront: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mighty-thor-gold-front_8b9d4488.webp",
+    cardName: "MIGHTY THOR",
+    setName: "2025 Topps Marvel Mint",
+    serialNumber: "#96 \u00b7 Gold Minted /50",
+  },
+];
 
 export default function Home() {
   let { user, loading, error, isAuthenticated, logout } = useAuth();
@@ -128,11 +162,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== DOOMSDAY — CHARACTER INTEL HUB ===== */}
-      <DoomsdaySection />
-
-      {/* ===== MARVELOUS TOP 5 ===== */}
-      <MarvelousTop5 />
+      {/* ===== CARD SHOWCASE - THE HIGHLIGHT ===== */}
+      <CardShowcase
+        cards={SHOWCASE_CARDS}
+        autoPlayInterval={6000}
+      />
 
       {/* ===== THE VARIANT SERIES — LAUNCH EXCLUSIVE ===== */}
       {variantSeries && (

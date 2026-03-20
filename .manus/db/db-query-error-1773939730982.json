@@ -1,8 +1,0 @@
-{
-  "query": "ALTER TABLE `top5_buzz_items` \nADD COLUMN `frontImage` text DEFAULT NULL AFTER `cardImage`,\nADD COLUMN `backImage` text DEFAULT NULL AFTER `frontImage`,\nADD COLUMN `frameTemplate` varchar(100) DEFAULT 'marvel_mint_gold' AFTER `backImage`;",
-  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute ALTER TABLE `top5_buzz_items` \nADD COLUMN `frontImage` text DEFAULT NULL AFTER `cardImage`,\nADD COLUMN `backImage` text DEFAULT NULL AFTER `frontImage`,\nADD COLUMN `frameTemplate` varchar(100) DEFAULT 'marvel_mint_gold' AFTER `backImage`;",
-  "returncode": 1,
-  "logs": [
-    "ERROR 1054 (42S22) at line 1: Unknown column 'frontimage' in 'top5_buzz_items'"
-  ]
-}

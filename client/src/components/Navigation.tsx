@@ -5,9 +5,8 @@
 
 import { useState, useCallback } from "react";
 import { Link, useLocation } from "wouter";
-import { ShoppingCart, Menu, X, Shuffle, Crown, User, LogOut } from "lucide-react";
+import { ShoppingCart, Menu, X, Shuffle, User } from "lucide-react";
 import { useAuth } from "@/_core/hooks/useAuth";
-import { getLoginUrl } from "@/const";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
 import { trpc } from "@/lib/trpc";
@@ -20,16 +19,13 @@ export default function Navigation() {
   const [isRandomizing, setIsRandomizing] = useState(false);
   const { totalItems, setIsOpen: setCartOpen } = useCart();
   const utils = trpc.useUtils();
-  const { user, isAuthenticated, logout } = useAuth();
-  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const { user, isAuthenticated } = useAuth();
 
   const navItems = [
     { path: "/shop", label: "Shop" },
     { path: "/cards", label: "Card Database" },
     { path: "/characters", label: "Characters" },
     { path: "/checklists", label: "Checklists" },
-    { path: "/subscribers", label: "The Vault" },
-    { path: "/mcu-intel", label: "MCU Intel" },
     { path: "/about", label: "About" },
     { path: "/transparency", label: "Transparency" },
     { path: "/faq", label: "FAQ" },
@@ -94,7 +90,6 @@ export default function Navigation() {
                           : "text-foreground/80 hover:text-primary hover:bg-primary/5"
                       }`}
                     >
-                      {item.label === "The Vault" && <Crown className="w-3.5 h-3.5 mr-1 inline text-[oklch(0.75_0.15_85)]" />}
                       {item.label}
                     </button>
                   </Link>
@@ -114,47 +109,22 @@ export default function Navigation() {
                 <Shuffle className={`w-5 h-5 ${isRandomizing ? "animate-spin" : "group-hover:scale-110 transition-transform"}`} />
               </button>
 
-              {/* User Login/Profile Button */}
-              {isAuthenticated && user ? (
-                <div className="relative">
-                  <button
-                    onClick={() => setUserMenuOpen(!userMenuOpen)}
-                    className="relative text-foreground/70 hover:text-primary transition-all p-2 group"
-                    title={user.name || "Account"}
-                  >
-                    <User className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                  </button>
-                  {userMenuOpen && (
-                    <>
-                      <div className="fixed inset-0 z-40" onClick={() => setUserMenuOpen(false)} />
-                      <div className="absolute right-0 top-full mt-2 w-48 bg-card border border-border rounded-lg shadow-xl z-50 py-1 animate-in fade-in slide-in-from-top-2">
-                        <div className="px-3 py-2 border-b border-border">
-                          <p className="text-sm font-medium text-foreground truncate">{user.name || "User"}</p>
-                          <p className="text-xs text-muted-foreground truncate">{user.email}</p>
-                        </div>
-                        <button
-                          onClick={() => {
-                            logout();
-                            setUserMenuOpen(false);
-                          }}
-                          className="w-full px-3 py-2 text-sm text-left text-muted-foreground hover:text-foreground hover:bg-muted/50 flex items-center gap-2 transition-colors"
-                        >
-                          <LogOut className="w-3.5 h-3.5" />
-                          Sign Out
-                        </button>
-                      </div>
-                    </>
-                  )}
-                </div>
-              ) : (
-                <a
-                  href={getLoginUrl()}
-                  className="relative text-foreground/70 hover:text-primary transition-all p-2 group"
-                  title="Sign In"
+              {/* Login / Account Button */}
+              <Link href="/login">
+                <button
+                  className={`relative p-2 transition-all group ${
+                    isAuthenticated
+                      ? "text-primary"
+                      : "text-foreground/70 hover:text-primary"
+                  }`}
+                  title={isAuthenticated ? `Signed in as ${user?.name || "Agent"}` : "Jarvis Protocol"}
                 >
                   <User className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                </a>
-              )}
+                  {isAuthenticated && (
+                    <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-background" />
+                  )}
+                </button>
+              </Link>
 
               {/* Cart Button */}
               <button
@@ -199,7 +169,6 @@ export default function Navigation() {
                           : "text-foreground/80 hover:bg-primary/5 hover:text-primary"
                       }`}
                     >
-                      {item.label === "The Vault" && <Crown className="w-4 h-4 mr-1 inline text-[oklch(0.75_0.15_85)]" />}
                       {item.label}
                     </div>
                   </Link>
@@ -214,6 +183,19 @@ export default function Navigation() {
                 <Shuffle className={`w-4 h-4 ${isRandomizing ? "animate-spin" : ""}`} />
                 {isRandomizing ? "Finding card..." : "Random Card"}
               </button>
+              {/* Jarvis Protocol in mobile menu */}
+              <Link
+                href="/login"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <div className="px-4 py-3 rounded-lg font-bold tracking-wide transition-colors text-foreground/80 hover:bg-primary/5 hover:text-primary flex items-center gap-2">
+                  <User className="w-4 h-4" />
+                  {isAuthenticated ? `${user?.name || "My Account"}` : "Jarvis Protocol"}
+                  {isAuthenticated && (
+                    <span className="w-2 h-2 bg-green-500 rounded-full" />
+                  )}
+                </div>
+              </Link>
             </div>
           </div>
         )}

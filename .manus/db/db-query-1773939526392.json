@@ -1,9 +1,0 @@
-{
-  "query": "CREATE TABLE IF NOT EXISTS `top5_buzz_items` (\n  `id` int AUTO_INCREMENT NOT NULL,\n  `rank` int NOT NULL,\n  `title` varchar(500) NOT NULL,\n  `character` varchar(255) NOT NULL,\n  `tagline` varchar(500) NOT NULL,\n  `backstory` text NOT NULL,\n  `cardImage` text NOT NULL,\n  `cardLabel` varchar(255) NOT NULL,\n  `cardLink` varchar(500) NOT NULL,\n  `sources` json NOT NULL,\n  `heatLevel` enum('blazing','hot','rising') NOT NULL DEFAULT 'rising',\n  `category` varchar(100) NOT NULL DEFAULT 'Movie',\n  `isActive` boolean NOT NULL DEFAULT true,\n  `createdAt` timestamp NOT NULL DEFAULT (now()),\n  `updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,\n  CONSTRAINT `top5_buzz_items_id` PRIMARY KEY(`id`)\n);",
-  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute CREATE TABLE IF NOT EXISTS `top5_buzz_items` (\n  `id` int AUTO_INCREMENT NOT NULL,\n  `rank` int NOT NULL,\n  `title` varchar(500) NOT NULL,\n  `character` varchar(255) NOT NULL,\n  `tagline` varchar(500) NOT NULL,\n  `backstory` text NOT NULL,\n  `cardImage` text NOT NULL,\n  `cardLabel` varchar(255) NOT NULL,\n  `cardLink` varchar(500) NOT NULL,\n  `sources` json NOT NULL,\n  `heatLevel` enum('blazing','hot','rising') NOT NULL DEFAULT 'rising',\n  `category` varchar(100) NOT NULL DEFAULT 'Movie',\n  `isActive` boolean NOT NULL DEFAULT true,\n  `createdAt` timestamp NOT NULL DEFAULT (now()),\n  `updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,\n  CONSTRAINT `top5_buzz_items_id` PRIMARY KEY(`id`)\n);",
-  "rows": [],
-  "messages": [],
-  "stdout": "",
-  "stderr": "",
-  "execution_time_ms": 3201
-}

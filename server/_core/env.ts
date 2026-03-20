@@ -19,6 +19,4 @@ export const ENV = {
   ghlLocationId: process.env.GHL_LOCATION_ID ?? "",
   // Admin notification email
   adminNotificationEmail: process.env.ADMIN_NOTIFICATION_EMAIL ?? "",
-  // Hidden admin portal access code
-  adminAccessCode: process.env.ADMIN_ACCESS_CODE ?? "",
 };

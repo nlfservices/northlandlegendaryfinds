@@ -370,8 +370,8 @@ Card details:
 - Other ${card.characterName} cards in this set: ${sameCharCards.length > 0 ? sameCharCards.map(c => `#${c.cardNumber} (${c.cardType})`).join(", ") : "None"}
 
 Structure the article with these sections:
-## About This Character
-Describe what makes ${card.characterName} special and why this character is a standout in the ${card.setName} set. Discuss the card type "${card.cardType || "Base"}" and its significance for collectors.
+## About This Card
+Describe what makes this specific card special in the ${card.setName} set. Discuss the card type "${card.cardType || "Base"}" and its significance.
 
 ## The Parallel Breakdown
 Detail the available parallels and refractors for this card. Explain what each numbered parallel means for collectors (print run, rarity, value). ${numberedParallels.length > 0 ? `Cover these specific parallels: ${numberedParallels.join(", ")}` : "Discuss the standard parallel structure."}

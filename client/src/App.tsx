@@ -26,7 +26,6 @@ import MarvelChecklist from "./pages/MarvelChecklist";
 import StarWarsChecklist from "./pages/StarWarsChecklist";
 import EmailCapturePopup from "./components/EmailCapturePopup";
 import AdminDashboard from "./pages/AdminDashboard";
-import MatrixGate from "./pages/MatrixGate";
 import Checklists from "./pages/Checklists";
 import ChecklistDetail from "./pages/ChecklistDetail";
 import Whatnot from "./pages/Whatnot";
@@ -40,9 +39,7 @@ import CardDisplay from "./pages/CardDisplay";
 import Characters from "./pages/Characters";
 import CharacterPage from "./pages/CharacterPage";
 import CardDetailPage from "./pages/CardDetailPage";
-import MCUIntel from "./pages/MCUIntel";
-import MCUIntelArticle from "./pages/MCUIntelArticle";
-import SubscriberHub from "./pages/SubscriberHub";
+import JarvisProtocol from "./pages/JarvisProtocol";
 
 // Routes that render as full-screen standalone experiences (no nav/footer)
 const STANDALONE_ROUTES = ["/card-display"];
@@ -93,12 +90,10 @@ function AppRouter() {
           <Route path="/cards/:slug" component={CardDatabase} />
           <Route path="/characters" component={Characters} />
           <Route path="/characters/:slug" component={CharacterPage} />
-          <Route path="/matrix" component={MatrixGate} />
-          <Route path="/matrix/ebay-comps" component={EbayComps} />
+          <Route path="/admin" component={AdminDashboard} />
+          <Route path="/admin/ebay-comps" component={EbayComps} />
           <Route path="/transparency" component={Transparency} />
-          <Route path="/mcu-intel" component={MCUIntel} />
-          <Route path="/mcu-intel/:slug" component={MCUIntelArticle} />
-          <Route path="/subscribers" component={SubscriberHub} />
+          <Route path="/login" component={JarvisProtocol} />
           <Route path="/404" component={NotFound} />
           <Route component={NotFound} />
         </Switch>
