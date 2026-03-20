@@ -26,6 +26,7 @@ export default function Navigation() {
     { path: "/cards", label: "Card Database" },
     { path: "/characters", label: "Characters" },
     { path: "/checklists", label: "Checklists" },
+    { path: "/card-shows", label: "Card Shows" },
     { path: "/about", label: "About" },
     { path: "/transparency", label: "Transparency" },
     { path: "/faq", label: "FAQ" },

@@ -773,4 +773,15 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Run pnpm db:push for schema changes
 - [x] Verify all pages load in browser (all return 200)
 - [x] Fix all TypeScript errors (0 errors from tsc)
+- [x] Save checkpoint (785d7bf5)
+
+## BUG: Card Shows page missing/broken (reported by user)
+- [x] Diagnose Card Shows page issue (page was working, just missing from nav)
+- [x] Fix Card Shows page (added to nav bar)
+- [x] Verify fix works
+- [ ] Save checkpoint
+
+## Add Card Shows to Navigation Bar
+- [x] Add "Card Shows" link to desktop nav bar
+- [x] Add "Card Shows" link to mobile menu
 - [ ] Save checkpoint
