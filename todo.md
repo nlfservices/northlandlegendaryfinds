@@ -785,3 +785,25 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add "Card Shows" link to desktop nav bar
 - [x] Add "Card Shows" link to mobile menu
 - [ ] Save checkpoint
+
+## Market Intel Content System (6-page SEO hub)
+- [x] Research Topps Marvel, Fanatics, Pokemon market facts for credible copy
+- [x] Write full copy + SEO metadata for pillar page: Future of Marvel Trading Cards
+- [x] Write full copy + SEO metadata for supporting page 1: 2024 vs 2025 Topps Marvel
+- [x] Write full copy + SEO metadata for supporting page 2: Topps vs Upper Deck Marvel
+- [x] Write full copy + SEO metadata for supporting page 3: Marvel vs Pokemon Cards
+- [x] Write full copy + SEO metadata for supporting page 4: Why Fanatics Matters
+- [x] Write full copy + SEO metadata for supporting page 5: Best Topps Marvel to Watch
+- [x] Build MarketIntel.tsx (pillar page)
+- [x] Build MarketIntel2024vs2025.tsx (supporting page 1)
+- [x] Build MarketIntelToppsVsUpperDeck.tsx (supporting page 2)
+- [x] Build MarketIntelMarvelVsPokemon.tsx (supporting page 3)
+- [x] Build MarketIntelFanatics.tsx (supporting page 4)
+- [x] Build MarketIntelBestCards.tsx (supporting page 5)
+- [x] Add "Market Intel" dropdown to Navigation.tsx (highlighted/accent style)
+- [x] Wire all 6 routes in App.tsx under /market-intel/*
+- [x] Add FAQ schema-ready markup to all pages (built into each page component)
+- [x] Add email capture CTAs to all pages (built into each page component)
+- [x] Internal cross-linking between all 6 pages (prev/next nav built into each page)
+- [x] Run integrity check before checkpoint (89 checks passed)
+- [ ] Save checkpoint
