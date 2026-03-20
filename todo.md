@@ -730,4 +730,23 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Both paths lead to same OAuth but with different messaging
 - [x] Remove single "Initialize Jarvis Protocol" button
 - [x] Make it clear no prior account is needed
+- [x] Save checkpoint (afdab761)
+
+## Home Page Bug Fix - Raw Cards Section Returned
+- [ ] Investigate Home.tsx for Raw & Graded Hits section that should have been removed
+- [ ] Remove any sections that were previously removed but came back
+- [ ] Verify home page matches the intended design
 - [ ] Save checkpoint
+
+## CRITICAL: Restore Avengers Doomsday + Top 5 to Home Page
+- [x] Recover correct Home.tsx from git history (before template upgrade)
+- [x] Restore Avengers Doomsday section
+- [x] Restore Top 5 list section
+- [x] Remove old Raw & Graded Hits / CardShowcase section
+- [x] Verify all homepage sections match intended design
+- [ ] Save checkpoint
+
+## PERMANENT RULES
+- NEVER bring back "Raw & Graded Hits" section on homepage
+- NEVER revert Home.tsx to old version with CardShowcase
+- Homepage MUST have: Avengers Doomsday section + Top 5 list
