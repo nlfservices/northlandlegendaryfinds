@@ -728,3 +728,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Remove any related database tables/data (none found - no showcase table in schema)
 - [x] Remove any related server routers/procedures (none found)
 - [ ] Save checkpoint
+
+## Add Comic Cons & Collectible Events section to Card Shows page
+- [x] Run integrity check before changes (schema exports exist, TS errors are stale LSP cache)
+- [x] Compile comic con data from 4 sources + user tier list
+- [x] Build comicConsData.ts with tier system (Tier 1-4)
+- [x] Add Comic Cons section to CardShows.tsx (below card shows, visually separated)
+- [x] Include search, state filter, month filter, tier filter
+- [x] Run integrity check before checkpoint (81/81 passed)
+- [x] Save checkpoint

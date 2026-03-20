@@ -15,6 +15,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import SEO from "@/components/SEO";
 import USMapSVG from "@/components/USMapSVG";
+import ComicConsSection from "@/components/ComicConsSection";
 import { ALL_SHOWS, CARD_SHOWS_STATS, type CardShow } from "@/lib/cardShowsData";
 
 // ===== CONSTANTS =====
@@ -612,6 +613,9 @@ export default function CardShows() {
           </Link>
         </div>
       </section>
+
+      {/* ===== COMIC CONS & COLLECTIBLE EVENTS SECTION ===== */}
+      <ComicConsSection />
 
       {/* ===== SEO CONTENT ===== */}
       <section className="py-16">
