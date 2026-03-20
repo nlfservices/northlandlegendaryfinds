@@ -14,6 +14,7 @@ import {
   getCardDetailContentByCardId, upsertCardDetailContent, getAllCardDetailSlugs,
   parseParallels,
   getRandomCard,
+  insertShowSubmission,
 } from "../db";
 import { launchSubscribers } from "../../drizzle/schema";
 import { getDb } from "../db";
@@ -605,6 +606,77 @@ const publicSubscribeRouter = router({
     }),
 });
 
+// ==================== CARD SHOW SUBMISSION ROUTES ====================
+
+const publicCardShowRouter = router({
+  submit: publicProcedure
+    .input(
+      z.object({
+        showName: z.string().min(2).max(255),
+        promoterName: z.string().min(2).max(255),
+        email: z.string().email().max(320),
+        phone: z.string().max(50).optional(),
+        website: z.string().url().max(500).optional().or(z.literal("")),
+        venue: z.string().max(255).optional(),
+        address: z.string().max(500).optional(),
+        city: z.string().min(1).max(100),
+        state: z.string().length(2),
+        zipCode: z.string().max(10).optional(),
+        startDate: z.number(),
+        endDate: z.number(),
+        hours: z.string().max(255).optional(),
+        tableCount: z.number().int().positive().optional(),
+        admission: z.string().max(100).optional(),
+        description: z.string().max(2000).optional(),
+        isRecurring: z.boolean().optional(),
+        recurrenceNote: z.string().max(255).optional(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const id = await insertShowSubmission({
+        ...input,
+        website: input.website || null,
+        phone: input.phone || null,
+        venue: input.venue || null,
+        address: input.address || null,
+        zipCode: input.zipCode || null,
+        hours: input.hours || null,
+        tableCount: input.tableCount ?? null,
+        admission: input.admission || null,
+        description: input.description || null,
+        isRecurring: input.isRecurring ?? false,
+        recurrenceNote: input.recurrenceNote || null,
+        status: "pending",
+      });
+      try {
+        await notifyOwner({
+          title: "New Card Show Submission",
+          content: [
+            `**${input.showName}** in ${input.city}, ${input.state}`,
+            ``,
+            `- **Promoter:** ${input.promoterName}`,
+            `- **Email:** ${input.email}`,
+            input.phone ? `- **Phone:** ${input.phone}` : "",
+            input.venue ? `- **Venue:** ${input.venue}` : "",
+            input.address ? `- **Address:** ${input.address}` : "",
+            `- **Date:** ${new Date(input.startDate).toLocaleDateString("en-US")}${input.startDate !== input.endDate ? " - " + new Date(input.endDate).toLocaleDateString("en-US") : ""}`,
+            input.tableCount ? `- **Tables:** ${input.tableCount}` : "",
+            input.admission ? `- **Admission:** ${input.admission}` : "",
+            input.website ? `- **Website:** ${input.website}` : "",
+            input.description ? `\n**Description:** ${input.description}` : "",
+            ``,
+            `Review at: https://northlandlegendaryfinds.com/admin`,
+          ]
+            .filter(Boolean)
+            .join("\n"),
+        });
+      } catch (err) {
+        console.warn("[CardShow] Owner notification failed:", err);
+      }
+      return { success: true, id };
+    }),
+});
+
 // ==================== COMBINED PUBLIC ROUTER ====================
 
 export const publicRouter = router({
@@ -616,4 +688,5 @@ export const publicRouter = router({
   graded: publicGradedRouter,
   launch: publicLaunchRouter,
   subscribe: publicSubscribeRouter,
+  cardShows: publicCardShowRouter,
 });

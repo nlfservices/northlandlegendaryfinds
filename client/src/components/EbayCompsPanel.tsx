@@ -235,7 +235,7 @@ export default function EbayCompsPanel({ initialQuery }: { initialQuery?: string
               <BarChart3 className="w-5 h-5 text-blue-400 mx-auto mb-1" />
               <p className="text-xs text-muted-foreground">Average</p>
               <p className="text-2xl font-bold text-blue-400">
-                ${searchResult.priceSummary.avg.toFixed(2)}
+                ${searchResult.priceSummary.average.toFixed(2)}
               </p>
             </CardContent>
           </Card>

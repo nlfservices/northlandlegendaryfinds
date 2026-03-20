@@ -6,6 +6,10 @@ import { adminRouter } from "./routers/admin";
 import { publicRouter } from "./routers/public";
 import { checkoutRouter } from "./routers/checkout";
 import { ebayRouter } from "./routers/ebay";
+import { matrixRouter } from "./routers/matrix";
+import { subscriberRouter } from "./routers/subscriber";
+import { articlePublicRouter, articleAdminRouter } from "./routers/articles";
+import { top5PublicRouter, top5AdminRouter } from "./routers/top5";
 
 export const appRouter = router({
   system: systemRouter,
@@ -31,6 +35,24 @@ export const appRouter = router({
 
   // eBay API routes (admin only)
   ebay: ebayRouter,
+
+  // Matrix admin portal (access code gate + IP lockout)
+  matrix: matrixRouter,
+
+  // Subscriber routes
+  subscriber: subscriberRouter,
+
+  // MCU Intel articles (public)
+  articles: articlePublicRouter,
+
+  // MCU Intel articles (admin)
+  adminArticles: articleAdminRouter,
+
+  // Top 5 Buzz (public)
+  top5: top5PublicRouter,
+
+  // Top 5 Buzz (admin)
+  adminTop5: top5AdminRouter,
 });
 
 export type AppRouter = typeof appRouter;

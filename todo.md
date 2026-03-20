@@ -710,3 +710,21 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 ## Change launch date from March 27 to April 27
 - [x] Find and replace all March 27 references to April 27 across entire site
 - [ ] Save checkpoint and publish
+
+## CRITICAL: Restore all 34 deleted files from checkpoint 785d7bf
+- [ ] Restore all deleted page files (CardShows, MCUIntel, MCUIntelArticle, SubscriberHub, JarvisProtocol, MatrixPortal, SubmitShow)
+- [ ] Restore all deleted component files (ArticleManager, DoomsdaySection, HoneypotField, MarvelousTop5, Top5Manager, USMapSVG, USMapSilhouette)
+- [ ] Restore all deleted server files (routers/articles, routers/matrix, routers/subscriber, routers/top5, ghlSync, lib/greenscreen)
+- [ ] Restore all deleted test files
+- [ ] Restore cardShowsData.ts and drizzle migrations
+- [ ] Restore Market Intel pages from checkpoint 5b8f198
+- [ ] Verify App.tsx routes and Navigation.tsx links
+- [ ] Verify server routers are wired
+- [ ] Run integrity check and save checkpoint
+
+## Remove "Raw & Graded Hits" / CardShowcase permanently
+- [x] Remove CardShowcase component file (deleted)
+- [x] Remove any CardShowcase imports/usage from Home.tsx and anywhere else (none found - not imported anywhere)
+- [x] Remove any related database tables/data (none found - no showcase table in schema)
+- [x] Remove any related server routers/procedures (none found)
+- [ ] Save checkpoint
