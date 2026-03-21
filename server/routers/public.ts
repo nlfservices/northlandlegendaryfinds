@@ -677,6 +677,142 @@ const publicCardShowRouter = router({
     }),
 });
 
+// ==================== PUBLIC CARD DISPLAY ROUTES ====================
+
+const publicCardDisplayRouter = router({
+  /** Process a raw card photo: auto-detect card, crop, clean background, upload to S3 */
+  processImage: publicProcedure.input(z.object({
+    imageData: z.string(), // base64 encoded image
+    contentType: z.string().default("image/jpeg"),
+    outputWidth: z.number().optional().default(800),
+    outputHeight: z.number().optional().default(1100),
+    backgroundColor: z.string().optional().default("#0a0f1a"),
+    /** If true, return transparent PNG (no background) for use in themed displays */
+    transparent: z.boolean().optional().default(false),
+  })).mutation(async ({ input }) => {
+    const { storagePut } = await import("../storage");
+    const buffer = Buffer.from(input.imageData, "base64");
+
+    try {
+      const { processCardImage } = await import("../cardImageProcessor");
+
+      if (input.transparent) {
+        // For transparent mode: just detect + crop the card, output as PNG with alpha
+        const sharp = (await import("sharp")).default;
+        const { invokeLLM } = await import("../_core/llm");
+
+        // Upload temp image for vision detection
+        const tempKey = `temp/card-display-${Date.now()}-${Math.random().toString(36).substring(2, 8)}.jpg`;
+        const tempResult = await storagePut(tempKey, buffer, "image/jpeg");
+
+        // Use LLM vision to detect card bounds
+        const detectResult = await invokeLLM({
+          messages: [
+            {
+              role: "system",
+              content: `You are a precise image analysis tool. You detect trading card boundaries in photos.
+The photos typically show a trading card in a clear plastic one-touch holder or top-loader,
+sitting on a clear plastic stand/easel against a gray or dark background.
+
+Your job: identify the bounding rectangle of the PRINTED CARD FACE only.
+Return the coordinates as percentages (0-100) of the image dimensions.
+
+CRITICAL RULES:
+- Detect ONLY the printed card area (the artwork/text area of the trading card)
+- Do NOT include the clear plastic holder/case edges
+- Do NOT include the Topps tab at the top
+- Do NOT include the clear plastic stand/easel at the bottom
+- Do NOT include the gray/dark background
+- For cards in one-touch holders: detect the inner card, not the outer holder
+- For flat scans with dark borders: detect the card edges inside any border
+- Be very precise with the edges of the actual printed card`,
+            },
+            {
+              role: "user",
+              content: [
+                { type: "image_url", image_url: { url: tempResult.url, detail: "high" } },
+                { type: "text", text: "Detect the trading card boundaries. Return ONLY the bounding box coordinates as percentages of image width/height (0-100)." },
+              ],
+            },
+          ],
+          response_format: {
+            type: "json_schema",
+            json_schema: {
+              name: "card_bounds",
+              strict: true,
+              schema: {
+                type: "object",
+                properties: {
+                  topLeftX: { type: "number", description: "Top-left X as percentage (0-100) of image width" },
+                  topLeftY: { type: "number", description: "Top-left Y as percentage (0-100) of image height" },
+                  topRightX: { type: "number", description: "Top-right X as percentage (0-100) of image width" },
+                  topRightY: { type: "number", description: "Top-right Y as percentage (0-100) of image height" },
+                  bottomRightX: { type: "number", description: "Bottom-right X as percentage (0-100) of image width" },
+                  bottomRightY: { type: "number", description: "Bottom-right Y as percentage (0-100) of image height" },
+                  bottomLeftX: { type: "number", description: "Bottom-left X as percentage (0-100) of image width" },
+                  bottomLeftY: { type: "number", description: "Bottom-left Y as percentage (0-100) of image height" },
+                },
+                required: ["topLeftX", "topLeftY", "topRightX", "topRightY", "bottomRightX", "bottomRightY", "bottomLeftX", "bottomLeftY"],
+                additionalProperties: false,
+              },
+            },
+          },
+        });
+
+        const boundsText = typeof detectResult.choices[0]?.message?.content === "string"
+          ? detectResult.choices[0].message.content : "";
+        const bounds = JSON.parse(boundsText);
+
+        const metadata = await sharp(buffer).metadata();
+        const imgW = metadata.width!;
+        const imgH = metadata.height!;
+
+        const left = Math.round(Math.min(bounds.topLeftX, bounds.bottomLeftX) / 100 * imgW);
+        const top = Math.round(Math.min(bounds.topLeftY, bounds.topRightY) / 100 * imgH);
+        const right = Math.round(Math.max(bounds.topRightX, bounds.bottomRightX) / 100 * imgW);
+        const bottom = Math.round(Math.max(bounds.bottomLeftY, bounds.bottomRightY) / 100 * imgH);
+
+        const marginX = Math.round((right - left) * 0.02);
+        const marginY = Math.round((bottom - top) * 0.02);
+        const cropLeft = Math.max(0, left - marginX);
+        const cropTop = Math.max(0, top - marginY);
+        const cropWidth = Math.min(imgW - cropLeft, (right - left) + marginX * 2);
+        const cropHeight = Math.min(imgH - cropTop, (bottom - top) + marginY * 2);
+
+        const croppedBuffer = await sharp(buffer)
+          .extract({ left: cropLeft, top: cropTop, width: cropWidth, height: cropHeight })
+          .jpeg({ quality: 95 })
+          .toBuffer();
+
+        const randomSuffix = Math.random().toString(36).substring(2, 10);
+        const fileKey = `card-display/${Date.now()}-${randomSuffix}.jpg`;
+        const { url } = await storagePut(fileKey, croppedBuffer, "image/jpeg");
+        return { success: true, url, mode: "transparent" as const };
+      } else {
+        // Standard mode: crop + place on dark background
+        const result = await processCardImage(buffer, {
+          outputWidth: input.outputWidth,
+          outputHeight: input.outputHeight,
+          backgroundColor: input.backgroundColor,
+          paddingPercent: 4,
+        });
+        const randomSuffix = Math.random().toString(36).substring(2, 10);
+        const fileKey = `card-display/${Date.now()}-${randomSuffix}.jpg`;
+        const { url } = await storagePut(fileKey, Buffer.from(result.processedBuffer), result.contentType);
+        return { success: true, url, mode: "background" as const };
+      }
+    } catch (err: any) {
+      console.error("[cardDisplay.processImage] Processing failed:", err);
+      // Fallback: upload original image without processing
+      const randomSuffix = Math.random().toString(36).substring(2, 10);
+      const ext = input.contentType.includes("png") ? "png" : "jpg";
+      const fileKey = `card-display/raw-${Date.now()}-${randomSuffix}.${ext}`;
+      const { url } = await storagePut(fileKey, buffer, input.contentType);
+      return { success: true, url, mode: "raw" as const };
+    }
+  }),
+});
+
 // ==================== COMBINED PUBLIC ROUTER ====================
 
 export const publicRouter = router({
@@ -689,4 +825,5 @@ export const publicRouter = router({
   launch: publicLaunchRouter,
   subscribe: publicSubscribeRouter,
   cardShows: publicCardShowRouter,
+  cardDisplay: publicCardDisplayRouter,
 });

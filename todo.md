@@ -738,10 +738,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Run integrity check before checkpoint (81/81 passed)
 - [x] Save checkpoint
 
-## Redesign Card Shows page: Side-by-side layout for Card Shows + Comic Cons
-- [x] Read current CardShows.tsx and ComicConsSection.tsx layout
-- [x] Redesign page with unified hero and tabbed/side-by-side navigation
-- [x] Merge card shows and comic cons into a single browsable experience
-- [x] Verify rendering and responsiveness
+## Enhance Card Upload → Card Display Pipeline
+- [x] Analyze current upload flow (CardDisplay upload, ChecklistSheet upload, Top5Manager upload)
+- [x] Add server-side auto-crop endpoint (public.cardDisplay.processImage tRPC procedure)
+- [x] Wire CardDisplay upload button to use server-side auto-crop before displaying
+- [x] Show processing overlay with spinner and "Auto-Cropping" text during processing
+- [x] Upload processed image to S3 and display clean result in cosmic frame
+- [x] Test end-to-end: raw Wolverine card photo → auto-crop → beautiful card display (works!)
 - [x] Run integrity check before checkpoint (81/81 passed)
 - [x] Save checkpoint
