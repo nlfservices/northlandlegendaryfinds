@@ -784,3 +784,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Fix Avengers Doomsday date from May 1, 2026 to December 18, 2026 in DoomsdaySection.tsx
 - [x] Run integrity check before checkpoint
 - [x] Save checkpoint
+
+## MCU Timeline Page — Full Marvel Release Tracker
+- [x] Research full 2025-2027 MCU slate (Disney+ shows, Marvel Studios films, Sony Marvel films)
+- [x] Build MCU Timeline page with chronological release cards
+- [x] Include: release date, platform (Disney+/Theaters/Sony), poster/image, synopsis, card market tie-in
+- [x] Add route /mcu-timeline and nav integration
+- [x] Keep DoomsdaySection on homepage as-is (added MCU Timeline links)
+- [x] Run integrity check before checkpoint (81/81 passed)
+- [ ] Save checkpoint

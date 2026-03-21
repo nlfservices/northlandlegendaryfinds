@@ -578,10 +578,16 @@ export default function DoomsdaySection() {
             </div>
 
             {/* CTA */}
-            <div className="mt-4">
+            <div className="mt-4 space-y-2">
               <Link href="/cards">
                 <Button variant="outline" className="w-full border-green-500/30 text-green-400 hover:bg-green-500/10 font-bold text-sm">
                   Browse All Doomsday Cards
+                  <ExternalLink className="w-3.5 h-3.5 ml-2" />
+                </Button>
+              </Link>
+              <Link href="/mcu-timeline">
+                <Button variant="outline" className="w-full border-purple-500/30 text-purple-400 hover:bg-purple-500/10 font-bold text-sm">
+                  Full MCU Timeline
                   <ExternalLink className="w-3.5 h-3.5 ml-2" />
                 </Button>
               </Link>
@@ -589,13 +595,19 @@ export default function DoomsdaySection() {
           </div>
         </div>
 
-        {/* Bottom: Movie countdown */}
-        <div className="mt-10 text-center">
+        {/* Bottom: Movie countdown + Timeline CTA */}
+        <div className="mt-10 text-center space-y-3">
           <p className="text-xs text-muted-foreground uppercase tracking-wider">
             {DOOMSDAY_CHARACTERS.filter(c => c.status === "Confirmed").length} confirmed &middot;{" "}
             {DOOMSDAY_CHARACTERS.filter(c => c.status === "Rumored").length} rumored &middot;{" "}
             {DOOMSDAY_CHARACTERS.filter(c => c.cardImageUrl).length} in our card database
           </p>
+          <Link href="/mcu-timeline">
+            <span className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 font-bold transition-colors cursor-pointer">
+              View Full MCU Timeline — Every Movie & Show
+              <ExternalLink className="w-3.5 h-3.5" />
+            </span>
+          </Link>
         </div>
       </div>
     </section>

@@ -42,6 +42,7 @@ import CardDetailPage from "./pages/CardDetailPage";
 import JarvisProtocol from "./pages/JarvisProtocol";
 import MatrixPortal from "./pages/MatrixPortal";
 import MCUIntel from "./pages/MCUIntel";
+import MCUTimeline from "./pages/MCUTimeline";
 import MCUIntelArticle from "./pages/MCUIntelArticle";
 import SubscriberHub from "./pages/SubscriberHub";
 import CardShows from "./pages/CardShows";
@@ -108,6 +109,7 @@ function AppRouter() {
           <Route path="/admin/ebay-comps" component={EbayComps} />
           <Route path="/transparency" component={Transparency} />
           <Route path="/mcu-intel" component={MCUIntel} />
+          <Route path="/mcu-timeline" component={MCUTimeline} />
           <Route path="/mcu-intel/:slug" component={MCUIntelArticle} />
           <Route path="/subscribers" component={SubscriberHub} />
           <Route path="/card-shows" component={CardShows} />
