@@ -13,6 +13,7 @@ import {
   articles, Article, InsertArticle,
   top5BuzzItems, Top5BuzzItem, InsertTop5BuzzItem,
   showSubmissions, ShowSubmission, InsertShowSubmission,
+  events, Event, InsertEvent,
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -1312,4 +1313,128 @@ export async function updateShowSubmissionStatus(
     .set({ status, ...(adminNotes !== undefined ? { adminNotes } : {}) })
     .where(eq(showSubmissions.id, id));
   return (result as any)[0]?.affectedRows > 0;
+}
+
+
+// ==================== EVENTS (Card Shows + Comic Cons) ====================
+
+export async function getApprovedEvents(filters?: {
+  eventType?: string;
+  state?: string;
+  month?: number;
+  tier?: number;
+  search?: string;
+}) {
+  const db = await getDb();
+  if (!db) return [];
+  
+  const conditions: any[] = [eq(events.status, "approved")];
+  
+  if (filters?.eventType) {
+    conditions.push(eq(events.eventType, filters.eventType));
+  }
+  if (filters?.state) {
+    conditions.push(eq(events.state, filters.state));
+  }
+  if (filters?.month) {
+    conditions.push(eq(events.month, filters.month));
+  }
+  if (filters?.tier) {
+    conditions.push(eq(events.tier, filters.tier));
+  }
+  if (filters?.search) {
+    conditions.push(
+      sql`(${events.name} LIKE ${'%' + filters.search + '%'} OR ${events.city} LIKE ${'%' + filters.search + '%'} OR ${events.venue} LIKE ${'%' + filters.search + '%'})`
+    );
+  }
+  
+  return db.select().from(events)
+    .where(and(...conditions))
+    .orderBy(sql`${events.startDate} ASC`);
+}
+
+export async function getEventStats() {
+  const db = await getDb();
+  if (!db) return null;
+  
+  const [result] = await db.select({
+    totalEvents: sql<number>`COUNT(*)`,
+    totalCardShows: sql<number>`SUM(CASE WHEN ${events.eventType} = 'card-show' THEN 1 ELSE 0 END)`,
+    totalComicCons: sql<number>`SUM(CASE WHEN ${events.eventType} != 'card-show' THEN 1 ELSE 0 END)`,
+    totalStates: sql<number>`COUNT(DISTINCT ${events.state})`,
+    freeAdmission: sql<number>`SUM(CASE WHEN ${events.isFree} = true THEN 1 ELSE 0 END)`,
+  }).from(events).where(eq(events.status, "approved"));
+  
+  return result;
+}
+
+export async function getAllEventsAdmin() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(events).orderBy(sql`${events.startDate} ASC`);
+}
+
+export async function insertEvent(event: InsertEvent) {
+  const db = await getDb();
+  if (!db) return null;
+  const [result] = await db.insert(events).values(event) as any;
+  return result?.insertId;
+}
+
+export async function insertEvents(eventList: InsertEvent[]) {
+  const db = await getDb();
+  if (!db) return 0;
+  if (eventList.length === 0) return 0;
+  // Insert in batches of 50 to avoid query size limits
+  let inserted = 0;
+  for (let i = 0; i < eventList.length; i += 50) {
+    const batch = eventList.slice(i, i + 50);
+    await db.insert(events).values(batch);
+    inserted += batch.length;
+  }
+  return inserted;
+}
+
+export async function updateEvent(id: number, data: Partial<InsertEvent>) {
+  const db = await getDb();
+  if (!db) return false;
+  const result = await db.update(events).set(data).where(eq(events.id, id));
+  return (result as any)[0]?.affectedRows > 0;
+}
+
+export async function deleteEvent(id: number) {
+  const db = await getDb();
+  if (!db) return false;
+  const result = await db.delete(events).where(eq(events.id, id));
+  return (result as any)[0]?.affectedRows > 0;
+}
+
+export async function getEventBySourceId(source: string, sourceId: string) {
+  const db = await getDb();
+  if (!db) return null;
+  const results = await db.select().from(events)
+    .where(and(eq(events.source, source), eq(events.sourceId, sourceId)))
+    .limit(1);
+  return results[0] || null;
+}
+
+export async function getEventsBySource(source: string) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({
+    sourceId: events.sourceId,
+    name: events.name,
+    startDate: events.startDate,
+    state: events.state,
+  }).from(events).where(eq(events.source, source));
+}
+
+export async function getDistinctEventStates() {
+  const db = await getDb();
+  if (!db) return [];
+  const results = await db.selectDistinct({ state: events.state, stateName: events.stateName })
+    .from(events)
+    .where(eq(events.status, "approved"))
+    .orderBy(sql`${events.stateName} ASC`);
+  return results;
 }

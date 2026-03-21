@@ -738,12 +738,17 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Run integrity check before checkpoint (81/81 passed)
 - [x] Save checkpoint
 
-## Enhance Card Upload → Card Display Pipeline
-- [x] Analyze current upload flow (CardDisplay upload, ChecklistSheet upload, Top5Manager upload)
-- [x] Add server-side auto-crop endpoint (public.cardDisplay.processImage tRPC procedure)
-- [x] Wire CardDisplay upload button to use server-side auto-crop before displaying
-- [x] Show processing overlay with spinner and "Auto-Cropping" text during processing
-- [x] Upload processed image to S3 and display clean result in cosmic frame
-- [x] Test end-to-end: raw Wolverine card photo → auto-crop → beautiful card display (works!)
+## Weekly Automated Card Show & Comic Con Scraping System
+- [x] Research scrapable sources: TCDB.com (card shows), FanCons.com (comic cons)
+- [x] Design unified events database table (31 columns, supports both types)
+- [x] Migrate 491 events (407 card shows + 84 comic cons) to database
+- [x] Build TCDB scraper with LLM-assisted HTML parsing (50 states)
+- [x] Build FanCons scraper with regex-based parsing
+- [x] Add deduplication (sourceId + fuzzy name/date matching within 3 days)
+- [x] Add admin scraper trigger (scrape tcdb/fancons/all) + scrape stats
+- [x] Update CardShows.tsx to read from database via tRPC (with static fallback)
+- [x] Update ComicConsSection.tsx to read from database via tRPC (with static fallback)
+- [x] Add cron endpoint POST /api/cron/scrape-events with JWT auth
+- [x] Set up weekly Manus scheduled task (Sundays 6 AM CT)
 - [x] Run integrity check before checkpoint (81/81 passed)
 - [x] Save checkpoint

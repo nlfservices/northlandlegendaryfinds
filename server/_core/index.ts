@@ -44,6 +44,25 @@ async function startServer() {
   registerEbayDeletionEndpoint(app);
   // Dynamic sitemap.xml
   registerSitemapRoute(app);
+  // Cron endpoint for weekly event scraping (called by Manus scheduled task)
+  app.post("/api/cron/scrape-events", async (req, res) => {
+    const authHeader = req.headers.authorization;
+    const expectedToken = process.env.JWT_SECRET;
+    if (!authHeader || authHeader !== `Bearer ${expectedToken}`) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    try {
+      const { runFullScrape } = await import("../eventScraper");
+      console.log("[Cron] Weekly event scrape triggered");
+      const result = await runFullScrape();
+      console.log("[Cron] Scrape complete:", JSON.stringify(result));
+      res.json({ success: true, result });
+    } catch (e: any) {
+      console.error("[Cron] Scrape failed:", e);
+      res.status(500).json({ error: e.message });
+    }
+  });
+
   // tRPC API
   app.use(
     "/api/trpc",

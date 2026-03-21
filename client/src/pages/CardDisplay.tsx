@@ -10,8 +10,6 @@
  */
 
 import { useState, useRef, useCallback, useEffect, useMemo } from "react";
-import { trpc } from "@/lib/trpc";
-import { toast } from "sonner";
 // Canvas-based download (html2canvas doesn't support OKLCH colors from Tailwind 4)
 
 // ─── Theme Definitions ───────────────────────────────────────────────────────
@@ -154,12 +152,8 @@ export default function CardDisplay() {
   const [cardVisible, setCardVisible] = useState(!!preloadImg);
   const [isHovered, setIsHovered] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
-  const [isProcessing, setIsProcessing] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const captureRef = useRef<HTMLDivElement>(null);
-
-  // Server-side card image processing mutation
-  const processImage = trpc.public.cardDisplay.processImage.useMutation();
 
   // Regenerate particles on theme change for fresh animation
   const [particles, setParticles] = useState<ParticleData[]>(() => generateParticles());
@@ -174,67 +168,20 @@ export default function CardDisplay() {
     setParticles(generateParticles());
   }, []);
 
-  const handleUpload = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUpload = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-
-    // Check file size (max 16MB)
-    if (file.size > 16 * 1024 * 1024) {
-      toast.error("Image too large. Please use an image under 16MB.");
-      return;
-    }
-
-    // Show the raw image immediately as a preview while processing
     const reader = new FileReader();
-    reader.onload = async (ev) => {
-      const dataUrl = ev.target?.result as string;
-
-      // Show raw preview immediately
-      setCardSrc(dataUrl);
+    reader.onload = (ev) => {
+      const result = ev.target?.result as string;
+      setCardSrc(result);
       setCardVisible(false);
       requestAnimationFrame(() => {
         requestAnimationFrame(() => setCardVisible(true));
       });
-
-      // Now send to server for auto-crop processing
-      setIsProcessing(true);
-      toast.info("Auto-detecting & cropping card...", { id: "card-process", duration: 30000 });
-
-      try {
-        // Extract base64 data (remove the data:image/...;base64, prefix)
-        const base64 = dataUrl.split(",")[1];
-        const result = await processImage.mutateAsync({
-          imageData: base64,
-          contentType: file.type || "image/jpeg",
-          transparent: true, // Just crop the card, no background
-        });
-
-        if (result.success && result.url) {
-          // Replace preview with the processed image
-          setCardVisible(false);
-          setTimeout(() => {
-            setCardSrc(result.url);
-            requestAnimationFrame(() => {
-              requestAnimationFrame(() => setCardVisible(true));
-            });
-          }, 200);
-
-          if (result.mode === "raw") {
-            toast.success("Card uploaded (auto-crop unavailable, using original)", { id: "card-process" });
-          } else {
-            toast.success("Card auto-cropped & ready!", { id: "card-process" });
-          }
-        }
-      } catch (err: any) {
-        console.error("Card processing failed:", err);
-        toast.warning("Auto-crop failed, using original image", { id: "card-process" });
-        // Keep the raw preview that's already showing
-      } finally {
-        setIsProcessing(false);
-      }
     };
     reader.readAsDataURL(file);
-  }, [processImage]);
+  }, []);
 
   const handleReset = useCallback(() => {
     setCardSrc(null);
@@ -648,22 +595,6 @@ export default function CardDisplay() {
                   }}
                 />
               )}
-
-              {/* Processing Overlay */}
-              {isProcessing && (
-                <div className="absolute inset-0 z-[15] flex flex-col items-center justify-center"
-                  style={{ background: "rgba(0,0,0,0.6)", backdropFilter: "blur(2px)" }}>
-                  <div className="w-8 h-8 border-2 rounded-full animate-spin mb-3"
-                    style={{ borderColor: `${theme.dim} transparent ${theme.accent} transparent` }} />
-                  <div style={{
-                    fontFamily: "'Cinzel', serif",
-                    fontSize: 10,
-                    letterSpacing: "0.2em",
-                    color: theme.accent,
-                    textTransform: "uppercase",
-                  }}>Auto-Cropping</div>
-                </div>
-              )}
             </div>
 
             {/* Shimmer Strip */}
@@ -718,7 +649,7 @@ export default function CardDisplay() {
               el.style.boxShadow = "none";
             }}
           >
-            {isProcessing ? "\u29D7 Processing..." : "\u2B06 Upload Card"}
+            &#x2B06; Upload Card
           </button>
 
           {/* Download Button (only when card is loaded) */}

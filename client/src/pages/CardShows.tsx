@@ -7,7 +7,7 @@ import { useState, useMemo, useRef, useEffect } from "react";
 import { Link } from "wouter";
 import {
   Search, MapPin, Calendar, Clock, Users, DollarSign, ChevronDown, ChevronUp,
-  ExternalLink, Mail, Phone, Navigation, Star, Filter, ArrowRight, Plus,
+  ExternalLink, Mail, Phone, Navigation, Star, Filter, ArrowRight, Plus, Loader2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,6 +17,7 @@ import SEO from "@/components/SEO";
 import USMapSVG from "@/components/USMapSVG";
 import ComicConsSection from "@/components/ComicConsSection";
 import { ALL_SHOWS, CARD_SHOWS_STATS, type CardShow } from "@/lib/cardShowsData";
+import { trpc } from "@/lib/trpc";
 
 // ===== CONSTANTS =====
 const MONTHS = [
@@ -90,8 +91,8 @@ function cardShowsJsonLd() {
     "@context": "https://schema.org",
     "@type": "ItemList",
     name: "Sports Card Shows Directory 2026",
-    description: `Complete directory of ${CARD_SHOWS_STATS.totalShows} sports card shows across ${CARD_SHOWS_STATS.totalStates} states, March through December 2026.`,
-    numberOfItems: CARD_SHOWS_STATS.totalShows,
+    description: `Complete directory of sports card shows across the United States, March through December 2026.`,
+    numberOfItems: ALL_SHOWS.length,
     itemListElement: events.map((event, i) => ({
       "@type": "ListItem",
       position: i + 1,
@@ -120,7 +121,7 @@ function faqJsonLd() {
     },
     {
       q: "How often is this card show directory updated?",
-      a: "This directory is compiled from Sports Collectors Digest, TCDB.com, and major show promoters. We update it regularly as new shows are announced. You can also submit your own show using the 'Submit Your Show' form. Always verify dates and details with the show organizer before attending, as schedules can change.",
+                a: "This directory is automatically updated every week by scraping TCDB.com (card shows) and FanCons.com (comic cons), plus community submissions. New events are discovered and added automatically. You can also submit your own show using the 'Submit Your Show' form. Always verify dates and details with the show organizer before attending, as schedules can change.",
     },
     {
       q: "What is the biggest sports card show in 2026?",
@@ -327,9 +328,59 @@ export default function CardShows() {
   const [sortBy, setSortBy] = useState("date");
   const [expandedStates, setExpandedStates] = useState<Set<string>>(new Set());
 
+  // Fetch events from database
+  const { data: dbEvents, isLoading: eventsLoading } = trpc.public.events.list.useQuery(
+    { eventType: "card-show" },
+    { staleTime: 5 * 60 * 1000 } // Cache for 5 minutes
+  );
+  const { data: dbStats } = trpc.public.events.stats.useQuery(
+    undefined,
+    { staleTime: 5 * 60 * 1000 }
+  );
+
+  // Convert DB events to CardShow format, falling back to static data
+  const allShows: CardShow[] = useMemo(() => {
+    if (dbEvents && dbEvents.length > 0) {
+      return dbEvents.map((e: any) => ({
+        name: e.name,
+        dateDisplay: e.dateDisplay || '',
+        startDate: e.startDate,
+        endDate: e.endDate,
+        month: e.month,
+        venue: e.venue || '',
+        address: e.address || '',
+        city: e.city,
+        state: e.state,
+        stateName: e.stateName || '',
+        hours: e.hours || null,
+        tableCount: e.tableCount || null,
+        admission: e.admission || '',
+        isFree: e.isFree ?? null,
+        email: e.email || null,
+        phone: e.phone || null,
+        website: e.website || null,
+        featured: e.featured || false,
+      }));
+    }
+    return ALL_SHOWS;
+  }, [dbEvents]);
+
+  // Use DB stats or fall back to static stats
+  const stats = useMemo(() => {
+    if (dbStats) {
+      return {
+        totalShows: Number(dbStats.totalCardShows) || CARD_SHOWS_STATS.totalShows,
+        totalStates: Number(dbStats.totalStates) || CARD_SHOWS_STATS.totalStates,
+        freeAdmission: Number(dbStats.freeAdmission) || CARD_SHOWS_STATS.freeAdmission,
+        dateRange: CARD_SHOWS_STATS.dateRange,
+      };
+    }
+    return CARD_SHOWS_STATS;
+  }, [dbStats]);
+
   // Filter and sort shows
   const filteredShows = useMemo(() => {
-    let result = [...ALL_SHOWS];
+    let result = [...allShows];
 
     // Search filter
     if (search.trim()) {
@@ -395,7 +446,7 @@ export default function CardShows() {
     <div className="min-h-screen">
       <SEO
         title="Sports Card Shows Directory 2026 — Find Card Shows Near You"
-        description={`Complete directory of ${CARD_SHOWS_STATS.totalShows} sports card shows across ${CARD_SHOWS_STATS.totalStates} states. Find card shows near you with full addresses, websites, and contact info. March through December 2026.`}
+        description={`Complete directory of ${stats.totalShows} sports card shows across ${stats.totalStates} states. Find card shows near you with full addresses, websites, and contact info. March through December 2026.`}
         path="/card-shows"
         jsonLd={[cardShowsJsonLd(), faqJsonLd()]}
       />
@@ -460,21 +511,21 @@ export default function CardShows() {
                   <div className="text-center">
                     <div className="flex items-center gap-1 justify-center">
                       <MapPin className="w-3.5 h-3.5 text-primary" />
-                      <span className="text-xl sm:text-2xl font-bold text-primary">{CARD_SHOWS_STATS.totalStates}</span>
+                      <span className="text-xl sm:text-2xl font-bold text-primary">{stats.totalStates}</span>
                     </div>
                     <span className="text-[10px] sm:text-xs text-muted-foreground">States</span>
                   </div>
                   <div className="text-center">
                     <div className="flex items-center gap-1 justify-center">
                       <Calendar className="w-3.5 h-3.5 text-orange-400" />
-                      <span className="text-xl sm:text-2xl font-bold text-orange-400">{CARD_SHOWS_STATS.totalShows}</span>
+                      <span className="text-xl sm:text-2xl font-bold text-orange-400">{stats.totalShows}</span>
                     </div>
                     <span className="text-[10px] sm:text-xs text-muted-foreground">Shows</span>
                   </div>
                   <div className="text-center">
                     <div className="flex items-center gap-1 justify-center">
                       <DollarSign className="w-3.5 h-3.5 text-emerald-400" />
-                      <span className="text-xl sm:text-2xl font-bold text-emerald-400">{CARD_SHOWS_STATS.freeAdmission}</span>
+                      <span className="text-xl sm:text-2xl font-bold text-emerald-400">{stats.freeAdmission}</span>
                     </div>
                     <span className="text-[10px] sm:text-xs text-muted-foreground">Free</span>
                   </div>
@@ -628,8 +679,8 @@ export default function CardShows() {
             <p>
               Whether you are a seasoned collector hunting for vintage gems or a newcomer exploring the hobby,
               attending a sports card show is one of the best ways to buy, sell, and trade cards in person.
-              Our comprehensive directory lists <strong className="text-foreground">{CARD_SHOWS_STATS.totalShows} card shows
-              across {CARD_SHOWS_STATS.totalStates} states</strong> from March through December 2026, making it easy to find events near you.
+              Our comprehensive directory lists <strong className="text-foreground">{stats.totalShows} card shows
+              across {stats.totalStates} states</strong> from March through December 2026, making it easy to find events near you.
             </p>
             <p>
               Sports card shows range from small local gatherings with 20-30 tables to massive multi-day expos
@@ -645,7 +696,7 @@ export default function CardShows() {
               on-site submission services at larger events.
             </p>
             <p>
-              <strong className="text-foreground">{CARD_SHOWS_STATS.freeAdmission} shows in our directory offer free admission</strong>,
+              <strong className="text-foreground">{stats.freeAdmission} shows in our directory offer free admission</strong>,
               making it easy to explore the hobby without any upfront cost. Each listing includes the venue address
               with a Google Maps link for directions, show hours, table counts, admission prices, and direct
               contact information including websites, email, and phone numbers.
@@ -674,7 +725,7 @@ export default function CardShows() {
               },
               {
                 q: "Are sports card shows free to attend?",
-                a: `Many sports card shows offer free admission — in fact, ${CARD_SHOWS_STATS.freeAdmission} of the ${CARD_SHOWS_STATS.totalShows} shows in our directory are free to attend. Shows that do charge admission typically range from $2 to $15, with some larger expos charging up to $25-$35 for multi-day passes.`,
+                a: `Many sports card shows offer free admission — in fact, ${stats.freeAdmission} of the ${stats.totalShows} shows in our directory are free to attend. Shows that do charge admission typically range from $2 to $15, with some larger expos charging up to $25-$35 for multi-day passes.`,
               },
               {
                 q: "What should I bring to a sports card show?",
@@ -715,7 +766,7 @@ export default function CardShows() {
             .
           </p>
           <p className="text-xs text-muted-foreground/40 mt-2">
-            Last updated: March 2026 | Covers March 1 - December 31, 2026
+            Automatically updated weekly from TCDB.com and FanCons.com | Covers March 1 - December 31, 2026
           </p>
         </div>
       </section>

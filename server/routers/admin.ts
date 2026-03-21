@@ -14,7 +14,10 @@ import {
   getAllInventoryCards, getInventoryCardById, createInventoryCard, bulkCreateInventoryCards,
   updateInventoryCard, deleteInventoryCard, allocateCardsToRepack, deallocateCardsFromRepack,
   getInventoryStats,
+  getAllEventsAdmin, updateEvent, deleteEvent, insertEvent,
 } from "../db";
+import { scrapeCardShows, scrapeComicCons, runFullScrape } from "../eventScraper";
+import { events } from "../../drizzle/schema";
 
 // ==================== ADMIN PRODUCT ROUTES ====================
 
@@ -726,6 +729,82 @@ const launchSubscriberRouter = router({
     }),
 });
 
+// ==================== ADMIN EVENTS ROUTER ====================
+
+const eventsRouter = router({
+  /** List all events (admin view - includes all statuses) */
+  list: adminProcedure.query(async () => {
+    return getAllEventsAdmin();
+  }),
+
+  /** Update an event */
+  update: adminProcedure
+    .input(z.object({
+      id: z.number(),
+      data: z.object({
+        name: z.string().optional(),
+        eventType: z.string().optional(),
+        tier: z.number().nullable().optional(),
+        dateDisplay: z.string().optional(),
+        startDate: z.string().optional(),
+        endDate: z.string().optional(),
+        month: z.number().optional(),
+        venue: z.string().nullable().optional(),
+        address: z.string().nullable().optional(),
+        city: z.string().optional(),
+        state: z.string().optional(),
+        stateName: z.string().nullable().optional(),
+        hours: z.string().nullable().optional(),
+        admission: z.string().nullable().optional(),
+        isFree: z.boolean().nullable().optional(),
+        website: z.string().nullable().optional(),
+        description: z.string().nullable().optional(),
+        featured: z.boolean().optional(),
+        status: z.enum(["approved", "pending", "rejected", "expired"]).optional(),
+      }),
+    }))
+    .mutation(async ({ input }) => {
+      return updateEvent(input.id, input.data as any);
+    }),
+
+  /** Delete an event */
+  delete: adminProcedure
+    .input(z.object({ id: z.number() }))
+    .mutation(async ({ input }) => {
+      return deleteEvent(input.id);
+    }),
+
+  /** Trigger a scrape (card shows, comic cons, or both) */
+  scrape: adminProcedure
+    .input(z.object({
+      source: z.enum(["tcdb", "fancons", "all"]),
+      states: z.array(z.string()).optional(),
+    }))
+    .mutation(async ({ input }) => {
+      if (input.source === "tcdb") {
+        return scrapeCardShows(input.states);
+      } else if (input.source === "fancons") {
+        return scrapeComicCons();
+      } else {
+        return runFullScrape();
+      }
+    }),
+
+  /** Get scrape status / last scrape info */
+  scrapeStats: adminProcedure.query(async () => {
+    const db = await getDb();
+    if (!db) return null;
+    const [stats] = await db.select({
+      total: sql`COUNT(*)`,
+      tcdb: sql`SUM(CASE WHEN source = 'tcdb' THEN 1 ELSE 0 END)`,
+      fancons: sql`SUM(CASE WHEN source = 'fancons' THEN 1 ELSE 0 END)`,
+      seed: sql`SUM(CASE WHEN source = 'seed' THEN 1 ELSE 0 END)`,
+      lastScraped: sql`MAX(lastScrapedAt)`,
+    }).from(events);
+    return stats;
+  }),
+});
+
 // ==================== COMBINED ADMIN ROUTER ====================
 export const adminRouter = router({
   products: productRouter,
@@ -735,4 +814,5 @@ export const adminRouter = router({
   cardSets: cardSetRouter,
   inventory: inventoryRouter,
   launchSubscribers: launchSubscriberRouter,
+  events: eventsRouter,
 });
