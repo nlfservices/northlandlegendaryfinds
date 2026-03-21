@@ -1,0 +1,82 @@
+{
+  "query": "DESCRIBE community_suggestions;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute DESCRIBE community_suggestions;",
+  "rows": [
+    {
+      "Field": "id",
+      "Type": "int",
+      "Null": "NO",
+      "Key": "PRI",
+      "Default": "NULL",
+      "Extra": "auto_increment"
+    },
+    {
+      "Field": "userId",
+      "Type": "int",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "displayName",
+      "Type": "varchar(100)",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "suggestion",
+      "Type": "text",
+      "Null": "NO",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "category",
+      "Type": "enum('product','feature','set','format','other')",
+      "Null": "NO",
+      "Key": "",
+      "Default": "product",
+      "Extra": ""
+    },
+    {
+      "Field": "status",
+      "Type": "enum('new','reviewed','planned','declined')",
+      "Null": "NO",
+      "Key": "",
+      "Default": "new",
+      "Extra": ""
+    },
+    {
+      "Field": "upvotes",
+      "Type": "int",
+      "Null": "NO",
+      "Key": "",
+      "Default": "0",
+      "Extra": ""
+    },
+    {
+      "Field": "adminNote",
+      "Type": "text",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "createdAt",
+      "Type": "timestamp",
+      "Null": "NO",
+      "Key": "",
+      "Default": "CURRENT_TIMESTAMP",
+      "Extra": ""
+    }
+  ],
+  "messages": [],
+  "stdout": "Field\tType\tNull\tKey\tDefault\tExtra\nid\tint\tNO\tPRI\tNULL\tauto_increment\nuserId\tint\tYES\t\tNULL\t\ndisplayName\tvarchar(100)\tYES\t\tNULL\t\nsuggestion\ttext\tNO\t\tNULL\t\ncategory\tenum('product','feature','set','format','other')\tNO\t\tproduct\t\nstatus\tenum('new','reviewed','planned','declined')\tNO\t\tnew\t\nupvotes\tint\tNO\t\t0\t\nadminNote\ttext\tYES\t\tNULL\t\ncreatedAt\ttimestamp\tNO\t\tCURRENT_TIMESTAMP\t\n",
+  "stderr": "",
+  "execution_time_ms": 356
+}

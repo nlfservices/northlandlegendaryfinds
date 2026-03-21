@@ -16,6 +16,7 @@ import {
   XCircle, Check, ChevronRight, Gem, Target, BookOpen
 } from "lucide-react";
 import SEO, { breadcrumbJsonLd } from "@/components/SEO";
+import CommunityVoting from "@/components/CommunityVoting";
 import { useState, useEffect, useRef, useMemo } from "react";
 
 // ===== CHASE CARD DATA (top cards from the database) =====
@@ -495,6 +496,9 @@ export default function Checklists() {
           </div>
         </div>
       </section>
+
+      {/* ===== COMMUNITY VOTING — SHAPE THE NEXT DROP ===== */}
+      <CommunityVoting />
 
       {/* ===== BOTTOM CTA ===== */}
       <section className="py-16 lg:py-24 relative overflow-hidden">

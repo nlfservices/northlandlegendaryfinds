@@ -14,6 +14,10 @@ import {
   top5BuzzItems, Top5BuzzItem, InsertTop5BuzzItem,
   showSubmissions, ShowSubmission, InsertShowSubmission,
   events, Event, InsertEvent,
+  communityPolls, CommunityPoll, InsertCommunityPoll,
+  pollOptions, PollOption, InsertPollOption,
+  pollVotes, PollVote,
+  communitySuggestions, CommunitySuggestion, InsertCommunitySuggestion,
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -1408,5 +1412,152 @@ export async function updateEventStatus(id: number, status: "approved" | "pendin
   const db = await getDb();
   if (!db) return false;
   const result = await db.update(events).set({ eventStatus: status }).where(eq(events.id, id));
+  return (result as any)[0]?.affectedRows > 0;
+}
+
+// ── Community Polls ──────────────────────────────────────
+
+export async function getActivePolls(): Promise<(CommunityPoll & { options: PollOption[] })[]> {
+  const db = await getDb();
+  if (!db) return [];
+  const polls = await db.select().from(communityPolls)
+    .where(eq(communityPolls.status, "active"))
+    .orderBy(desc(communityPolls.isPinned), desc(communityPolls.createdAt));
+  
+  const result: (CommunityPoll & { options: PollOption[] })[] = [];
+  for (const poll of polls) {
+    const options = await db.select().from(pollOptions)
+      .where(eq(pollOptions.pollId, poll.id))
+      .orderBy(asc(pollOptions.sortOrder));
+    result.push({ ...poll, options });
+  }
+  return result;
+}
+
+export async function getAllPolls(): Promise<(CommunityPoll & { options: PollOption[] })[]> {
+  const db = await getDb();
+  if (!db) return [];
+  const polls = await db.select().from(communityPolls)
+    .orderBy(desc(communityPolls.createdAt));
+  
+  const result: (CommunityPoll & { options: PollOption[] })[] = [];
+  for (const poll of polls) {
+    const options = await db.select().from(pollOptions)
+      .where(eq(pollOptions.pollId, poll.id))
+      .orderBy(asc(pollOptions.sortOrder));
+    result.push({ ...poll, options });
+  }
+  return result;
+}
+
+export async function createPoll(data: InsertCommunityPoll, options: { label: string; description?: string; imageUrl?: string }[]): Promise<number> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const [result] = await db.insert(communityPolls).values(data) as any;
+  const pollId = result.insertId;
+  
+  if (options.length > 0) {
+    await db.insert(pollOptions).values(
+      options.map((opt, i) => ({
+        pollId,
+        label: opt.label,
+        description: opt.description || null,
+        imageUrl: opt.imageUrl || null,
+        sortOrder: i,
+        voteCount: 0,
+      }))
+    );
+  }
+  return pollId;
+}
+
+export async function updatePollStatus(pollId: number, status: "active" | "closed" | "draft"): Promise<boolean> {
+  const db = await getDb();
+  if (!db) return false;
+  const result = await db.update(communityPolls).set({ status }).where(eq(communityPolls.id, pollId));
+  return (result as any)[0]?.affectedRows > 0;
+}
+
+export async function deletePoll(pollId: number): Promise<boolean> {
+  const db = await getDb();
+  if (!db) return false;
+  await db.delete(pollVotes).where(eq(pollVotes.pollId, pollId));
+  await db.delete(pollOptions).where(eq(pollOptions.pollId, pollId));
+  const result = await db.delete(communityPolls).where(eq(communityPolls.id, pollId));
+  return (result as any)[0]?.affectedRows > 0;
+}
+
+export async function castVote(pollId: number, optionId: number, userId?: number, fingerprint?: string): Promise<boolean> {
+  const db = await getDb();
+  if (!db) return false;
+  
+  // Check for duplicate votes
+  if (userId) {
+    const existing = await db.select().from(pollVotes)
+      .where(and(eq(pollVotes.pollId, pollId), eq(pollVotes.userId, userId)));
+    if (existing.length > 0) return false; // Already voted
+  } else if (fingerprint) {
+    const existing = await db.select().from(pollVotes)
+      .where(and(eq(pollVotes.pollId, pollId), eq(pollVotes.fingerprint, fingerprint)));
+    if (existing.length > 0) return false; // Already voted
+  }
+  
+  await db.insert(pollVotes).values({ pollId, optionId, userId, fingerprint });
+  await db.update(pollOptions).set({ voteCount: sql`${pollOptions.voteCount} + 1` }).where(eq(pollOptions.id, optionId));
+  await db.update(communityPolls).set({ totalVotes: sql`${communityPolls.totalVotes} + 1` }).where(eq(communityPolls.id, pollId));
+  return true;
+}
+
+export async function hasUserVoted(pollId: number, userId?: number, fingerprint?: string): Promise<number | null> {
+  const db = await getDb();
+  if (!db) return null;
+  
+  let existing: PollVote[] = [];
+  if (userId) {
+    existing = await db.select().from(pollVotes)
+      .where(and(eq(pollVotes.pollId, pollId), eq(pollVotes.userId, userId)));
+  } else if (fingerprint) {
+    existing = await db.select().from(pollVotes)
+      .where(and(eq(pollVotes.pollId, pollId), eq(pollVotes.fingerprint, fingerprint)));
+  }
+  return existing.length > 0 ? existing[0].optionId : null;
+}
+
+// ── Community Suggestions ────────────────────────────────
+
+export async function submitSuggestion(data: InsertCommunitySuggestion): Promise<number> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const [result] = await db.insert(communitySuggestions).values(data) as any;
+  return result.insertId;
+}
+
+export async function getSuggestions(status?: string): Promise<CommunitySuggestion[]> {
+  const db = await getDb();
+  if (!db) return [];
+  if (status) {
+    return db.select().from(communitySuggestions)
+      .where(eq(communitySuggestions.status, status as any))
+      .orderBy(desc(communitySuggestions.upvotes), desc(communitySuggestions.createdAt));
+  }
+  return db.select().from(communitySuggestions)
+    .orderBy(desc(communitySuggestions.createdAt));
+}
+
+export async function updateSuggestionStatus(id: number, status: "new" | "reviewed" | "planned" | "declined", adminNote?: string): Promise<boolean> {
+  const db = await getDb();
+  if (!db) return false;
+  const updates: any = { status };
+  if (adminNote !== undefined) updates.adminNote = adminNote;
+  const result = await db.update(communitySuggestions).set(updates).where(eq(communitySuggestions.id, id));
+  return (result as any)[0]?.affectedRows > 0;
+}
+
+export async function upvoteSuggestion(id: number): Promise<boolean> {
+  const db = await getDb();
+  if (!db) return false;
+  const result = await db.update(communitySuggestions)
+    .set({ upvotes: sql`${communitySuggestions.upvotes} + 1` })
+    .where(eq(communitySuggestions.id, id));
   return (result as any)[0]?.affectedRows > 0;
 }

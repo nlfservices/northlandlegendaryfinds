@@ -764,3 +764,19 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Added animated counters: 640+ cards, 3 products, 98% published, 1,982 images
 - [x] Run integrity check before checkpoint (81/81 passed)
 - [x] Save checkpoint
+
+## Community Voting System — "What Do You Want Next?"
+- [x] Design database schema: polls table + poll_options table + poll_votes table + suggestions table
+- [x] Create database tables: community_polls, poll_options, poll_votes, community_suggestions
+- [x] Build server-side tRPC procedures (public: getActivePolls, vote, submitSuggestion; admin: createPoll, triggerScrape, stats)
+- [x] Build premium CommunityVoting component on Checklists page
+- [x] "SHAPE THE NEXT DROP" section with purple/violet theme, animated heading
+- [x] Active poll display with vote bars, counts, and real-time updates
+- [x] "Polls Coming Soon" placeholder with teaser categories (DC Comics? Star Wars? Pokémon? Sports?)
+- [x] Suggestion box with category selector (New Product, Feature, Card Set, Format, Other)
+- [x] "GOT AN IDEA?" section with Submit Your Suggestion form
+- [x] Prevent duplicate votes (logged-in by userId, anonymous by localStorage fingerprint)
+- [x] Stats bar: total votes, active polls, community ideas planned
+- [x] Tested: suggestion submission works, saved to DB correctly
+- [x] Run integrity check before checkpoint (81/81 passed)
+- [x] Save checkpoint

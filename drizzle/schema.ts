@@ -655,3 +655,58 @@ export const events = mysqlTable("events", {
 });
 export type Event = typeof events.$inferSelect;
 export type InsertEvent = typeof events.$inferInsert;
+
+
+// ── Community Polls ──────────────────────────────────────
+export const communityPolls = mysqlTable("community_polls", {
+  id: int("id").primaryKey().autoincrement(),
+  title: varchar("title", { length: 255 }).notNull(),
+  description: text("description"),
+  category: mysqlEnum("category", ["product", "feature", "set", "format", "other"]).notNull().default("product"),
+  status: mysqlEnum("status", ["active", "closed", "draft"]).notNull().default("draft"),
+  isPinned: boolean("isPinned").default(false),
+  allowMultiple: boolean("allowMultiple").default(false),
+  showResults: boolean("showResults").default(true),
+  endsAt: timestamp("endsAt"),
+  totalVotes: int("totalVotes").notNull().default(0),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+export type CommunityPoll = typeof communityPolls.$inferSelect;
+export type InsertCommunityPoll = typeof communityPolls.$inferInsert;
+
+export const pollOptions = mysqlTable("poll_options", {
+  id: int("id").primaryKey().autoincrement(),
+  pollId: int("pollId").notNull(),
+  label: varchar("label", { length: 255 }).notNull(),
+  description: varchar("description", { length: 500 }),
+  imageUrl: varchar("imageUrl", { length: 500 }),
+  voteCount: int("voteCount").notNull().default(0),
+  sortOrder: int("sortOrder").notNull().default(0),
+});
+export type PollOption = typeof pollOptions.$inferSelect;
+export type InsertPollOption = typeof pollOptions.$inferInsert;
+
+export const pollVotes = mysqlTable("poll_votes", {
+  id: int("id").primaryKey().autoincrement(),
+  pollId: int("pollId").notNull(),
+  optionId: int("optionId").notNull(),
+  userId: int("userId"),
+  fingerprint: varchar("fingerprint", { length: 64 }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+export type PollVote = typeof pollVotes.$inferSelect;
+
+export const communitySuggestions = mysqlTable("community_suggestions", {
+  id: int("id").primaryKey().autoincrement(),
+  userId: int("userId"),
+  displayName: varchar("displayName", { length: 100 }),
+  suggestion: text("suggestion").notNull(),
+  category: mysqlEnum("category", ["product", "feature", "set", "format", "other"]).notNull().default("product"),
+  status: mysqlEnum("status", ["new", "reviewed", "planned", "declined"]).notNull().default("new"),
+  upvotes: int("upvotes").notNull().default(0),
+  adminNote: text("adminNote"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+export type CommunitySuggestion = typeof communitySuggestions.$inferSelect;
+export type InsertCommunitySuggestion = typeof communitySuggestions.$inferInsert;

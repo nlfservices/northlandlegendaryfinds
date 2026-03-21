@@ -771,6 +771,72 @@ const eventsRouter = router({
     }),
 });
 
+// ==================== COMMUNITY POLLS ADMIN ====================
+import {
+  getAllPolls, createPoll, updatePollStatus, deletePoll,
+  getSuggestions, updateSuggestionStatus,
+} from "../db";
+
+const communityRouter = router({
+  polls: adminProcedure.query(async () => {
+    return getAllPolls();
+  }),
+
+  createPoll: adminProcedure
+    .input(z.object({
+      title: z.string().min(1),
+      description: z.string().optional(),
+      category: z.enum(["product", "feature", "set", "format", "other"]).optional(),
+      status: z.enum(["active", "closed", "draft"]).optional(),
+      allowMultiple: z.boolean().optional(),
+      showResults: z.boolean().optional(),
+      options: z.array(z.object({
+        label: z.string().min(1),
+        description: z.string().optional(),
+        imageUrl: z.string().optional(),
+      })).min(2),
+    }))
+    .mutation(async ({ input }) => {
+      const { options, ...pollData } = input;
+      const pollId = await createPoll(pollData as any, options);
+      return { success: true, pollId };
+    }),
+
+  updatePollStatus: adminProcedure
+    .input(z.object({
+      pollId: z.number(),
+      status: z.enum(["active", "closed", "draft"]),
+    }))
+    .mutation(async ({ input }) => {
+      const success = await updatePollStatus(input.pollId, input.status);
+      return { success };
+    }),
+
+  deletePoll: adminProcedure
+    .input(z.object({ pollId: z.number() }))
+    .mutation(async ({ input }) => {
+      const success = await deletePoll(input.pollId);
+      return { success };
+    }),
+
+  suggestions: adminProcedure
+    .input(z.object({ status: z.string().optional() }).optional())
+    .query(async ({ input }) => {
+      return getSuggestions(input?.status);
+    }),
+
+  updateSuggestionStatus: adminProcedure
+    .input(z.object({
+      id: z.number(),
+      status: z.enum(["new", "reviewed", "planned", "declined"]),
+      adminNote: z.string().optional(),
+    }))
+    .mutation(async ({ input }) => {
+      const success = await updateSuggestionStatus(input.id, input.status, input.adminNote);
+      return { success };
+    }),
+});
+
 // ==================== COMBINED ADMIN ROUTER ====================
 export const adminRouter = router({
   products: productRouter,
@@ -781,4 +847,5 @@ export const adminRouter = router({
   inventory: inventoryRouter,
   launchSubscribers: launchSubscriberRouter,
   events: eventsRouter,
+  community: communityRouter,
 });
