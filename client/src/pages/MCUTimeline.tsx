@@ -4,7 +4,7 @@
  * Highlights Avengers: Doomsday and the record-breaking Spider-Man: Brand New Day trailer
  */
 
-import { useState, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import { Link } from "wouter";
 import {
   Film, Tv, Calendar, Clock, CheckCircle, Play, ArrowRight,
@@ -16,6 +16,7 @@ import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 
 // ===== ASSETS =====
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mcu-timeline-hero-hvcPnpNMmPiRSy3mNm9jaz.webp";
+const BG_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/doomsday-section-bg-BjSMCi7WHT8WWJNCqKkRAi.webp";
 
 // ===== POSTER IMAGES =====
 const POSTERS = {
@@ -330,7 +331,10 @@ export default function MCUTimeline() {
     } else if (activeFilter !== "all") {
       filtered = filtered.filter(r => r.type === activeFilter);
     }
-    return filtered.sort((a, b) => a.sortDate.localeCompare(b.sortDate));
+    // Sort: upcoming/streaming/announced first (soonest first), then released (newest first)
+    const upcoming = filtered.filter(r => r.status !== "released").sort((a, b) => a.sortDate.localeCompare(b.sortDate));
+    const released = filtered.filter(r => r.status === "released").sort((a, b) => b.sortDate.localeCompare(a.sortDate));
+    return [...upcoming, ...released];
   }, [activeFilter]);
 
   const stats = useMemo(() => ({
@@ -410,6 +414,74 @@ export default function MCUTimeline() {
         </div>
       </section>
 
+      {/* ===== DOOMSDAY SPOTLIGHT HERO ===== */}
+      <section className="relative overflow-hidden border-b border-primary/30">
+        <div className="absolute inset-0">
+          <img src={BG_IMG} alt="" className="w-full h-full object-cover" loading="eager" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/80 to-black/60" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+        </div>
+        <div className="container relative z-10 py-10 sm:py-14">
+          <div className="flex flex-col lg:flex-row items-center gap-8">
+            {/* Poster */}
+            <div className="flex-shrink-0 w-48 sm:w-56 lg:w-64">
+              <div className="relative rounded-xl overflow-hidden shadow-2xl shadow-primary/20 border-2 border-primary/40">
+                <img
+                  src={POSTERS.doomsday}
+                  alt="Avengers: Doomsday"
+                  className="w-full h-auto"
+                  loading="eager"
+                />
+                <div className="absolute top-0 left-0 right-0 bg-gradient-to-b from-primary/30 to-transparent h-16" />
+              </div>
+            </div>
+            {/* Info */}
+            <div className="flex-1 text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/20 border border-primary/40 rounded-full mb-4">
+                <Flame className="w-4 h-4 text-primary" />
+                <span className="text-primary text-xs sm:text-sm font-bold tracking-wider">THE BIGGEST MCU EVENT SINCE ENDGAME</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-4" style={{ fontFamily: "'Anton', sans-serif" }}>
+                <span className="text-primary">AVENGERS:</span>{" "}
+                <span className="text-foreground">DOOMSDAY</span>
+              </h2>
+              <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mb-3">
+                Robert Downey Jr. returns to the MCU — not as Tony Stark, but as <span className="text-foreground font-bold">Doctor Doom</span>. The Avengers, Fantastic Four, and X-Men unite against the multiverse's greatest threat.
+              </p>
+              <div className="flex flex-wrap justify-center lg:justify-start items-center gap-4 mb-5">
+                <span className="text-primary font-bold flex items-center gap-1.5">
+                  <Calendar className="w-4 h-4" />
+                  December 18, 2026
+                </span>
+                <span className="text-xs text-muted-foreground">Dir: Anthony & Joe Russo</span>
+                <span className="text-xs text-muted-foreground">Theaters</span>
+              </div>
+              <div className="flex flex-wrap gap-1.5 justify-center lg:justify-start mb-5">
+                {["Robert Downey Jr.", "Chris Hemsworth", "Anthony Mackie", "Pedro Pascal", "Sebastian Stan", "Patrick Stewart", "Letitia Wright"].map((actor) => (
+                  <span key={actor} className="text-[11px] bg-white/10 px-2.5 py-1 rounded-full text-foreground/80 border border-white/5">
+                    {actor}
+                  </span>
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
+                <Link href="/">
+                  <Button className="bg-primary text-primary-foreground font-bold">
+                    <ArrowRight className="w-4 h-4 mr-2" />
+                    Doomsday Intel Hub
+                  </Button>
+                </Link>
+                <Link href="/cards?q=doctor+doom">
+                  <Button variant="outline" className="border-primary/30 text-primary hover:bg-primary/10 font-bold">
+                    <Eye className="w-4 h-4 mr-2" />
+                    Browse Doom Cards
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ===== SPIDER-MAN TRAILER RECORD BANNER ===== */}
       <section className="relative bg-gradient-to-r from-red-950/40 via-red-900/20 to-background border-y border-red-500/20">
         <div className="container py-6 sm:py-8">
@@ -477,6 +549,9 @@ export default function MCUTimeline() {
       <section className="container py-10 sm:py-14">
         <div className="space-y-4">
           {filteredReleases.map((release, index) => {
+            // Show section divider between upcoming and released
+            const prevRelease = index > 0 ? filteredReleases[index - 1] : null;
+            const showDivider = prevRelease && prevRelease.status !== "released" && release.status === "released";
             const statusCfg = STATUS_CONFIG[release.status];
             const typeCfg = TYPE_CONFIG[release.type];
             const StatusIcon = statusCfg.icon;
@@ -484,9 +559,19 @@ export default function MCUTimeline() {
             const isFeatured = release.featured;
 
             return (
-              <div
-                key={release.id}
-                className={`group relative rounded-xl border transition-all duration-300 overflow-hidden ${
+              <React.Fragment key={release.id}>
+                {showDivider && (
+                  <div className="flex items-center gap-4 py-4">
+                    <div className="flex-1 h-px bg-border" />
+                    <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-2">
+                      <CheckCircle className="w-3.5 h-3.5 text-green-400" />
+                      Already Released
+                    </span>
+                    <div className="flex-1 h-px bg-border" />
+                  </div>
+                )}
+                <div
+                  className={`group relative rounded-xl border transition-all duration-300 overflow-hidden ${
                   isFeatured
                     ? "border-primary/40 bg-gradient-to-r from-primary/5 via-card to-card shadow-lg shadow-primary/5"
                     : "border-border bg-card hover:border-primary/20"
@@ -633,7 +718,8 @@ export default function MCUTimeline() {
                     </div>
                   </div>
                 )}
-              </div>
+                </div>
+              </React.Fragment>
             );
           })}
         </div>

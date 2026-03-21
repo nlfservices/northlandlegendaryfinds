@@ -792,4 +792,11 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add route /mcu-timeline and nav integration
 - [x] Keep DoomsdaySection on homepage as-is (added MCU Timeline links)
 - [x] Run integrity check before checkpoint (81/81 passed)
+- [x] Save checkpoint
+
+## MCU Timeline — Reorder with Doomsday Emphasis
+- [x] Reorder timeline: upcoming movies first, Doomsday at the very top with hero emphasis
+- [x] Add a dedicated Doomsday spotlight/hero card at the top of the page
+- [x] Sort remaining releases: upcoming first, then released (newest to oldest)
+- [x] Run integrity check before checkpoint (81/81 passed)
 - [ ] Save checkpoint
