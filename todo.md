@@ -780,3 +780,7 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Tested: suggestion submission works, saved to DB correctly
 - [x] Run integrity check before checkpoint (81/81 passed)
 - [x] Save checkpoint
+## Fix Avengers Doomsday Release Date
+- [x] Fix Avengers Doomsday date from May 1, 2026 to December 18, 2026 in DoomsdaySection.tsx
+- [x] Run integrity check before checkpoint
+- [x] Save checkpoint

@@ -340,7 +340,7 @@ export default function DoomsdaySection() {
         <div className="text-center mb-10 lg:mb-14">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-green-500/10 border border-green-500/30 rounded-full mb-4">
             <Swords className="w-4 h-4 text-green-400" />
-            <span className="text-green-400 text-sm font-bold tracking-wide">MAY 1, 2026 — IN THEATERS</span>
+            <span className="text-green-400 text-sm font-bold tracking-wide">DECEMBER 18, 2026 — IN THEATERS</span>
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
             AVENGERS: <span className="text-green-400">DOOMSDAY</span>
