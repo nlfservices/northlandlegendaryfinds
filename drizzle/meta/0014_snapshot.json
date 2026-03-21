@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "43ab5986-4fb2-43c2-a672-b681b2b82d1d",
+  "id": "f4c33d6e-b271-4d34-b532-a7db2218c99f",
   "prevId": "66927ce2-ea4f-4ce8-af08-2c14a7c76c73",
   "tables": {
     "articles": {
@@ -774,7 +774,7 @@
         },
         "eventStatus": {
           "name": "eventStatus",
-          "type": "enum('approved','pending','rejected','expired')",
+          "type": "enum('approved','pending','rejected')",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,

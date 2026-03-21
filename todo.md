@@ -738,17 +738,15 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Run integrity check before checkpoint (81/81 passed)
 - [x] Save checkpoint
 
-## Weekly Automated Card Show & Comic Con Scraping System
-- [x] Research scrapable sources: TCDB.com (card shows), FanCons.com (comic cons)
-- [x] Design unified events database table (31 columns, supports both types)
-- [x] Migrate 491 events (407 card shows + 84 comic cons) to database
-- [x] Build TCDB scraper with LLM-assisted HTML parsing (50 states)
-- [x] Build FanCons scraper with regex-based parsing
-- [x] Add deduplication (sourceId + fuzzy name/date matching within 3 days)
-- [x] Add admin scraper trigger (scrape tcdb/fancons/all) + scrape stats
-- [x] Update CardShows.tsx to read from database via tRPC (with static fallback)
-- [x] Update ComicConsSection.tsx to read from database via tRPC (with static fallback)
-- [x] Add cron endpoint POST /api/cron/scrape-events with JWT auth
-- [x] Set up weekly Manus scheduled task (Sundays 6 AM CT)
+## Add Additional Comic Con Scraping Sources
+- [x] Research conventionscene.com — only ~13 events, too sparse, skipped
+- [x] Research upcomingcons.com — ~40+ US comic cons, clean card layout, added
+- [x] Built full eventScraper.ts with 3 sources: TCDB, FanCons, UpcomingCons
+- [x] Added events DB table (31 columns) + query helpers in db.ts
+- [x] Seeded 491 events from static data into database
+- [x] Added admin routes: triggerScrape, stats, list, updateStatus, delete
+- [x] Added public events API: list (by type), stats
+- [x] Added cron endpoint POST /api/cron/scrape-events with JWT auth
+- [x] CardShows.tsx + ComicConsSection.tsx now read from database via tRPC
 - [x] Run integrity check before checkpoint (81/81 passed)
 - [x] Save checkpoint

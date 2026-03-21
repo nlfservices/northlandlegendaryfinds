@@ -26,7 +26,7 @@ CREATE TABLE `events` (
 	`source` varchar(100),
 	`sourceId` varchar(255),
 	`sourceUrl` varchar(500),
-	`eventStatus` enum('approved','pending','rejected','expired') NOT NULL DEFAULT 'approved',
+	`eventStatus` enum('approved','pending','rejected') NOT NULL DEFAULT 'approved',
 	`lastScrapedAt` timestamp,
 	`createdAt` timestamp NOT NULL DEFAULT (now()),
 	`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,

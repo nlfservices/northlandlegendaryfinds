@@ -44,25 +44,27 @@ async function startServer() {
   registerEbayDeletionEndpoint(app);
   // Dynamic sitemap.xml
   registerSitemapRoute(app);
-  // Cron endpoint for weekly event scraping (called by Manus scheduled task)
+
+  // Cron endpoint for automated event scraping
   app.post("/api/cron/scrape-events", async (req, res) => {
-    const authHeader = req.headers.authorization;
-    const expectedToken = process.env.JWT_SECRET;
-    if (!authHeader || authHeader !== `Bearer ${expectedToken}`) {
-      return res.status(401).json({ error: "Unauthorized" });
-    }
     try {
-      const { runFullScrape } = await import("../eventScraper");
-      console.log("[Cron] Weekly event scrape triggered");
-      const result = await runFullScrape();
-      console.log("[Cron] Scrape complete:", JSON.stringify(result));
-      res.json({ success: true, result });
-    } catch (e: any) {
-      console.error("[Cron] Scrape failed:", e);
-      res.status(500).json({ error: e.message });
+      const authHeader = req.headers.authorization;
+      const expectedToken = process.env.JWT_SECRET;
+      if (!authHeader || authHeader !== `Bearer ${expectedToken}`) {
+        return res.status(401).json({ error: "Unauthorized" });
+      }
+      const { runScrape } = await import("../eventScraper");
+      const source = (req.body?.source as string) || "all";
+      const results = await runScrape(source as any);
+      const totalNew = results.reduce((sum: number, r: any) => sum + r.newEvents, 0);
+      const totalFetched = results.reduce((sum: number, r: any) => sum + r.fetched, 0);
+      console.log(`[Cron] Scrape complete: ${totalFetched} fetched, ${totalNew} new events`);
+      return res.json({ success: true, results, totalNew, totalFetched });
+    } catch (err) {
+      console.error("[Cron] Scrape error:", err);
+      return res.status(500).json({ error: "Scrape failed", message: String(err) });
     }
   });
-
   // tRPC API
   app.use(
     "/api/trpc",

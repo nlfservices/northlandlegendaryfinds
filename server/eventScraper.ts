@@ -1,75 +1,198 @@
 /**
- * Event Scraper - Fetches card shows from TCDB.com and comic cons from FanCons.com
- * Uses LLM to parse HTML into structured event data
- * Deduplicates against existing database entries
+ * Event Scraper — Fetches card shows and comic cons from multiple web sources
+ * Sources:
+ *   1. TCDB.com — Card shows (50 US states)
+ *   2. FanCons.com — Comic cons (US schedule)
+ *   3. UpcomingCons.com — Comic cons (additional coverage)
+ *
+ * Uses LLM-assisted parsing for TCDB (complex HTML), regex for FanCons/UpcomingCons (clean structure).
+ * Deduplicates against existing DB events by sourceId and fuzzy name+city+date matching.
  */
 
 import { invokeLLM } from "./_core/llm";
-import { getEventsBySource, insertEvents } from "./db";
+import {
+  getEventBySourceId,
+  findDuplicateEvent,
+  bulkInsertEvents,
+  updateEventLastScraped,
+} from "./db";
 import type { InsertEvent } from "../drizzle/schema";
 
-const US_STATES = [
-  { abbr: "AL", name: "Alabama" }, { abbr: "AK", name: "Alaska" }, { abbr: "AZ", name: "Arizona" },
-  { abbr: "AR", name: "Arkansas" }, { abbr: "CA", name: "California" }, { abbr: "CO", name: "Colorado" },
-  { abbr: "CT", name: "Connecticut" }, { abbr: "DE", name: "Delaware" }, { abbr: "FL", name: "Florida" },
-  { abbr: "GA", name: "Georgia" }, { abbr: "HI", name: "Hawaii" }, { abbr: "ID", name: "Idaho" },
-  { abbr: "IL", name: "Illinois" }, { abbr: "IN", name: "Indiana" }, { abbr: "IA", name: "Iowa" },
-  { abbr: "KS", name: "Kansas" }, { abbr: "KY", name: "Kentucky" }, { abbr: "LA", name: "Louisiana" },
-  { abbr: "ME", name: "Maine" }, { abbr: "MD", name: "Maryland" }, { abbr: "MA", name: "Massachusetts" },
-  { abbr: "MI", name: "Michigan" }, { abbr: "MN", name: "Minnesota" }, { abbr: "MS", name: "Mississippi" },
-  { abbr: "MO", name: "Missouri" }, { abbr: "MT", name: "Montana" }, { abbr: "NE", name: "Nebraska" },
-  { abbr: "NV", name: "Nevada" }, { abbr: "NH", name: "New Hampshire" }, { abbr: "NJ", name: "New Jersey" },
-  { abbr: "NM", name: "New Mexico" }, { abbr: "NY", name: "New York" }, { abbr: "NC", name: "North Carolina" },
-  { abbr: "ND", name: "North Dakota" }, { abbr: "OH", name: "Ohio" }, { abbr: "OK", name: "Oklahoma" },
-  { abbr: "OR", name: "Oregon" }, { abbr: "PA", name: "Pennsylvania" }, { abbr: "RI", name: "Rhode Island" },
-  { abbr: "SC", name: "South Carolina" }, { abbr: "SD", name: "South Dakota" }, { abbr: "TN", name: "Tennessee" },
-  { abbr: "TX", name: "Texas" }, { abbr: "UT", name: "Utah" }, { abbr: "VT", name: "Vermont" },
-  { abbr: "VA", name: "Virginia" }, { abbr: "WA", name: "Washington" }, { abbr: "WV", name: "West Virginia" },
-  { abbr: "WI", name: "Wisconsin" }, { abbr: "WY", name: "Wyoming" },
-];
+// ==================== TYPES ====================
 
-// ==================== TCDB SCRAPER (Card Shows) ====================
+interface ScrapedEvent {
+  name: string;
+  eventType: string;
+  dateDisplay: string;
+  startDate: string; // YYYY-MM-DD
+  endDate: string;   // YYYY-MM-DD
+  month: number;
+  city: string;
+  state: string;
+  stateName?: string;
+  venue?: string;
+  address?: string;
+  hours?: string;
+  tableCount?: number;
+  admission?: string;
+  isFree?: boolean;
+  email?: string;
+  phone?: string;
+  website?: string;
+  description?: string;
+  tier?: number;
+  source: string;
+  sourceId: string;
+  sourceUrl?: string;
+}
 
-async function fetchTCDBState(stateAbbr: string, stateName: string): Promise<string> {
-  const url = `https://www.tcdb.com/CardShowCalendar.cfm?State=${stateAbbr}&Country=United%20States`;
+interface ScrapeResult {
+  source: string;
+  fetched: number;
+  newEvents: number;
+  duplicates: number;
+  errors: string[];
+}
+
+// ==================== STATE MAPPING ====================
+
+const US_STATES: Record<string, string> = {
+  AL: "Alabama", AK: "Alaska", AZ: "Arizona", AR: "Arkansas", CA: "California",
+  CO: "Colorado", CT: "Connecticut", DE: "Delaware", FL: "Florida", GA: "Georgia",
+  HI: "Hawaii", ID: "Idaho", IL: "Illinois", IN: "Indiana", IA: "Iowa",
+  KS: "Kansas", KY: "Kentucky", LA: "Louisiana", ME: "Maine", MD: "Maryland",
+  MA: "Massachusetts", MI: "Michigan", MN: "Minnesota", MS: "Mississippi", MO: "Missouri",
+  MT: "Montana", NE: "Nebraska", NV: "Nevada", NH: "New Hampshire", NJ: "New Jersey",
+  NM: "New Mexico", NY: "New York", NC: "North Carolina", ND: "North Dakota", OH: "Ohio",
+  OK: "Oklahoma", OR: "Oregon", PA: "Pennsylvania", RI: "Rhode Island", SC: "South Carolina",
+  SD: "South Dakota", TN: "Tennessee", TX: "Texas", UT: "Utah", VT: "Vermont",
+  VA: "Virginia", WA: "Washington", WV: "West Virginia", WI: "Wisconsin", WY: "Wyoming",
+  DC: "District of Columbia", PR: "Puerto Rico",
+};
+
+const STATE_NAME_TO_ABBR: Record<string, string> = {};
+for (const [abbr, name] of Object.entries(US_STATES)) {
+  STATE_NAME_TO_ABBR[name.toLowerCase()] = abbr;
+}
+
+function getStateAbbr(stateStr: string): string | null {
+  if (!stateStr) return null;
+  const upper = stateStr.trim().toUpperCase();
+  if (US_STATES[upper]) return upper;
+  const lower = stateStr.trim().toLowerCase();
+  return STATE_NAME_TO_ABBR[lower] ?? null;
+}
+
+// ==================== FETCH HELPER ====================
+
+async function fetchPage(url: string): Promise<string | null> {
   try {
     const response = await fetch(url, {
-      headers: { "User-Agent": "Mozilla/5.0 (compatible; NLF-EventBot/1.0)" },
+      headers: {
+        "User-Agent": "Mozilla/5.0 (compatible; NLFBot/1.0; +https://northlandlegendaryfinds.com)",
+        "Accept": "text/html,application/xhtml+xml",
+      },
+      signal: AbortSignal.timeout(30000),
     });
     if (!response.ok) {
-      console.warn(`[Scraper] TCDB ${stateAbbr} returned ${response.status}`);
-      return "";
+      console.warn(`[Scraper] Failed to fetch ${url}: ${response.status}`);
+      return null;
     }
     return await response.text();
-  } catch (e) {
-    console.warn(`[Scraper] TCDB ${stateAbbr} fetch failed:`, e);
-    return "";
+  } catch (err) {
+    console.warn(`[Scraper] Error fetching ${url}:`, err);
+    return null;
   }
 }
 
-async function parseTCDBHtml(html: string, stateAbbr: string, stateName: string): Promise<InsertEvent[]> {
-  if (!html || html.length < 500) return [];
-  
-  // Extract just the calendar content (reduce token usage)
-  const calendarMatch = html.match(/<table[^>]*class="[^"]*calendar[^"]*"[^>]*>([\s\S]*?)<\/table>/i);
-  const contentHtml = calendarMatch ? calendarMatch[1] : html.substring(0, 15000);
-  
-  // Use LLM to parse the HTML into structured events
+// ==================== 1. TCDB SCRAPER ====================
+
+async function scrapeTCDB(): Promise<ScrapeResult> {
+  const result: ScrapeResult = { source: "tcdb", fetched: 0, newEvents: 0, duplicates: 0, errors: [] };
+  const allEvents: ScrapedEvent[] = [];
+
+  // Scrape each state page
+  const stateAbbrs = Object.keys(US_STATES).filter(s => s !== "PR" && s !== "DC");
+
+  for (const stateAbbr of stateAbbrs) {
+    const stateName = US_STATES[stateAbbr];
+    const url = `https://www.tcdb.com/CardShowCalendar.cfm?State=${stateName.replace(/ /g, "%20")}&Country=United%20States`;
+
+    const html = await fetchPage(url);
+    if (!html) {
+      result.errors.push(`Failed to fetch TCDB page for ${stateName}`);
+      continue;
+    }
+
+    // Check if page has any shows
+    if (html.includes("No card shows found") || html.includes("No shows found")) {
+      continue;
+    }
+
+    try {
+      const events = await parseTCDBWithLLM(html, stateAbbr, stateName, url);
+      allEvents.push(...events);
+    } catch (err) {
+      result.errors.push(`LLM parse error for ${stateName}: ${err}`);
+    }
+
+    // Rate limit: wait 1s between requests
+    await new Promise(r => setTimeout(r, 1000));
+  }
+
+  result.fetched = allEvents.length;
+
+  // Deduplicate and insert
+  const newEvents: InsertEvent[] = [];
+  for (const evt of allEvents) {
+    const existing = await getEventBySourceId("tcdb", evt.sourceId);
+    if (existing) {
+      await updateEventLastScraped(existing.id);
+      result.duplicates++;
+      continue;
+    }
+    const fuzzyDup = await findDuplicateEvent(evt.name, evt.city, evt.state, evt.startDate);
+    if (fuzzyDup) {
+      result.duplicates++;
+      continue;
+    }
+    newEvents.push({
+      ...evt,
+      eventStatus: "approved",
+      lastScrapedAt: new Date(),
+    });
+  }
+
+  if (newEvents.length > 0) {
+    result.newEvents = await bulkInsertEvents(newEvents);
+  }
+
+  return result;
+}
+
+async function parseTCDBWithLLM(html: string, stateAbbr: string, stateName: string, sourceUrl: string): Promise<ScrapedEvent[]> {
+  // Extract just the show listing portion to reduce token usage
+  const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+  const bodyHtml = bodyMatch ? bodyMatch[1] : html;
+
+  // Truncate to ~15k chars to stay within token limits
+  const truncated = bodyHtml.substring(0, 15000);
+
   const response = await invokeLLM({
     messages: [
       {
         role: "system",
-        content: `You are a data extraction assistant. Extract card show events from the HTML content of a TCDB.com calendar page. Return a JSON array of events. Each event should have: name, dateDisplay (human-readable), startDate (YYYY-MM-DD), endDate (YYYY-MM-DD), city, hours (if available), venue (if mentioned in the event details). Only include events from the current year (2026) that haven't already passed. If no events are found, return an empty array [].`
+        content: `You extract card show events from HTML. Return a JSON array of events. Each event has: name (string), dateDisplay (human-readable date string like "March 15, 2026" or "March 15-16, 2026"), startDate (YYYY-MM-DD), endDate (YYYY-MM-DD, same as startDate if single day), city (string), venue (string or null), hours (string or null), tableCount (number or null), admission (string or null), email (string or null), phone (string or null), website (string or null). If no events found, return []. Only include events in year 2025 or later.`,
       },
       {
         role: "user",
-        content: `Extract card show events from this ${stateName} (${stateAbbr}) TCDB calendar page HTML. Return ONLY a JSON array, no other text:\n\n${contentHtml.substring(0, 12000)}`
-      }
+        content: `Extract card show events from this TCDB page for ${stateName}:\n\n${truncated}`,
+      },
     ],
     response_format: {
       type: "json_schema",
       json_schema: {
-        name: "card_shows",
+        name: "tcdb_events",
         strict: true,
         schema: {
           type: "object",
@@ -79,389 +202,365 @@ async function parseTCDBHtml(html: string, stateAbbr: string, stateName: string)
               items: {
                 type: "object",
                 properties: {
-                  name: { type: "string", description: "Name of the card show" },
-                  dateDisplay: { type: "string", description: "Human-readable date like 'March 21, 2026'" },
-                  startDate: { type: "string", description: "Start date in YYYY-MM-DD format" },
-                  endDate: { type: "string", description: "End date in YYYY-MM-DD format" },
-                  city: { type: "string", description: "City name" },
-                  hours: { type: "string", description: "Event hours like '10:00 AM - 4:00 PM'" },
-                  venue: { type: "string", description: "Venue name if available" },
+                  name: { type: "string" },
+                  dateDisplay: { type: "string" },
+                  startDate: { type: "string" },
+                  endDate: { type: "string" },
+                  city: { type: "string" },
+                  venue: { type: ["string", "null"] },
+                  hours: { type: ["string", "null"] },
+                  tableCount: { type: ["integer", "null"] },
+                  admission: { type: ["string", "null"] },
+                  email: { type: ["string", "null"] },
+                  phone: { type: ["string", "null"] },
+                  website: { type: ["string", "null"] },
                 },
-                required: ["name", "dateDisplay", "startDate", "endDate", "city", "hours", "venue"],
+                required: ["name", "dateDisplay", "startDate", "endDate", "city"],
                 additionalProperties: false,
-              }
-            }
+              },
+            },
           },
           required: ["events"],
           additionalProperties: false,
-        }
-      }
-    }
+        },
+      },
+    },
   });
 
+  const content = response.choices[0]?.message?.content;
+  if (!content || typeof content !== "string") return [];
+
   try {
-    const parsed = JSON.parse(response.choices[0].message.content || "{}");
-    const events: InsertEvent[] = (parsed.events || []).map((e: any) => ({
-      name: e.name,
-      eventType: "card-show" as const,
-      tier: null,
-      dateDisplay: e.dateDisplay,
-      startDate: e.startDate,
-      endDate: e.endDate,
-      month: parseInt(e.startDate.split("-")[1]),
-      venue: e.venue || null,
-      address: null,
-      city: e.city,
+    const parsed = JSON.parse(content);
+    return (parsed.events || []).map((evt: any, idx: number) => ({
+      name: evt.name,
+      eventType: "card-show",
+      dateDisplay: evt.dateDisplay,
+      startDate: evt.startDate,
+      endDate: evt.endDate,
+      month: parseInt(evt.startDate.split("-")[1]) || 1,
+      city: evt.city,
       state: stateAbbr,
       stateName: stateName,
-      hours: e.hours || null,
-      tableCount: null,
-      admission: null,
-      isFree: null,
-      email: null,
-      phone: null,
-      website: null,
-      description: null,
-      highlights: null,
-      featured: false,
-      recurring: false,
+      venue: evt.venue || undefined,
+      hours: evt.hours || undefined,
+      tableCount: evt.tableCount || undefined,
+      admission: evt.admission || undefined,
+      isFree: evt.admission?.toLowerCase().includes("free") ? true : undefined,
+      email: evt.email || undefined,
+      phone: evt.phone || undefined,
+      website: evt.website || undefined,
       source: "tcdb",
-      sourceId: `tcdb-${stateAbbr}-${e.name.replace(/\s+/g, "-").toLowerCase()}-${e.startDate}`,
-      sourceUrl: `https://www.tcdb.com/CardShowCalendar.cfm?State=${stateAbbr}&Country=United%20States`,
-      status: "approved" as const,
+      sourceId: `tcdb-${stateAbbr}-${evt.startDate}-${idx}`,
+      sourceUrl: sourceUrl,
     }));
-    return events;
-  } catch (e) {
-    console.warn(`[Scraper] Failed to parse TCDB LLM response for ${stateAbbr}:`, e);
+  } catch {
     return [];
   }
 }
 
-// ==================== FANCONS SCRAPER (Comic Cons) ====================
+// ==================== 2. FANCONS SCRAPER ====================
 
-async function fetchFanCons(): Promise<string> {
+async function scrapeFanCons(): Promise<ScrapeResult> {
+  const result: ScrapeResult = { source: "fancons", fetched: 0, newEvents: 0, duplicates: 0, errors: [] };
   const url = "https://fancons.com/events/schedule.php?year=2026&type=comic&loc=us";
-  try {
-    const response = await fetch(url, {
-      headers: { "User-Agent": "Mozilla/5.0 (compatible; NLF-EventBot/1.0)" },
-    });
-    if (!response.ok) {
-      console.warn(`[Scraper] FanCons returned ${response.status}`);
-      return "";
-    }
-    return await response.text();
-  } catch (e) {
-    console.warn(`[Scraper] FanCons fetch failed:`, e);
-    return "";
+
+  const html = await fetchPage(url);
+  if (!html) {
+    result.errors.push("Failed to fetch FanCons page");
+    return result;
   }
+
+  const events = parseFanConsHTML(html);
+  result.fetched = events.length;
+
+  const newEvents: InsertEvent[] = [];
+  for (const evt of events) {
+    const existing = await getEventBySourceId("fancons", evt.sourceId);
+    if (existing) {
+      await updateEventLastScraped(existing.id);
+      result.duplicates++;
+      continue;
+    }
+    const fuzzyDup = await findDuplicateEvent(evt.name, evt.city, evt.state, evt.startDate);
+    if (fuzzyDup) {
+      result.duplicates++;
+      continue;
+    }
+    newEvents.push({
+      ...evt,
+      eventStatus: "approved",
+      lastScrapedAt: new Date(),
+    });
+  }
+
+  if (newEvents.length > 0) {
+    result.newEvents = await bulkInsertEvents(newEvents);
+  }
+
+  return result;
 }
 
-function parseFanConsHtml(html: string): InsertEvent[] {
-  // FanCons has a clean table format, we can parse it without LLM
-  const events: InsertEvent[] = [];
-  
-  // Match table rows with convention data
-  // Pattern: <td>Convention Name</td><td>Dates</td><td>Venue\nCity, ST</td>
-  const rowRegex = /<tr[^>]*>\s*<td[^>]*>.*?<a[^>]*href="([^"]*)"[^>]*>([^<]+)<\/a>.*?<\/td>\s*<td[^>]*>([^<]+)<\/td>\s*<td[^>]*>([\s\S]*?)<\/td>\s*<\/tr>/gi;
-  
-  let match;
-  while ((match = rowRegex.exec(html)) !== null) {
-    const name = match[2].trim();
-    const dateStr = match[3].trim();
-    const locationHtml = match[4].trim();
-    
-    // Skip cancelled/postponed events
-    if (name.includes("[Cancelled]") || name.includes("[Postponed]")) continue;
-    
-    // Parse location: "Venue Name\nCity, ST" or "Venue Name<br>City, ST"
-    const locationText = locationHtml.replace(/<br\s*\/?>/gi, "\n").replace(/<[^>]+>/g, "").trim();
-    const locationLines = locationText.split("\n").map(l => l.trim()).filter(Boolean);
-    
-    let venue = "";
-    let city = "";
-    let stateAbbr = "";
-    let stateName = "";
-    
-    if (locationLines.length >= 2) {
-      venue = locationLines[0];
-      const cityState = locationLines[locationLines.length - 1];
-      const csMatch = cityState.match(/^(.+?),\s*([A-Z]{2})$/);
-      if (csMatch) {
-        city = csMatch[1].trim();
-        stateAbbr = csMatch[2];
-        stateName = US_STATES.find(s => s.abbr === stateAbbr)?.name || "";
-      }
-    }
-    
-    if (!stateAbbr || !city) continue;
-    
-    // Parse dates
-    const { startDate, endDate, dateDisplay } = parseDateRange(dateStr);
+function parseFanConsHTML(html: string): ScrapedEvent[] {
+  const events: ScrapedEvent[] = [];
+
+  // FanCons uses table rows with event data
+  // Pattern: <tr> with event name link, dates, venue, city/state
+  const rowRegex = /<tr[^>]*>[\s\S]*?<\/tr>/gi;
+  const rows = html.match(rowRegex) || [];
+
+  for (const row of rows) {
+    // Extract event name from link
+    const nameMatch = row.match(/<a[^>]*>([^<]+)<\/a>/);
+    if (!nameMatch) continue;
+    const name = nameMatch[1].trim();
+
+    // Skip header rows
+    if (name === "Convention" || name === "Date" || name === "Location") continue;
+
+    // Extract dates - look for patterns like "March 19-22, 2026" or "March 19, 2026"
+    const dateMatch = row.match(/(\w+ \d{1,2}(?:-\d{1,2})?,?\s*\d{4})/);
+    if (!dateMatch) continue;
+
+    // Extract city, state from the row
+    const locationMatch = row.match(/([A-Za-z\s.]+),\s*([A-Z]{2})/);
+    if (!locationMatch) continue;
+
+    const city = locationMatch[1].trim();
+    const stateAbbr = locationMatch[2].trim();
+    if (!US_STATES[stateAbbr]) continue; // Skip non-US
+
+    // Extract venue if present
+    const venueMatch = row.match(/<td[^>]*>([^<]+)<\/td>/g);
+
+    const dateDisplay = dateMatch[1];
+    const { startDate, endDate } = parseDateRange(dateDisplay);
     if (!startDate) continue;
-    
-    const month = parseInt(startDate.split("-")[1]);
-    
+
+    const sourceId = `fancons-${name.toLowerCase().replace(/[^a-z0-9]/g, "-")}-${startDate}`;
+
     events.push({
       name,
-      eventType: "comic-con",
-      tier: null, // Could be enhanced later
-      dateDisplay: dateDisplay || dateStr,
+      eventType: classifyConventionType(name),
+      dateDisplay,
       startDate,
       endDate: endDate || startDate,
-      month,
-      venue: venue || null,
-      address: null,
+      month: parseInt(startDate.split("-")[1]) || 1,
       city,
       state: stateAbbr,
-      stateName: stateName || null,
-      hours: null,
-      tableCount: null,
-      admission: null,
-      isFree: null,
-      email: null,
-      phone: null,
-      website: match[1] ? `https://fancons.com${match[1]}` : null,
-      description: null,
-      highlights: null,
-      featured: false,
-      recurring: false,
+      stateName: US_STATES[stateAbbr],
       source: "fancons",
-      sourceId: `fancons-${name.replace(/\s+/g, "-").toLowerCase()}-${startDate}`,
+      sourceId,
       sourceUrl: "https://fancons.com/events/schedule.php?year=2026&type=comic&loc=us",
-      status: "approved",
     });
   }
-  
+
   return events;
 }
 
-function parseDateRange(dateStr: string): { startDate: string; endDate: string; dateDisplay: string } {
-  const months: Record<string, string> = {
-    "January": "01", "February": "02", "March": "03", "April": "04",
-    "May": "05", "June": "06", "July": "07", "August": "08",
-    "September": "09", "October": "10", "November": "11", "December": "12",
-  };
-  
-  // "March 21, 2026" or "March 21-23, 2026" or "March 28 - April 1, 2026"
-  const singleMatch = dateStr.match(/(\w+)\s+(\d+),\s*(\d{4})/);
-  const rangeMatch = dateStr.match(/(\w+)\s+(\d+)-(\d+),\s*(\d{4})/);
-  const crossMonthMatch = dateStr.match(/(\w+)\s+(\d+)\s*[-–]\s*(\w+)\s+(\d+),\s*(\d{4})/);
-  
-  if (crossMonthMatch) {
-    const m1 = months[crossMonthMatch[1]] || "01";
-    const d1 = crossMonthMatch[2].padStart(2, "0");
-    const m2 = months[crossMonthMatch[3]] || m1;
-    const d2 = crossMonthMatch[4].padStart(2, "0");
-    const year = crossMonthMatch[5];
-    return {
-      startDate: `${year}-${m1}-${d1}`,
-      endDate: `${year}-${m2}-${d2}`,
-      dateDisplay: dateStr,
-    };
+// ==================== 3. UPCOMINGCONS SCRAPER ====================
+
+async function scrapeUpcomingCons(): Promise<ScrapeResult> {
+  const result: ScrapeResult = { source: "upcomingcons", fetched: 0, newEvents: 0, duplicates: 0, errors: [] };
+  const url = "https://upcomingcons.com/comic-conventions";
+
+  const html = await fetchPage(url);
+  if (!html) {
+    result.errors.push("Failed to fetch UpcomingCons page");
+    return result;
   }
-  
-  if (rangeMatch) {
-    const m = months[rangeMatch[1]] || "01";
-    const d1 = rangeMatch[2].padStart(2, "0");
-    const d2 = rangeMatch[3].padStart(2, "0");
-    const year = rangeMatch[4];
-    return {
-      startDate: `${year}-${m}-${d1}`,
-      endDate: `${year}-${m}-${d2}`,
-      dateDisplay: dateStr,
-    };
-  }
-  
-  if (singleMatch) {
-    const m = months[singleMatch[1]] || "01";
-    const d = singleMatch[2].padStart(2, "0");
-    const year = singleMatch[3];
-    const date = `${year}-${m}-${d}`;
-    return { startDate: date, endDate: date, dateDisplay: dateStr };
-  }
-  
-  return { startDate: "", endDate: "", dateDisplay: dateStr };
-}
 
-// ==================== DEDUPLICATION ====================
-
-function normalizeEventName(name: string): string {
-  return name
-    .toLowerCase()
-    .replace(/[^a-z0-9\s]/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-function isDuplicate(
-  newEvent: InsertEvent,
-  existingEvents: { sourceId: string | null; name: string; startDate: string; state: string }[]
-): boolean {
-  // Check by sourceId first
-  if (newEvent.sourceId && existingEvents.some(e => e.sourceId === newEvent.sourceId)) {
-    return true;
-  }
-  
-  // Fuzzy match: same state + similar name + date within 3 days
-  const normalizedNew = normalizeEventName(newEvent.name);
-  for (const existing of existingEvents) {
-    if (existing.state !== newEvent.state) continue;
-    
-    const normalizedExisting = normalizeEventName(existing.name);
-    
-    // Check name similarity (contains or Levenshtein-like)
-    const nameSimilar = normalizedNew.includes(normalizedExisting) || 
-                        normalizedExisting.includes(normalizedNew) ||
-                        normalizedNew === normalizedExisting;
-    
-    if (!nameSimilar) continue;
-    
-    // Check date proximity (within 3 days)
-    const newDate = new Date(newEvent.startDate);
-    const existingDate = new Date(existing.startDate);
-    const daysDiff = Math.abs((newDate.getTime() - existingDate.getTime()) / (1000 * 60 * 60 * 24));
-    
-    if (daysDiff <= 3) return true;
-  }
-  
-  return false;
-}
-
-// ==================== MAIN SCRAPER ORCHESTRATOR ====================
-
-export interface ScrapeResult {
-  source: string;
-  statesScraped: number;
-  eventsFound: number;
-  newEventsInserted: number;
-  duplicatesSkipped: number;
-  errors: string[];
-}
-
-export async function scrapeCardShows(stateSubset?: string[]): Promise<ScrapeResult> {
-  const result: ScrapeResult = {
-    source: "tcdb",
-    statesScraped: 0,
-    eventsFound: 0,
-    newEventsInserted: 0,
-    duplicatesSkipped: 0,
-    errors: [],
-  };
-
-  // Get existing events for deduplication
-  const existingEvents = await getEventsBySource("tcdb");
-  const allExistingCardShows = await getEventsBySource("seed");
-  const allExisting = [...existingEvents, ...allExistingCardShows];
-
-  const statesToScrape = stateSubset 
-    ? US_STATES.filter(s => stateSubset.includes(s.abbr))
-    : US_STATES;
+  const events = parseUpcomingConsHTML(html);
+  result.fetched = events.length;
 
   const newEvents: InsertEvent[] = [];
-
-  for (const state of statesToScrape) {
-    try {
-      console.log(`[Scraper] Fetching TCDB ${state.abbr}...`);
-      const html = await fetchTCDBState(state.abbr, state.name);
-      if (!html) continue;
-      
-      const events = await parseTCDBHtml(html, state.abbr, state.name);
-      result.eventsFound += events.length;
-      result.statesScraped++;
-
-      for (const event of events) {
-        if (isDuplicate(event, allExisting)) {
-          result.duplicatesSkipped++;
-        } else {
-          newEvents.push(event);
-          allExisting.push({
-            sourceId: event.sourceId || "",
-            name: event.name,
-            startDate: event.startDate,
-            state: event.state,
-          });
-        }
-      }
-
-      // Rate limit: wait 1 second between state requests
-      await new Promise(r => setTimeout(r, 1000));
-    } catch (e: any) {
-      result.errors.push(`${state.abbr}: ${e.message}`);
+  for (const evt of events) {
+    const existing = await getEventBySourceId("upcomingcons", evt.sourceId);
+    if (existing) {
+      await updateEventLastScraped(existing.id);
+      result.duplicates++;
+      continue;
     }
+    const fuzzyDup = await findDuplicateEvent(evt.name, evt.city, evt.state, evt.startDate);
+    if (fuzzyDup) {
+      result.duplicates++;
+      continue;
+    }
+    newEvents.push({
+      ...evt,
+      eventStatus: "approved",
+      lastScrapedAt: new Date(),
+    });
   }
 
-  // Insert new events
   if (newEvents.length > 0) {
-    const inserted = await insertEvents(newEvents);
-    result.newEventsInserted = inserted;
+    result.newEvents = await bulkInsertEvents(newEvents);
   }
 
   return result;
 }
 
-export async function scrapeComicCons(): Promise<ScrapeResult> {
-  const result: ScrapeResult = {
-    source: "fancons",
-    statesScraped: 1,
-    eventsFound: 0,
-    newEventsInserted: 0,
-    duplicatesSkipped: 0,
-    errors: [],
-  };
+function parseUpcomingConsHTML(html: string): ScrapedEvent[] {
+  const events: ScrapedEvent[] = [];
 
-  try {
-    // Get existing events for deduplication
-    const existingFancons = await getEventsBySource("fancons");
-    const existingSeed = await getEventsBySource("seed");
-    const allExisting = [...existingFancons, ...existingSeed];
+  // UpcomingCons has a clean list: [ConName]\n City, ST\n Date Range
+  // Pattern: linked name followed by city/state and date
+  const eventBlockRegex = /\[([^\]]+)\]\([^)]*\)\s*\n\s*([^,\n]+),\s*([A-Z]{2})\s*\n\s*(\w+ \d{1,2}(?:[-–]\d{1,2})?,?\s*\d{4})/g;
 
-    console.log("[Scraper] Fetching FanCons.com...");
-    const html = await fetchFanCons();
-    if (!html) {
-      result.errors.push("Failed to fetch FanCons page");
-      return result;
-    }
-
-    const events = parseFanConsHtml(html);
-    result.eventsFound = events.length;
-
-    const newEvents: InsertEvent[] = [];
-    for (const event of events) {
-      if (isDuplicate(event, allExisting)) {
-        result.duplicatesSkipped++;
-      } else {
-        newEvents.push(event);
-        allExisting.push({
-          sourceId: event.sourceId || "",
-          name: event.name,
-          startDate: event.startDate,
-          state: event.state,
-        });
-      }
-    }
-
-    if (newEvents.length > 0) {
-      const inserted = await insertEvents(newEvents);
-      result.newEventsInserted = inserted;
-    }
-  } catch (e: any) {
-    result.errors.push(e.message);
+  // Alternative: parse from HTML directly
+  // Look for convention entries with name, location, date pattern
+  const nameRegex = /<a[^>]*href="[^"]*"[^>]*>([^<]+)<\/a>/g;
+  const allNames: string[] = [];
+  let match;
+  while ((match = nameRegex.exec(html)) !== null) {
+    allNames.push(match[1].trim());
   }
 
-  return result;
+  // Parse the text content approach - extract text between tags
+  const textContent = html
+    .replace(/<script[\s\S]*?<\/script>/gi, "")
+    .replace(/<style[\s\S]*?<\/style>/gi, "")
+    .replace(/<[^>]+>/g, "\n")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&#\d+;/g, "")
+    .replace(/\n{3,}/g, "\n\n");
+
+  // Match patterns like: ConName\nCity, ST\nDate
+  const lines = textContent.split("\n").map(l => l.trim()).filter(Boolean);
+
+  for (let i = 0; i < lines.length - 1; i++) {
+    const line = lines[i];
+    const nextLine = lines[i + 1];
+
+    // Check if next line is a city, state pattern
+    const locationMatch = nextLine?.match(/^([A-Za-z\s.'-]+),\s*([A-Z]{2})$/);
+    if (!locationMatch) continue;
+
+    const city = locationMatch[1].trim();
+    const stateAbbr = locationMatch[2].trim();
+    if (!US_STATES[stateAbbr]) continue;
+
+    // Look for date in the line after location
+    const dateLine = lines[i + 2];
+    if (!dateLine) continue;
+
+    const dateMatch = dateLine.match(/(\w+ \d{1,2}(?:[-–]\d{1,2})?,?\s*\d{4})/);
+    if (!dateMatch) continue;
+
+    // The current line should be the event name
+    const name = line;
+    if (!name || name.length < 3 || name.length > 200) continue;
+    // Skip non-event lines
+    if (/^(comic|book|conventions?|list|schedule|upcoming|search|sign)/i.test(name)) continue;
+
+    const dateDisplay = dateMatch[1];
+    const { startDate, endDate } = parseDateRange(dateDisplay);
+    if (!startDate) continue;
+
+    const sourceId = `upcomingcons-${name.toLowerCase().replace(/[^a-z0-9]/g, "-")}-${startDate}`;
+
+    events.push({
+      name,
+      eventType: classifyConventionType(name),
+      dateDisplay,
+      startDate,
+      endDate: endDate || startDate,
+      month: parseInt(startDate.split("-")[1]) || 1,
+      city,
+      state: stateAbbr,
+      stateName: US_STATES[stateAbbr],
+      source: "upcomingcons",
+      sourceId,
+      sourceUrl: "https://upcomingcons.com/comic-conventions",
+    });
+  }
+
+  return events;
 }
 
-export async function runFullScrape(): Promise<{ cardShows: ScrapeResult; comicCons: ScrapeResult }> {
-  console.log("[Scraper] Starting full scrape...");
-  console.log("[Scraper] Phase 1: Card shows from TCDB.com (50 states)...");
-  const cardShows = await scrapeCardShows();
-  
-  console.log("[Scraper] Phase 2: Comic cons from FanCons.com...");
-  const comicCons = await scrapeComicCons();
-  
-  console.log("[Scraper] Scrape complete!");
-  console.log(`  Card shows: ${cardShows.eventsFound} found, ${cardShows.newEventsInserted} new, ${cardShows.duplicatesSkipped} duplicates`);
-  console.log(`  Comic cons: ${comicCons.eventsFound} found, ${comicCons.newEventsInserted} new, ${comicCons.duplicatesSkipped} duplicates`);
-  
-  return { cardShows, comicCons };
+// ==================== HELPER FUNCTIONS ====================
+
+const MONTH_MAP: Record<string, number> = {
+  january: 1, february: 2, march: 3, april: 4, may: 5, june: 6,
+  july: 7, august: 8, september: 9, october: 10, november: 11, december: 12,
+  jan: 1, feb: 2, mar: 3, apr: 4, jun: 6, jul: 7, aug: 8, sep: 9, oct: 10, nov: 11, dec: 12,
+};
+
+function parseDateRange(dateStr: string): { startDate: string | null; endDate: string | null } {
+  if (!dateStr) return { startDate: null, endDate: null };
+
+  // Handle "March 19-22, 2026" or "Mar 19-22, 2026"
+  const rangeMatch = dateStr.match(/(\w+)\s+(\d{1,2})[-–](\d{1,2}),?\s*(\d{4})/);
+  if (rangeMatch) {
+    const month = MONTH_MAP[rangeMatch[1].toLowerCase()];
+    if (!month) return { startDate: null, endDate: null };
+    const day1 = parseInt(rangeMatch[2]);
+    const day2 = parseInt(rangeMatch[3]);
+    const year = rangeMatch[4];
+    return {
+      startDate: `${year}-${String(month).padStart(2, "0")}-${String(day1).padStart(2, "0")}`,
+      endDate: `${year}-${String(month).padStart(2, "0")}-${String(day2).padStart(2, "0")}`,
+    };
+  }
+
+  // Handle "March 19, 2026"
+  const singleMatch = dateStr.match(/(\w+)\s+(\d{1,2}),?\s*(\d{4})/);
+  if (singleMatch) {
+    const month = MONTH_MAP[singleMatch[1].toLowerCase()];
+    if (!month) return { startDate: null, endDate: null };
+    const day = parseInt(singleMatch[2]);
+    const year = singleMatch[3];
+    const date = `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+    return { startDate: date, endDate: date };
+  }
+
+  return { startDate: null, endDate: null };
+}
+
+function classifyConventionType(name: string): string {
+  const lower = name.toLowerCase();
+  if (/anime|manga|otaku/.test(lower)) return "anime-gaming";
+  if (/gaming|game|esport/.test(lower)) return "anime-gaming";
+  if (/comic[\s-]?con|comicon|comic[\s-]?book/.test(lower)) return "comic-con";
+  if (/collect[\s-]?a[\s-]?con|card[\s-]?show|card[\s-]?expo|sports[\s-]?card/.test(lower)) return "card-show";
+  if (/toy|collectible|memorabilia/.test(lower)) return "collectibles";
+  return "pop-culture";
+}
+
+// ==================== MAIN SCRAPE FUNCTION ====================
+
+export type ScrapeSource = "tcdb" | "fancons" | "upcomingcons" | "all";
+
+export async function runScrape(source: ScrapeSource = "all"): Promise<ScrapeResult[]> {
+  console.log(`[Scraper] Starting scrape for source: ${source}`);
+  const results: ScrapeResult[] = [];
+
+  if (source === "tcdb" || source === "all") {
+    console.log("[Scraper] Scraping TCDB...");
+    const tcdbResult = await scrapeTCDB();
+    results.push(tcdbResult);
+    console.log(`[Scraper] TCDB: ${tcdbResult.fetched} fetched, ${tcdbResult.newEvents} new, ${tcdbResult.duplicates} duplicates`);
+  }
+
+  if (source === "fancons" || source === "all") {
+    console.log("[Scraper] Scraping FanCons...");
+    const fanConsResult = await scrapeFanCons();
+    results.push(fanConsResult);
+    console.log(`[Scraper] FanCons: ${fanConsResult.fetched} fetched, ${fanConsResult.newEvents} new, ${fanConsResult.duplicates} duplicates`);
+  }
+
+  if (source === "upcomingcons" || source === "all") {
+    console.log("[Scraper] Scraping UpcomingCons...");
+    const upcomingResult = await scrapeUpcomingCons();
+    results.push(upcomingResult);
+    console.log(`[Scraper] UpcomingCons: ${upcomingResult.fetched} fetched, ${upcomingResult.newEvents} new, ${upcomingResult.duplicates} duplicates`);
+  }
+
+  const totalNew = results.reduce((sum, r) => sum + r.newEvents, 0);
+  const totalFetched = results.reduce((sum, r) => sum + r.fetched, 0);
+  console.log(`[Scraper] Complete: ${totalFetched} total fetched, ${totalNew} new events added`);
+
+  return results;
 }

@@ -1315,126 +1315,98 @@ export async function updateShowSubmissionStatus(
   return (result as any)[0]?.affectedRows > 0;
 }
 
-
 // ==================== EVENTS (Card Shows + Comic Cons) ====================
 
-export async function getApprovedEvents(filters?: {
-  eventType?: string;
-  state?: string;
-  month?: number;
-  tier?: number;
-  search?: string;
-}) {
+export async function getApprovedEvents(eventType?: string): Promise<Event[]> {
   const db = await getDb();
   if (!db) return [];
-  
-  const conditions: any[] = [eq(events.status, "approved")];
-  
-  if (filters?.eventType) {
-    conditions.push(eq(events.eventType, filters.eventType));
+  if (eventType) {
+    return db.select().from(events)
+      .where(and(eq(events.eventStatus, "approved"), eq(events.eventType, eventType)))
+      .orderBy(events.startDate);
   }
-  if (filters?.state) {
-    conditions.push(eq(events.state, filters.state));
-  }
-  if (filters?.month) {
-    conditions.push(eq(events.month, filters.month));
-  }
-  if (filters?.tier) {
-    conditions.push(eq(events.tier, filters.tier));
-  }
-  if (filters?.search) {
-    conditions.push(
-      sql`(${events.name} LIKE ${'%' + filters.search + '%'} OR ${events.city} LIKE ${'%' + filters.search + '%'} OR ${events.venue} LIKE ${'%' + filters.search + '%'})`
-    );
-  }
-  
   return db.select().from(events)
-    .where(and(...conditions))
-    .orderBy(sql`${events.startDate} ASC`);
+    .where(eq(events.eventStatus, "approved"))
+    .orderBy(events.startDate);
 }
 
-export async function getEventStats() {
+export async function getEventStats(): Promise<{ total: number; cardShows: number; comicCons: number; states: number; sources: number }> {
+  const db = await getDb();
+  if (!db) return { total: 0, cardShows: 0, comicCons: 0, states: 0, sources: 0 };
+  const [totalRow] = await db.select({ count: sql<number>`COUNT(*)` }).from(events).where(eq(events.eventStatus, "approved"));
+  const [cardShowRow] = await db.select({ count: sql<number>`COUNT(*)` }).from(events).where(and(eq(events.eventStatus, "approved"), eq(events.eventType, "card-show")));
+  const [comicConRow] = await db.select({ count: sql<number>`COUNT(*)` }).from(events).where(and(eq(events.eventStatus, "approved"), sql`${events.eventType} != 'card-show'`));
+  const stateRows = await db.selectDistinct({ state: events.state }).from(events).where(eq(events.eventStatus, "approved"));
+  const sourceRows = await db.selectDistinct({ source: events.source }).from(events).where(and(eq(events.eventStatus, "approved"), sql`${events.source} IS NOT NULL`));
+  return {
+    total: Number(totalRow?.count ?? 0),
+    cardShows: Number(cardShowRow?.count ?? 0),
+    comicCons: Number(comicConRow?.count ?? 0),
+    states: stateRows.length,
+    sources: sourceRows.length,
+  };
+}
+
+export async function insertEvent(data: InsertEvent): Promise<number | null> {
   const db = await getDb();
   if (!db) return null;
-  
-  const [result] = await db.select({
-    totalEvents: sql<number>`COUNT(*)`,
-    totalCardShows: sql<number>`SUM(CASE WHEN ${events.eventType} = 'card-show' THEN 1 ELSE 0 END)`,
-    totalComicCons: sql<number>`SUM(CASE WHEN ${events.eventType} != 'card-show' THEN 1 ELSE 0 END)`,
-    totalStates: sql<number>`COUNT(DISTINCT ${events.state})`,
-    freeAdmission: sql<number>`SUM(CASE WHEN ${events.isFree} = true THEN 1 ELSE 0 END)`,
-  }).from(events).where(eq(events.status, "approved"));
-  
-  return result;
+  const [result] = await db.insert(events).values(data).$returningId();
+  return result?.id ?? null;
 }
 
-export async function getAllEventsAdmin() {
-  const db = await getDb();
-  if (!db) return [];
-  return db.select().from(events).orderBy(sql`${events.startDate} ASC`);
-}
-
-export async function insertEvent(event: InsertEvent) {
-  const db = await getDb();
-  if (!db) return null;
-  const [result] = await db.insert(events).values(event) as any;
-  return result?.insertId;
-}
-
-export async function insertEvents(eventList: InsertEvent[]) {
+export async function bulkInsertEvents(data: InsertEvent[]): Promise<number> {
   const db = await getDb();
   if (!db) return 0;
-  if (eventList.length === 0) return 0;
+  if (data.length === 0) return 0;
   // Insert in batches of 50 to avoid query size limits
   let inserted = 0;
-  for (let i = 0; i < eventList.length; i += 50) {
-    const batch = eventList.slice(i, i + 50);
+  for (let i = 0; i < data.length; i += 50) {
+    const batch = data.slice(i, i + 50);
     await db.insert(events).values(batch);
     inserted += batch.length;
   }
   return inserted;
 }
 
-export async function updateEvent(id: number, data: Partial<InsertEvent>) {
+export async function getEventBySourceId(source: string, sourceId: string): Promise<Event | null> {
   const db = await getDb();
-  if (!db) return false;
-  const result = await db.update(events).set(data).where(eq(events.id, id));
-  return (result as any)[0]?.affectedRows > 0;
+  if (!db) return null;
+  const rows = await db.select().from(events)
+    .where(and(eq(events.source, source), eq(events.sourceId, sourceId)))
+    .limit(1);
+  return rows[0] ?? null;
 }
 
-export async function deleteEvent(id: number) {
+export async function findDuplicateEvent(name: string, city: string, state: string, startDate: string): Promise<Event | null> {
+  const db = await getDb();
+  if (!db) return null;
+  const rows = await db.select().from(events)
+    .where(and(
+      sql`LOWER(${events.name}) = LOWER(${name})`,
+      eq(events.city, city),
+      eq(events.state, state),
+      eq(events.startDate, startDate)
+    ))
+    .limit(1);
+  return rows[0] ?? null;
+}
+
+export async function updateEventLastScraped(id: number): Promise<void> {
+  const db = await getDb();
+  if (!db) return;
+  await db.update(events).set({ lastScrapedAt: new Date() }).where(eq(events.id, id));
+}
+
+export async function deleteEvent(id: number): Promise<boolean> {
   const db = await getDb();
   if (!db) return false;
   const result = await db.delete(events).where(eq(events.id, id));
   return (result as any)[0]?.affectedRows > 0;
 }
 
-export async function getEventBySourceId(source: string, sourceId: string) {
+export async function updateEventStatus(id: number, status: "approved" | "pending" | "rejected"): Promise<boolean> {
   const db = await getDb();
-  if (!db) return null;
-  const results = await db.select().from(events)
-    .where(and(eq(events.source, source), eq(events.sourceId, sourceId)))
-    .limit(1);
-  return results[0] || null;
-}
-
-export async function getEventsBySource(source: string) {
-  const db = await getDb();
-  if (!db) return [];
-  return db.select({
-    sourceId: events.sourceId,
-    name: events.name,
-    startDate: events.startDate,
-    state: events.state,
-  }).from(events).where(eq(events.source, source));
-}
-
-export async function getDistinctEventStates() {
-  const db = await getDb();
-  if (!db) return [];
-  const results = await db.selectDistinct({ state: events.state, stateName: events.stateName })
-    .from(events)
-    .where(eq(events.status, "approved"))
-    .orderBy(sql`${events.stateName} ASC`);
-  return results;
+  if (!db) return false;
+  const result = await db.update(events).set({ eventStatus: status }).where(eq(events.id, id));
+  return (result as any)[0]?.affectedRows > 0;
 }

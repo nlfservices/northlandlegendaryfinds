@@ -5,7 +5,6 @@
  */
 
 import { useState, useMemo } from "react";
-import { trpc } from "@/lib/trpc";
 import {
   Search, MapPin, Calendar, ChevronDown, ChevronUp,
   ExternalLink, Star, Sparkles, Trophy, Globe, Ticket,
@@ -181,54 +180,10 @@ export default function ComicConsSection() {
   const [stateFilter, setStateFilter] = useState("all");
   const [showAll, setShowAll] = useState(false);
 
-  // Fetch comic cons from database
-  const { data: dbEvents } = trpc.public.events.list.useQuery(
-    { eventType: "comic-con" },
-    { staleTime: 5 * 60 * 1000 }
-  );
-
-  // Convert DB events to ComicConEvent format, falling back to static data
-  const allEvents: ComicConEvent[] = useMemo(() => {
-    if (dbEvents && dbEvents.length > 0) {
-      return dbEvents.map((e: any): ComicConEvent => ({
-        name: e.name,
-        startDate: e.startDate,
-        endDate: e.endDate,
-        dates: e.dateDisplay || '',
-        city: e.city,
-        stateAbbr: e.state,
-        state: e.stateName || '',
-        description: e.description || '',
-        website: e.website || undefined,
-        tier: (e.tier || 4) as 1 | 2 | 3 | 4,
-        type: (e.eventSubtype || 'comic-con') as ComicConEvent['type'],
-        highlights: e.highlights ? (typeof e.highlights === 'string' ? JSON.parse(e.highlights) : e.highlights) : [],
-      }));
-    }
-    return comicConEvents;
-  }, [dbEvents]);
-
-  const uniqueStates = useMemo(() => {
-    const states = new Map<string, string>();
-    for (const e of allEvents) {
-      states.set(e.stateAbbr, e.state);
-    }
-    return Array.from(states.entries())
-      .sort((a, b) => a[1].localeCompare(b[1]))
-      .map(([abbr, name]) => ({ abbr, name }));
-  }, [allEvents]);
+  const uniqueStates = useMemo(() => getUniqueStates(), []);
 
   const filteredEvents = useMemo(() => {
-    let result = search.trim()
-      ? allEvents.filter(e => {
-          const q = search.toLowerCase();
-          return e.name.toLowerCase().includes(q) ||
-            e.city.toLowerCase().includes(q) ||
-            e.state.toLowerCase().includes(q) ||
-            e.stateAbbr.toLowerCase().includes(q) ||
-            (e.description && e.description.toLowerCase().includes(q));
-        })
-      : [...allEvents];
+    let result = search.trim() ? searchComicCons(search) : [...comicConEvents];
 
     // Month filter
     if (monthFilter !== "all") {
@@ -377,7 +332,7 @@ export default function ComicConsSection() {
                 <SelectContent>
                   <SelectItem value="all">All States</SelectItem>
                   {uniqueStates.map(s => (
-                    <SelectItem key={s.abbr} value={s.abbr}>{s.name} ({s.abbr})</SelectItem>
+                    <SelectItem key={s} value={s}>{s}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>

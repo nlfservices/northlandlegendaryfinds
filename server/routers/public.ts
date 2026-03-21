@@ -15,7 +15,6 @@ import {
   parseParallels,
   getRandomCard,
   insertShowSubmission,
-  getApprovedEvents, getEventStats, getDistinctEventStates,
 } from "../db";
 import { launchSubscribers } from "../../drizzle/schema";
 import { getDb } from "../db";
@@ -678,30 +677,18 @@ const publicCardShowRouter = router({
     }),
 });
 
-// ==================== EVENTS (DB-DRIVEN CARD SHOWS + COMIC CONS) ====================
+// ==================== PUBLIC EVENTS ROUTER ====================
+import { getApprovedEvents, getEventStats } from "../db";
 
 const publicEventsRouter = router({
-  /** Get approved events with optional filters */
   list: publicProcedure
-    .input(z.object({
-      eventType: z.string().optional(),
-      state: z.string().optional(),
-      month: z.number().optional(),
-      tier: z.number().optional(),
-      search: z.string().optional(),
-    }).optional())
+    .input(z.object({ eventType: z.string().optional() }).optional())
     .query(async ({ input }) => {
-      return getApprovedEvents(input || {});
+      return getApprovedEvents(input?.eventType);
     }),
 
-  /** Get event statistics */
   stats: publicProcedure.query(async () => {
     return getEventStats();
-  }),
-
-  /** Get distinct states that have events */
-  states: publicProcedure.query(async () => {
-    return getDistinctEventStates();
   }),
 });
 

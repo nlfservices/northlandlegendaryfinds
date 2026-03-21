@@ -619,24 +619,20 @@ export const showSubmissions = mysqlTable("show_submissions", {
 export type ShowSubmission = typeof showSubmissions.$inferSelect;
 export type InsertShowSubmission = typeof showSubmissions.$inferInsert;
 
-
 // ==================== EVENTS (Card Shows + Comic Cons) ====================
 export const events = mysqlTable("events", {
-  id: int("id").autoincrement().primaryKey(),
+  id: int("id").primaryKey().autoincrement(),
   name: varchar("name", { length: 500 }).notNull(),
-  // "card-show" | "comic-con" | "collectibles" | "anime-gaming" | "pop-culture"
   eventType: varchar("eventType", { length: 50 }).notNull().default("card-show"),
-  // For comic cons: 1=Massive/National, 2=Major Regional, 3=Strong Regional, 4=Local
-  // For card shows: null (no tier system)
   tier: int("tier"),
   dateDisplay: varchar("dateDisplay", { length: 255 }).notNull(),
-  startDate: varchar("startDate", { length: 10 }).notNull(), // YYYY-MM-DD
-  endDate: varchar("endDate", { length: 10 }).notNull(),     // YYYY-MM-DD
+  startDate: varchar("startDate", { length: 10 }).notNull(),
+  endDate: varchar("endDate", { length: 10 }).notNull(),
   month: int("month").notNull(),
   venue: varchar("venue", { length: 500 }),
   address: varchar("address", { length: 500 }),
   city: varchar("city", { length: 255 }).notNull(),
-  state: varchar("state", { length: 2 }).notNull(),          // State abbreviation
+  state: varchar("state", { length: 2 }).notNull(),
   stateName: varchar("stateName", { length: 100 }),
   hours: varchar("hours", { length: 500 }),
   tableCount: int("tableCount"),
@@ -646,15 +642,13 @@ export const events = mysqlTable("events", {
   phone: varchar("phone", { length: 50 }),
   website: varchar("website", { length: 500 }),
   description: text("description"),
-  highlights: text("highlights"),  // JSON array of strings
+  highlights: text("highlights"),
   featured: boolean("featured").default(false),
   recurring: boolean("recurring").default(false),
-  // Source tracking for scraping
-  source: varchar("source", { length: 100 }), // "manual" | "tcdb" | "fancons" | "submission" | "seed"
-  sourceId: varchar("sourceId", { length: 255 }), // External ID for deduplication
+  source: varchar("source", { length: 100 }),
+  sourceId: varchar("sourceId", { length: 255 }),
   sourceUrl: varchar("sourceUrl", { length: 500 }),
-  // Status: auto-scraped events start as "approved" (auto-approved), submissions start as "pending"
-  status: mysqlEnum("eventStatus", ["approved", "pending", "rejected", "expired"]).notNull().default("approved"),
+  eventStatus: mysqlEnum("eventStatus", ["approved", "pending", "rejected"]).notNull().default("approved"),
   lastScrapedAt: timestamp("lastScrapedAt"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),

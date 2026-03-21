@@ -1,0 +1,103 @@
+{
+  "query": "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='events' AND TABLE_SCHEMA=DATABASE() ORDER BY ORDINAL_POSITION;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='events' AND TABLE_SCHEMA=DATABASE() ORDER BY ORDINAL_POSITION;",
+  "rows": [
+    {
+      "COLUMN_NAME": "id"
+    },
+    {
+      "COLUMN_NAME": "name"
+    },
+    {
+      "COLUMN_NAME": "eventType"
+    },
+    {
+      "COLUMN_NAME": "tier"
+    },
+    {
+      "COLUMN_NAME": "dateDisplay"
+    },
+    {
+      "COLUMN_NAME": "startDate"
+    },
+    {
+      "COLUMN_NAME": "endDate"
+    },
+    {
+      "COLUMN_NAME": "month"
+    },
+    {
+      "COLUMN_NAME": "venue"
+    },
+    {
+      "COLUMN_NAME": "address"
+    },
+    {
+      "COLUMN_NAME": "city"
+    },
+    {
+      "COLUMN_NAME": "state"
+    },
+    {
+      "COLUMN_NAME": "stateName"
+    },
+    {
+      "COLUMN_NAME": "hours"
+    },
+    {
+      "COLUMN_NAME": "tableCount"
+    },
+    {
+      "COLUMN_NAME": "admission"
+    },
+    {
+      "COLUMN_NAME": "isFree"
+    },
+    {
+      "COLUMN_NAME": "email"
+    },
+    {
+      "COLUMN_NAME": "phone"
+    },
+    {
+      "COLUMN_NAME": "website"
+    },
+    {
+      "COLUMN_NAME": "description"
+    },
+    {
+      "COLUMN_NAME": "highlights"
+    },
+    {
+      "COLUMN_NAME": "featured"
+    },
+    {
+      "COLUMN_NAME": "recurring"
+    },
+    {
+      "COLUMN_NAME": "source"
+    },
+    {
+      "COLUMN_NAME": "sourceId"
+    },
+    {
+      "COLUMN_NAME": "sourceUrl"
+    },
+    {
+      "COLUMN_NAME": "eventStatus"
+    },
+    {
+      "COLUMN_NAME": "lastScrapedAt"
+    },
+    {
+      "COLUMN_NAME": "createdAt"
+    },
+    {
+      "COLUMN_NAME": "updatedAt"
+    }
+  ],
+  "messages": [],
+  "stdout": "COLUMN_NAME\nid\nname\neventType\ntier\ndateDisplay\nstartDate\nendDate\nmonth\nvenue\naddress\ncity\nstate\nstateName\nhours\ntableCount\nadmission\nisFree\nemail\nphone\nwebsite\ndescription\nhighlights\nfeatured\nrecurring\nsource\nsourceId\nsourceUrl\neventStatus\nlastScrapedAt\ncreatedAt\nupdatedAt\n",
+  "stderr": "",
+  "execution_time_ms": 380
+}
