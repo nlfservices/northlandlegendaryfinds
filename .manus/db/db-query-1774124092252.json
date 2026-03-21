@@ -1,0 +1,43 @@
+{
+  "query": "SELECT p.id, p.name, p.slug, p.category, p.totalPacks, p.packsRemaining, p.isWhatnotExclusive, (SELECT COUNT(*) FROM checklist_items ci WHERE ci.productId = p.id) as cardCount, (SELECT COUNT(*) FROM checklist_items ci WHERE ci.productId = p.id AND ci.imageUrl IS NOT NULL AND ci.imageUrl != '') as withImages FROM repack_products p;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT p.id, p.name, p.slug, p.category, p.totalPacks, p.packsRemaining, p.isWhatnotExclusive, (SELECT COUNT(*) FROM checklist_items ci WHERE ci.productId = p.id) as cardCount, (SELECT COUNT(*) FROM checklist_items ci WHERE ci.productId = p.id AND ci.imageUrl IS NOT NULL AND ci.imageUrl != '') as withImages FROM repack_products p;",
+  "rows": [
+    {
+      "id": "30002",
+      "name": "NLF Marvel 50-Pack Series",
+      "slug": "nlf-marvel-50-series",
+      "category": "marvel",
+      "totalPacks": "50",
+      "packsRemaining": "50",
+      "isWhatnotExclusive": "0",
+      "cardCount": "50",
+      "withImages": "0"
+    },
+    {
+      "id": "30001",
+      "name": "NLF Marvel 100-Pack Series",
+      "slug": "nlf-marvel-100-series",
+      "category": "marvel",
+      "totalPacks": "100",
+      "packsRemaining": "100",
+      "isWhatnotExclusive": "0",
+      "cardCount": "100",
+      "withImages": "0"
+    },
+    {
+      "id": "1",
+      "name": "NLF Marvel 500-Pack Series",
+      "slug": "nlf-marvel-500-whatnot",
+      "category": "marvel",
+      "totalPacks": "500",
+      "packsRemaining": "500",
+      "isWhatnotExclusive": "1",
+      "cardCount": "500",
+      "withImages": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tslug\tcategory\ttotalPacks\tpacksRemaining\tisWhatnotExclusive\tcardCount\twithImages\n30002\tNLF Marvel 50-Pack Series\tnlf-marvel-50-series\tmarvel\t50\t50\t0\t50\t0\n30001\tNLF Marvel 100-Pack Series\tnlf-marvel-100-series\tmarvel\t100\t100\t0\t100\t0\n1\tNLF Marvel 500-Pack Series\tnlf-marvel-500-whatnot\tmarvel\t500\t500\t1\t500\t0\n",
+  "stderr": "",
+  "execution_time_ms": 360
+}

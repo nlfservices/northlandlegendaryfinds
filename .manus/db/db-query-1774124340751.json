@@ -1,0 +1,100 @@
+{
+  "query": "SELECT cardName, tier, estimatedValue, imageUrl FROM checklist_items WHERE tier = 'chase' ORDER BY id ASC LIMIT 15;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT cardName, tier, estimatedValue, imageUrl FROM checklist_items WHERE tier = 'chase' ORDER BY id ASC LIMIT 15;",
+  "rows": [
+    {
+      "cardName": "Spider-Man",
+      "tier": "chase",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "cardName": "Spider-Man",
+      "tier": "chase",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "cardName": "Spider-Man",
+      "tier": "chase",
+      "estimatedValue": "$500+",
+      "imageUrl": "NULL"
+    },
+    {
+      "cardName": "Wolverine",
+      "tier": "chase",
+      "estimatedValue": "$400+",
+      "imageUrl": "NULL"
+    },
+    {
+      "cardName": "Iron Man",
+      "tier": "chase",
+      "estimatedValue": "$350+",
+      "imageUrl": "NULL"
+    },
+    {
+      "cardName": "Deadpool",
+      "tier": "chase",
+      "estimatedValue": "$300+",
+      "imageUrl": "NULL"
+    },
+    {
+      "cardName": "Venom",
+      "tier": "chase",
+      "estimatedValue": "$300+",
+      "imageUrl": "NULL"
+    },
+    {
+      "cardName": "Captain America",
+      "tier": "chase",
+      "estimatedValue": "$250-$400",
+      "imageUrl": "NULL"
+    },
+    {
+      "cardName": "Thor",
+      "tier": "chase",
+      "estimatedValue": "$200-$350",
+      "imageUrl": "NULL"
+    },
+    {
+      "cardName": "Black Panther",
+      "tier": "chase",
+      "estimatedValue": "$200-$300",
+      "imageUrl": "NULL"
+    },
+    {
+      "cardName": "Doctor Strange",
+      "tier": "chase",
+      "estimatedValue": "$150-$300",
+      "imageUrl": "NULL"
+    },
+    {
+      "cardName": "Hulk",
+      "tier": "chase",
+      "estimatedValue": "$150-$250",
+      "imageUrl": "NULL"
+    },
+    {
+      "cardName": "Spider-Man",
+      "tier": "chase",
+      "estimatedValue": "$200-$400",
+      "imageUrl": "NULL"
+    },
+    {
+      "cardName": "Wolverine",
+      "tier": "chase",
+      "estimatedValue": "$200-$350",
+      "imageUrl": "NULL"
+    },
+    {
+      "cardName": "Magneto",
+      "tier": "chase",
+      "estimatedValue": "$150-$300",
+      "imageUrl": "NULL"
+    }
+  ],
+  "messages": [],
+  "stdout": "cardName\ttier\testimatedValue\timageUrl\nSpider-Man\tchase\tNULL\tNULL\nSpider-Man\tchase\tNULL\tNULL\nSpider-Man\tchase\t$500+\tNULL\nWolverine\tchase\t$400+\tNULL\nIron Man\tchase\t$350+\tNULL\nDeadpool\tchase\t$300+\tNULL\nVenom\tchase\t$300+\tNULL\nCaptain America\tchase\t$250-$400\tNULL\nThor\tchase\t$200-$350\tNULL\nBlack Panther\tchase\t$200-$300\tNULL\nDoctor Strange\tchase\t$150-$300\tNULL\nHulk\tchase\t$150-$250\tNULL\nSpider-Man\tchase\t$200-$400\tNULL\nWolverine\tchase\t$200-$350\tNULL\nMagneto\tchase\t$150-$300\tNULL\n",
+  "stderr": "",
+  "execution_time_ms": 345
+}

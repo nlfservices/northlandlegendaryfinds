@@ -1,0 +1,42 @@
+{
+  "query": "SELECT characterName, imageUrl FROM marvel_cards WHERE characterName IN ('Spider-Man', 'Wolverine', 'Iron Man', 'Deadpool', 'Venom', 'Captain America', 'Thor', 'Black Panther') AND imageUrl IS NOT NULL LIMIT 8;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT characterName, imageUrl FROM marvel_cards WHERE characterName IN ('Spider-Man', 'Wolverine', 'Iron Man', 'Deadpool', 'Venom', 'Captain America', 'Thor', 'Black Panther') AND imageUrl IS NOT NULL LIMIT 8;",
+  "rows": [
+    {
+      "characterName": "Iron Man",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-001_Iron_Man_80cf3e9d.webp"
+    },
+    {
+      "characterName": "Spider-Man",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-101_Spider-Man_318857c1.webp"
+    },
+    {
+      "characterName": "Wolverine",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-103_Wolverine_1cc49682.webp"
+    },
+    {
+      "characterName": "Thor",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-119_Thor_56a124bc.webp"
+    },
+    {
+      "characterName": "Black Panther",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-136_Black_Panther_118340ab.webp"
+    },
+    {
+      "characterName": "Venom",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-149_Venom_45603aab.webp"
+    },
+    {
+      "characterName": "Captain America",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/chrome_185_captain_america-koKKBbDfbETQNRvGxiM3Nh.webp"
+    },
+    {
+      "characterName": "Spider-Man",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-022_Spider-Man_cf5da69b.webp"
+    }
+  ],
+  "messages": [],
+  "stdout": "characterName\timageUrl\nIron Man\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-001_Iron_Man_80cf3e9d.webp\nSpider-Man\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-101_Spider-Man_318857c1.webp\nWolverine\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-103_Wolverine_1cc49682.webp\nThor\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-119_Thor_56a124bc.webp\nBlack Panther\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-136_Black_Panther_118340ab.webp\nVenom\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-149_Venom_45603aab.webp\nCaptain America\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/chrome_185_captain_america-koKKBbDfbETQNRvGxiM3Nh.webp\nSpider-Man\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-022_Spider-Man_cf5da69b.webp\n",
+  "stderr": "",
+  "execution_time_ms": 365
+}

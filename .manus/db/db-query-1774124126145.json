@@ -1,0 +1,115 @@
+{
+  "query": "SELECT ci.cardName, ci.cardSet, ci.parallel, ci.tier, ci.estimatedValue FROM checklist_items ci WHERE ci.productId = 1 AND ci.tier = 'chase' LIMIT 15;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT ci.cardName, ci.cardSet, ci.parallel, ci.tier, ci.estimatedValue FROM checklist_items ci WHERE ci.productId = 1 AND ci.tier = 'chase' LIMIT 15;",
+  "rows": [
+    {
+      "cardName": "Spider-Man",
+      "cardSet": "2024 Topps Chrome Marvel",
+      "parallel": "Superfractor 1/1",
+      "tier": "chase",
+      "estimatedValue": "$500+"
+    },
+    {
+      "cardName": "Wolverine",
+      "cardSet": "2024 Topps Chrome Marvel",
+      "parallel": "Superfractor 1/1",
+      "tier": "chase",
+      "estimatedValue": "$400+"
+    },
+    {
+      "cardName": "Iron Man",
+      "cardSet": "2024 Topps Chrome Marvel",
+      "parallel": "Superfractor 1/1",
+      "tier": "chase",
+      "estimatedValue": "$350+"
+    },
+    {
+      "cardName": "Deadpool",
+      "cardSet": "2024 Topps Chrome Marvel",
+      "parallel": "Superfractor 1/1",
+      "tier": "chase",
+      "estimatedValue": "$300+"
+    },
+    {
+      "cardName": "Venom",
+      "cardSet": "2024 Topps Chrome Marvel",
+      "parallel": "Superfractor 1/1",
+      "tier": "chase",
+      "estimatedValue": "$300+"
+    },
+    {
+      "cardName": "Captain America",
+      "cardSet": "2024 Topps Chrome Marvel",
+      "parallel": "Gold Auto /5",
+      "tier": "chase",
+      "estimatedValue": "$250-$400"
+    },
+    {
+      "cardName": "Thor",
+      "cardSet": "2024 Topps Chrome Marvel",
+      "parallel": "Gold Auto /5",
+      "tier": "chase",
+      "estimatedValue": "$200-$350"
+    },
+    {
+      "cardName": "Black Panther",
+      "cardSet": "2024 Topps Chrome Marvel",
+      "parallel": "Gold Auto /5",
+      "tier": "chase",
+      "estimatedValue": "$200-$300"
+    },
+    {
+      "cardName": "Doctor Strange",
+      "cardSet": "2024 Topps Chrome Marvel",
+      "parallel": "Gold Auto /5",
+      "tier": "chase",
+      "estimatedValue": "$150-$300"
+    },
+    {
+      "cardName": "Hulk",
+      "cardSet": "2024 Topps Chrome Marvel",
+      "parallel": "Gold Auto /5",
+      "tier": "chase",
+      "estimatedValue": "$150-$250"
+    },
+    {
+      "cardName": "Spider-Man",
+      "cardSet": "2024 Marvel Mint",
+      "parallel": "Minted Metal Auto /10",
+      "tier": "chase",
+      "estimatedValue": "$200-$400"
+    },
+    {
+      "cardName": "Wolverine",
+      "cardSet": "2024 Marvel Mint",
+      "parallel": "Minted Metal Auto /10",
+      "tier": "chase",
+      "estimatedValue": "$200-$350"
+    },
+    {
+      "cardName": "Magneto",
+      "cardSet": "2024 Marvel Mint",
+      "parallel": "Minted Metal Auto /10",
+      "tier": "chase",
+      "estimatedValue": "$150-$300"
+    },
+    {
+      "cardName": "Storm",
+      "cardSet": "2024 Marvel Mint",
+      "parallel": "Minted Metal Auto /10",
+      "tier": "chase",
+      "estimatedValue": "$150-$250"
+    },
+    {
+      "cardName": "Gambit",
+      "cardSet": "2024 Marvel Mint",
+      "parallel": "Minted Metal Auto /10",
+      "tier": "chase",
+      "estimatedValue": "$150-$250"
+    }
+  ],
+  "messages": [],
+  "stdout": "cardName\tcardSet\tparallel\ttier\testimatedValue\nSpider-Man\t2024 Topps Chrome Marvel\tSuperfractor 1/1\tchase\t$500+\nWolverine\t2024 Topps Chrome Marvel\tSuperfractor 1/1\tchase\t$400+\nIron Man\t2024 Topps Chrome Marvel\tSuperfractor 1/1\tchase\t$350+\nDeadpool\t2024 Topps Chrome Marvel\tSuperfractor 1/1\tchase\t$300+\nVenom\t2024 Topps Chrome Marvel\tSuperfractor 1/1\tchase\t$300+\nCaptain America\t2024 Topps Chrome Marvel\tGold Auto /5\tchase\t$250-$400\nThor\t2024 Topps Chrome Marvel\tGold Auto /5\tchase\t$200-$350\nBlack Panther\t2024 Topps Chrome Marvel\tGold Auto /5\tchase\t$200-$300\nDoctor Strange\t2024 Topps Chrome Marvel\tGold Auto /5\tchase\t$150-$300\nHulk\t2024 Topps Chrome Marvel\tGold Auto /5\tchase\t$150-$250\nSpider-Man\t2024 Marvel Mint\tMinted Metal Auto /10\tchase\t$200-$400\nWolverine\t2024 Marvel Mint\tMinted Metal Auto /10\tchase\t$200-$350\nMagneto\t2024 Marvel Mint\tMinted Metal Auto /10\tchase\t$150-$300\nStorm\t2024 Marvel Mint\tMinted Metal Auto /10\tchase\t$150-$250\nGambit\t2024 Marvel Mint\tMinted Metal Auto /10\tchase\t$150-$250\n",
+  "stderr": "",
+  "execution_time_ms": 371
+}
