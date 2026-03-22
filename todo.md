@@ -775,3 +775,9 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Show card details (name, tier, grade, value) after video finishes playing
 - [x] Test video reveal experience end-to-end
 - [x] Save checkpoint (video reveal)
+
+## Use Real Doctor Doom Card Image in Demo Reveal
+- [x] Upload Doom#56-Updated.webp to CDN
+- [x] Update DemoReveal to use the real Doctor Doom photo as the default card image after reveal
+- [x] Test the updated reveal experience
+- [x] Save checkpoint (Doctor Doom image)
