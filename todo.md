@@ -747,3 +747,14 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Fix column auto-detect to prevent double-assignment (Tier vs Value)
 - [x] Test upload with the NLF_100_Pack_Checklist spreadsheet (101 cards parsed correctly)
 - [x] Save checkpoint (Excel upload)
+
+## Move Admin Panel from /admin to /matrix
+- [x] Find all references to /admin in codebase (App.tsx, public.ts, robots.txt, MatrixPortal.tsx)
+- [x] Update App.tsx routes from /admin to /matrix/admin and /matrix/ebay-comps
+- [x] Move admin routes to standalone section (no nav/footer, under /matrix path)
+- [x] Update MatrixPortal redirect from /admin to /matrix/admin
+- [x] Update server notification URL from /admin to /matrix/admin
+- [x] Update robots.txt to disallow /matrix instead of /admin
+- [x] Restored slab pack files lost during checkpoint rebase
+- [x] Test /matrix route works correctly
+- [x] Save checkpoint (admin → matrix)

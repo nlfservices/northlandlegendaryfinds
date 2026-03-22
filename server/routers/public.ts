@@ -665,7 +665,7 @@ const publicCardShowRouter = router({
             input.website ? `- **Website:** ${input.website}` : "",
             input.description ? `\n**Description:** ${input.description}` : "",
             ``,
-            `Review at: https://northlandlegendaryfinds.com/admin`,
+            `Review at: https://northlandlegendaryfinds.com/matrix/admin`,
           ]
             .filter(Boolean)
             .join("\n"),

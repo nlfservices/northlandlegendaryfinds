@@ -10,6 +10,7 @@ import { matrixRouter } from "./routers/matrix";
 import { subscriberRouter } from "./routers/subscriber";
 import { articlePublicRouter, articleAdminRouter } from "./routers/articles";
 import { top5PublicRouter, top5AdminRouter } from "./routers/top5";
+import { slabPackAdminRouter, slabPackPublicRouter } from "./routers/slabPacks";
 
 export const appRouter = router({
   system: systemRouter,
@@ -53,6 +54,12 @@ export const appRouter = router({
 
   // Top 5 Buzz (admin)
   adminTop5: top5AdminRouter,
+
+  // Digital Slab Packs (admin)
+  adminSlabPacks: slabPackAdminRouter,
+
+  // Digital Slab Packs (public)
+  slabPacks: slabPackPublicRouter,
 });
 
 export type AppRouter = typeof appRouter;

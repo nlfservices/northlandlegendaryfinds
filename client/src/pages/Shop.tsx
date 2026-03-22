@@ -6,7 +6,8 @@
 import { useState } from "react";
 import { products, getProductLines } from "@/lib/products";
 import ProductCard from "@/components/ProductCard";
-import { Zap, Clock } from "lucide-react";
+import { Zap, Clock, Sparkles, Package, Eye } from "lucide-react";
+import { Link } from "wouter";
 import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 
 type Filter = "all" | "repacks" | "sealed" | "variant-series" | "snap-collection" | "multiverse-vault";
@@ -186,6 +187,56 @@ export default function Shop() {
                   </div>
                 </div>
               )}
+
+              {/* DIGITAL SLAB PACKS — COMING SOON */}
+              <div>
+                <div className="mb-6">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-purple-500/10 border border-purple-500/30 rounded-full">
+                      <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+                      <span className="text-purple-400 text-xs font-bold">COMING MAY 2026</span>
+                    </div>
+                  </div>
+                  <h2 className="text-3xl md:text-4xl font-bold" style={{ fontFamily: "'Anton', sans-serif" }}>
+                    <span className="text-purple-400">DIGITAL</span> SLAB PACKS
+                  </h2>
+                  <p className="text-muted-foreground text-sm mt-1">Rip graded slabs online with an immersive reveal experience</p>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {/* Teaser Card */}
+                  <div className="relative group overflow-hidden rounded-xl border border-purple-500/20 bg-gradient-to-br from-purple-950/40 via-zinc-900 to-indigo-950/40">
+                    <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-blue-500/5 group-hover:from-purple-500/10 group-hover:to-blue-500/10 transition-all duration-500" />
+                    <div className="relative p-6">
+                      <div className="flex items-center justify-center w-16 h-16 rounded-2xl bg-purple-500/10 border border-purple-500/20 mb-4">
+                        <Package className="w-8 h-8 text-purple-400" />
+                      </div>
+                      <h3 className="text-xl font-bold text-white mb-2">Digital Slab Packs</h3>
+                      <p className="text-sm text-zinc-400 mb-4">
+                        Buy a pack, rip it online, and watch your graded slab reveal with a cinematic 3D flip animation. Every card is a real, graded Marvel slab shipped to your door.
+                      </p>
+                      <div className="space-y-2 mb-6">
+                        <div className="flex items-center gap-2 text-xs text-zinc-400">
+                          <Eye className="w-3.5 h-3.5 text-purple-400" />
+                          <span>Immersive 3D card reveal experience</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-xs text-zinc-400">
+                          <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+                          <span>Grail, Chase & Lineup tiers with live checklist</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-xs text-zinc-400">
+                          <Package className="w-3.5 h-3.5 text-purple-400" />
+                          <span>Real graded slabs shipped to you</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <span className="px-4 py-2 rounded-lg bg-purple-500/20 text-purple-300 text-sm font-bold border border-purple-500/30 cursor-not-allowed">
+                          Coming May 2026
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           ) : (
             /* Filtered flat grid */

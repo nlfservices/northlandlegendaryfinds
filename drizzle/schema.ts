@@ -618,3 +618,75 @@ export const showSubmissions = mysqlTable("show_submissions", {
 });
 export type ShowSubmission = typeof showSubmissions.$inferSelect;
 export type InsertShowSubmission = typeof showSubmissions.$inferInsert;
+
+
+// ==================== DIGITAL SLAB PACKS ====================
+export const slabPacks = mysqlTable("slab_packs", {
+  id: int("id").autoincrement().primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(),
+  slug: varchar("slug", { length: 255 }).notNull().unique(),
+  description: text("description"),
+  imageUrl: text("imageUrl"),
+  priceCents: int("priceCents").notNull(), // price in cents
+  slabsPerPack: int("slabsPerPack").notNull().default(1),
+  totalPacks: int("totalPacks"),
+  packsSold: int("packsSold").notNull().default(0),
+  tier: mysqlEnum("tier", ["silver", "gold", "diamond", "infinity"]).notNull().default("silver"),
+  status: mysqlEnum("status", ["draft", "coming_soon", "active", "soldout", "archived"]).notNull().default("draft"),
+  launchDate: bigint("launchDate", { mode: "number" }),
+  sortOrder: int("sortOrder").notNull().default(0),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+export type SlabPack = typeof slabPacks.$inferSelect;
+export type InsertSlabPack = typeof slabPacks.$inferInsert;
+
+export const slabPackCards = mysqlTable("slab_pack_cards", {
+  id: int("id").autoincrement().primaryKey(),
+  slabPackId: int("slabPackId").notNull(),
+  cardName: varchar("cardName", { length: 255 }).notNull(),
+  cardSet: varchar("cardSet", { length: 255 }),
+  cardYear: varchar("cardYear", { length: 10 }),
+  cardNumber: varchar("cardNumber", { length: 50 }),
+  parallel: varchar("parallel", { length: 150 }),
+  serialNumber: varchar("serialNumber", { length: 50 }),
+  gradingCompany: varchar("gradingCompany", { length: 20 }),
+  grade: varchar("grade", { length: 30 }),
+  gradeNumeric: decimal("gradeNumeric", { precision: 3, scale: 1 }),
+  tier: mysqlEnum("tier", ["grail", "chase", "lineup"]).notNull().default("lineup"),
+  estimatedValueCents: int("estimatedValueCents"),
+  frontImageUrl: text("frontImageUrl"),
+  backImageUrl: text("backImageUrl"),
+  status: mysqlEnum("status", ["available", "claimed", "removed"]).notNull().default("available"),
+  pullMethod: mysqlEnum("pullMethod", ["digital", "in_person"]),
+  pulledBy: varchar("pulledBy", { length: 255 }),
+  orderId: int("orderId"),
+  pulledAt: timestamp("pulledAt"),
+});
+export type SlabPackCard = typeof slabPackCards.$inferSelect;
+export type InsertSlabPackCard = typeof slabPackCards.$inferInsert;
+
+// Slab pack orders (tracks purchases and reveals)
+export const slabPackOrders = mysqlTable("slab_pack_orders", {
+  id: int("id").autoincrement().primaryKey(),
+  packId: int("packId").notNull(),
+  userId: int("userId"),
+  orderStatus: mysqlEnum("order_status", ["pending", "paid", "revealed", "shipped"]).notNull().default("pending"),
+  stripePaymentIntentId: varchar("stripePaymentIntentId", { length: 255 }),
+  revealedAt: bigint("revealedAt", { mode: "number" }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+export type SlabPackOrder = typeof slabPackOrders.$inferSelect;
+export type InsertSlabPackOrder = typeof slabPackOrders.$inferInsert;
+
+// Links cards to orders (which cards were pulled in which order)
+export const slabPackOrderCards = mysqlTable("slab_pack_order_cards", {
+  id: int("id").autoincrement().primaryKey(),
+  orderId: int("orderId").notNull(),
+  cardId: int("cardId").notNull(),
+  revealOrder: int("revealOrder").notNull().default(1),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+export type SlabPackOrderCard = typeof slabPackOrderCards.$inferSelect;
+export type InsertSlabPackOrderCard = typeof slabPackOrderCards.$inferInsert;

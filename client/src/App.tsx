@@ -52,9 +52,12 @@ import MarketIntelToppsVsUpperDeck from "./pages/MarketIntelToppsVsUpperDeck";
 import MarketIntelMarvelVsPokemon from "./pages/MarketIntelMarvelVsPokemon";
 import MarketIntelFanatics from "./pages/MarketIntelFanatics";
 import MarketIntelBestCards from "./pages/MarketIntelBestCards";
+import SlabPackReveal from "./pages/SlabPackReveal";
+import SlabPackChecklist from "./pages/SlabPackChecklist";
+import DemoReveal from "./pages/DemoReveal";
 
 // Routes that render as full-screen standalone experiences (no nav/footer)
-const STANDALONE_ROUTES = ["/card-display", "/matrix"];
+const STANDALONE_ROUTES = ["/card-display", "/matrix", "/reveal", "/demo-reveal"];
 
 function AppRouter() {
   const [location] = useLocation();
@@ -65,7 +68,11 @@ function AppRouter() {
     return (
       <Switch>
         <Route path="/card-display" component={CardDisplay} />
+        <Route path="/matrix/admin" component={AdminDashboard} />
+        <Route path="/matrix/ebay-comps" component={EbayComps} />
         <Route path="/matrix" component={MatrixPortal} />
+        <Route path="/reveal/:orderId" component={SlabPackReveal} />
+        <Route path="/demo-reveal" component={DemoReveal} />
       </Switch>
     );
   }
@@ -95,6 +102,7 @@ function AppRouter() {
           <Route path="/starwars/:productId/checklist" component={StarWarsChecklist} />
           <Route path="/checklists" component={Checklists} />
           <Route path="/checklist/:slug" component={ChecklistDetail} />
+          <Route path="/slab-packs/:slug" component={SlabPackChecklist} />
           <Route path="/whatnot" component={Whatnot} />
           <Route path="/whatnot/checklist/:slug" component={WhatnotChecklist} />
           <Route path="/order-success" component={OrderSuccess} />
@@ -103,9 +111,6 @@ function AppRouter() {
           <Route path="/cards/:slug" component={CardDatabase} />
           <Route path="/characters" component={Characters} />
           <Route path="/characters/:slug" component={CharacterPage} />
-          <Route path="/matrix" component={MatrixPortal} />
-          <Route path="/admin" component={AdminDashboard} />
-          <Route path="/admin/ebay-comps" component={EbayComps} />
           <Route path="/transparency" component={Transparency} />
           <Route path="/mcu-intel" component={MCUIntel} />
           <Route path="/mcu-intel/:slug" component={MCUIntelArticle} />

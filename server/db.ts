@@ -13,6 +13,10 @@ import {
   articles, Article, InsertArticle,
   top5BuzzItems, Top5BuzzItem, InsertTop5BuzzItem,
   showSubmissions, ShowSubmission, InsertShowSubmission,
+  slabPacks, SlabPack, InsertSlabPack,
+  slabPackCards, SlabPackCard, InsertSlabPackCard,
+  slabPackOrders, SlabPackOrder, InsertSlabPackOrder,
+  slabPackOrderCards, SlabPackOrderCard, InsertSlabPackOrderCard,
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -1312,4 +1316,165 @@ export async function updateShowSubmissionStatus(
     .set({ status, ...(adminNotes !== undefined ? { adminNotes } : {}) })
     .where(eq(showSubmissions.id, id));
   return (result as any)[0]?.affectedRows > 0;
+}
+
+
+// ==================== SLAB PACKS ====================
+
+export async function getAllSlabPacks(): Promise<SlabPack[]> {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(slabPacks).orderBy(sql`${slabPacks.createdAt} DESC`);
+}
+
+export async function getSlabPackById(id: number): Promise<SlabPack | null> {
+  const db = await getDb();
+  if (!db) return null;
+  const rows = await db.select().from(slabPacks).where(eq(slabPacks.id, id)).limit(1);
+  return rows[0] ?? null;
+}
+
+export async function getSlabPackBySlug(slug: string): Promise<SlabPack | null> {
+  const db = await getDb();
+  if (!db) return null;
+  const rows = await db.select().from(slabPacks).where(eq(slabPacks.slug, slug)).limit(1);
+  return rows[0] ?? null;
+}
+
+export async function createSlabPack(data: InsertSlabPack): Promise<number | null> {
+  const db = await getDb();
+  if (!db) return null;
+  const [result] = await db.insert(slabPacks).values(data).$returningId();
+  return result?.id ?? null;
+}
+
+export async function updateSlabPack(id: number, data: Partial<InsertSlabPack>): Promise<boolean> {
+  const db = await getDb();
+  if (!db) return false;
+  const result = await db.update(slabPacks).set(data).where(eq(slabPacks.id, id));
+  return (result as any)[0]?.affectedRows > 0;
+}
+
+export async function deleteSlabPack(id: number): Promise<boolean> {
+  const db = await getDb();
+  if (!db) return false;
+  await db.delete(slabPackCards).where(eq(slabPackCards.slabPackId, id));
+  const result = await db.delete(slabPacks).where(eq(slabPacks.id, id));
+  return (result as any)[0]?.affectedRows > 0;
+}
+
+// ==================== SLAB PACK CARDS ====================
+
+export async function getSlabPackCards(packId: number): Promise<SlabPackCard[]> {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(slabPackCards).where(eq(slabPackCards.slabPackId, packId)).orderBy(sql`${slabPackCards.tier} ASC`);
+}
+
+export async function getSlabPackCardById(id: number): Promise<SlabPackCard | null> {
+  const db = await getDb();
+  if (!db) return null;
+  const rows = await db.select().from(slabPackCards).where(eq(slabPackCards.id, id)).limit(1);
+  return rows[0] ?? null;
+}
+
+export async function createSlabPackCard(data: InsertSlabPackCard): Promise<number | null> {
+  const db = await getDb();
+  if (!db) return null;
+  const [result] = await db.insert(slabPackCards).values(data).$returningId();
+  return result?.id ?? null;
+}
+
+export async function updateSlabPackCard(id: number, data: Partial<InsertSlabPackCard>): Promise<boolean> {
+  const db = await getDb();
+  if (!db) return false;
+  const result = await db.update(slabPackCards).set(data).where(eq(slabPackCards.id, id));
+  return (result as any)[0]?.affectedRows > 0;
+}
+
+export async function deleteSlabPackCard(id: number): Promise<boolean> {
+  const db = await getDb();
+  if (!db) return false;
+  const result = await db.delete(slabPackCards).where(eq(slabPackCards.id, id));
+  return (result as any)[0]?.affectedRows > 0;
+}
+
+export async function pullSlabPackCard(cardId: number, method: "digital" | "in_person", userId?: number): Promise<boolean> {
+  const db = await getDb();
+  if (!db) return false;
+  const result = await db.update(slabPackCards).set({
+    status: "claimed",
+    pulledAt: new Date(),
+    pulledBy: userId ? String(userId) : null,
+    pullMethod: method,
+  }).where(eq(slabPackCards.id, cardId));
+  return (result as any)[0]?.affectedRows > 0;
+}
+
+export async function getAvailableCardForPack(packId: number): Promise<SlabPackCard | null> {
+  const db = await getDb();
+  if (!db) return null;
+  // Weighted random: grail cards are rare, chase are uncommon, lineup are common
+  const available = await db.select().from(slabPackCards)
+    .where(sql`${slabPackCards.slabPackId} = ${packId} AND ${slabPackCards.status} = 'available'`);
+  if (available.length === 0) return null;
+
+  // Weight: grail=1, chase=5, lineup=20
+  const weighted: SlabPackCard[] = [];
+  for (const card of available) {
+    const weight = card.tier === "grail" ? 1 : card.tier === "chase" ? 5 : 20;
+    for (let i = 0; i < weight; i++) weighted.push(card);
+  }
+  return weighted[Math.floor(Math.random() * weighted.length)] ?? available[0];
+}
+
+// ==================== SLAB PACK ORDERS ====================
+
+export async function createSlabPackOrder(data: InsertSlabPackOrder): Promise<number | null> {
+  const db = await getDb();
+  if (!db) return null;
+  const [result] = await db.insert(slabPackOrders).values(data).$returningId();
+  return result?.id ?? null;
+}
+
+export async function getSlabPackOrderById(id: number): Promise<SlabPackOrder | null> {
+  const db = await getDb();
+  if (!db) return null;
+  const rows = await db.select().from(slabPackOrders).where(eq(slabPackOrders.id, id)).limit(1);
+  return rows[0] ?? null;
+}
+
+export async function updateSlabPackOrder(id: number, data: Partial<InsertSlabPackOrder>): Promise<boolean> {
+  const db = await getDb();
+  if (!db) return false;
+  const result = await db.update(slabPackOrders).set(data).where(eq(slabPackOrders.id, id));
+  return (result as any)[0]?.affectedRows > 0;
+}
+
+export async function getSlabPackOrderCards(orderId: number): Promise<(SlabPackOrderCard & { card: SlabPackCard })[]> {
+  const db = await getDb();
+  if (!db) return [];
+  const orderCards = await db.select().from(slabPackOrderCards)
+    .where(eq(slabPackOrderCards.orderId, orderId))
+    .orderBy(sql`${slabPackOrderCards.revealOrder} ASC`);
+  
+  const result: (SlabPackOrderCard & { card: SlabPackCard })[] = [];
+  for (const oc of orderCards) {
+    const card = await getSlabPackCardById(oc.cardId);
+    if (card) result.push({ ...oc, card });
+  }
+  return result;
+}
+
+export async function createSlabPackOrderCard(data: InsertSlabPackOrderCard): Promise<number | null> {
+  const db = await getDb();
+  if (!db) return null;
+  const [result] = await db.insert(slabPackOrderCards).values(data).$returningId();
+  return result?.id ?? null;
+}
+
+export async function getActiveSlabPacks(): Promise<SlabPack[]> {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(slabPacks).where(eq(slabPacks.status, "active")).orderBy(sql`${slabPacks.priceCents} ASC`);
 }
