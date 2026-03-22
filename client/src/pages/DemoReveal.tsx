@@ -26,7 +26,7 @@ const DEMO_CARDS = [
     serialNumber: "",
     frontImageUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/doom-56-updated_5fea1913.webp",
     backImageUrl: null,
-    estimatedValueCents: 50000,
+    estimatedValueCents: 350000,
   },
   {
     id: 2,
@@ -40,7 +40,7 @@ const DEMO_CARDS = [
     serialNumber: "",
     frontImageUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/doom-56-updated_5fea1913.webp",
     backImageUrl: null,
-    estimatedValueCents: 15000,
+    estimatedValueCents: 350000,
   },
   {
     id: 3,
@@ -54,7 +54,7 @@ const DEMO_CARDS = [
     serialNumber: "",
     frontImageUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/doom-56-updated_5fea1913.webp",
     backImageUrl: null,
-    estimatedValueCents: 5000,
+    estimatedValueCents: 350000,
   },
 ];
 
