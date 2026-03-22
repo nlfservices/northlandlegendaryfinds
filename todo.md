@@ -761,3 +761,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 
 ## Footer Update
 - [x] Add Digital Pack Reveal link under Legal section in footer
+
+## Footer: Move Digital Pack Reveal to Own Column + Real Slab Images
+- [x] Move Digital Pack Reveal from Legal section into its own footer column
+- [x] Find/generate real Marvel slab card images (Iron Man, Spider-Man, Wolverine)
+- [x] Upload images to CDN and update DemoReveal with real card photos
+- [x] Test demo reveal with real images
+- [x] Save checkpoint
