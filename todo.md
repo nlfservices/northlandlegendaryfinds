@@ -781,3 +781,6 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Update DemoReveal to use the real Doctor Doom photo as the default card image after reveal
 - [x] Test the updated reveal experience
 - [x] Save checkpoint (Doctor Doom image)
+
+## Update Demo Reveal Card Details to Doctor Doom
+- [x] Change all demo card names and details to Doctor Doom 2025 Topps Marvel Mint 1/1 Comic Cut
