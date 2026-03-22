@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "7c444947-ab4c-4813-9e03-8ac5093c97f4",
+  "id": "1dd65981-5176-4d09-840d-9e45f2c66896",
   "prevId": "66927ce2-ea4f-4ce8-af08-2c14a7c76c73",
   "tables": {
     "articles": {
@@ -2052,15 +2052,15 @@
           "notNull": true,
           "autoincrement": true
         },
-        "slabPackId": {
-          "name": "slabPackId",
+        "packId": {
+          "name": "packId",
           "type": "int",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
-        "cardName": {
-          "name": "cardName",
+        "characterName": {
+          "name": "characterName",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true,
@@ -2070,14 +2070,7 @@
           "name": "cardSet",
           "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "cardYear": {
-          "name": "cardYear",
-          "type": "varchar(10)",
-          "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "cardNumber": {
@@ -2087,51 +2080,52 @@
           "notNull": false,
           "autoincrement": false
         },
-        "parallel": {
-          "name": "parallel",
-          "type": "varchar(150)",
+        "year": {
+          "name": "year",
+          "type": "varchar(10)",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "serialNumber": {
-          "name": "serialNumber",
-          "type": "varchar(50)",
+        "parallel": {
+          "name": "parallel",
+          "type": "varchar(255)",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
         "gradingCompany": {
           "name": "gradingCompany",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "'BGS'"
+        },
+        "grade": {
+          "name": "grade",
           "type": "varchar(20)",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "grade": {
-          "name": "grade",
-          "type": "varchar(30)",
+        "serialNumber": {
+          "name": "serialNumber",
+          "type": "varchar(100)",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "gradeNumeric": {
-          "name": "gradeNumeric",
-          "type": "decimal(3,1)",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "tier": {
-          "name": "tier",
+        "rarity": {
+          "name": "rarity",
           "type": "enum('grail','chase','lineup')",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
           "default": "'lineup'"
         },
-        "estimatedValueCents": {
-          "name": "estimatedValueCents",
+        "estimatedValue": {
+          "name": "estimatedValue",
           "type": "int",
           "primaryKey": false,
           "notNull": false,
@@ -2151,13 +2145,27 @@
           "notNull": false,
           "autoincrement": false
         },
-        "status": {
-          "name": "status",
-          "type": "enum('available','claimed','removed')",
+        "slab_card_status": {
+          "name": "slab_card_status",
+          "type": "enum('available','reserved','pulled','removed')",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
           "default": "'available'"
+        },
+        "pulledAt": {
+          "name": "pulledAt",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "pulledByUserId": {
+          "name": "pulledByUserId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
         },
         "pullMethod": {
           "name": "pullMethod",
@@ -2165,35 +2173,6 @@
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
-        },
-        "pulledBy": {
-          "name": "pulledBy",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "orderId": {
-          "name": "orderId",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "pulledAt": {
-          "name": "pulledAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "sortOrder": {
-          "name": "sortOrder",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": 0
         },
         "createdAt": {
           "name": "createdAt",
@@ -2226,6 +2205,137 @@
       "uniqueConstraints": {},
       "checkConstraint": {}
     },
+    "slab_pack_order_cards": {
+      "name": "slab_pack_order_cards",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "orderId": {
+          "name": "orderId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "cardId": {
+          "name": "cardId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "revealOrder": {
+          "name": "revealOrder",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 1
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(now())"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "slab_pack_order_cards_id": {
+          "name": "slab_pack_order_cards_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "slab_pack_orders": {
+      "name": "slab_pack_orders",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "packId": {
+          "name": "packId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "userId": {
+          "name": "userId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "order_status": {
+          "name": "order_status",
+          "type": "enum('pending','paid','revealed','shipped')",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'pending'"
+        },
+        "stripePaymentIntentId": {
+          "name": "stripePaymentIntentId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "revealedAt": {
+          "name": "revealedAt",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(now())"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "onUpdate": true,
+          "default": "(now())"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "slab_pack_orders_id": {
+          "name": "slab_pack_orders_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
     "slab_packs": {
       "name": "slab_packs",
       "columns": {
@@ -2250,6 +2360,21 @@
           "notNull": true,
           "autoincrement": false
         },
+        "tier": {
+          "name": "tier",
+          "type": "enum('silver','gold','diamond','infinity')",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'silver'"
+        },
+        "price": {
+          "name": "price",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
         "description": {
           "name": "description",
           "type": "text",
@@ -2264,15 +2389,8 @@
           "notNull": false,
           "autoincrement": false
         },
-        "priceCents": {
-          "name": "priceCents",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "slabsPerPack": {
-          "name": "slabsPerPack",
+        "cardsPerPack": {
+          "name": "cardsPerPack",
           "type": "int",
           "primaryKey": false,
           "notNull": true,
@@ -2283,28 +2401,21 @@
           "name": "totalPacks",
           "type": "int",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": true,
+          "autoincrement": false,
+          "default": 100
         },
-        "packsSold": {
-          "name": "packsSold",
+        "soldCount": {
+          "name": "soldCount",
           "type": "int",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
           "default": 0
         },
-        "tier": {
-          "name": "tier",
-          "type": "enum('silver','gold','diamond','infinity')",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": "'silver'"
-        },
         "status": {
           "name": "status",
-          "type": "enum('draft','coming_soon','active','soldout','archived')",
+          "type": "enum('draft','active','sold_out','archived')",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
@@ -2316,14 +2427,6 @@
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
-        },
-        "sortOrder": {
-          "name": "sortOrder",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": 0
         },
         "createdAt": {
           "name": "createdAt",
@@ -2353,14 +2456,7 @@
           ]
         }
       },
-      "uniqueConstraints": {
-        "slab_packs_slug_unique": {
-          "name": "slab_packs_slug_unique",
-          "columns": [
-            "slug"
-          ]
-        }
-      },
+      "uniqueConstraints": {},
       "checkConstraint": {}
     },
     "top5_buzz_items": {

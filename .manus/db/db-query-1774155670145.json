@@ -1,0 +1,22 @@
+{
+  "query": "SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME LIKE 'slab_pack%';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME LIKE 'slab_pack%';",
+  "rows": [
+    {
+      "TABLE_NAME": "slab_packs"
+    },
+    {
+      "TABLE_NAME": "slab_pack_cards"
+    },
+    {
+      "TABLE_NAME": "slab_pack_orders"
+    },
+    {
+      "TABLE_NAME": "slab_pack_order_cards"
+    }
+  ],
+  "messages": [],
+  "stdout": "TABLE_NAME\nslab_packs\nslab_pack_cards\nslab_pack_orders\nslab_pack_order_cards\n",
+  "stderr": "",
+  "execution_time_ms": 461
+}

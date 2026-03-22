@@ -738,15 +738,16 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Run integrity check before checkpoint (81/81 passed)
 - [x] Save checkpoint
 
-## Digital Slab Pack System (Arena Club-style) — Coming May 2026
-- [x] Add slabPacks table to schema (pack types with tiers, pricing, images, status)
-- [x] Add slabPackCards table to schema (cards assigned to slab packs with rarity tiers)
-- [x] Run pnpm db:push to migrate new tables (migration 0014_youthful_naoko.sql)
-- [x] Add db helpers for slab pack CRUD operations
-- [x] Add admin router for slab pack management
-- [x] Add public router for slab pack checklists
-- [x] Add admin Slab Packs tab to AdminDashboard.tsx (manage pack types, assign cards, quick pull)
-- [x] Add public slab pack checklist page (/slab-packs/:slug)
-- [x] Add "Digital Slab Pack" Coming Soon card to /shop page
-- [x] Run integrity check before checkpoint (81/81 passed)
-- [ ] Save checkpoint
+## Digital Slab Pack — Test Pack & Reveal Experience
+- [x] Create test slab pack with sample cards via admin API/seed
+- [x] Build reveal page component (/reveal/:orderId) with immersive cosmic vortex background
+- [x] Implement 3D card flip animation (back → front with perspective tilt)
+- [x] Add rarity-based visual effects (different glow colors for Grail/Chase/Lineup)
+- [x] Add "Are You Ready?" suspense screen before reveal
+- [x] Add card detail display after flip (character, set, grade, serial)
+- [x] Add "Next" button for multi-card packs and "Share Reveal" social button
+- [x] Wire reveal page route in App.tsx
+- [x] Add reveal demo/preview accessible from admin for testing
+- [x] Test full flow end-to-end
+- [x] Run integrity check before checkpoint
+- [x] Save checkpoint

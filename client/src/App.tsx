@@ -52,10 +52,11 @@ import MarketIntelToppsVsUpperDeck from "./pages/MarketIntelToppsVsUpperDeck";
 import MarketIntelMarvelVsPokemon from "./pages/MarketIntelMarvelVsPokemon";
 import MarketIntelFanatics from "./pages/MarketIntelFanatics";
 import MarketIntelBestCards from "./pages/MarketIntelBestCards";
+import SlabPackReveal from "./pages/SlabPackReveal";
 import SlabPackChecklist from "./pages/SlabPackChecklist";
 
 // Routes that render as full-screen standalone experiences (no nav/footer)
-const STANDALONE_ROUTES = ["/card-display", "/matrix"];
+const STANDALONE_ROUTES = ["/card-display", "/matrix", "/reveal"];
 
 function AppRouter() {
   const [location] = useLocation();
@@ -67,6 +68,7 @@ function AppRouter() {
       <Switch>
         <Route path="/card-display" component={CardDisplay} />
         <Route path="/matrix" component={MatrixPortal} />
+        <Route path="/reveal/:orderId" component={SlabPackReveal} />
       </Switch>
     );
   }
@@ -96,6 +98,7 @@ function AppRouter() {
           <Route path="/starwars/:productId/checklist" component={StarWarsChecklist} />
           <Route path="/checklists" component={Checklists} />
           <Route path="/checklist/:slug" component={ChecklistDetail} />
+          <Route path="/slab-packs/:slug" component={SlabPackChecklist} />
           <Route path="/whatnot" component={Whatnot} />
           <Route path="/whatnot/checklist/:slug" component={WhatnotChecklist} />
           <Route path="/order-success" component={OrderSuccess} />
@@ -119,7 +122,6 @@ function AppRouter() {
           <Route path="/market-intel/marvel-vs-pokemon-cards" component={MarketIntelMarvelVsPokemon} />
           <Route path="/market-intel/why-fanatics-trading-cards" component={MarketIntelFanatics} />
           <Route path="/market-intel/best-topps-marvel-cards" component={MarketIntelBestCards} />
-          <Route path="/slab-packs/:slug" component={SlabPackChecklist} />
           <Route path="/login" component={JarvisProtocol} />
           <Route path="/404" component={NotFound} />
           <Route component={NotFound} />

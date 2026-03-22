@@ -1475,7 +1475,7 @@ export default function AdminDashboard() {
               <BarChart3 className="w-4 h-4" /> eBay Comps
             </TabsTrigger>
             <TabsTrigger value="slab-packs" className="flex items-center gap-2">
-              <Zap className="w-4 h-4" /> Slab Packs
+              <Package className="w-4 h-4" /> Slab Packs
             </TabsTrigger>
           </TabsList>
 

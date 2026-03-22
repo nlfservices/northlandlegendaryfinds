@@ -1,214 +1,236 @@
 import { z } from "zod";
-import { adminProcedure, publicProcedure, router } from "../_core/trpc";
+import { router, publicProcedure, protectedProcedure } from "../_core/trpc";
+import { TRPCError } from "@trpc/server";
 import {
   getAllSlabPacks, getSlabPackById, getSlabPackBySlug, createSlabPack, updateSlabPack, deleteSlabPack,
-  getSlabPackCards, getSlabPackCardById, createSlabPackCard, updateSlabPackCard, deleteSlabPackCard,
-  bulkCreateSlabPackCards, pullSlabPackCard, removeSlabPackCard, getSlabPackStats, getSlabPackChecklist,
+  getSlabPackCards, createSlabPackCard, updateSlabPackCard, deleteSlabPackCard, pullSlabPackCard,
+  getAvailableCardForPack, createSlabPackOrder, getSlabPackOrderById, updateSlabPackOrder,
+  getSlabPackOrderCards, createSlabPackOrderCard, getActiveSlabPacks,
 } from "../db";
 import { storagePut } from "../storage";
 
-// ==================== ADMIN SLAB PACK ROUTES ====================
-
-const slabPackInput = z.object({
-  name: z.string().min(1),
-  slug: z.string().min(1),
-  description: z.string().optional(),
-  imageUrl: z.string().optional(),
-  priceCents: z.number().min(50), // minimum $0.50
-  slabsPerPack: z.number().min(1).default(1),
-  totalPacks: z.number().optional(),
-  tier: z.enum(["silver", "gold", "diamond", "infinity"]).default("silver"),
-  status: z.enum(["draft", "coming_soon", "active", "soldout", "archived"]).default("draft"),
-  launchDate: z.number().optional(),
-  sortOrder: z.number().default(0),
-});
-
-const slabPackCardInput = z.object({
-  slabPackId: z.number(),
-  cardName: z.string().min(1),
-  cardSet: z.string().optional(),
-  cardYear: z.string().optional(),
-  cardNumber: z.string().optional(),
-  parallel: z.string().optional(),
-  serialNumber: z.string().optional(),
-  gradingCompany: z.string().optional(),
-  grade: z.string().optional(),
-  gradeNumeric: z.string().optional(),
-  tier: z.enum(["grail", "chase", "lineup"]).default("lineup"),
-  estimatedValueCents: z.number().optional(),
-  frontImageUrl: z.string().optional(),
-  backImageUrl: z.string().optional(),
-  sortOrder: z.number().default(0),
-});
-
+// ==================== ADMIN ROUTER ====================
 export const slabPackAdminRouter = router({
-  // ---- Pack Type Management ----
-  packs: router({
-    list: adminProcedure.query(async () => {
-      return getAllSlabPacks();
-    }),
-
-    getById: adminProcedure.input(z.object({ id: z.number() })).query(async ({ input }) => {
-      return getSlabPackById(input.id);
-    }),
-
-    create: adminProcedure.input(slabPackInput).mutation(async ({ input }) => {
-      const id = await createSlabPack({
-        ...input,
-        description: input.description ?? null,
-        imageUrl: input.imageUrl ?? null,
-        totalPacks: input.totalPacks ?? null,
-        launchDate: input.launchDate ?? null,
-      });
-      return { success: true, id };
-    }),
-
-    update: adminProcedure.input(z.object({ id: z.number() }).merge(slabPackInput.partial())).mutation(async ({ input }) => {
-      const { id, ...data } = input;
-      await updateSlabPack(id, data as any);
-      return { success: true };
-    }),
-
-    delete: adminProcedure.input(z.object({ id: z.number() })).mutation(async ({ input }) => {
-      await deleteSlabPack(input.id);
-      return { success: true };
-    }),
-
-    stats: adminProcedure.input(z.object({ id: z.number() })).query(async ({ input }) => {
-      return getSlabPackStats(input.id);
-    }),
+  list: protectedProcedure.query(async ({ ctx }) => {
+    if (ctx.user?.role !== "admin") throw new TRPCError({ code: "FORBIDDEN" });
+    return getAllSlabPacks();
   }),
 
-  // ---- Card Management ----
-  cards: router({
-    list: adminProcedure.input(z.object({ slabPackId: z.number() })).query(async ({ input }) => {
-      return getSlabPackCards(input.slabPackId);
-    }),
+  get: protectedProcedure.input(z.object({ id: z.number() })).query(async ({ ctx, input }) => {
+    if (ctx.user?.role !== "admin") throw new TRPCError({ code: "FORBIDDEN" });
+    const pack = await getSlabPackById(input.id);
+    if (!pack) throw new TRPCError({ code: "NOT_FOUND" });
+    const cards = await getSlabPackCards(input.id);
+    return { pack, cards };
+  }),
 
-    getById: adminProcedure.input(z.object({ id: z.number() })).query(async ({ input }) => {
-      return getSlabPackCardById(input.id);
-    }),
+  create: protectedProcedure.input(z.object({
+    name: z.string().min(1),
+    slug: z.string().min(1),
+    tier: z.enum(["silver", "gold", "diamond", "infinity"]),
+    priceCents: z.number().min(0),
+    description: z.string().optional(),
+    slabsPerPack: z.number().min(1).default(1),
+    totalPacks: z.number().min(1).optional(),
+    status: z.enum(["draft", "coming_soon", "active", "soldout", "archived"]).default("draft"),
+    launchDate: z.number().optional(),
+  })).mutation(async ({ ctx, input }) => {
+    if (ctx.user?.role !== "admin") throw new TRPCError({ code: "FORBIDDEN" });
+    const id = await createSlabPack(input);
+    return { id };
+  }),
 
-    create: adminProcedure.input(slabPackCardInput).mutation(async ({ input }) => {
-      const id = await createSlabPackCard({
-        ...input,
-        cardSet: input.cardSet ?? null,
-        cardYear: input.cardYear ?? null,
-        cardNumber: input.cardNumber ?? null,
-        parallel: input.parallel ?? null,
-        serialNumber: input.serialNumber ?? null,
-        gradingCompany: input.gradingCompany ?? null,
-        grade: input.grade ?? null,
-        gradeNumeric: input.gradeNumeric ?? null,
-        estimatedValueCents: input.estimatedValueCents ?? null,
-        frontImageUrl: input.frontImageUrl ?? null,
-        backImageUrl: input.backImageUrl ?? null,
-      });
-      return { success: true, id };
-    }),
+  update: protectedProcedure.input(z.object({
+    id: z.number(),
+    name: z.string().optional(),
+    slug: z.string().optional(),
+    tier: z.enum(["silver", "gold", "diamond", "infinity"]).optional(),
+    priceCents: z.number().optional(),
+    description: z.string().optional(),
+    imageUrl: z.string().optional(),
+    slabsPerPack: z.number().optional(),
+    totalPacks: z.number().nullable().optional(),
+    status: z.enum(["draft", "coming_soon", "active", "soldout", "archived"]).optional(),
+    launchDate: z.number().nullable().optional(),
+    sortOrder: z.number().optional(),
+  })).mutation(async ({ ctx, input }) => {
+    if (ctx.user?.role !== "admin") throw new TRPCError({ code: "FORBIDDEN" });
+    const { id, ...data } = input;
+    return updateSlabPack(id, data);
+  }),
 
-    update: adminProcedure.input(z.object({ id: z.number() }).merge(slabPackCardInput.partial())).mutation(async ({ input }) => {
-      const { id, ...data } = input;
-      await updateSlabPackCard(id, data as any);
-      return { success: true };
-    }),
+  delete: protectedProcedure.input(z.object({ id: z.number() })).mutation(async ({ ctx, input }) => {
+    if (ctx.user?.role !== "admin") throw new TRPCError({ code: "FORBIDDEN" });
+    return deleteSlabPack(input.id);
+  }),
 
-    delete: adminProcedure.input(z.object({ id: z.number() })).mutation(async ({ input }) => {
-      await deleteSlabPackCard(input.id);
-      return { success: true };
-    }),
+  uploadImage: protectedProcedure.input(z.object({
+    packId: z.number(),
+    base64: z.string(),
+    filename: z.string(),
+    contentType: z.string(),
+  })).mutation(async ({ ctx, input }) => {
+    if (ctx.user?.role !== "admin") throw new TRPCError({ code: "FORBIDDEN" });
+    const buffer = Buffer.from(input.base64, "base64");
+    const suffix = Math.random().toString(36).slice(2, 10);
+    const key = `slab-packs/${input.packId}/pack-${suffix}-${input.filename}`;
+    const { url } = await storagePut(key, buffer, input.contentType);
+    await updateSlabPack(input.packId, { imageUrl: url });
+    return { url };
+  }),
 
-    /** Quick Pull — mark a card as claimed (digital or in-person) */
-    pull: adminProcedure.input(z.object({
-      cardId: z.number(),
-      method: z.enum(["digital", "in_person"]),
-      pulledBy: z.string().optional(),
-    })).mutation(async ({ input }) => {
-      const success = await pullSlabPackCard(input.cardId, input.method, input.pulledBy);
-      if (!success) {
-        throw new Error("Card not available for pull (may already be claimed)");
-      }
-      return { success: true };
-    }),
+  addCard: protectedProcedure.input(z.object({
+    slabPackId: z.number(),
+    cardName: z.string().min(1),
+    cardSet: z.string().optional(),
+    cardYear: z.string().optional(),
+    cardNumber: z.string().optional(),
+    parallel: z.string().optional(),
+    gradingCompany: z.string().optional(),
+    grade: z.string().optional(),
+    gradeNumeric: z.string().optional(), // decimal as string
+    serialNumber: z.string().optional(),
+    tier: z.enum(["grail", "chase", "lineup"]).default("lineup"),
+    estimatedValueCents: z.number().optional(),
+  })).mutation(async ({ ctx, input }) => {
+    if (ctx.user?.role !== "admin") throw new TRPCError({ code: "FORBIDDEN" });
+    const id = await createSlabPackCard(input);
+    return { id };
+  }),
 
-    /** Remove card from pool (admin removes from inventory) */
-    remove: adminProcedure.input(z.object({ cardId: z.number() })).mutation(async ({ input }) => {
-      await removeSlabPackCard(input.cardId);
-      return { success: true };
-    }),
+  updateCard: protectedProcedure.input(z.object({
+    id: z.number(),
+    cardName: z.string().optional(),
+    cardSet: z.string().optional(),
+    cardYear: z.string().optional(),
+    cardNumber: z.string().optional(),
+    parallel: z.string().optional(),
+    gradingCompany: z.string().optional(),
+    grade: z.string().optional(),
+    gradeNumeric: z.string().optional(),
+    serialNumber: z.string().optional(),
+    tier: z.enum(["grail", "chase", "lineup"]).optional(),
+    estimatedValueCents: z.number().optional(),
+    status: z.enum(["available", "claimed", "removed"]).optional(),
+  })).mutation(async ({ ctx, input }) => {
+    if (ctx.user?.role !== "admin") throw new TRPCError({ code: "FORBIDDEN" });
+    const { id, ...data } = input;
+    return updateSlabPackCard(id, data);
+  }),
 
-    /** Bulk create cards from CSV/form data */
-    bulkCreate: adminProcedure.input(z.object({
-      cards: z.array(slabPackCardInput),
-    })).mutation(async ({ input }) => {
-      const cardsData = input.cards.map(c => ({
-        ...c,
-        cardSet: c.cardSet ?? null,
-        cardYear: c.cardYear ?? null,
-        cardNumber: c.cardNumber ?? null,
-        parallel: c.parallel ?? null,
-        serialNumber: c.serialNumber ?? null,
-        gradingCompany: c.gradingCompany ?? null,
-        grade: c.grade ?? null,
-        gradeNumeric: c.gradeNumeric ?? null,
-        estimatedValueCents: c.estimatedValueCents ?? null,
-        frontImageUrl: c.frontImageUrl ?? null,
-        backImageUrl: c.backImageUrl ?? null,
-      }));
-      await bulkCreateSlabPackCards(cardsData);
-      return { success: true, count: cardsData.length };
-    }),
+  deleteCard: protectedProcedure.input(z.object({ id: z.number() })).mutation(async ({ ctx, input }) => {
+    if (ctx.user?.role !== "admin") throw new TRPCError({ code: "FORBIDDEN" });
+    return deleteSlabPackCard(input.id);
+  }),
 
-    /** Upload card image (front or back) */
-    uploadImage: adminProcedure.input(z.object({
-      cardId: z.number(),
-      side: z.enum(["front", "back"]),
-      base64: z.string(),
-      mimeType: z.string().default("image/jpeg"),
-    })).mutation(async ({ input }) => {
-      const buffer = Buffer.from(input.base64, "base64");
-      const ext = input.mimeType.includes("png") ? "png" : input.mimeType.includes("webp") ? "webp" : "jpg";
-      const suffix = Math.random().toString(36).substring(2, 8);
-      const key = `slab-packs/cards/${input.cardId}-${input.side}-${suffix}.${ext}`;
-      const { url } = await storagePut(key, buffer, input.mimeType);
-      
-      const updateData = input.side === "front" 
-        ? { frontImageUrl: url } 
-        : { backImageUrl: url };
-      await updateSlabPackCard(input.cardId, updateData);
-      
-      return { success: true, url };
-    }),
+  uploadCardImage: protectedProcedure.input(z.object({
+    cardId: z.number(),
+    side: z.enum(["front", "back"]),
+    base64: z.string(),
+    filename: z.string(),
+    contentType: z.string(),
+  })).mutation(async ({ ctx, input }) => {
+    if (ctx.user?.role !== "admin") throw new TRPCError({ code: "FORBIDDEN" });
+    const buffer = Buffer.from(input.base64, "base64");
+    const suffix = Math.random().toString(36).slice(2, 10);
+    const key = `slab-packs/cards/${input.cardId}/${input.side}-${suffix}-${input.filename}`;
+    const { url } = await storagePut(key, buffer, input.contentType);
+    if (input.side === "front") {
+      await updateSlabPackCard(input.cardId, { frontImageUrl: url });
+    } else {
+      await updateSlabPackCard(input.cardId, { backImageUrl: url });
+    }
+    return { url };
+  }),
+
+  quickPull: protectedProcedure.input(z.object({
+    cardId: z.number(),
+  })).mutation(async ({ ctx, input }) => {
+    if (ctx.user?.role !== "admin") throw new TRPCError({ code: "FORBIDDEN" });
+    return pullSlabPackCard(input.cardId, "in_person");
   }),
 });
 
-// ==================== PUBLIC SLAB PACK ROUTES ====================
-
+// ==================== PUBLIC ROUTER ====================
 export const slabPackPublicRouter = router({
-  /** List all visible slab packs (coming_soon + active + soldout) */
-  list: publicProcedure.query(async () => {
-    const packs = await getAllSlabPacks();
-    return packs.filter(p => ["coming_soon", "active", "soldout"].includes(p.status));
+  activePacks: publicProcedure.query(async () => {
+    return getActiveSlabPacks();
   }),
 
-  /** Get a single slab pack by slug */
-  getBySlug: publicProcedure.input(z.object({ slug: z.string() })).query(async ({ input }) => {
-    return getSlabPackBySlug(input.slug);
-  }),
-
-  /** Get the public checklist for a slab pack */
-  checklist: publicProcedure.input(z.object({ slabPackId: z.number() })).query(async ({ input }) => {
-    return getSlabPackChecklist(input.slabPackId);
-  }),
-
-  /** Get stats for a slab pack (public-safe: total, available, claimed) */
-  stats: publicProcedure.input(z.object({ slabPackId: z.number() })).query(async ({ input }) => {
-    const stats = await getSlabPackStats(input.slabPackId);
+  checklist: publicProcedure.input(z.object({ slug: z.string() })).query(async ({ input }) => {
+    const pack = await getSlabPackBySlug(input.slug);
+    if (!pack) throw new TRPCError({ code: "NOT_FOUND" });
+    const cards = await getSlabPackCards(pack.id);
     return {
-      total: stats.total,
-      available: stats.available,
-      claimed: stats.claimed,
-      byTier: stats.byTier,
+      pack,
+      cards: cards.map(c => ({
+        ...c,
+        // Only show images for claimed cards (revealed)
+        frontImageUrl: c.status === "claimed" ? c.frontImageUrl : null,
+        backImageUrl: c.status === "claimed" ? c.backImageUrl : null,
+      })),
+      stats: {
+        total: cards.length,
+        available: cards.filter(c => c.status === "available").length,
+        claimed: cards.filter(c => c.status === "claimed").length,
+        grails: cards.filter(c => c.tier === "grail").length,
+        chases: cards.filter(c => c.tier === "chase").length,
+        lineups: cards.filter(c => c.tier === "lineup").length,
+      },
     };
+  }),
+
+  getReveal: publicProcedure.input(z.object({ orderId: z.number() })).query(async ({ input }) => {
+    const order = await getSlabPackOrderById(input.orderId);
+    if (!order) throw new TRPCError({ code: "NOT_FOUND" });
+    const pack = await getSlabPackById(order.packId);
+    const orderCards = await getSlabPackOrderCards(input.orderId);
+    return { order, pack, cards: orderCards };
+  }),
+
+  testReveal: protectedProcedure.input(z.object({ packId: z.number() })).mutation(async ({ ctx, input }) => {
+    if (ctx.user?.role !== "admin") throw new TRPCError({ code: "FORBIDDEN" });
+    const pack = await getSlabPackById(input.packId);
+    if (!pack) throw new TRPCError({ code: "NOT_FOUND" });
+
+    const cards: number[] = [];
+    for (let i = 0; i < pack.slabsPerPack; i++) {
+      const card = await getAvailableCardForPack(input.packId);
+      if (card && !cards.includes(card.id)) {
+        cards.push(card.id);
+      }
+    }
+
+    if (cards.length === 0) throw new TRPCError({ code: "BAD_REQUEST", message: "No available cards in this pack" });
+
+    const orderId = await createSlabPackOrder({
+      packId: input.packId,
+      userId: ctx.user.id,
+      orderStatus: "paid",
+    });
+
+    if (!orderId) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
+
+    for (let i = 0; i < cards.length; i++) {
+      await createSlabPackOrderCard({
+        orderId,
+        cardId: cards[i],
+        revealOrder: i + 1,
+      });
+    }
+
+    return { orderId };
+  }),
+
+  markRevealed: publicProcedure.input(z.object({
+    orderId: z.number(),
+    cardId: z.number(),
+  })).mutation(async ({ input }) => {
+    await pullSlabPackCard(input.cardId, "digital");
+    await updateSlabPackOrder(input.orderId, {
+      orderStatus: "revealed",
+      revealedAt: Date.now(),
+    });
+    return { success: true };
   }),
 });

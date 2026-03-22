@@ -620,95 +620,73 @@ export type ShowSubmission = typeof showSubmissions.$inferSelect;
 export type InsertShowSubmission = typeof showSubmissions.$inferInsert;
 
 
-// ==================== DIGITAL SLAB PACKS (Arena Club-style) ====================
-
-/**
- * Slab Pack Types — each row is a purchasable pack type (e.g., "Silver Super Slab Pack")
- * Customers buy a pack type and receive a random card from its pool
- */
+// ==================== DIGITAL SLAB PACKS ====================
 export const slabPacks = mysqlTable("slab_packs", {
   id: int("id").autoincrement().primaryKey(),
-  /** Pack name (e.g., "Silver Super Slab Pack") */
   name: varchar("name", { length: 255 }).notNull(),
-  /** URL-friendly slug */
   slug: varchar("slug", { length: 255 }).notNull().unique(),
-  /** Pack description */
   description: text("description"),
-  /** Pack image/artwork URL */
   imageUrl: text("imageUrl"),
-  /** Price in cents */
-  priceCents: int("priceCents").notNull(),
-  /** Number of slabs per pack (Arena Club gives 1 slab per pack) */
+  priceCents: int("priceCents").notNull(), // price in cents
   slabsPerPack: int("slabsPerPack").notNull().default(1),
-  /** Total packs available (null = unlimited until cards run out) */
   totalPacks: int("totalPacks"),
-  /** Packs sold so far */
   packsSold: int("packsSold").notNull().default(0),
-  /** Pack tier for visual styling (silver, gold, diamond, infinity) */
   tier: mysqlEnum("tier", ["silver", "gold", "diamond", "infinity"]).notNull().default("silver"),
-  /** Whether this pack is available for purchase */
   status: mysqlEnum("status", ["draft", "coming_soon", "active", "soldout", "archived"]).notNull().default("draft"),
-  /** Launch date (UTC timestamp in ms) — when the pack becomes purchasable */
   launchDate: bigint("launchDate", { mode: "number" }),
-  /** Sort order for display */
   sortOrder: int("sortOrder").notNull().default(0),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
-
 export type SlabPack = typeof slabPacks.$inferSelect;
 export type InsertSlabPack = typeof slabPacks.$inferInsert;
 
-/**
- * Slab Pack Cards — individual graded cards assigned to a slab pack's pool
- * Each card is a real physical slab that can be pulled once
- * When pulled, status changes to "claimed" and links to the order
- */
 export const slabPackCards = mysqlTable("slab_pack_cards", {
   id: int("id").autoincrement().primaryKey(),
-  /** Which slab pack this card belongs to */
   slabPackId: int("slabPackId").notNull(),
-  /** Character/Player name */
   cardName: varchar("cardName", { length: 255 }).notNull(),
-  /** Card set name (e.g., "2022-23 Upper Deck Marvel Annual") */
   cardSet: varchar("cardSet", { length: 255 }),
-  /** Card year */
   cardYear: varchar("cardYear", { length: 10 }),
-  /** Card number in the set */
   cardNumber: varchar("cardNumber", { length: 50 }),
-  /** Parallel/variant (e.g., "Hologram", "Base", "Refractor") */
   parallel: varchar("parallel", { length: 150 }),
-  /** Serial number if numbered (e.g., "5/23") */
   serialNumber: varchar("serialNumber", { length: 50 }),
-  /** Grading company (BGS, PSA, CGC, SGC, AGS) */
   gradingCompany: varchar("gradingCompany", { length: 20 }),
-  /** Grade value (e.g., "8.5", "10", "GEM MINT 10") */
   grade: varchar("grade", { length: 30 }),
-  /** Numeric grade for sorting (e.g., 8.5, 9.0, 10.0) */
   gradeNumeric: decimal("gradeNumeric", { precision: 3, scale: 1 }),
-  /** Rarity tier for checklist display and hit rates */
   tier: mysqlEnum("tier", ["grail", "chase", "lineup"]).notNull().default("lineup"),
-  /** Estimated market value in cents */
   estimatedValueCents: int("estimatedValueCents"),
-  /** Front image URL of the slab */
   frontImageUrl: text("frontImageUrl"),
-  /** Back image URL of the slab */
   backImageUrl: text("backImageUrl"),
-  /** Card status: available = can be pulled, claimed = already pulled, removed = taken out of pool */
   status: mysqlEnum("status", ["available", "claimed", "removed"]).notNull().default("available"),
-  /** How the card was pulled (null = not pulled yet) */
   pullMethod: mysqlEnum("pullMethod", ["digital", "in_person"]),
-  /** Who pulled this card (customer name or "In-Person") */
   pulledBy: varchar("pulledBy", { length: 255 }),
-  /** Order ID if pulled via digital purchase */
   orderId: int("orderId"),
-  /** When the card was pulled */
   pulledAt: timestamp("pulledAt"),
-  /** Sort order within tier */
-  sortOrder: int("sortOrder").notNull().default(0),
+});
+export type SlabPackCard = typeof slabPackCards.$inferSelect;
+export type InsertSlabPackCard = typeof slabPackCards.$inferInsert;
+
+// Slab pack orders (tracks purchases and reveals)
+export const slabPackOrders = mysqlTable("slab_pack_orders", {
+  id: int("id").autoincrement().primaryKey(),
+  packId: int("packId").notNull(),
+  userId: int("userId"),
+  orderStatus: mysqlEnum("order_status", ["pending", "paid", "revealed", "shipped"]).notNull().default("pending"),
+  stripePaymentIntentId: varchar("stripePaymentIntentId", { length: 255 }),
+  revealedAt: bigint("revealedAt", { mode: "number" }),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
+export type SlabPackOrder = typeof slabPackOrders.$inferSelect;
+export type InsertSlabPackOrder = typeof slabPackOrders.$inferInsert;
 
-export type SlabPackCard = typeof slabPackCards.$inferSelect;
-export type InsertSlabPackCard = typeof slabPackCards.$inferInsert;
+// Links cards to orders (which cards were pulled in which order)
+export const slabPackOrderCards = mysqlTable("slab_pack_order_cards", {
+  id: int("id").autoincrement().primaryKey(),
+  orderId: int("orderId").notNull(),
+  cardId: int("cardId").notNull(),
+  revealOrder: int("revealOrder").notNull().default(1),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+export type SlabPackOrderCard = typeof slabPackOrderCards.$inferSelect;
+export type InsertSlabPackOrderCard = typeof slabPackOrderCards.$inferInsert;

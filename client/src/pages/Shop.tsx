@@ -6,98 +6,11 @@
 import { useState } from "react";
 import { products, getProductLines } from "@/lib/products";
 import ProductCard from "@/components/ProductCard";
-import { Zap, Clock, Sparkles, Shield } from "lucide-react";
+import { Zap, Clock, Sparkles, Package, Eye } from "lucide-react";
 import { Link } from "wouter";
-import { trpc } from "@/lib/trpc";
 import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 
 type Filter = "all" | "repacks" | "sealed" | "variant-series" | "snap-collection" | "multiverse-vault";
-
-function DigitalSlabPackSection() {
-  const { data: packs } = trpc.slabPacks.list.useQuery();
-
-  // Show section even if no packs exist yet — acts as a teaser
-  return (
-    <div>
-      <div className="mb-6">
-        <div className="flex items-center gap-3 mb-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-500/10 border border-emerald-500/30 rounded-full">
-            <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
-            <span className="text-emerald-400 text-xs font-bold">COMING MAY 2026</span>
-          </div>
-        </div>
-        <h2 className="text-3xl md:text-4xl font-bold" style={{ fontFamily: "'Anton', sans-serif" }}>
-          <span className="text-emerald-400">DIGITAL</span> SLAB PACKS
-        </h2>
-        <p className="text-muted-foreground text-sm mt-1">Rip graded slabs online — instant digital reveals with real cards shipped to your door</p>
-      </div>
-
-      {/* Pack Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
-        {packs && packs.length > 0 ? (
-          packs.map((pack) => (
-            <Link key={pack.id} href={`/slab-packs/${pack.slug}`}>
-              <div className="group relative bg-card border border-border rounded-xl overflow-hidden hover:border-emerald-500/50 transition-all cursor-pointer">
-                {/* Pack Image */}
-                {pack.imageUrl ? (
-                  <div className="aspect-[3/4] overflow-hidden">
-                    <img src={pack.imageUrl} alt={pack.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-                  </div>
-                ) : (
-                  <div className={`aspect-[3/4] flex flex-col items-center justify-center gap-3 bg-gradient-to-br ${
-                    pack.tier === 'gold' ? 'from-amber-900/40 to-amber-600/20' :
-                    pack.tier === 'diamond' ? 'from-cyan-900/40 to-blue-600/20' :
-                    pack.tier === 'infinity' ? 'from-purple-900/40 via-pink-900/20 to-amber-900/20' :
-                    'from-zinc-800/40 to-zinc-600/20'
-                  }`}>
-                    <Shield className="w-12 h-12 text-emerald-400/60" />
-                    <span className="text-xs text-muted-foreground uppercase tracking-widest">{pack.tier}</span>
-                  </div>
-                )}
-
-                {/* Coming Soon Overlay */}
-                {pack.status === 'coming_soon' && (
-                  <div className="absolute top-3 right-3">
-                    <span className="px-2 py-1 bg-amber-500/90 text-black text-[10px] font-bold rounded uppercase">Coming Soon</span>
-                  </div>
-                )}
-
-                {/* Info */}
-                <div className="p-4">
-                  <h3 className="font-bold text-sm mb-1 group-hover:text-emerald-400 transition-colors">{pack.name}</h3>
-                  <div className="flex items-center justify-between">
-                    <span className="text-lg font-bold text-primary">${(pack.priceCents / 100).toFixed(2)}</span>
-                    <span className="text-xs text-muted-foreground">{pack.slabsPerPack} slab{pack.slabsPerPack > 1 ? 's' : ''}/pack</span>
-                  </div>
-                  <p className="text-xs text-muted-foreground mt-2">View Checklist →</p>
-                </div>
-              </div>
-            </Link>
-          ))
-        ) : (
-          /* Placeholder teaser card when no packs exist yet */
-          <div className="relative bg-card border border-emerald-500/20 rounded-xl overflow-hidden">
-            <div className="aspect-[3/4] flex flex-col items-center justify-center gap-4 bg-gradient-to-br from-emerald-900/30 via-background to-emerald-900/10">
-              <div className="relative">
-                <Shield className="w-16 h-16 text-emerald-400/40" />
-                <Sparkles className="w-6 h-6 text-emerald-400 absolute -top-1 -right-1 animate-pulse" />
-              </div>
-              <div className="text-center px-4">
-                <p className="font-bold text-sm mb-1">Digital Slab Packs</p>
-                <p className="text-xs text-muted-foreground">Rip graded Marvel slabs online. Real cards. Real grades. Shipped to you.</p>
-              </div>
-            </div>
-            <div className="p-4 text-center">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/30 rounded-full text-emerald-400 text-xs font-bold">
-                <Sparkles className="w-3 h-3" /> Coming May 2026
-              </span>
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
 
 export default function Shop() {
   const [filter, setFilter] = useState<Filter>("all");
@@ -252,9 +165,6 @@ export default function Shop() {
                 </div>
               )}
 
-              {/* DIGITAL SLAB PACKS — Coming Soon */}
-              <DigitalSlabPackSection />
-
               {/* SEALED BOXES */}
               {sealedProducts.length > 0 && (
                 <div>
@@ -277,6 +187,56 @@ export default function Shop() {
                   </div>
                 </div>
               )}
+
+              {/* DIGITAL SLAB PACKS — COMING SOON */}
+              <div>
+                <div className="mb-6">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-purple-500/10 border border-purple-500/30 rounded-full">
+                      <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+                      <span className="text-purple-400 text-xs font-bold">COMING MAY 2026</span>
+                    </div>
+                  </div>
+                  <h2 className="text-3xl md:text-4xl font-bold" style={{ fontFamily: "'Anton', sans-serif" }}>
+                    <span className="text-purple-400">DIGITAL</span> SLAB PACKS
+                  </h2>
+                  <p className="text-muted-foreground text-sm mt-1">Rip graded slabs online with an immersive reveal experience</p>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {/* Teaser Card */}
+                  <div className="relative group overflow-hidden rounded-xl border border-purple-500/20 bg-gradient-to-br from-purple-950/40 via-zinc-900 to-indigo-950/40">
+                    <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-blue-500/5 group-hover:from-purple-500/10 group-hover:to-blue-500/10 transition-all duration-500" />
+                    <div className="relative p-6">
+                      <div className="flex items-center justify-center w-16 h-16 rounded-2xl bg-purple-500/10 border border-purple-500/20 mb-4">
+                        <Package className="w-8 h-8 text-purple-400" />
+                      </div>
+                      <h3 className="text-xl font-bold text-white mb-2">Digital Slab Packs</h3>
+                      <p className="text-sm text-zinc-400 mb-4">
+                        Buy a pack, rip it online, and watch your graded slab reveal with a cinematic 3D flip animation. Every card is a real, graded Marvel slab shipped to your door.
+                      </p>
+                      <div className="space-y-2 mb-6">
+                        <div className="flex items-center gap-2 text-xs text-zinc-400">
+                          <Eye className="w-3.5 h-3.5 text-purple-400" />
+                          <span>Immersive 3D card reveal experience</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-xs text-zinc-400">
+                          <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+                          <span>Grail, Chase & Lineup tiers with live checklist</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-xs text-zinc-400">
+                          <Package className="w-3.5 h-3.5 text-purple-400" />
+                          <span>Real graded slabs shipped to you</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <span className="px-4 py-2 rounded-lg bg-purple-500/20 text-purple-300 text-sm font-bold border border-purple-500/30 cursor-not-allowed">
+                          Coming May 2026
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           ) : (
             /* Filtered flat grid */
