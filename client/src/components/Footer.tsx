@@ -77,6 +77,7 @@ export default function Footer() {
               <li><Link href="/terms" className="text-sm text-muted-foreground hover:text-primary transition-colors">Terms of Service</Link></li>
               <li><Link href="/privacy" className="text-sm text-muted-foreground hover:text-primary transition-colors">Privacy Policy</Link></li>
               <li><Link href="/refund-policy" className="text-sm text-muted-foreground hover:text-primary transition-colors">Refund Policy</Link></li>
+              <li><Link href="/demo-reveal" className="text-sm text-muted-foreground hover:text-purple-400 transition-colors">Digital Pack Reveal</Link></li>
             </ul>
           </div>
         </div>

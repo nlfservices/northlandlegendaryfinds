@@ -758,3 +758,6 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Test the demo reveal on the live published site
 - [x] Suppressed email popup on standalone/immersive routes
 - [x] Save checkpoint (demo reveal)
+
+## Footer Update
+- [x] Add Digital Pack Reveal link under Legal section in footer
