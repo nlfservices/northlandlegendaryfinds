@@ -751,3 +751,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Test full flow end-to-end
 - [x] Run integrity check before checkpoint
 - [x] Save checkpoint
+
+## Make Digital Slab Pack Reveal Testable Without Login
+- [x] Add a public /demo-reveal route that creates a temporary test order and shows the reveal experience
+- [x] Ensure the demo doesn't permanently claim cards (use a demo mode flag)
+- [x] Test the demo reveal on the live published site
+- [x] Suppressed email popup on standalone/immersive routes
+- [x] Save checkpoint (demo reveal)

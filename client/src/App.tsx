@@ -54,9 +54,10 @@ import MarketIntelFanatics from "./pages/MarketIntelFanatics";
 import MarketIntelBestCards from "./pages/MarketIntelBestCards";
 import SlabPackReveal from "./pages/SlabPackReveal";
 import SlabPackChecklist from "./pages/SlabPackChecklist";
+import DemoReveal from "./pages/DemoReveal";
 
 // Routes that render as full-screen standalone experiences (no nav/footer)
-const STANDALONE_ROUTES = ["/card-display", "/matrix", "/reveal"];
+const STANDALONE_ROUTES = ["/card-display", "/matrix", "/reveal", "/demo-reveal"];
 
 function AppRouter() {
   const [location] = useLocation();
@@ -69,6 +70,7 @@ function AppRouter() {
         <Route path="/card-display" component={CardDisplay} />
         <Route path="/matrix" component={MatrixPortal} />
         <Route path="/reveal/:orderId" component={SlabPackReveal} />
+        <Route path="/demo-reveal" component={DemoReveal} />
       </Switch>
     );
   }
