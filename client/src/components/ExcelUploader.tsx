@@ -148,6 +148,44 @@ function autoDetectColumns(headers: string[]): ColumnMapping {
   return mapping;
 }
 
+// ==================== TEMPLATE GENERATOR ====================
+
+function downloadTemplate() {
+  const wb = XLSX.utils.book_new();
+
+  // Define tier distribution for a 100-pack template
+  const tiers = [
+    ...Array(4).fill(null).map((_, i) => ({ pack: i + 1, tier: "A - $325", value: 325 })),
+    ...Array(12).fill(null).map((_, i) => ({ pack: i + 5, tier: "B - $200", value: 200 })),
+    ...Array(24).fill(null).map((_, i) => ({ pack: i + 17, tier: "C - $125", value: 125 })),
+    ...Array(30).fill(null).map((_, i) => ({ pack: i + 41, tier: "D - $87", value: 87 })),
+    ...Array(30).fill(null).map((_, i) => ({ pack: i + 71, tier: "E - $65", value: 65 })),
+  ];
+
+  const data = [
+    ["Pack #", "Tier ($)", "Card Description", "Character", "Set", "Grade / Type", "Estimated Value ($)", "Pulled (Yes/No)"],
+    ...tiers.map(t => [t.pack, t.tier, "", "", "", "", t.value, "No"]),
+  ];
+
+  const ws = XLSX.utils.aoa_to_sheet(data);
+
+  // Set column widths
+  ws["!cols"] = [
+    { wch: 8 },   // Pack #
+    { wch: 14 },  // Tier ($)
+    { wch: 30 },  // Card Description
+    { wch: 20 },  // Character
+    { wch: 25 },  // Set
+    { wch: 15 },  // Grade / Type
+    { wch: 18 },  // Estimated Value ($)
+    { wch: 15 },  // Pulled (Yes/No)
+  ];
+
+  XLSX.utils.book_append_sheet(wb, ws, "100 Pack Checklist (Tier+Value)");
+  XLSX.writeFile(wb, "NLF_Pack_Checklist_Template.xlsx");
+  toast.success("Template downloaded! Fill in the card details and upload it back here.");
+}
+
 // ==================== COMPONENT ====================
 
 export default function ExcelUploader({ onImport, isImporting }: ExcelUploaderProps) {
@@ -327,9 +365,23 @@ export default function ExcelUploader({ onImport, isImporting }: ExcelUploaderPr
               Upload your NLF pack checklist spreadsheet (.xlsx, .xls, or .csv).
               Columns like Pack #, Tier, Character, Set, Grade, and Value will be auto-detected.
             </p>
-            <Button variant="outline" className="gap-2">
-              <Upload className="w-4 h-4" /> Choose File
-            </Button>
+            <div className="flex items-center gap-3">
+              <Button variant="outline" className="gap-2">
+                <Upload className="w-4 h-4" /> Choose File
+              </Button>
+              <span className="text-xs text-muted-foreground">or</span>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="gap-2 text-primary hover:text-primary/80"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  downloadTemplate();
+                }}
+              >
+                <Download className="w-4 h-4" /> Download Template
+              </Button>
+            </div>
             <input
               ref={fileInputRef}
               type="file"

@@ -771,3 +771,6 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Wire hub as main admin landing page, full dashboard accessible at /matrix/dashboard
 - [x] Test navigation from hub cards to dashboard tabs (working)
 - [x] Save checkpoint (admin hub)
+
+## Download Template Button for Excel Uploader
+- [x] Add a "Download Template" button to the ExcelUploader component that generates a blank NLF-format .xlsx file
