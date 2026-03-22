@@ -774,3 +774,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 
 ## Download Template Button for Excel Uploader
 - [x] Add a "Download Template" button to the ExcelUploader component that generates a blank NLF-format .xlsx file
+
+## eBay Comps - Make It Work Automatically
+- [x] Make eBay Comps search work without requiring production API keys
+- [x] Build LLM-powered price estimation server procedure
+- [x] Update EbayCompsPanel UI for AI estimator experience
+- [x] Test AI price estimation end-to-end
+- [ ] Save checkpoint
