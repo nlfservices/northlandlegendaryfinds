@@ -768,3 +768,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Upload images to CDN and update DemoReveal with real card photos
 - [x] Test demo reveal with real images
 - [x] Save checkpoint
+
+## Video-Based Reveal Experience
+- [x] Upload DigitalReveal#1.mp4 to CDN
+- [x] Update DemoReveal page to play the video as the reveal animation instead of CSS 3D flip
+- [x] Show card details (name, tier, grade, value) after video finishes playing
+- [x] Test video reveal experience end-to-end
+- [x] Save checkpoint (video reveal)

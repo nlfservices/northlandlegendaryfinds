@@ -1,13 +1,16 @@
 /**
  * DemoReveal - Public demo of the Digital Slab Pack reveal experience
  * No login required, no database calls — uses hardcoded sample cards
- * so the owner can preview the full 3D flip animation on the live site.
+ * Plays the professional 3D animated reveal video, then shows card details.
  */
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Share2, ArrowRight, Crown, Star, Layers, Sparkles, RotateCcw } from "lucide-react";
 import { toast } from "sonner";
+
+// ==================== CDN ASSETS ====================
+const REVEAL_VIDEO_URL = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/digital-reveal-1_de6299ea.mp4";
 
 // ==================== DEMO CARD DATA ====================
 const DEMO_CARDS = [
@@ -56,7 +59,7 @@ const DEMO_CARDS = [
 ];
 
 // ==================== COSMIC VORTEX BACKGROUND ====================
-function CosmicVortex({ intensity = 1 }: { intensity?: number }) {
+function CosmicVortex() {
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none">
       <div className="absolute inset-0 bg-black" />
@@ -66,8 +69,8 @@ function CosmicVortex({ intensity = 1 }: { intensity?: number }) {
             key={i}
             className="absolute rounded-full border opacity-20"
             style={{
-              width: `${(i + 1) * 250 * intensity}px`,
-              height: `${(i + 1) * 250 * intensity}px`,
+              width: `${(i + 1) * 250}px`,
+              height: `${(i + 1) * 250}px`,
               borderColor: i % 2 === 0 ? "rgba(147, 51, 234, 0.3)" : "rgba(59, 130, 246, 0.2)",
               borderWidth: `${2 - i * 0.2}px`,
               animation: `spin ${8 + i * 4}s linear infinite ${i % 2 === 0 ? "" : "reverse"}`,
@@ -103,161 +106,46 @@ function CosmicVortex({ intensity = 1 }: { intensity?: number }) {
   );
 }
 
-// ==================== 3D CARD COMPONENT ====================
-function Card3D({
-  frontImage,
-  backImage,
-  characterName,
-  cardSet,
-  grade,
-  gradingCompany,
-  rarity,
-  isFlipping,
-  isRevealed,
-}: {
-  frontImage?: string | null;
-  backImage?: string | null;
-  characterName: string;
-  cardSet: string;
-  grade?: string | null;
-  gradingCompany?: string;
-  rarity: string;
-  isFlipping: boolean;
-  isRevealed: boolean;
-}) {
-  const rarityGlow = rarity === "grail"
-    ? "0 0 60px rgba(239, 68, 68, 0.6), 0 0 120px rgba(239, 68, 68, 0.3)"
-    : rarity === "chase"
-    ? "0 0 40px rgba(245, 158, 11, 0.5), 0 0 80px rgba(245, 158, 11, 0.2)"
-    : "0 0 20px rgba(59, 130, 246, 0.4)";
-
-  return (
-    <div className="relative w-[280px] h-[400px] sm:w-[320px] sm:h-[460px]" style={{ perspective: "1200px" }}>
-      <div
-        className="relative w-full h-full transition-transform duration-1000 ease-in-out"
-        style={{
-          transformStyle: "preserve-3d",
-          transform: isRevealed ? "rotateY(0deg)" : isFlipping ? "rotateY(1080deg)" : "rotateY(180deg)",
-        }}
-      >
-        {/* Front face */}
-        <div
-          className="absolute inset-0 rounded-xl overflow-hidden"
-          style={{ backfaceVisibility: "hidden", boxShadow: isRevealed ? rarityGlow : "none" }}
-        >
-          {frontImage ? (
-            <img src={frontImage} alt={characterName} className="w-full h-full object-cover rounded-xl" />
-          ) : (
-            <div className="w-full h-full bg-gradient-to-br from-zinc-800 to-zinc-900 rounded-xl flex flex-col items-center justify-center p-6 border border-zinc-700">
-              <div className="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center mb-4">
-                {rarity === "grail" ? <Crown className="w-10 h-10 text-red-400" /> :
-                 rarity === "chase" ? <Star className="w-10 h-10 text-amber-400" /> :
-                 <Layers className="w-10 h-10 text-blue-400" />}
-              </div>
-              <p className="text-xl font-bold text-white text-center">{characterName}</p>
-              <p className="text-sm text-zinc-400 text-center mt-1">{cardSet}</p>
-              {grade && (
-                <div className="mt-3 px-3 py-1 bg-zinc-700/50 rounded-full">
-                  <span className="text-sm font-bold text-white">{gradingCompany} {grade}</span>
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-
-        {/* Back face */}
-        <div
-          className="absolute inset-0 rounded-xl overflow-hidden"
-          style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
-        >
-          {backImage ? (
-            <img src={backImage} alt="Card back" className="w-full h-full object-cover rounded-xl" />
-          ) : (
-            <div className="w-full h-full bg-gradient-to-br from-purple-900 via-indigo-900 to-blue-900 rounded-xl flex items-center justify-center border border-purple-500/30">
-              <div className="text-center">
-                <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-purple-500/30 to-blue-500/30 flex items-center justify-center border border-purple-400/20">
-                  <Sparkles className="w-12 h-12 text-purple-300" />
-                </div>
-                <p className="text-2xl font-bold text-white tracking-wider">NLF</p>
-                <p className="text-xs text-purple-300 tracking-[0.3em] mt-1">SLAB PACK</p>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ==================== RARITY EXPLOSION ====================
-function RarityExplosion({ rarity }: { rarity: string }) {
-  if (rarity !== "grail") return null;
-  return (
-    <div className="fixed inset-0 pointer-events-none z-30">
-      {[...Array(20)].map((_, i) => (
-        <div
-          key={i}
-          className="absolute"
-          style={{
-            left: "50%",
-            top: "50%",
-            width: `${Math.random() * 8 + 4}px`,
-            height: `${Math.random() * 8 + 4}px`,
-            background: ["#ef4444", "#f59e0b", "#a855f7", "#3b82f6", "#ffffff"][i % 5],
-            borderRadius: "50%",
-            animation: `explode-${i} ${Math.random() * 1.5 + 0.5}s ease-out forwards`,
-            animationDelay: `${Math.random() * 0.3}s`,
-          }}
-        />
-      ))}
-    </div>
-  );
-}
-
 // ==================== MAIN DEMO REVEAL PAGE ====================
 export default function DemoReveal() {
   // Randomly shuffle cards for each visit
   const shuffledCards = useMemo(() => [...DEMO_CARDS].sort(() => Math.random() - 0.5), []);
 
-  const [phase, setPhase] = useState<"ready" | "flipping" | "revealed">("ready");
+  const [phase, setPhase] = useState<"ready" | "playing" | "revealed">("ready");
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
-  const [isFlipping, setIsFlipping] = useState(false);
-  const [isRevealed, setIsRevealed] = useState(false);
-  const [showExplosion, setShowExplosion] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const currentCard = shuffledCards[currentCardIndex];
   const totalCards = shuffledCards.length;
   const isLastCard = currentCardIndex >= totalCards - 1;
 
   const handleOpenPack = useCallback(() => {
-    setPhase("flipping");
-    setIsFlipping(true);
+    setPhase("playing");
+    // Small delay to let the video element mount, then play
     setTimeout(() => {
-      setIsFlipping(false);
-      setIsRevealed(true);
-      setPhase("revealed");
-      if (currentCard?.tier === "grail") {
-        setShowExplosion(true);
-        setTimeout(() => setShowExplosion(false), 2000);
+      if (videoRef.current) {
+        videoRef.current.currentTime = 0;
+        videoRef.current.play().catch(() => {
+          // Autoplay blocked — show revealed state directly
+          setPhase("revealed");
+        });
       }
-    }, 1200);
-  }, [currentCard]);
+    }, 100);
+  }, []);
+
+  const handleVideoEnd = useCallback(() => {
+    setPhase("revealed");
+  }, []);
 
   const handleNext = useCallback(() => {
     if (isLastCard) {
       // Reset the whole demo
       setCurrentCardIndex(0);
       setPhase("ready");
-      setIsFlipping(false);
-      setIsRevealed(false);
-      setShowExplosion(false);
       return;
     }
     setCurrentCardIndex(prev => prev + 1);
     setPhase("ready");
-    setIsFlipping(false);
-    setIsRevealed(false);
-    setShowExplosion(false);
   }, [isLastCard]);
 
   const handleShare = useCallback(() => {
@@ -274,10 +162,15 @@ export default function DemoReveal() {
   const handleRestart = useCallback(() => {
     setCurrentCardIndex(0);
     setPhase("ready");
-    setIsFlipping(false);
-    setIsRevealed(false);
-    setShowExplosion(false);
   }, []);
+
+  const rarityGlow = currentCard
+    ? currentCard.tier === "grail"
+      ? "0 0 60px rgba(239, 68, 68, 0.6), 0 0 120px rgba(239, 68, 68, 0.3)"
+      : currentCard.tier === "chase"
+      ? "0 0 40px rgba(245, 158, 11, 0.5), 0 0 80px rgba(245, 158, 11, 0.2)"
+      : "0 0 20px rgba(59, 130, 246, 0.4)"
+    : "none";
 
   return (
     <>
@@ -298,17 +191,20 @@ export default function DemoReveal() {
           from { transform: translateY(30px); opacity: 0; }
           to { transform: translateY(0); opacity: 1; }
         }
-        ${[...Array(20)].map((_, i) => `
-          @keyframes explode-${i} {
-            0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
-            100% { transform: translate(calc(-50% + ${(Math.random() - 0.5) * 600}px), calc(-50% + ${(Math.random() - 0.5) * 600}px)) scale(1); opacity: 0; }
-          }
-        `).join("")}
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes scaleIn {
+          from { transform: scale(0.8); opacity: 0; }
+          to { transform: scale(1); opacity: 1; }
+        }
       `}</style>
 
       <div className="fixed inset-0 flex flex-col items-center justify-center select-none">
-        <CosmicVortex intensity={phase === "flipping" ? 1.5 : 1} />
-        {showExplosion && currentCard && <RarityExplosion rarity={currentCard.tier} />}
+        {/* Background: cosmic vortex for ready/revealed, black for video */}
+        {phase !== "playing" && <CosmicVortex />}
+        {phase === "playing" && <div className="fixed inset-0 bg-black" />}
 
         {/* Card counter */}
         <div className="absolute top-6 right-6 z-20">
@@ -349,7 +245,7 @@ export default function DemoReveal() {
           </Button>
         </div>
 
-        <div className="relative z-10 flex flex-col items-center">
+        <div className="relative z-10 flex flex-col items-center w-full max-w-lg px-4">
           {/* ===== READY PHASE ===== */}
           {phase === "ready" && (
             <div className="flex flex-col items-center gap-8" style={{ animation: "slideUp 0.6s ease-out" }}>
@@ -376,73 +272,107 @@ export default function DemoReveal() {
             </div>
           )}
 
-          {/* ===== FLIPPING / REVEALED PHASE ===== */}
-          {(phase === "flipping" || phase === "revealed") && currentCard && (
-            <div className="flex flex-col items-center gap-6">
-              <Card3D
-                frontImage={currentCard.frontImageUrl}
-                backImage={currentCard.backImageUrl}
-                characterName={currentCard.cardName}
-                cardSet={currentCard.cardSet || ''}
-                grade={currentCard.grade}
-                gradingCompany={currentCard.gradingCompany || undefined}
-                rarity={currentCard.tier}
-                isFlipping={isFlipping}
-                isRevealed={isRevealed}
+          {/* ===== VIDEO PLAYING PHASE ===== */}
+          {phase === "playing" && (
+            <div className="flex flex-col items-center" style={{ animation: "fadeIn 0.3s ease-out" }}>
+              <video
+                ref={videoRef}
+                src={REVEAL_VIDEO_URL}
+                className="w-full max-w-[360px] sm:max-w-[400px] rounded-xl"
+                style={{ maxHeight: "80vh" }}
+                playsInline
+                muted={false}
+                onEnded={handleVideoEnd}
+                onClick={() => {
+                  // Tap to skip to revealed state
+                  if (videoRef.current) {
+                    videoRef.current.pause();
+                  }
+                  setPhase("revealed");
+                }}
               />
+              <p className="text-white/30 text-xs mt-4">Tap video to skip</p>
+            </div>
+          )}
 
-              {phase === "revealed" && (
-                <div className="text-center" style={{ animation: "slideUp 0.6s ease-out 0.3s both" }}>
-                  <div className="flex items-center justify-center gap-2 mb-2">
-                    <Badge variant="outline" className={
-                      currentCard.tier === "grail" ? "bg-red-500/20 text-red-300 border-red-500/30" :
-                      currentCard.tier === "chase" ? "bg-amber-500/20 text-amber-300 border-amber-500/30" :
-                      "bg-blue-500/20 text-blue-300 border-blue-500/30"
-                    }>
-                      {currentCard.tier === "grail" && <Crown className="w-3 h-3 mr-1" />}
-                      {currentCard.tier === "chase" && <Star className="w-3 h-3 mr-1" />}
-                      {currentCard.tier === "lineup" && <Layers className="w-3 h-3 mr-1" />}
-                      {currentCard.tier.toUpperCase()}
+          {/* ===== REVEALED PHASE ===== */}
+          {phase === "revealed" && currentCard && (
+            <div className="flex flex-col items-center gap-5" style={{ animation: "scaleIn 0.5s ease-out" }}>
+              {/* Card image with rarity glow */}
+              <div
+                className="rounded-xl overflow-hidden"
+                style={{ boxShadow: rarityGlow }}
+              >
+                {currentCard.frontImageUrl ? (
+                  <img
+                    src={currentCard.frontImageUrl}
+                    alt={currentCard.cardName}
+                    className="w-[280px] h-[400px] sm:w-[320px] sm:h-[460px] object-cover rounded-xl"
+                  />
+                ) : (
+                  <div className="w-[280px] h-[400px] sm:w-[320px] sm:h-[460px] bg-gradient-to-br from-zinc-800 to-zinc-900 rounded-xl flex flex-col items-center justify-center p-6 border border-zinc-700">
+                    <div className="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center mb-4">
+                      {currentCard.tier === "grail" ? <Crown className="w-10 h-10 text-red-400" /> :
+                       currentCard.tier === "chase" ? <Star className="w-10 h-10 text-amber-400" /> :
+                       <Layers className="w-10 h-10 text-blue-400" />}
+                    </div>
+                    <p className="text-xl font-bold text-white text-center">{currentCard.cardName}</p>
+                    <p className="text-sm text-zinc-400 text-center mt-1">{currentCard.cardSet}</p>
+                  </div>
+                )}
+              </div>
+
+              {/* Card details */}
+              <div className="text-center" style={{ animation: "slideUp 0.6s ease-out 0.2s both" }}>
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <Badge variant="outline" className={
+                    currentCard.tier === "grail" ? "bg-red-500/20 text-red-300 border-red-500/30" :
+                    currentCard.tier === "chase" ? "bg-amber-500/20 text-amber-300 border-amber-500/30" :
+                    "bg-blue-500/20 text-blue-300 border-blue-500/30"
+                  }>
+                    {currentCard.tier === "grail" && <Crown className="w-3 h-3 mr-1" />}
+                    {currentCard.tier === "chase" && <Star className="w-3 h-3 mr-1" />}
+                    {currentCard.tier === "lineup" && <Layers className="w-3 h-3 mr-1" />}
+                    {currentCard.tier.toUpperCase()}
+                  </Badge>
+                  {currentCard.grade && (
+                    <Badge variant="outline" className="bg-white/10 text-white border-white/20">
+                      {currentCard.gradingCompany} {currentCard.grade}
                     </Badge>
-                    {currentCard.grade && (
-                      <Badge variant="outline" className="bg-white/10 text-white border-white/20">
-                        {currentCard.gradingCompany} {currentCard.grade}
-                      </Badge>
-                    )}
-                  </div>
-                  <h2 className="text-2xl sm:text-3xl font-bold text-white">{currentCard.cardName}</h2>
-                  <p className="text-white/60 mt-1">
-                    {currentCard.cardSet || ''} {currentCard.cardNumber ? `#${currentCard.cardNumber}` : ''}
-                    {currentCard.parallel ? ` · ${currentCard.parallel}` : ""}
-                    {currentCard.serialNumber ? ` · ${currentCard.serialNumber}` : ""}
-                  </p>
-                  {currentCard.estimatedValueCents && (
-                    <p className="text-green-400 font-bold mt-2 text-lg">
-                      ${(currentCard.estimatedValueCents / 100).toFixed(2)}
-                    </p>
                   )}
-
-                  <div className="flex items-center justify-center gap-3 mt-6">
-                    <Button
-                      variant="outline"
-                      className="bg-white/10 border-white/20 text-white hover:bg-white/20"
-                      onClick={handleShare}
-                    >
-                      <Share2 className="w-4 h-4 mr-2" /> Share Reveal
-                    </Button>
-                    <Button
-                      className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold px-6"
-                      onClick={handleNext}
-                    >
-                      {isLastCard ? (
-                        <><RotateCcw className="w-4 h-4 mr-2" /> Restart Demo</>
-                      ) : (
-                        <>Next <ArrowRight className="w-4 h-4 ml-2" /></>
-                      )}
-                    </Button>
-                  </div>
                 </div>
-              )}
+                <h2 className="text-2xl sm:text-3xl font-bold text-white">{currentCard.cardName}</h2>
+                <p className="text-white/60 mt-1">
+                  {currentCard.cardSet || ''} {currentCard.cardNumber ? `#${currentCard.cardNumber}` : ''}
+                  {currentCard.parallel ? ` · ${currentCard.parallel}` : ""}
+                  {currentCard.serialNumber ? ` · ${currentCard.serialNumber}` : ""}
+                </p>
+                {currentCard.estimatedValueCents && (
+                  <p className="text-green-400 font-bold mt-2 text-lg">
+                    ${(currentCard.estimatedValueCents / 100).toFixed(2)}
+                  </p>
+                )}
+
+                <div className="flex items-center justify-center gap-3 mt-6">
+                  <Button
+                    variant="outline"
+                    className="bg-white/10 border-white/20 text-white hover:bg-white/20"
+                    onClick={handleShare}
+                  >
+                    <Share2 className="w-4 h-4 mr-2" /> Share Reveal
+                  </Button>
+                  <Button
+                    className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold px-6"
+                    onClick={handleNext}
+                  >
+                    {isLastCard ? (
+                      <><RotateCcw className="w-4 h-4 mr-2" /> Restart Demo</>
+                    ) : (
+                      <>Next <ArrowRight className="w-4 h-4 ml-2" /></>
+                    )}
+                  </Button>
+                </div>
+              </div>
             </div>
           )}
         </div>
