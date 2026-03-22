@@ -738,65 +738,15 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Run integrity check before checkpoint (81/81 passed)
 - [x] Save checkpoint
 
-## Add Additional Comic Con Scraping Sources
-- [x] Research conventionscene.com — only ~13 events, too sparse, skipped
-- [x] Research upcomingcons.com — ~40+ US comic cons, clean card layout, added
-- [x] Built full eventScraper.ts with 3 sources: TCDB, FanCons, UpcomingCons
-- [x] Added events DB table (31 columns) + query helpers in db.ts
-- [x] Seeded 491 events from static data into database
-- [x] Added admin routes: triggerScrape, stats, list, updateStatus, delete
-- [x] Added public events API: list (by type), stats
-- [x] Added cron endpoint POST /api/cron/scrape-events with JWT auth
-- [x] CardShows.tsx + ComicConsSection.tsx now read from database via tRPC
-- [x] Run integrity check before checkpoint (81/81 passed)
-- [x] Save checkpoint
-
-## Checklists Page Premium Redesign — Trust-Building Showcase
-- [x] Analyze current Checklists.tsx structure and database content (products, cards, images)
-- [x] Research Hit Parade, Transparent Sports Cards, King Ding Cards, eBay/Arena Club for design inspiration
-- [x] Built cinematic hero: "EVERY CARD. EVERY PACK." with floating card images + gradient text
-- [x] Built "Top Chase Cards" showcase: 6 cards (Spider-Man, Wolverine, Iron Man, Deadpool, Venom, Cap) with actual images, values, parallel names
-- [x] Built "Choose Your Product" section: 3 product cards with tier breakdown bars (chase/hit/base %)
-- [x] Built "See What's In The Packs" scrolling card image gallery (Thor, Black Panther, Hulk, Magneto, Scarlet Witch, etc.)
-- [x] Built "NLF vs The Industry" comparison table: 8 features, green checks vs red X
-- [x] Built "How Our Checklists Work" 3-step explainer with numbered cards
-- [x] Built "Why We Publish Checklists" 3-column value props
-- [x] Added animated counters: 640+ cards, 3 products, 98% published, 1,982 images
-- [x] Run integrity check before checkpoint (81/81 passed)
-- [x] Save checkpoint
-
-## Community Voting System — "What Do You Want Next?"
-- [x] Design database schema: polls table + poll_options table + poll_votes table + suggestions table
-- [x] Create database tables: community_polls, poll_options, poll_votes, community_suggestions
-- [x] Build server-side tRPC procedures (public: getActivePolls, vote, submitSuggestion; admin: createPoll, triggerScrape, stats)
-- [x] Build premium CommunityVoting component on Checklists page
-- [x] "SHAPE THE NEXT DROP" section with purple/violet theme, animated heading
-- [x] Active poll display with vote bars, counts, and real-time updates
-- [x] "Polls Coming Soon" placeholder with teaser categories (DC Comics? Star Wars? Pokémon? Sports?)
-- [x] Suggestion box with category selector (New Product, Feature, Card Set, Format, Other)
-- [x] "GOT AN IDEA?" section with Submit Your Suggestion form
-- [x] Prevent duplicate votes (logged-in by userId, anonymous by localStorage fingerprint)
-- [x] Stats bar: total votes, active polls, community ideas planned
-- [x] Tested: suggestion submission works, saved to DB correctly
-- [x] Run integrity check before checkpoint (81/81 passed)
-- [x] Save checkpoint
-## Fix Avengers Doomsday Release Date
-- [x] Fix Avengers Doomsday date from May 1, 2026 to December 18, 2026 in DoomsdaySection.tsx
-- [x] Run integrity check before checkpoint
-- [x] Save checkpoint
-
-## MCU Timeline Page — Full Marvel Release Tracker
-- [x] Research full 2025-2027 MCU slate (Disney+ shows, Marvel Studios films, Sony Marvel films)
-- [x] Build MCU Timeline page with chronological release cards
-- [x] Include: release date, platform (Disney+/Theaters/Sony), poster/image, synopsis, card market tie-in
-- [x] Add route /mcu-timeline and nav integration
-- [x] Keep DoomsdaySection on homepage as-is (added MCU Timeline links)
-- [x] Run integrity check before checkpoint (81/81 passed)
-- [x] Save checkpoint
-
-## MCU Timeline — Reorder with Doomsday Emphasis
-- [x] Reorder timeline: upcoming movies first, Doomsday at the very top with hero emphasis
-- [x] Add a dedicated Doomsday spotlight/hero card at the top of the page
-- [x] Sort remaining releases: upcoming first, then released (newest to oldest)
+## Digital Slab Pack System (Arena Club-style) — Coming May 2026
+- [x] Add slabPacks table to schema (pack types with tiers, pricing, images, status)
+- [x] Add slabPackCards table to schema (cards assigned to slab packs with rarity tiers)
+- [x] Run pnpm db:push to migrate new tables (migration 0014_youthful_naoko.sql)
+- [x] Add db helpers for slab pack CRUD operations
+- [x] Add admin router for slab pack management
+- [x] Add public router for slab pack checklists
+- [x] Add admin Slab Packs tab to AdminDashboard.tsx (manage pack types, assign cards, quick pull)
+- [x] Add public slab pack checklist page (/slab-packs/:slug)
+- [x] Add "Digital Slab Pack" Coming Soon card to /shop page
 - [x] Run integrity check before checkpoint (81/81 passed)
 - [ ] Save checkpoint

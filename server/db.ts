@@ -13,11 +13,8 @@ import {
   articles, Article, InsertArticle,
   top5BuzzItems, Top5BuzzItem, InsertTop5BuzzItem,
   showSubmissions, ShowSubmission, InsertShowSubmission,
-  events, Event, InsertEvent,
-  communityPolls, CommunityPoll, InsertCommunityPoll,
-  pollOptions, PollOption, InsertPollOption,
-  pollVotes, PollVote,
-  communitySuggestions, CommunitySuggestion, InsertCommunitySuggestion,
+  slabPacks, SlabPack, InsertSlabPack,
+  slabPackCards, SlabPackCard, InsertSlabPackCard,
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -1319,245 +1316,161 @@ export async function updateShowSubmissionStatus(
   return (result as any)[0]?.affectedRows > 0;
 }
 
-// ==================== EVENTS (Card Shows + Comic Cons) ====================
 
-export async function getApprovedEvents(eventType?: string): Promise<Event[]> {
+// ==================== SLAB PACK HELPERS ====================
+
+export async function getAllSlabPacks(): Promise<SlabPack[]> {
   const db = await getDb();
   if (!db) return [];
-  if (eventType) {
-    return db.select().from(events)
-      .where(and(eq(events.eventStatus, "approved"), eq(events.eventType, eventType)))
-      .orderBy(events.startDate);
-  }
-  return db.select().from(events)
-    .where(eq(events.eventStatus, "approved"))
-    .orderBy(events.startDate);
+  return db.select().from(slabPacks).orderBy(slabPacks.sortOrder, slabPacks.createdAt);
 }
 
-export async function getEventStats(): Promise<{ total: number; cardShows: number; comicCons: number; states: number; sources: number }> {
-  const db = await getDb();
-  if (!db) return { total: 0, cardShows: 0, comicCons: 0, states: 0, sources: 0 };
-  const [totalRow] = await db.select({ count: sql<number>`COUNT(*)` }).from(events).where(eq(events.eventStatus, "approved"));
-  const [cardShowRow] = await db.select({ count: sql<number>`COUNT(*)` }).from(events).where(and(eq(events.eventStatus, "approved"), eq(events.eventType, "card-show")));
-  const [comicConRow] = await db.select({ count: sql<number>`COUNT(*)` }).from(events).where(and(eq(events.eventStatus, "approved"), sql`${events.eventType} != 'card-show'`));
-  const stateRows = await db.selectDistinct({ state: events.state }).from(events).where(eq(events.eventStatus, "approved"));
-  const sourceRows = await db.selectDistinct({ source: events.source }).from(events).where(and(eq(events.eventStatus, "approved"), sql`${events.source} IS NOT NULL`));
-  return {
-    total: Number(totalRow?.count ?? 0),
-    cardShows: Number(cardShowRow?.count ?? 0),
-    comicCons: Number(comicConRow?.count ?? 0),
-    states: stateRows.length,
-    sources: sourceRows.length,
-  };
-}
-
-export async function insertEvent(data: InsertEvent): Promise<number | null> {
+export async function getSlabPackById(id: number): Promise<SlabPack | null> {
   const db = await getDb();
   if (!db) return null;
-  const [result] = await db.insert(events).values(data).$returningId();
+  const rows = await db.select().from(slabPacks).where(eq(slabPacks.id, id));
+  return rows[0] ?? null;
+}
+
+export async function getSlabPackBySlug(slug: string): Promise<SlabPack | null> {
+  const db = await getDb();
+  if (!db) return null;
+  const rows = await db.select().from(slabPacks).where(eq(slabPacks.slug, slug));
+  return rows[0] ?? null;
+}
+
+export async function createSlabPack(data: InsertSlabPack): Promise<number | null> {
+  const db = await getDb();
+  if (!db) return null;
+  const [result] = await db.insert(slabPacks).values(data).$returningId();
   return result?.id ?? null;
 }
 
-export async function bulkInsertEvents(data: InsertEvent[]): Promise<number> {
+export async function updateSlabPack(id: number, data: Partial<InsertSlabPack>): Promise<boolean> {
   const db = await getDb();
-  if (!db) return 0;
-  if (data.length === 0) return 0;
-  // Insert in batches of 50 to avoid query size limits
-  let inserted = 0;
-  for (let i = 0; i < data.length; i += 50) {
-    const batch = data.slice(i, i + 50);
-    await db.insert(events).values(batch);
-    inserted += batch.length;
-  }
-  return inserted;
+  if (!db) return false;
+  const result = await db.update(slabPacks).set(data).where(eq(slabPacks.id, id));
+  return (result as any)[0]?.affectedRows > 0;
 }
 
-export async function getEventBySourceId(source: string, sourceId: string): Promise<Event | null> {
+export async function deleteSlabPack(id: number): Promise<boolean> {
+  const db = await getDb();
+  if (!db) return false;
+  // Also delete all cards assigned to this pack
+  await db.delete(slabPackCards).where(eq(slabPackCards.slabPackId, id));
+  const result = await db.delete(slabPacks).where(eq(slabPacks.id, id));
+  return (result as any)[0]?.affectedRows > 0;
+}
+
+// ==================== SLAB PACK CARD HELPERS ====================
+
+export async function getSlabPackCards(slabPackId: number): Promise<SlabPackCard[]> {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(slabPackCards)
+    .where(eq(slabPackCards.slabPackId, slabPackId))
+    .orderBy(slabPackCards.tier, slabPackCards.sortOrder);
+}
+
+export async function getSlabPackCardById(id: number): Promise<SlabPackCard | null> {
   const db = await getDb();
   if (!db) return null;
-  const rows = await db.select().from(events)
-    .where(and(eq(events.source, source), eq(events.sourceId, sourceId)))
-    .limit(1);
+  const rows = await db.select().from(slabPackCards).where(eq(slabPackCards.id, id));
   return rows[0] ?? null;
 }
 
-export async function findDuplicateEvent(name: string, city: string, state: string, startDate: string): Promise<Event | null> {
+export async function createSlabPackCard(data: InsertSlabPackCard): Promise<number | null> {
   const db = await getDb();
   if (!db) return null;
-  const rows = await db.select().from(events)
-    .where(and(
-      sql`LOWER(${events.name}) = LOWER(${name})`,
-      eq(events.city, city),
-      eq(events.state, state),
-      eq(events.startDate, startDate)
-    ))
-    .limit(1);
-  return rows[0] ?? null;
+  const [result] = await db.insert(slabPackCards).values(data).$returningId();
+  return result?.id ?? null;
 }
 
-export async function updateEventLastScraped(id: number): Promise<void> {
-  const db = await getDb();
-  if (!db) return;
-  await db.update(events).set({ lastScrapedAt: new Date() }).where(eq(events.id, id));
-}
-
-export async function deleteEvent(id: number): Promise<boolean> {
+export async function updateSlabPackCard(id: number, data: Partial<InsertSlabPackCard>): Promise<boolean> {
   const db = await getDb();
   if (!db) return false;
-  const result = await db.delete(events).where(eq(events.id, id));
+  const result = await db.update(slabPackCards).set(data).where(eq(slabPackCards.id, id));
   return (result as any)[0]?.affectedRows > 0;
 }
 
-export async function updateEventStatus(id: number, status: "approved" | "pending" | "rejected"): Promise<boolean> {
+export async function deleteSlabPackCard(id: number): Promise<boolean> {
   const db = await getDb();
   if (!db) return false;
-  const result = await db.update(events).set({ eventStatus: status }).where(eq(events.id, id));
+  const result = await db.delete(slabPackCards).where(eq(slabPackCards.id, id));
   return (result as any)[0]?.affectedRows > 0;
 }
 
-// ── Community Polls ──────────────────────────────────────
-
-export async function getActivePolls(): Promise<(CommunityPoll & { options: PollOption[] })[]> {
+export async function bulkCreateSlabPackCards(cards: InsertSlabPackCard[]): Promise<boolean> {
   const db = await getDb();
-  if (!db) return [];
-  const polls = await db.select().from(communityPolls)
-    .where(eq(communityPolls.status, "active"))
-    .orderBy(desc(communityPolls.isPinned), desc(communityPolls.createdAt));
-  
-  const result: (CommunityPoll & { options: PollOption[] })[] = [];
-  for (const poll of polls) {
-    const options = await db.select().from(pollOptions)
-      .where(eq(pollOptions.pollId, poll.id))
-      .orderBy(asc(pollOptions.sortOrder));
-    result.push({ ...poll, options });
-  }
-  return result;
-}
-
-export async function getAllPolls(): Promise<(CommunityPoll & { options: PollOption[] })[]> {
-  const db = await getDb();
-  if (!db) return [];
-  const polls = await db.select().from(communityPolls)
-    .orderBy(desc(communityPolls.createdAt));
-  
-  const result: (CommunityPoll & { options: PollOption[] })[] = [];
-  for (const poll of polls) {
-    const options = await db.select().from(pollOptions)
-      .where(eq(pollOptions.pollId, poll.id))
-      .orderBy(asc(pollOptions.sortOrder));
-    result.push({ ...poll, options });
-  }
-  return result;
-}
-
-export async function createPoll(data: InsertCommunityPoll, options: { label: string; description?: string; imageUrl?: string }[]): Promise<number> {
-  const db = await getDb();
-  if (!db) throw new Error("Database not available");
-  const [result] = await db.insert(communityPolls).values(data) as any;
-  const pollId = result.insertId;
-  
-  if (options.length > 0) {
-    await db.insert(pollOptions).values(
-      options.map((opt, i) => ({
-        pollId,
-        label: opt.label,
-        description: opt.description || null,
-        imageUrl: opt.imageUrl || null,
-        sortOrder: i,
-        voteCount: 0,
-      }))
-    );
-  }
-  return pollId;
-}
-
-export async function updatePollStatus(pollId: number, status: "active" | "closed" | "draft"): Promise<boolean> {
-  const db = await getDb();
-  if (!db) return false;
-  const result = await db.update(communityPolls).set({ status }).where(eq(communityPolls.id, pollId));
-  return (result as any)[0]?.affectedRows > 0;
-}
-
-export async function deletePoll(pollId: number): Promise<boolean> {
-  const db = await getDb();
-  if (!db) return false;
-  await db.delete(pollVotes).where(eq(pollVotes.pollId, pollId));
-  await db.delete(pollOptions).where(eq(pollOptions.pollId, pollId));
-  const result = await db.delete(communityPolls).where(eq(communityPolls.id, pollId));
-  return (result as any)[0]?.affectedRows > 0;
-}
-
-export async function castVote(pollId: number, optionId: number, userId?: number, fingerprint?: string): Promise<boolean> {
-  const db = await getDb();
-  if (!db) return false;
-  
-  // Check for duplicate votes
-  if (userId) {
-    const existing = await db.select().from(pollVotes)
-      .where(and(eq(pollVotes.pollId, pollId), eq(pollVotes.userId, userId)));
-    if (existing.length > 0) return false; // Already voted
-  } else if (fingerprint) {
-    const existing = await db.select().from(pollVotes)
-      .where(and(eq(pollVotes.pollId, pollId), eq(pollVotes.fingerprint, fingerprint)));
-    if (existing.length > 0) return false; // Already voted
-  }
-  
-  await db.insert(pollVotes).values({ pollId, optionId, userId, fingerprint });
-  await db.update(pollOptions).set({ voteCount: sql`${pollOptions.voteCount} + 1` }).where(eq(pollOptions.id, optionId));
-  await db.update(communityPolls).set({ totalVotes: sql`${communityPolls.totalVotes} + 1` }).where(eq(communityPolls.id, pollId));
+  if (!db || cards.length === 0) return false;
+  await db.insert(slabPackCards).values(cards);
   return true;
 }
 
-export async function hasUserVoted(pollId: number, userId?: number, fingerprint?: string): Promise<number | null> {
+/** Mark a slab pack card as claimed (pulled) — digital or in-person */
+export async function pullSlabPackCard(
+  cardId: number,
+  method: "digital" | "in_person",
+  pulledBy?: string,
+  orderId?: number
+): Promise<boolean> {
   const db = await getDb();
-  if (!db) return null;
+  if (!db) return false;
+  const result = await db.update(slabPackCards).set({
+    status: "claimed",
+    pullMethod: method,
+    pulledBy: pulledBy ?? null,
+    orderId: orderId ?? null,
+    pulledAt: new Date(),
+  }).where(and(eq(slabPackCards.id, cardId), eq(slabPackCards.status, "available")));
+  return (result as any)[0]?.affectedRows > 0;
+}
+
+/** Remove a card from the pack pool (admin action — card removed from inventory) */
+export async function removeSlabPackCard(cardId: number): Promise<boolean> {
+  const db = await getDb();
+  if (!db) return false;
+  const result = await db.update(slabPackCards).set({
+    status: "removed",
+  }).where(eq(slabPackCards.id, cardId));
+  return (result as any)[0]?.affectedRows > 0;
+}
+
+/** Get slab pack stats (total cards, available, claimed, removed per tier) */
+export async function getSlabPackStats(slabPackId: number) {
+  const db = await getDb();
+  if (!db) return { total: 0, available: 0, claimed: 0, removed: 0, byTier: {} };
+  const cards = await db.select().from(slabPackCards)
+    .where(eq(slabPackCards.slabPackId, slabPackId));
   
-  let existing: PollVote[] = [];
-  if (userId) {
-    existing = await db.select().from(pollVotes)
-      .where(and(eq(pollVotes.pollId, pollId), eq(pollVotes.userId, userId)));
-  } else if (fingerprint) {
-    existing = await db.select().from(pollVotes)
-      .where(and(eq(pollVotes.pollId, pollId), eq(pollVotes.fingerprint, fingerprint)));
+  const stats = {
+    total: cards.length,
+    available: cards.filter(c => c.status === "available").length,
+    claimed: cards.filter(c => c.status === "claimed").length,
+    removed: cards.filter(c => c.status === "removed").length,
+    byTier: {} as Record<string, { total: number; available: number; claimed: number }>,
+  };
+
+  for (const card of cards) {
+    if (!stats.byTier[card.tier]) {
+      stats.byTier[card.tier] = { total: 0, available: 0, claimed: 0 };
+    }
+    stats.byTier[card.tier].total++;
+    if (card.status === "available") stats.byTier[card.tier].available++;
+    if (card.status === "claimed") stats.byTier[card.tier].claimed++;
   }
-  return existing.length > 0 ? existing[0].optionId : null;
+
+  return stats;
 }
 
-// ── Community Suggestions ────────────────────────────────
-
-export async function submitSuggestion(data: InsertCommunitySuggestion): Promise<number> {
-  const db = await getDb();
-  if (!db) throw new Error("Database not available");
-  const [result] = await db.insert(communitySuggestions).values(data) as any;
-  return result.insertId;
-}
-
-export async function getSuggestions(status?: string): Promise<CommunitySuggestion[]> {
+/** Get public checklist for a slab pack (available + claimed cards, no removed) */
+export async function getSlabPackChecklist(slabPackId: number): Promise<SlabPackCard[]> {
   const db = await getDb();
   if (!db) return [];
-  if (status) {
-    return db.select().from(communitySuggestions)
-      .where(eq(communitySuggestions.status, status as any))
-      .orderBy(desc(communitySuggestions.upvotes), desc(communitySuggestions.createdAt));
-  }
-  return db.select().from(communitySuggestions)
-    .orderBy(desc(communitySuggestions.createdAt));
-}
-
-export async function updateSuggestionStatus(id: number, status: "new" | "reviewed" | "planned" | "declined", adminNote?: string): Promise<boolean> {
-  const db = await getDb();
-  if (!db) return false;
-  const updates: any = { status };
-  if (adminNote !== undefined) updates.adminNote = adminNote;
-  const result = await db.update(communitySuggestions).set(updates).where(eq(communitySuggestions.id, id));
-  return (result as any)[0]?.affectedRows > 0;
-}
-
-export async function upvoteSuggestion(id: number): Promise<boolean> {
-  const db = await getDb();
-  if (!db) return false;
-  const result = await db.update(communitySuggestions)
-    .set({ upvotes: sql`${communitySuggestions.upvotes} + 1` })
-    .where(eq(communitySuggestions.id, id));
-  return (result as any)[0]?.affectedRows > 0;
+  return db.select().from(slabPackCards)
+    .where(and(
+      eq(slabPackCards.slabPackId, slabPackId),
+      sql`${slabPackCards.status} != 'removed'`
+    ))
+    .orderBy(slabPackCards.tier, slabPackCards.sortOrder);
 }

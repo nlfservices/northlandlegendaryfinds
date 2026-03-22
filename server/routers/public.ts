@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { publicProcedure, router } from "../_core/trpc";
-import { TRPCError } from "@trpc/server";
 import {
   getActiveProducts, getWhatnotProducts, getProductBySlug, getProductById,
   getChecklistByProductId,
@@ -678,90 +677,6 @@ const publicCardShowRouter = router({
     }),
 });
 
-// ==================== PUBLIC EVENTS ROUTER ====================
-import { getApprovedEvents, getEventStats } from "../db";
-
-const publicEventsRouter = router({
-  list: publicProcedure
-    .input(z.object({ eventType: z.string().optional() }).optional())
-    .query(async ({ input }) => {
-      return getApprovedEvents(input?.eventType);
-    }),
-
-  stats: publicProcedure.query(async () => {
-    return getEventStats();
-  }),
-});
-
-// ==================== COMMUNITY POLLS ====================
-
-import {
-  getActivePolls, castVote, hasUserVoted,
-  submitSuggestion, getSuggestions, upvoteSuggestion,
-} from "../db";
-
-const publicCommunityRouter = router({
-  activePolls: publicProcedure.query(async () => {
-    return getActivePolls();
-  }),
-
-  vote: publicProcedure
-    .input(z.object({
-      pollId: z.number(),
-      optionId: z.number(),
-      fingerprint: z.string().optional(),
-    }))
-    .mutation(async ({ input, ctx }) => {
-      const userId = ctx.user?.id;
-      const success = await castVote(input.pollId, input.optionId, userId, input.fingerprint);
-      if (!success) {
-        throw new TRPCError({ code: "CONFLICT", message: "You have already voted on this poll" });
-      }
-      return { success: true };
-    }),
-
-  hasVoted: publicProcedure
-    .input(z.object({
-      pollId: z.number(),
-      fingerprint: z.string().optional(),
-    }))
-    .query(async ({ input, ctx }) => {
-      const userId = ctx.user?.id;
-      const votedOptionId = await hasUserVoted(input.pollId, userId, input.fingerprint);
-      return { hasVoted: votedOptionId !== null, votedOptionId };
-    }),
-
-  submitSuggestion: publicProcedure
-    .input(z.object({
-      suggestion: z.string().min(3).max(1000),
-      displayName: z.string().max(100).optional(),
-      category: z.enum(["product", "feature", "set", "format", "other"]).optional(),
-    }))
-    .mutation(async ({ input, ctx }) => {
-      const id = await submitSuggestion({
-        suggestion: input.suggestion,
-        displayName: input.displayName || (ctx.user?.name ?? "Anonymous Collector"),
-        userId: ctx.user?.id,
-        category: input.category || "product",
-      });
-      return { success: true, id };
-    }),
-
-  suggestions: publicProcedure
-    .input(z.object({ status: z.string().optional() }).optional())
-    .query(async ({ input }) => {
-      // Only show "planned" suggestions publicly
-      return getSuggestions("planned");
-    }),
-
-  upvoteSuggestion: publicProcedure
-    .input(z.object({ id: z.number() }))
-    .mutation(async ({ input }) => {
-      const success = await upvoteSuggestion(input.id);
-      return { success };
-    }),
-});
-
 // ==================== COMBINED PUBLIC ROUTER ====================
 
 export const publicRouter = router({
@@ -774,6 +689,4 @@ export const publicRouter = router({
   launch: publicLaunchRouter,
   subscribe: publicSubscribeRouter,
   cardShows: publicCardShowRouter,
-  events: publicEventsRouter,
-  community: publicCommunityRouter,
 });

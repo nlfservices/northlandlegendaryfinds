@@ -42,7 +42,6 @@ import CardDetailPage from "./pages/CardDetailPage";
 import JarvisProtocol from "./pages/JarvisProtocol";
 import MatrixPortal from "./pages/MatrixPortal";
 import MCUIntel from "./pages/MCUIntel";
-import MCUTimeline from "./pages/MCUTimeline";
 import MCUIntelArticle from "./pages/MCUIntelArticle";
 import SubscriberHub from "./pages/SubscriberHub";
 import CardShows from "./pages/CardShows";
@@ -53,6 +52,7 @@ import MarketIntelToppsVsUpperDeck from "./pages/MarketIntelToppsVsUpperDeck";
 import MarketIntelMarvelVsPokemon from "./pages/MarketIntelMarvelVsPokemon";
 import MarketIntelFanatics from "./pages/MarketIntelFanatics";
 import MarketIntelBestCards from "./pages/MarketIntelBestCards";
+import SlabPackChecklist from "./pages/SlabPackChecklist";
 
 // Routes that render as full-screen standalone experiences (no nav/footer)
 const STANDALONE_ROUTES = ["/card-display", "/matrix"];
@@ -109,7 +109,6 @@ function AppRouter() {
           <Route path="/admin/ebay-comps" component={EbayComps} />
           <Route path="/transparency" component={Transparency} />
           <Route path="/mcu-intel" component={MCUIntel} />
-          <Route path="/mcu-timeline" component={MCUTimeline} />
           <Route path="/mcu-intel/:slug" component={MCUIntelArticle} />
           <Route path="/subscribers" component={SubscriberHub} />
           <Route path="/card-shows" component={CardShows} />
@@ -120,6 +119,7 @@ function AppRouter() {
           <Route path="/market-intel/marvel-vs-pokemon-cards" component={MarketIntelMarvelVsPokemon} />
           <Route path="/market-intel/why-fanatics-trading-cards" component={MarketIntelFanatics} />
           <Route path="/market-intel/best-topps-marvel-cards" component={MarketIntelBestCards} />
+          <Route path="/slab-packs/:slug" component={SlabPackChecklist} />
           <Route path="/login" component={JarvisProtocol} />
           <Route path="/404" component={NotFound} />
           <Route component={NotFound} />

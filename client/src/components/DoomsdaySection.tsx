@@ -340,7 +340,7 @@ export default function DoomsdaySection() {
         <div className="text-center mb-10 lg:mb-14">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-green-500/10 border border-green-500/30 rounded-full mb-4">
             <Swords className="w-4 h-4 text-green-400" />
-            <span className="text-green-400 text-sm font-bold tracking-wide">DECEMBER 18, 2026 — IN THEATERS</span>
+            <span className="text-green-400 text-sm font-bold tracking-wide">MAY 1, 2026 — IN THEATERS</span>
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
             AVENGERS: <span className="text-green-400">DOOMSDAY</span>
@@ -578,16 +578,10 @@ export default function DoomsdaySection() {
             </div>
 
             {/* CTA */}
-            <div className="mt-4 space-y-2">
+            <div className="mt-4">
               <Link href="/cards">
                 <Button variant="outline" className="w-full border-green-500/30 text-green-400 hover:bg-green-500/10 font-bold text-sm">
                   Browse All Doomsday Cards
-                  <ExternalLink className="w-3.5 h-3.5 ml-2" />
-                </Button>
-              </Link>
-              <Link href="/mcu-timeline">
-                <Button variant="outline" className="w-full border-purple-500/30 text-purple-400 hover:bg-purple-500/10 font-bold text-sm">
-                  Full MCU Timeline
                   <ExternalLink className="w-3.5 h-3.5 ml-2" />
                 </Button>
               </Link>
@@ -595,19 +589,13 @@ export default function DoomsdaySection() {
           </div>
         </div>
 
-        {/* Bottom: Movie countdown + Timeline CTA */}
-        <div className="mt-10 text-center space-y-3">
+        {/* Bottom: Movie countdown */}
+        <div className="mt-10 text-center">
           <p className="text-xs text-muted-foreground uppercase tracking-wider">
             {DOOMSDAY_CHARACTERS.filter(c => c.status === "Confirmed").length} confirmed &middot;{" "}
             {DOOMSDAY_CHARACTERS.filter(c => c.status === "Rumored").length} rumored &middot;{" "}
             {DOOMSDAY_CHARACTERS.filter(c => c.cardImageUrl).length} in our card database
           </p>
-          <Link href="/mcu-timeline">
-            <span className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 font-bold transition-colors cursor-pointer">
-              View Full MCU Timeline — Every Movie & Show
-              <ExternalLink className="w-3.5 h-3.5" />
-            </span>
-          </Link>
         </div>
       </div>
     </section>
