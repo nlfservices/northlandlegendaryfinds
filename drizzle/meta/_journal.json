@@ -99,13 +99,6 @@
       "when": 1773984140407,
       "tag": "0013_gifted_fenris",
       "breakpoints": true
-    },
-    {
-      "idx": 14,
-      "version": "5",
-      "when": 1774154731462,
-      "tag": "0014_zippy_scourge",
-      "breakpoints": true
     }
   ]
 }

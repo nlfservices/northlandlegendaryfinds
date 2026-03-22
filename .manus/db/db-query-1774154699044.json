@@ -1,9 +1,0 @@
-{
-  "query": "CREATE TABLE IF NOT EXISTS `slab_pack_order_cards` (\n\t`id` int AUTO_INCREMENT NOT NULL,\n\t`orderId` int NOT NULL,\n\t`cardId` int NOT NULL,\n\t`revealOrder` int NOT NULL DEFAULT 1,\n\t`createdAt` timestamp NOT NULL DEFAULT (now()),\n\tCONSTRAINT `slab_pack_order_cards_id` PRIMARY KEY(`id`)\n);\nCREATE TABLE IF NOT EXISTS `slab_pack_orders` (\n\t`id` int AUTO_INCREMENT NOT NULL,\n\t`packId` int NOT NULL,\n\t`userId` int,\n\t`order_status` enum('pending','paid','revealed','shipped') NOT NULL DEFAULT 'pending',\n\t`stripePaymentIntentId` varchar(255),\n\t`revealedAt` bigint,\n\t`createdAt` timestamp NOT NULL DEFAULT (now()),\n\t`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,\n\tCONSTRAINT `slab_pack_orders_id` PRIMARY KEY(`id`)\n);",
-  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute CREATE TABLE IF NOT EXISTS `slab_pack_order_cards` (\n\t`id` int AUTO_INCREMENT NOT NULL,\n\t`orderId` int NOT NULL,\n\t`cardId` int NOT NULL,\n\t`revealOrder` int NOT NULL DEFAULT 1,\n\t`createdAt` timestamp NOT NULL DEFAULT (now()),\n\tCONSTRAINT `slab_pack_order_cards_id` PRIMARY KEY(`id`)\n);\nCREATE TABLE IF NOT EXISTS `slab_pack_orders` (\n\t`id` int AUTO_INCREMENT NOT NULL,\n\t`packId` int NOT NULL,\n\t`userId` int,\n\t`order_status` enum('pending','paid','revealed','shipped') NOT NULL DEFAULT 'pending',\n\t`stripePaymentIntentId` varchar(255),\n\t`revealedAt` bigint,\n\t`createdAt` timestamp NOT NULL DEFAULT (now()),\n\t`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,\n\tCONSTRAINT `slab_pack_orders_id` PRIMARY KEY(`id`)\n);",
-  "rows": [],
-  "messages": [],
-  "stdout": "",
-  "stderr": "",
-  "execution_time_ms": 540
-}

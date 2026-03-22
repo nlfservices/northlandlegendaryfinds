@@ -738,49 +738,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Run integrity check before checkpoint (81/81 passed)
 - [x] Save checkpoint
 
-## Digital Slab Pack — Test Pack & Reveal Experience
-- [x] Create test slab pack with sample cards via admin API/seed
-- [x] Build reveal page component (/reveal/:orderId) with immersive cosmic vortex background
-- [x] Implement 3D card flip animation (back → front with perspective tilt)
-- [x] Add rarity-based visual effects (different glow colors for Grail/Chase/Lineup)
-- [x] Add "Are You Ready?" suspense screen before reveal
-- [x] Add card detail display after flip (character, set, grade, serial)
-- [x] Add "Next" button for multi-card packs and "Share Reveal" social button
-- [x] Wire reveal page route in App.tsx
-- [x] Add reveal demo/preview accessible from admin for testing
-- [x] Test full flow end-to-end
-- [x] Run integrity check before checkpoint
-- [x] Save checkpoint
-
-## Make Digital Slab Pack Reveal Testable Without Login
-- [x] Add a public /demo-reveal route that creates a temporary test order and shows the reveal experience
-- [x] Ensure the demo doesn't permanently claim cards (use a demo mode flag)
-- [x] Test the demo reveal on the live published site
-- [x] Suppressed email popup on standalone/immersive routes
-- [x] Save checkpoint (demo reveal)
-
-## Footer Update
-- [x] Add Digital Pack Reveal link under Legal section in footer
-
-## Footer: Move Digital Pack Reveal to Own Column + Real Slab Images
-- [x] Move Digital Pack Reveal from Legal section into its own footer column
-- [x] Find/generate real Marvel slab card images (Iron Man, Spider-Man, Wolverine)
-- [x] Upload images to CDN and update DemoReveal with real card photos
-- [x] Test demo reveal with real images
-- [x] Save checkpoint
-
-## Video-Based Reveal Experience
-- [x] Upload DigitalReveal#1.mp4 to CDN
-- [x] Update DemoReveal page to play the video as the reveal animation instead of CSS 3D flip
-- [x] Show card details (name, tier, grade, value) after video finishes playing
-- [x] Test video reveal experience end-to-end
-- [x] Save checkpoint (video reveal)
-
-## Use Real Doctor Doom Card Image in Demo Reveal
-- [x] Upload Doom#56-Updated.webp to CDN
-- [x] Update DemoReveal to use the real Doctor Doom photo as the default card image after reveal
-- [x] Test the updated reveal experience
-- [x] Save checkpoint (Doctor Doom image)
-
-## Update Demo Reveal Card Details to Doctor Doom
-- [x] Change all demo card names and details to Doctor Doom 2025 Topps Marvel Mint 1/1 Comic Cut
+## Excel Checklist Upload Feature
+- [x] Build client-side Excel parsing with SheetJS (no server endpoint needed)
+- [x] Wire into existing bulkCreate tRPC procedure for import
+- [x] Build frontend upload UI in the Checklist Sheet "Add Cards" tab with drag-and-drop
+- [x] Add column mapping preview with auto-detect and adjustable dropdowns
+- [x] Support the NLF tier format (A/B/C/D/E mapped to tiers)
+- [x] Fix column auto-detect to prevent double-assignment (Tier vs Value)
+- [x] Test upload with the NLF_100_Pack_Checklist spreadsheet (101 cards parsed correctly)
+- [x] Save checkpoint (Excel upload)

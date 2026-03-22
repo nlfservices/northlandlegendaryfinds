@@ -27,6 +27,7 @@ import {
   Package, TrendingUp, Eye, AlertTriangle, Zap, Search
 } from "lucide-react";
 import { useState, useRef, useCallback, useMemo } from "react";
+import ExcelUploader from "@/components/ExcelUploader";
 
 // ==================== TYPES ====================
 
@@ -641,6 +642,31 @@ function AddCardsTab({ productId }: { productId: number }) {
   const bulkCreate = trpc.admin.checklist.bulkCreate.useMutation();
   const uploadImage = trpc.admin.checklist.uploadImage.useMutation();
   const utils = trpc.useUtils();
+  const [isExcelImporting, setIsExcelImporting] = useState(false);
+
+  const handleExcelImport = async (cards: { cardName: string; cardSet: string; cardNumber: string; parallel: string; tier: "chase" | "hit" | "base" | "bonus"; estimatedValue: string; cardCondition: string; sortOrder: number }[]) => {
+    setIsExcelImporting(true);
+    try {
+      const items = cards.map((card, index) => ({
+        cardName: card.cardName,
+        cardSet: card.cardSet || defaultSet || undefined,
+        cardYear: defaultYear || undefined,
+        cardNumber: card.cardNumber || undefined,
+        parallel: card.parallel || undefined,
+        tier: card.tier,
+        estimatedValue: card.estimatedValue || undefined,
+        cardCondition: card.cardCondition || "Raw",
+        sortOrder: card.sortOrder,
+      }));
+      const result = await bulkCreate.mutateAsync({ productId, items });
+      toast.success(`${result.count} cards imported from Excel!`);
+      await utils.admin.checklist.getByProduct.invalidate({ productId });
+    } catch (e: any) {
+      toast.error(e.message || "Failed to import cards from Excel");
+    } finally {
+      setIsExcelImporting(false);
+    }
+  };
 
   const updateRow = (id: string, field: keyof NewCardRow, value: string) => {
     setRows(prev => prev.map(r => r.id === id ? { ...r, [field]: value } : r));
@@ -829,7 +855,10 @@ function AddCardsTab({ productId }: { productId: number }) {
         </CardContent>
       </Card>
 
-      {/* Import Buttons */}
+      {/* Excel Upload */}
+      <ExcelUploader onImport={handleExcelImport} isImporting={isExcelImporting} />
+
+      {/* Import Buttons (CSV / Manual) */}
       <div className="flex gap-3">
         <Button
           variant="outline"

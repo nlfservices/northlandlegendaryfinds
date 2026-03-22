@@ -32,7 +32,6 @@ import EbayCompsPanel from "@/components/EbayCompsPanel";
 import ChecklistSheet from "@/components/ChecklistSheet";
 import ArticleManager from "@/components/ArticleManager";
 import Top5Manager from "@/components/Top5Manager";
-import SlabPackManager from "@/components/SlabPackManager";
 
 // ==================== PRODUCT MANAGEMENT ====================
 
@@ -1474,9 +1473,6 @@ export default function AdminDashboard() {
             <TabsTrigger value="ebay-comps" className="flex items-center gap-2">
               <BarChart3 className="w-4 h-4" /> eBay Comps
             </TabsTrigger>
-            <TabsTrigger value="slab-packs" className="flex items-center gap-2">
-              <Package className="w-4 h-4" /> Slab Packs
-            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="products">
@@ -1511,9 +1507,6 @@ export default function AdminDashboard() {
           </TabsContent>
           <TabsContent value="top5">
             <Top5Manager />
-          </TabsContent>
-          <TabsContent value="slab-packs">
-            <SlabPackManager />
           </TabsContent>
         </Tabs>
       </div>
