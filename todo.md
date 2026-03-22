@@ -758,3 +758,16 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Restored slab pack files lost during checkpoint rebase
 - [x] Test /matrix route works correctly
 - [x] Save checkpoint (admin → matrix)
+
+## Dedicated Admin Hub Page
+- [x] Build a new admin hub/landing page at /matrix/admin with organized sections
+- [x] Add "Upload & Import" section with quick-action cards for Excel, manual, and CSV import
+- [x] Add "Products & Inventory" section for products, inventory, and repack builder
+- [x] Add "Checklists & Pull Tracking" section for checklist sheet, checklists, and pull logger
+- [x] Add "Shows & Orders" section for shows and orders management
+- [x] Add "Content Management" section for MCU Intel articles and Top 5 rankings
+- [x] Add "Digital Slab Packs" section for slab pack manager and reveal demo
+- [x] Add "Tools & Analytics" section for eBay Comps
+- [x] Wire hub as main admin landing page, full dashboard accessible at /matrix/dashboard
+- [x] Test navigation from hub cards to dashboard tabs (working)
+- [x] Save checkpoint (admin hub)

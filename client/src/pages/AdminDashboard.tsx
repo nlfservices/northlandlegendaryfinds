@@ -1387,6 +1387,8 @@ function OrderManager() {
 
 export default function AdminDashboard() {
   const { user, loading } = useAuth();
+  const searchParams = new URLSearchParams(window.location.search);
+  const initialTab = searchParams.get('tab') || 'products';
 
   if (loading) {
     return (
@@ -1424,8 +1426,8 @@ export default function AdminDashboard() {
       <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
         <div className="container flex items-center justify-between h-14">
           <div className="flex items-center gap-3">
-            <Link href="/">
-              <Button variant="ghost" size="sm"><ArrowLeft className="w-4 h-4 mr-1" /> Site</Button>
+            <Link href="/matrix/admin">
+              <Button variant="ghost" size="sm"><ArrowLeft className="w-4 h-4 mr-1" /> Hub</Button>
             </Link>
             <Separator orientation="vertical" className="h-6" />
             <h1 className="font-bold text-lg">NLF Admin</h1>
@@ -1439,7 +1441,7 @@ export default function AdminDashboard() {
 
       {/* Main Content */}
       <div className="container py-6">
-        <Tabs defaultValue="products" className="space-y-6">
+        <Tabs defaultValue={initialTab} className="space-y-6">
           <TabsList className="bg-card border border-border">
             <TabsTrigger value="products" className="flex items-center gap-2">
               <Package className="w-4 h-4" /> Products

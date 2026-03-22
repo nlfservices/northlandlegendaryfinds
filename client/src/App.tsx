@@ -55,6 +55,7 @@ import MarketIntelBestCards from "./pages/MarketIntelBestCards";
 import SlabPackReveal from "./pages/SlabPackReveal";
 import SlabPackChecklist from "./pages/SlabPackChecklist";
 import DemoReveal from "./pages/DemoReveal";
+import AdminHub from "./pages/AdminHub";
 
 // Routes that render as full-screen standalone experiences (no nav/footer)
 const STANDALONE_ROUTES = ["/card-display", "/matrix", "/reveal", "/demo-reveal"];
@@ -68,7 +69,8 @@ function AppRouter() {
     return (
       <Switch>
         <Route path="/card-display" component={CardDisplay} />
-        <Route path="/matrix/admin" component={AdminDashboard} />
+        <Route path="/matrix/admin" component={AdminHub} />
+        <Route path="/matrix/dashboard" component={AdminDashboard} />
         <Route path="/matrix/ebay-comps" component={EbayComps} />
         <Route path="/matrix" component={MatrixPortal} />
         <Route path="/reveal/:orderId" component={SlabPackReveal} />
