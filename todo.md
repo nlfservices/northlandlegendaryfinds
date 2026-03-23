@@ -749,4 +749,9 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add tier filter buttons (All, Chase, Hit, Base, Bonus) to public checklist detail page
 - [x] Add search input to filter cards by name, parallel, set, or number
 - [x] Test tier filtering and search in browser (3 of 50 for "Spider-Man")
+- [x] Save checkpoint
+
+## Admin UX Improvements
+- [x] Add redirect from /admin/dashboard to /matrix/dashboard
+- [x] Make Matrix access code persist for 1 hour (localStorage with timestamp)
 - [ ] Save checkpoint

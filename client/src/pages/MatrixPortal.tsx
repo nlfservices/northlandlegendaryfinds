@@ -28,8 +28,28 @@ import {
 } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 
-// Session storage key for access code verification
+// localStorage key for access code verification (persists for 1 hour)
 const MATRIX_VERIFIED_KEY = "matrix_gate_verified";
+const MATRIX_VERIFIED_EXPIRY_KEY = "matrix_gate_verified_expiry";
+const MATRIX_SESSION_DURATION_MS = 60 * 60 * 1000; // 1 hour
+
+function setMatrixVerified() {
+  localStorage.setItem(MATRIX_VERIFIED_KEY, "true");
+  localStorage.setItem(MATRIX_VERIFIED_EXPIRY_KEY, String(Date.now() + MATRIX_SESSION_DURATION_MS));
+}
+
+function isMatrixVerified(): boolean {
+  const verified = localStorage.getItem(MATRIX_VERIFIED_KEY);
+  const expiry = localStorage.getItem(MATRIX_VERIFIED_EXPIRY_KEY);
+  if (verified !== "true" || !expiry) return false;
+  if (Date.now() > Number(expiry)) {
+    // Expired — clear it
+    localStorage.removeItem(MATRIX_VERIFIED_KEY);
+    localStorage.removeItem(MATRIX_VERIFIED_EXPIRY_KEY);
+    return false;
+  }
+  return true;
+}
 
 export default function MatrixPortal() {
   const { user, loading: authLoading } = useAuth();
@@ -54,10 +74,9 @@ export default function MatrixPortal() {
   const requestBypass = trpc.matrix.requestBypass.useMutation();
   const { data: lockStatus } = trpc.matrix.checkStatus.useQuery();
 
-  // Check session storage for previous verification
+  // Check localStorage for previous verification (persists for 1 hour)
   useEffect(() => {
-    const verified = sessionStorage.getItem(MATRIX_VERIFIED_KEY);
-    if (verified === "true") {
+    if (isMatrixVerified()) {
       setIsVerified(true);
     }
   }, []);
@@ -88,7 +107,7 @@ export default function MatrixPortal() {
     try {
       const result = await verifyBypass.mutateAsync({ token });
       if (result.success) {
-        sessionStorage.setItem(MATRIX_VERIFIED_KEY, "true");
+        setMatrixVerified();
         setIsVerified(true);
         setIsLockedOut(false);
         toast.success("Bypass successful. Access granted.");
@@ -111,9 +130,9 @@ export default function MatrixPortal() {
       const result = await verifyCode.mutateAsync({ code: code.trim() });
 
       if (result.success) {
-        sessionStorage.setItem(MATRIX_VERIFIED_KEY, "true");
+        setMatrixVerified();
         setIsVerified(true);
-        toast.success("Access granted.");
+        toast.success("Access granted. Session active for 1 hour.");
       } else {
         setCode("");
         if (result.locked) {
