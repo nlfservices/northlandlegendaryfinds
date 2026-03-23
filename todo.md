@@ -737,3 +737,7 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Include search, state filter, month filter, tier filter
 - [x] Run integrity check before checkpoint (81/81 passed)
 - [x] Save checkpoint
+
+## Gambit's Deck Checklist — View Only (No Purchase)
+- [x] Make Gambit's Deck checklist viewable on the checklists page (bypassed pre-launch blur for nlf-marvel-52-singles)
+- [x] Disable all purchase/buy/add-to-cart buttons for Gambit's Deck cards (no buy buttons on checklist page; product not in shop)

@@ -1,0 +1,162 @@
+{
+  "query": "DESCRIBE repack_products;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute DESCRIBE repack_products;",
+  "rows": [
+    {
+      "Field": "id",
+      "Type": "int",
+      "Null": "NO",
+      "Key": "PRI",
+      "Default": "NULL",
+      "Extra": "auto_increment"
+    },
+    {
+      "Field": "name",
+      "Type": "varchar(255)",
+      "Null": "NO",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "slug",
+      "Type": "varchar(255)",
+      "Null": "NO",
+      "Key": "UNI",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "description",
+      "Type": "text",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "imageUrl",
+      "Type": "text",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "price",
+      "Type": "int",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "totalPacks",
+      "Type": "int",
+      "Null": "NO",
+      "Key": "",
+      "Default": "500",
+      "Extra": ""
+    },
+    {
+      "Field": "packsRemaining",
+      "Type": "int",
+      "Null": "NO",
+      "Key": "",
+      "Default": "500",
+      "Extra": ""
+    },
+    {
+      "Field": "category",
+      "Type": "enum('marvel','starwars','sports','pokemon','other')",
+      "Null": "NO",
+      "Key": "",
+      "Default": "marvel",
+      "Extra": ""
+    },
+    {
+      "Field": "status",
+      "Type": "enum('draft','active','soldout','archived')",
+      "Null": "NO",
+      "Key": "",
+      "Default": "draft",
+      "Extra": ""
+    },
+    {
+      "Field": "isWhatnotExclusive",
+      "Type": "tinyint(1)",
+      "Null": "NO",
+      "Key": "",
+      "Default": "0",
+      "Extra": ""
+    },
+    {
+      "Field": "whatnotSeriesName",
+      "Type": "varchar(255)",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "packsPerShow",
+      "Type": "int",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "shopifyUrl",
+      "Type": "text",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "sortOrder",
+      "Type": "int",
+      "Null": "NO",
+      "Key": "",
+      "Default": "0",
+      "Extra": ""
+    },
+    {
+      "Field": "createdAt",
+      "Type": "timestamp",
+      "Null": "NO",
+      "Key": "",
+      "Default": "CURRENT_TIMESTAMP",
+      "Extra": ""
+    },
+    {
+      "Field": "updatedAt",
+      "Type": "timestamp",
+      "Null": "NO",
+      "Key": "",
+      "Default": "CURRENT_TIMESTAMP",
+      "Extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP"
+    },
+    {
+      "Field": "checklistFinalizedAt",
+      "Type": "timestamp",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "checklistStatement",
+      "Type": "text",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    }
+  ],
+  "messages": [],
+  "stdout": "Field\tType\tNull\tKey\tDefault\tExtra\nid\tint\tNO\tPRI\tNULL\tauto_increment\nname\tvarchar(255)\tNO\t\tNULL\t\nslug\tvarchar(255)\tNO\tUNI\tNULL\t\ndescription\ttext\tYES\t\tNULL\t\nimageUrl\ttext\tYES\t\tNULL\t\nprice\tint\tYES\t\tNULL\t\ntotalPacks\tint\tNO\t\t500\t\npacksRemaining\tint\tNO\t\t500\t\ncategory\tenum('marvel','starwars','sports','pokemon','other')\tNO\t\tmarvel\t\nstatus\tenum('draft','active','soldout','archived')\tNO\t\tdraft\t\nisWhatnotExclusive\ttinyint(1)\tNO\t\t0\t\nwhatnotSeriesName\tvarchar(255)\tYES\t\tNULL\t\npacksPerShow\tint\tYES\t\tNULL\t\nshopifyUrl\ttext\tYES\t\tNULL\t\nsortOrder\tint\tNO\t\t0\t\ncreatedAt\ttimestamp\tNO\t\tCURRENT_TIMESTAMP\t\nupdatedAt\ttimestamp\tNO\t\tCURRENT_TIMESTAMP\tDEFAULT_GENERATED on update CURRENT_TIMESTAMP\nchecklistFinalizedAt\ttimestamp\tYES\t\tNULL\t\nchecklistStatement\ttext\tYES\t\tNULL\t\n",
+  "stderr": "",
+  "execution_time_ms": 361
+}
