@@ -125,6 +125,36 @@ export const products: Product[] = [
     launchDate: "2026-04-28T00:00:00Z",
   },
 
+  {
+    id: "variant-52-singles",
+    slug: "variant-52-singles",
+    dbSlug: "nlf-marvel-52-singles",
+    name: "Variant Series: 52 Singles",
+    subtitle: "52 Single-Card Marvel Packs",
+    category: "marvel",
+    productLine: "variant-series",
+    price: 139,
+    packCount: 52,
+    image: CDN.chromeEdition,
+    images: [CDN.chromeEdition],
+    description: "The 52 Singles is a premium single-card pack series — 52 packs, each containing one hand-selected Marvel trading card. Every card is a guaranteed hit with real collectible value. No filler, no junk — just 52 premium cards from Topps Chrome Marvel, Marvel Mint, and other top sets. Built with the NLF standard: strong floor, better middle, healthy ceiling.",
+    features: [
+      "52 single-card packs — every pack is a guaranteed hit",
+      "One hand-selected premium Marvel card per pack",
+      "Strong floor — every card has real collectible value",
+      "Better middle — quality cards throughout, not filler",
+      "Healthy ceiling — real chase cards: autos, numbered parallels, graded slabs",
+      "Cards from Topps Chrome, Marvel Mint, and other premium sets",
+    ],
+    badge: "DROPPING APR 27",
+    badgeColor: "green",
+    inStock: true,
+    inventory: 52,
+    isRepack: true,
+    isComingSoon: false,
+    launchDate: "2026-04-28T00:00:00Z",
+  },
+
   // ===================================================================
   // THE SNAP COLLECTION — Coming Soon
   // ===================================================================

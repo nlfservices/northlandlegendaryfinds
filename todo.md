@@ -760,4 +760,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Build PublicPreview component matching public checklist page layout exactly
 - [x] Add Preview tab to admin ChecklistSheet (with tier filter, search, lightbox, missing image warnings)
 - [x] Test — 81 integrity checks pass, 219 vitest tests pass
+- [x] Save checkpoint
+
+## New Product: 52-Pack Single Card Series
+- [x] Add 52-pack single-card product to products data (each pack = 1 card)
+- [x] Create database entry for the 52-pack product (id: 30003, slug: nlf-marvel-52-singles)
+- [x] Checklist page auto-generated at /checklist/nlf-marvel-52-singles
+- [x] Added to shop page in Variant Series section
+- [x] Tested on shop, checklists index, and checklist detail pages — all working
 - [ ] Save checkpoint
