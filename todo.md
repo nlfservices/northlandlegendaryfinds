@@ -754,4 +754,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 ## Admin UX Improvements
 - [x] Add redirect from /admin/dashboard to /matrix/dashboard
 - [x] Make Matrix access code persist for 1 hour (localStorage with timestamp)
+- [x] Save checkpoint
+
+## Admin - Card Preview Before Publishing
+- [x] Build PublicPreview component matching public checklist page layout exactly
+- [x] Add Preview tab to admin ChecklistSheet (with tier filter, search, lightbox, missing image warnings)
+- [x] Test — 81 integrity checks pass, 219 vitest tests pass
 - [ ] Save checkpoint
