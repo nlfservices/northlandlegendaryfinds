@@ -389,7 +389,7 @@ function MatrixRedirect() {
   const [, setLocation] = useLocation();
 
   useEffect(() => {
-    setLocation("/matrix/admin");
+    setLocation("/admin");
   }, [setLocation]);
 
   return (

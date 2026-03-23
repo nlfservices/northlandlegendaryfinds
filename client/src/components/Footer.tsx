@@ -3,13 +3,13 @@
  */
 
 import { Link } from "wouter";
-import { Mail, Facebook, Instagram, Youtube, Sparkles } from "lucide-react";
+import { Mail, Facebook, Instagram, Youtube } from "lucide-react";
 
 export default function Footer() {
   return (
     <footer className="bg-card border-t border-border mt-auto">
       <div className="container py-12">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-3 mb-4">
@@ -77,19 +77,6 @@ export default function Footer() {
               <li><Link href="/terms" className="text-sm text-muted-foreground hover:text-primary transition-colors">Terms of Service</Link></li>
               <li><Link href="/privacy" className="text-sm text-muted-foreground hover:text-primary transition-colors">Privacy Policy</Link></li>
               <li><Link href="/refund-policy" className="text-sm text-muted-foreground hover:text-primary transition-colors">Refund Policy</Link></li>
-            </ul>
-          </div>
-
-          {/* Digital Packs */}
-          <div>
-            <h3 className="font-bold text-sm uppercase tracking-wider mb-4 flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-purple-400" />
-              Digital Packs
-            </h3>
-            <ul className="space-y-2.5">
-              <li><Link href="/demo-reveal" className="text-sm text-muted-foreground hover:text-purple-400 transition-colors">Pack Reveal Demo</Link></li>
-              <li><Link href="/slab-packs/nlf-silver-slab-pack" className="text-sm text-muted-foreground hover:text-purple-400 transition-colors">Silver Pack Checklist</Link></li>
-              <li><span className="text-sm text-muted-foreground/50 cursor-default">Buy Packs (May 2026)</span></li>
             </ul>
           </div>
         </div>

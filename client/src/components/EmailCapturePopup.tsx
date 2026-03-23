@@ -3,10 +3,6 @@ import { X, Loader2, CheckCircle, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
-import { useLocation } from "wouter";
-
-// Routes where the popup should never appear (immersive experiences)
-const SUPPRESS_POPUP_ROUTES = ["/card-display", "/matrix", "/reveal", "/demo-reveal"];
 
 /**
  * Smart Email Capture Popup Component — Top Right Corner Style
@@ -42,13 +38,7 @@ export default function EmailCapturePopup() {
     },
   });
 
-  const [location] = useLocation();
-  const isSuppressed = SUPPRESS_POPUP_ROUTES.some(r => location === r || location.startsWith(r + "/"));
-
   useEffect(() => {
-    // Don't show on standalone/immersive routes
-    if (isSuppressed) return;
-
     // Check if user has already interacted with popup
     const hasClosedPopup = localStorage.getItem("nlf_popup_closed");
     const hasSubmitted = localStorage.getItem("nlf_email_submitted");

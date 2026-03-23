@@ -1,7 +1,6 @@
 import { z } from "zod";
 import { adminProcedure, router } from "../_core/trpc";
 import { searchEbayListings, testEbayConnection } from "../ebay";
-import { getAIPriceEstimate } from "../aiPriceEstimator";
 
 export const ebayRouter = router({
   /**
@@ -41,22 +40,4 @@ export const ebayRouter = router({
   testConnection: adminProcedure.query(async () => {
     return testEbayConnection();
   }),
-
-  /**
-   * AI-powered price estimation for trading cards.
-   * Uses LLM to provide market value estimates when eBay API is unavailable.
-   */
-  aiEstimate: adminProcedure
-    .input(
-      z.object({
-        query: z.string().min(1).max(200),
-        grade: z.string().optional(),
-      })
-    )
-    .query(async ({ input }) => {
-      return getAIPriceEstimate({
-        query: input.query,
-        grade: input.grade,
-      });
-    }),
 });

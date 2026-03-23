@@ -738,46 +738,9 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Run integrity check before checkpoint (81/81 passed)
 - [x] Save checkpoint
 
-## Excel Checklist Upload Feature
-- [x] Build client-side Excel parsing with SheetJS (no server endpoint needed)
-- [x] Wire into existing bulkCreate tRPC procedure for import
-- [x] Build frontend upload UI in the Checklist Sheet "Add Cards" tab with drag-and-drop
-- [x] Add column mapping preview with auto-detect and adjustable dropdowns
-- [x] Support the NLF tier format (A/B/C/D/E mapped to tiers)
-- [x] Fix column auto-detect to prevent double-assignment (Tier vs Value)
-- [x] Test upload with the NLF_100_Pack_Checklist spreadsheet (101 cards parsed correctly)
-- [x] Save checkpoint (Excel upload)
-
-## Move Admin Panel from /admin to /matrix
-- [x] Find all references to /admin in codebase (App.tsx, public.ts, robots.txt, MatrixPortal.tsx)
-- [x] Update App.tsx routes from /admin to /matrix/admin and /matrix/ebay-comps
-- [x] Move admin routes to standalone section (no nav/footer, under /matrix path)
-- [x] Update MatrixPortal redirect from /admin to /matrix/admin
-- [x] Update server notification URL from /admin to /matrix/admin
-- [x] Update robots.txt to disallow /matrix instead of /admin
-- [x] Restored slab pack files lost during checkpoint rebase
-- [x] Test /matrix route works correctly
-- [x] Save checkpoint (admin → matrix)
-
-## Dedicated Admin Hub Page
-- [x] Build a new admin hub/landing page at /matrix/admin with organized sections
-- [x] Add "Upload & Import" section with quick-action cards for Excel, manual, and CSV import
-- [x] Add "Products & Inventory" section for products, inventory, and repack builder
-- [x] Add "Checklists & Pull Tracking" section for checklist sheet, checklists, and pull logger
-- [x] Add "Shows & Orders" section for shows and orders management
-- [x] Add "Content Management" section for MCU Intel articles and Top 5 rankings
-- [x] Add "Digital Slab Packs" section for slab pack manager and reveal demo
-- [x] Add "Tools & Analytics" section for eBay Comps
-- [x] Wire hub as main admin landing page, full dashboard accessible at /matrix/dashboard
-- [x] Test navigation from hub cards to dashboard tabs (working)
-- [x] Save checkpoint (admin hub)
-
-## Download Template Button for Excel Uploader
-- [x] Add a "Download Template" button to the ExcelUploader component that generates a blank NLF-format .xlsx file
-
-## eBay Comps - Make It Work Automatically
-- [x] Make eBay Comps search work without requiring production API keys
-- [x] Build LLM-powered price estimation server procedure
-- [x] Update EbayCompsPanel UI for AI estimator experience
-- [x] Test AI price estimation end-to-end
+## Easy Checklist Setup - Upload & Card Images
+- [x] Review current Excel upload and image management flows
+- [x] Add bulk image upload to Master Sheet (auto-matches by filename)
+- [x] Excel upload already supports image URL column
+- [x] Card thumbnail grid on ChecklistDetail page (sorted by tier)
 - [ ] Save checkpoint

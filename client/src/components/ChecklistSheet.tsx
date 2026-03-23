@@ -27,7 +27,6 @@ import {
   Package, TrendingUp, Eye, AlertTriangle, Zap, Search
 } from "lucide-react";
 import { useState, useRef, useCallback, useMemo } from "react";
-import ExcelUploader from "@/components/ExcelUploader";
 
 // ==================== TYPES ====================
 
@@ -236,6 +235,9 @@ function MasterSheet({ productId }: { productId: number }) {
   }, [selectedIds, checklist]);
   const selectedUnpulled = selectedIds.size - selectedPulled;
 
+  const [bulkUploading, setBulkUploading] = useState(false);
+  const [bulkUploadProgress, setBulkUploadProgress] = useState({ done: 0, total: 0 });
+
   const toggleSelect = (id: number) => {
     setSelectedIds(prev => {
       const next = new Set(prev);
@@ -243,6 +245,70 @@ function MasterSheet({ productId }: { productId: number }) {
       else next.add(id);
       return next;
     });
+  }
+
+  // Bulk image upload: match files to cards by filename
+  const handleBulkImageUpload = async (files: FileList) => {
+    if (!checklist || checklist.length === 0) {
+      toast.error("No cards in checklist to match images to.");
+      return;
+    }
+
+    const fileArray = Array.from(files).filter(f => f.type.startsWith("image/"));
+    if (fileArray.length === 0) {
+      toast.error("No image files found in selection.");
+      return;
+    }
+
+    setBulkUploading(true);
+    setBulkUploadProgress({ done: 0, total: fileArray.length });
+
+    let matched = 0;
+    let failed = 0;
+
+    for (const file of fileArray) {
+      // Extract name from filename (strip extension)
+      const baseName = file.name.replace(/\.[^.]+$/, "").trim().toLowerCase();
+      // Try to match by card name, card number, or partial match
+      const match = checklist.find(item => {
+        const cardNameLower = item.cardName.toLowerCase();
+        const cardNumLower = (item.cardNumber || "").toLowerCase();
+        // Exact name match
+        if (cardNameLower === baseName) return true;
+        // Card number match (e.g., "CH-001.jpg" matches card #CH-001)
+        if (cardNumLower && cardNumLower === baseName) return true;
+        // Name + parallel match (e.g., "spider-man-gold-50.jpg")
+        const nameWithParallel = `${cardNameLower}${item.parallel ? "-" + item.parallel.toLowerCase().replace(/[\s/]/g, "-") : ""}`;
+        if (nameWithParallel.replace(/[^a-z0-9-]/g, "") === baseName.replace(/[^a-z0-9-]/g, "")) return true;
+        // Partial: filename contains card name
+        if (baseName.includes(cardNameLower.replace(/[^a-z0-9]/g, ""))) return true;
+        return false;
+      });
+
+      if (match) {
+        try {
+          const base64 = await fileToBase64(file);
+          await uploadImage.mutateAsync({
+            checklistItemId: match.id,
+            imageData: base64,
+            contentType: file.type || "image/jpeg",
+            autoProcess: true,
+          });
+          matched++;
+        } catch {
+          failed++;
+        }
+      } else {
+        failed++;
+      }
+      setBulkUploadProgress(prev => ({ ...prev, done: prev.done + 1 }));
+    }
+
+    setBulkUploading(false);
+    utils.admin.checklist.getByProduct.invalidate({ productId });
+
+    if (matched > 0) toast.success(`${matched} images matched and uploaded!`);
+    if (failed > 0) toast.info(`${failed} images could not be matched to cards. Tip: name files to match card names (e.g., "Spider-Man.jpg").`);
   };
 
   const toggleAll = () => {
@@ -338,7 +404,7 @@ function MasterSheet({ productId }: { productId: number }) {
 
   return (
     <div className="space-y-4">
-      {/* Stats Bar */}
+      {/* Stats Bar + Bulk Actions */}
       <div className="flex items-center gap-6 text-sm flex-wrap">
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-blue-400" />
@@ -361,6 +427,53 @@ function MasterSheet({ productId }: { productId: number }) {
           <span className="font-bold">{withImages}/{totalCards}</span>
         </div>
       </div>
+
+      {/* Bulk Image Upload Bar */}
+      <Card className="border-dashed border-primary/30 bg-primary/5">
+        <CardContent className="py-3">
+          <div className="flex items-center justify-between flex-wrap gap-3">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                <ImageIcon className="w-5 h-5 text-primary" />
+              </div>
+              <div>
+                <h4 className="text-sm font-bold">Bulk Image Upload</h4>
+                <p className="text-xs text-muted-foreground">
+                  Select multiple card photos — they'll auto-match to cards by filename.
+                  Name files like the card name (e.g., "Spider-Man.jpg", "CH-001.jpg").
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              {bulkUploading ? (
+                <div className="flex items-center gap-2">
+                  <Loader2 className="w-4 h-4 animate-spin text-primary" />
+                  <span className="text-sm">{bulkUploadProgress.done}/{bulkUploadProgress.total}</span>
+                </div>
+              ) : (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="border-primary/30 hover:bg-primary/10"
+                  onClick={() => {
+                    const input = document.createElement("input");
+                    input.type = "file";
+                    input.accept = "image/*";
+                    input.multiple = true;
+                    input.onchange = (e) => {
+                      const files = (e.target as HTMLInputElement).files;
+                      if (files && files.length > 0) handleBulkImageUpload(files);
+                    };
+                    input.click();
+                  }}
+                >
+                  <Upload className="w-4 h-4 mr-2" /> Select Images
+                </Button>
+              )}
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Pull Info Bar (for marking pulled) */}
       <Card>
@@ -642,31 +755,6 @@ function AddCardsTab({ productId }: { productId: number }) {
   const bulkCreate = trpc.admin.checklist.bulkCreate.useMutation();
   const uploadImage = trpc.admin.checklist.uploadImage.useMutation();
   const utils = trpc.useUtils();
-  const [isExcelImporting, setIsExcelImporting] = useState(false);
-
-  const handleExcelImport = async (cards: { cardName: string; cardSet: string; cardNumber: string; parallel: string; tier: "chase" | "hit" | "base" | "bonus"; estimatedValue: string; cardCondition: string; sortOrder: number }[]) => {
-    setIsExcelImporting(true);
-    try {
-      const items = cards.map((card, index) => ({
-        cardName: card.cardName,
-        cardSet: card.cardSet || defaultSet || undefined,
-        cardYear: defaultYear || undefined,
-        cardNumber: card.cardNumber || undefined,
-        parallel: card.parallel || undefined,
-        tier: card.tier,
-        estimatedValue: card.estimatedValue || undefined,
-        cardCondition: card.cardCondition || "Raw",
-        sortOrder: card.sortOrder,
-      }));
-      const result = await bulkCreate.mutateAsync({ productId, items });
-      toast.success(`${result.count} cards imported from Excel!`);
-      await utils.admin.checklist.getByProduct.invalidate({ productId });
-    } catch (e: any) {
-      toast.error(e.message || "Failed to import cards from Excel");
-    } finally {
-      setIsExcelImporting(false);
-    }
-  };
 
   const updateRow = (id: string, field: keyof NewCardRow, value: string) => {
     setRows(prev => prev.map(r => r.id === id ? { ...r, [field]: value } : r));
@@ -855,10 +943,7 @@ function AddCardsTab({ productId }: { productId: number }) {
         </CardContent>
       </Card>
 
-      {/* Excel Upload */}
-      <ExcelUploader onImport={handleExcelImport} isImporting={isExcelImporting} />
-
-      {/* Import Buttons (CSV / Manual) */}
+      {/* Import Buttons */}
       <div className="flex gap-3">
         <Button
           variant="outline"
