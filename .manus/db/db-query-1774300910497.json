@@ -1,0 +1,88 @@
+{
+  "query": "SELECT id, cardName, tier, cardNumber FROM checklist_items WHERE productId = 30003 AND id >= 810040 ORDER BY sortOrder ASC;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, cardName, tier, cardNumber FROM checklist_items WHERE productId = 30003 AND id >= 810040 ORDER BY sortOrder ASC;",
+  "rows": [
+    {
+      "id": "810040",
+      "cardName": "Ace of Spades",
+      "tier": "chase",
+      "cardNumber": "S-A"
+    },
+    {
+      "id": "810041",
+      "cardName": "King of Spades",
+      "tier": "hit",
+      "cardNumber": "S-K"
+    },
+    {
+      "id": "810042",
+      "cardName": "Queen of Spades",
+      "tier": "hit",
+      "cardNumber": "S-Q"
+    },
+    {
+      "id": "810043",
+      "cardName": "Jack of Spades",
+      "tier": "hit",
+      "cardNumber": "S-J"
+    },
+    {
+      "id": "810044",
+      "cardName": "10 of Spades",
+      "tier": "base",
+      "cardNumber": "S-10"
+    },
+    {
+      "id": "810045",
+      "cardName": "9 of Spades",
+      "tier": "base",
+      "cardNumber": "S-9"
+    },
+    {
+      "id": "810046",
+      "cardName": "8 of Spades",
+      "tier": "base",
+      "cardNumber": "S-8"
+    },
+    {
+      "id": "810047",
+      "cardName": "7 of Spades",
+      "tier": "base",
+      "cardNumber": "S-7"
+    },
+    {
+      "id": "810048",
+      "cardName": "6 of Spades",
+      "tier": "base",
+      "cardNumber": "S-6"
+    },
+    {
+      "id": "810049",
+      "cardName": "5 of Spades",
+      "tier": "base",
+      "cardNumber": "S-5"
+    },
+    {
+      "id": "810050",
+      "cardName": "4 of Spades",
+      "tier": "base",
+      "cardNumber": "S-4"
+    },
+    {
+      "id": "810051",
+      "cardName": "3 of Spades",
+      "tier": "base",
+      "cardNumber": "S-3"
+    },
+    {
+      "id": "810052",
+      "cardName": "2 of Spades",
+      "tier": "base",
+      "cardNumber": "S-2"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcardName\ttier\tcardNumber\n810040\tAce of Spades\tchase\tS-A\n810041\tKing of Spades\thit\tS-K\n810042\tQueen of Spades\thit\tS-Q\n810043\tJack of Spades\thit\tS-J\n810044\t10 of Spades\tbase\tS-10\n810045\t9 of Spades\tbase\tS-9\n810046\t8 of Spades\tbase\tS-8\n810047\t7 of Spades\tbase\tS-7\n810048\t6 of Spades\tbase\tS-6\n810049\t5 of Spades\tbase\tS-5\n810050\t4 of Spades\tbase\tS-4\n810051\t3 of Spades\tbase\tS-3\n810052\t2 of Spades\tbase\tS-2\n",
+  "stderr": "",
+  "execution_time_ms": 359
+}

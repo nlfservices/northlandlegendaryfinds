@@ -1,0 +1,22 @@
+{
+  "query": "SELECT id, cardName, cardNumber, tier FROM checklist_items WHERE cardSet LIKE '%Gambit%' ORDER BY sortOrder LIMIT 5 OFFSET 50;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, cardName, cardNumber, tier FROM checklist_items WHERE cardSet LIKE '%Gambit%' ORDER BY sortOrder LIMIT 5 OFFSET 50;",
+  "rows": [
+    {
+      "id": "810051",
+      "cardName": "3 of Spades",
+      "cardNumber": "S-3",
+      "tier": "base"
+    },
+    {
+      "id": "810052",
+      "cardName": "2 of Spades",
+      "cardNumber": "S-2",
+      "tier": "base"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcardName\tcardNumber\ttier\n810051\t3 of Spades\tS-3\tbase\n810052\t2 of Spades\tS-2\tbase\n",
+  "stderr": "",
+  "execution_time_ms": 352
+}

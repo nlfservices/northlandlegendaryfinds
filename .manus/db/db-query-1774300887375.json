@@ -126,5 +126,5 @@
   "messages": [],
   "stdout": "Field\tType\tNull\tKey\tDefault\tExtra\nid\tint\tNO\tPRI\tNULL\tauto_increment\nproductId\tint\tNO\t\tNULL\t\ncardName\tvarchar(255)\tNO\t\tNULL\t\ncardSet\tvarchar(255)\tYES\t\tNULL\t\ncardYear\tvarchar(10)\tYES\t\tNULL\t\ncardNumber\tvarchar(50)\tYES\t\tNULL\t\nparallel\tvarchar(100)\tYES\t\tNULL\t\ntier\tenum('chase','hit','base','bonus')\tNO\t\tbase\t\nestimatedValue\tvarchar(50)\tYES\t\tNULL\t\nisPulled\ttinyint(1)\tNO\t\t0\t\nimageUrl\ttext\tYES\t\tNULL\t\nsortOrder\tint\tNO\t\t0\t\ncreatedAt\ttimestamp\tNO\t\tCURRENT_TIMESTAMP\t\nupdatedAt\ttimestamp\tNO\t\tCURRENT_TIMESTAMP\tDEFAULT_GENERATED on update CURRENT_TIMESTAMP\ncardCondition\tvarchar(100)\tYES\t\tNULL\t\n",
   "stderr": "",
-  "execution_time_ms": 717
+  "execution_time_ms": 364
 }

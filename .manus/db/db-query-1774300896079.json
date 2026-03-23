@@ -1,0 +1,530 @@
+{
+  "query": "SELECT id, cardName, parallel, tier, cardNumber, cardSet, estimatedValue, imageUrl FROM checklist_items WHERE productId = 30003 ORDER BY sortOrder ASC;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, cardName, parallel, tier, cardNumber, cardSet, estimatedValue, imageUrl FROM checklist_items WHERE productId = 30003 ORDER BY sortOrder ASC;",
+  "rows": [
+    {
+      "id": "810001",
+      "cardName": "Ace of Clubs",
+      "parallel": "♣ Clubs",
+      "tier": "chase",
+      "cardNumber": "C-A",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810002",
+      "cardName": "King of Clubs",
+      "parallel": "♣ Clubs",
+      "tier": "hit",
+      "cardNumber": "C-K",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810003",
+      "cardName": "Queen of Clubs",
+      "parallel": "♣ Clubs",
+      "tier": "hit",
+      "cardNumber": "C-Q",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810004",
+      "cardName": "Jack of Clubs",
+      "parallel": "♣ Clubs",
+      "tier": "hit",
+      "cardNumber": "C-J",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810005",
+      "cardName": "10 of Clubs",
+      "parallel": "♣ Clubs",
+      "tier": "base",
+      "cardNumber": "C-10",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810006",
+      "cardName": "9 of Clubs",
+      "parallel": "♣ Clubs",
+      "tier": "base",
+      "cardNumber": "C-9",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810007",
+      "cardName": "8 of Clubs",
+      "parallel": "♣ Clubs",
+      "tier": "base",
+      "cardNumber": "C-8",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810008",
+      "cardName": "7 of Clubs",
+      "parallel": "♣ Clubs",
+      "tier": "base",
+      "cardNumber": "C-7",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810009",
+      "cardName": "6 of Clubs",
+      "parallel": "♣ Clubs",
+      "tier": "base",
+      "cardNumber": "C-6",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810010",
+      "cardName": "5 of Clubs",
+      "parallel": "♣ Clubs",
+      "tier": "base",
+      "cardNumber": "C-5",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810011",
+      "cardName": "4 of Clubs",
+      "parallel": "♣ Clubs",
+      "tier": "base",
+      "cardNumber": "C-4",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810012",
+      "cardName": "3 of Clubs",
+      "parallel": "♣ Clubs",
+      "tier": "base",
+      "cardNumber": "C-3",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810013",
+      "cardName": "2 of Clubs",
+      "parallel": "♣ Clubs",
+      "tier": "base",
+      "cardNumber": "C-2",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810014",
+      "cardName": "Ace of Diamonds",
+      "parallel": "♦ Diamonds",
+      "tier": "chase",
+      "cardNumber": "D-A",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810015",
+      "cardName": "King of Diamonds",
+      "parallel": "♦ Diamonds",
+      "tier": "hit",
+      "cardNumber": "D-K",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810016",
+      "cardName": "Queen of Diamonds",
+      "parallel": "♦ Diamonds",
+      "tier": "hit",
+      "cardNumber": "D-Q",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810017",
+      "cardName": "Jack of Diamonds",
+      "parallel": "♦ Diamonds",
+      "tier": "hit",
+      "cardNumber": "D-J",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810018",
+      "cardName": "10 of Diamonds",
+      "parallel": "♦ Diamonds",
+      "tier": "base",
+      "cardNumber": "D-10",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810019",
+      "cardName": "9 of Diamonds",
+      "parallel": "♦ Diamonds",
+      "tier": "base",
+      "cardNumber": "D-9",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810020",
+      "cardName": "8 of Diamonds",
+      "parallel": "♦ Diamonds",
+      "tier": "base",
+      "cardNumber": "D-8",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810021",
+      "cardName": "7 of Diamonds",
+      "parallel": "♦ Diamonds",
+      "tier": "base",
+      "cardNumber": "D-7",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810022",
+      "cardName": "6 of Diamonds",
+      "parallel": "♦ Diamonds",
+      "tier": "base",
+      "cardNumber": "D-6",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810023",
+      "cardName": "5 of Diamonds",
+      "parallel": "♦ Diamonds",
+      "tier": "base",
+      "cardNumber": "D-5",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810024",
+      "cardName": "4 of Diamonds",
+      "parallel": "♦ Diamonds",
+      "tier": "base",
+      "cardNumber": "D-4",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810025",
+      "cardName": "3 of Diamonds",
+      "parallel": "♦ Diamonds",
+      "tier": "base",
+      "cardNumber": "D-3",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810026",
+      "cardName": "2 of Diamonds",
+      "parallel": "♦ Diamonds",
+      "tier": "base",
+      "cardNumber": "D-2",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810027",
+      "cardName": "Ace of Hearts",
+      "parallel": "♥ Hearts",
+      "tier": "chase",
+      "cardNumber": "H-A",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810028",
+      "cardName": "King of Hearts",
+      "parallel": "♥ Hearts",
+      "tier": "hit",
+      "cardNumber": "H-K",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810029",
+      "cardName": "Queen of Hearts",
+      "parallel": "♥ Hearts",
+      "tier": "hit",
+      "cardNumber": "H-Q",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810030",
+      "cardName": "Jack of Hearts",
+      "parallel": "♥ Hearts",
+      "tier": "hit",
+      "cardNumber": "H-J",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810031",
+      "cardName": "10 of Hearts",
+      "parallel": "♥ Hearts",
+      "tier": "base",
+      "cardNumber": "H-10",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810032",
+      "cardName": "9 of Hearts",
+      "parallel": "♥ Hearts",
+      "tier": "base",
+      "cardNumber": "H-9",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810033",
+      "cardName": "8 of Hearts",
+      "parallel": "♥ Hearts",
+      "tier": "base",
+      "cardNumber": "H-8",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810034",
+      "cardName": "7 of Hearts",
+      "parallel": "♥ Hearts",
+      "tier": "base",
+      "cardNumber": "H-7",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810035",
+      "cardName": "6 of Hearts",
+      "parallel": "♥ Hearts",
+      "tier": "base",
+      "cardNumber": "H-6",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810036",
+      "cardName": "5 of Hearts",
+      "parallel": "♥ Hearts",
+      "tier": "base",
+      "cardNumber": "H-5",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810037",
+      "cardName": "4 of Hearts",
+      "parallel": "♥ Hearts",
+      "tier": "base",
+      "cardNumber": "H-4",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810038",
+      "cardName": "3 of Hearts",
+      "parallel": "♥ Hearts",
+      "tier": "base",
+      "cardNumber": "H-3",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810039",
+      "cardName": "2 of Hearts",
+      "parallel": "♥ Hearts",
+      "tier": "base",
+      "cardNumber": "H-2",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810040",
+      "cardName": "Ace of Spades",
+      "parallel": "♠ Spades",
+      "tier": "chase",
+      "cardNumber": "S-A",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810041",
+      "cardName": "King of Spades",
+      "parallel": "♠ Spades",
+      "tier": "hit",
+      "cardNumber": "S-K",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810042",
+      "cardName": "Queen of Spades",
+      "parallel": "♠ Spades",
+      "tier": "hit",
+      "cardNumber": "S-Q",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810043",
+      "cardName": "Jack of Spades",
+      "parallel": "♠ Spades",
+      "tier": "hit",
+      "cardNumber": "S-J",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810044",
+      "cardName": "10 of Spades",
+      "parallel": "♠ Spades",
+      "tier": "base",
+      "cardNumber": "S-10",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810045",
+      "cardName": "9 of Spades",
+      "parallel": "♠ Spades",
+      "tier": "base",
+      "cardNumber": "S-9",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810046",
+      "cardName": "8 of Spades",
+      "parallel": "♠ Spades",
+      "tier": "base",
+      "cardNumber": "S-8",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810047",
+      "cardName": "7 of Spades",
+      "parallel": "♠ Spades",
+      "tier": "base",
+      "cardNumber": "S-7",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810048",
+      "cardName": "6 of Spades",
+      "parallel": "♠ Spades",
+      "tier": "base",
+      "cardNumber": "S-6",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810049",
+      "cardName": "5 of Spades",
+      "parallel": "♠ Spades",
+      "tier": "base",
+      "cardNumber": "S-5",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810050",
+      "cardName": "4 of Spades",
+      "parallel": "♠ Spades",
+      "tier": "base",
+      "cardNumber": "S-4",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810051",
+      "cardName": "3 of Spades",
+      "parallel": "♠ Spades",
+      "tier": "base",
+      "cardNumber": "S-3",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    },
+    {
+      "id": "810052",
+      "cardName": "2 of Spades",
+      "parallel": "♠ Spades",
+      "tier": "base",
+      "cardNumber": "S-2",
+      "cardSet": "Gambit's Deck",
+      "estimatedValue": "NULL",
+      "imageUrl": "NULL"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcardName\tparallel\ttier\tcardNumber\tcardSet\testimatedValue\timageUrl\n810001\tAce of Clubs\t♣ Clubs\tchase\tC-A\tGambit's Deck\tNULL\tNULL\n810002\tKing of Clubs\t♣ Clubs\thit\tC-K\tGambit's Deck\tNULL\tNULL\n810003\tQueen of Clubs\t♣ Clubs\thit\tC-Q\tGambit's Deck\tNULL\tNULL\n810004\tJack of Clubs\t♣ Clubs\thit\tC-J\tGambit's Deck\tNULL\tNULL\n810005\t10 of Clubs\t♣ Clubs\tbase\tC-10\tGambit's Deck\tNULL\tNULL\n810006\t9 of Clubs\t♣ Clubs\tbase\tC-9\tGambit's Deck\tNULL\tNULL\n810007\t8 of Clubs\t♣ Clubs\tbase\tC-8\tGambit's Deck\tNULL\tNULL\n810008\t7 of Clubs\t♣ Clubs\tbase\tC-7\tGambit's Deck\tNULL\tNULL\n810009\t6 of Clubs\t♣ Clubs\tbase\tC-6\tGambit's Deck\tNULL\tNULL\n810010\t5 of Clubs\t♣ Clubs\tbase\tC-5\tGambit's Deck\tNULL\tNULL\n810011\t4 of Clubs\t♣ Clubs\tbase\tC-4\tGambit's Deck\tNULL\tNULL\n810012\t3 of Clubs\t♣ Clubs\tbase\tC-3\tGambit's Deck\tNULL\tNULL\n810013\t2 of Clubs\t♣ Clubs\tbase\tC-2\tGambit's Deck\tNULL\tNULL\n810014\tAce of Diamonds\t♦ Diamonds\tchase\tD-A\tGambit's Deck\tNULL\tNULL\n810015\tKing of Diamonds\t♦ Diamonds\thit\tD-K\tGambit's Deck\tNULL\tNULL\n810016\tQueen of Diamonds\t♦ Diamonds\thit\tD-Q\tGambit's Deck\tNULL\tNULL\n810017\tJack of Diamonds\t♦ Diamonds\thit\tD-J\tGambit's Deck\tNULL\tNULL\n810018\t10 of Diamonds\t♦ Diamonds\tbase\tD-10\tGambit's Deck\tNULL\tNULL\n810019\t9 of Diamonds\t♦ Diamonds\tbase\tD-9\tGambit's Deck\tNULL\tNULL\n810020\t8 of Diamonds\t♦ Diamonds\tbase\tD-8\tGambit's Deck\tNULL\tNULL\n810021\t7 of Diamonds\t♦ Diamonds\tbase\tD-7\tGambit's Deck\tNULL\tNULL\n810022\t6 of Diamonds\t♦ Diamonds\tbase\tD-6\tGambit's Deck\tNULL\tNULL\n810023\t5 of Diamonds\t♦ Diamonds\tbase\tD-5\tGambit's Deck\tNULL\tNULL\n810024\t4 of Diamonds\t♦ Diamonds\tbase\tD-4\tGambit's Deck\tNULL\tNULL\n810025\t3 of Diamonds\t♦ Diamonds\tbase\tD-3\tGambit's Deck\tNULL\tNULL\n810026\t2 of Diamonds\t♦ Diamonds\tbase\tD-2\tGambit's Deck\tNULL\tNULL\n810027\tAce of Hearts\t♥ Hearts\tchase\tH-A\tGambit's Deck\tNULL\tNULL\n810028\tKing of Hearts\t♥ Hearts\thit\tH-K\tGambit's Deck\tNULL\tNULL\n810029\tQueen of Hearts\t♥ Hearts\thit\tH-Q\tGambit's Deck\tNULL\tNULL\n810030\tJack of Hearts\t♥ Hearts\thit\tH-J\tGambit's Deck\tNULL\tNULL\n810031\t10 of Hearts\t♥ Hearts\tbase\tH-10\tGambit's Deck\tNULL\tNULL\n810032\t9 of Hearts\t♥ Hearts\tbase\tH-9\tGambit's Deck\tNULL\tNULL\n810033\t8 of Hearts\t♥ Hearts\tbase\tH-8\tGambit's Deck\tNULL\tNULL\n810034\t7 of Hearts\t♥ Hearts\tbase\tH-7\tGambit's Deck\tNULL\tNULL\n810035\t6 of Hearts\t♥ Hearts\tbase\tH-6\tGambit's Deck\tNULL\tNULL\n810036\t5 of Hearts\t♥ Hearts\tbase\tH-5\tGambit's Deck\tNULL\tNULL\n810037\t4 of Hearts\t♥ Hearts\tbase\tH-4\tGambit's Deck\tNULL\tNULL\n810038\t3 of Hearts\t♥ Hearts\tbase\tH-3\tGambit's Deck\tNULL\tNULL\n810039\t2 of Hearts\t♥ Hearts\tbase\tH-2\tGambit's Deck\tNULL\tNULL\n810040\tAce of Spades\t♠ Spades\tchase\tS-A\tGambit's Deck\tNULL\tNULL\n810041\tKing of Spades\t♠ Spades\thit\tS-K\tGambit's Deck\tNULL\tNULL\n810042\tQueen of Spades\t♠ Spades\thit\tS-Q\tGambit's Deck\tNULL\tNULL\n810043\tJack of Spades\t♠ Spades\thit\tS-J\tGambit's Deck\tNULL\tNULL\n810044\t10 of Spades\t♠ Spades\tbase\tS-10\tGambit's Deck\tNULL\tNULL\n810045\t9 of Spades\t♠ Spades\tbase\tS-9\tGambit's Deck\tNULL\tNULL\n810046\t8 of Spades\t♠ Spades\tbase\tS-8\tGambit's Deck\tNULL\tNULL\n810047\t7 of Spades\t♠ Spades\tbase\tS-7\tGambit's Deck\tNULL\tNULL\n810048\t6 of Spades\t♠ Spades\tbase\tS-6\tGambit's Deck\tNULL\tNULL\n810049\t5 of Spades\t♠ Spades\tbase\tS-5\tGambit's Deck\tNULL\tNULL\n810050\t4 of Spades\t♠ Spades\tbase\tS-4\tGambit's Deck\tNULL\tNULL\n810051\t3 of Spades\t♠ Spades\tbase\tS-3\tGambit's Deck\tNULL\tNULL\n810052\t2 of Spades\t♠ Spades\tbase\tS-2\tGambit's Deck\tNULL\tNULL\n",
+  "stderr": "",
+  "execution_time_ms": 371
+}

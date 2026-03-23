@@ -1,0 +1,70 @@
+{
+  "query": "SELECT column_name, data_type FROM information_schema.columns WHERE table_name = 'checklist_items' ORDER BY ordinal_position;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT column_name, data_type FROM information_schema.columns WHERE table_name = 'checklist_items' ORDER BY ordinal_position;",
+  "rows": [
+    {
+      "column_name": "id",
+      "data_type": "int"
+    },
+    {
+      "column_name": "productId",
+      "data_type": "int"
+    },
+    {
+      "column_name": "cardName",
+      "data_type": "varchar"
+    },
+    {
+      "column_name": "cardSet",
+      "data_type": "varchar"
+    },
+    {
+      "column_name": "cardYear",
+      "data_type": "varchar"
+    },
+    {
+      "column_name": "cardNumber",
+      "data_type": "varchar"
+    },
+    {
+      "column_name": "parallel",
+      "data_type": "varchar"
+    },
+    {
+      "column_name": "tier",
+      "data_type": "enum"
+    },
+    {
+      "column_name": "estimatedValue",
+      "data_type": "varchar"
+    },
+    {
+      "column_name": "isPulled",
+      "data_type": "tinyint"
+    },
+    {
+      "column_name": "imageUrl",
+      "data_type": "text"
+    },
+    {
+      "column_name": "sortOrder",
+      "data_type": "int"
+    },
+    {
+      "column_name": "createdAt",
+      "data_type": "timestamp"
+    },
+    {
+      "column_name": "updatedAt",
+      "data_type": "timestamp"
+    },
+    {
+      "column_name": "cardCondition",
+      "data_type": "varchar"
+    }
+  ],
+  "messages": [],
+  "stdout": "column_name\tdata_type\nid\tint\nproductId\tint\ncardName\tvarchar\ncardSet\tvarchar\ncardYear\tvarchar\ncardNumber\tvarchar\nparallel\tvarchar\ntier\tenum\nestimatedValue\tvarchar\nisPulled\ttinyint\nimageUrl\ttext\nsortOrder\tint\ncreatedAt\ttimestamp\nupdatedAt\ttimestamp\ncardCondition\tvarchar\n",
+  "stderr": "",
+  "execution_time_ms": 361
+}

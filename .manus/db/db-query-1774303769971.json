@@ -1,0 +1,150 @@
+{
+  "query": "SELECT id, cardName, cardNumber, cardCondition, CASE WHEN imageUrl IS NOT NULL AND imageUrl != '' THEN 'YES' ELSE 'NO' END as hasImage FROM checklist_items WHERE cardSet LIKE '%Gambit%' ORDER BY sortOrder LIMIT 20;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, cardName, cardNumber, cardCondition, CASE WHEN imageUrl IS NOT NULL AND imageUrl != '' THEN 'YES' ELSE 'NO' END as hasImage FROM checklist_items WHERE cardSet LIKE '%Gambit%' ORDER BY sortOrder LIMIT 20;",
+  "rows": [
+    {
+      "id": "810001",
+      "cardName": "Wolverine",
+      "cardNumber": "C-A",
+      "cardCondition": "CGC 9 Mint",
+      "hasImage": "YES"
+    },
+    {
+      "id": "810002",
+      "cardName": "Doctor Doom",
+      "cardNumber": "C-K",
+      "cardCondition": "CGC 10 Gem Mint",
+      "hasImage": "YES"
+    },
+    {
+      "id": "810003",
+      "cardName": "Storm",
+      "cardNumber": "C-Q",
+      "cardCondition": "CGC 10 Gem Mint",
+      "hasImage": "YES"
+    },
+    {
+      "id": "810004",
+      "cardName": "Beast",
+      "cardNumber": "C-J",
+      "cardCondition": "CGC 9.5 Mint+",
+      "hasImage": "YES"
+    },
+    {
+      "id": "810005",
+      "cardName": "Thor",
+      "cardNumber": "C-10",
+      "cardCondition": "CGC 10 Gem Mint",
+      "hasImage": "YES"
+    },
+    {
+      "id": "810006",
+      "cardName": "Hulk",
+      "cardNumber": "C-9",
+      "cardCondition": "CGC 9 Mint",
+      "hasImage": "YES"
+    },
+    {
+      "id": "810007",
+      "cardName": "Loki",
+      "cardNumber": "C-8",
+      "cardCondition": "CGC 10 Gem Mint",
+      "hasImage": "YES"
+    },
+    {
+      "id": "810008",
+      "cardName": "Venom",
+      "cardNumber": "C-7",
+      "cardCondition": "CGC 9 Mint",
+      "hasImage": "YES"
+    },
+    {
+      "id": "810009",
+      "cardName": "War Machine",
+      "cardNumber": "C-6",
+      "cardCondition": "CGC 10 Gem Mint",
+      "hasImage": "YES"
+    },
+    {
+      "id": "810010",
+      "cardName": "Kitty Pryde",
+      "cardNumber": "C-5",
+      "cardCondition": "CGC 9 Mint",
+      "hasImage": "YES"
+    },
+    {
+      "id": "810011",
+      "cardName": "Invisible Woman",
+      "cardNumber": "C-4",
+      "cardCondition": "CGC 9 Mint",
+      "hasImage": "YES"
+    },
+    {
+      "id": "810012",
+      "cardName": "Quicksilver",
+      "cardNumber": "C-3",
+      "cardCondition": "CGC 9.5 Mint+",
+      "hasImage": "YES"
+    },
+    {
+      "id": "810013",
+      "cardName": "Sabretooth",
+      "cardNumber": "C-2",
+      "cardCondition": "CGC 10 Gem Mint",
+      "hasImage": "YES"
+    },
+    {
+      "id": "810014",
+      "cardName": "Magneto",
+      "cardNumber": "D-A",
+      "cardCondition": "CGC 10 Gem Mint",
+      "hasImage": "YES"
+    },
+    {
+      "id": "810015",
+      "cardName": "Cyclops",
+      "cardNumber": "D-K",
+      "cardCondition": "CGC 9 Mint",
+      "hasImage": "YES"
+    },
+    {
+      "id": "810016",
+      "cardName": "Emma Frost",
+      "cardNumber": "D-Q",
+      "cardCondition": "CGC 9 Mint",
+      "hasImage": "YES"
+    },
+    {
+      "id": "810017",
+      "cardName": "Cable",
+      "cardNumber": "D-J",
+      "cardCondition": "CGC 9 Mint",
+      "hasImage": "YES"
+    },
+    {
+      "id": "810018",
+      "cardName": "Black Widow",
+      "cardNumber": "D-10",
+      "cardCondition": "CGC 9 Mint",
+      "hasImage": "YES"
+    },
+    {
+      "id": "810019",
+      "cardName": "Blade",
+      "cardNumber": "D-9",
+      "cardCondition": "CGC 9 Mint",
+      "hasImage": "YES"
+    },
+    {
+      "id": "810020",
+      "cardName": "Scarlet Witch",
+      "cardNumber": "D-8",
+      "cardCondition": "CGC 9 Mint",
+      "hasImage": "YES"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcardName\tcardNumber\tcardCondition\thasImage\n810001\tWolverine\tC-A\tCGC 9 Mint\tYES\n810002\tDoctor Doom\tC-K\tCGC 10 Gem Mint\tYES\n810003\tStorm\tC-Q\tCGC 10 Gem Mint\tYES\n810004\tBeast\tC-J\tCGC 9.5 Mint+\tYES\n810005\tThor\tC-10\tCGC 10 Gem Mint\tYES\n810006\tHulk\tC-9\tCGC 9 Mint\tYES\n810007\tLoki\tC-8\tCGC 10 Gem Mint\tYES\n810008\tVenom\tC-7\tCGC 9 Mint\tYES\n810009\tWar Machine\tC-6\tCGC 10 Gem Mint\tYES\n810010\tKitty Pryde\tC-5\tCGC 9 Mint\tYES\n810011\tInvisible Woman\tC-4\tCGC 9 Mint\tYES\n810012\tQuicksilver\tC-3\tCGC 9.5 Mint+\tYES\n810013\tSabretooth\tC-2\tCGC 10 Gem Mint\tYES\n810014\tMagneto\tD-A\tCGC 10 Gem Mint\tYES\n810015\tCyclops\tD-K\tCGC 9 Mint\tYES\n810016\tEmma Frost\tD-Q\tCGC 9 Mint\tYES\n810017\tCable\tD-J\tCGC 9 Mint\tYES\n810018\tBlack Widow\tD-10\tCGC 9 Mint\tYES\n810019\tBlade\tD-9\tCGC 9 Mint\tYES\n810020\tScarlet Witch\tD-8\tCGC 9 Mint\tYES\n",
+  "stderr": "",
+  "execution_time_ms": 362
+}
