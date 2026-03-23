@@ -52,7 +52,6 @@ import MarketIntelToppsVsUpperDeck from "./pages/MarketIntelToppsVsUpperDeck";
 import MarketIntelMarvelVsPokemon from "./pages/MarketIntelMarvelVsPokemon";
 import MarketIntelFanatics from "./pages/MarketIntelFanatics";
 import MarketIntelBestCards from "./pages/MarketIntelBestCards";
-import { Redirect } from "wouter";
 
 // Routes that render as full-screen standalone experiences (no nav/footer)
 const STANDALONE_ROUTES = ["/card-display", "/matrix"];
@@ -106,7 +105,6 @@ function AppRouter() {
           <Route path="/characters/:slug" component={CharacterPage} />
           <Route path="/matrix" component={MatrixPortal} />
           <Route path="/admin" component={AdminDashboard} />
-          <Route path="/admin/dashboard">{() => <Redirect to="/matrix" />}</Route>
           <Route path="/admin/ebay-comps" component={EbayComps} />
           <Route path="/transparency" component={Transparency} />
           <Route path="/mcu-intel" component={MCUIntel} />

@@ -738,34 +738,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Run integrity check before checkpoint (81/81 passed)
 - [x] Save checkpoint
 
-## Easy Checklist Setup - Upload & Card Images
-- [x] Review current Excel upload and image management flows
-- [x] Add bulk image upload to Master Sheet (auto-matches by filename)
-- [x] Excel upload already supports image URL column
-- [x] Card thumbnail grid on ChecklistDetail page (sorted by tier)
-- [x] Save checkpoint
-
-## Checklist Detail - Tier Filter for Users
-- [x] Add tier filter buttons (All, Chase, Hit, Base, Bonus) to public checklist detail page
-- [x] Add search input to filter cards by name, parallel, set, or number
-- [x] Test tier filtering and search in browser (3 of 50 for "Spider-Man")
-- [x] Save checkpoint
-
-## Admin UX Improvements
-- [x] Add redirect from /admin/dashboard to /matrix/dashboard
-- [x] Make Matrix access code persist for 1 hour (localStorage with timestamp)
-- [x] Save checkpoint
-
-## Admin - Card Preview Before Publishing
-- [x] Build PublicPreview component matching public checklist page layout exactly
-- [x] Add Preview tab to admin ChecklistSheet (with tier filter, search, lightbox, missing image warnings)
-- [x] Test — 81 integrity checks pass, 219 vitest tests pass
-- [x] Save checkpoint
-
-## New Product: 52-Pack Single Card Series
-- [x] Add 52-pack single-card product to products data (each pack = 1 card)
-- [x] Create database entry for the 52-pack product (id: 30003, slug: nlf-marvel-52-singles)
-- [x] Checklist page auto-generated at /checklist/nlf-marvel-52-singles
-- [x] Added to shop page in Variant Series section
-- [x] Tested on shop, checklists index, and checklist detail pages — all working
+## Gambit's Deck - 52 Card Checklist Population
+- [x] Insert 52 checklist items for Gambit's Deck (4 suits × 13 ranks)
+- [x] Assign tiers: Aces=Chase (4), Face cards=Hit (12), Number cards=Base (36)
+- [x] Update product name/description to Gambit's Deck theme in DB and frontend
+- [x] Added to Shop page as "Gambit's Deck — 52 Singles" in Variant Series
+- [x] Test checklist page — shows 52 cards, 52 packs, CHECKLIST HIDDEN overlay
 - [ ] Save checkpoint

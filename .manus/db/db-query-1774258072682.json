@@ -1,0 +1,22 @@
+{
+  "query": "SELECT tier, COUNT(*) as count FROM checklist_items WHERE productId = 30003 GROUP BY tier ORDER BY FIELD(tier, 'chase', 'hit', 'base', 'bonus');",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT tier, COUNT(*) as count FROM checklist_items WHERE productId = 30003 GROUP BY tier ORDER BY FIELD(tier, 'chase', 'hit', 'base', 'bonus');",
+  "rows": [
+    {
+      "tier": "chase",
+      "count": "4"
+    },
+    {
+      "tier": "hit",
+      "count": "12"
+    },
+    {
+      "tier": "base",
+      "count": "36"
+    }
+  ],
+  "messages": [],
+  "stdout": "tier\tcount\nchase\t4\nhit\t12\nbase\t36\n",
+  "stderr": "",
+  "execution_time_ms": 373
+}

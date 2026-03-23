@@ -235,9 +235,6 @@ function MasterSheet({ productId }: { productId: number }) {
   }, [selectedIds, checklist]);
   const selectedUnpulled = selectedIds.size - selectedPulled;
 
-  const [bulkUploading, setBulkUploading] = useState(false);
-  const [bulkUploadProgress, setBulkUploadProgress] = useState({ done: 0, total: 0 });
-
   const toggleSelect = (id: number) => {
     setSelectedIds(prev => {
       const next = new Set(prev);
@@ -245,70 +242,6 @@ function MasterSheet({ productId }: { productId: number }) {
       else next.add(id);
       return next;
     });
-  }
-
-  // Bulk image upload: match files to cards by filename
-  const handleBulkImageUpload = async (files: FileList) => {
-    if (!checklist || checklist.length === 0) {
-      toast.error("No cards in checklist to match images to.");
-      return;
-    }
-
-    const fileArray = Array.from(files).filter(f => f.type.startsWith("image/"));
-    if (fileArray.length === 0) {
-      toast.error("No image files found in selection.");
-      return;
-    }
-
-    setBulkUploading(true);
-    setBulkUploadProgress({ done: 0, total: fileArray.length });
-
-    let matched = 0;
-    let failed = 0;
-
-    for (const file of fileArray) {
-      // Extract name from filename (strip extension)
-      const baseName = file.name.replace(/\.[^.]+$/, "").trim().toLowerCase();
-      // Try to match by card name, card number, or partial match
-      const match = checklist.find(item => {
-        const cardNameLower = item.cardName.toLowerCase();
-        const cardNumLower = (item.cardNumber || "").toLowerCase();
-        // Exact name match
-        if (cardNameLower === baseName) return true;
-        // Card number match (e.g., "CH-001.jpg" matches card #CH-001)
-        if (cardNumLower && cardNumLower === baseName) return true;
-        // Name + parallel match (e.g., "spider-man-gold-50.jpg")
-        const nameWithParallel = `${cardNameLower}${item.parallel ? "-" + item.parallel.toLowerCase().replace(/[\s/]/g, "-") : ""}`;
-        if (nameWithParallel.replace(/[^a-z0-9-]/g, "") === baseName.replace(/[^a-z0-9-]/g, "")) return true;
-        // Partial: filename contains card name
-        if (baseName.includes(cardNameLower.replace(/[^a-z0-9]/g, ""))) return true;
-        return false;
-      });
-
-      if (match) {
-        try {
-          const base64 = await fileToBase64(file);
-          await uploadImage.mutateAsync({
-            checklistItemId: match.id,
-            imageData: base64,
-            contentType: file.type || "image/jpeg",
-            autoProcess: true,
-          });
-          matched++;
-        } catch {
-          failed++;
-        }
-      } else {
-        failed++;
-      }
-      setBulkUploadProgress(prev => ({ ...prev, done: prev.done + 1 }));
-    }
-
-    setBulkUploading(false);
-    utils.admin.checklist.getByProduct.invalidate({ productId });
-
-    if (matched > 0) toast.success(`${matched} images matched and uploaded!`);
-    if (failed > 0) toast.info(`${failed} images could not be matched to cards. Tip: name files to match card names (e.g., "Spider-Man.jpg").`);
   };
 
   const toggleAll = () => {
@@ -404,7 +337,7 @@ function MasterSheet({ productId }: { productId: number }) {
 
   return (
     <div className="space-y-4">
-      {/* Stats Bar + Bulk Actions */}
+      {/* Stats Bar */}
       <div className="flex items-center gap-6 text-sm flex-wrap">
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-blue-400" />
@@ -427,53 +360,6 @@ function MasterSheet({ productId }: { productId: number }) {
           <span className="font-bold">{withImages}/{totalCards}</span>
         </div>
       </div>
-
-      {/* Bulk Image Upload Bar */}
-      <Card className="border-dashed border-primary/30 bg-primary/5">
-        <CardContent className="py-3">
-          <div className="flex items-center justify-between flex-wrap gap-3">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                <ImageIcon className="w-5 h-5 text-primary" />
-              </div>
-              <div>
-                <h4 className="text-sm font-bold">Bulk Image Upload</h4>
-                <p className="text-xs text-muted-foreground">
-                  Select multiple card photos — they'll auto-match to cards by filename.
-                  Name files like the card name (e.g., "Spider-Man.jpg", "CH-001.jpg").
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              {bulkUploading ? (
-                <div className="flex items-center gap-2">
-                  <Loader2 className="w-4 h-4 animate-spin text-primary" />
-                  <span className="text-sm">{bulkUploadProgress.done}/{bulkUploadProgress.total}</span>
-                </div>
-              ) : (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="border-primary/30 hover:bg-primary/10"
-                  onClick={() => {
-                    const input = document.createElement("input");
-                    input.type = "file";
-                    input.accept = "image/*";
-                    input.multiple = true;
-                    input.onchange = (e) => {
-                      const files = (e.target as HTMLInputElement).files;
-                      if (files && files.length > 0) handleBulkImageUpload(files);
-                    };
-                    input.click();
-                  }}
-                >
-                  <Upload className="w-4 h-4 mr-2" /> Select Images
-                </Button>
-              )}
-            </div>
-          </div>
-        </CardContent>
-      </Card>
 
       {/* Pull Info Bar (for marking pulled) */}
       <Card>
@@ -1176,285 +1062,6 @@ async function fileToBase64(file: File): Promise<string> {
   });
 }
 
-// ==================== PUBLIC PREVIEW ====================
-
-const CARD_PLACEHOLDER = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/card-placeholder-AFtdwioDcmq6GHzFUFUpif.webp";
-
-const previewTierOrder = ["chase", "hit", "base", "bonus"];
-const previewTierLabels: Record<string, string> = {
-  chase: "Chase Cards",
-  hit: "Hit Cards",
-  base: "Base Cards",
-  bonus: "Bonus Cards",
-};
-const previewTierDescriptions: Record<string, string> = {
-  chase: "The top-tier cards \u2014 the ones everyone is chasing",
-  hit: "Guaranteed hits \u2014 autos, relics, and numbered parallels",
-  base: "Solid base cards with great value",
-  bonus: "Bonus inserts and surprises",
-};
-const previewTierColors: Record<string, { bg: string; text: string; border: string; icon: string }> = {
-  chase: { bg: "bg-amber-500/10", text: "text-amber-400", border: "border-amber-500/30", icon: "text-amber-400" },
-  hit: { bg: "bg-purple-500/10", text: "text-purple-400", border: "border-purple-500/30", icon: "text-purple-400" },
-  base: { bg: "bg-blue-500/10", text: "text-blue-400", border: "border-blue-500/30", icon: "text-blue-400" },
-  bonus: { bg: "bg-green-500/10", text: "text-green-400", border: "border-green-500/30", icon: "text-green-400" },
-};
-
-function PublicPreview({ productId }: { productId: number }) {
-  const { data: checklist, isLoading } = trpc.admin.checklist.getByProduct.useQuery({ productId });
-  const { data: product } = trpc.admin.products.getById.useQuery({ id: productId });
-  const [previewFilter, setPreviewFilter] = useState<string>("all");
-  const [previewSearch, setPreviewSearch] = useState("");
-  const [lightboxImage, setLightboxImage] = useState<{ url: string; name: string } | null>(null);
-
-  const grouped = useMemo(() => {
-    if (!checklist) return {};
-    const filtered = checklist.filter(item => {
-      const matchesTier = previewFilter === "all" || item.tier === previewFilter;
-      const matchesSearch = !previewSearch ||
-        item.cardName.toLowerCase().includes(previewSearch.toLowerCase()) ||
-        (item.parallel && item.parallel.toLowerCase().includes(previewSearch.toLowerCase())) ||
-        (item.cardSet && item.cardSet.toLowerCase().includes(previewSearch.toLowerCase())) ||
-        (item.cardNumber && item.cardNumber.toLowerCase().includes(previewSearch.toLowerCase()));
-      return matchesTier && matchesSearch;
-    });
-    const groups: Record<string, typeof checklist> = {};
-    for (const item of filtered) {
-      if (!groups[item.tier]) groups[item.tier] = [];
-      groups[item.tier].push(item);
-    }
-    return groups;
-  }, [checklist, previewFilter, previewSearch]);
-
-  const filteredTotal = useMemo(() => {
-    return Object.values(grouped).reduce((sum, items) => sum + items.length, 0);
-  }, [grouped]);
-
-  const tierCounts = useMemo(() => {
-    if (!checklist) return {};
-    const counts: Record<string, number> = {};
-    for (const item of checklist) {
-      counts[item.tier] = (counts[item.tier] || 0) + 1;
-    }
-    return counts;
-  }, [checklist]);
-
-  const missingImages = checklist?.filter(c => !c.imageUrl).length || 0;
-  const totalCards = checklist?.length || 0;
-
-  if (isLoading) return <div className="flex justify-center py-12"><Loader2 className="w-6 h-6 animate-spin text-primary" /></div>;
-
-  return (
-    <div className="space-y-4">
-      {/* Preview Banner */}
-      <Card className="border-primary/30 bg-primary/5">
-        <CardContent className="py-3">
-          <div className="flex items-center justify-between flex-wrap gap-3">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                <Eye className="w-5 h-5 text-primary" />
-              </div>
-              <div>
-                <h4 className="text-sm font-bold">Public Page Preview</h4>
-                <p className="text-xs text-muted-foreground">
-                  This is exactly how your cards will appear to visitors on the checklist page.
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3 text-xs">
-              {missingImages > 0 && (
-                <Badge variant="outline" className="border-amber-500/50 text-amber-400">
-                  <AlertTriangle className="w-3 h-3 mr-1" /> {missingImages} missing images
-                </Badge>
-              )}
-              <Badge variant="outline" className="border-primary/50 text-primary">
-                {totalCards} cards total
-              </Badge>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Filter Bar (same as public page) */}
-      {checklist && checklist.length > 0 && (
-        <div className="space-y-3">
-          <div className="flex items-center gap-2 flex-wrap">
-            <Button
-              variant={previewFilter === "all" ? "default" : "outline"}
-              size="sm"
-              className="h-7 text-xs"
-              onClick={() => setPreviewFilter("all")}
-            >
-              All ({totalCards})
-            </Button>
-            {previewTierOrder.map(tier => {
-              const count = tierCounts[tier] || 0;
-              if (count === 0) return null;
-              const colors = previewTierColors[tier];
-              return (
-                <Button
-                  key={tier}
-                  variant={previewFilter === tier ? "default" : "outline"}
-                  size="sm"
-                  className={`h-7 text-xs ${previewFilter !== tier ? `${colors.text} ${colors.border}` : ''}`}
-                  onClick={() => setPreviewFilter(tier)}
-                >
-                  {tier === 'chase' && <TrendingUp className="w-3 h-3 mr-1" />}
-                  {tier === 'hit' && <Zap className="w-3 h-3 mr-1" />}
-                  {tier === 'base' && <Package className="w-3 h-3 mr-1" />}
-                  {tier === 'bonus' && <Eye className="w-3 h-3 mr-1" />}
-                  {previewTierLabels[tier]?.replace(' Cards', '')} ({count})
-                </Button>
-              );
-            })}
-
-            {/* Search */}
-            <div className="relative sm:ml-auto w-full sm:w-auto">
-              <Search className="w-4 h-4 absolute left-2.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
-              <input
-                type="text"
-                value={previewSearch}
-                onChange={e => setPreviewSearch(e.target.value)}
-                placeholder="Search cards..."
-                className="w-full sm:w-64 h-8 text-sm pl-8 pr-3 bg-card border border-border rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-foreground placeholder:text-muted-foreground"
-              />
-              {previewSearch && (
-                <button
-                  onClick={() => setPreviewSearch("")}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                >
-                  <X className="w-3.5 h-3.5" />
-                </button>
-              )}
-            </div>
-          </div>
-
-          {(previewFilter !== "all" || previewSearch) && (
-            <p className="text-sm text-muted-foreground">
-              Showing {filteredTotal} of {totalCards} cards
-              {previewFilter !== "all" && <span> in <strong className="text-foreground">{previewTierLabels[previewFilter]}</strong></span>}
-              {previewSearch && <span> matching \"<strong className="text-foreground">{previewSearch}</strong>\"</span>}
-            </p>
-          )}
-        </div>
-      )}
-
-      {/* Lightbox */}
-      {lightboxImage && (
-        <div
-          className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 cursor-pointer"
-          onClick={() => setLightboxImage(null)}
-        >
-          <button
-            className="absolute top-4 right-4 text-white/80 hover:text-white transition-colors z-10"
-            onClick={() => setLightboxImage(null)}
-          >
-            <X className="w-8 h-8" />
-          </button>
-          <div className="relative max-w-2xl max-h-[80vh] flex flex-col items-center" onClick={e => e.stopPropagation()}>
-            <img
-              src={lightboxImage.url}
-              alt={lightboxImage.name}
-              className="max-w-full max-h-[70vh] object-contain rounded-lg shadow-2xl"
-            />
-            <p className="text-white/80 text-sm mt-3 text-center font-medium">{lightboxImage.name}</p>
-          </div>
-        </div>
-      )}
-
-      {/* Card Grid — matches public ChecklistDetail layout */}
-      {previewTierOrder.map(tier => {
-        const items = grouped[tier];
-        if (!items || items.length === 0) return null;
-        const colors = previewTierColors[tier];
-
-        return (
-          <div key={tier}>
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-3">
-                <div className={`w-10 h-10 ${colors.bg} rounded-lg flex items-center justify-center`}>
-                  {tier === 'chase' && <TrendingUp className={`w-5 h-5 ${colors.icon}`} />}
-                  {tier === 'hit' && <Zap className={`w-5 h-5 ${colors.icon}`} />}
-                  {tier === 'base' && <Package className={`w-5 h-5 ${colors.icon}`} />}
-                  {tier === 'bonus' && <Eye className={`w-5 h-5 ${colors.icon}`} />}
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold">{previewTierLabels[tier]}</h3>
-                  <p className="text-sm text-muted-foreground">{previewTierDescriptions[tier]}</p>
-                </div>
-              </div>
-              <Badge className={`${colors.bg} ${colors.text} ${colors.border}`}>
-                {items.length} cards
-              </Badge>
-            </div>
-
-            <div className="grid gap-2">
-              {items.map(item => (
-                <div
-                  key={item.id}
-                  className="flex items-center justify-between p-4 rounded-lg border transition-all bg-card border-border hover:border-primary/20"
-                >
-                  <div className="flex items-center gap-3">
-                    {/* Card Image */}
-                    <div
-                      className="relative shrink-0 cursor-pointer group"
-                      onClick={() => item.imageUrl && setLightboxImage({ url: item.imageUrl, name: `${item.cardName}${item.parallel ? ` (${item.parallel})` : ''}` })}
-                    >
-                      <img
-                        src={item.imageUrl || CARD_PLACEHOLDER}
-                        alt={item.cardName}
-                        className={`w-12 h-16 object-cover rounded-md border transition-all border-border ${item.imageUrl ? 'group-hover:border-primary/50 group-hover:shadow-lg group-hover:shadow-primary/10' : 'opacity-40'}`}
-                        loading="lazy"
-                      />
-                      {!item.imageUrl && (
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <AlertTriangle className="w-4 h-4 text-amber-400" />
-                        </div>
-                      )}
-                      {item.imageUrl && (
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 rounded-md transition-all flex items-center justify-center">
-                          <Eye className="w-4 h-4 text-white opacity-0 group-hover:opacity-100 transition-opacity drop-shadow-lg" />
-                        </div>
-                      )}
-                    </div>
-                    <div>
-                      <div className="font-medium">
-                        {item.cardName}
-                        {item.parallel && (
-                          <span className="text-primary ml-2 text-sm font-normal">({item.parallel})</span>
-                        )}
-                      </div>
-                      <div className="text-xs text-muted-foreground flex flex-wrap gap-x-1.5">
-                        {item.cardSet && <span>{item.cardSet}</span>}
-                        {item.cardYear && <span>\u00b7 {item.cardYear}</span>}
-                        {item.cardNumber && <span>\u00b7 #{item.cardNumber}</span>}
-                        {item.cardCondition && <span>\u00b7 {item.cardCondition}</span>}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Badge variant="outline" className={`text-xs ${previewTierColors[item.tier]?.text || ''} ${previewTierColors[item.tier]?.border || ''}`}>
-                      {item.tier.toUpperCase()}
-                    </Badge>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        );
-      })}
-
-      {(!checklist || checklist.length === 0) && (
-        <div className="text-center py-12 text-muted-foreground">
-          <Eye className="w-12 h-12 mx-auto mb-3 opacity-30" />
-          <p className="text-lg font-medium">No cards to preview</p>
-          <p className="text-sm">Add cards using the Master Sheet or Add Cards tab first.</p>
-        </div>
-      )}
-    </div>
-  );
-}
-
 // ==================== MAIN COMPONENT ====================
 
 export default function ChecklistSheet({ productId }: { productId: number }) {
@@ -1468,9 +1075,6 @@ export default function ChecklistSheet({ productId }: { productId: number }) {
           <TabsTrigger value="add" className="flex items-center gap-2">
             <Plus className="w-4 h-4" /> Add Cards
           </TabsTrigger>
-          <TabsTrigger value="preview" className="flex items-center gap-2">
-            <Eye className="w-4 h-4" /> Preview
-          </TabsTrigger>
           <TabsTrigger value="inventory" className="flex items-center gap-2">
             <Package className="w-4 h-4" /> Pack Inventory
           </TabsTrigger>
@@ -1482,10 +1086,6 @@ export default function ChecklistSheet({ productId }: { productId: number }) {
 
         <TabsContent value="add">
           <AddCardsTab productId={productId} />
-        </TabsContent>
-
-        <TabsContent value="preview">
-          <PublicPreview productId={productId} />
         </TabsContent>
 
         <TabsContent value="inventory">

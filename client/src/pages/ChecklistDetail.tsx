@@ -16,7 +16,7 @@ import { Link, useParams } from "wouter";
 import {
   ListChecks, ArrowLeft, CheckCircle2, Loader2,
   Radio, Zap, Package, Calendar, TrendingUp, Eye,
-  ShieldCheck, FileCheck, Info, X as XIcon, Lock, Clock, Search, Filter
+  ShieldCheck, FileCheck, Info, X as XIcon, Lock, Clock
 } from "lucide-react";
 import { useMemo, useState } from "react";
 
@@ -61,32 +61,6 @@ export default function ChecklistDetail() {
   }, [checklist]);
 
   const [lightboxImage, setLightboxImage] = useState<{ url: string; name: string } | null>(null);
-  const [activeTierFilter, setActiveTierFilter] = useState<string>("all");
-  const [searchQuery, setSearchQuery] = useState("");
-
-  // Filtered items based on tier filter and search
-  const filteredGrouped = useMemo(() => {
-    if (!checklist) return {};
-    const filtered = checklist.filter(item => {
-      const matchesTier = activeTierFilter === "all" || item.tier === activeTierFilter;
-      const matchesSearch = !searchQuery || 
-        item.cardName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (item.parallel && item.parallel.toLowerCase().includes(searchQuery.toLowerCase())) ||
-        (item.cardSet && item.cardSet.toLowerCase().includes(searchQuery.toLowerCase())) ||
-        (item.cardNumber && item.cardNumber.toLowerCase().includes(searchQuery.toLowerCase()));
-      return matchesTier && matchesSearch;
-    });
-    const groups: Record<string, typeof checklist> = {};
-    for (const item of filtered) {
-      if (!groups[item.tier]) groups[item.tier] = [];
-      groups[item.tier].push(item);
-    }
-    return groups;
-  }, [checklist, activeTierFilter, searchQuery]);
-
-  const filteredTotal = useMemo(() => {
-    return Object.values(filteredGrouped).reduce((sum, items) => sum + items.length, 0);
-  }, [filteredGrouped]);
 
   const tierOrder = ["chase", "hit", "base", "bonus"];
   const tierLabels: Record<string, string> = {
@@ -371,79 +345,9 @@ export default function ChecklistDetail() {
                 </div>
               )}
 
-              {/* Post-launch: Tier Filter Bar + Search */}
-              {!isPreLaunch() && checklist && checklist.length > 0 && (
-                <div className="space-y-3">
-                  {/* Filter Row */}
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
-                    {/* Tier Filter Buttons */}
-                    <div className="flex items-center gap-1.5 flex-wrap">
-                      <Filter className="w-4 h-4 text-muted-foreground mr-1" />
-                      <Button
-                        variant={activeTierFilter === "all" ? "default" : "outline"}
-                        size="sm"
-                        className="h-8 text-xs"
-                        onClick={() => setActiveTierFilter("all")}
-                      >
-                        All ({checklist.length})
-                      </Button>
-                      {tierOrder.map(tier => {
-                        const count = grouped[tier]?.length || 0;
-                        if (count === 0) return null;
-                        const colors = tierColors[tier];
-                        return (
-                          <Button
-                            key={tier}
-                            variant={activeTierFilter === tier ? "default" : "outline"}
-                            size="sm"
-                            className={`h-8 text-xs ${activeTierFilter === tier ? '' : `${colors.text} ${colors.border} hover:${colors.bg}`}`}
-                            onClick={() => setActiveTierFilter(tier)}
-                          >
-                            {tier === 'chase' && <TrendingUp className="w-3 h-3 mr-1" />}
-                            {tier === 'hit' && <Zap className="w-3 h-3 mr-1" />}
-                            {tier === 'base' && <Package className="w-3 h-3 mr-1" />}
-                            {tier === 'bonus' && <Eye className="w-3 h-3 mr-1" />}
-                            {tierLabels[tier]?.replace(' Cards', '')} ({count})
-                          </Button>
-                        );
-                      })}
-                    </div>
-
-                    {/* Search Input */}
-                    <div className="relative sm:ml-auto w-full sm:w-auto">
-                      <Search className="w-4 h-4 absolute left-2.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
-                      <input
-                        type="text"
-                        value={searchQuery}
-                        onChange={e => setSearchQuery(e.target.value)}
-                        placeholder="Search cards..."
-                        className="w-full sm:w-64 h-8 text-sm pl-8 pr-3 bg-card border border-border rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-foreground placeholder:text-muted-foreground"
-                      />
-                      {searchQuery && (
-                        <button
-                          onClick={() => setSearchQuery("")}
-                          className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                        >
-                          <XIcon className="w-3.5 h-3.5" />
-                        </button>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Results count when filtering */}
-                  {(activeTierFilter !== "all" || searchQuery) && (
-                    <p className="text-sm text-muted-foreground">
-                      Showing {filteredTotal} of {checklist.length} cards
-                      {activeTierFilter !== "all" && <span> in <strong className="text-foreground">{tierLabels[activeTierFilter]}</strong></span>}
-                      {searchQuery && <span> matching "<strong className="text-foreground">{searchQuery}</strong>"</span>}
-                    </p>
-                  )}
-                </div>
-              )}
-
-              {/* Post-launch: show filtered checklist */}
+              {/* Post-launch: show full checklist */}
               {!isPreLaunch() && tierOrder.map(tier => {
-                const items = filteredGrouped[tier];
+                const items = grouped[tier];
                 if (!items || items.length === 0) return null;
                 const colors = tierColors[tier];
                 const pulledCount = items.filter(i => i.isPulled).length;
