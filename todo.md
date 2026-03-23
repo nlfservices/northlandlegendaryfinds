@@ -743,4 +743,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add bulk image upload to Master Sheet (auto-matches by filename)
 - [x] Excel upload already supports image URL column
 - [x] Card thumbnail grid on ChecklistDetail page (sorted by tier)
+- [x] Save checkpoint
+
+## Checklist Detail - Tier Filter for Users
+- [x] Add tier filter buttons (All, Chase, Hit, Base, Bonus) to public checklist detail page
+- [x] Add search input to filter cards by name, parallel, set, or number
+- [x] Test tier filtering and search in browser (3 of 50 for "Spider-Man")
 - [ ] Save checkpoint
