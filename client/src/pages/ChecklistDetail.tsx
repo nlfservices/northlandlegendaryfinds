@@ -20,9 +20,10 @@ import {
 } from "lucide-react";
 import { useMemo, useState } from "react";
 
-// Pre-launch blur: hide card details until April 27, 2026 7:00 PM CT (UTC-5)
+// Pre-launch blur: DISABLED while building site — checklists visible now
+// To re-enable, change isPreLaunch back to: () => new Date() < LAUNCH_DATE
 const LAUNCH_DATE = new Date("2026-04-28T00:00:00Z");
-const isPreLaunch = () => new Date() < LAUNCH_DATE;
+const isPreLaunch = () => false; // Temporarily disabled — checklists visible while building
 
 const CARD_PLACEHOLDER = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/card-placeholder-AFtdwioDcmq6GHzFUFUpif.webp";
 

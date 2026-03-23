@@ -744,4 +744,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Update product name/description to Gambit's Deck theme in DB and frontend
 - [x] Added to Shop page as "Gambit's Deck — 52 Singles" in Variant Series
 - [x] Test checklist page — shows 52 cards, 52 packs, CHECKLIST HIDDEN overlay
+- [x] Save checkpoint
+
+## Make Checklists Visible & Disable Purchases
+- [x] Remove CHECKLIST HIDDEN pre-launch overlay (isPreLaunch = false)
+- [x] Purchases already disabled via launchDate gate ("Available April 27th" button)
+- [x] Test both changes — 81 integrity checks, 219 tests pass
 - [ ] Save checkpoint
