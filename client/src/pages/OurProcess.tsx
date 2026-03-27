@@ -33,6 +33,8 @@ const PROCESS_STEPS = [
     bg: "bg-blue-500/10",
     borderColor: "border-blue-500/30",
     placeholder: "Photo: Card sourcing — boxes of authentic Topps Marvel product",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Comic_Book_Heroes_box_spotlight_215fa041_a537a3c5.webp",
+    imageAlt: "Topps Comic Book Heroes Marvel Golden Anniversary box with Marvel heroes",
   },
   {
     step: 2,
@@ -92,6 +94,8 @@ const PROCESS_STEPS = [
     bg: "bg-purple-500/10",
     borderColor: "border-purple-500/30",
     placeholder: "Photo: Sealing process — heat-sealing cards in NLF holographic mylar bags",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/1000036617_92270ff8.jpg",
+    imageAlt: "Hacona heat sealer with NLF branded mylar bags and a graded card on a Marvel comic tablecloth",
   },
   {
     step: 5,
@@ -110,6 +114,8 @@ const PROCESS_STEPS = [
     bg: "bg-cyan-500/10",
     borderColor: "border-cyan-500/30",
     placeholder: "Photo: Final packaging — sealed NLF packs organized and ready for drop",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/NLF-Series3_870f94b8.webp",
+    imageAlt: "Northland Legendary Finds sealed repack pack with cosmic NLF branding ready for drop",
   },
 ];
 
@@ -266,19 +272,14 @@ export default function OurProcess() {
             </div>
 
             <div className="grid lg:grid-cols-2 gap-8 mb-12">
-              {/* Image placeholder */}
-              <div className="relative rounded-xl border-2 border-dashed border-fuchsia-500/30 bg-card/30 overflow-hidden">
-                <div className="aspect-[4/3] flex flex-col items-center justify-center p-8 text-center">
-                  <div className="w-16 h-16 bg-fuchsia-500/10 rounded-full flex items-center justify-center mb-4">
-                    <Shuffle className="w-8 h-8 text-fuchsia-400" />
-                  </div>
-                  <p className="text-sm text-muted-foreground font-medium mb-2">
-                    Photo: Live stream random spot assignment in action
-                  </p>
-                  <p className="text-xs text-muted-foreground/60">
-                    Image placeholder — replace with actual photo
-                  </p>
-                </div>
+              {/* Live stream studio photo */}
+              <div className="relative rounded-xl border-2 border-fuchsia-500/30 bg-card/30 overflow-hidden">
+                <img
+                  src="https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Studio_dbf83a8a.webp"
+                  alt="NLF live stream studio setup with Marvel collectible figures and Northland Legendary Finds branding on screen"
+                  className="w-full h-full object-cover aspect-[4/3]"
+                  loading="lazy"
+                />
               </div>
 
               {/* Content */}
