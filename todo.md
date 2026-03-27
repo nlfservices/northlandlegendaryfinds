@@ -758,3 +758,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Center popup properly on screen (especially on mobile)
 - [x] Green background with black border and white text
 - [x] Ensure popup doesn't overlap important content (centered with backdrop overlay)
+
+## Shop Page — Gambit 52-Card Repack & Pyramid Layout
+- [x] Generate Gambit-themed product image
+- [x] Add Gambit's Deck — 52 Singles product to products.ts ($600, May 22 launch, visible checklist)
+- [x] Redesign Shop page with pyramid layout — Gambit's Deck featured at top
+- [x] Ensure other products appear below in pyramid tiers (Gambit > Variant Series > Snap > Multiverse Vault > Sealed Boxes)
+- [x] Test and save checkpoint (232 tests passing, 85/85 integrity checks)

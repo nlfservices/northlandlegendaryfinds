@@ -21,7 +21,9 @@ export interface Product {
   subtitle: string;
   category: "marvel" | "starwars";
   /** Product line grouping for shop display */
-  productLine?: "variant-series" | "snap-collection" | "multiverse-vault";
+  productLine?: "gambit-deck" | "variant-series" | "snap-collection" | "multiverse-vault";
+  /** Link to the checklist page for this product */
+  checklistSlug?: string;
   price: number;
   comparePrice?: number;
   image: string;
@@ -58,11 +60,46 @@ const CDN = {
   toppsMint: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/AMhakRyQCtQiiBVc.jpg",
   toppsSapphireBox: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/QHvSDpUNxByvEZDk.jpg",
   nlfLogo: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/rwZcaJaSCFxygqjF.png",
+  gambitDeck: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit-deck-52-singles-agMj46W47777xcjTUjBw5L.webp",
 };
 
 export const SHOPIFY_STORE = "f1ipn9-h0.myshopify.com";
 
 export const products: Product[] = [
+  // ===================================================================
+  // GAMBIT'S DECK — 52 Singles — Launching May 22, 2026
+  // ===================================================================
+  {
+    id: "gambit-deck-52",
+    slug: "gambit-deck-52",
+    dbSlug: "nlf-marvel-52-singles",
+    name: "Gambit's Deck",
+    subtitle: "52 Single-Card Marvel Packs",
+    category: "marvel",
+    productLine: "gambit-deck",
+    price: 600,
+    packCount: 52,
+    image: CDN.gambitDeck,
+    images: [CDN.gambitDeck],
+    description: "52 single-card Marvel packs themed after Gambit's legendary playing cards. Each pack contains one card — Aces are the chase, Face cards are the hits, and Number cards form the base. Collect the full deck. This is the only NLF set with a pre-revealed checklist — see exactly what you're chasing before you buy.",
+    features: [
+      "52 single-card Marvel packs — one card per pack",
+      "Playing card theme: Aces = chase, Face cards = hits, Number cards = base",
+      "Full checklist revealed before launch — see what you're chasing",
+      "Cards from premium Marvel sets including Topps Chrome",
+      "Sealed in custom NLF holographic mylar bag",
+      "Limited to 52 packs — collect the full deck",
+    ],
+    badge: "DROPPING MAY 22",
+    badgeColor: "magenta",
+    inStock: true,
+    inventory: 52,
+    isRepack: true,
+    isComingSoon: false,
+    launchDate: "2026-05-22T00:00:00Z",
+    checklistSlug: "nlf-marvel-52-singles",
+  },
+
   // ===================================================================
   // THE VARIANT SERIES — Launching Sunday, April 27, 2026
   // ===================================================================
@@ -459,9 +496,21 @@ export function getProductsByLine(line: Product["productLine"]): Product[] {
   return products.filter((p) => p.productLine === line);
 }
 
+/** Get the featured/flagship product (Gambit's Deck) */
+export function getFeaturedProduct(): Product | undefined {
+  return products.find((p) => p.productLine === "gambit-deck");
+}
+
 /** Get unique product lines with their products */
 export function getProductLines() {
   return [
+    {
+      id: "gambit-deck",
+      name: "Gambit's Deck",
+      tagline: "52 single-card packs — the only set with a pre-revealed checklist",
+      products: getProductsByLine("gambit-deck"),
+      available: true,
+    },
     {
       id: "variant-series",
       name: "The Variant Series",
