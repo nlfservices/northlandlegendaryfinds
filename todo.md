@@ -738,6 +738,9 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Run integrity check before checkpoint (81/81 passed)
 - [x] Save checkpoint
 
-## Gambit's Deck Checklist — View Only (No Purchase)
-- [x] Make Gambit's Deck checklist viewable on the checklists page (bypassed pre-launch blur for nlf-marvel-52-singles)
-- [x] Disable all purchase/buy/add-to-cart buttons for Gambit's Deck cards (no buy buttons on checklist page; product not in shop)
+## Homepage Improvements — More Info + Simpler Sign-up + GHL CRM
+- [x] Add "What is a Repack?" explainer section to homepage
+- [x] Add "How It Works" step-by-step section to homepage (Browse → Pick → Unbox → Collect)
+- [x] Add inline email capture form in "Join the Legend" section (submit directly, no redirect to /subscribe)
+- [x] Ensure inline email form syncs to GHL CRM (reuse existing subscribe.submit tRPC mutation)
+- [x] Add social links (X/Twitter, Facebook, Instagram, Whatnot) to footer with real URLs
