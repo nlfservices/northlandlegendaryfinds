@@ -31,7 +31,7 @@ export default function Footer() {
               Premium Marvel trading card repacks with guaranteed hits. Star Wars collection dropping June 2026.
             </p>
             <div className="flex gap-3">
-              <a href="mailto:info@nlfservices.com" className="w-9 h-9 rounded-lg bg-muted flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all" title="Email us">
+              <a href="mailto:contact@nlfservices.com" className="w-9 h-9 rounded-lg bg-muted flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all" title="Email us">
                 <Mail className="w-4 h-4" />
               </a>
               <a href="https://x.com/NorthlandFinds" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-muted flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all" title="Follow us on X">

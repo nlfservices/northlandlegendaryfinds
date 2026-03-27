@@ -53,6 +53,7 @@ import MarketIntelMarvelVsPokemon from "./pages/MarketIntelMarvelVsPokemon";
 import MarketIntelFanatics from "./pages/MarketIntelFanatics";
 import MarketIntelBestCards from "./pages/MarketIntelBestCards";
 import MarvelCardHub from "./pages/MarvelCardHub";
+import OurProcess from "./pages/OurProcess";
 
 // Routes that render as full-screen standalone experiences (no nav/footer)
 const STANDALONE_ROUTES = ["/card-display", "/matrix"];
@@ -120,6 +121,7 @@ function AppRouter() {
           <Route path="/market-intel/why-fanatics-trading-cards" component={MarketIntelFanatics} />
           <Route path="/market-intel/best-topps-marvel-cards" component={MarketIntelBestCards} />
           <Route path="/marvel-card-hub" component={MarvelCardHub} />
+          <Route path="/our-process" component={OurProcess} />
           <Route path="/login" component={JarvisProtocol} />
           <Route path="/404" component={NotFound} />
           <Route component={NotFound} />

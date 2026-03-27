@@ -55,9 +55,9 @@ export default function About() {
               <div className="w-12 h-12 bg-secondary/20 rounded-full flex items-center justify-center mb-4">
                 <Star className="w-6 h-6 text-secondary" />
               </div>
-              <h3 className="text-2xl font-bold mb-3">Better Middle</h3>
+              <h3 className="text-2xl font-bold mb-3">Quality Throughout</h3>
               <p className="text-muted-foreground">
-                Where competitors stuff packs with filler, we load quality. Your average NLF pack 
+                Where competitors stuff packs with filler, we load quality. Every NLF pack 
                 is packed with cards most sellers would consider hits.
               </p>
             </div>
@@ -66,10 +66,10 @@ export default function About() {
               <div className="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center mb-4">
                 <TrendingUp className="w-6 h-6 text-accent" />
               </div>
-              <h3 className="text-2xl font-bold mb-3">Strong Floor</h3>
+              <h3 className="text-2xl font-bold mb-3">No Filler</h3>
               <p className="text-muted-foreground">
                 No junk filler, no worthless base cards. Every single card in every pack 
-                has real, collectible value. We'd rather make fewer packs than dilute quality.
+                is hand-selected from authentic Topps releases. We'd rather make fewer packs than dilute quality.
               </p>
             </div>
 
@@ -77,9 +77,9 @@ export default function About() {
               <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mb-4">
                 <Package className="w-6 h-6 text-primary" />
               </div>
-              <h3 className="text-2xl font-bold mb-3">Healthy Ceiling</h3>
+              <h3 className="text-2xl font-bold mb-3">Chase Cards</h3>
               <p className="text-muted-foreground">
-                Real chase cards worth real money — numbered parallels, autos, and 
+                Real chase cards — numbered parallels, autos, and 
                 professionally graded slabs (AGS, CGC, PSA & more) are always in the mix.
               </p>
             </div>
@@ -121,7 +121,7 @@ export default function About() {
           </p>
           <div className="space-y-4">
             <p className="text-muted-foreground">
-              Email: <a href="mailto:info@nlfservices.com" className="text-primary hover:underline">info@nlfservices.com</a>
+              Email: <a href="mailto:contact@nlfservices.com" className="text-primary hover:underline">contact@nlfservices.com</a>
             </p>
             <p className="text-muted-foreground">
               Follow us on social media for the latest drops and exclusive offers

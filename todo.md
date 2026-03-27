@@ -804,3 +804,17 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Pull checklist data from tRPC and display by tier (Chase, Hit, Base)
 - [x] Link to full checklist page for detailed view (Full Details + View Full Checklist CTA)
 - [x] Test and save checkpoint (232 tests, 85/85 integrity)
+
+## Our Process Page
+- [x] Build Our Process page with step-by-step process (placeholder images)
+- [x] Steps: Card Sourcing, Sorting & Organization, Grading & Quality Check, Sealing the Hits, Final Packaging, Random Spot Assignment
+- [x] Add Superman/DC joke in the randomization section ("Sorry, Clark. This is a Marvel house.")
+- [x] Add route to App.tsx (/our-process) and navigation entry
+- [x] Update integrity check script with new page/route (88/88 checks)
+- [x] Test and save checkpoint (232 tests, 88/88 integrity)
+
+## Contact Info Cleanup
+- [x] Remove all phone numbers from the site (Contact page phone section removed)
+- [x] Change all email addresses to contact@nlfservices.com (Footer, Contact, About)
+- [x] Also fixed remaining floor/ceiling language on About page
+- [x] Test and save checkpoint (232 tests, 88/88 integrity)

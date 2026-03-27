@@ -3,7 +3,7 @@
  */
 
 import { useState } from "react";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, MapPin, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import SEO, { breadcrumbJsonLd } from "@/components/SEO";
@@ -146,10 +146,10 @@ export default function Contact() {
                   <div>
                     <h3 className="font-bold text-lg mb-1">Email</h3>
                     <a 
-                      href="mailto:info@nlfservices.com" 
+                      href="mailto:contact@nlfservices.com" 
                       className="text-primary hover:underline"
                     >
-                      info@nlfservices.com
+                      contact@nlfservices.com
                     </a>
                     <p className="text-sm text-muted-foreground mt-1">
                       We respond within 24 hours
@@ -157,23 +157,6 @@ export default function Contact() {
                   </div>
                 </div>
 
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-secondary/20 rounded-full flex items-center justify-center flex-shrink-0">
-                    <Phone className="w-6 h-6 text-secondary" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg mb-1">Phone</h3>
-                    <a 
-                      href="tel:+15551234567" 
-                      className="text-secondary hover:underline"
-                    >
-                      (555) 123-4567
-                    </a>
-                    <p className="text-sm text-muted-foreground mt-1">
-                      Mon-Fri, 9am-5pm CST
-                    </p>
-                  </div>
-                </div>
 
                 <div className="flex items-start space-x-4">
                   <div className="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center flex-shrink-0">
@@ -256,7 +239,7 @@ export default function Contact() {
                 Do you offer wholesale pricing?
               </h3>
               <p className="text-muted-foreground">
-                Yes! We work with card shops and resellers. Contact us at wholesale@nlfservices.com 
+                Yes! We work with card shops and resellers. Contact us at contact@nlfservices.com 
                 for bulk pricing information.
               </p>
             </div>
