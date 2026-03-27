@@ -67,7 +67,7 @@ export const SHOPIFY_STORE = "f1ipn9-h0.myshopify.com";
 
 export const products: Product[] = [
   // ===================================================================
-  // GAMBIT'S DECK — 52 Singles — Launching May 22, 2026
+  // GAMBIT'S DECK — 52 Singles — Launching April 24, 2026
   // ===================================================================
   {
     id: "gambit-deck-52",
@@ -90,13 +90,13 @@ export const products: Product[] = [
       "Sealed in custom NLF holographic mylar bag",
       "Limited to 52 packs — collect the full deck",
     ],
-    badge: "DROPPING MAY 22",
+    badge: "DROPPING APR 24",
     badgeColor: "magenta",
     inStock: true,
     inventory: 52,
     isRepack: true,
     isComingSoon: false,
-    launchDate: "2026-05-22T00:00:00Z",
+    launchDate: "2026-04-24T00:00:00Z",
     checklistSlug: "nlf-marvel-52-singles",
   },
 

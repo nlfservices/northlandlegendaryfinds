@@ -835,3 +835,7 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Update address to 6390 McKinley St NW, Anoka, MN 55303 across the site
 - [x] Update Contact page (location section), Footer (bottom bar), SEO/JSON-LD (structured data)
 - [x] Test and save checkpoint (232 tests, 88/88 integrity)
+
+## Gambit's Deck Release Date Change
+- [x] Update Gambit's Deck release date from May 22nd to April 24th (products.ts: comment, badge, launchDate)
+- [x] Test and save checkpoint (232 tests, 88/88 integrity)
