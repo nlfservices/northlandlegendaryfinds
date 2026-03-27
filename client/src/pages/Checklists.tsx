@@ -53,8 +53,8 @@ export default function Checklists() {
               PRODUCT <span className="text-primary">CHECKLISTS</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Every card in every repack — published for full transparency. See exactly what you could pull, 
-              and track what's already been pulled in real-time. No surprises, no hidden cards.
+              Get a glimpse of what's inside our repacks. Browse the Gambit's Deck checklist below to see 
+              the quality and variety of cards we include. More checklists will be revealed at launch.
             </p>
           </div>
         </div>
@@ -66,9 +66,9 @@ export default function Checklists() {
           <div className="grid grid-cols-3 gap-6 text-center">
             <div>
               <div className="text-2xl font-bold text-primary" style={{ fontFamily: "'Anton', sans-serif" }}>
-                {products?.length || 0}
+                {products?.filter(p => p.slug === "nlf-marvel-52-singles").length || 0}
               </div>
-              <div className="text-xs text-muted-foreground uppercase tracking-wider mt-1">Active Products</div>
+              <div className="text-xs text-muted-foreground uppercase tracking-wider mt-1">Preview Checklists</div>
             </div>
             <div>
               <div className="text-2xl font-bold text-cyan-400" style={{ fontFamily: "'Anton', sans-serif" }}>100%</div>
@@ -99,9 +99,11 @@ export default function Checklists() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {products.map(product => (
-                <ProductChecklistCard key={product.id} product={product} categoryColors={categoryColors} categoryLabels={categoryLabels} />
-              ))}
+              {products
+                .filter(product => product.slug === "nlf-marvel-52-singles")
+                .map(product => (
+                  <ProductChecklistCard key={product.id} product={product} categoryColors={categoryColors} categoryLabels={categoryLabels} />
+                ))}
             </div>
           )}
         </div>
@@ -138,9 +140,9 @@ export default function Checklists() {
               <div className="w-14 h-14 bg-amber-500/10 rounded-xl flex items-center justify-center mx-auto mb-4">
                 <TrendingUp className="w-7 h-7 text-amber-400" />
               </div>
-              <h3 className="font-bold mb-2">Proven Value</h3>
+              <h3 className="font-bold mb-2">Collector Confidence</h3>
               <p className="text-sm text-muted-foreground">
-                Track the actual value of pulls across all shows. Our repacks deliver real value.
+                See exactly what's in every set before you buy. Full transparency builds trust.
               </p>
             </div>
           </div>

@@ -818,3 +818,15 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Change all email addresses to contact@nlfservices.com (Footer, Contact, About)
 - [x] Also fixed remaining floor/ceiling language on About page
 - [x] Test and save checkpoint (232 tests, 88/88 integrity)
+
+## Checklists Page Cleanup
+- [ ] Remove checklists not tied to Shop products
+- [ ] Only show checklists for products currently in the Shop
+- [ ] Test and save checkpoint
+
+## Checklists Page Cleanup
+- [x] Filter Checklists page to only show Gambit's Deck (nlf-marvel-52-singles)
+- [x] Hide all other checklists from the listing page
+- [x] Updated hero description and stats bar to reflect preview-only state
+- [x] Fixed "Proven Value" text to "Collector Confidence" (PSSP compliance)
+- [x] Test and save checkpoint (232 tests, 88/88 integrity)
