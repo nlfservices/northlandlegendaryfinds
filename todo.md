@@ -753,3 +753,8 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add route to App.tsx and navigation entry
 - [x] Write vitest tests for YouTube router (13 tests passing)
 - [x] Update integrity check script with new page/route (85/85 checks passing)
+
+## Email Capture Popup Improvements
+- [x] Center popup properly on screen (especially on mobile)
+- [x] Green background with black border and white text
+- [x] Ensure popup doesn't overlap important content (centered with backdrop overlay)

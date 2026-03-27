@@ -89,12 +89,14 @@ export default function EmailCapturePopup() {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed top-4 right-4 z-50 animate-in slide-in-from-right duration-300">
-      <div className="relative w-80 bg-gradient-to-br from-gray-900 to-black border border-green-500/30 rounded-xl shadow-2xl shadow-black/50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-in fade-in duration-300">
+      {/* Backdrop */}
+      <div className="absolute inset-0 bg-black/50" onClick={handleClose} />
+      <div className="relative w-80 sm:w-96 bg-green-600 border-4 border-black rounded-xl shadow-2xl shadow-black/60">
         {/* Close button */}
         <button
           onClick={handleClose}
-          className="absolute top-3 right-3 text-gray-500 hover:text-white transition-colors"
+          className="absolute top-3 right-3 text-white/70 hover:text-white transition-colors"
           aria-label="Close popup"
         >
           <X className="w-5 h-5" />
@@ -105,11 +107,11 @@ export default function EmailCapturePopup() {
           {submitted ? (
             /* Success state */
             <div className="py-2 text-center">
-              <CheckCircle className="w-12 h-12 text-green-400 mx-auto mb-3" />
-              <h3 className="text-lg font-bold text-green-400 mb-1">
+              <CheckCircle className="w-12 h-12 text-white mx-auto mb-3" />
+              <h3 className="text-lg font-bold text-white mb-1" style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.8)' }}>
                 You're In!
               </h3>
-              <p className="text-gray-400 text-sm">
+              <p className="text-white/90 text-sm" style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.6)' }}>
                 Welcome to the NLF community! We'll keep you posted.
               </p>
             </div>
@@ -118,14 +120,14 @@ export default function EmailCapturePopup() {
             <>
               {/* Header with icon */}
               <div className="flex items-start gap-3 mb-3">
-                <div className="flex-shrink-0 w-10 h-10 bg-primary/15 border border-primary/30 rounded-lg flex items-center justify-center">
-                  <Mail className="w-5 h-5 text-primary" />
+                <div className="flex-shrink-0 w-10 h-10 bg-black/20 border-2 border-black/40 rounded-lg flex items-center justify-center">
+                  <Mail className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-white leading-tight">
+                  <h3 className="text-base font-bold text-white leading-tight" style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.8)' }}>
                     {isExitIntent ? "Wait — Stay in the Loop!" : "Stay in the Loop"}
                   </h3>
-                  <p className="text-sm text-gray-400 mt-0.5">
+                  <p className="text-sm text-white/90 mt-0.5" style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.6)' }}>
                     {isExitIntent 
                       ? "Get notified when we drop new products!"
                       : "Join our collectors community for launch updates and exclusive drops."
@@ -143,13 +145,13 @@ export default function EmailCapturePopup() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={subscribeMutation.isPending}
-                  className="w-full px-3 py-2.5 bg-black/50 border border-green-500/20 rounded-lg text-white text-sm placeholder-gray-500 focus:outline-none focus:border-green-500 transition-colors disabled:opacity-50"
+                  className="w-full px-3 py-2.5 bg-white border-2 border-black/30 rounded-lg text-black text-sm placeholder-gray-500 focus:outline-none focus:border-black transition-colors disabled:opacity-50"
                 />
                 
                 <Button
                   type="submit"
                   disabled={subscribeMutation.isPending || !email.trim()}
-                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold py-2.5 rounded-lg transition-all disabled:opacity-50"
+                  className="w-full bg-black hover:bg-black/80 text-white font-bold py-2.5 rounded-lg transition-all disabled:opacity-50 border-2 border-black"
                 >
                   {subscribeMutation.isPending ? (
                     <span className="flex items-center justify-center gap-2">
@@ -163,7 +165,7 @@ export default function EmailCapturePopup() {
               </form>
 
               {/* Fine print */}
-              <p className="text-[11px] text-gray-600 mt-3 text-center">
+              <p className="text-[11px] text-white/70 mt-3 text-center" style={{ textShadow: '1px 1px 1px rgba(0,0,0,0.5)' }}>
                 We respect your privacy. Unsubscribe anytime.
               </p>
             </>
