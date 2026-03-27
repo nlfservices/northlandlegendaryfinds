@@ -780,3 +780,21 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] No eBay or Fanatics Live mentions found on Transparency page
 - [x] Ensure no specific platform names remain in visible text (only /whatnot route path kept)
 - [x] Test and save checkpoint (232 tests, 85/85 integrity)
+
+## Whatnot PSSP Compliance Fixes
+- [x] Homepage: Remove "strong floor, loaded middle, healthy ceiling" from hero
+- [x] Homepage: Remove value comparisons from "What is a Repack?" section
+- [x] Homepage: Remove "Better Value" card comparing to hobby box prices (now "Curated Packs")
+- [x] Homepage: Rewrite "Why NLF?" section (now: 100% Authentic, Quality Throughout, No Filler, Chase Cards)
+- [x] Product pages: Remove floor/ceiling/value language from all product descriptions
+- [x] Product pages: Remove floor/ceiling bullet points from all product features
+- [x] Product pages: Replace Strong Floor / Better Middle / Healthy Ceiling badges with 100% Authentic / Full Checklist / Hand-Curated
+- [x] Transparency page: Remove floor/ceiling language from hero, "Why This Matters" section, and compliance cards
+- [x] Checklist pages: Date-stamped finalization statement already exists (built previously)
+- [x] Checklist pages: Fix "Full checklist published" badge — now shows "Checklist reveals at launch" for hidden checklists
+- [x] Checklist pages: Remove "great value" from Base Cards tier (now: "Quality base cards from authentic Topps releases")
+- [x] Checklist pages: Remove "Guaranteed hits" from Hit Cards tier (now: "Premium cards")
+- [x] FAQ page: Review and update value language in answers (6 answers rewritten)
+- [x] SEO.tsx: Remove floor/ceiling from meta descriptions and JSON-LD
+- [x] About.tsx: Remove floor/ceiling from mission statement and story section
+- [x] Run integrity check and save checkpoint (232 tests, 85/85 integrity)

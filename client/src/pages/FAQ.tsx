@@ -21,11 +21,11 @@ const faqs = [
       },
       {
         q: "What does 'guaranteed hit' mean?",
-        a: "Every NLF repack is guaranteed to contain at least one premium chase card. Most of our packs include a card in a one-touch magnetic holder or a professionally graded slab from AGS, CGC, PSA, or other top grading services. Hits can include autographed cards, relic/memorabilia cards, numbered parallel cards (/99, /50, /25, /10, /5, or even 1/1), refractors, or other high-value inserts. You will never receive a pack without a hit.",
+        a: "Every NLF repack contains at least one premium card. Most of our packs include a card in a one-touch magnetic holder or a professionally graded slab from AGS, CGC, PSA, or other top grading services. Hits can include autographed cards, relic/memorabilia cards, numbered parallel cards (/99, /50, /25, /10, /5, or even 1/1), refractors, or other premium inserts. Check each product's published checklist for the full card pool.",
       },
       {
         q: "How does NLF compare to other repack sellers?",
-        a: "We build every series around three principles: a strong floor, a better middle, and a healthy ceiling. The floor means every single pack delivers real, collectible value — no junk filler or common base cards padding out the count. The ceiling means there are always legitimate chase cards worth serious money. But where we really separate ourselves is the middle — the average pack from NLF is loaded with quality cards that most competitors would consider hits. We'd rather give you a consistently great experience on every pack than stuff a few big cards into a sea of worthless filler.",
+        a: "We hand-curate every series from authentic Topps releases and publish a full checklist before a single pack is opened. Every card in every pack is listed — no hidden cards, no junk filler, no common base cards padding out the count. We include numbered parallels, inserts, graded slabs, and chase cards across every tier. Our published checklists let you see exactly what's possible in each series, so you can make an informed decision before buying.",
       },
       {
         q: "What is a one-touch card?",
@@ -33,7 +33,7 @@ const faqs = [
       },
       {
         q: "Do your repacks include graded cards?",
-        a: "Yes! Many of our repacks include professionally graded cards. Our main grading partners are AGS (Automated Grading Services), CGC (Certified Guaranty Company), and PSA (Professional Sports Authenticator), among others. Graded cards have been authenticated and assigned a condition grade by a third-party grading service, which adds both credibility and value. Each graded card comes with its original certification and tamper-proof case. Check each product page for specifics on what's included.",
+        a: "Yes! Many of our repacks include professionally graded cards. Our main grading partners are AGS (Automated Grading Services), CGC (Certified Guaranty Company), and PSA (Professional Sports Authenticator), among others. Graded cards have been authenticated and assigned a condition grade by a third-party grading service. Each graded card comes with its original certification and tamper-proof case. Check each product's published checklist for specifics on what's included.",
       },
       {
         q: "Are the cards in your repacks authentic?",
@@ -41,7 +41,7 @@ const faqs = [
       },
       {
         q: "Why are repacks limited to 500 packs?",
-        a: "We limit our production runs to maintain quality and exclusivity. With only 500 packs per series, we can ensure every single pack meets our high standards and maintains our floor-middle-ceiling promise. Smaller runs mean we can hand-curate the card pool rather than diluting it with filler to hit a higher pack count. You can track exactly how many packs remain in real time on each product page — once a run sells out, it's gone forever and the series is retired.",
+        a: "We limit our production runs to maintain quality and exclusivity. With only 500 packs per series, we can ensure every single pack meets our high standards. Smaller runs mean we can hand-curate the card pool rather than diluting it with filler to hit a higher pack count. You can track exactly how many packs remain in real time on each product page — once a run sells out, it's gone forever and the series is retired.",
       },
       {
         q: "What sets are the cards pulled from?",
@@ -66,11 +66,11 @@ const faqs = [
       },
       {
         q: "Are you compliant with Whatnot's repack rules?",
-        a: "Yes. We follow all Whatnot Professionally Sealed Surprise Products guidelines. This includes publishing a full checklist before sales begin, disclosing all card details (year, name, variation, condition), never advertising estimated values or floor/ceiling comparisons, and finalizing our checklists before the first pack is sold. Visit our Transparency page for full details on our compliance practices.",
+        a: "Yes. We follow all Whatnot Professionally Sealed Surprise Products guidelines. This includes publishing a full checklist before sales begin, disclosing all card details (year, name, variation, condition), never advertising estimated prices or price comparisons, and finalizing our checklists before the first pack is sold. Visit our Transparency page for full details on our compliance practices.",
       },
       {
         q: "Why don't you show card values on the checklist?",
-        a: "Per Whatnot's marketplace rules and our commitment to transparency, we do not display estimated values, floor/ceiling ranges, or value comparisons on our checklists. Card values fluctuate constantly and displaying them could be misleading. Instead, we provide all the factual details you need — card name, set, year, parallel, and condition — so you can research current market values yourself through eBay sold listings or other pricing tools.",
+        a: "Per marketplace rules and our commitment to transparency, we do not display estimated prices or price comparisons on our checklists. Card prices fluctuate constantly and displaying them could be misleading. Instead, we provide all the factual details you need — card name, set, year, parallel, and condition — so you can research current market prices yourself through sold listings or other pricing tools.",
       },
     ],
   },

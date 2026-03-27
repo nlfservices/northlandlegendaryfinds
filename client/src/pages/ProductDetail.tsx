@@ -432,15 +432,15 @@ export default function ProductDetail() {
               <div className="grid grid-cols-3 gap-4">
                 <div className="text-center p-3 bg-card rounded-lg border border-border">
                   <Shield className="w-6 h-6 text-primary mx-auto mb-1" />
-                  <p className="text-xs text-muted-foreground">Strong Floor</p>
+                  <p className="text-xs text-muted-foreground">100% Authentic</p>
                 </div>
                 <div className="text-center p-3 bg-card rounded-lg border border-border">
                   <Star className="w-6 h-6 text-cyan-400 mx-auto mb-1" />
-                  <p className="text-xs text-muted-foreground">Better Middle</p>
+                  <p className="text-xs text-muted-foreground">Full Checklist</p>
                 </div>
                 <div className="text-center p-3 bg-card rounded-lg border border-border">
                   <Package className="w-6 h-6 text-amber-400 mx-auto mb-1" />
-                  <p className="text-xs text-muted-foreground">Healthy Ceiling</p>
+                  <p className="text-xs text-muted-foreground">Hand-Curated</p>
                 </div>
               </div>
             </div>

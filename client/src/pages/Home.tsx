@@ -78,7 +78,7 @@ export default function Home() {
               </h1>
 
               <p className="text-lg sm:text-xl text-gray-300 max-w-lg mb-8 leading-relaxed">
-                Premium <strong className="text-primary">Marvel</strong> trading card repacks built different — strong floor, loaded middle, healthy ceiling. Every pack delivers.
+                Premium <strong className="text-primary">Marvel</strong> trading card repacks built different — hand-curated, fully transparent, and packed with quality. Every card counts.
               </p>
 
               {/* Launch countdown banner */}
@@ -158,7 +158,7 @@ export default function Home() {
               WHAT IS A <span className="text-primary">REPACK</span>?
             </h2>
             <p className="text-muted-foreground text-lg max-w-3xl mx-auto leading-relaxed">
-              A repack is a curated pack of trading cards hand-assembled by collectors, for collectors. Instead of buying sealed hobby boxes at retail prices, you get a carefully built pack loaded with real value — guaranteed hits, numbered parallels, and graded slabs mixed in with quality base cards. No junk filler, no mystery. Every card in every NLF pack is from authentic 2025 Topps Marvel releases.
+              A repack is a curated pack of trading cards hand-assembled by collectors, for collectors. Instead of buying sealed hobby boxes at retail prices, you get a carefully built pack featuring numbered parallels, inserts, and graded slabs mixed in with quality base cards. Every card in every NLF pack is from authentic 2025 Topps Marvel releases — and every pack has a published checklist.
             </p>
           </div>
 
@@ -167,18 +167,18 @@ export default function Home() {
               <div className="text-4xl mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
                 <span className="text-primary">$$$</span>
               </div>
-              <h3 className="font-bold text-lg mb-2">Better Value</h3>
+              <h3 className="font-bold text-lg mb-2">Curated Packs</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Hobby boxes can cost $200+ with no guarantee of a good pull. Our repacks deliver consistent value at a fraction of the price.
+                Every pack is hand-built with intention — not randomly assembled. We select each card to create a collecting experience you can trust.
               </p>
             </div>
             <div className="bg-card/80 border border-border rounded-xl p-6 text-center hover:border-amber-500/30 transition-colors">
               <div className="text-4xl mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
                 <span className="text-amber-400">✓</span>
               </div>
-              <h3 className="font-bold text-lg mb-2">Guaranteed Hits</h3>
+              <h3 className="font-bold text-lg mb-2">Premium Cards Included</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Every NLF pack includes guaranteed hit cards — numbered parallels, inserts, or graded slabs. You always walk away with something worth collecting.
+                Every NLF pack includes premium cards — numbered parallels, inserts, or graded slabs. Check the checklist to see exactly what's possible.
               </p>
             </div>
             <div className="bg-card/80 border border-border rounded-xl p-6 text-center hover:border-cyan-500/30 transition-colors">
@@ -379,9 +379,9 @@ export default function Home() {
               <div className="w-14 h-14 bg-cyan-500/10 rounded-xl flex items-center justify-center mx-auto mb-4">
                 <Star className="w-7 h-7 text-cyan-400" />
               </div>
-              <h3 className="font-bold text-lg mb-2">Better Middle</h3>
+              <h3 className="font-bold text-lg mb-2">Quality Throughout</h3>
               <p className="text-sm text-muted-foreground">
-                Where competitors stuff filler, we load quality. Your average pack beats their best day.
+                Every card is hand-selected from premium Topps sets. No random filler — just cards worth collecting.
               </p>
             </div>
 
@@ -389,9 +389,9 @@ export default function Home() {
               <div className="w-14 h-14 bg-amber-500/10 rounded-xl flex items-center justify-center mx-auto mb-4">
                 <TrendingUp className="w-7 h-7 text-amber-400" />
               </div>
-              <h3 className="font-bold text-lg mb-2">Strong Floor</h3>
+              <h3 className="font-bold text-lg mb-2">No Filler</h3>
               <p className="text-sm text-muted-foreground">
-                No junk filler, no worthless base cards. Every single pack delivers real, collectible value.
+                No junk cards, no random commons. Every card in every pack is from authentic 2025 Topps Marvel releases.
               </p>
             </div>
 
@@ -399,9 +399,9 @@ export default function Home() {
               <div className="w-14 h-14 bg-purple-500/10 rounded-xl flex items-center justify-center mx-auto mb-4">
                 <Package className="w-7 h-7 text-purple-400" />
               </div>
-              <h3 className="font-bold text-lg mb-2">Healthy Ceiling</h3>
+              <h3 className="font-bold text-lg mb-2">Chase Cards</h3>
               <p className="text-sm text-muted-foreground">
-                Real chase cards worth real money — numbered parallels, autos, and AGS/CGC/PSA graded slabs in the mix.
+                Numbered parallels, autographs, and AGS/CGC/PSA graded slabs — all listed on the checklist so you know what's possible.
               </p>
             </div>
           </div>

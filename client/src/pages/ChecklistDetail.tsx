@@ -76,8 +76,8 @@ export default function ChecklistDetail() {
   };
   const tierDescriptions: Record<string, string> = {
     chase: "The top-tier cards — the ones everyone is chasing",
-    hit: "Guaranteed hits — autos, relics, and numbered parallels",
-    base: "Solid base cards with great value",
+    hit: "Premium cards — autos, relics, and numbered parallels",
+    base: "Quality base cards from authentic Topps releases",
     bonus: "Bonus inserts and surprises",
   };
   const tierColors: Record<string, { bg: string; text: string; border: string; icon: string }> = {
@@ -256,7 +256,7 @@ export default function ChecklistDetail() {
             </div>
             <div className="flex items-center gap-1.5 shrink-0">
               <Info className="w-3.5 h-3.5 text-blue-400" />
-              <span>Full checklist published — no hidden cards</span>
+              <span>{isPreLaunch(params.slug) ? "Checklist reveals at launch — no hidden cards" : "Full checklist published — no hidden cards"}</span>
             </div>
             <div className="flex items-center gap-1.5 shrink-0">
               <Eye className="w-3.5 h-3.5 text-purple-400" />

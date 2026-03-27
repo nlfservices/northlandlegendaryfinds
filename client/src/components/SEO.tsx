@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 const SITE_NAME = "Northland Legendary Finds";
 const DEFAULT_TITLE = "Northland Legendary Finds | Premium Marvel Trading Card Repacks";
 const DEFAULT_DESCRIPTION =
-  "Premium Marvel trading card repacks built different — strong floor, loaded middle, healthy ceiling. Featuring 2025 Topps Chrome, Comic Book Heroes, Marvel Mint, and more.";
+  "Premium Marvel trading card repacks with full published checklists. Featuring 2025 Topps Chrome, Comic Book Heroes, Marvel Mint, numbered parallels, graded slabs, and more.";
 const DEFAULT_IMAGE =
   "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hero-banner-jniBj55ukeiEDpJxc2aLgB.webp";
 const SITE_URL = "https://northlandlegendaryfinds.com";
@@ -204,7 +204,7 @@ export function localBusinessJsonLd() {
     "@type": "Store",
     name: "Northland Legendary Finds",
     url: SITE_URL,
-    description: "Premium Marvel trading card repacks with strong floor, loaded middle, and healthy ceiling.",
+    description: "Premium Marvel trading card repacks with full published checklists and real-time pull tracking.",
     priceRange: "$100-$200",
     image: DEFAULT_IMAGE,
     address: {

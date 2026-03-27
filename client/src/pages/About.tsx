@@ -34,9 +34,8 @@ export default function About() {
           </h2>
           <p className="text-lg text-muted-foreground text-center mb-12 leading-relaxed">
             At Northland Legendary Finds, we're passionate collectors who understand the thrill of the hunt. 
-            Our mission is to bring that excitement to every collector by building repacks around three promises: 
-            a strong floor (every pack delivers real value), a better middle (quality cards throughout, not filler), 
-            and a healthy ceiling (legitimate chase cards in the mix). We believe in authenticity, transparency, 
+            Our mission is to bring that excitement to every collector by hand-curating repacks from authentic Topps releases 
+            and publishing full checklists so you know exactly what's possible. We believe in authenticity, transparency, 
             and delivering a consistently great experience on every single pack.
           </p>
 
@@ -102,7 +101,7 @@ export default function About() {
             </p>
             <p className="text-lg text-muted-foreground mb-6">
               We started with a simple goal: create trading card repacks that deliver a consistently great experience. 
-              Strong floor, better middle, healthy ceiling — every pack built to exceed expectations, not just hit a card count.
+              Hand-curated from authentic Topps releases, with full published checklists — every pack built to exceed expectations, not just hit a card count.
             </p>
             <p className="text-lg text-muted-foreground">
               Today, we're proud to serve collectors across the country, helping them build amazing collections 

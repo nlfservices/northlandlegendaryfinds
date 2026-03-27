@@ -38,8 +38,8 @@ const PRINCIPLES = [
   },
   {
     icon: Scale,
-    title: "No Value Manipulation",
-    description: "We do not list estimated values, floor/ceiling prices, or value comparisons on our checklists. We believe the cards speak for themselves — you can research market values independently.",
+    title: "No Price Manipulation",
+    description: "We do not list estimated prices or price comparisons on our checklists. We believe the cards speak for themselves — you can research market prices independently.",
     color: "text-amber-400",
     bg: "bg-amber-500/10",
   },
@@ -97,8 +97,7 @@ export default function Transparency() {
             <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
               At Northland Legendary Finds, we believe the trading card repack industry needs more transparency, not less.
               We publish complete checklists, track every pull in real-time, and follow all platform rules — because
-              trust is earned through actions, not promises. Our repacks are built on three principles: a strong floor,
-              a better middle, and a healthy ceiling — and we give you the tools to verify it yourself.
+              trust is earned through actions, not promises. Every card in every pack is hand-curated from authentic Topps releases — and we give you the tools to verify it yourself.
             </p>
           </div>
         </div>
@@ -112,10 +111,7 @@ export default function Transparency() {
               WHY THIS MATTERS
             </h2>
             <p className="text-muted-foreground leading-relaxed">
-              The repack market has a trust problem. Too many sellers hide what's in their packs, inflate values,
-              or pad packs with worthless filler to hit a card count. We started NLF to do things differently. We build every series
-              around a strong floor (every card has real value), a better middle (quality cards throughout, not one hit buried in junk),
-              and a healthy ceiling (legitimate chase cards in the mix). Every decision
+              The repack market has a trust problem. Too many sellers hide what's in their packs or pad packs with worthless filler to hit a card count. We started NLF to do things differently. We hand-curate every series from authentic Topps releases, publish full checklists before a single pack is opened, and track every pull in real-time. Every decision
               we make is guided by one question: <strong className="text-foreground">"Would I buy this if I were the customer?"</strong>
             </p>
             <p className="text-muted-foreground leading-relaxed mt-4">
@@ -198,7 +194,7 @@ export default function Transparency() {
 
             <div className="space-y-3">
               {[
-                "We do NOT list estimated values, floor/ceiling prices, or value comparisons on checklists",
+                "We do NOT list estimated prices or value comparisons on checklists",
                 "We do NOT change the contents of a series after it has been finalized",
                 "We do NOT add or remove packs from a series after finalization",
                 "We do NOT hide cards from the checklist — every possible pull is listed",
