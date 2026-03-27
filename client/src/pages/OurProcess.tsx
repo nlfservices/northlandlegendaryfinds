@@ -26,7 +26,7 @@ const PROCESS_STEPS = [
       "Sourced from authorized distributors and verified sellers",
       "100% authentic Topps Marvel releases only",
       "Each card individually verified before processing",
-      "CGC-graded cards sourced directly from grading submissions",
+      "Graded cards sourced from CGC, AGS, PSA, and other top grading services",
     ],
     icon: Search,
     color: "text-blue-400",
@@ -51,15 +51,18 @@ const PROCESS_STEPS = [
     bg: "bg-green-500/10",
     borderColor: "border-green-500/30",
     placeholder: "Photo: Sorting tables with cards organized by tier and set",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/SortingTable_08b58f63.png",
+    imageAlt: "NLF sorting table covered with stacks of Marvel trading cards organized by set and tier",
   },
   {
     step: 3,
     title: "Grading & Quality Check",
     subtitle: "Every Card Inspected",
     description:
-      "Quality is non-negotiable. Every card in an NLF repack is individually inspected. Graded cards come with their official CGC slabs. Raw cards are checked for centering, surface condition, corners, and edges. If a card doesn't meet our standards, it doesn't make the cut — period.",
+      "Quality is non-negotiable. Every card in an NLF repack is individually inspected. Graded cards come in official slabs from top grading services including CGC, AGS, PSA, and more. Raw cards are checked for centering, surface condition, corners, and edges. If a card doesn't meet our standards, it doesn't make the cut — period.",
     details: [
-      "CGC-graded cards verified with official slab and cert number",
+      "Cards graded by top services including CGC, AGS, PSA, and more",
+      "Every graded card verified with official slab and cert number",
       "Raw cards inspected for centering, surface, corners, and edges",
       "Cards that don't meet standards are removed from the series",
       "Grade and condition recorded for every card on the checklist",
@@ -68,7 +71,9 @@ const PROCESS_STEPS = [
     color: "text-amber-400",
     bg: "bg-amber-500/10",
     borderColor: "border-amber-500/30",
-    placeholder: "Photo: Quality inspection — CGC slabs and raw card evaluation",
+    placeholder: "Photo: Quality inspection — graded slabs and raw card evaluation",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/GradedCardsSorting_317a2d17.png",
+    imageAlt: "Graded Marvel trading cards in CGC and AGS slabs being sorted and inspected on a table",
   },
   {
     step: 4,
@@ -184,6 +189,14 @@ export default function OurProcess() {
                         index % 2 === 1 ? "lg:order-2" : ""
                       }`}
                     >
+                      {step.image ? (
+                      <img
+                        src={step.image}
+                        alt={step.imageAlt || step.placeholder}
+                        className="w-full h-full object-cover aspect-[4/3]"
+                        loading="lazy"
+                      />
+                    ) : (
                       <div className="aspect-[4/3] flex flex-col items-center justify-center p-8 text-center">
                         <div className={`w-16 h-16 ${step.bg} rounded-full flex items-center justify-center mb-4`}>
                           <ImageIcon className={`w-8 h-8 ${step.color}`} />
@@ -195,6 +208,7 @@ export default function OurProcess() {
                           Image placeholder — replace with actual photo
                         </p>
                       </div>
+                    )}
                     </div>
 
                     {/* Content */}

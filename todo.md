@@ -846,3 +846,7 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Gambit's Deck stays fully visible as transparency preview (ALWAYS_REVEALED_SLUGS)
 - [x] Coming Soon products show as locked with no reveal date
 - [x] Test and save checkpoint (232 tests, 88/88 integrity)
+## Our Process Page — Real Photos & Grading Companies
+- [x] Replace Step 2 (Sorting) placeholder with real sorting table photo
+- [x] Add grading company mentions (CGC, AGS, PSA, etc.) to Step 3
+- [ ] Replace remaining step placeholder images as user uploads photos
