@@ -10,6 +10,7 @@ import { matrixRouter } from "./routers/matrix";
 import { subscriberRouter } from "./routers/subscriber";
 import { articlePublicRouter, articleAdminRouter } from "./routers/articles";
 import { top5PublicRouter, top5AdminRouter } from "./routers/top5";
+import { youtubeRouter } from "./routers/youtube";
 
 export const appRouter = router({
   system: systemRouter,
@@ -53,6 +54,9 @@ export const appRouter = router({
 
   // Top 5 Buzz (admin)
   adminTop5: top5AdminRouter,
+
+  // YouTube RSS feed (public)
+  youtube: youtubeRouter,
 });
 
 export type AppRouter = typeof appRouter;

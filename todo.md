@@ -744,3 +744,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add inline email capture form in "Join the Legend" section (submit directly, no redirect to /subscribe)
 - [x] Ensure inline email form syncs to GHL CRM (reuse existing subscribe.submit tRPC mutation)
 - [x] Add social links (X/Twitter, Facebook, Instagram, Whatnot) to footer with real URLs
+
+## Marvel Card Hub Page — Community Resources
+- [x] Research top 5 Marvel news websites
+- [x] Research top 5 Marvel YouTube podcasts/channels
+- [x] Build Marvel Card Hub page with news links and auto-updating latest YouTube video embeds
+- [x] Create server-side tRPC route to fetch latest videos from YouTube channels via RSS
+- [x] Add route to App.tsx and navigation entry
+- [x] Write vitest tests for YouTube router (13 tests passing)
+- [x] Update integrity check script with new page/route (85/85 checks passing)
