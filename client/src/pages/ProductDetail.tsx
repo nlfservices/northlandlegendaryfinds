@@ -5,12 +5,12 @@
  */
 
 import { useParams, Link } from "wouter";
-import { CreditCard, ArrowLeft, Shield, Star, Package, Check, AlertCircle, Loader2, Clock, Zap, Bell, Mail, CheckCircle2 } from "lucide-react";
+import { CreditCard, ArrowLeft, Shield, Star, Package, Check, AlertCircle, Loader2, Clock, Zap, Bell, Mail, CheckCircle2, ListChecks, TrendingUp, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getProductBySlug, products } from "@/lib/products";
 import ProductCard from "@/components/ProductCard";
 import LivePackCounter from "@/components/LivePackCounter";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { toast } from "sonner";
 import { trpc } from "@/lib/trpc";
 import { useLaunchCountdown } from "@/hooks/useLaunchCountdown";
@@ -163,6 +163,171 @@ function LaunchCountdownBlock({ launchDateUtc, productSlug }: { launchDateUtc: s
         Checkout will be enabled when the countdown reaches zero.
       </p>
     </div>
+  );
+}
+
+function ChecklistPreview({ checklistSlug, productName }: { checklistSlug: string; productName: string }) {
+  // First get the product from DB to get its ID
+  const { data: dbProduct, isLoading: productLoading } = trpc.public.products.getBySlug.useQuery(
+    { slug: checklistSlug },
+    { enabled: !!checklistSlug }
+  );
+
+  // Then fetch the checklist using the product ID
+  const { data: checklist, isLoading: checklistLoading } = trpc.public.checklist.getByProduct.useQuery(
+    { productId: dbProduct?.id! },
+    { enabled: !!dbProduct?.id }
+  );
+
+  const isLoading = productLoading || checklistLoading;
+
+  // Group by tier
+  const grouped = useMemo(() => {
+    if (!checklist) return {};
+    const groups: Record<string, typeof checklist> = {};
+    for (const item of checklist) {
+      if (!groups[item.tier]) groups[item.tier] = [];
+      groups[item.tier].push(item);
+    }
+    return groups;
+  }, [checklist]);
+
+  const tierOrder = ["chase", "hit", "base", "bonus"];
+  const tierLabels: Record<string, string> = {
+    chase: "Chase Cards",
+    hit: "Hit Cards",
+    base: "Base Cards",
+    bonus: "Bonus Cards",
+  };
+  const tierColors: Record<string, { bg: string; text: string; border: string; icon: string }> = {
+    chase: { bg: "bg-amber-500/10", text: "text-amber-400", border: "border-amber-500/30", icon: "text-amber-400" },
+    hit: { bg: "bg-purple-500/10", text: "text-purple-400", border: "border-purple-500/30", icon: "text-purple-400" },
+    base: { bg: "bg-blue-500/10", text: "text-blue-400", border: "border-blue-500/30", icon: "text-blue-400" },
+    bonus: { bg: "bg-green-500/10", text: "text-green-400", border: "border-green-500/30", icon: "text-green-400" },
+  };
+
+  const CARD_PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='64' fill='%23333'%3E%3Crect width='48' height='64' rx='4' fill='%231a1a2e'/%3E%3Ctext x='24' y='36' text-anchor='middle' fill='%23555' font-size='10'%3E?%3C/text%3E%3C/svg%3E";
+
+  if (isLoading) {
+    return (
+      <section className="py-16 border-t border-border">
+        <div className="container">
+          <div className="flex items-center justify-center py-12">
+            <Loader2 className="w-8 h-8 animate-spin text-primary" />
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (!checklist || checklist.length === 0) return null;
+
+  return (
+    <section className="py-16 border-t border-border">
+      <div className="container">
+        {/* Section Header */}
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <div className="flex items-center gap-3 mb-2">
+              <ListChecks className="w-6 h-6 text-primary" />
+              <h2 className="text-3xl font-bold" style={{ fontFamily: "'Anton', sans-serif" }}>
+                FULL <span className="text-primary">CHECKLIST</span>
+              </h2>
+            </div>
+            <p className="text-muted-foreground">
+              Every card in {productName} — {checklist.length} total cards across {Object.keys(grouped).length} tiers
+            </p>
+          </div>
+          <Link href={`/checklist/${checklistSlug}`}>
+            <Button variant="outline" className="border-primary/30 text-primary hover:bg-primary/10">
+              <Eye className="w-4 h-4 mr-2" />
+              Full Details
+            </Button>
+          </Link>
+        </div>
+
+        {/* Tier Summary Cards */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          {tierOrder.map(tier => {
+            const items = grouped[tier];
+            if (!items || items.length === 0) return null;
+            const colors = tierColors[tier];
+            return (
+              <div key={tier} className={`${colors.bg} border ${colors.border} rounded-xl p-4 text-center`}>
+                <div className={`text-2xl font-bold ${colors.text}`} style={{ fontFamily: "'Anton', sans-serif" }}>
+                  {items.length}
+                </div>
+                <div className="text-sm text-muted-foreground">{tierLabels[tier]}</div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Checklist by Tier */}
+        <div className="space-y-6">
+          {tierOrder.map(tier => {
+            const items = grouped[tier];
+            if (!items || items.length === 0) return null;
+            const colors = tierColors[tier];
+            return (
+              <div key={tier}>
+                <div className="flex items-center gap-3 mb-3">
+                  <div className={`w-8 h-8 ${colors.bg} rounded-lg flex items-center justify-center`}>
+                    {tier === 'chase' && <TrendingUp className={`w-4 h-4 ${colors.icon}`} />}
+                    {tier === 'hit' && <Zap className={`w-4 h-4 ${colors.icon}`} />}
+                    {tier === 'base' && <Package className={`w-4 h-4 ${colors.icon}`} />}
+                    {tier === 'bonus' && <Eye className={`w-4 h-4 ${colors.icon}`} />}
+                  </div>
+                  <h3 className="text-lg font-bold">{tierLabels[tier]}</h3>
+                  <span className={`text-xs px-2 py-0.5 rounded-full ${colors.bg} ${colors.text} ${colors.border} border`}>
+                    {items.length} cards
+                  </span>
+                </div>
+                <div className="grid gap-1.5">
+                  {items.map(item => (
+                    <div
+                      key={item.id}
+                      className="flex items-center gap-3 p-3 rounded-lg border bg-card border-border hover:border-primary/20 transition-all"
+                    >
+                      <img
+                        src={item.imageUrl || CARD_PLACEHOLDER}
+                        alt={item.cardName}
+                        className="w-10 h-14 object-cover rounded-md border border-border shrink-0"
+                        loading="lazy"
+                      />
+                      <div className="min-w-0">
+                        <div className="font-medium text-sm truncate">
+                          {item.cardName}
+                          {item.parallel && (
+                            <span className="text-primary ml-1.5 text-xs font-normal">({item.parallel})</span>
+                          )}
+                        </div>
+                        <div className="text-xs text-muted-foreground flex flex-wrap gap-x-1.5">
+                          {item.cardSet && <span>{item.cardSet}</span>}
+                          {item.cardYear && <span>· {item.cardYear}</span>}
+                          {item.cardNumber && <span>· #{item.cardNumber}</span>}
+                          {item.cardCondition && <span>· {item.cardCondition}</span>}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* CTA to full checklist page */}
+        <div className="mt-8 text-center">
+          <Link href={`/checklist/${checklistSlug}`}>
+            <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold">
+              <ListChecks className="w-5 h-5 mr-2" />
+              View Full Checklist with Pull Tracking
+            </Button>
+          </Link>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -447,6 +612,11 @@ export default function ProductDetail() {
           </div>
         </div>
       </section>
+
+      {/* Checklist Preview — only for products with a checklistSlug */}
+      {product.checklistSlug && (
+        <ChecklistPreview checklistSlug={product.checklistSlug} productName={product.name} />
+      )}
 
       {/* Related Products */}
       {relatedProducts.length > 0 && (

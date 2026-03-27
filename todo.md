@@ -798,3 +798,9 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] SEO.tsx: Remove floor/ceiling from meta descriptions and JSON-LD
 - [x] About.tsx: Remove floor/ceiling from mission statement and story section
 - [x] Run integrity check and save checkpoint (232 tests, 85/85 integrity)
+
+## Gambit's Deck Product Page — Checklist Preview
+- [x] Add checklist preview section to /product/gambit-deck-52 showing what cards are in the set
+- [x] Pull checklist data from tRPC and display by tier (Chase, Hit, Base)
+- [x] Link to full checklist page for detailed view (Full Details + View Full Checklist CTA)
+- [x] Test and save checkpoint (232 tests, 85/85 integrity)
