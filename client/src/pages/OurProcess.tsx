@@ -94,8 +94,8 @@ const PROCESS_STEPS = [
     bg: "bg-purple-500/10",
     borderColor: "border-purple-500/30",
     placeholder: "Photo: Sealing process — heat-sealing cards in NLF holographic mylar bags",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/1000036617_92270ff8.jpg",
-    imageAlt: "Hacona heat sealer with NLF branded mylar bags and a graded card on a Marvel comic tablecloth",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/1000036619_669cf912.jpg",
+    imageAlt: "Hacona heat sealer on Marvel comic tablecloth used to seal NLF repack bags",
   },
   {
     step: 5,
