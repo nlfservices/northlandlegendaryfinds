@@ -165,7 +165,10 @@ export default function Contact() {
                   <div>
                     <h3 className="font-bold text-lg mb-1">Location</h3>
                     <p className="text-muted-foreground">
-                      Northland, USA
+                      6390 McKinley St NW
+                    </p>
+                    <p className="text-muted-foreground">
+                      Anoka, MN 55303
                     </p>
                     <p className="text-sm text-muted-foreground mt-1">
                       Serving collectors nationwide

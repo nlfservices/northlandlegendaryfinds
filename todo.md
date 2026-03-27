@@ -830,3 +830,8 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Updated hero description and stats bar to reflect preview-only state
 - [x] Fixed "Proven Value" text to "Collector Confidence" (PSSP compliance)
 - [x] Test and save checkpoint (232 tests, 88/88 integrity)
+
+## Business Address Update
+- [x] Update address to 6390 McKinley St NW, Anoka, MN 55303 across the site
+- [x] Update Contact page (location section), Footer (bottom bar), SEO/JSON-LD (structured data)
+- [x] Test and save checkpoint (232 tests, 88/88 integrity)

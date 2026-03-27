@@ -106,6 +106,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-border mt-10 pt-6 flex flex-col md:flex-row justify-between items-center text-xs text-muted-foreground/60 gap-2">
           <p>&copy; {new Date().getFullYear()} Northland Legendary Finds. All rights reserved.</p>
+          <p>6390 McKinley St NW, Anoka, MN 55303</p>
           <p>Premium Topps Trading Cards &bull; 100% Authentic &bull; Collector Owned & Operated</p>
         </div>
       </div>

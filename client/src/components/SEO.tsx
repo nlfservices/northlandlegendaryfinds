@@ -209,6 +209,10 @@ export function localBusinessJsonLd() {
     image: DEFAULT_IMAGE,
     address: {
       "@type": "PostalAddress",
+      streetAddress: "6390 McKinley St NW",
+      addressLocality: "Anoka",
+      addressRegion: "MN",
+      postalCode: "55303",
       addressCountry: "US",
     },
     openingHoursSpecification: {
