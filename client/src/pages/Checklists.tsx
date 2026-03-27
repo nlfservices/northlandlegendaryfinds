@@ -1,6 +1,11 @@
 /**
  * Public Checklists Page - Browse all product checklists
  * The HIGHLIGHT feature of the site - builds trust through transparency
+ * 
+ * Logic:
+ * - Gambit's Deck: Always visible (transparency preview)
+ * - Products with launch dates: Checklist unlocks 1 week before launch
+ * - Coming Soon products: Shown as locked with no reveal date
  */
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
@@ -9,12 +14,62 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "wouter";
 import {
   ListChecks, ArrowRight, Package, Zap, Radio,
-  CheckCircle2, Circle, Loader2, TrendingUp, Eye
+  CheckCircle2, Circle, Loader2, TrendingUp, Eye,
+  Lock, Clock, Sparkles
 } from "lucide-react";
 import SEO, { breadcrumbJsonLd } from "@/components/SEO";
+import { products as frontendProducts } from "@/lib/products";
+import { useMemo } from "react";
+
+/** Slugs that are always revealed regardless of date */
+const ALWAYS_REVEALED_SLUGS = ["nlf-marvel-52-singles"];
+
+/** Check if a product's checklist is unlocked (1 week before launch or always revealed) */
+function isChecklistUnlocked(product: { dbSlug?: string; checklistSlug?: string; launchDate?: string; isComingSoon: boolean }): boolean {
+  const slug = product.dbSlug || product.checklistSlug || "";
+  if (ALWAYS_REVEALED_SLUGS.includes(slug)) return true;
+  if (product.isComingSoon || !product.launchDate) return false;
+  
+  const launchDate = new Date(product.launchDate);
+  const oneWeekBefore = new Date(launchDate.getTime() - 7 * 24 * 60 * 60 * 1000);
+  return new Date() >= oneWeekBefore;
+}
+
+/** Get the reveal date (1 week before launch) */
+function getRevealDate(launchDate?: string): Date | null {
+  if (!launchDate) return null;
+  const launch = new Date(launchDate);
+  return new Date(launch.getTime() - 7 * 24 * 60 * 60 * 1000);
+}
+
+/** Format date for display */
+function formatDate(date: Date): string {
+  return date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+}
 
 export default function Checklists() {
-  const { data: products, isLoading } = trpc.public.products.list.useQuery();
+  const { data: dbProducts, isLoading } = trpc.public.products.list.useQuery();
+
+  // Get all repack products from frontend data (includes all product lines, even coming soon)
+  const allRepacks = useMemo(() => frontendProducts.filter(p => p.isRepack), []);
+
+  // Deduplicate by product line — show one card per product line
+  const productLines = useMemo(() => {
+    const seen = new Set<string>();
+    const result: typeof allRepacks = [];
+    
+    for (const product of allRepacks) {
+      const lineKey = product.productLine || product.id;
+      if (!seen.has(lineKey)) {
+        seen.add(lineKey);
+        result.push(product);
+      }
+    }
+    return result;
+  }, [allRepacks]);
+
+  // Count unlocked vs total
+  const unlockedCount = productLines.filter(p => isChecklistUnlocked(p)).length;
 
   const categoryColors: Record<string, string> = {
     marvel: "from-red-600 to-red-800",
@@ -53,8 +108,9 @@ export default function Checklists() {
               PRODUCT <span className="text-primary">CHECKLISTS</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Get a glimpse of what's inside our repacks. Browse the Gambit's Deck checklist below to see 
-              the quality and variety of cards we include. More checklists will be revealed at launch.
+              Every NLF repack has a full checklist published before launch. Browse below to see what's inside 
+              each set. Checklists are revealed one week before their launch date — Gambit's Deck is our 
+              transparency preview so you can see the quality firsthand.
             </p>
           </div>
         </div>
@@ -66,18 +122,31 @@ export default function Checklists() {
           <div className="grid grid-cols-3 gap-6 text-center">
             <div>
               <div className="text-2xl font-bold text-primary" style={{ fontFamily: "'Anton', sans-serif" }}>
-                {products?.filter(p => p.slug === "nlf-marvel-52-singles").length || 0}
+                {unlockedCount} / {productLines.length}
               </div>
-              <div className="text-xs text-muted-foreground uppercase tracking-wider mt-1">Preview Checklists</div>
+              <div className="text-xs text-muted-foreground uppercase tracking-wider mt-1">Checklists Revealed</div>
             </div>
             <div>
               <div className="text-2xl font-bold text-cyan-400" style={{ fontFamily: "'Anton', sans-serif" }}>100%</div>
-              <div className="text-xs text-muted-foreground uppercase tracking-wider mt-1">Published Checklists</div>
+              <div className="text-xs text-muted-foreground uppercase tracking-wider mt-1">Published Before Launch</div>
             </div>
             <div>
               <div className="text-2xl font-bold text-amber-400" style={{ fontFamily: "'Anton', sans-serif" }}>FULL</div>
               <div className="text-xs text-muted-foreground uppercase tracking-wider mt-1">Transparency</div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Gambit Preview Banner */}
+      <section className="py-6 bg-gradient-to-r from-fuchsia-950/30 via-purple-950/20 to-fuchsia-950/30 border-b border-fuchsia-500/20">
+        <div className="container">
+          <div className="flex items-center justify-center gap-3 text-center">
+            <Sparkles className="w-5 h-5 text-fuchsia-400 shrink-0" />
+            <p className="text-sm text-fuchsia-200">
+              <span className="font-bold">Gambit's Deck</span> is our transparency preview — browse the full checklist now to see the quality of cards in every NLF repack.
+            </p>
+            <Sparkles className="w-5 h-5 text-fuchsia-400 shrink-0" />
           </div>
         </div>
       </section>
@@ -89,21 +158,24 @@ export default function Checklists() {
             <div className="flex items-center justify-center py-20">
               <Loader2 className="w-8 h-8 animate-spin text-primary" />
             </div>
-          ) : !products || products.length === 0 ? (
-            <div className="text-center py-20">
-              <ListChecks className="w-16 h-16 text-muted-foreground mx-auto mb-6" />
-              <h2 className="text-2xl font-bold mb-2">Checklists Coming Soon</h2>
-              <p className="text-muted-foreground max-w-md mx-auto">
-                Product checklists will be published here before launch. Check back soon!
-              </p>
-            </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {products
-                .filter(product => product.slug === "nlf-marvel-52-singles")
-                .map(product => (
-                  <ProductChecklistCard key={product.id} product={product} categoryColors={categoryColors} categoryLabels={categoryLabels} />
-                ))}
+              {productLines.map(product => {
+                const unlocked = isChecklistUnlocked(product);
+                const dbProduct = dbProducts?.find(
+                  (p: any) => p.slug === product.dbSlug || p.slug === product.checklistSlug
+                );
+                return (
+                  <ChecklistCard
+                    key={product.id}
+                    product={product}
+                    dbProduct={dbProduct}
+                    unlocked={unlocked}
+                    categoryColors={categoryColors}
+                    categoryLabels={categoryLabels}
+                  />
+                );
+              })}
             </div>
           )}
         </div>
@@ -152,66 +224,150 @@ export default function Checklists() {
   );
 }
 
-function ProductChecklistCard({ product, categoryColors, categoryLabels }: {
+function ChecklistCard({ product, dbProduct, unlocked, categoryColors, categoryLabels }: {
   product: any;
+  dbProduct: any;
+  unlocked: boolean;
   categoryColors: Record<string, string>;
   categoryLabels: Record<string, string>;
 }) {
-  const { data: stats } = trpc.public.products.stats.useQuery({ id: product.id });
+  const slug = product.dbSlug || product.checklistSlug || product.slug;
+  const revealDate = getRevealDate(product.launchDate);
+  const launchDate = product.launchDate ? new Date(product.launchDate) : null;
+
+  // For unlocked products, fetch stats
+  const { data: stats } = trpc.public.products.stats.useQuery(
+    { id: dbProduct?.id },
+    { enabled: !!dbProduct && unlocked }
+  );
 
   const progressPercent = stats?.totalPacks ? Math.round(((stats.totalPacks - stats.packsRemaining) / stats.totalPacks) * 100) : 0;
 
+  // Unlocked card — clickable link to checklist
+  if (unlocked) {
+    return (
+      <Link href={`/checklist/${slug}`}>
+        <Card className="group hover:border-primary/30 transition-all duration-300 cursor-pointer overflow-hidden h-full">
+          {/* Category Banner */}
+          <div className={`h-2 bg-gradient-to-r ${categoryColors[product.category] || categoryColors.other}`} />
+          
+          <CardContent className="p-6">
+            <div className="flex items-start justify-between mb-4">
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <Badge variant="outline" className="text-xs">
+                    {categoryLabels[product.category] || product.category}
+                  </Badge>
+                  <Badge className="text-xs bg-primary/20 text-primary border-primary/30">
+                    <Eye className="w-3 h-3 mr-1" /> Viewable
+                  </Badge>
+                </div>
+                <h3 className="text-xl font-bold group-hover:text-primary transition-colors">
+                  {product.productLine === "gambit-deck" ? "Gambit's Deck" : product.name}
+                </h3>
+                <p className="text-sm text-muted-foreground mt-1">{product.subtitle}</p>
+              </div>
+              <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all shrink-0 mt-1" />
+            </div>
+
+            {product.description && (
+              <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{product.description}</p>
+            )}
+
+            {/* Stats */}
+            <div className="space-y-3">
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-muted-foreground">Checklist</span>
+                <span className="font-bold">{stats?.totalChecklist || dbProduct?.totalChecklist || "—"} cards</span>
+              </div>
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-muted-foreground">Packs</span>
+                <span className="font-bold text-primary">{product.packCount || stats?.totalPacks || "—"}</span>
+              </div>
+
+              {stats?.totalPacks ? (
+                <>
+                  <div className="w-full bg-muted rounded-full h-2 overflow-hidden">
+                    <div
+                      className="h-full bg-gradient-to-r from-primary to-green-400 rounded-full transition-all duration-500"
+                      style={{ width: `${progressPercent}%` }}
+                    />
+                  </div>
+                  <div className="text-xs text-muted-foreground text-center">
+                    {progressPercent}% opened
+                  </div>
+                </>
+              ) : null}
+            </div>
+          </CardContent>
+        </Card>
+      </Link>
+    );
+  }
+
+  // Locked card — not clickable
   return (
-    <Link href={`/checklist/${product.slug}`}>
-      <Card className="group hover:border-primary/30 transition-all duration-300 cursor-pointer overflow-hidden h-full">
-        {/* Category Banner */}
-        <div className={`h-2 bg-gradient-to-r ${categoryColors[product.category] || categoryColors.other}`} />
-        
-        <CardContent className="p-6">
-          <div className="flex items-start justify-between mb-4">
-            <div>
-              <Badge variant="outline" className="mb-2 text-xs">
+    <Card className="overflow-hidden h-full opacity-80 relative">
+      {/* Category Banner */}
+      <div className={`h-2 bg-gradient-to-r ${categoryColors[product.category] || categoryColors.other} opacity-50`} />
+      
+      <CardContent className="p-6">
+        <div className="flex items-start justify-between mb-4">
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <Badge variant="outline" className="text-xs">
                 {categoryLabels[product.category] || product.category}
               </Badge>
-              {product.isWhatnotExclusive && (
-                <Badge variant="outline" className="ml-2 mb-2 text-xs border-purple-500/50 text-purple-400">
-                  <Radio className="w-3 h-3 mr-1" /> Whatnot Exclusive
-                </Badge>
-              )}
-              <h3 className="text-xl font-bold group-hover:text-primary transition-colors">{product.name}</h3>
+              <Badge variant="outline" className="text-xs border-amber-500/50 text-amber-400">
+                <Lock className="w-3 h-3 mr-1" /> Locked
+              </Badge>
             </div>
-            <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all shrink-0 mt-1" />
+            <h3 className="text-xl font-bold text-muted-foreground">{product.name}</h3>
+            <p className="text-sm text-muted-foreground mt-1">{product.subtitle}</p>
           </div>
+          <Lock className="w-5 h-5 text-muted-foreground/50 shrink-0 mt-1" />
+        </div>
 
-          {product.description && (
-            <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{product.description}</p>
+        {/* Lock message */}
+        <div className="bg-muted/50 rounded-lg p-4 mb-4 border border-border/50">
+          <div className="flex items-center gap-2 mb-2">
+            <Clock className="w-4 h-4 text-amber-400" />
+            <span className="text-sm font-bold text-amber-400">Checklist Coming Soon</span>
+          </div>
+          {revealDate ? (
+            <p className="text-xs text-muted-foreground">
+              Full checklist reveals on <span className="font-semibold text-foreground">{formatDate(revealDate)}</span> — one week before launch.
+            </p>
+          ) : (
+            <p className="text-xs text-muted-foreground">
+              Full checklist will be published one week before launch. Stay tuned!
+            </p>
           )}
+        </div>
 
-          {/* Stats */}
-          <div className="space-y-3">
-            <div className="flex items-center justify-between text-sm">
-              <span className="text-muted-foreground">Checklist</span>
-              <span className="font-bold">{stats?.totalChecklist || 0} cards</span>
-            </div>
-            {/* Pulled stat hidden pre-launch */}
-            <div className="flex items-center justify-between text-sm">
-              <span className="text-muted-foreground">Packs Remaining</span>
-              <span className="font-bold text-primary">{stats?.packsRemaining || product.packsRemaining} / {stats?.totalPacks || product.totalPacks}</span>
-            </div>
-
-            {/* Progress Bar */}
-            <div className="w-full bg-muted rounded-full h-2 overflow-hidden">
-              <div
-                className="h-full bg-gradient-to-r from-primary to-green-400 rounded-full transition-all duration-500"
-                style={{ width: `${progressPercent}%` }}
-              />
-            </div>
-            <div className="text-xs text-muted-foreground text-center">
-              {progressPercent}% opened
-            </div>
+        {/* Basic info */}
+        <div className="space-y-3">
+          <div className="flex items-center justify-between text-sm">
+            <span className="text-muted-foreground">Packs</span>
+            <span className="font-bold">{product.packCount || "TBA"}</span>
           </div>
-        </CardContent>
-      </Card>
-    </Link>
+          {launchDate ? (
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-muted-foreground">Launch Date</span>
+              <span className="font-bold">{formatDate(launchDate)}</span>
+            </div>
+          ) : (
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-muted-foreground">Launch Date</span>
+              <span className="font-bold text-muted-foreground">Coming Soon</span>
+            </div>
+          )}
+          <div className="flex items-center justify-between text-sm">
+            <span className="text-muted-foreground">Price</span>
+            <span className="font-bold">${product.price}</span>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
   );
 }

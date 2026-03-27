@@ -839,3 +839,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 ## Gambit's Deck Release Date Change
 - [x] Update Gambit's Deck release date from May 22nd to April 24th (products.ts: comment, badge, launchDate)
 - [x] Test and save checkpoint (232 tests, 88/88 integrity)
+
+## Checklists Page — Show All Sets with Lock Logic
+- [x] Show all product sets on the Checklists page (deduplicated by product line)
+- [x] Lock checklists until 1 week before launch date
+- [x] Gambit's Deck stays fully visible as transparency preview (ALWAYS_REVEALED_SLUGS)
+- [x] Coming Soon products show as locked with no reveal date
+- [x] Test and save checkpoint (232 tests, 88/88 integrity)
