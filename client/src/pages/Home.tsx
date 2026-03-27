@@ -9,7 +9,7 @@ import { ShoppingCart, Shield, Star, TrendingUp, Package, ArrowRight, Zap, BookO
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { useCart } from "@/contexts/CartContext";
-import { getProductLines, getComingSoonProducts, products } from "@/lib/products";
+import { getProductLines, getComingSoonProducts, products, getFeaturedProduct } from "@/lib/products";
 import { useLaunchCountdown } from "@/hooks/useLaunchCountdown";
 import ProductCard from "@/components/ProductCard";
 import SEO, { organizationJsonLd, websiteJsonLd, localBusinessJsonLd } from "@/components/SEO";
@@ -29,6 +29,7 @@ export default function Home() {
   const { addItem } = useCart();
   const productLines = getProductLines();
   const variantSeries = productLines.find(l => l.id === "variant-series");
+  const gambitProduct = getFeaturedProduct();
   const comingSoonLines = productLines.filter(l => !l.available);
 
   // Inline email capture state
@@ -251,40 +252,101 @@ export default function Home() {
       {/* ===== MARVELOUS TOP 5 ===== */}
       <MarvelousTop5 />
 
-      {/* ===== THE VARIANT SERIES — LAUNCH EXCLUSIVE ===== */}
-      {variantSeries && (
-        <section className="py-16 lg:py-20">
-          <div className="container">
-            <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 border border-primary/30 rounded-full mb-4">
-                <Zap className="w-4 h-4 text-primary" />
-                <span className="text-primary text-sm font-bold">CHROME EDITION — APR 27 | COSMIC DROP — APR 27</span>
+      {/* ===== PRODUCT PYRAMID — GAMBIT ON TOP, VARIANT SERIES BELOW ===== */}
+      <section className="py-16 lg:py-20">
+        <div className="container">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 border border-primary/30 rounded-full mb-4">
+              <Zap className="w-4 h-4 text-primary" />
+              <span className="text-primary text-sm font-bold">OUR REPACK LINEUP</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
+              PREMIUM <span className="text-primary">REPACKS</span>
+            </h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Hand-built Marvel trading card packs with guaranteed hits and full transparency
+            </p>
+          </div>
+
+          {/* Pyramid Tier 1: Gambit's Deck — Featured at Top */}
+          {gambitProduct && (
+            <div className="max-w-xl mx-auto mb-8">
+              <div className="text-center mb-3">
+                <span className="text-xs font-bold uppercase tracking-widest text-fuchsia-400">Featured — Pre-Revealed Checklist</span>
               </div>
-              <h2 className="text-4xl md:text-5xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
-                THE <span className="text-primary">VARIANT</span> SERIES
-              </h2>
-              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                {variantSeries.tagline}
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
-              {variantSeries.products.map((product) => (
-                <ProductCard key={product.id} product={product} featured />
-              ))}
-            </div>
-
-            <div className="text-center mt-10">
-              <Link href="/shop">
-                <Button variant="outline" size="lg" className="border-primary/30 text-primary hover:bg-primary/10 font-bold">
-                  View All Products
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
+              <Link href={`/product/${gambitProduct.slug}`}>
+                <div className="group relative overflow-hidden rounded-2xl border-2 border-fuchsia-500/40 bg-gradient-to-br from-fuchsia-950/40 via-card to-purple-950/40 hover:border-fuchsia-400/60 transition-all duration-300 shadow-lg shadow-fuchsia-500/10 hover:shadow-fuchsia-500/20">
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-fuchsia-500 via-purple-500 to-fuchsia-500" />
+                  <div className="p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6">
+                    <div className="relative shrink-0">
+                      <div className="absolute -inset-4 bg-fuchsia-500/15 rounded-full blur-2xl" />
+                      <img
+                        src={gambitProduct.image}
+                        alt={gambitProduct.name}
+                        className="relative w-40 h-40 sm:w-48 sm:h-48 object-contain drop-shadow-[0_0_20px_rgba(217,70,239,0.3)] group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="text-center sm:text-left flex-1">
+                      <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-fuchsia-500/15 border border-fuchsia-500/30 rounded-full text-xs font-bold text-fuchsia-400 mb-3">
+                        <Clock className="w-3 h-3" /> DROPPING MAY 22
+                      </div>
+                      <h3 className="text-2xl sm:text-3xl font-bold mb-2" style={{ fontFamily: "'Anton', sans-serif" }}>
+                        {gambitProduct.name}
+                      </h3>
+                      <p className="text-sm text-muted-foreground mb-3">
+                        52 single-card packs themed after Gambit's playing cards. The only NLF set with a pre-revealed checklist.
+                      </p>
+                      <div className="flex items-center justify-center sm:justify-start gap-4 mb-4">
+                        <span className="text-2xl font-bold text-fuchsia-400" style={{ fontFamily: "'Anton', sans-serif" }}>${gambitProduct.price}</span>
+                        <span className="text-sm text-muted-foreground">52 packs</span>
+                      </div>
+                      <div className="flex flex-wrap gap-2 justify-center sm:justify-start">
+                        <span className="px-2 py-1 text-xs rounded bg-amber-500/15 border border-amber-500/30 text-amber-400 font-bold">ACES — Chase</span>
+                        <span className="px-2 py-1 text-xs rounded bg-purple-500/15 border border-purple-500/30 text-purple-400 font-bold">FACE — Hits</span>
+                        <span className="px-2 py-1 text-xs rounded bg-blue-500/15 border border-blue-500/30 text-blue-400 font-bold">NUMBER — Base</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="border-t border-fuchsia-500/20 px-6 py-3 flex items-center justify-between bg-fuchsia-500/5">
+                    <Link href="/checklist/nlf-marvel-52-singles">
+                      <span className="text-sm font-bold text-fuchsia-400 hover:text-fuchsia-300 flex items-center gap-1.5 cursor-pointer">
+                        <Eye className="w-4 h-4" /> Preview Full Checklist
+                      </span>
+                    </Link>
+                    <span className="text-sm font-bold text-primary flex items-center gap-1.5 group-hover:translate-x-1 transition-transform">
+                      View Product <ArrowRight className="w-4 h-4" />
+                    </span>
+                  </div>
+                </div>
               </Link>
             </div>
+          )}
+
+          {/* Pyramid Tier 2: Two Variant Series Products Below */}
+          {variantSeries && (
+            <div className="max-w-3xl mx-auto">
+              <div className="text-center mb-4">
+                <span className="text-xs font-bold uppercase tracking-widest text-primary">Launching April 27th</span>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {variantSeries.products.map((product) => (
+                  <ProductCard key={product.id} product={product} featured />
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="text-center mt-10">
+            <Link href="/shop">
+              <Button variant="outline" size="lg" className="border-primary/30 text-primary hover:bg-primary/10 font-bold">
+                View All Products
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
       {/* ===== TRUST / WHY NLF ===== */}
       <section className="relative py-16 lg:py-20 overflow-hidden">

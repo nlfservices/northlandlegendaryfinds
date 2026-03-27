@@ -765,3 +765,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Redesign Shop page with pyramid layout — Gambit's Deck featured at top
 - [x] Ensure other products appear below in pyramid tiers (Gambit > Variant Series > Snap > Multiverse Vault > Sealed Boxes)
 - [x] Test and save checkpoint (232 tests passing, 85/85 integrity checks)
+
+## Gambit's Deck Checklist — Open/Reveal
+- [x] Investigate checklist visibility logic (reveal date, hidden state)
+- [x] Open/reveal the checklist for nlf-marvel-52-singles so it's visible to all visitors (REVEALED_SLUGS exemption)
+- [x] Test and save checkpoint (checklist visible, 232 tests, 85/85 integrity)
+
+## Homepage Pyramid Layout
+- [x] Add pyramid product showcase to homepage — Gambit's Deck on top, two Variant Series below
+- [x] Test and save checkpoint (232 tests, 85/85 integrity)

@@ -22,7 +22,12 @@ import { useMemo, useState } from "react";
 
 // Pre-launch blur: hide card details until April 27, 2026 7:00 PM CT (UTC-5)
 const LAUNCH_DATE = new Date("2026-04-28T00:00:00Z");
-const isPreLaunch = () => new Date() < LAUNCH_DATE;
+// Slugs that are exempt from pre-launch hide (checklist already revealed)
+const REVEALED_SLUGS = ["nlf-marvel-52-singles"];
+const isPreLaunch = (slug?: string) => {
+  if (slug && REVEALED_SLUGS.includes(slug)) return false;
+  return new Date() < LAUNCH_DATE;
+};
 
 const CARD_PLACEHOLDER = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/card-placeholder-AFtdwioDcmq6GHzFUFUpif.webp";
 
@@ -293,7 +298,7 @@ export default function ChecklistDetail() {
               )}
 
               {/* Pre-launch: blur the ENTIRE checklist */}
-              {isPreLaunch() && checklist && checklist.length > 0 && (
+              {isPreLaunch(params.slug) && checklist && checklist.length > 0 && (
                 <div className="relative">
                   {/* Overlay message */}
                   <div className="absolute inset-0 z-10 flex flex-col items-center justify-start pt-24 bg-background/40 backdrop-blur-sm rounded-lg">
@@ -346,7 +351,7 @@ export default function ChecklistDetail() {
               )}
 
               {/* Post-launch: show full checklist */}
-              {!isPreLaunch() && tierOrder.map(tier => {
+              {!isPreLaunch(params.slug) && tierOrder.map(tier => {
                 const items = grouped[tier];
                 if (!items || items.length === 0) return null;
                 const colors = tierColors[tier];
@@ -384,7 +389,7 @@ export default function ChecklistDetail() {
                               {/* Card Image */}
                               <div
                                 className="relative shrink-0 cursor-pointer group"
-                                onClick={() => !isPreLaunch() && item.imageUrl && setLightboxImage({ url: item.imageUrl, name: `${item.cardName}${item.parallel ? ` (${item.parallel})` : ''}` })}
+                                onClick={() => !isPreLaunch(params.slug) && item.imageUrl && setLightboxImage({ url: item.imageUrl, name: `${item.cardName}${item.parallel ? ` (${item.parallel})` : ''}` })}
                               >
                                 <img
                                   src={item.imageUrl || CARD_PLACEHOLDER}
