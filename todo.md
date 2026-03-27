@@ -774,3 +774,9 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 ## Homepage Pyramid Layout
 - [x] Add pyramid product showcase to homepage — Gambit's Deck on top, two Variant Series below
 - [x] Test and save checkpoint (232 tests, 85/85 integrity)
+
+## Transparency Page — Remove Platform Names
+- [x] Replace "Whatnot" with generic "live streams" / "on stream" / "platform policies" language (6 replacements)
+- [x] No eBay or Fanatics Live mentions found on Transparency page
+- [x] Ensure no specific platform names remain in visible text (only /whatnot route path kept)
+- [x] Test and save checkpoint (232 tests, 85/85 integrity)

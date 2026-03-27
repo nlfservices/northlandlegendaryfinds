@@ -1,6 +1,6 @@
 /**
  * Transparency & Compliance Page
- * Explains NLF's commitment to platform rules, Whatnot compliance,
+ * Explains NLF's commitment to platform rules, live stream compliance,
  * and full transparency in repack products.
  */
 import { Button } from "@/components/ui/button";
@@ -46,14 +46,14 @@ const PRINCIPLES = [
   {
     icon: Users,
     title: "Live Stream Accountability",
-    description: "All packs are opened live on Whatnot streams. Every pull is witnessed by the community in real-time. Our show history and pull logs are permanently recorded on this site.",
+    description: "All packs are opened live on stream. Every pull is witnessed by the community in real-time. Our show history and pull logs are permanently recorded on this site.",
     color: "text-cyan-400",
     bg: "bg-cyan-500/10",
   },
   {
     icon: BookOpen,
     title: "Platform Rule Compliance",
-    description: "We follow all Whatnot policies for Professionally Sealed Surprise Products. Our checklists include all required information: card year, player/character name, variation, condition, and series details.",
+    description: "We follow all platform policies for Professionally Sealed Surprise Products. Our checklists include all required information: card year, player/character name, variation, condition, and series details.",
     color: "text-red-400",
     bg: "bg-red-500/10",
   },
@@ -119,16 +119,7 @@ export default function Transparency() {
               we make is guided by one question: <strong className="text-foreground">"Would I buy this if I were the customer?"</strong>
             </p>
             <p className="text-muted-foreground leading-relaxed mt-4">
-              We comply with Whatnot's{" "}
-              <a
-                href="https://help.whatnot.com/hc/en-us/articles/39618879679757-Professionally-Sealed-Surprise-Products"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary hover:underline"
-              >
-                Professionally Sealed Surprise Products policy
-              </a>{" "}
-              and go beyond the minimum requirements. Here's exactly how we operate.
+              We comply with all live streaming platform policies for Professionally Sealed Surprise Products and go beyond the minimum requirements. Here's exactly how we operate.
             </p>
           </div>
 
@@ -160,7 +151,7 @@ export default function Transparency() {
               </h2>
             </div>
             <p className="text-muted-foreground mb-8">
-              Every NLF checklist includes all fields required by Whatnot's Professionally Sealed Surprise Products policy
+              Every NLF checklist includes all fields required by Professionally Sealed Surprise Products policies
               for sports and trading cards. Here's what we publish for every series:
             </p>
 
@@ -255,7 +246,7 @@ export default function Transparency() {
                   <CardContent className="pt-6">
                     <Radio className="w-8 h-8 text-purple-400 mb-3" />
                     <h3 className="font-bold mb-1">Watch Live Shows</h3>
-                    <p className="text-sm text-muted-foreground">See every pack opened live on Whatnot with real-time pull logging</p>
+                    <p className="text-sm text-muted-foreground">See every pack opened live on stream with real-time pull logging</p>
                   </CardContent>
                 </Card>
               </Link>
