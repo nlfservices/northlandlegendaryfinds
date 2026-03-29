@@ -1435,3 +1435,11 @@ export async function publishScheduledBlogPosts(): Promise<number> {
     ));
   return (result as any)[0]?.affectedRows ?? 0;
 }
+
+export async function getBlogPostsWithoutImages(): Promise<BlogPost[]> {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(blogPosts)
+    .where(sql`${blogPosts.featuredImageUrl} IS NULL OR ${blogPosts.featuredImageUrl} = ''`)
+    .orderBy(desc(blogPosts.createdAt));
+}

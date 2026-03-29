@@ -869,3 +869,6 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Auto-publish scheduler: hourly today (24 articles), then 3x/day ongoing
 - [ ] SEO optimization: schema markup, meta tags, internal linking, keywords
 - [ ] Investment-focused content angle in all generated articles
+- [ ] Ensure all blog articles always have AI-generated images related to their topic
+- [ ] Fix image generation reliability in blog system
+- [ ] Regenerate images for existing articles missing them

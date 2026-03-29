@@ -93,6 +93,7 @@ export default function BlogManager() {
   const generateArticle = trpc.adminBlog.generateArticle.useMutation();
   const bulkGenerate = trpc.adminBlog.bulkGenerate.useMutation();
   const publishScheduled = trpc.adminBlog.publishScheduled.useMutation();
+  const regenerateImages = trpc.adminBlog.regenerateImages.useMutation();
   const utils = trpc.useUtils();
 
   const [showEditor, setShowEditor] = useState(false);
@@ -335,11 +336,28 @@ export default function BlogManager() {
         <Button variant="outline" onClick={() => setShowBulkDialog(true)}>
           <Zap className="w-4 h-4 mr-2" /> Bulk Generate
         </Button>
-        <Button variant="outline" onClick={handlePublishScheduled} disabled={publishScheduled.isPending}>
-          {publishScheduled.isPending ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Clock className="w-4 h-4 mr-2" />}
-          Publish Scheduled
-        </Button>
-      </div>
+         <Button variant="outline" onClick={handlePublishScheduled} disabled={publishScheduled.isPending}>
+           {publishScheduled.isPending ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Clock className="w-4 h-4 mr-2" />}
+           Publish Scheduled
+         </Button>
+         <Button
+           variant="outline"
+           onClick={async () => {
+             try {
+               toast.info("Regenerating images for articles missing them... This may take a few minutes.");
+               const result = await regenerateImages.mutateAsync();
+               toast.success(`Done! Fixed ${result.fixed} of ${result.total} articles. ${result.failed > 0 ? `${result.failed} failed.` : ""}`);
+               utils.adminBlog.list.invalidate();
+             } catch (err: any) {
+               toast.error(err.message || "Failed to regenerate images");
+             }
+           }}
+           disabled={regenerateImages.isPending}
+         >
+           {regenerateImages.isPending ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <BarChart3 className="w-4 h-4 mr-2" />}
+           Fix Missing Images
+         </Button>
+       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-3">

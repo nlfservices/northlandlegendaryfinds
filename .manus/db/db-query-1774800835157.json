@@ -1,0 +1,40 @@
+{
+  "query": "SELECT id, title, featuredImageUrl IS NOT NULL as has_image FROM blog_posts ORDER BY id;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, title, featuredImageUrl IS NOT NULL as has_image FROM blog_posts ORDER BY id;",
+  "rows": [
+    {
+      "id": "1",
+      "title": "Uncanny Gains: 5 Marvel Trading Cards That Doubled in Value This Year",
+      "has_image": "1"
+    },
+    {
+      "id": "2",
+      "title": "CGC vs. PSA vs. AGS: Decoding Marvel Trading Card Grading for Maximum Value",
+      "has_image": "1"
+    },
+    {
+      "id": "3",
+      "title": "Web-Slinging Riches: Your Ultimate Guide to Collecting Spider-Man Cards in 2026",
+      "has_image": "1"
+    },
+    {
+      "id": "4",
+      "title": "Building a Marvel Card Portfolio: Investing in Your Favorite Heroes",
+      "has_image": "1"
+    },
+    {
+      "id": "5",
+      "title": "Beginner's Guide to Marvel Trading Card Collecting: Start Your Epic Journey",
+      "has_image": "1"
+    },
+    {
+      "id": "6",
+      "title": "Beyond the Comic Page: Marvel Trading Cards as Savvy Alternative Investments",
+      "has_image": "1"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\thas_image\n1\tUncanny Gains: 5 Marvel Trading Cards That Doubled in Value This Year\t1\n2\tCGC vs. PSA vs. AGS: Decoding Marvel Trading Card Grading for Maximum Value\t1\n3\tWeb-Slinging Riches: Your Ultimate Guide to Collecting Spider-Man Cards in 2026\t1\n4\tBuilding a Marvel Card Portfolio: Investing in Your Favorite Heroes\t1\n5\tBeginner's Guide to Marvel Trading Card Collecting: Start Your Epic Journey\t1\n6\tBeyond the Comic Page: Marvel Trading Cards as Savvy Alternative Investments\t1\n",
+  "stderr": "",
+  "execution_time_ms": 354
+}

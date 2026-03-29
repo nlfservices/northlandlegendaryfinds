@@ -13,6 +13,47 @@ import { publishScheduledBlogPosts, createBlogPost, getPublishedBlogPosts } from
 import { invokeLLM } from "./_core/llm";
 import { generateImage } from "./_core/imageGeneration";
 
+// Reliable image generation with retry logic
+async function generateImageWithRetry(imagePrompt: string, title: string, category: string, maxRetries = 3): Promise<string | null> {
+  const FALLBACK_PROMPTS: Record<string, string> = {
+    market_trends: "A dramatic cosmic scene with Marvel trading cards floating in space surrounded by golden price charts and upward arrows, dark background with purple nebula, investment theme",
+    character_spotlight: "A single glowing Marvel trading card hovering in a dark cosmic void with energy beams radiating outward, collector spotlight theme",
+    grading_guide: "A pristine graded trading card in a protective slab case under a magnifying glass with golden light, professional grading inspection theme, dark background",
+    set_breakdown: "A spread of colorful Marvel trading cards fanned out on a dark surface with dramatic lighting, set collection theme with cosmic background",
+    investment_strategy: "A vault door opening to reveal glowing Marvel trading cards inside, investment and treasure theme, dark dramatic lighting with gold accents",
+    collecting_tips: "A collector's desk with Marvel trading cards, protective sleeves, and a magnifying glass, warm lighting, organized collection theme",
+    nlf_news: "The Northland Legendary Finds logo glowing with cosmic energy against a dark space background with green and purple nebula",
+    behind_the_scenes: "A workstation with stacks of Marvel trading cards being sorted and graded, behind the scenes workshop theme, warm professional lighting",
+    card_history: "Vintage Marvel trading cards from the 1990s arranged in a nostalgic display with aged paper texture and warm sepia tones, history theme",
+  };
+
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      let prompt = imagePrompt;
+      if (attempt === 2) {
+        prompt = `A visually striking illustration related to: ${title}. Marvel trading cards theme, dark cosmic background with vibrant colors.`;
+      } else if (attempt >= 3) {
+        prompt = FALLBACK_PROMPTS[category] || FALLBACK_PROMPTS.market_trends;
+      }
+
+      console.log(`[Blog Scheduler Image] Attempt ${attempt}/${maxRetries} for "${title.substring(0, 50)}..."`);
+      const imgResult = await generateImage({ prompt });
+      if (imgResult.url) {
+        console.log(`[Blog Scheduler Image] Success on attempt ${attempt}`);
+        return imgResult.url;
+      }
+    } catch (err) {
+      console.error(`[Blog Scheduler Image] Attempt ${attempt} failed:`, err);
+      if (attempt < maxRetries) {
+        await new Promise(resolve => setTimeout(resolve, 2000 * attempt));
+      }
+    }
+  }
+
+  console.error(`[Blog Scheduler Image] All ${maxRetries} attempts failed for "${title}"`);
+  return null;
+}
+
 const AUTO_GENERATE_ENABLED = true;
 const CHECK_INTERVAL_MS = 5 * 60 * 1000; // 5 minutes
 
@@ -179,14 +220,12 @@ The article should be 800-1200 words, well-structured with markdown formatting.`
     const contentStr = typeof rawContent === "string" ? rawContent : JSON.stringify(rawContent);
     const article = JSON.parse(contentStr);
 
-    // Generate featured image
-    let featuredImageUrl: string | null = null;
-    try {
-      const imgResult = await generateImage({ prompt: article.imagePrompt });
-      featuredImageUrl = imgResult.url ?? null;
-    } catch (err) {
-      console.error("[Blog Scheduler] Image generation failed, continuing without image:", err);
-    }
+    // Generate featured image with retry logic
+    const featuredImageUrl = await generateImageWithRetry(
+      article.imagePrompt,
+      article.title,
+      category
+    );
 
     const readTime = Math.max(1, Math.ceil((article.contentMarkdown || "").split(/\s+/).length / 200));
     const now = Date.now();
