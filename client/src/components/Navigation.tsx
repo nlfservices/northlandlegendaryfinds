@@ -44,6 +44,7 @@ export default function Navigation() {
     { path: "/faq", label: "FAQ" },
     { path: "/marvel-card-hub", label: "Card Hub" },
     { path: "/our-process", label: "Our Process" },
+    { path: "/the-collector", label: "The Collector" },
   ];
 
   const isMarketIntelActive = location.startsWith("/market-intel");

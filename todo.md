@@ -850,3 +850,22 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Replace Step 2 (Sorting) placeholder with real sorting table photo
 - [x] Add grading company mentions (CGC, AGS, PSA, etc.) to Step 3
 - [ ] Replace remaining step placeholder images as user uploads photos
+## The Collector — Blog System (Phase 6)
+- [ ] Create blog_posts table in database schema
+- [ ] Add blog database helpers (CRUD) to server/db.ts
+- [ ] Create blog router (public + admin) in server/routers/blog.ts
+- [ ] Wire blog router into routers.ts
+- [ ] Build The Collector listing page (featured + recent posts, categories)
+- [ ] Build individual blog post page with rich content rendering
+- [ ] Add blog management to AdminDashboard (create, edit, publish posts)
+- [ ] Add The Collector to navigation
+- [ ] Add routes to App.tsx (/the-collector, /the-collector/:slug)
+- [ ] Draft 4 starter blog articles
+- [ ] Add SEO and social sharing to blog pages
+- [ ] Test and save checkpoint
+- [x] AI article generation with LLM integration (auto-generate content)
+- [ ] AI image generation for each article (auto-generate featured images)
+- [ ] Manual writing template page for user-authored content
+- [x] Auto-publish scheduler: hourly today (24 articles), then 3x/day ongoing
+- [ ] SEO optimization: schema markup, meta tags, internal linking, keywords
+- [ ] Investment-focused content angle in all generated articles

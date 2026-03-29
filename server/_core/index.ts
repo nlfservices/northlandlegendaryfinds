@@ -8,6 +8,7 @@ import { registerStripeWebhook } from "../stripe-webhook";
 import { registerEbayDeletionEndpoint } from "../ebay-deletion";
 import { registerSitemapRoute } from "../sitemap";
 import { appRouter } from "../routers";
+import { startBlogScheduler } from "../blog-scheduler";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 
@@ -68,6 +69,8 @@ async function startServer() {
 
   server.listen(port, () => {
     console.log(`Server running on http://localhost:${port}/`);
+    // Start blog auto-publisher scheduler
+    startBlogScheduler();
   });
 }
 

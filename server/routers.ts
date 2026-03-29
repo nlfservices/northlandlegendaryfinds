@@ -11,6 +11,7 @@ import { subscriberRouter } from "./routers/subscriber";
 import { articlePublicRouter, articleAdminRouter } from "./routers/articles";
 import { top5PublicRouter, top5AdminRouter } from "./routers/top5";
 import { youtubeRouter } from "./routers/youtube";
+import { blogPublicRouter, blogAdminRouter } from "./routers/blog";
 
 export const appRouter = router({
   system: systemRouter,
@@ -57,6 +58,12 @@ export const appRouter = router({
 
   // YouTube RSS feed (public)
   youtube: youtubeRouter,
+
+  // The Collector blog (public)
+  blog: blogPublicRouter,
+
+  // The Collector blog (admin)
+  adminBlog: blogAdminRouter,
 });
 
 export type AppRouter = typeof appRouter;

@@ -13,6 +13,7 @@ import {
   articles, Article, InsertArticle,
   top5BuzzItems, Top5BuzzItem, InsertTop5BuzzItem,
   showSubmissions, ShowSubmission, InsertShowSubmission,
+  blogPosts, BlogPost, InsertBlogPost,
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -1312,4 +1313,125 @@ export async function updateShowSubmissionStatus(
     .set({ status, ...(adminNotes !== undefined ? { adminNotes } : {}) })
     .where(eq(showSubmissions.id, id));
   return (result as any)[0]?.affectedRows > 0;
+}
+
+
+// ==================== BLOG POST HELPERS (The Collector) ====================
+
+export async function getAllBlogPosts(): Promise<BlogPost[]> {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(blogPosts).orderBy(desc(blogPosts.publishedAt));
+}
+
+export async function getPublishedBlogPosts(limit?: number): Promise<BlogPost[]> {
+  const db = await getDb();
+  if (!db) return [];
+  let query = db.select().from(blogPosts)
+    .where(eq(blogPosts.isPublished, true))
+    .orderBy(desc(blogPosts.publishedAt));
+  if (limit) query = query.limit(limit) as any;
+  return query;
+}
+
+export async function getPublishedBlogPostsByCategory(category: string): Promise<BlogPost[]> {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(blogPosts)
+    .where(and(eq(blogPosts.isPublished, true), eq(blogPosts.category, category as any)))
+    .orderBy(desc(blogPosts.publishedAt));
+}
+
+export async function getFeaturedBlogPosts(): Promise<BlogPost[]> {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(blogPosts)
+    .where(and(eq(blogPosts.isPublished, true), eq(blogPosts.isFeatured, true)))
+    .orderBy(desc(blogPosts.publishedAt))
+    .limit(3);
+}
+
+export async function getPublishedBlogPostBySlug(slug: string): Promise<BlogPost | null> {
+  const db = await getDb();
+  if (!db) return null;
+  const result = await db.select().from(blogPosts)
+    .where(and(eq(blogPosts.slug, slug), eq(blogPosts.isPublished, true)))
+    .limit(1);
+  return result[0] ?? null;
+}
+
+export async function getBlogPostById(id: number): Promise<BlogPost | null> {
+  const db = await getDb();
+  if (!db) return null;
+  const result = await db.select().from(blogPosts).where(eq(blogPosts.id, id)).limit(1);
+  return result[0] ?? null;
+}
+
+export async function createBlogPost(data: InsertBlogPost): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  await db.insert(blogPosts).values(data);
+}
+
+export async function updateBlogPost(id: number, data: Partial<InsertBlogPost>): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  await db.update(blogPosts).set(data).where(eq(blogPosts.id, id));
+}
+
+export async function deleteBlogPost(id: number): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  await db.delete(blogPosts).where(eq(blogPosts.id, id));
+}
+
+export async function toggleBlogPostFeatured(id: number): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const post = await getBlogPostById(id);
+  if (!post) throw new Error("Blog post not found");
+  await db.update(blogPosts).set({ isFeatured: !post.isFeatured }).where(eq(blogPosts.id, id));
+}
+
+export async function toggleBlogPostPublished(id: number): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const post = await getBlogPostById(id);
+  if (!post) throw new Error("Blog post not found");
+  const now = Date.now();
+  await db.update(blogPosts).set({
+    isPublished: !post.isPublished,
+    publishedAt: !post.isPublished ? now : post.publishedAt,
+  }).where(eq(blogPosts.id, id));
+}
+
+export async function incrementBlogPostViews(id: number): Promise<void> {
+  const db = await getDb();
+  if (!db) return;
+  await db.update(blogPosts).set({ viewCount: sql`${blogPosts.viewCount} + 1` }).where(eq(blogPosts.id, id));
+}
+
+export async function getScheduledBlogPosts(): Promise<BlogPost[]> {
+  const db = await getDb();
+  if (!db) return [];
+  const now = Date.now();
+  return db.select().from(blogPosts)
+    .where(and(
+      eq(blogPosts.isPublished, false),
+      sql`${blogPosts.scheduledAt} IS NOT NULL AND ${blogPosts.scheduledAt} <= ${now}`
+    ))
+    .orderBy(blogPosts.scheduledAt);
+}
+
+export async function publishScheduledBlogPosts(): Promise<number> {
+  const db = await getDb();
+  if (!db) return 0;
+  const now = Date.now();
+  const result = await db.update(blogPosts)
+    .set({ isPublished: true, publishedAt: now })
+    .where(and(
+      eq(blogPosts.isPublished, false),
+      sql`${blogPosts.scheduledAt} IS NOT NULL AND ${blogPosts.scheduledAt} <= ${now}`
+    ));
+  return (result as any)[0]?.affectedRows ?? 0;
 }

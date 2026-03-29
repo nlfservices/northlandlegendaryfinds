@@ -618,3 +618,59 @@ export const showSubmissions = mysqlTable("show_submissions", {
 });
 export type ShowSubmission = typeof showSubmissions.$inferSelect;
 export type InsertShowSubmission = typeof showSubmissions.$inferInsert;
+
+
+/**
+ * The Collector — Blog posts for NLF's SEO-driven content hub
+ * Supports both AI-generated and manually authored articles
+ */
+export const blogPosts = mysqlTable("blog_posts", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Article title */
+  title: varchar("title", { length: 500 }).notNull(),
+  /** URL-friendly slug */
+  slug: varchar("slug", { length: 500 }).notNull().unique(),
+  /** Short excerpt for cards/previews (max 300 chars) */
+  excerpt: text("excerpt"),
+  /** Full article content in Markdown */
+  contentMarkdown: text("contentMarkdown").notNull(),
+  /** Featured image URL (AI-generated or uploaded) */
+  featuredImageUrl: text("featuredImageUrl"),
+  /** Article category */
+  category: mysqlEnum("blog_category", [
+    "market_trends", "character_spotlight", "grading_guide",
+    "set_breakdown", "investment_strategy", "collecting_tips",
+    "nlf_news", "behind_the_scenes", "card_history"
+  ]).notNull().default("market_trends"),
+  /** Tags as JSON array */
+  tags: json("tags"),
+  /** Whether the article was AI-generated or manually written */
+  isAiGenerated: boolean("isAiGenerated").notNull().default(false),
+  /** AI generation prompt used (for reference/regeneration) */
+  aiPrompt: text("aiPrompt"),
+  /** Whether the article is featured (shown prominently) */
+  isFeatured: boolean("isFeatured").notNull().default(false),
+  /** Whether the article is published */
+  isPublished: boolean("isPublished").notNull().default(false),
+  /** Author name */
+  authorName: varchar("authorName", { length: 255 }).default("NLF Team"),
+  /** Publish date (UTC timestamp in ms) */
+  publishedAt: bigint("publishedAt", { mode: "number" }),
+  /** Scheduled publish date (UTC timestamp in ms) — for auto-publish queue */
+  scheduledAt: bigint("scheduledAt", { mode: "number" }),
+  /** SEO meta description */
+  metaDescription: varchar("metaDescription", { length: 320 }),
+  /** SEO focus keyword */
+  focusKeyword: varchar("focusKeyword", { length: 255 }),
+  /** Internal links JSON array [{text, url}] for SEO interlinking */
+  internalLinks: json("internalLinks"),
+  /** Read time in minutes (calculated from content length) */
+  readTimeMinutes: int("readTimeMinutes").default(5),
+  /** View count for analytics */
+  viewCount: int("viewCount").notNull().default(0),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type BlogPost = typeof blogPosts.$inferSelect;
+export type InsertBlogPost = typeof blogPosts.$inferInsert;

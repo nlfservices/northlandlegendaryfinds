@@ -36,7 +36,7 @@ export default function Home() {
   const [subEmail, setSubEmail] = useState("");
   const [subFirstName, setSubFirstName] = useState("");
   const [subscribeSuccess, setSubscribeSuccess] = useState(false);
-  const subscribeMutation = trpc.subscribe.submit.useMutation({
+  const subscribeMutation = trpc.public.subscribe.submit.useMutation({
     onSuccess: (data) => {
       setSubscribeSuccess(true);
       toast.success(data.message);
