@@ -1,0 +1,1 @@
+ALTER TABLE `blog_posts` MODIFY COLUMN `blog_category` enum('market_trends','character_spotlight','grading_guide','set_breakdown','investment_strategy','collecting_tips','nlf_news','behind_the_scenes','card_history','sports_crossover') NOT NULL DEFAULT 'market_trends';

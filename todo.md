@@ -851,24 +851,44 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add grading company mentions (CGC, AGS, PSA, etc.) to Step 3
 - [ ] Replace remaining step placeholder images as user uploads photos
 ## The Collector — Blog System (Phase 6)
-- [ ] Create blog_posts table in database schema
-- [ ] Add blog database helpers (CRUD) to server/db.ts
-- [ ] Create blog router (public + admin) in server/routers/blog.ts
-- [ ] Wire blog router into routers.ts
-- [ ] Build The Collector listing page (featured + recent posts, categories)
-- [ ] Build individual blog post page with rich content rendering
-- [ ] Add blog management to AdminDashboard (create, edit, publish posts)
-- [ ] Add The Collector to navigation
-- [ ] Add routes to App.tsx (/the-collector, /the-collector/:slug)
-- [ ] Draft 4 starter blog articles
-- [ ] Add SEO and social sharing to blog pages
-- [ ] Test and save checkpoint
+- [x] Create blog_posts table in database schema
+- [x] Add blog database helpers (CRUD) to server/db.ts
+- [x] Create blog router (public + admin) in server/routers/blog.ts
+- [x] Wire blog router into routers.ts
+- [x] Build The Collector listing page (featured + recent posts, categories)
+- [x] Build individual blog post page with rich content rendering
+- [x] Add blog management to AdminDashboard (create, edit, publish posts)
+- [x] Add The Collector to navigation
+- [x] Add routes to App.tsx (/the-collector, /the-collector/:slug)
+- [x] Draft 4 starter blog articles
+- [x] Add SEO and social sharing to blog pages
+- [x] Test and save checkpoint
 - [x] AI article generation with LLM integration (auto-generate content)
-- [ ] AI image generation for each article (auto-generate featured images)
-- [ ] Manual writing template page for user-authored content
+- [x] AI image generation for each article (auto-generate featured images)
+- [x] Manual writing template page for user-authored content
 - [x] Auto-publish scheduler: hourly today (24 articles), then 3x/day ongoing
-- [ ] SEO optimization: schema markup, meta tags, internal linking, keywords
-- [ ] Investment-focused content angle in all generated articles
-- [ ] Ensure all blog articles always have AI-generated images related to their topic
-- [ ] Fix image generation reliability in blog system
-- [ ] Regenerate images for existing articles missing them
+- [x] SEO optimization: schema markup, meta tags, internal linking, keywords
+- [x] Investment-focused content angle in all generated articles
+- [x] Ensure all blog articles always have AI-generated images related to their topic
+- [x] Fix image generation reliability in blog system (3-attempt retry with fallback prompts)
+- [x] Regenerate images for existing articles missing them
+- [x] Audit all blog articles for non-Topps references (Fleer, Upper Deck, etc.)
+- [x] Remove or rewrite articles mentioning non-Topps products (deleted all 3 problematic articles)
+- [x] Update AI generation prompts to be Topps-only focused
+- [x] Emphasize Topps licensing advantage and unlicensed products losing value
+- [x] Delete Article 1 (non-Topps "cards doubled" article)
+- [x] Rewrite Article 3 (Spider-Man guide) to be Topps-only
+- [x] Rewrite Article 4 (Portfolio guide) to be Topps-only
+- [x] Check Articles 5, 6, 8 for non-Topps references and fix
+- [x] Update AI generation prompt with NLF core talking points
+- [x] Add Topps licensing advantage narrative to AI prompts
+- [x] Add migration from comics/Pokémon/sports cards narrative
+- [x] Add Pokémon new US printing facility / new wax era angle
+- [x] Add Marvel as family gateway hobby narrative
+- [x] Add MCU movie/series hooks to AI prompts (Wonder Man, Spider-Man Brand New Day, Avengers Doomsday, Endgame re-release)
+- [x] Add sports crossover comparison angle to AI prompts (Doom=Ohtani, Spider-Man=Jordan, etc.)
+- [x] Update topic pools with new MCU and sports crossover topics
+- [x] Create centralized blog-content-strategy.ts with master system prompt
+- [x] Add sports_crossover category to schema, blog router, scheduler, and all frontend components
+- [x] Generate 8 fresh Topps-focused articles with AI images (all clean, zero non-Topps mentions)
+- [x] Auto-scheduler also generating clean articles using centralized strategy

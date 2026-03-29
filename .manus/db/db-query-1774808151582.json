@@ -1,0 +1,9 @@
+{
+  "query": "DELETE FROM blog_posts WHERE id IN (2, 7, 9);",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute DELETE FROM blog_posts WHERE id IN (2, 7, 9);",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 353
+}

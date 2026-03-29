@@ -7,31 +7,35 @@
  * 
  * Schedule: Checks every 5 minutes for posts to publish
  * Auto-generation: 3 articles per day at 8am, 1pm, 6pm CT
+ * 
+ * Uses the centralized NLF content strategy from blog-content-strategy.ts
  */
 
 import { publishScheduledBlogPosts, createBlogPost, getPublishedBlogPosts } from "./db";
 import { invokeLLM } from "./_core/llm";
 import { generateImage } from "./_core/imageGeneration";
+import { NLF_BLOG_SYSTEM_PROMPT, TOPIC_POOLS, CATEGORY_LABELS } from "./blog-content-strategy";
 
 // Reliable image generation with retry logic
 async function generateImageWithRetry(imagePrompt: string, title: string, category: string, maxRetries = 3): Promise<string | null> {
   const FALLBACK_PROMPTS: Record<string, string> = {
-    market_trends: "A dramatic cosmic scene with Marvel trading cards floating in space surrounded by golden price charts and upward arrows, dark background with purple nebula, investment theme",
-    character_spotlight: "A single glowing Marvel trading card hovering in a dark cosmic void with energy beams radiating outward, collector spotlight theme",
-    grading_guide: "A pristine graded trading card in a protective slab case under a magnifying glass with golden light, professional grading inspection theme, dark background",
-    set_breakdown: "A spread of colorful Marvel trading cards fanned out on a dark surface with dramatic lighting, set collection theme with cosmic background",
-    investment_strategy: "A vault door opening to reveal glowing Marvel trading cards inside, investment and treasure theme, dark dramatic lighting with gold accents",
-    collecting_tips: "A collector's desk with Marvel trading cards, protective sleeves, and a magnifying glass, warm lighting, organized collection theme",
-    nlf_news: "The Northland Legendary Finds logo glowing with cosmic energy against a dark space background with green and purple nebula",
-    behind_the_scenes: "A workstation with stacks of Marvel trading cards being sorted and graded, behind the scenes workshop theme, warm professional lighting",
-    card_history: "Vintage Marvel trading cards from the 1990s arranged in a nostalgic display with aged paper texture and warm sepia tones, history theme",
+    market_trends: "A dramatic cosmic scene with trading cards floating in space surrounded by golden price charts and upward arrows, dark background with purple nebula, investment theme, no text no letters",
+    character_spotlight: "A single glowing trading card hovering in a dark cosmic void with energy beams radiating outward, collector spotlight theme, no text no letters",
+    grading_guide: "A pristine graded trading card in a protective slab case under a magnifying glass with golden light, professional grading inspection theme, dark background, no text no letters",
+    set_breakdown: "A spread of colorful trading cards fanned out on a dark surface with dramatic lighting, set collection theme with cosmic background, no text no letters",
+    investment_strategy: "A vault door opening to reveal glowing trading cards inside, investment and treasure theme, dark dramatic lighting with gold accents, no text no letters",
+    collecting_tips: "A collector's desk with trading cards, protective sleeves, and a magnifying glass, warm lighting, organized collection theme, no text no letters",
+    nlf_news: "A glowing cosmic energy burst against a dark space background with green and purple nebula, card collecting brand theme, no text no letters",
+    behind_the_scenes: "A workstation with stacks of trading cards being sorted and graded, behind the scenes workshop theme, warm professional lighting, no text no letters",
+    card_history: "Vintage trading cards from the 1990s arranged in a nostalgic display with aged paper texture and warm sepia tones, history theme, no text no letters",
+    sports_crossover: "A split scene showing sports equipment on one side and trading cards on the other, connected by cosmic energy, family bonding theme, no text no letters",
   };
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       let prompt = imagePrompt;
       if (attempt === 2) {
-        prompt = `A visually striking illustration related to: ${title}. Marvel trading cards theme, dark cosmic background with vibrant colors.`;
+        prompt = `A visually striking illustration related to: ${title}. Trading cards theme, dark cosmic background with vibrant colors. No text, no letters, no words.`;
       } else if (attempt >= 3) {
         prompt = FALLBACK_PROMPTS[category] || FALLBACK_PROMPTS.market_trends;
       }
@@ -57,89 +61,35 @@ async function generateImageWithRetry(imagePrompt: string, title: string, catego
 const AUTO_GENERATE_ENABLED = true;
 const CHECK_INTERVAL_MS = 5 * 60 * 1000; // 5 minutes
 
-// Topic pools for auto-generation variety
-const TOPIC_POOLS: Record<string, string[]> = {
-  market_trends: [
-    "Which Marvel cards are trending up this week and why",
-    "How MCU movie announcements affect card prices",
-    "The hottest Marvel card sales from recent eBay auctions",
-    "Marvel card market analysis: what's moving in the graded card space",
-    "Price trends for vintage Marvel cards vs modern releases",
-    "How to track Marvel card values like a pro investor",
-    "The impact of Avengers Doomsday on Doctor Doom card prices",
-    "Marvel card index: tracking the top 50 most valuable cards",
-  ],
-  character_spotlight: [
-    "Spider-Man cards: every major card worth collecting",
-    "Wolverine card values and the X-Men collecting boom",
-    "Iron Man cards across every Topps Marvel set",
-    "Deadpool cards: humor meets high value in Marvel collecting",
-    "Venom and symbiote cards: a dark horse investment",
-    "Captain America cards: the patriotic premium in collecting",
-    "Thor cards: Asgardian value across Marvel card sets",
-    "Black Panther cards: Wakanda's impact on the card market",
-    "Doctor Strange cards: mystical arts meet card collecting",
-    "Hulk cards: smashing values in the Marvel card market",
-  ],
-  grading_guide: [
-    "CGC vs PSA vs AGS: which grading company is right for your Marvel cards",
-    "Understanding card grading scales: what each number really means",
-    "How to prepare your Marvel cards for grading submission",
-    "The cost of grading: is it worth it for your collection",
-    "Common grading mistakes that hurt your card's value",
-    "How to read a CGC label and what the numbers mean",
-    "Sub-grades explained: surface, corners, edges, and centering",
-    "When to grade raw cards vs keeping them ungraded",
-  ],
-  set_breakdown: [
-    "Topps Comic Book Heroes: the complete collector's guide",
-    "Marvel Ages set breakdown: every chase card worth finding",
-    "Topps Marvel Platinum: the premium set collectors want",
-    "Marvel Masterpieces: a legacy set that still holds value",
-    "Comparing every Topps Marvel set released in the last 5 years",
-    "The best Marvel card sets for new collectors to start with",
-    "Hidden gems in Topps Marvel sets most collectors overlook",
-    "Sketch cards: the most unique pulls in Marvel card sets",
-  ],
-  investment_strategy: [
-    "Building a Marvel card portfolio that appreciates over time",
-    "Why graded cards outperform raw cards as investments",
-    "The case for Marvel cards as alternative investments in 2026",
-    "Dollar-cost averaging into Marvel cards: a smart strategy",
-    "How to spot undervalued Marvel cards before they spike",
-    "Long-term vs short-term Marvel card investing strategies",
-    "Diversifying your card portfolio across Marvel characters and sets",
-    "The role of scarcity in Marvel card investment returns",
-  ],
-  collecting_tips: [
-    "Beginner's guide to Marvel trading card collecting in 2026",
-    "How to store and protect your Marvel card collection",
-    "Building your first graded Marvel card collection on a budget",
-    "The essential tools every Marvel card collector needs",
-    "How to spot fake or counterfeit Marvel trading cards",
-    "Organizing your collection: best practices for serious collectors",
-    "Where to buy Marvel cards: the best sources for collectors",
-    "Card show etiquette: tips for buying at conventions and shows",
-  ],
-  card_history: [
-    "The history of Marvel trading cards from 1990 to today",
-    "How Topps became the king of Marvel card production",
-    "The evolution of Marvel card art: from painted to digital",
-    "Iconic Marvel card sets that defined the hobby",
-    "The 1990s Marvel card boom and what we can learn from it",
-    "How Marvel cards survived the comic book crash of the 90s",
-    "The most expensive Marvel cards ever sold at auction",
-    "Marvel sketch cards: the art form that changed collecting",
-  ],
-  nlf_news: [
-    "What makes NLF repacks different from every other repack brand",
-    "How NLF builds transparency into every repack series",
-    "Behind the scenes: how we source cards for NLF repacks",
-    "Why we publish full checklists before you buy",
-    "The NLF grading process: CGC, AGS, PSA and beyond",
-    "How NLF heat-sealed mylar bags protect your investment",
-  ],
+const JSON_SCHEMA = {
+  type: "json_schema" as const,
+  json_schema: {
+    name: "blog_article",
+    strict: true,
+    schema: {
+      type: "object",
+      properties: {
+        title: { type: "string" },
+        slug: { type: "string" },
+        excerpt: { type: "string" },
+        contentMarkdown: { type: "string" },
+        metaDescription: { type: "string" },
+        focusKeyword: { type: "string" },
+        tags: { type: "array", items: { type: "string" } },
+        imagePrompt: { type: "string" },
+      },
+      required: ["title", "slug", "excerpt", "contentMarkdown", "metaDescription", "focusKeyword", "tags", "imagePrompt"],
+      additionalProperties: false,
+    },
+  },
 };
+
+const INTERNAL_LINKS = [
+  { text: "Browse our card database", url: "/cards" },
+  { text: "View our checklists", url: "/checklists" },
+  { text: "See our process", url: "/our-process" },
+  { text: "Shop NLF repacks", url: "/shop" },
+];
 
 function getRandomTopic(): { topic: string; category: string } {
   const categories = Object.keys(TOPIC_POOLS);
@@ -151,68 +101,19 @@ function getRandomTopic(): { topic: string; category: string } {
 
 async function generateAndPublishArticle(): Promise<void> {
   const { topic, category } = getRandomTopic();
-  
-  const categoryLabels: Record<string, string> = {
-    market_trends: "Marvel Card Market Trends & Investment",
-    character_spotlight: "Marvel Character Spotlight & Card Values",
-    grading_guide: "Card Grading Guide (CGC, AGS, PSA)",
-    set_breakdown: "Topps Marvel Set Breakdown & Chase Cards",
-    investment_strategy: "Trading Card Investment Strategy",
-    collecting_tips: "Card Collecting Tips & Best Practices",
-    nlf_news: "Northland Legendary Finds News & Updates",
-    behind_the_scenes: "Behind the Scenes at NLF",
-    card_history: "Marvel Trading Card History & Nostalgia",
-  };
 
   console.log(`[Blog Scheduler] Generating article: "${topic}" (${category})`);
 
   try {
     const response = await invokeLLM({
       messages: [
-        {
-          role: "system",
-          content: `You are an expert Marvel trading card content writer for Northland Legendary Finds (NLF), a premium Marvel card repack company. NLF uses grading services including CGC, AGS, and PSA. They sell curated repack series with full transparency — every card is listed on a public checklist before purchase.
-
-Write SEO-optimized blog articles that:
-- Position Marvel trading cards as a legitimate collectible investment
-- Reference real Marvel characters, sets (Topps Comic Book Heroes, Marvel Ages, etc.), and grading standards
-- Include specific card examples and approximate market values when relevant
-- Use a knowledgeable but accessible tone — like talking to a fellow collector
-- Naturally mention NLF's process, transparency, and quality when relevant (but don't be overly promotional)
-- Include internal linking opportunities to NLF pages
-- Structure with clear H2/H3 headings for SEO
-- Include a compelling meta description (max 160 chars)
-- End with a call-to-action that drives engagement
-
-The article should be 800-1200 words, well-structured with markdown formatting.`
-        },
+        { role: "system", content: NLF_BLOG_SYSTEM_PROMPT },
         {
           role: "user",
-          content: `Write about: ${topic}\nCategory: ${categoryLabels[category] || category}\n\nRespond in JSON: {"title":"...","slug":"...","excerpt":"...","contentMarkdown":"...","metaDescription":"...","focusKeyword":"...","tags":["..."],"imagePrompt":"..."}`
+          content: `Write about: ${topic}\nCategory: ${CATEGORY_LABELS[category] || category}\n\nRespond in JSON: {"title":"...","slug":"...","excerpt":"...","contentMarkdown":"...","metaDescription":"...","focusKeyword":"...","tags":["..."],"imagePrompt":"A detailed prompt for a featured image. MUST NOT contain any text, letters, or words."}`
         },
       ],
-      response_format: {
-        type: "json_schema",
-        json_schema: {
-          name: "blog_article",
-          strict: true,
-          schema: {
-            type: "object",
-            properties: {
-              title: { type: "string" },
-              slug: { type: "string" },
-              excerpt: { type: "string" },
-              contentMarkdown: { type: "string" },
-              metaDescription: { type: "string" },
-              focusKeyword: { type: "string" },
-              tags: { type: "array", items: { type: "string" } },
-              imagePrompt: { type: "string" },
-            },
-            required: ["title", "slug", "excerpt", "contentMarkdown", "metaDescription", "focusKeyword", "tags", "imagePrompt"],
-            additionalProperties: false,
-          },
-        },
-      },
+      response_format: JSON_SCHEMA,
     });
 
     const rawContent = response.choices[0]?.message?.content;
@@ -247,12 +148,7 @@ The article should be 800-1200 words, well-structured with markdown formatting.`
       scheduledAt: null,
       metaDescription: article.metaDescription,
       focusKeyword: article.focusKeyword,
-      internalLinks: [
-        { text: "Browse our card database", url: "/cards" },
-        { text: "View our checklists", url: "/checklists" },
-        { text: "See our process", url: "/our-process" },
-        { text: "Shop NLF repacks", url: "/shop" },
-      ],
+      internalLinks: INTERNAL_LINKS,
       readTimeMinutes: readTime,
     });
 
@@ -297,6 +193,7 @@ async function checkAutoGeneration(): Promise<void> {
 export function startBlogScheduler(): void {
   console.log("[Blog Scheduler] Starting blog auto-publisher (every 5 min check)");
   console.log("[Blog Scheduler] Auto-generation enabled: 3 articles/day at 8am, 1pm, 6pm CT");
+  console.log("[Blog Scheduler] Using centralized NLF content strategy (Topps-only, no Fleer/Upper Deck)");
   
   // Run immediately on startup
   checkScheduledPosts().catch(console.error);

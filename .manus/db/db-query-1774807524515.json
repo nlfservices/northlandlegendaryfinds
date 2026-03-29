@@ -1,0 +1,30 @@
+{
+  "query": "SELECT id, title, slug FROM blog_posts WHERE id > 4 ORDER BY id;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, title, slug FROM blog_posts WHERE id > 4 ORDER BY id;",
+  "rows": [
+    {
+      "id": "5",
+      "title": "Beginner's Guide to Marvel Trading Card Collecting: Start Your Epic Journey",
+      "slug": "beginners-guide-marvel-trading-card-collecting-mnbucnyd"
+    },
+    {
+      "id": "6",
+      "title": "Beyond the Comic Page: Marvel Trading Cards as Savvy Alternative Investments",
+      "slug": "marvel-cards-alternative-investments-mnbud9rj"
+    },
+    {
+      "id": "7",
+      "title": "Unpacking Transparency: Why NLF Publishes Full Checklists Before You Buy",
+      "slug": "nlf-full-checklists-transparency-value-mnc2i4kb"
+    },
+    {
+      "id": "8",
+      "title": "Unearthing Hidden Gems: How to Spot Undervalued Marvel Trading Cards Before They Spike",
+      "slug": "undervalued-marvel-cards-investment-strategy-mnc2k84n"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tslug\n5\tBeginner's Guide to Marvel Trading Card Collecting: Start Your Epic Journey\tbeginners-guide-marvel-trading-card-collecting-mnbucnyd\n6\tBeyond the Comic Page: Marvel Trading Cards as Savvy Alternative Investments\tmarvel-cards-alternative-investments-mnbud9rj\n7\tUnpacking Transparency: Why NLF Publishes Full Checklists Before You Buy\tnlf-full-checklists-transparency-value-mnc2i4kb\n8\tUnearthing Hidden Gems: How to Spot Undervalued Marvel Trading Cards Before They Spike\tundervalued-marvel-cards-investment-strategy-mnc2k84n\n",
+  "stderr": "",
+  "execution_time_ms": 348
+}

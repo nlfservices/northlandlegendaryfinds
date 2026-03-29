@@ -1,0 +1,207 @@
+/**
+ * NLF Blog Content Strategy — Core Talking Points & AI Generation Prompts
+ * 
+ * This file centralizes the content strategy so all generation endpoints
+ * (admin single, admin bulk, auto-scheduler) use the same messaging.
+ */
+
+// ==================== MASTER SYSTEM PROMPT ====================
+
+export const NLF_BLOG_SYSTEM_PROMPT = `You are an expert Marvel trading card content writer for Northland Legendary Finds (NLF), a premium Marvel card repack company based in Minnesota. NLF uses grading services including CGC, AGS, and PSA. They sell curated repack series with full transparency — every card is listed on a public checklist before purchase.
+
+CRITICAL RULES — MUST FOLLOW:
+1. ONLY reference TOPPS Marvel products. Topps is the ONLY officially licensed Marvel card producer. NEVER mention Fleer, Upper Deck, SkyBox, Impel, or any other card manufacturer by name. If discussing vintage/historical cards, refer to them generically as "classic Marvel sets" or "vintage Marvel cards" without naming non-Topps companies.
+2. Push the TOPPS LICENSING ADVANTAGE: Topps holds the exclusive Marvel license. Unlicensed products from other companies will struggle long-term. Licensed = legitimacy = value retention. This is a massive competitive moat.
+3. NEVER include specific dollar amounts or investment return numbers in articles. Speak in relative terms ("significant appreciation," "strong value growth," "outperforming") rather than exact prices.
+
+CORE TALKING POINTS — Weave these naturally into every article:
+
+A) RARITY + MARVEL FANBASE = CHASE CARD EXPLOSION
+Marvel has the largest entertainment fanbase on the planet. Limited print runs on chase cards + hundreds of millions of potential collectors = massive supply/demand imbalance. Chase cards, parallels, sketch cards, and numbered hits are positioned to reach new heights as more fans enter the hobby.
+
+B) THE GREAT MIGRATION — New collectors are flooding into Marvel cards from:
+- COMIC BOOK COLLECTORS discovering trading cards as a natural extension of their passion
+- POKÉMON COLLECTORS hedging their portfolio — especially with Pokémon's new US printing facility potentially creating a new wax era (more supply = diluted value for Pokémon, making Marvel cards a smarter hedge)
+- SPORTS CARD COLLECTORS (baseball, football, basketball) getting in because they can relate to their kids' love of Marvel. Parents bond with kids over cards, and eventually the kids join them in sports cards too — it's a family bridge.
+
+C) MARVEL AS THE FAMILY GATEWAY HOBBY
+Parents collect sports cards, kids collect Marvel cards, and they bond over the hobby together. Marvel is the bridge that connects generations of collectors. This crossover effect is driving unprecedented growth.
+
+D) MCU CONTENT CALENDAR — USE THESE HOOKS:
+- WONDER MAN SERIES on Disney+ — new character interest driving card demand
+- SPIDER-MAN: BRAND NEW DAY — the most trailer views in history, massive mainstream hype, Spider-Man cards are the hottest in the hobby
+- AVENGERS: DOOMSDAY — Doctor Doom / Robert Downey Jr. return, Doom card values surging
+- AVENGERS: ENDGAME RE-RELEASE (September) — nostalgia wave = renewed interest in classic Avengers cards
+- THE FANTASTIC FOUR: FIRST STEPS — bringing Marvel's first family to the MCU
+
+E) SPORTS CROSSOVER COMPARISONS — Use these to make Marvel cards relatable to sports card collectors:
+- "Is Doctor Doom the Shohei Ohtani of Marvel cards?" — rare, dominant, game-changing, everyone wants a piece
+- "Is Spider-Man the Michael Jordan of Marvel?" — the GOAT, most iconic, highest value, the card everyone needs
+- "Is Wolverine the LeBron James of Marvel cards?" — longevity, always relevant, always valuable across eras
+- "Is Iron Man the Tom Brady?" — legacy, retirement, comeback, the leader
+- "Is Deadpool the Steph Curry?" — changed the game, unexpected rise, broke the mold
+- "Is Venom the Kobe Bryant?" — dark intensity, massive following, iconic in their own right
+
+F) TOPPS PRODUCT REFERENCES — Only mention these products:
+- Topps Comic Book Heroes (1976) — the OG, foundational set
+- Topps Marvel Ages — modern premium set
+- Topps Marvel Platinum — ultra-premium chase set
+- Topps Chrome Marvel — the chrome standard
+- Topps Finest Marvel — high-end parallel chase
+- Topps Marvel Collect (digital) — gateway to physical collecting
+- Generic references: "Topps Marvel sets," "officially licensed Topps products"
+
+G) NLF BRAND INTEGRATION (subtle, not pushy):
+- Full checklist transparency before purchase
+- Cards graded through CGC, AGS, PSA and more
+- Heat-sealed in custom NLF holographic mylar bags
+- Hand-curated, hand-inspected process
+- Link to: /our-process, /checklists, /cards, /shop
+
+Write SEO-optimized blog articles that:
+- Are 800-1200 words with clear H2/H3 markdown headings
+- Use a knowledgeable but accessible tone — like talking to a fellow collector at a card show
+- Include a compelling meta description (max 160 chars)
+- End with a call-to-action that drives engagement
+- Target the focus keyword naturally throughout`;
+
+// ==================== TOPIC POOLS ====================
+
+export const TOPIC_POOLS: Record<string, string[]> = {
+  market_trends: [
+    "How the Spider-Man Brand New Day trailer broke the internet and what it means for Spider-Man card values",
+    "Avengers Doomsday announcement: why Doctor Doom cards are the hottest investment right now",
+    "The Endgame re-release effect: how nostalgia waves drive classic Avengers card prices",
+    "Why Topps exclusive Marvel license makes their cards the only long-term investment play",
+    "The Pokémon hedge: why smart collectors are moving into Marvel cards as Pokémon faces a new wax era",
+    "Marvel card market momentum: what the influx of sports card collectors means for values",
+    "How MCU movie announcements create predictable card value spikes",
+    "The licensing advantage: why officially licensed Topps Marvel cards will outlast unlicensed products",
+    "Wonder Man series hype: which cards to watch as Disney+ expands the Marvel universe",
+    "Why Marvel cards are outperforming as collectors migrate from comics and Pokémon",
+  ],
+  character_spotlight: [
+    "Is Spider-Man the Michael Jordan of Marvel cards? Why Spidey is the GOAT of the hobby",
+    "Is Doctor Doom the Shohei Ohtani of Marvel cards? The rare game-changer everyone wants",
+    "Is Wolverine the LeBron James of Marvel cards? Longevity and value across every era",
+    "Is Iron Man the Tom Brady of Marvel cards? Legacy, retirement, and the ultimate comeback",
+    "Is Deadpool the Steph Curry of Marvel cards? How the merc broke the mold",
+    "Is Venom the Kobe Bryant of Marvel cards? Dark intensity meets massive collector demand",
+    "Spider-Man cards: why the web-slinger dominates every Topps Marvel set ever made",
+    "Doctor Doom cards surge: how Avengers Doomsday is creating the next mega-character in collecting",
+    "Wolverine and the X-Men card renaissance: what the MCU integration means for values",
+    "The Fantastic Four effect: which cards to collect before First Steps hits theaters",
+  ],
+  grading_guide: [
+    "CGC vs PSA vs AGS: which grading company gives your Marvel cards the best value",
+    "Understanding card grading scales: what a 9.5 really means for your collection",
+    "How to prepare your Marvel cards for grading submission like a pro",
+    "The cost of grading: when it makes sense to slab your Marvel cards",
+    "Common grading mistakes that crush your card's value and how to avoid them",
+    "How to read a CGC label: decoding grades, sub-grades, and cert numbers",
+    "Sub-grades explained: surface, corners, edges, and centering matter",
+    "When to grade vs keep raw: a collector's decision framework",
+  ],
+  set_breakdown: [
+    "Topps Comic Book Heroes 1976: the complete guide to Marvel's most iconic card set",
+    "Topps Marvel Ages: every chase card and why this set is a collector's dream",
+    "Topps Marvel Platinum: the ultra-premium set serious collectors are chasing",
+    "Topps Chrome Marvel: why chrome cards command a premium in every hobby",
+    "Topps Finest Marvel: the high-end parallel chase that rewards patient collectors",
+    "Comparing every major Topps Marvel set: which ones are the best investments",
+    "The best Topps Marvel sets for new collectors to start building a portfolio",
+    "Hidden gems in Topps Marvel sets that most collectors completely overlook",
+  ],
+  investment_strategy: [
+    "Why Marvel cards are the ultimate family investment: parents in sports, kids in Marvel",
+    "The great migration: how comic, Pokémon, and sports collectors are flooding into Marvel cards",
+    "Pokémon's new US printing facility and what it means for Marvel card investors",
+    "Building a Marvel card portfolio: why Topps licensed products are the only safe bet",
+    "The sports card parent trap: how Marvel cards bridge generations of collectors",
+    "Why graded Topps Marvel cards outperform raw cards as long-term investments",
+    "Scarcity math: Marvel's massive fanbase vs limited chase card print runs",
+    "Dollar-cost averaging into Marvel cards: a strategy borrowed from Wall Street",
+    "The case for Marvel cards over Pokémon: licensing, scarcity, and cultural staying power",
+    "How to spot undervalued Topps Marvel cards before the next MCU announcement",
+  ],
+  collecting_tips: [
+    "Beginner's guide to Marvel trading card collecting: start your journey with Topps",
+    "How to store and protect your graded Marvel card collection",
+    "Building your first graded Marvel card collection on any budget",
+    "The essential tools every Marvel card collector needs in 2026",
+    "How to spot fake or counterfeit Marvel trading cards and protect yourself",
+    "Coming from sports cards? Here's your guide to Marvel card collecting",
+    "Coming from Pokémon? Why Marvel cards might be your smartest move",
+    "Card show etiquette: tips for buying Marvel cards at conventions",
+  ],
+  card_history: [
+    "How Topps became the undisputed king of Marvel card production",
+    "The evolution of Marvel card art: from hand-painted to digital masterpieces",
+    "Why the Topps exclusive license changed everything for Marvel card collecting",
+    "The 1990s card boom: lessons for today's Marvel card investors",
+    "From comic pages to card slabs: how Marvel cards became a legitimate asset class",
+    "The most iconic Topps Marvel cards in hobby history",
+    "Marvel sketch cards: the one-of-one art form that changed collecting forever",
+    "How the MCU transformed Marvel cards from nostalgia items to investment vehicles",
+  ],
+  nlf_news: [
+    "What makes NLF repacks different: full transparency in a trust-deficit industry",
+    "How NLF builds every repack series: from sourcing to heat-sealed delivery",
+    "Behind the scenes: how we source cards exclusively from Topps Marvel products",
+    "Why we publish full checklists before you buy: the NLF transparency promise",
+    "The NLF grading process: why we use CGC, AGS, PSA and more",
+    "How NLF heat-sealed holographic mylar bags protect your investment",
+  ],
+  sports_crossover: [
+    "From baseball diamonds to Marvel cards: why sports dads are joining the hobby",
+    "The card collector's crossover: comparing Marvel character values to sports card legends",
+    "Why your kid's Marvel card collection might outperform your sports card portfolio",
+    "Football card collectors guide to Marvel cards: same hobby, different universe",
+    "Basketball meets Marvel: how the collecting skills transfer perfectly",
+    "The family card night: how Marvel and sports cards are bringing families together",
+  ],
+};
+
+// ==================== BULK GENERATE TOPIC POOL ====================
+
+export const BULK_TOPIC_POOL = [
+  { topic: "Is Spider-Man the Michael Jordan of Marvel cards? The GOAT comparison", category: "character_spotlight" as const },
+  { topic: "Is Doctor Doom the Shohei Ohtani of Marvel cards? The rare game-changer", category: "character_spotlight" as const },
+  { topic: "Why Topps exclusive Marvel license makes their cards the only safe investment", category: "market_trends" as const },
+  { topic: "The Pokémon hedge: why collectors are moving to Marvel as Pokémon faces a new wax era", category: "investment_strategy" as const },
+  { topic: "Spider-Man Brand New Day: most trailer views in history and what it means for card values", category: "market_trends" as const },
+  { topic: "Avengers Doomsday: Doctor Doom cards are surging and here's why", category: "market_trends" as const },
+  { topic: "The sports card parent trap: how Marvel cards bridge generations", category: "investment_strategy" as const },
+  { topic: "Topps Comic Book Heroes 1976: the complete guide to Marvel's foundational set", category: "set_breakdown" as const },
+  { topic: "Is Wolverine the LeBron James of Marvel cards? Longevity and value", category: "character_spotlight" as const },
+  { topic: "Coming from Pokémon? Why Marvel cards might be your smartest move in 2026", category: "collecting_tips" as const },
+  { topic: "The Endgame re-release effect: nostalgia waves and Avengers card prices", category: "market_trends" as const },
+  { topic: "CGC vs PSA vs AGS: which grading company maximizes your Marvel card value", category: "grading_guide" as const },
+  { topic: "Is Iron Man the Tom Brady of Marvel cards? Legacy and comeback value", category: "character_spotlight" as const },
+  { topic: "Why Marvel's massive fanbase makes chase cards a supply/demand goldmine", category: "investment_strategy" as const },
+  { topic: "From baseball diamonds to Marvel cards: the sports dad's guide to the hobby", category: "sports_crossover" as const },
+  { topic: "Topps Marvel Ages: every chase card and why collectors love this set", category: "set_breakdown" as const },
+  { topic: "Is Deadpool the Steph Curry of Marvel cards? Breaking the mold", category: "character_spotlight" as const },
+  { topic: "Wonder Man series: which cards to watch as Disney+ expands Marvel", category: "market_trends" as const },
+  { topic: "Building a Marvel card portfolio with only Topps licensed products", category: "investment_strategy" as const },
+  { topic: "The Fantastic Four First Steps: which cards to collect before the movie", category: "character_spotlight" as const },
+  { topic: "How NLF builds transparency into every repack series", category: "nlf_news" as const },
+  { topic: "Beginner's guide to Marvel card collecting: start with Topps", category: "collecting_tips" as const },
+  { topic: "Is Venom the Kobe Bryant of Marvel cards? Dark intensity meets demand", category: "character_spotlight" as const },
+  { topic: "The great migration: comic, Pokémon, and sports collectors flooding into Marvel", category: "investment_strategy" as const },
+];
+
+// ==================== CATEGORY LABELS ====================
+
+export const CATEGORY_LABELS: Record<string, string> = {
+  market_trends: "Marvel Card Market Trends & Investment",
+  character_spotlight: "Marvel Character Spotlight & Card Values",
+  grading_guide: "Card Grading Guide (CGC, AGS, PSA)",
+  set_breakdown: "Topps Marvel Set Breakdown & Chase Cards",
+  investment_strategy: "Trading Card Investment Strategy",
+  collecting_tips: "Card Collecting Tips & Best Practices",
+  nlf_news: "Northland Legendary Finds News & Updates",
+  behind_the_scenes: "Behind the Scenes at NLF",
+  card_history: "Marvel Trading Card History & Nostalgia",
+  sports_crossover: "Sports Card to Marvel Card Crossover",
+};

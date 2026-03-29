@@ -1,0 +1,28 @@
+{
+  "query": "SELECT id, title, blog_category, isPublished FROM blog_posts ORDER BY id ASC;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, title, blog_category, isPublished FROM blog_posts ORDER BY id ASC;",
+  "rows": [
+    {
+      "id": "2",
+      "title": "CGC vs. PSA vs. AGS: Decoding Marvel Trading Card Grading for Maximum Value",
+      "blog_category": "grading_guide",
+      "isPublished": "1"
+    },
+    {
+      "id": "7",
+      "title": "Unpacking Transparency: Why NLF Publishes Full Checklists Before You Buy",
+      "blog_category": "nlf_news",
+      "isPublished": "1"
+    },
+    {
+      "id": "9",
+      "title": "Thor Cards: Asgardian Value Across Marvel Card Sets",
+      "blog_category": "character_spotlight",
+      "isPublished": "1"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tblog_category\tisPublished\n2\tCGC vs. PSA vs. AGS: Decoding Marvel Trading Card Grading for Maximum Value\tgrading_guide\t1\n7\tUnpacking Transparency: Why NLF Publishes Full Checklists Before You Buy\tnlf_news\t1\n9\tThor Cards: Asgardian Value Across Marvel Card Sets\tcharacter_spotlight\t1\n",
+  "stderr": "",
+  "execution_time_ms": 343
+}

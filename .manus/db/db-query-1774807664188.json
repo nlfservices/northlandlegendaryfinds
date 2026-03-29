@@ -1,0 +1,24 @@
+{
+  "query": "SELECT id, title, SUBSTRING(contentMarkdown, 1, 2000) as content_preview FROM blog_posts WHERE id = 2;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, title, SUBSTRING(contentMarkdown, 1, 2000) as content_preview FROM blog_posts WHERE id = 2;",
+  "rows": [
+    {
+      "id": "2",
+      "title": "CGC vs. PSA vs. AGS: Decoding Marvel Trading Card Grading for Maximum Value",
+      "content_preview": "# CGC vs. PSA vs. AGS: Decoding Marvel Trading Card Grading for Maximum Value"
+    }
+  ],
+  "messages": [
+    "For any serious Marvel trading card collector, the journey inevitably leads to a crucial question: to grade, or not to grade? And if grading, which service is best? At Northland Legendary Finds (NLF), we understand this dilemma deeply. We're not just selling cards; we're curating pieces of Marvel history, often encapsulated and authenticated by the industry's leading grading companies: CGC, PSA, and AGS.",
+    "Understanding the subtle, yet significant, differences between these services is paramount for maximizing the investment potential and long-term value of your cherished Marvel cards. Let's dive into why grading matters and how each of these giants approaches the art of authentication and condition assessment.",
+    "## Why Grading is Non-Negotiable for Marvel Card Investment",
+    "Think of a raw, ungraded card as a brilliant rough diamond. It has potential, but its true value and permanence aren't fully realized until it's cut, polished, and certified. Grading does precisely this for your Marvel trading cards.",
+    "### Authentication and Condition Verification",
+    "First and foremost, grading provides irrefutable authentication. In a market increasingly plagued by counterfeits, a slabbed card from a reputable service like CGC, PSA, or AGS offers peace of mind. Beyond authenticity, the assigned grade (e.g., a perfect 10, a Gem Mint 9.5, or a Near Mint 7) provides an objective, universally understood assessment of the card's condition. This eliminates subjective debates and sets a clear standard for buyers and sellers.",
+    "### Enhanced Resale Value and Liquidity",
+    "This objective assessment directly translates into higher resale values. A graded card, especially one in a high grade, consistently commands a premium over its raw counterpart. Buyers are willing to pay more for certainty. Furthermore, graded cards are more liquid; they sell faster because the buyer trusts the grade and doesn't need to perform their o"
+  ],
+  "stdout": "id\ttitle\tcontent_preview\n2\tCGC vs. PSA vs. AGS: Decoding Marvel Trading Card Grading for Maximum Value\t# CGC vs. PSA vs. AGS: Decoding Marvel Trading Card Grading for Maximum Value\n\nFor any serious Marvel trading card collector, the journey inevitably leads to a crucial question: to grade, or not to grade? And if grading, which service is best? At Northland Legendary Finds (NLF), we understand this dilemma deeply. We're not just selling cards; we're curating pieces of Marvel history, often encapsulated and authenticated by the industry's leading grading companies: CGC, PSA, and AGS.\n\nUnderstanding the subtle, yet significant, differences between these services is paramount for maximizing the investment potential and long-term value of your cherished Marvel cards. Let's dive into why grading matters and how each of these giants approaches the art of authentication and condition assessment.\n\n## Why Grading is Non-Negotiable for Marvel Card Investment\n\nThink of a raw, ungraded card as a brilliant rough diamond. It has potential, but its true value and permanence aren't fully realized until it's cut, polished, and certified. Grading does precisely this for your Marvel trading cards.\n\n### Authentication and Condition Verification\n\nFirst and foremost, grading provides irrefutable authentication. In a market increasingly plagued by counterfeits, a slabbed card from a reputable service like CGC, PSA, or AGS offers peace of mind. Beyond authenticity, the assigned grade (e.g., a perfect 10, a Gem Mint 9.5, or a Near Mint 7) provides an objective, universally understood assessment of the card's condition. This eliminates subjective debates and sets a clear standard for buyers and sellers.\n\n### Enhanced Resale Value and Liquidity\n\nThis objective assessment directly translates into higher resale values. A graded card, especially one in a high grade, consistently commands a premium over its raw counterpart. Buyers are willing to pay more for certainty. Furthermore, graded cards are more liquid; they sell faster because the buyer trusts the grade and doesn't need to perform their o\n",
+  "stderr": "",
+  "execution_time_ms": 350
+}

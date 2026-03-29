@@ -1,0 +1,73 @@
+{
+  "query": "SELECT id, title, blog_category, isPublished, featuredImageUrl IS NOT NULL as has_image FROM blog_posts ORDER BY id ASC;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, title, blog_category, isPublished, featuredImageUrl IS NOT NULL as has_image FROM blog_posts ORDER BY id ASC;",
+  "rows": [
+    {
+      "id": "10",
+      "title": "Is Spider-Man the Michael Jordan of Marvel Cards? The GOAT Comparison Every Collector Needs to Understand",
+      "blog_category": "character_spotlight",
+      "isPublished": "1",
+      "has_image": "1"
+    },
+    {
+      "id": "11",
+      "title": "Why Topps' Exclusive Marvel License is Your Safest Bet in Card Collecting",
+      "blog_category": "market_trends",
+      "isPublished": "1",
+      "has_image": "1"
+    },
+    {
+      "id": "12",
+      "title": "The Pokémon Hedge: Why Smart Collectors Are Diversifying into Marvel Cards Amidst Shifting Market Dynamics",
+      "blog_category": "investment_strategy",
+      "isPublished": "1",
+      "has_image": "1"
+    },
+    {
+      "id": "13",
+      "title": "Spider-Man: Brand New Day & The Unprecedented Surge in Web-Slinger Card Values",
+      "blog_category": "market_trends",
+      "isPublished": "1",
+      "has_image": "1"
+    },
+    {
+      "id": "14",
+      "title": "Unearthing Legends: The Most Iconic Topps Marvel Cards in Hobby History",
+      "blog_category": "card_history",
+      "isPublished": "1",
+      "has_image": "1"
+    },
+    {
+      "id": "15",
+      "title": "CGC vs. PSA vs. AGS: Unpacking the Best Grading for Your Marvel Cards",
+      "blog_category": "grading_guide",
+      "isPublished": "1",
+      "has_image": "1"
+    },
+    {
+      "id": "16",
+      "title": "From Diamond to Dimension: Why Sports Card Dads Are Embracing Marvel Cards with Their Kids",
+      "blog_category": "sports_crossover",
+      "isPublished": "1",
+      "has_image": "1"
+    },
+    {
+      "id": "17",
+      "title": "Topps Comic Book Heroes 1976: The Complete Guide to Marvel's Most Iconic and Foundational Card Set",
+      "blog_category": "set_breakdown",
+      "isPublished": "1",
+      "has_image": "1"
+    },
+    {
+      "id": "18",
+      "title": "Unpacking Trust: How NLF's Full Checklists & Graded Cards Redefine Repacks",
+      "blog_category": "nlf_news",
+      "isPublished": "1",
+      "has_image": "1"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tblog_category\tisPublished\thas_image\n10\tIs Spider-Man the Michael Jordan of Marvel Cards? The GOAT Comparison Every Collector Needs to Understand\tcharacter_spotlight\t1\t1\n11\tWhy Topps' Exclusive Marvel License is Your Safest Bet in Card Collecting\tmarket_trends\t1\t1\n12\tThe Pokémon Hedge: Why Smart Collectors Are Diversifying into Marvel Cards Amidst Shifting Market Dynamics\tinvestment_strategy\t1\t1\n13\tSpider-Man: Brand New Day & The Unprecedented Surge in Web-Slinger Card Values\tmarket_trends\t1\t1\n14\tUnearthing Legends: The Most Iconic Topps Marvel Cards in Hobby History\tcard_history\t1\t1\n15\tCGC vs. PSA vs. AGS: Unpacking the Best Grading for Your Marvel Cards\tgrading_guide\t1\t1\n16\tFrom Diamond to Dimension: Why Sports Card Dads Are Embracing Marvel Cards with Their Kids\tsports_crossover\t1\t1\n17\tTopps Comic Book Heroes 1976: The Complete Guide to Marvel's Most Iconic and Foundational Card Set\tset_breakdown\t1\t1\n18\tUnpacking Trust: How NLF's Full Checklists & Graded Cards Redefine Repacks\tnlf_news\t1\t1\n",
+  "stderr": "",
+  "execution_time_ms": 353
+}

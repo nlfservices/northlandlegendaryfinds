@@ -25,6 +25,7 @@ const CATEGORY_LABELS: Record<string, string> = {
   nlf_news: "NLF News",
   behind_the_scenes: "Behind the Scenes",
   card_history: "Card History",
+  sports_crossover: "Sports Crossover",
 };
 
 const CATEGORY_COLORS: Record<string, string> = {
@@ -37,6 +38,7 @@ const CATEGORY_COLORS: Record<string, string> = {
   nlf_news: "bg-primary/20 text-primary border-primary/30",
   behind_the_scenes: "bg-orange-500/20 text-orange-400 border-orange-500/30",
   card_history: "bg-red-500/20 text-red-400 border-red-500/30",
+  sports_crossover: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
 };
 
 function formatDate(timestamp: number | null): string {

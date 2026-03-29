@@ -30,6 +30,7 @@ const CATEGORIES = [
   { value: "nlf_news", label: "NLF News" },
   { value: "behind_the_scenes", label: "Behind the Scenes" },
   { value: "card_history", label: "Card History" },
+  { value: "sports_crossover", label: "Sports Crossover" },
 ] as const;
 
 const CATEGORY_COLORS: Record<string, string> = {
@@ -42,6 +43,7 @@ const CATEGORY_COLORS: Record<string, string> = {
   nlf_news: "bg-primary/20 text-primary border-primary/30",
   behind_the_scenes: "bg-orange-500/20 text-orange-400 border-orange-500/30",
   card_history: "bg-red-500/20 text-red-400 border-red-500/30",
+  sports_crossover: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
 };
 
 interface BlogForm {

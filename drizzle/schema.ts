@@ -640,7 +640,7 @@ export const blogPosts = mysqlTable("blog_posts", {
   category: mysqlEnum("blog_category", [
     "market_trends", "character_spotlight", "grading_guide",
     "set_breakdown", "investment_strategy", "collecting_tips",
-    "nlf_news", "behind_the_scenes", "card_history"
+    "nlf_news", "behind_the_scenes", "card_history", "sports_crossover"
   ]).notNull().default("market_trends"),
   /** Tags as JSON array */
   tags: json("tags"),

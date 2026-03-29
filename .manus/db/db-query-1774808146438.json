@@ -1,0 +1,22 @@
+{
+  "query": "SELECT id, title FROM blog_posts WHERE contentMarkdown LIKE '%Fleer%' OR contentMarkdown LIKE '%Upper Deck%' OR contentMarkdown LIKE '%SkyBox%' OR contentMarkdown LIKE '%Impel%';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, title FROM blog_posts WHERE contentMarkdown LIKE '%Fleer%' OR contentMarkdown LIKE '%Upper Deck%' OR contentMarkdown LIKE '%SkyBox%' OR contentMarkdown LIKE '%Impel%';",
+  "rows": [
+    {
+      "id": "2",
+      "title": "CGC vs. PSA vs. AGS: Decoding Marvel Trading Card Grading for Maximum Value"
+    },
+    {
+      "id": "7",
+      "title": "Unpacking Transparency: Why NLF Publishes Full Checklists Before You Buy"
+    },
+    {
+      "id": "9",
+      "title": "Thor Cards: Asgardian Value Across Marvel Card Sets"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\n2\tCGC vs. PSA vs. AGS: Decoding Marvel Trading Card Grading for Maximum Value\n7\tUnpacking Transparency: Why NLF Publishes Full Checklists Before You Buy\n9\tThor Cards: Asgardian Value Across Marvel Card Sets\n",
+  "stderr": "",
+  "execution_time_ms": 356
+}

@@ -9,7 +9,7 @@ import { Link } from "wouter";
 import {
   BookOpen, TrendingUp, Gem, Shield, Sparkles, Search,
   ChevronRight, Clock, Tag, ArrowRight, Filter, Eye,
-  BarChart3, Lightbulb, Newspaper, Star,
+  BarChart3, Lightbulb, Newspaper, Star, Trophy,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -28,6 +28,7 @@ const CATEGORIES = [
   { key: "nlf_news", label: "NLF News", icon: Newspaper },
   { key: "behind_the_scenes", label: "Behind the Scenes", icon: Eye },
   { key: "card_history", label: "History", icon: BookOpen },
+  { key: "sports_crossover", label: "Sports Crossover", icon: Trophy },
 ];
 
 const CATEGORY_COLORS: Record<string, string> = {
@@ -40,6 +41,7 @@ const CATEGORY_COLORS: Record<string, string> = {
   nlf_news: "bg-primary/20 text-primary border-primary/30",
   behind_the_scenes: "bg-orange-500/20 text-orange-400 border-orange-500/30",
   card_history: "bg-red-500/20 text-red-400 border-red-500/30",
+  sports_crossover: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
 };
 
 function formatDate(timestamp: number | null): string {
