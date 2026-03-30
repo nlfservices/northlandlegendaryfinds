@@ -5,8 +5,8 @@
 
 import { useParams, Link } from "wouter";
 import {
-  ArrowLeft, Clock, Eye, Tag, Calendar, Share2, ChevronRight,
-  BookOpen, ArrowRight, Facebook, Twitter,
+  ArrowLeft, Clock, Eye, Tag, Calendar, ChevronRight,
+  BookOpen, ArrowRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -14,6 +14,11 @@ import { Separator } from "@/components/ui/separator";
 import { trpc } from "@/lib/trpc";
 import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 import { Streamdown } from "streamdown";
+import {
+  SocialShareInline,
+  SocialShareFloating,
+  SocialShareBottomBar,
+} from "@/components/SocialShareButtons";
 
 const CATEGORY_LABELS: Record<string, string> = {
   market_trends: "Market Trends",
@@ -111,7 +116,6 @@ export default function BlogPost() {
     : [];
 
   const shareUrl = `https://northlandlegendaryfinds.com/the-collector/${post.slug}`;
-  const shareText = encodeURIComponent(post.title);
 
   const articleJsonLd = {
     "@context": "https://schema.org",
@@ -157,6 +161,13 @@ export default function BlogPost() {
         ]}
       />
 
+      {/* Floating share sidebar — desktop only, appears on scroll */}
+      <SocialShareFloating
+        url={shareUrl}
+        title={post.title}
+        excerpt={post.excerpt || undefined}
+      />
+
       <div className="min-h-screen">
         {/* Breadcrumb */}
         <div className="container max-w-4xl pt-6">
@@ -191,7 +202,7 @@ export default function BlogPost() {
             <p className="text-lg text-muted-foreground mb-6">{post.excerpt}</p>
           )}
 
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between flex-wrap gap-4">
             <div className="flex items-center gap-3 text-sm text-muted-foreground">
               <span className="font-medium text-foreground">{post.authorName || "NLF Team"}</span>
               <span className="flex items-center gap-1">
@@ -200,32 +211,12 @@ export default function BlogPost() {
               </span>
             </div>
 
-            {/* Share buttons */}
-            <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, "_blank")}
-              >
-                <Facebook className="w-4 h-4" />
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${shareText}`, "_blank")}
-              >
-                <Twitter className="w-4 h-4" />
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => {
-                  navigator.clipboard.writeText(shareUrl);
-                }}
-              >
-                <Share2 className="w-4 h-4" />
-              </Button>
-            </div>
+            {/* Inline share buttons — header row */}
+            <SocialShareInline
+              url={shareUrl}
+              title={post.title}
+              excerpt={post.excerpt || undefined}
+            />
           </div>
         </header>
 
@@ -259,6 +250,15 @@ export default function BlogPost() {
             <Streamdown>{post.contentMarkdown}</Streamdown>
           </div>
         </article>
+
+        {/* Share bar after article content */}
+        <div className="container max-w-4xl pb-8">
+          <SocialShareBottomBar
+            url={shareUrl}
+            title={post.title}
+            excerpt={post.excerpt || undefined}
+          />
+        </div>
 
         {/* Tags */}
         {tags.length > 0 && (

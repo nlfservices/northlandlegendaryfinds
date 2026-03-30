@@ -892,3 +892,11 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add sports_crossover category to schema, blog router, scheduler, and all frontend components
 - [x] Generate 8 fresh Topps-focused articles with AI images (all clean, zero non-Topps mentions)
 - [x] Auto-scheduler also generating clean articles using centralized strategy
+
+## Social Media Sharing for Blog Posts
+- [x] Build reusable SocialShareButtons component (X/Twitter, Facebook, LinkedIn, Reddit, Email, copy link)
+- [x] Integrate sharing buttons into BlogPost page (inline header + floating sidebar + bottom bar)
+- [x] Ensure share URLs use production domain (northlandlegendaryfinds.com)
+- [x] Style sharing buttons to match dark theme with hover effects
+- [x] Test sharing links generate correct URLs with title/excerpt
+- [x] Save checkpoint
