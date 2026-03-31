@@ -929,3 +929,9 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Redistributed all 21 articles with round-robin interleaving across 7 days
 - [x] Verify articles display with good category variety when sorted by date
 - [x] Save checkpoint
+
+## Google Analytics & GoHighLevel Tracking
+- [x] Add Google Analytics (G-CR444D1BXY) tracking script site-wide (in <head>)
+- [x] Add GoHighLevel external tracking (tk_5e6eeee5cecd4141a974a611606e39e8) site-wide (before </body>)
+- [x] Verify both scripts in index.html alongside existing Meta Pixel
+- [x] Save checkpoint
