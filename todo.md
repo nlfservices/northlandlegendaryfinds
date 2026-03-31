@@ -909,3 +909,15 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Added topic deduplication to avoid repeat articles
 - [x] Verify scheduler generates and publishes articles reliably
 - [x] Save checkpoint
+
+## SEO Audit & Sitemap Fix
+- [x] Audit Google indexing status (confirmed: site IS indexed by Google)
+- [x] Check robots.txt (properly configured)
+- [x] Check sitemap.xml (existed but was missing blog posts and key pages)
+- [x] Add 21 blog post URLs to dynamic sitemap
+- [x] Add missing pages to sitemap: /the-collector, /card-shows, /our-process, /card-hub, /mcu-intel, /matrix, /whatnot-drops, /login
+- [x] Sitemap now has 2,928 URLs (up from 2,899)
+- [x] Verify meta tags, OG tags, Twitter cards all present on homepage
+- [ ] User action needed: Set up Google Search Console and verify domain ownership
+- [ ] User action needed: Set up Bing Webmaster Tools
+- [ ] User action needed: Submit sitemap URL to Google Search Console and Bing

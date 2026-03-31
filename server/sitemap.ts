@@ -1,5 +1,5 @@
 import type { Express } from "express";
-import { getAllMarvelSets, getAllCharacterSlugs, getAllCardDetailSlugs } from "./db";
+import { getAllMarvelSets, getAllCharacterSlugs, getAllCardDetailSlugs, getPublishedBlogPosts } from "./db";
 
 const SITE_URL = "https://northlandlegendaryfinds.com";
 
@@ -21,6 +21,14 @@ const STATIC_PAGES: { path: string; priority: string; changefreq: string }[] = [
   { path: "/privacy", priority: "0.3", changefreq: "yearly" },
   { path: "/refund-policy", priority: "0.3", changefreq: "yearly" },
   { path: "/characters", priority: "0.8", changefreq: "weekly" },
+  { path: "/the-collector", priority: "0.8", changefreq: "daily" },
+  { path: "/card-shows", priority: "0.7", changefreq: "weekly" },
+  { path: "/our-process", priority: "0.7", changefreq: "monthly" },
+  { path: "/card-hub", priority: "0.7", changefreq: "weekly" },
+  { path: "/mcu-intel", priority: "0.7", changefreq: "weekly" },
+  { path: "/matrix", priority: "0.6", changefreq: "weekly" },
+  { path: "/whatnot-drops", priority: "0.6", changefreq: "weekly" },
+  { path: "/login", priority: "0.2", changefreq: "yearly" },
 ];
 
 // Product slugs (static, from products.ts)
@@ -110,6 +118,20 @@ export function registerSitemapRoute(app: Express) {
         }
       } catch {
         console.warn("[Sitemap] Failed to fetch card detail slugs from database");
+      }
+
+      // Dynamic blog post pages (The Collector)
+      try {
+        const blogPosts = await getPublishedBlogPosts();
+        for (const post of blogPosts) {
+          const postDate = post.publishedAt
+            ? new Date(typeof post.publishedAt === "number" ? post.publishedAt : Date.now()).toISOString().split("T")[0]
+            : today;
+          entries.push(buildUrlEntry(`/the-collector/${escapeXml(post.slug)}`, "0.7", "monthly", postDate));
+        }
+        console.log(`[Sitemap] Added ${blogPosts.length} blog post URLs`);
+      } catch {
+        console.warn("[Sitemap] Failed to fetch blog posts from database");
       }
 
       const xml = `<?xml version="1.0" encoding="UTF-8"?>
