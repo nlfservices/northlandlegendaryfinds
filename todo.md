@@ -900,3 +900,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Style sharing buttons to match dark theme with hover effects
 - [x] Test sharing links generate correct URLs with title/excerpt
 - [x] Save checkpoint
+
+## Blog Auto-Scheduler Fix
+- [x] Investigate why blog scheduler is not generating new content (it IS working — 21 articles exist)
+- [x] Check server logs for scheduler errors (ECONNRESET on DB, 500 on image gen)
+- [x] Fix scheduler issues — added retry logic for DB ops (3 retries with backoff), image gen (3 retries with fallback prompts)
+- [x] Added DB-backed generation tracking (survives server restarts)
+- [x] Added topic deduplication to avoid repeat articles
+- [x] Verify scheduler generates and publishes articles reliably
+- [x] Save checkpoint
