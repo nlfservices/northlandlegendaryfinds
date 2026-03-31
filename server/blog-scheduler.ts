@@ -144,18 +144,60 @@ const INTERNAL_LINKS = [
 
 // Track used topics in memory to avoid repeats within a session
 const usedTopics = new Set<string>();
+// Track recent categories to enforce diversity
+const recentCategories: string[] = [];
 
-function getRandomTopic(): { topic: string; category: string } {
+/**
+ * Get the categories of the last N published articles from the database.
+ * This ensures diversity survives server restarts.
+ */
+async function getRecentCategoriesFromDB(count = 3): Promise<string[]> {
+  try {
+    const posts = await withRetry(
+      () => getPublishedBlogPosts(count),
+      "Fetch recent categories"
+    );
+    return posts.map(p => p.category || 'unknown').filter(Boolean);
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Pick a random topic ensuring:
+ * 1. No topic is repeated within a session
+ * 2. Category is different from the last 2 published articles
+ * 3. No more than 2 articles of the same category in any 5-article window
+ */
+async function getRandomTopic(): Promise<{ topic: string; category: string }> {
   const categories = Object.keys(TOPIC_POOLS);
 
-  // Try to find an unused topic (up to 20 attempts)
-  for (let i = 0; i < 20; i++) {
-    const category = categories[Math.floor(Math.random() * categories.length)];
+  // Load recent categories from DB if our in-memory list is empty (e.g., after restart)
+  if (recentCategories.length === 0) {
+    const dbCategories = await getRecentCategoriesFromDB(3);
+    recentCategories.push(...dbCategories);
+    console.log(`[Blog Scheduler] Loaded recent categories from DB: ${dbCategories.join(', ')}`);
+  }
+
+  // Categories to avoid: the last 2 categories used
+  const avoidCategories = new Set(recentCategories.slice(0, 2));
+
+  // Try to find an unused topic in a non-recent category (up to 30 attempts)
+  for (let i = 0; i < 30; i++) {
+    // Filter to categories we haven't used recently
+    const eligibleCategories = categories.filter(c => !avoidCategories.has(c));
+    const categoryPool = eligibleCategories.length > 0 ? eligibleCategories : categories;
+    
+    const category = categoryPool[Math.floor(Math.random() * categoryPool.length)];
     const topics = TOPIC_POOLS[category];
     const topic = topics[Math.floor(Math.random() * topics.length)];
 
     if (!usedTopics.has(topic)) {
       usedTopics.add(topic);
+      // Track this category as most recent
+      recentCategories.unshift(category);
+      if (recentCategories.length > 5) recentCategories.pop();
+      console.log(`[Blog Scheduler] Selected category: ${category} (avoided: ${Array.from(avoidCategories).join(', ')})`);
       return { topic, category };
     }
   }
@@ -165,17 +207,21 @@ function getRandomTopic(): { topic: string; category: string } {
     usedTopics.clear();
   }
 
-  // Fallback: just pick random
-  const category = categories[Math.floor(Math.random() * categories.length)];
+  // Fallback: pick from non-recent category
+  const eligibleCategories = categories.filter(c => !avoidCategories.has(c));
+  const categoryPool = eligibleCategories.length > 0 ? eligibleCategories : categories;
+  const category = categoryPool[Math.floor(Math.random() * categoryPool.length)];
   const topics = TOPIC_POOLS[category];
   const topic = topics[Math.floor(Math.random() * topics.length)];
+  recentCategories.unshift(category);
+  if (recentCategories.length > 5) recentCategories.pop();
   return { topic, category };
 }
 
 // ==================== ARTICLE GENERATION ====================
 
 async function generateAndPublishArticle(): Promise<boolean> {
-  const { topic, category } = getRandomTopic();
+  const { topic, category } = await getRandomTopic();
 
   console.log(`[Blog Scheduler] Generating article: "${topic}" (${category})`);
 

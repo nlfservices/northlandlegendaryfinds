@@ -921,3 +921,11 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [ ] User action needed: Set up Google Search Console and verify domain ownership
 - [ ] User action needed: Set up Bing Webmaster Tools
 - [ ] User action needed: Submit sitemap URL to Google Search Console and Bing
+
+## Blog Category Diversity Fix
+- [x] Fix scheduler to never generate same category twice in a row (checks last 2 categories from DB)
+- [x] Add category rotation logic to ensure diverse content mix (avoids last 2 categories, DB-backed)
+- [x] Space out existing "Character vs Sports Legend" articles so they don't cluster (Wolverine/LeBron Mar 31, Iron Man/Brady Mar 28, Spider-Man/Jordan Mar 27)
+- [x] Redistributed all 21 articles with round-robin interleaving across 7 days
+- [x] Verify articles display with good category variety when sorted by date
+- [x] Save checkpoint
