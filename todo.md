@@ -935,3 +935,7 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add GoHighLevel external tracking (tk_5e6eeee5cecd4141a974a611606e39e8) site-wide (before </body>)
 - [x] Verify both scripts in index.html alongside existing Meta Pixel
 - [x] Save checkpoint
+
+## Disable Blog Auto-Scheduler
+- [x] Disable automatic blog content generation (AUTO_GENERATE_ENABLED = false)
+- [x] Save checkpoint and publish

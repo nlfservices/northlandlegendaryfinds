@@ -24,7 +24,7 @@ import { NLF_BLOG_SYSTEM_PROMPT, TOPIC_POOLS, CATEGORY_LABELS } from "./blog-con
 
 // ==================== CONFIGURATION ====================
 
-const AUTO_GENERATE_ENABLED = true;
+const AUTO_GENERATE_ENABLED = false; // DISABLED by user request — re-enable when ready to resume content generation
 const CHECK_INTERVAL_MS = 5 * 60 * 1000; // 5 minutes
 const DB_RETRY_ATTEMPTS = 3;
 const DB_RETRY_DELAY_MS = 3000;
