@@ -939,3 +939,11 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 ## Disable Blog Auto-Scheduler
 - [x] Disable automatic blog content generation (AUTO_GENERATE_ENABLED = false)
 - [x] Save checkpoint and publish
+
+## NLF Cross-Site Widgets Integration
+- [x] Add NLF Cross-Site Network Bar (Shop NLF, Comic Book Cards, Mint Comics)
+- [x] Add Click-to-Call/Text FAB widget (+1 763-710-3772) with Call Us / Text Us options
+- [x] Add Cookie Consent Banner with accept/decline and fbq consent grant
+- [x] Ensure widgets don't conflict — nav offset adjusted to top-[30px] for network bar
+- [x] Verified all three widgets render correctly on dev server
+- [x] Save checkpoint

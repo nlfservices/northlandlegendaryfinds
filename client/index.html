@@ -49,6 +49,52 @@
     </script>
     <!-- End Google Analytics -->
 
+    <!-- NLF Cross-Site Network Bar Styles -->
+    <style>
+      .nlf-network-bar { position: fixed; top: 0; left: 0; right: 0; background: linear-gradient(90deg, #0a0a0a 0%, #111 50%, #0a0a0a 100%); border-bottom: 1px solid rgba(0, 255, 65, 0.2); padding: 6px 16px; display: flex; align-items: center; justify-content: center; gap: 8px; z-index: 100000; font-family: 'Inter', sans-serif; font-size: 12px; flex-wrap: wrap; }
+      .nlf-network-label { color: #666; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 4px; }
+      .nlf-network-link { color: #999; text-decoration: none; padding: 3px 10px; border-radius: 4px; transition: all 0.2s; white-space: nowrap; }
+      .nlf-network-link:hover { color: #00ff41; background: rgba(0, 255, 65, 0.08); }
+      .nlf-network-link.active { color: #00ff41; font-weight: 600; }
+      .nlf-network-link.nlf-main { color: #00ff41; font-weight: 700; border: 1px solid rgba(0, 255, 65, 0.3); background: rgba(0, 255, 65, 0.05); }
+      .nlf-network-link.nlf-main:hover { background: rgba(0, 255, 65, 0.15); }
+      .nlf-network-sep { color: #333; margin: 0 2px; }
+      @media (max-width: 480px) { .nlf-network-bar { font-size: 11px; padding: 5px 10px; gap: 4px; } .nlf-network-link { padding: 3px 6px; } }
+    </style>
+    <!-- End NLF Network Bar Styles -->
+
+    <!-- Click-to-Call/Text Widget Styles -->
+    <style>
+      .nlf-contact-fab { position: fixed; bottom: 80px; right: 20px; z-index: 99998; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; font-family: 'Inter', sans-serif; }
+      .nlf-fab-menu { display: none; flex-direction: column; gap: 8px; align-items: flex-end; }
+      .nlf-fab-menu.open { display: flex; }
+      .nlf-fab-option { display: flex; align-items: center; gap: 10px; background: rgba(10, 10, 10, 0.95); border: 1px solid rgba(0, 255, 65, 0.3); border-radius: 30px; padding: 10px 18px 10px 14px; color: #fff; text-decoration: none; font-size: 14px; font-weight: 500; transition: all 0.2s; backdrop-filter: blur(10px); white-space: nowrap; }
+      .nlf-fab-option:hover { border-color: #00ff41; background: rgba(0, 255, 65, 0.1); transform: translateX(-4px); }
+      .nlf-fab-option svg { width: 20px; height: 20px; flex-shrink: 0; }
+      .nlf-fab-toggle { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #00ff41, #00cc33); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(0, 255, 65, 0.3); transition: all 0.3s; }
+      .nlf-fab-toggle:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(0, 255, 65, 0.4); }
+      .nlf-fab-toggle svg { width: 26px; height: 26px; fill: #0a0a0a; }
+      .nlf-fab-toggle.active { background: linear-gradient(135deg, #ff4444, #cc0000); }
+      .nlf-fab-toggle.active svg { fill: #fff; }
+    </style>
+    <!-- End Click-to-Call/Text Widget Styles -->
+
+    <!-- Cookie Consent Banner Styles -->
+    <style>
+      .nlf-cookie-banner { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(10, 10, 10, 0.97); border-top: 1px solid rgba(0, 255, 65, 0.3); padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; z-index: 99999; font-family: 'Inter', sans-serif; flex-wrap: wrap; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: transform 0.4s ease; }
+      .nlf-cookie-banner.hidden { transform: translateY(100%); pointer-events: none; }
+      .nlf-cookie-text { color: #ccc; font-size: 13px; line-height: 1.5; flex: 1; min-width: 200px; }
+      .nlf-cookie-text a { color: #00ff41; text-decoration: underline; }
+      .nlf-cookie-btns { display: flex; gap: 10px; flex-shrink: 0; }
+      .nlf-cookie-btn { padding: 8px 20px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; transition: all 0.2s; }
+      .nlf-cookie-accept { background: #00ff41; color: #0a0a0a; }
+      .nlf-cookie-accept:hover { background: #33ff66; }
+      .nlf-cookie-decline { background: transparent; color: #999; border: 1px solid #333; }
+      .nlf-cookie-decline:hover { border-color: #666; color: #ccc; }
+      @media (max-width: 600px) { .nlf-cookie-banner { flex-direction: column; text-align: center; padding: 14px 16px; } .nlf-cookie-btns { width: 100%; justify-content: center; } }
+    </style>
+    <!-- End Cookie Consent Banner Styles -->
+
     <!-- Meta Pixel Code -->
     <script>
       !function(f,b,e,v,n,t,s)
@@ -74,6 +120,87 @@
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+
+    <!-- NLF Cross-Site Network Bar -->
+    <div class="nlf-network-bar">
+      <span class="nlf-network-label">NLF Network:</span>
+      <a href="/" class="nlf-network-link nlf-main active">Shop NLF</a>
+      <span class="nlf-network-sep">|</span>
+      <a href="https://comicbookcard.com" class="nlf-network-link" target="_blank">Comic Book Cards</a>
+      <span class="nlf-network-sep">|</span>
+      <a href="https://mintcomiccards.com" class="nlf-network-link" target="_blank">Mint Comics</a>
+    </div>
+    <script>
+      (function() { document.body.style.paddingTop = (document.querySelector('.nlf-network-bar').offsetHeight || 30) + 'px'; })();
+    </script>
+    <!-- End NLF Cross-Site Network Bar -->
+
+    <!-- Click-to-Call/Text Widget -->
+    <div class="nlf-contact-fab">
+      <div id="nlf-fab-menu" class="nlf-fab-menu">
+        <a href="tel:+17637103772" class="nlf-fab-option">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#00ff41" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          Call Us
+        </a>
+        <a href="sms:+17637103772?body=Hi%20NLF!%20I%27m%20interested%20in%20your%20Marvel%20card%20repacks." class="nlf-fab-option">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#00ff41" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          Text Us
+        </a>
+      </div>
+      <button class="nlf-fab-toggle" id="nlf-fab-toggle" onclick="toggleNlfFab()" aria-label="Contact us">
+        <svg viewBox="0 0 24 24" id="nlf-fab-icon-open"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        <svg viewBox="0 0 24 24" id="nlf-fab-icon-close" style="display:none"><path d="M18 6L6 18M6 6l12 12" stroke="#fff" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg>
+      </button>
+    </div>
+    <script>
+      window.toggleNlfFab = function() {
+        var menu = document.getElementById('nlf-fab-menu');
+        var toggle = document.getElementById('nlf-fab-toggle');
+        var iconOpen = document.getElementById('nlf-fab-icon-open');
+        var iconClose = document.getElementById('nlf-fab-icon-close');
+        var isOpen = menu.classList.contains('open');
+        menu.classList.toggle('open');
+        toggle.classList.toggle('active');
+        iconOpen.style.display = isOpen ? 'block' : 'none';
+        iconClose.style.display = isOpen ? 'none' : 'block';
+      };
+    </script>
+    <!-- End Click-to-Call/Text Widget -->
+
+    <!-- Cookie Consent Banner -->
+    <div id="nlf-cookie-banner" class="nlf-cookie-banner">
+      <div class="nlf-cookie-text">
+        We use cookies and tracking technologies to improve your experience, analyze site traffic, and support our marketing efforts.
+        By clicking "Accept," you consent to our use of cookies.
+        <a href="/faq" target="_blank">Learn more</a>
+      </div>
+      <div class="nlf-cookie-btns">
+        <button class="nlf-cookie-btn nlf-cookie-decline" onclick="declineCookies()">Decline</button>
+        <button class="nlf-cookie-btn nlf-cookie-accept" onclick="acceptCookies()">Accept</button>
+      </div>
+    </div>
+    <script>
+      (function() {
+        var banner = document.getElementById('nlf-cookie-banner');
+        if (localStorage.getItem('nlf-cookie-consent')) {
+          banner.classList.add('hidden');
+          if (localStorage.getItem('nlf-cookie-consent') === 'accepted') { enableTracking(); }
+        }
+        window.acceptCookies = function() {
+          localStorage.setItem('nlf-cookie-consent', 'accepted');
+          banner.classList.add('hidden');
+          enableTracking();
+        };
+        window.declineCookies = function() {
+          localStorage.setItem('nlf-cookie-consent', 'declined');
+          banner.classList.add('hidden');
+        };
+        function enableTracking() {
+          if (typeof fbq !== 'undefined') { fbq('consent', 'grant'); }
+        }
+      })();
+    </script>
+    <!-- End Cookie Consent Banner -->
 
     <!-- GoHighLevel External Tracking -->
     <script
