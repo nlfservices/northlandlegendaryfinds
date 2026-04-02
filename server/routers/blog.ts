@@ -21,23 +21,23 @@ const BLOG_CATEGORIES = [
 // Reliable image generation with retry logic
 async function generateImageWithRetry(imagePrompt: string, title: string, category: string, maxRetries = 3): Promise<string | null> {
   const FALLBACK_PROMPTS: Record<string, string> = {
-    market_trends: "A dramatic cosmic scene with trading cards floating in space surrounded by golden price charts and upward arrows, dark background with purple nebula, investment theme, no text no letters",
-    character_spotlight: "A single glowing trading card hovering in a dark cosmic void with energy beams radiating outward, collector spotlight theme, no text no letters",
-    grading_guide: "A pristine graded trading card in a protective slab case under a magnifying glass with golden light, professional grading inspection theme, dark background, no text no letters",
-    set_breakdown: "A spread of colorful trading cards fanned out on a dark surface with dramatic lighting, set collection theme with cosmic background, no text no letters",
-    investment_strategy: "A vault door opening to reveal glowing trading cards inside, investment and treasure theme, dark dramatic lighting with gold accents, no text no letters",
-    collecting_tips: "A collector's desk with trading cards, protective sleeves, and a magnifying glass, warm lighting, organized collection theme, no text no letters",
-    nlf_news: "A glowing cosmic energy burst against a dark space background with green and purple nebula, card collecting brand theme, no text no letters",
-    behind_the_scenes: "A workstation with stacks of trading cards being sorted and graded, behind the scenes workshop theme, warm professional lighting, no text no letters",
-    card_history: "Vintage trading cards from the 1990s arranged in a nostalgic display with aged paper texture and warm sepia tones, history theme, no text no letters",
-    sports_crossover: "A split scene showing sports equipment on one side and trading cards on the other, connected by cosmic energy, family bonding theme, no text no letters",
+    market_trends: "Professional product photography of several Marvel trading cards and sealed wax packs arranged on a dark wood desk next to a laptop showing a price chart, warm natural lighting, shallow depth of field, realistic photo style, no text no letters no words",
+    character_spotlight: "Close-up macro photograph of a single graded Marvel trading card in a PSA slab case standing upright on a dark felt surface, soft studio lighting with bokeh background, realistic product photography, no text no letters no words",
+    grading_guide: "Overhead flat-lay photograph of trading card grading supplies on a clean desk: a graded slab, a magnifying loupe, penny sleeves, and a submission form, soft natural window lighting, realistic photo, no text no letters no words",
+    set_breakdown: "Flat-lay photograph of a complete set of colorful Marvel trading cards fanned out on a black velvet surface, shot from above with even studio lighting, realistic product photography, no text no letters no words",
+    investment_strategy: "Photograph of a collector's hands carefully placing a graded Marvel card into a fireproof safe alongside other slabbed cards, warm ambient lighting, realistic lifestyle photo, no text no letters no words",
+    collecting_tips: "Photograph of a collector's organized desk with trading cards in a binder, top loaders, penny sleeves, and a cup of coffee, warm natural lighting from a window, cozy realistic lifestyle photo, no text no letters no words",
+    nlf_news: "Professional photograph of a neatly arranged display of graded Marvel trading cards in acrylic stands on a dark surface with soft accent lighting, clean product photography style, no text no letters no words",
+    behind_the_scenes: "Photograph of a real card shop workspace with stacks of trading cards being sorted on a table, shipping supplies nearby, overhead fluorescent and warm desk lamp lighting, realistic behind-the-scenes photo, no text no letters no words",
+    card_history: "Photograph of vintage 1970s and 1980s Marvel trading cards arranged on aged wood with a nostalgic warm tone, some cards slightly worn showing age, realistic still life photography, no text no letters no words",
+    sports_crossover: "Photograph of a family kitchen table with Marvel trading cards on one side and baseball cards on the other, a father and child's hands visible reaching for cards, warm home lighting, realistic lifestyle photo, no text no letters no words",
   };
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       let prompt = imagePrompt;
       if (attempt === 2) {
-        prompt = `A visually striking illustration related to: ${title}. Trading cards theme, dark cosmic background with vibrant colors. No text, no letters, no words.`;
+        prompt = `Realistic product photograph related to: ${title}. Trading cards on a dark surface with natural lighting, shallow depth of field, professional photography style. No text, no letters, no words.`;
       } else if (attempt >= 3) {
         prompt = FALLBACK_PROMPTS[category] || FALLBACK_PROMPTS.market_trends;
       }
@@ -194,7 +194,7 @@ Respond in this exact JSON format:
   "metaDescription": "SEO meta description (max 160 chars)",
   "focusKeyword": "primary SEO keyword",
   "tags": ["tag1", "tag2", "tag3"],
-  "imagePrompt": "A detailed prompt to generate a featured image for this article. Should be visually striking, related to the topic, dark cosmic theme. MUST NOT contain any text, letters, or words in the image."
+  "imagePrompt": "A detailed prompt for a REALISTIC PHOTOGRAPHY-STYLE featured image. Must look like a real photograph, not AI art. Use product photography, flat-lay, macro, or lifestyle photo styles with natural lighting. NEVER use cosmic, glowing, neon, or illustrated styles. MUST NOT contain any text, letters, or words."
 }`;
 
     const response = await invokeLLM({
@@ -327,7 +327,7 @@ Respond in this exact JSON format:
 
     for (const post of postsWithoutImages) {
       try {
-        const imagePrompt = `A visually striking, high-quality illustration for a blog article titled "${post.title}". Trading cards theme, dark cosmic background with vibrant green and purple energy, professional and eye-catching. No text, no letters, no words in the image.`;
+        const imagePrompt = `Realistic product photograph for a blog article titled "${post.title}". Trading cards arranged on a dark surface with natural lighting, shallow depth of field, professional photography style. No text, no letters, no words in the image.`;
         
         const imageUrl = await generateImageWithRetry(
           imagePrompt,

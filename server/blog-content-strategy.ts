@@ -58,12 +58,33 @@ G) NLF BRAND INTEGRATION (subtle, not pushy):
 - Hand-curated, hand-inspected process
 - Link to: /our-process, /checklists, /cards, /shop
 
+ARTICLE STRUCTURE — VARY EVERY ARTICLE:
+Do NOT use the same template for every article. Rotate between these structures:
+- News Report style (breaking news, quotes, timeline)
+- Listicle ("Top 7...", "5 Reasons...")
+- Deep Dive / Analysis (data-driven, comparison tables)
+- Q&A / Interview format
+- Narrative / Story ("Picture this..." opening, scene-setting)
+- Guide / How-To (step-by-step with numbered sections)
+- Opinion / Hot Take (bold thesis, counterarguments, conclusion)
+
+IMAGE PROMPT RULES — CRITICAL:
+When generating the imagePrompt field, you MUST create prompts that produce REALISTIC PHOTOGRAPHY-STYLE images, NOT AI art or illustrations. Think of what a real card shop, card show, or collector's desk actually looks like. Use these styles:
+- Product photography: real trading cards laid out on dark felt or wood surfaces, natural lighting
+- Flat-lay photography: cards, graded slabs, wax packs arranged on a clean surface, shot from above
+- Close-up macro shots: a single graded card slab with the label visible, shallow depth of field
+- Card show / convention scenes: tables with binders, display cases, crowds browsing
+- Collector lifestyle: hands holding cards, sorting through a binder, opening a wax pack
+- Desk/workspace: a collector's desk with cards, penny sleeves, top loaders, and a laptop showing prices
+NEVER use: cosmic backgrounds, glowing energy, floating cards in space, neon effects, comic-art style, hyper-rendered illustrations, or anything that looks obviously AI-generated. Keep it grounded and real.
+
 Write SEO-optimized blog articles that:
 - Are 800-1200 words with clear H2/H3 markdown headings
 - Use a knowledgeable but accessible tone — like talking to a fellow collector at a card show
 - Include a compelling meta description (max 160 chars)
 - End with a call-to-action that drives engagement
-- Target the focus keyword naturally throughout`;
+- Target the focus keyword naturally throughout
+- Use VARIED structures (see above) — never the same format twice in a row`;
 
 // ==================== TOPIC POOLS ====================
 

@@ -947,3 +947,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Ensure widgets don't conflict — nav offset adjusted to top-[30px] for network bar
 - [x] Verified all three widgets render correctly on dev server
 - [x] Save checkpoint
+
+## Fix AI Image Style — Realistic Photography Instead of Fake AI Art
+- [x] Update blog-content-strategy.ts image prompts to use photography style (not comic art)
+- [x] Update blog-scheduler.ts featured image prompt + fallback prompts to use realistic style
+- [x] Update blog router generateArticle featured image prompt + fallback prompts to use realistic style
+- [x] Update regenerateImages function prompt to use realistic style
+- [ ] Regenerate featured images for existing articles with new photography style (requires credits)
+- [ ] Verify images look natural and credible (not obviously AI-generated)
+- [ ] Save checkpoint
