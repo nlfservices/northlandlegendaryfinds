@@ -23,7 +23,7 @@ import { useMemo, useState } from "react";
 // Pre-launch blur: hide card details until April 27, 2026 7:00 PM CT (UTC-5)
 const LAUNCH_DATE = new Date("2026-04-28T00:00:00Z");
 // Slugs that are exempt from pre-launch hide (checklist already revealed)
-const REVEALED_SLUGS = ["nlf-marvel-52-singles"];
+const REVEALED_SLUGS: string[] = [];
 const isPreLaunch = (slug?: string) => {
   if (slug && REVEALED_SLUGS.includes(slug)) return false;
   return new Date() < LAUNCH_DATE;
@@ -197,20 +197,28 @@ export default function ChecklistDetail() {
               )}
             </div>
 
-            {/* Stats Cards */}
+            {/* Stats Cards — hide card count pre-launch */}
             <div className="flex gap-4">
               <div className="bg-card border border-border rounded-xl p-4 text-center min-w-[100px]">
                 <div className="text-2xl font-bold text-primary" style={{ fontFamily: "'Anton', sans-serif" }}>
-                  {stats?.totalChecklist || 0}
+                  {isPreLaunch(params.slug) ? (
+                    <Lock className="w-6 h-6 mx-auto text-primary/60" />
+                  ) : (
+                    stats?.totalChecklist || 0
+                  )}
                 </div>
-                <div className="text-xs text-muted-foreground">Total Cards</div>
+                <div className="text-xs text-muted-foreground">{isPreLaunch(params.slug) ? "Hidden" : "Total Cards"}</div>
               </div>
               {/* Pulled stats hidden pre-launch */}
               <div className="bg-card border border-border rounded-xl p-4 text-center min-w-[100px]">
                 <div className="text-2xl font-bold text-cyan-400" style={{ fontFamily: "'Anton', sans-serif" }}>
-                  {stats?.packsRemaining || 0}
+                  {isPreLaunch(params.slug) ? (
+                    <Clock className="w-6 h-6 mx-auto text-cyan-400/60" />
+                  ) : (
+                    stats?.packsRemaining || 0
+                  )}
                 </div>
-                <div className="text-xs text-muted-foreground">Packs Left</div>
+                <div className="text-xs text-muted-foreground">{isPreLaunch(params.slug) ? "At Launch" : "Packs Left"}</div>
               </div>
             </div>
           </div>
@@ -311,7 +319,7 @@ export default function ChecklistDetail() {
                       </p>
                       <div className="inline-flex items-center gap-2 text-primary text-sm font-bold">
                         <Clock className="w-4 h-4" />
-                        {checklist.length} total cards across all tiers
+                        Cards across all tiers — revealed at launch
                       </div>
                     </div>
                   </div>

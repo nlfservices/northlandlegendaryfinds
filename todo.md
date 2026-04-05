@@ -982,4 +982,11 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Update blog router bulkGenerate to use template rotation + layoutData generation
 - [x] Update blog-scheduler.ts to use template rotation + layoutData generation
 - [x] Run tests (232 passed) and integrity checks (81/81 passed)
+- [x] Save checkpoint
+
+## Hide NLF Marvel 52 Singles Checklist Until Launch
+- [x] Hide checklist items and card count on /checklist/nlf-marvel-52-singles until launch date
+- [x] Show "CHECKLIST HIDDEN" overlay with launch date message instead of full checklist
+- [x] Hide Total Cards and Packs Left stats (show lock/clock icons instead)
+- [x] Remove card count from hidden overlay message
 - [ ] Save checkpoint
