@@ -226,3 +226,291 @@ export const CATEGORY_LABELS: Record<string, string> = {
   card_history: "Marvel Trading Card History & Nostalgia",
   sports_crossover: "Sports Card to Marvel Card Crossover",
 };
+
+// ==================== ORDER 66 — TEMPLATE ROTATION ====================
+
+export const TEMPLATE_NAMES: Record<number, string> = {
+  1: "Field Report",
+  2: "Personnel Dossier",
+  3: "Data Brief",
+  4: "Intercepted Transmission",
+  5: "Situation Room",
+  6: "Asset Gallery",
+  7: "Strategic Analysis",
+  8: "Flash Alert",
+  9: "After-Action Report",
+  10: "Technical Schematic",
+  11: "Surveillance Log",
+  12: "Command Briefing",
+};
+
+/**
+ * Round-robin template counter.
+ * Cycles 1 → 12 → 1 → 12 ...
+ * In-memory; resets on server restart but that's fine — 
+ * the goal is variety, not strict sequencing.
+ */
+let _templateCounter = 0;
+
+export function getNextTemplate(): number {
+  _templateCounter = (_templateCounter % 12) + 1;
+  return _templateCounter;
+}
+
+/**
+ * Category → best-fit templates mapping.
+ * Each category has 3-4 templates that work especially well for it.
+ * The generator will prefer these but still rotate through all 12.
+ */
+export const CATEGORY_TEMPLATE_AFFINITY: Record<string, number[]> = {
+  market_trends: [3, 5, 7, 8],       // Data Brief, Situation Room, Strategic Analysis, Flash Alert
+  character_spotlight: [2, 1, 4, 12], // Personnel Dossier, Field Report, Intercepted Transmission, Command Briefing
+  grading_guide: [10, 3, 9, 7],      // Technical Schematic, Data Brief, After-Action Report, Strategic Analysis
+  set_breakdown: [6, 3, 10, 5],      // Asset Gallery, Data Brief, Technical Schematic, Situation Room
+  investment_strategy: [7, 3, 5, 12], // Strategic Analysis, Data Brief, Situation Room, Command Briefing
+  collecting_tips: [9, 1, 11, 10],   // After-Action Report, Field Report, Surveillance Log, Technical Schematic
+  nlf_news: [8, 4, 12, 1],           // Flash Alert, Intercepted Transmission, Command Briefing, Field Report
+  behind_the_scenes: [11, 1, 9, 6],  // Surveillance Log, Field Report, After-Action Report, Asset Gallery
+  card_history: [4, 11, 2, 9],       // Intercepted Transmission, Surveillance Log, Personnel Dossier, After-Action Report
+  sports_crossover: [5, 7, 3, 12],   // Situation Room, Strategic Analysis, Data Brief, Command Briefing
+};
+
+// ==================== LAYOUT DATA GENERATION PROMPT ====================
+
+/**
+ * Template-specific instructions for the LLM to generate layoutData.
+ * Each template needs different fields populated.
+ */
+export function getLayoutDataPrompt(templateNumber: number): string {
+  const base = `\n\nLAYOUT DATA — You MUST also return a "layoutData" JSON object with the following fields for Template ${templateNumber} (${TEMPLATE_NAMES[templateNumber]}):`;
+
+  switch (templateNumber) {
+    case 1: // Field Report — image-left / text-right
+      return base + `
+- "pullQuote": A powerful 1-2 sentence quote from the article that captures the key insight
+- "factBox": A brief "Did You Know?" fact related to the topic (1-2 sentences)
+- "stats": An array of 3-4 stat objects, each with "label" (string), "value" (number), and optional "suffix" (string like "%", "+", "x"). Example: [{"label":"Fanbase Size","value":300,"suffix":"M+"},{"label":"Price Growth","value":47,"suffix":"%"}]
+- "heatLevel": One of "blazing", "hot", "rising", or "new" based on topic urgency`;
+
+    case 2: // Personnel Dossier — character profile
+      return base + `
+- "profile": An object with: "name" (character/subject name), "title" (role like "The Web-Slinger" or "Card Market Analyst"), "stats" (array of {"label":"...","value":"..."} pairs, 4-6 items like card count, first appearance year, avg grade, etc.), "bio" (2-3 sentence bio), "status" (like "Active" or "Legendary")
+- "pullQuote": A memorable quote about the character/subject
+- "heatLevel": One of "blazing", "hot", "rising", or "new"`;
+
+    case 3: // Data Brief — stats-heavy
+      return base + `
+- "stats": An array of 4-6 stat objects with "label", "value" (number), "suffix" (optional), and "color" (one of "green", "teal", "gold", "purple")
+- "comparison": An object with "title" (string), "headers" (array of 2 strings for column headers), and "rows" (array of {"label":"...","col1":"...","col2":"..."} objects, 4-6 rows)
+- "factBox": A data-driven insight (1-2 sentences)
+- "heatLevel": One of "blazing", "hot", "rising", or "new"`;
+
+    case 4: // Intercepted Transmission — timeline
+      return base + `
+- "timeline": An array of 4-6 timeline entries, each with "date" (string like "2024 Q1"), "title" (string), "description" (1 sentence)
+- "alertLevel": One of "low", "medium", "high", or "critical"
+- "pullQuote": A dramatic quote fitting the "intercepted intel" theme
+- "subtitle": A subtitle like "CLASSIFIED INTEL REPORT" or "DECODED TRANSMISSION"`;
+
+    case 5: // Situation Room — dashboard feel
+      return base + `
+- "stats": An array of 4 stat objects with "label", "value" (number), "suffix", "color"
+- "comparison": A comparison table with "title", "headers" [2 strings], "rows" [4-5 objects with "label", "col1", "col2"]
+- "pullQuote": An authoritative assessment quote
+- "heatLevel": One of "blazing", "hot", "rising", or "new"`;
+
+    case 6: // Asset Gallery — visual showcase
+      return base + `
+- "gallery": An array of 3-4 gallery items, each with "url" (use the featured image URL or leave empty string — we'll use placeholder), "alt" (descriptive alt text), "caption" (1 sentence caption)
+- "pullQuote": A quote about the visual appeal or significance
+- "factBox": A fun fact about the cards/set being showcased`;
+
+    case 7: // Strategic Analysis — two-column comparison
+      return base + `
+- "comparison": An object with "title", "headers" [2 strings], "rows" [5-7 objects with "label", "col1", "col2"]
+- "stats": An array of 3-4 stat objects
+- "pullQuote": An analytical insight quote
+- "factBox": A strategic takeaway (1-2 sentences)`;
+
+    case 8: // Flash Alert — breaking news
+      return base + `
+- "alertLevel": One of "low", "medium", "high", or "critical" based on urgency
+- "stats": An array of 2-3 stat objects for quick-hit data
+- "pullQuote": The most urgent/important takeaway
+- "subtitle": A brief alert subtitle like "MARKET MOVEMENT DETECTED" or "BREAKING: NEW SET ANNOUNCED"`;
+
+    case 9: // After-Action Report — structured debrief
+      return base + `
+- "stats": An array of 3-4 stat objects summarizing outcomes
+- "timeline": An array of 3-5 timeline entries showing the sequence of events
+- "pullQuote": A lessons-learned quote
+- "factBox": A key takeaway or recommendation`;
+
+    case 10: // Technical Schematic — detailed breakdown
+      return base + `
+- "toc": An array of 4-6 table of contents items, each with "id" (kebab-case string), "title" (section title), "level" (1 or 2)
+- "stats": An array of 3-4 technical stat objects
+- "factBox": A technical detail or specification
+- "comparison": Optional comparison table if relevant`;
+
+    case 11: // Surveillance Log — chronological entries
+      return base + `
+- "timeline": An array of 5-8 timeline entries in chronological order, each with "date", "title", "description"
+- "pullQuote": An observation or pattern noticed
+- "heatLevel": One of "blazing", "hot", "rising", or "new"
+- "subtitle": A log identifier like "SURVEILLANCE LOG #NLF-2026-042"`;
+
+    case 12: // Command Briefing — executive summary
+      return base + `
+- "stats": An array of 4 stat objects for the executive overview
+- "pullQuote": The commander's key directive or insight
+- "factBox": A mission-critical fact
+- "comparison": A comparison table if the topic involves comparing options
+- "heatLevel": One of "blazing", "hot", "rising", or "new"`;
+
+    default:
+      return base + `
+- "pullQuote": A powerful quote from the article
+- "heatLevel": One of "blazing", "hot", "rising", or "new"`;
+  }
+}
+
+// ==================== EXTENDED JSON SCHEMA FOR LAYOUT DATA ====================
+
+export const BLOG_JSON_SCHEMA_WITH_LAYOUT = {
+  type: "json_schema" as const,
+  json_schema: {
+    name: "blog_article_with_layout",
+    strict: true,
+    schema: {
+      type: "object",
+      properties: {
+        title: { type: "string" },
+        slug: { type: "string" },
+        excerpt: { type: "string" },
+        contentMarkdown: { type: "string" },
+        metaDescription: { type: "string" },
+        focusKeyword: { type: "string" },
+        tags: { type: "array", items: { type: "string" } },
+        imagePrompt: { type: "string" },
+        layoutData: {
+          type: "object",
+          description: "Template-specific layout data",
+          properties: {
+            pullQuote: { type: "string" },
+            factBox: { type: "string" },
+            subtitle: { type: "string" },
+            heatLevel: { type: "string" },
+            alertLevel: { type: "string" },
+            stats: {
+              type: "array",
+              items: {
+                type: "object",
+                properties: {
+                  label: { type: "string" },
+                  value: { type: "number" },
+                  suffix: { type: "string" },
+                  color: { type: "string" },
+                },
+                required: ["label", "value"],
+                additionalProperties: false,
+              },
+            },
+            timeline: {
+              type: "array",
+              items: {
+                type: "object",
+                properties: {
+                  date: { type: "string" },
+                  title: { type: "string" },
+                  description: { type: "string" },
+                },
+                required: ["date", "title", "description"],
+                additionalProperties: false,
+              },
+            },
+            gallery: {
+              type: "array",
+              items: {
+                type: "object",
+                properties: {
+                  url: { type: "string" },
+                  alt: { type: "string" },
+                  caption: { type: "string" },
+                },
+                required: ["url", "alt"],
+                additionalProperties: false,
+              },
+            },
+            toc: {
+              type: "array",
+              items: {
+                type: "object",
+                properties: {
+                  id: { type: "string" },
+                  title: { type: "string" },
+                  level: { type: "number" },
+                },
+                required: ["id", "title", "level"],
+                additionalProperties: false,
+              },
+            },
+            comparison: {
+              type: "object",
+              properties: {
+                title: { type: "string" },
+                headers: {
+                  type: "array",
+                  items: { type: "string" },
+                },
+                rows: {
+                  type: "array",
+                  items: {
+                    type: "object",
+                    properties: {
+                      label: { type: "string" },
+                      col1: { type: "string" },
+                      col2: { type: "string" },
+                    },
+                    required: ["label", "col1", "col2"],
+                    additionalProperties: false,
+                  },
+                },
+              },
+              required: ["title", "headers", "rows"],
+              additionalProperties: false,
+            },
+            profile: {
+              type: "object",
+              properties: {
+                name: { type: "string" },
+                title: { type: "string" },
+                imageUrl: { type: "string" },
+                bio: { type: "string" },
+                status: { type: "string" },
+                stats: {
+                  type: "array",
+                  items: {
+                    type: "object",
+                    properties: {
+                      label: { type: "string" },
+                      value: { type: "string" },
+                    },
+                    required: ["label", "value"],
+                    additionalProperties: false,
+                  },
+                },
+              },
+              required: ["name", "title", "bio", "stats"],
+              additionalProperties: false,
+            },
+          },
+          required: [],
+          additionalProperties: false,
+        },
+      },
+      required: ["title", "slug", "excerpt", "contentMarkdown", "metaDescription", "focusKeyword", "tags", "imagePrompt", "layoutData"],
+      additionalProperties: false,
+    },
+  },
+};

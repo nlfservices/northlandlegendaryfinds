@@ -1,5 +1,6 @@
 /**
  * BlogPost - Individual blog post page for The Collector
+ * ORDER 66 Blog Layout Engine v1.5 — routes to 1 of 12 layout templates
  * Full SEO with Article structured data, social sharing, related posts
  */
 
@@ -19,6 +20,8 @@ import {
   SocialShareFloating,
   SocialShareBottomBar,
 } from "@/components/SocialShareButtons";
+import { BlogTemplateRouter } from "@/components/blog/BlogTemplates";
+import type { LayoutData } from "@/lib/blogLayoutTypes";
 
 const CATEGORY_LABELS: Record<string, string> = {
   market_trends: "Market Trends",
@@ -51,6 +54,15 @@ function formatDate(timestamp: number | null): string {
   return new Date(timestamp).toLocaleDateString("en-US", {
     weekday: "long",
     month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
+function formatDateShort(timestamp: number | null): string {
+  if (!timestamp) return "";
+  return new Date(timestamp).toLocaleDateString("en-US", {
+    month: "short",
     day: "numeric",
     year: "numeric",
   });
@@ -143,6 +155,25 @@ export default function BlogPost() {
     keywords: tags.join(", "),
   };
 
+  // Parse layout data from the post
+  const layoutData: LayoutData = (() => {
+    try {
+      if (post.layoutData) {
+        return typeof post.layoutData === "string"
+          ? JSON.parse(post.layoutData)
+          : post.layoutData;
+      }
+    } catch {}
+    return {};
+  })();
+
+  const templateNumber = post.layoutTemplate || 1;
+  const hasTemplate = templateNumber >= 1 && templateNumber <= 12 && post.layoutTemplate;
+
+  const formattedDate = formatDateShort(
+    post.publishedAt ? Number(post.publishedAt) : Number(post.createdAt)
+  );
+
   return (
     <>
       <SEO
@@ -161,162 +192,178 @@ export default function BlogPost() {
         ]}
       />
 
-      {/* Floating share sidebar — desktop only, appears on scroll */}
-      <SocialShareFloating
-        url={shareUrl}
-        title={post.title}
-        excerpt={post.excerpt || undefined}
-      />
-
-      <div className="min-h-screen">
-        {/* Breadcrumb */}
-        <div className="container max-w-4xl pt-6">
-          <nav className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
-            <ChevronRight className="w-3 h-3" />
-            <Link href="/the-collector" className="hover:text-foreground transition-colors">The Collector</Link>
-            <ChevronRight className="w-3 h-3" />
-            <span className="text-foreground truncate max-w-[200px]">{post.title}</span>
-          </nav>
-        </div>
-
-        {/* Article Header */}
-        <header className="container max-w-4xl py-8">
-          <div className="flex items-center gap-3 mb-4">
-            <Badge variant="outline" className={CATEGORY_COLORS[post.category] || ""}>
-              {CATEGORY_LABELS[post.category] || post.category}
-            </Badge>
-            <span className="text-sm text-muted-foreground flex items-center gap-1">
-              <Clock className="w-3.5 h-3.5" /> {post.readTimeMinutes || 3} min read
-            </span>
-            {(post.viewCount ?? 0) > 0 && (
-              <span className="text-sm text-muted-foreground flex items-center gap-1">
-                <Eye className="w-3.5 h-3.5" /> {post.viewCount} views
-              </span>
-            )}
-          </div>
-
-          <h1 className="text-3xl md:text-5xl font-black leading-tight mb-4">{post.title}</h1>
-
-          {post.excerpt && (
-            <p className="text-lg text-muted-foreground mb-6">{post.excerpt}</p>
-          )}
-
-          <div className="flex items-center justify-between flex-wrap gap-4">
-            <div className="flex items-center gap-3 text-sm text-muted-foreground">
-              <span className="font-medium text-foreground">{post.authorName || "NLF Team"}</span>
-              <span className="flex items-center gap-1">
-                <Calendar className="w-3.5 h-3.5" />
-                {formatDate(post.publishedAt ? Number(post.publishedAt) : Number(post.createdAt))}
-              </span>
-            </div>
-
-            {/* Inline share buttons — header row */}
-            <SocialShareInline
-              url={shareUrl}
-              title={post.title}
-              excerpt={post.excerpt || undefined}
-            />
-          </div>
-        </header>
-
-        {/* Featured Image */}
-        {post.featuredImageUrl && (
-          <div className="container max-w-4xl mb-8">
-            <div className="rounded-xl overflow-hidden border border-border">
-              <img
-                src={post.featuredImageUrl}
-                alt={post.title}
-                className="w-full aspect-video object-cover"
-              />
-            </div>
-          </div>
-        )}
-
-        {/* Article Content */}
-        <article className="container max-w-4xl pb-12">
-          <div className="prose prose-invert prose-lg max-w-none
-            prose-headings:font-bold prose-headings:tracking-tight
-            prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
-            prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
-            prose-p:text-muted-foreground prose-p:leading-relaxed
-            prose-a:text-primary prose-a:no-underline hover:prose-a:underline
-            prose-strong:text-foreground
-            prose-img:rounded-xl prose-img:border prose-img:border-border
-            prose-blockquote:border-primary prose-blockquote:bg-primary/5 prose-blockquote:rounded-r-lg prose-blockquote:py-1
-            prose-li:text-muted-foreground
-            prose-code:text-primary prose-code:bg-primary/10 prose-code:rounded prose-code:px-1
-          ">
-            <Streamdown>{post.contentMarkdown}</Streamdown>
-          </div>
-        </article>
-
-        {/* Share bar after article content */}
-        <div className="container max-w-4xl pb-8">
-          <SocialShareBottomBar
+      {hasTemplate ? (
+        /* ORDER 66 Layout Engine — route to the assigned template */
+        <BlogTemplateRouter
+          templateNumber={templateNumber}
+          post={post}
+          layoutData={layoutData}
+          tags={tags}
+          relatedPosts={related}
+          shareUrl={shareUrl}
+          formattedDate={formattedDate}
+        />
+      ) : (
+        /* Legacy fallback — original single-column layout for existing posts without a template */
+        <>
+          {/* Floating share sidebar — desktop only, appears on scroll */}
+          <SocialShareFloating
             url={shareUrl}
             title={post.title}
             excerpt={post.excerpt || undefined}
           />
-        </div>
 
-        {/* Tags */}
-        {tags.length > 0 && (
-          <div className="container max-w-4xl pb-8">
-            <Separator className="mb-6" />
-            <div className="flex items-center gap-2 flex-wrap">
-              <Tag className="w-4 h-4 text-muted-foreground" />
-              {tags.map((tag: string) => (
-                <Badge key={tag} variant="outline" className="text-xs">
-                  {tag}
+          <div className="min-h-screen">
+            {/* Breadcrumb */}
+            <div className="container max-w-4xl pt-6">
+              <nav className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
+                <ChevronRight className="w-3 h-3" />
+                <Link href="/the-collector" className="hover:text-foreground transition-colors">The Collector</Link>
+                <ChevronRight className="w-3 h-3" />
+                <span className="text-foreground truncate max-w-[200px]">{post.title}</span>
+              </nav>
+            </div>
+
+            {/* Article Header */}
+            <header className="container max-w-4xl py-8">
+              <div className="flex items-center gap-3 mb-4">
+                <Badge variant="outline" className={CATEGORY_COLORS[post.category] || ""}>
+                  {CATEGORY_LABELS[post.category] || post.category}
                 </Badge>
-              ))}
+                <span className="text-sm text-muted-foreground flex items-center gap-1">
+                  <Clock className="w-3.5 h-3.5" /> {post.readTimeMinutes || 3} min read
+                </span>
+                {(post.viewCount ?? 0) > 0 && (
+                  <span className="text-sm text-muted-foreground flex items-center gap-1">
+                    <Eye className="w-3.5 h-3.5" /> {post.viewCount} views
+                  </span>
+                )}
+              </div>
+
+              <h1 className="text-3xl md:text-5xl font-black leading-tight mb-4">{post.title}</h1>
+
+              {post.excerpt && (
+                <p className="text-lg text-muted-foreground mb-6">{post.excerpt}</p>
+              )}
+
+              <div className="flex items-center justify-between flex-wrap gap-4">
+                <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                  <span className="font-medium text-foreground">{post.authorName || "NLF Team"}</span>
+                  <span className="flex items-center gap-1">
+                    <Calendar className="w-3.5 h-3.5" />
+                    {formatDate(post.publishedAt ? Number(post.publishedAt) : Number(post.createdAt))}
+                  </span>
+                </div>
+
+                {/* Inline share buttons — header row */}
+                <SocialShareInline
+                  url={shareUrl}
+                  title={post.title}
+                  excerpt={post.excerpt || undefined}
+                />
+              </div>
+            </header>
+
+            {/* Featured Image */}
+            {post.featuredImageUrl && (
+              <div className="container max-w-4xl mb-8">
+                <div className="rounded-xl overflow-hidden border border-border">
+                  <img
+                    src={post.featuredImageUrl}
+                    alt={post.title}
+                    className="w-full aspect-video object-cover"
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Article Content */}
+            <article className="container max-w-4xl pb-12">
+              <div className="prose prose-invert prose-lg max-w-none
+                prose-headings:font-bold prose-headings:tracking-tight
+                prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
+                prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
+                prose-p:text-muted-foreground prose-p:leading-relaxed
+                prose-a:text-primary prose-a:no-underline hover:prose-a:underline
+                prose-strong:text-foreground
+                prose-img:rounded-xl prose-img:border prose-img:border-border
+                prose-blockquote:border-primary prose-blockquote:bg-primary/5 prose-blockquote:rounded-r-lg prose-blockquote:py-1
+                prose-li:text-muted-foreground
+                prose-code:text-primary prose-code:bg-primary/10 prose-code:rounded prose-code:px-1
+              ">
+                <Streamdown>{post.contentMarkdown}</Streamdown>
+              </div>
+            </article>
+
+            {/* Share bar after article content */}
+            <div className="container max-w-4xl pb-8">
+              <SocialShareBottomBar
+                url={shareUrl}
+                title={post.title}
+                excerpt={post.excerpt || undefined}
+              />
+            </div>
+
+            {/* Tags */}
+            {tags.length > 0 && (
+              <div className="container max-w-4xl pb-8">
+                <Separator className="mb-6" />
+                <div className="flex items-center gap-2 flex-wrap">
+                  <Tag className="w-4 h-4 text-muted-foreground" />
+                  {tags.map((tag: string) => (
+                    <Badge key={tag} variant="outline" className="text-xs">
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Related Posts */}
+            {related.length > 0 && (
+              <section className="container max-w-4xl pb-20">
+                <Separator className="mb-8" />
+                <h2 className="text-2xl font-bold mb-6">More from The Collector</h2>
+                <div className="grid md:grid-cols-3 gap-6">
+                  {related.map((rp: any) => (
+                    <Link key={rp.id} href={`/the-collector/${rp.slug}`}>
+                      <article className="group bg-card/50 border border-border rounded-xl overflow-hidden hover:border-primary/40 transition-all cursor-pointer h-full">
+                        {rp.featuredImageUrl ? (
+                          <div className="aspect-video overflow-hidden">
+                            <img src={rp.featuredImageUrl} alt={rp.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                          </div>
+                        ) : (
+                          <div className="aspect-video bg-gradient-to-br from-primary/10 to-emerald-500/10 flex items-center justify-center">
+                            <BookOpen className="w-8 h-8 text-primary/30" />
+                          </div>
+                        )}
+                        <div className="p-4">
+                          <Badge variant="outline" className={`text-xs mb-2 ${CATEGORY_COLORS[rp.category] || ""}`}>
+                            {CATEGORY_LABELS[rp.category] || rp.category}
+                          </Badge>
+                          <h3 className="font-bold group-hover:text-primary transition-colors line-clamp-2 text-sm">
+                            {rp.title}
+                          </h3>
+                        </div>
+                      </article>
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* Back to The Collector */}
+            <div className="container max-w-4xl pb-20 text-center">
+              <Link href="/the-collector">
+                <Button variant="outline" size="lg">
+                  <ArrowLeft className="w-4 h-4 mr-2" /> Back to The Collector
+                </Button>
+              </Link>
             </div>
           </div>
-        )}
-
-        {/* Related Posts */}
-        {related.length > 0 && (
-          <section className="container max-w-4xl pb-20">
-            <Separator className="mb-8" />
-            <h2 className="text-2xl font-bold mb-6">More from The Collector</h2>
-            <div className="grid md:grid-cols-3 gap-6">
-              {related.map((rp: any) => (
-                <Link key={rp.id} href={`/the-collector/${rp.slug}`}>
-                  <article className="group bg-card/50 border border-border rounded-xl overflow-hidden hover:border-primary/40 transition-all cursor-pointer h-full">
-                    {rp.featuredImageUrl ? (
-                      <div className="aspect-video overflow-hidden">
-                        <img src={rp.featuredImageUrl} alt={rp.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
-                      </div>
-                    ) : (
-                      <div className="aspect-video bg-gradient-to-br from-primary/10 to-emerald-500/10 flex items-center justify-center">
-                        <BookOpen className="w-8 h-8 text-primary/30" />
-                      </div>
-                    )}
-                    <div className="p-4">
-                      <Badge variant="outline" className={`text-xs mb-2 ${CATEGORY_COLORS[rp.category] || ""}`}>
-                        {CATEGORY_LABELS[rp.category] || rp.category}
-                      </Badge>
-                      <h3 className="font-bold group-hover:text-primary transition-colors line-clamp-2 text-sm">
-                        {rp.title}
-                      </h3>
-                    </div>
-                  </article>
-                </Link>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* Back to The Collector */}
-        <div className="container max-w-4xl pb-20 text-center">
-          <Link href="/the-collector">
-            <Button variant="outline" size="lg">
-              <ArrowLeft className="w-4 h-4 mr-2" /> Back to The Collector
-            </Button>
-          </Link>
-        </div>
-      </div>
+        </>
+      )}
     </>
   );
 }

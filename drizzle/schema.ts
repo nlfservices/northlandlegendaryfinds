@@ -668,6 +668,10 @@ export const blogPosts = mysqlTable("blog_posts", {
   readTimeMinutes: int("readTimeMinutes").default(5),
   /** View count for analytics */
   viewCount: int("viewCount").notNull().default(0),
+  /** Layout template number (1-12) for ORDER 66 Blog Layout Engine */
+  layoutTemplate: int("layoutTemplate").default(1),
+  /** Template-specific layout data (stats, timeline, gallery, toc, comparison, profile, pullQuote, factBox, alertLevel, heatLevel) */
+  layoutData: json("layoutData"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });

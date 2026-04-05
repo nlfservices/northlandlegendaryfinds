@@ -956,3 +956,30 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [ ] Regenerate featured images for existing articles with new photography style (requires credits)
 - [ ] Verify images look natural and credible (not obviously AI-generated)
 - [ ] Save checkpoint
+
+## ORDER 66 — Blog Layout Engine v1.5 (12-Template Rotation System)
+- [x] Add layoutTemplate (int 1-12) and layoutData (JSON) columns to blog_posts schema + push migration
+- [x] Build shared blog design elements (PullQuote, FactBox, StatCounters, HeatBadge, LightboxGallery, BlogNewsletter, RelatedArticlesCarousel, GreenDivider, AlertBanner, ProfileCard, Timeline, StickyTOC, ComparisonTableView)
+- [x] Build blogLayoutTypes.ts with LayoutData, StatItem, TimelineEntry, GalleryImage, ComparisonTable, PersonProfile types
+- [x] Build Template 1: Field Report (image-left/text-right split)
+- [x] Build Template 2: Personnel Dossier (character profile card)
+- [x] Build Template 3: Data Brief (stats-heavy analytical)
+- [x] Build Template 4: Intercepted Transmission (timeline + alert)
+- [x] Build Template 5: Situation Room (dashboard feel with stats + comparison)
+- [x] Build Template 6: Asset Gallery (image gallery with lightbox)
+- [x] Build Template 7: Strategic Analysis (two-column comparison)
+- [x] Build Template 8: Flash Alert (urgent/breaking news)
+- [x] Build Template 9: After-Action Report (timeline debrief)
+- [x] Build Template 10: Technical Schematic (sticky TOC + detailed breakdown)
+- [x] Build Template 11: Surveillance Log (image-right/text-left chronological)
+- [x] Build Template 12: Command Briefing (executive summary)
+- [x] Build BlogTemplateRouter to route posts to correct template by number
+- [x] Update BlogPost.tsx to use template router with legacy fallback for existing posts
+- [x] Add round-robin template counter (getNextTemplate) to blog-content-strategy.ts
+- [x] Add getLayoutDataPrompt() for template-specific LLM instructions (12 templates)
+- [x] Add BLOG_JSON_SCHEMA_WITH_LAYOUT extended JSON schema with all layoutData fields
+- [x] Update blog router generateArticle to use template rotation + layoutData generation
+- [x] Update blog router bulkGenerate to use template rotation + layoutData generation
+- [x] Update blog-scheduler.ts to use template rotation + layoutData generation
+- [x] Run tests (232 passed) and integrity checks (81/81 passed)
+- [ ] Save checkpoint

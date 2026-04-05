@@ -10,7 +10,11 @@ import {
   incrementBlogPostViews, publishScheduledBlogPosts,
   getBlogPostsWithoutImages,
 } from "../db";
-import { NLF_BLOG_SYSTEM_PROMPT, BULK_TOPIC_POOL, CATEGORY_LABELS } from "../blog-content-strategy";
+import {
+  NLF_BLOG_SYSTEM_PROMPT, BULK_TOPIC_POOL, CATEGORY_LABELS,
+  getNextTemplate, getLayoutDataPrompt, BLOG_JSON_SCHEMA_WITH_LAYOUT,
+  TEMPLATE_NAMES,
+} from "../blog-content-strategy";
 
 const BLOG_CATEGORIES = [
   "market_trends", "character_spotlight", "grading_guide",
@@ -81,6 +85,7 @@ const blogPostInput = z.object({
   readTimeMinutes: z.number().optional(),
 });
 
+// Legacy JSON schema (without layoutData) — kept for backward compatibility
 const JSON_SCHEMA = {
   type: "json_schema" as const,
   json_schema: {
@@ -167,7 +172,7 @@ export const blogAdminRouter = router({
     return { success: true };
   }),
 
-  // AI Article Generation — uses centralized NLF content strategy
+  // AI Article Generation — ORDER 66 Layout Engine with template rotation
   generateArticle: adminProcedure.input(z.object({
     topic: z.string().optional(),
     category: z.enum(BLOG_CATEGORIES).default("market_trends"),
@@ -175,6 +180,11 @@ export const blogAdminRouter = router({
     autoPublish: z.boolean().default(false),
     scheduledAt: z.number().optional(),
   })).mutation(async ({ input }) => {
+    // Get next template in the rotation
+    const templateNumber = getNextTemplate();
+    const templateName = TEMPLATE_NAMES[templateNumber] || "Field Report";
+    const layoutDataPrompt = getLayoutDataPrompt(templateNumber);
+
     const categoryLabel = CATEGORY_LABELS[input.category] || input.category;
     const topicPrompt = input.topic
       ? `Write about: ${input.topic}`
@@ -185,24 +195,22 @@ export const blogAdminRouter = router({
 Category: ${categoryLabel}
 ${input.focusKeyword ? `Focus Keyword: ${input.focusKeyword}` : ""}
 
-Respond in this exact JSON format:
-{
-  "title": "Article title (60 chars max for SEO)",
-  "slug": "url-friendly-slug",
-  "excerpt": "2-3 sentence preview (max 300 chars)",
-  "contentMarkdown": "Full article in markdown with H2/H3 headings",
-  "metaDescription": "SEO meta description (max 160 chars)",
-  "focusKeyword": "primary SEO keyword",
-  "tags": ["tag1", "tag2", "tag3"],
-  "imagePrompt": "A detailed prompt for a REALISTIC PHOTOGRAPHY-STYLE featured image. Must look like a real photograph, not AI art. Use product photography, flat-lay, macro, or lifestyle photo styles with natural lighting. NEVER use cosmic, glowing, neon, or illustrated styles. MUST NOT contain any text, letters, or words."
-}`;
+This article will use Layout Template #${templateNumber}: "${templateName}".
+${layoutDataPrompt}
+
+Respond in JSON with these fields:
+- title, slug, excerpt, contentMarkdown, metaDescription, focusKeyword, tags, imagePrompt, layoutData
+
+imagePrompt MUST describe a REALISTIC PHOTOGRAPHY-STYLE image. Must look like a real photograph, not AI art. Use product photography, flat-lay, macro, or lifestyle photo styles with natural lighting. NEVER use cosmic, glowing, neon, or illustrated styles. MUST NOT contain any text, letters, or words.`;
+
+    console.log(`[Blog] Generating article with Template #${templateNumber} (${templateName})`);
 
     const response = await invokeLLM({
       messages: [
         { role: "system", content: NLF_BLOG_SYSTEM_PROMPT },
         { role: "user", content: userPrompt },
       ],
-      response_format: JSON_SCHEMA,
+      response_format: BLOG_JSON_SCHEMA_WITH_LAYOUT,
     });
 
     const rawContent = response.choices[0]?.message?.content;
@@ -239,12 +247,14 @@ Respond in this exact JSON format:
       focusKeyword: article.focusKeyword || input.focusKeyword || null,
       internalLinks: INTERNAL_LINKS,
       readTimeMinutes: readTime,
+      layoutTemplate: templateNumber,
+      layoutData: article.layoutData || null,
     });
 
-    return { success: true, title: article.title };
+    return { success: true, title: article.title, template: templateNumber, templateName };
   }),
 
-  // Bulk generate articles for scheduling — uses centralized topic pool
+  // Bulk generate articles for scheduling — with template rotation
   bulkGenerate: adminProcedure.input(z.object({
     count: z.number().min(1).max(24),
     intervalMinutes: z.number().default(60),
@@ -252,11 +262,14 @@ Respond in this exact JSON format:
     categories: z.array(z.enum(BLOG_CATEGORIES)).optional(),
   })).mutation(async ({ input }) => {
     const startTime = input.startTime || Date.now();
-    const results: { title: string; scheduledAt: number }[] = [];
+    const results: { title: string; scheduledAt: number; template: number }[] = [];
 
     for (let i = 0; i < Math.min(input.count, BULK_TOPIC_POOL.length); i++) {
       const scheduledAt = startTime + (i * input.intervalMinutes * 60 * 1000);
       const topicEntry = BULK_TOPIC_POOL[i];
+      const templateNumber = getNextTemplate();
+      const templateName = TEMPLATE_NAMES[templateNumber] || "Field Report";
+      const layoutDataPrompt = getLayoutDataPrompt(templateNumber);
 
       try {
         const response = await invokeLLM({
@@ -264,10 +277,10 @@ Respond in this exact JSON format:
             { role: "system", content: NLF_BLOG_SYSTEM_PROMPT },
             {
               role: "user",
-              content: `Write about: ${topicEntry.topic}\nCategory: ${CATEGORY_LABELS[topicEntry.category] || topicEntry.category}\n\nRespond in JSON: {"title":"...","slug":"...","excerpt":"...","contentMarkdown":"...","metaDescription":"...","focusKeyword":"...","tags":["..."],"imagePrompt":"A detailed prompt for a featured image. MUST NOT contain any text, letters, or words."}`
+              content: `Write about: ${topicEntry.topic}\nCategory: ${CATEGORY_LABELS[topicEntry.category] || topicEntry.category}\n\nThis article will use Layout Template #${templateNumber}: "${templateName}".\n${layoutDataPrompt}\n\nRespond in JSON with: title, slug, excerpt, contentMarkdown, metaDescription, focusKeyword, tags, imagePrompt, layoutData\n\nimagePrompt MUST describe a REALISTIC PHOTOGRAPHY-STYLE image. MUST NOT contain any text, letters, or words.`
             },
           ],
-          response_format: JSON_SCHEMA,
+          response_format: BLOG_JSON_SCHEMA_WITH_LAYOUT,
         });
 
         const rawBulk = response.choices[0]?.message?.content;
@@ -302,9 +315,11 @@ Respond in this exact JSON format:
           focusKeyword: parsed.focusKeyword,
           internalLinks: INTERNAL_LINKS,
           readTimeMinutes: readTime,
+          layoutTemplate: templateNumber,
+          layoutData: parsed.layoutData || null,
         });
 
-        results.push({ title: parsed.title, scheduledAt });
+        results.push({ title: parsed.title, scheduledAt, template: templateNumber });
       } catch (err) {
         console.error(`[Blog] Failed to generate article ${i + 1}:`, err);
       }

@@ -20,7 +20,11 @@
 import { publishScheduledBlogPosts, createBlogPost, getPublishedBlogPosts } from "./db";
 import { invokeLLM } from "./_core/llm";
 import { generateImage } from "./_core/imageGeneration";
-import { NLF_BLOG_SYSTEM_PROMPT, TOPIC_POOLS, CATEGORY_LABELS } from "./blog-content-strategy";
+import {
+  NLF_BLOG_SYSTEM_PROMPT, TOPIC_POOLS, CATEGORY_LABELS,
+  getNextTemplate, getLayoutDataPrompt, BLOG_JSON_SCHEMA_WITH_LAYOUT,
+  TEMPLATE_NAMES,
+} from "./blog-content-strategy";
 
 // ==================== CONFIGURATION ====================
 
@@ -110,28 +114,7 @@ async function generateImageWithRetry(imagePrompt: string, title: string, catego
 
 // ==================== LLM JSON SCHEMA ====================
 
-const JSON_SCHEMA = {
-  type: "json_schema" as const,
-  json_schema: {
-    name: "blog_article",
-    strict: true,
-    schema: {
-      type: "object",
-      properties: {
-        title: { type: "string" },
-        slug: { type: "string" },
-        excerpt: { type: "string" },
-        contentMarkdown: { type: "string" },
-        metaDescription: { type: "string" },
-        focusKeyword: { type: "string" },
-        tags: { type: "array", items: { type: "string" } },
-        imagePrompt: { type: "string" },
-      },
-      required: ["title", "slug", "excerpt", "contentMarkdown", "metaDescription", "focusKeyword", "tags", "imagePrompt"],
-      additionalProperties: false,
-    },
-  },
-};
+// JSON schema now imported from blog-content-strategy.ts (BLOG_JSON_SCHEMA_WITH_LAYOUT)
 
 const INTERNAL_LINKS = [
   { text: "Browse our card database", url: "/cards" },
@@ -223,7 +206,12 @@ async function getRandomTopic(): Promise<{ topic: string; category: string }> {
 async function generateAndPublishArticle(): Promise<boolean> {
   const { topic, category } = await getRandomTopic();
 
-  console.log(`[Blog Scheduler] Generating article: "${topic}" (${category})`);
+  // ORDER 66 — Get next template in rotation
+  const templateNumber = getNextTemplate();
+  const templateName = TEMPLATE_NAMES[templateNumber] || "Field Report";
+  const layoutDataPrompt = getLayoutDataPrompt(templateNumber);
+
+  console.log(`[Blog Scheduler] Generating article: "${topic}" (${category}) — Template #${templateNumber} (${templateName})`);
 
   try {
     const response = await withRetry(
@@ -232,10 +220,10 @@ async function generateAndPublishArticle(): Promise<boolean> {
           { role: "system", content: NLF_BLOG_SYSTEM_PROMPT },
           {
             role: "user",
-            content: `Write about: ${topic}\nCategory: ${CATEGORY_LABELS[category] || category}\n\nRespond in JSON: {"title":"...","slug":"...","excerpt":"...","contentMarkdown":"...","metaDescription":"...","focusKeyword":"...","tags":["..."],"imagePrompt":"A detailed prompt for a REALISTIC PHOTOGRAPHY-STYLE featured image. Must look like a real photograph, not AI art. Use product photography, flat-lay, macro, or lifestyle photo styles with natural lighting. NEVER use cosmic, glowing, neon, or illustrated styles. MUST NOT contain any text, letters, or words."}`
+            content: `Write about: ${topic}\nCategory: ${CATEGORY_LABELS[category] || category}\n\nThis article will use Layout Template #${templateNumber}: "${templateName}".\n${layoutDataPrompt}\n\nRespond in JSON with: title, slug, excerpt, contentMarkdown, metaDescription, focusKeyword, tags, imagePrompt, layoutData\n\nimagePrompt MUST describe a REALISTIC PHOTOGRAPHY-STYLE image. Must look like a real photograph, not AI art. Use product photography, flat-lay, macro, or lifestyle photo styles with natural lighting. NEVER use cosmic, glowing, neon, or illustrated styles. MUST NOT contain any text, letters, or words.`
           },
         ],
-        response_format: JSON_SCHEMA,
+        response_format: BLOG_JSON_SCHEMA_WITH_LAYOUT,
       }),
       "LLM generation"
     );
@@ -281,11 +269,13 @@ async function generateAndPublishArticle(): Promise<boolean> {
         focusKeyword: article.focusKeyword,
         internalLinks: INTERNAL_LINKS,
         readTimeMinutes: readTime,
+        layoutTemplate: templateNumber,
+        layoutData: article.layoutData || null,
       }),
       "DB insert blog post"
     );
 
-    console.log(`[Blog Scheduler] Published: "${article.title}"`);
+    console.log(`[Blog Scheduler] Published: "${article.title}" (Template #${templateNumber})`);
     return true;
   } catch (err) {
     console.error("[Blog Scheduler] Failed to generate article:", err);
