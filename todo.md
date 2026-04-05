@@ -992,4 +992,14 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Update Checklists listing page: removed from ALWAYS_REVEALED_SLUGS, now shows Locked badge + Checklist Coming Soon
 - [x] Removed Gambit Preview Banner from listing page
 - [x] Updated description text to remove Gambit-specific transparency preview mention
+- [x] Save checkpoint
+
+## Blog Engine Rollout — Full Activation
+- [x] Generate 2 test articles to verify ORDER 66 template rendering (Template #1 Field Report + Template #2 Personnel Dossier)
+- [x] Bulk generate 12 articles (one per template) to exercise all layouts — all 12 templates published
+- [x] Update The Collector listing page with heat badges, template-type indicators, and Flash Alert styling
+- [x] Regenerate images — legacy articles already had new images; redistributed templates evenly (3 per template across all 12)
+- [x] Re-enable the auto-scheduler (3 articles/day at 8am, 1pm, 6pm CT with ORDER 66 template rotation)
+- [x] Sitemap already fully implemented at /sitemap.xml with all dynamic content (cards, characters, blog posts, products) + robots.txt pointing to it
+- [x] Run tests (232 passed) and integrity checks (81/81 passed)
 - [ ] Save checkpoint

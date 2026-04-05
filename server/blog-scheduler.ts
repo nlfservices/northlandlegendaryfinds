@@ -28,7 +28,7 @@ import {
 
 // ==================== CONFIGURATION ====================
 
-const AUTO_GENERATE_ENABLED = false; // DISABLED by user request — re-enable when ready to resume content generation
+const AUTO_GENERATE_ENABLED = true; // Re-enabled with ORDER 66 template rotation (3 articles/day at 8am, 1pm, 6pm CT)
 const CHECK_INTERVAL_MS = 5 * 60 * 1000; // 5 minutes
 const DB_RETRY_ATTEMPTS = 3;
 const DB_RETRY_DELAY_MS = 3000;
