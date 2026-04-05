@@ -989,4 +989,7 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Show "CHECKLIST HIDDEN" overlay with launch date message instead of full checklist
 - [x] Hide Total Cards and Packs Left stats (show lock/clock icons instead)
 - [x] Remove card count from hidden overlay message
+- [x] Update Checklists listing page: removed from ALWAYS_REVEALED_SLUGS, now shows Locked badge + Checklist Coming Soon
+- [x] Removed Gambit Preview Banner from listing page
+- [x] Updated description text to remove Gambit-specific transparency preview mention
 - [ ] Save checkpoint

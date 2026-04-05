@@ -15,14 +15,14 @@ import { Link } from "wouter";
 import {
   ListChecks, ArrowRight, Package, Zap, Radio,
   CheckCircle2, Circle, Loader2, TrendingUp, Eye,
-  Lock, Clock, Sparkles
+  Lock, Clock
 } from "lucide-react";
 import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 import { products as frontendProducts } from "@/lib/products";
 import { useMemo } from "react";
 
 /** Slugs that are always revealed regardless of date */
-const ALWAYS_REVEALED_SLUGS = ["nlf-marvel-52-singles"];
+const ALWAYS_REVEALED_SLUGS: string[] = [];
 
 /** Check if a product's checklist is unlocked (1 week before launch or always revealed) */
 function isChecklistUnlocked(product: { dbSlug?: string; checklistSlug?: string; launchDate?: string; isComingSoon: boolean }): boolean {
@@ -109,8 +109,7 @@ export default function Checklists() {
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Every NLF repack has a full checklist published before launch. Browse below to see what's inside 
-              each set. Checklists are revealed one week before their launch date — Gambit's Deck is our 
-              transparency preview so you can see the quality firsthand.
+              each set. Checklists are revealed one week before their launch date.
             </p>
           </div>
         </div>
@@ -138,18 +137,7 @@ export default function Checklists() {
         </div>
       </section>
 
-      {/* Gambit Preview Banner */}
-      <section className="py-6 bg-gradient-to-r from-fuchsia-950/30 via-purple-950/20 to-fuchsia-950/30 border-b border-fuchsia-500/20">
-        <div className="container">
-          <div className="flex items-center justify-center gap-3 text-center">
-            <Sparkles className="w-5 h-5 text-fuchsia-400 shrink-0" />
-            <p className="text-sm text-fuchsia-200">
-              <span className="font-bold">Gambit's Deck</span> is our transparency preview — browse the full checklist now to see the quality of cards in every NLF repack.
-            </p>
-            <Sparkles className="w-5 h-5 text-fuchsia-400 shrink-0" />
-          </div>
-        </div>
-      </section>
+      {/* Gambit Preview Banner — hidden until checklists are revealed */}
 
       {/* Product Grid */}
       <section className="py-12 lg:py-16">
