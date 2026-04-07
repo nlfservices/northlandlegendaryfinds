@@ -1018,3 +1018,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Mobile-responsive design (most FB ad traffic is mobile)
 - [x] Tests written and passing (9 tests)
 - [x] Save checkpoint
+
+## Site Map Page (Auto-Discovery)
+- [x] Build /sitemap page with auto-discovered routes grouped by category (6 sections, 31 pages)
+- [x] Dedicated blog articles section pulling from tRPC blog.list (41 articles with thumbnails, categories, dates)
+- [x] Auto-updates when new pages/routes are added to SITE_SECTIONS registry
+- [x] SEO meta tags and breadcrumb JSON-LD
+- [x] Add route to App.tsx, sitemap.xml, and footer link
+- [x] Write tests (4 tests, 245 total passing)
+- [x] Save checkpoint
