@@ -1002,4 +1002,19 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Re-enable the auto-scheduler (3 articles/day at 8am, 1pm, 6pm CT with ORDER 66 template rotation)
 - [x] Sitemap already fully implemented at /sitemap.xml with all dynamic content (cards, characters, blog posts, products) + robots.txt pointing to it
 - [x] Run tests (232 passed) and integrity checks (81/81 passed)
-- [ ] Save checkpoint
+- [x] Save checkpoint
+
+## Whatnot Referral Landing Page (Facebook Ads Funnel)
+- [x] Build dedicated landing page at /free-credit
+- [x] Hero section: "$15 FREE to Shop Live Card Breaks" with strong CTA
+- [x] Explain how Whatnot works and the $15 credit referral deal (How It Works + FAQ sections)
+- [x] Showcase NLF repack products / what they'll find on shows (alternating image/text layout)
+- [x] Primary CTA button → Whatnot referral link (whatnot.com/invite/northlandfinds)
+- [x] Secondary CTA → Shop repacks on the site
+- [x] Lead capture form (first name + email for future drops, drawings, events)
+- [x] GHL form integration via existing subscribe mutation (source: whatnot-referral-landing)
+- [x] Facebook Pixel tracking (ViewContent, Lead, WhatnotReferralClick events)
+- [x] Add route to App.tsx + sitemap entry
+- [x] Mobile-responsive design (most FB ad traffic is mobile)
+- [x] Tests written and passing (9 tests)
+- [x] Save checkpoint
