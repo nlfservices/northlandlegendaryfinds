@@ -1046,3 +1046,16 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Never show again after successful subscription (localStorage permanent)
 - [x] All 245 tests passing, 81 integrity checks OK
 - [x] Save checkpoint
+
+## Newsletter Signup Component (GHL Dual Capture)
+- [x] Build NewsletterSignup component with GHL hidden iframe dual-capture
+- [x] GHL Form ID: 5SL68SbkAFgq85FPiJw6, Subaccount: KFJlOhDocOFLVA5rLqVh
+- [x] Fields: Email (required), First Name (optional)
+- [x] Dual capture: local DB via tRPC + hidden GHL iframe POST
+- [x] Add newsletter section to homepage (replaced old inline subscribe)
+- [x] Add newsletter to footer (compact variant)
+- [x] Add sidebar widget on TheCollector blog listing page (sticky sidebar)
+- [x] Verify tracking pixels: FB 839598775754379 (2x), GHL tk_5e6eeee5cecd4141a974a611606e39e8 (1x), GA4 G-CR444D1BXY (2x)
+- [x] Verify no cross-site links remain (0 matches for mintcomiccards, riseofdoom, comicbookcard)
+- [x] 81/81 integrity checks passed, 245/245 tests passing
+- [x] Checkpoint saved

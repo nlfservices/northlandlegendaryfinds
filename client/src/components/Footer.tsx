@@ -1,15 +1,16 @@
 /**
- * Footer - NLF cosmic theme with all store links
+ * Footer - NLF cosmic theme with all store links + newsletter signup
  */
 
 import { Link } from "wouter";
 import { Mail, Facebook, Instagram, Youtube } from "lucide-react";
+import NewsletterSignup from "@/components/NewsletterSignup";
 
 export default function Footer() {
   return (
     <footer className="bg-card border-t border-border mt-auto">
       <div className="container py-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-3 mb-4">
@@ -83,6 +84,11 @@ export default function Footer() {
               <li><Link href="/privacy" className="text-sm text-muted-foreground hover:text-primary transition-colors">Privacy Policy</Link></li>
               <li><Link href="/refund-policy" className="text-sm text-muted-foreground hover:text-primary transition-colors">Refund Policy</Link></li>
             </ul>
+          </div>
+
+          {/* Newsletter Signup */}
+          <div className="col-span-2 md:col-span-1">
+            <NewsletterSignup variant="footer" source="footer-newsletter" />
           </div>
         </div>
 

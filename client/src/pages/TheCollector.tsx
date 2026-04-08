@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { trpc } from "@/lib/trpc";
 import SEO, { breadcrumbJsonLd } from "@/components/SEO";
+import NewsletterSignup from "@/components/NewsletterSignup";
 
 const CATEGORIES = [
   { key: "all", label: "All Posts", icon: BookOpen },
@@ -304,10 +305,13 @@ export default function TheCollector() {
           </div>
         </section>
 
-        {/* ===== POST GRID ===== */}
+        {/* ===== POST GRID + SIDEBAR ===== */}
         <section className="container pb-20">
+          <div className="grid lg:grid-cols-[1fr_280px] gap-8">
+          {/* Main content */}
+          <div>
           {isLoading ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 gap-6">
               {Array.from({ length: 6 }).map((_, i) => (
                 <div key={i} className="bg-card/30 border border-border rounded-xl overflow-hidden animate-pulse">
                   <div className="aspect-video bg-muted" />
@@ -328,12 +332,21 @@ export default function TheCollector() {
               </p>
             </div>
           ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 gap-6">
               {filteredPosts.map((post: any) => (
                 <ArticleCard key={post.id} post={post} />
               ))}
             </div>
           )}
+          </div>
+
+          {/* Sidebar */}
+          <aside className="hidden lg:block space-y-6">
+            <div className="sticky top-24">
+              <NewsletterSignup variant="sidebar" source="blog-sidebar" />
+            </div>
+          </aside>
+          </div>
         </section>
       </div>
     </>

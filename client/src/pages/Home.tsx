@@ -3,9 +3,9 @@
  * Design: Hero with pack image, Card Showcase, product lines, trust elements
  */
 
-import { useState } from "react";
 import { useAuth } from "@/_core/hooks/useAuth";
-import { ShoppingCart, Shield, Star, TrendingUp, Package, ArrowRight, Zap, BookOpen, Clock, Eye, Radio, HelpCircle, Search, Box, Gift, CheckCircle2, Loader2 } from "lucide-react";
+import { ShoppingCart, Shield, Star, TrendingUp, Package, ArrowRight, Zap, BookOpen, Clock, Eye, Radio, HelpCircle, Search, Box, Gift } from "lucide-react";
+import NewsletterSignup from "@/components/NewsletterSignup";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { useCart } from "@/contexts/CartContext";
@@ -15,8 +15,7 @@ import ProductCard from "@/components/ProductCard";
 import SEO, { organizationJsonLd, websiteJsonLd, localBusinessJsonLd } from "@/components/SEO";
 import DoomsdaySection from "@/components/DoomsdaySection";
 import MarvelousTop5 from "@/components/MarvelousTop5";
-import { trpc } from "@/lib/trpc";
-import { toast } from "sonner";
+
 
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hero-banner-jniBj55ukeiEDpJxc2aLgB.webp";
 const NLF_PACK = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-nlf-variant-2CkMPP3CsZhFkFXpzSuZkV.webp";
@@ -32,19 +31,6 @@ export default function Home() {
   const gambitProduct = getFeaturedProduct();
   const comingSoonLines = productLines.filter(l => !l.available);
 
-  // Inline email capture state
-  const [subEmail, setSubEmail] = useState("");
-  const [subFirstName, setSubFirstName] = useState("");
-  const [subscribeSuccess, setSubscribeSuccess] = useState(false);
-  const subscribeMutation = trpc.public.subscribe.submit.useMutation({
-    onSuccess: (data) => {
-      setSubscribeSuccess(true);
-      toast.success(data.message);
-    },
-    onError: (err) => {
-      toast.error(err.message || "Something went wrong. Please try again.");
-    },
-  });
 
   return (
     <div className="min-h-screen">
@@ -569,72 +555,7 @@ export default function Home() {
       </section>
 
       {/* ===== NEWSLETTER — INLINE EMAIL CAPTURE ===== */}
-      <section className="py-16 lg:py-20 bg-card border-y border-border">
-        <div className="container max-w-2xl text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
-            JOIN THE <span className="text-primary">LEGEND</span>
-          </h2>
-          <p className="text-muted-foreground text-lg mb-2">
-            Be the first to know about new drops, exclusive offers, and collector tips
-          </p>
-          <p className="text-muted-foreground text-sm mb-8">
-            Sign up and get <strong className="text-primary">10% off</strong> your first order
-          </p>
-
-          {subscribeSuccess ? (
-            <div className="flex flex-col items-center gap-3 py-4">
-              <CheckCircle2 className="w-12 h-12 text-primary" />
-              <p className="text-lg font-bold text-primary">You're in!</p>
-              <p className="text-muted-foreground">Check your email for your 10% discount code.</p>
-            </div>
-          ) : (
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                if (!subEmail.trim()) return;
-                subscribeMutation.mutate({
-                  email: subEmail.trim(),
-                  firstName: subFirstName.trim() || undefined,
-                  source: "homepage-inline",
-                });
-              }}
-              className="flex flex-col sm:flex-row gap-3 max-w-xl mx-auto"
-            >
-              <input
-                type="text"
-                placeholder="First name (optional)"
-                value={subFirstName}
-                onChange={(e) => setSubFirstName(e.target.value)}
-                className="flex-shrink-0 w-full sm:w-36 px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
-              />
-              <input
-                type="email"
-                placeholder="Enter your email"
-                value={subEmail}
-                onChange={(e) => setSubEmail(e.target.value)}
-                required
-                className="flex-1 px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
-              />
-              <Button
-                type="submit"
-                size="lg"
-                disabled={subscribeMutation.isPending}
-                className="bg-primary hover:bg-primary/90 font-bold text-lg px-8 py-3 shadow-lg shadow-primary/20"
-              >
-                {subscribeMutation.isPending ? (
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                ) : (
-                  <>
-                    Subscribe
-                    <ArrowRight className="w-5 h-5 ml-2" />
-                  </>
-                )}
-              </Button>
-            </form>
-          )}
-          <p className="text-xs text-muted-foreground mt-4">No spam, ever. Unsubscribe anytime.</p>
-        </div>
-      </section>
+      <NewsletterSignup variant="section" source="homepage-inline" />
     </div>
   );
 }
