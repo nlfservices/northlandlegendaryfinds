@@ -1027,3 +1027,13 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add route to App.tsx, sitemap.xml, and footer link
 - [x] Write tests (4 tests, 245 total passing)
 - [x] Save checkpoint
+
+## Remove Cross-Site Links (mintcomiccards.com & riseofdoom.com)
+- [x] Find all references to mintcomiccards.com and riseofdoom.com (found in index.html only)
+- [x] Remove Network Bar (entire NLF Network bar with Comic Book Cards + Mint Comics links)
+- [x] Remove Network Bar CSS styles
+- [x] Remove Network Bar padding script
+- [x] No footer links to sister sites found (footer was clean)
+- [x] No other cross-site references found (grep confirmed zero matches)
+- [x] Verify no NLF content or functionality was removed (81/81 integrity checks passed)
+- [x] Save checkpoint
