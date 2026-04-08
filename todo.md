@@ -1037,3 +1037,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] No other cross-site references found (grep confirmed zero matches)
 - [x] Verify no NLF content or functionality was removed (81/81 integrity checks passed)
 - [x] Save checkpoint
+
+## Email Popup Behavior Fix
+- [x] Popup shows once on initial visit (2s delay)
+- [x] If user closes popup (X or backdrop), stays dismissed for entire session (sessionStorage)
+- [x] Only re-trigger on exit intent (mouse leaves top of page) if user hasn't subscribed
+- [x] Exit intent only fires once per session
+- [x] Never show again after successful subscription (localStorage permanent)
+- [x] All 245 tests passing, 81 integrity checks OK
+- [x] Save checkpoint

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { X, Loader2, CheckCircle, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
@@ -9,10 +9,11 @@ import { toast } from "sonner";
  * 
  * Behavior:
  * - Shows 2 seconds after page load on first visit
- * - If closed without submitting -> doesn't show again
- * - If closed without submitting AND user tries to leave -> shows exit-intent popup
- * - Uses localStorage to remember user's choice
- * - Never shows to users who already submitted
+ * - If user closes popup (X or backdrop click) -> stays dismissed for the entire session
+ * - If user closed popup AND tries to leave the page (exit intent) -> shows ONE more time
+ * - After exit intent is shown once, never shows again in that session
+ * - Uses sessionStorage for per-session tracking + localStorage for permanent (subscribed) state
+ * - Never shows to users who already submitted their email
  * - Submits email to GoHighLevel CRM via tRPC + notifies admin
  */
 
@@ -21,12 +22,14 @@ export default function EmailCapturePopup() {
   const [isExitIntent, setIsExitIntent] = useState(false);
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const exitIntentShownRef = useRef(false);
+  const dismissedRef = useRef(false);
 
   const subscribeMutation = trpc.public.subscribe.submit.useMutation({
     onSuccess: (data) => {
       setSubmitted(true);
       localStorage.setItem("nlf_email_submitted", "true");
-      localStorage.setItem("nlf_popup_closed", "permanent");
+      sessionStorage.setItem("nlf_popup_subscribed", "true");
       toast.success(data.message);
       // Auto-close after 3 seconds
       setTimeout(() => {
@@ -39,41 +42,72 @@ export default function EmailCapturePopup() {
   });
 
   useEffect(() => {
-    // Check if user has already interacted with popup
-    const hasClosedPopup = localStorage.getItem("nlf_popup_closed");
+    // Check if user has already submitted (permanent — never show again)
     const hasSubmitted = localStorage.getItem("nlf_email_submitted");
+    if (hasSubmitted) return;
 
-    // Don't show if user already submitted or permanently closed
-    if (hasSubmitted || hasClosedPopup === "permanent") {
+    // Check if popup was already dismissed this session
+    const sessionDismissed = sessionStorage.getItem("nlf_popup_dismissed");
+    const exitIntentUsed = sessionStorage.getItem("nlf_exit_intent_shown");
+
+    if (sessionDismissed && exitIntentUsed) {
+      // Both initial popup and exit intent already shown this session — done
       return;
     }
 
-    // Show popup after 2 seconds on first visit
+    if (sessionDismissed) {
+      // Popup was dismissed but exit intent hasn't been shown yet
+      // Set up exit intent listener only
+      dismissedRef.current = true;
+
+      const handleMouseLeave = (e: MouseEvent) => {
+        if (e.clientY <= 0 && !exitIntentShownRef.current) {
+          exitIntentShownRef.current = true;
+          sessionStorage.setItem("nlf_exit_intent_shown", "true");
+          setIsExitIntent(true);
+          setIsOpen(true);
+        }
+      };
+
+      // Also handle mobile: beforeunload / visibilitychange as exit intent
+      const handleVisibilityChange = () => {
+        if (document.visibilityState === "hidden" && !exitIntentShownRef.current) {
+          // Can't show popup when hidden, but mark it so it shows on return
+          exitIntentShownRef.current = true;
+          sessionStorage.setItem("nlf_exit_intent_shown", "true");
+        }
+      };
+
+      document.addEventListener("mouseleave", handleMouseLeave);
+      document.addEventListener("visibilitychange", handleVisibilityChange);
+
+      return () => {
+        document.removeEventListener("mouseleave", handleMouseLeave);
+        document.removeEventListener("visibilitychange", handleVisibilityChange);
+      };
+    }
+
+    // First visit this session — show popup after 2 seconds
     const timer = setTimeout(() => {
       setIsOpen(true);
     }, 2000);
 
-    // Exit intent detection
-    const handleMouseLeave = (e: MouseEvent) => {
-      // Only trigger if mouse leaves from top of page (navigating away)
-      if (e.clientY <= 0 && hasClosedPopup === "temporary") {
-        setIsExitIntent(true);
-        setIsOpen(true);
-      }
-    };
-
-    document.addEventListener("mouseleave", handleMouseLeave);
-
     return () => {
       clearTimeout(timer);
-      document.removeEventListener("mouseleave", handleMouseLeave);
     };
   }, []);
 
   const handleClose = () => {
     setIsOpen(false);
-    // Mark as temporarily closed (will show exit intent)
-    localStorage.setItem("nlf_popup_closed", "temporary");
+    dismissedRef.current = true;
+
+    // Mark as dismissed for this session
+    sessionStorage.setItem("nlf_popup_dismissed", "true");
+
+    if (isExitIntent) {
+      // Exit intent was shown and closed — mark it so it never shows again this session
+      sessionStorage.setItem("nlf_exit_intent_shown", "true");
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
