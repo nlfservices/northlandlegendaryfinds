@@ -1129,3 +1129,11 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Trust section: "100% Real Cards", "Free Resources", "Full Transparency", "Built by Fans"
 - [x] All 272 tests passing, 81/81 integrity checks green
 - [x] Save checkpoint
+
+## Whatnot Stream CTA — Make It Very Noticeable
+- [x] Moved Whatnot from position 9 to position 3 — right after stats bar, before everything else
+- [x] Full redesign: intense purple/red gradient background, 7xl "STREAM WITH US" headline, pulsing LIVE indicator, animated ring effects
+- [x] 3-column layout: big bold text + QR code + FREE/LIVE/CHAT/WIN feature cards
+- [x] White CTA button on purple bg for maximum contrast, mobile QR code fallback
+- [x] All 272 tests passing, 81/81 integrity checks green
+- [x] Save checkpoint
