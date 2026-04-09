@@ -1115,3 +1115,17 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] New "Explore the Collection" section with Spider-Man card and CTA buttons
 - [x] All 272 tests passing, 81/81 integrity checks green
 - [x] Run integrity check and save checkpoint
+
+## Homepage Rework: New Collector Focus (Repacks Secondary)
+- [x] Rework hero: "LOVE MARVEL OR STAR WARS? START HERE." — fan-first, not collector jargon
+- [x] Rewrite Collector's Journey: "I GREW UP ON THIS" / "WE DO THIS TOGETHER" / "I WANT TO LEARN MORE" — no jargon
+- [x] Add "New to Collecting?" section: Pick Your Fandom → Learn the Basics → Browse the Cards
+- [x] Reorder sections: Welcome → Journey → Doomsday → Top5 → Explore → Fandom Roadmap → Whatnot → THEN repacks
+- [x] Push all product/repack sections to bottom of page (sections 10-13 of 14)
+- [x] Simplify jargon: "numbered parallels" → "rare versions", "slabs" → "professionally graded cards", etc.
+- [x] CTAs fan-first: "Discover Your Heroes", "New to Collecting?", "Explore Characters"
+- [x] Whatnot section reframed: "JOIN THE COMMUNITY" with "FREE to watch", "CHAT with other fans", "WIN giveaways"
+- [x] What is a Repack rewritten: "curated gift box" analogy, plain language throughout
+- [x] Trust section: "100% Real Cards", "Free Resources", "Full Transparency", "Built by Fans"
+- [x] All 272 tests passing, 81/81 integrity checks green
+- [x] Save checkpoint
