@@ -1178,3 +1178,11 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Updated subtitle: "52 Premium Marvel Mint Packs — Complete Gambit Set Inside"
 - [x] Updated features list and product line tagline
 - [x] Save checkpoint
+
+## Whatnot + Free Credit Combo Page
+- [x] Added $15 FREE CREDIT section to /whatnot page with 3-step how-to, claim CTA, and email capture form
+- [x] GHL integration + Facebook Pixel Lead tracking on whatnot page form
+- [x] /free-credit remains as standalone Facebook ad landing page (untouched)
+- [x] Correct Whatnot QR code deployed across all 4 pages (Home, Footer, Whatnot, WhatnotDeal)
+- [x] All 272 tests passing, 81/81 integrity checks green
+- [x] Save checkpoint
