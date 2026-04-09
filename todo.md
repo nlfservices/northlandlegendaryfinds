@@ -1240,4 +1240,14 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Rearrange page flow: Promo Hero → 3-Step Claim → 500-Pack Explainer → Upcoming Shows → Live Products → Past Shows → Follow CTA
 - [x] Make the page visually stunning with premium design (animated bg, hover effects, color-coded steps)
 - [x] Verify visually and run integrity check + tests (81/81, 272/272)
+- [x] Save checkpoint
+
+## Whatnot Page — Fix Referral Program Copy to Match Official Terms
+- [x] Update hero copy: $15 OFF YOUR FIRST LIVE PURCHASE (not "$15 FREE")
+- [x] Update 3-step flow: Sign Up via Our Link → $15 Credit Added → Use It on Your First Buy
+- [x] Update trust badges: No Minimum Spend, Auto-Applied at Checkout, 30-Second Signup
+- [x] Updated FAQ: 90-day expiry, first purchase only, auto-follow
+- [x] Update WhatnotDeal.tsx (/free-credit) with same accurate terms (22 edits)
+- [x] Update all CTA buttons: "Claim Your $15 Free Credit" → "Get My $15 Credit"
+- [x] Run integrity check + tests (81/81, 272/272)
 - [ ] Save checkpoint

@@ -42,7 +42,7 @@ export default function Whatnot() {
       toast.success("You're in! Check your inbox for updates.");
       if (typeof window !== "undefined" && (window as any).fbq) {
         (window as any).fbq("track", "Lead", {
-          content_name: "Whatnot Page Free Credit",
+          content_name: "Whatnot Page Credit Offer",
           content_category: "email_signup",
         });
       }
@@ -75,12 +75,12 @@ export default function Whatnot() {
     <div className="min-h-screen">
       <SEO
         title="Live on Whatnot"
-        description="Watch Northland Legendary Finds live card breaks on Whatnot. Join our streams for real-time Marvel trading card reveals, giveaways, and great deals. New users get $15 free credit!"
+        description="Watch Northland Legendary Finds live card breaks on Whatnot. Join our streams for real-time Marvel trading card reveals, giveaways, and great deals. New users get $15 credit towards their first purchase!"
         path="/whatnot"
         jsonLd={breadcrumbJsonLd([{ name: "Home", url: "/" }, { name: "Whatnot", url: "/whatnot" }])}
       />
 
-      {/* ===== SECTION 1: $15 FREE CREDIT HERO ===== */}
+      {/* ===== SECTION 1: $15 CREDIT HERO ===== */}
       <section className="relative py-16 lg:py-24 overflow-hidden">
         {/* Animated background */}
         <div className="absolute inset-0">
@@ -103,31 +103,31 @@ export default function Whatnot() {
             <div>
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-yellow-500/15 border border-yellow-500/40 rounded-full mb-6 animate-bounce" style={{ animationDuration: '2s' }}>
                 <Gift className="w-5 h-5 text-yellow-400" />
-                <span className="text-yellow-400 text-sm font-bold tracking-wider">NEW TO WHATNOT? START HERE</span>
+                <span className="text-yellow-400 text-sm font-bold tracking-wider">NEW TO WHATNOT? GET $15 OFF YOUR FIRST BUY</span>
               </div>
 
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[0.95] mb-6" style={{ fontFamily: "'Anton', sans-serif" }}>
                 GET{" "}
                 <span className="relative inline-block">
-                  <span className="text-yellow-400">$15 FREE</span>
+                  <span className="text-yellow-400">$15 OFF</span>
                   <span className="absolute -bottom-1 left-0 w-full h-1 bg-yellow-400/60 rounded-full" />
                 </span>
                 <br />
-                <span className="text-purple-400">TO SHOP</span>
+                <span className="text-purple-400">YOUR FIRST</span>
                 <br />
-                OUR LIVE SHOWS
+                LIVE PURCHASE
               </h1>
 
               <p className="text-xl text-muted-foreground max-w-lg mb-8 leading-relaxed">
-                Sign up through our link and Whatnot gives you <strong className="text-yellow-400">$15 credit instantly</strong>. 
-                Use it on your first purchase at any of our live Marvel card break shows. No catch. No code needed.
+                Sign up through our link and Whatnot gives you <strong className="text-yellow-400">$15 in credit</strong> — applied 
+                automatically at checkout on your first purchase. Use it at any of our live Marvel card break shows. No code needed.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
                 <a href={WHATNOT_INVITE} target="_blank" rel="noopener noreferrer" onClick={handleWhatnotClick}>
                   <Button size="lg" className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-lg px-8 py-7 shadow-xl shadow-yellow-500/25 hover:shadow-yellow-500/40 transition-all hover:scale-[1.02] w-full sm:w-auto">
                     <Gift className="w-6 h-6 mr-2" />
-                    Claim Your $15 Free
+                    Get My $15 Credit
                     <ExternalLink className="w-4 h-4 ml-2" />
                   </Button>
                 </a>
@@ -145,25 +145,25 @@ export default function Whatnot() {
                   <div className="w-8 h-8 bg-green-500/10 rounded-full flex items-center justify-center">
                     <Shield className="w-4 h-4 text-green-400" />
                   </div>
-                  100% Free
+                  No Minimum Spend
                 </span>
                 <span className="flex items-center gap-2">
                   <div className="w-8 h-8 bg-green-500/10 rounded-full flex items-center justify-center">
                     <CheckCircle2 className="w-4 h-4 text-green-400" />
                   </div>
-                  No Catch
+                  Auto-Follow Our Shows
                 </span>
                 <span className="flex items-center gap-2">
                   <div className="w-8 h-8 bg-green-500/10 rounded-full flex items-center justify-center">
                     <Clock className="w-4 h-4 text-green-400" />
                   </div>
-                  30 Seconds
+                  30-Second Signup
                 </span>
                 <span className="flex items-center gap-2">
                   <div className="w-8 h-8 bg-green-500/10 rounded-full flex items-center justify-center">
                     <DollarSign className="w-4 h-4 text-green-400" />
                   </div>
-                  Instant Credit
+                  Applied at Checkout
                 </span>
               </div>
             </div>
@@ -204,7 +204,7 @@ export default function Whatnot() {
                     <a href={WHATNOT_INVITE} target="_blank" rel="noopener noreferrer" onClick={handleWhatnotClick}>
                       <Button className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold">
                         <Gift className="w-4 h-4 mr-2" />
-                        Now Claim Your $15 Credit
+                        Get My $15 Credit
                         <ExternalLink className="w-4 h-4 ml-2" />
                       </Button>
                     </a>
@@ -256,7 +256,7 @@ export default function Whatnot() {
         <div className="container max-w-5xl relative z-10">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
-              HOW TO <span className="text-yellow-400">CLAIM</span> YOUR $15
+              HOW TO <span className="text-yellow-400">GET</span> YOUR $15 CREDIT
             </h2>
             <p className="text-muted-foreground text-lg">Three simple steps. Takes less than 30 seconds.</p>
           </div>
@@ -269,9 +269,9 @@ export default function Whatnot() {
                   <UserPlus className="w-10 h-10 text-yellow-400" />
                 </div>
                 <div className="text-5xl font-bold text-yellow-400/20 mb-2" style={{ fontFamily: "'Anton', sans-serif" }}>01</div>
-                <h3 className="text-xl font-bold mb-2">Sign Up on Whatnot</h3>
+                <h3 className="text-xl font-bold mb-2">Sign Up via Our Link</h3>
                 <p className="text-sm text-muted-foreground">
-                  Click our link and create your free account. Takes 30 seconds.
+                  Click our referral link and create your free Whatnot account. Takes 30 seconds.
                 </p>
               </div>
               <div className="hidden md:flex absolute top-1/2 -right-4 -translate-y-1/2 z-10">
@@ -286,9 +286,9 @@ export default function Whatnot() {
                   <DollarSign className="w-10 h-10 text-green-400" />
                 </div>
                 <div className="text-5xl font-bold text-green-400/20 mb-2" style={{ fontFamily: "'Anton', sans-serif" }}>02</div>
-                <h3 className="text-xl font-bold mb-2">Get $15 Instantly</h3>
+                <h3 className="text-xl font-bold mb-2">$15 Credit Added</h3>
                 <p className="text-sm text-muted-foreground">
-                  Credit auto-applied to your account. No code needed. It's that easy.
+                  $15 is added to your account automatically. You'll also auto-follow our page.
                 </p>
               </div>
               <div className="hidden md:flex absolute top-1/2 -right-4 -translate-y-1/2 z-10">
@@ -303,9 +303,9 @@ export default function Whatnot() {
                   <ShoppingBag className="w-10 h-10 text-purple-400" />
                 </div>
                 <div className="text-5xl font-bold text-purple-400/20 mb-2" style={{ fontFamily: "'Anton', sans-serif" }}>03</div>
-                <h3 className="text-xl font-bold mb-2">Shop Our Live Shows</h3>
+                <h3 className="text-xl font-bold mb-2">Use It on Your First Buy</h3>
                 <p className="text-sm text-muted-foreground">
-                  Follow us and use your credit at our next live show!
+                  Credit applies automatically at checkout on your first purchase. No minimum spend!
                 </p>
               </div>
             </div>
@@ -316,7 +316,7 @@ export default function Whatnot() {
             <a href={WHATNOT_INVITE} target="_blank" rel="noopener noreferrer" onClick={handleWhatnotClick}>
               <Button size="lg" className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-lg px-10 py-7 shadow-xl shadow-yellow-500/20 hover:shadow-yellow-500/40 transition-all hover:scale-[1.02]">
                 <Gift className="w-6 h-6 mr-2" />
-                Claim Your $15 Free Credit
+                Get My $15 Credit
                 <ExternalLink className="w-4 h-4 ml-2" />
               </Button>
             </a>
@@ -606,7 +606,7 @@ export default function Whatnot() {
             <a href={WHATNOT_INVITE} target="_blank" rel="noopener noreferrer" onClick={handleWhatnotClick}>
               <Button size="lg" className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-lg px-10 py-7">
                 <Gift className="w-5 h-5 mr-2" />
-                Get $15 Free
+                Get $15 Credit
                 <ExternalLink className="w-4 h-4 ml-2" />
               </Button>
             </a>

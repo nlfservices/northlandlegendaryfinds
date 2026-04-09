@@ -66,7 +66,7 @@ describe("Whatnot Deal Landing Page", () => {
     const fs = await import("fs");
     const pageContent = fs.readFileSync("client/src/pages/WhatnotDeal.tsx", "utf-8");
     // Hero section
-    expect(pageContent).toContain("$15 FREE");
+    expect(pageContent).toContain("$15 OFF");
     // How it works
     expect(pageContent).toContain("HOW TO GET YOUR");
     // What you'll find

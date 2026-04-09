@@ -9,7 +9,7 @@
  * CRO Optimizations:
  * - Standalone page (no main nav/footer) — logo-only minimal header
  * - No email popup (suppressed in EmailCapturePopup)
- * - All CTAs consolidated to "Claim Your $15 Free Credit"
+ * - All CTAs consolidated to "Get My $15 Credit"
  * - Social proof trust bar below hero
  * - Condensed sections for mobile scrolling
  * - Sticky mobile CTA at bottom of screen
@@ -112,12 +112,12 @@ export default function WhatnotDeal() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SEO
-        title="Get $15 FREE to Shop Live Marvel Card Breaks"
-        description="Sign up for Whatnot through Northland Legendary Finds and get $15 FREE credit to shop live Marvel trading card breaks, exclusive repacks, and graded slab auctions."
+        title="Get $15 Off Your First Live Marvel Card Break Purchase"
+        description="Sign up for Whatnot through Northland Legendary Finds and get $15 credit towards your first purchase at our live Marvel trading card breaks, repacks, and graded slab auctions."
         path="/free-credit"
         jsonLd={breadcrumbJsonLd([
           { name: "Home", url: "/" },
-          { name: "Free $15 Credit", url: "/free-credit" },
+          { name: "$15 Credit Offer", url: "/free-credit" },
         ])}
       />
 
@@ -147,7 +147,7 @@ export default function WhatnotDeal() {
           >
             <Button size="sm" className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold hidden sm:flex">
               <Gift className="w-4 h-4 mr-1.5" />
-              Claim $15 Free
+              Get $15 Credit
             </Button>
           </a>
         </div>
@@ -170,16 +170,16 @@ export default function WhatnotDeal() {
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[0.9] mb-4" style={{ fontFamily: "'Anton', sans-serif" }}>
-                <span className="text-yellow-400">$15 FREE</span>
+                <span className="text-yellow-400">$15 OFF</span>
                 <br />
-                <span className="text-white">TO SHOP LIVE</span>
+                <span className="text-white">YOUR FIRST</span>
                 <br />
-                <span className="text-primary">CARD BREAKS</span>
+                <span className="text-primary">LIVE PURCHASE</span>
               </h1>
 
               <p className="text-lg sm:text-xl text-gray-300 max-w-lg mb-6 leading-relaxed">
-                Join Whatnot through our link and get <span className="text-yellow-400 font-bold">$15 free credit</span> to 
-                shop our live Marvel trading card breaks. Graded slabs, numbered parallels, chase cards — all live on camera.
+                Sign up on Whatnot through our link and get <span className="text-yellow-400 font-bold">$15 in credit</span> applied 
+                automatically at checkout on your first purchase. Use it at our live Marvel card breaks — graded slabs, numbered parallels, chase cards.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 mb-5">
@@ -191,7 +191,7 @@ export default function WhatnotDeal() {
                 >
                   <Button size="lg" className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-lg px-8 py-6 w-full sm:w-auto shadow-lg shadow-yellow-500/20">
                     <Gift className="w-5 h-5 mr-2" />
-                    Claim Your $15 Free Credit
+                    Get My $15 Credit
                     <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
                 </a>
@@ -201,15 +201,15 @@ export default function WhatnotDeal() {
               <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400">
                 <span className="flex items-center gap-1.5">
                   <Shield className="w-4 h-4 text-primary" />
-                  100% Free
+                  No Minimum Spend
                 </span>
                 <span className="flex items-center gap-1.5">
                   <CheckCircle2 className="w-4 h-4 text-primary" />
-                  No Catch
+                  Auto-Applied at Checkout
                 </span>
                 <span className="flex items-center gap-1.5">
                   <Clock className="w-4 h-4 text-primary" />
-                  Takes 30 Seconds
+                  30-Second Signup
                 </span>
               </div>
             </div>
@@ -276,7 +276,7 @@ export default function WhatnotDeal() {
         <div className="container max-w-5xl">
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-bold mb-2" style={{ fontFamily: "'Anton', sans-serif" }}>
-              HOW TO GET YOUR <span className="text-yellow-400">$15 FREE</span>
+              HOW TO GET YOUR <span className="text-yellow-400">$15 CREDIT</span>
             </h2>
             <p className="text-muted-foreground">Less than a minute. Sign up, get credit, start shopping.</p>
           </div>
@@ -286,8 +286,8 @@ export default function WhatnotDeal() {
               <div className="w-16 h-16 bg-yellow-500/10 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-yellow-500/30">
                 <span className="text-3xl font-bold text-yellow-400" style={{ fontFamily: "'Anton', sans-serif" }}>1</span>
               </div>
-              <h3 className="text-lg font-bold mb-1">Sign Up on Whatnot</h3>
-              <p className="text-sm text-muted-foreground">Click our link and create your free account. Takes 30 seconds.</p>
+              <h3 className="text-lg font-bold mb-1">Sign Up via Our Link</h3>
+              <p className="text-sm text-muted-foreground">Click our referral link and create your free Whatnot account. Takes 30 seconds.</p>
               <div className="hidden md:block absolute top-8 -right-3 text-muted-foreground/30">
                 <ArrowRight className="w-6 h-6" />
               </div>
@@ -297,8 +297,8 @@ export default function WhatnotDeal() {
               <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-primary/30">
                 <span className="text-3xl font-bold text-primary" style={{ fontFamily: "'Anton', sans-serif" }}>2</span>
               </div>
-              <h3 className="text-lg font-bold mb-1">Get $15 Instantly</h3>
-              <p className="text-sm text-muted-foreground">Credit auto-applied to your account. No code needed.</p>
+              <h3 className="text-lg font-bold mb-1">$15 Credit Added</h3>
+              <p className="text-sm text-muted-foreground">$15 is added to your account automatically. You'll also auto-follow our page.</p>
               <div className="hidden md:block absolute top-8 -right-3 text-muted-foreground/30">
                 <ArrowRight className="w-6 h-6" />
               </div>
@@ -308,8 +308,8 @@ export default function WhatnotDeal() {
               <div className="w-16 h-16 bg-purple-500/10 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-purple-500/30">
                 <span className="text-3xl font-bold text-purple-400" style={{ fontFamily: "'Anton', sans-serif" }}>3</span>
               </div>
-              <h3 className="text-lg font-bold mb-1">Shop Our Live Shows</h3>
-              <p className="text-sm text-muted-foreground">Follow us and join our next live Marvel card break!</p>
+              <h3 className="text-lg font-bold mb-1">Use It on Your First Buy</h3>
+              <p className="text-sm text-muted-foreground">Credit applies at checkout on your first purchase. No minimum spend!</p>
             </div>
           </div>
 
@@ -317,7 +317,7 @@ export default function WhatnotDeal() {
             <a href={WHATNOT_INVITE} target="_blank" rel="noopener noreferrer" onClick={handleWhatnotClick}>
               <Button size="lg" className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-lg px-10 py-6 shadow-lg shadow-yellow-500/20">
                 <Gift className="w-5 h-5 mr-2" />
-                Claim Your $15 Free Credit
+                Get My $15 Credit
                 <ExternalLink className="w-4 h-4 ml-2" />
               </Button>
             </a>
@@ -388,7 +388,7 @@ export default function WhatnotDeal() {
             <Card className="border-yellow-500/20 overflow-hidden">
               <div className="aspect-[4/3] bg-gradient-to-br from-yellow-500/5 to-primary/5 flex items-center justify-center relative p-6">
                 <div className="absolute top-3 right-3">
-                  <Badge className="bg-yellow-500 text-black font-bold border-0 animate-pulse">FREE</Badge>
+                  <Badge className="bg-yellow-500 text-black font-bold border-0 animate-pulse">GIVEAWAY</Badge>
                 </div>
                 <Trophy className="w-24 h-24 text-yellow-400/60" />
               </div>
@@ -408,7 +408,7 @@ export default function WhatnotDeal() {
             <a href={WHATNOT_INVITE} target="_blank" rel="noopener noreferrer" onClick={handleWhatnotClick}>
               <Button size="lg" className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-lg px-10 py-6 shadow-lg shadow-yellow-500/20">
                 <Gift className="w-5 h-5 mr-2" />
-                Claim Your $15 Free Credit
+                Get My $15 Credit
                 <ExternalLink className="w-4 h-4 ml-2" />
               </Button>
             </a>
@@ -432,7 +432,7 @@ export default function WhatnotDeal() {
               { icon: Shield, title: "Buyer Protection", desc: "Full buyer protection on every purchase.", color: "text-green-400", bg: "bg-green-500/10", border: "border-green-500/20" },
               { icon: Users, title: "Collector Community", desc: "Chat with fellow collectors during shows.", color: "text-purple-400", bg: "bg-purple-500/10", border: "border-purple-500/20" },
               { icon: Package, title: "Fast Shipping", desc: "Cards ship right after the show.", color: "text-orange-400", bg: "bg-orange-500/10", border: "border-orange-500/20" },
-              { icon: DollarSign, title: "Great Deals", desc: "Auction format + your $15 free credit.", color: "text-yellow-400", bg: "bg-yellow-500/10", border: "border-yellow-500/20" },
+              { icon: DollarSign, title: "Great Deals", desc: "Auction format + your $15 credit towards first purchase.", color: "text-yellow-400", bg: "bg-yellow-500/10", border: "border-yellow-500/20" },
               { icon: Sparkles, title: "Exclusive Drops", desc: "Rare cards only on live shows.", color: "text-pink-400", bg: "bg-pink-500/10", border: "border-pink-500/20" },
             ].map((item, i) => (
               <Card key={i} className={`${item.border}`}>
@@ -470,7 +470,7 @@ export default function WhatnotDeal() {
                   <a href={WHATNOT_INVITE} target="_blank" rel="noopener noreferrer" onClick={handleWhatnotClick}>
                     <Button className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold">
                       <Gift className="w-4 h-4 mr-2" />
-                      Now Claim Your $15 Credit
+                      Get My $15 Credit
                       <ExternalLink className="w-4 h-4 ml-2" />
                     </Button>
                   </a>
@@ -518,12 +518,12 @@ export default function WhatnotDeal() {
                 DON'T FORGET YOUR <span className="text-yellow-400">$15</span>
               </h3>
               <p className="text-muted-foreground mb-5">
-                Sign up through our link — $15 credit applied instantly to your first purchase.
+                Sign up through our link — $15 credit applied automatically at checkout on your first purchase.
               </p>
               <a href={WHATNOT_INVITE} target="_blank" rel="noopener noreferrer" onClick={handleWhatnotClick}>
                 <Button size="lg" className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-lg px-8 py-6 w-full shadow-lg shadow-yellow-500/20">
                   <Gift className="w-5 h-5 mr-2" />
-                  Claim Your $15 Free Credit
+                  Get My $15 Credit
                   <ExternalLink className="w-4 h-4 ml-2" />
                 </Button>
               </a>
@@ -548,10 +548,10 @@ export default function WhatnotDeal() {
 
           <div className="space-y-3">
             {[
-              { q: "Is the $15 credit really free?", a: "Yes, 100% free. Sign up through our link and Whatnot gives you $15 to spend on our shows. No catch." },
+              { q: "How does the $15 credit work?", a: "Sign up through our referral link and Whatnot adds $15 to your account. It's applied automatically at checkout on your first purchase — no code needed, no minimum spend." },
               { q: "What is Whatnot?", a: "The #1 live shopping app for collectibles. Sellers open packs on camera, buyers bid or buy in real-time." },
               { q: "What kind of cards do you sell?", a: "Marvel trading cards — Topps Chrome, Comic Book Heroes, Marvel Mint, Sapphire Edition. Numbered parallels, graded slabs, chase inserts." },
-              { q: "How do I use the $15 credit?", a: "It's auto-applied to your account. Follow us on Whatnot and use it on your first purchase at our next live show." },
+              { q: "Does the $15 credit expire?", a: "Yes, the credit is valid for 90 days after signup. Use it on your first purchase at any of our live shows within that window." },
               { q: "Can I also buy from your website?", a: "Yes! We sell repacks directly at NorthlandLegendaryFinds.com with full checklists and a 1,700+ card database." },
             ].map((faq, i) => (
               <Card key={i} className="border-border/50">
@@ -569,20 +569,20 @@ export default function WhatnotDeal() {
       <section className="py-12 lg:py-16 bg-gradient-to-b from-background via-yellow-900/5 to-background">
         <div className="container max-w-3xl text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ fontFamily: "'Anton', sans-serif" }}>
-            <span className="text-yellow-400">$15 FREE</span>
+            <span className="text-yellow-400">$15 CREDIT</span>
             <br />
             <span className="text-white">IS WAITING FOR YOU</span>
           </h2>
 
           <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-6">
-            Join the NLF community on Whatnot. Get your free credit and start collecting.
+            Join the NLF community on Whatnot. Get $15 towards your first purchase and start collecting.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a href={WHATNOT_INVITE} target="_blank" rel="noopener noreferrer" onClick={handleWhatnotClick}>
               <Button size="lg" className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-xl px-10 py-7 shadow-lg shadow-yellow-500/20 w-full sm:w-auto">
                 <Gift className="w-6 h-6 mr-2" />
-                Claim Your $15 Free Credit
+                Get My $15 Credit
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
             </a>
@@ -622,7 +622,7 @@ export default function WhatnotDeal() {
         <a href={WHATNOT_INVITE} target="_blank" rel="noopener noreferrer" onClick={handleWhatnotClick} className="block">
           <Button size="lg" className="w-full bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-lg py-5 shadow-lg shadow-yellow-500/20">
             <Gift className="w-5 h-5 mr-2" />
-            Claim Your $15 Free Credit
+            Get My $15 Credit
             <ArrowRight className="w-5 h-5 ml-2" />
           </Button>
         </a>
