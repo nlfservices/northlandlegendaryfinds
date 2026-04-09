@@ -325,61 +325,80 @@ export default function WhatnotDeal() {
         </div>
       </section>
 
-      {/* ===== WHAT YOU'LL FIND (Condensed) ===== */}
+      {/* ===== WHAT YOU'LL FIND (Updated) ===== */}
       <section className="py-12 lg:py-16 bg-card border-y border-border">
         <div className="container">
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-bold mb-2" style={{ fontFamily: "'Anton', sans-serif" }}>
               WHAT YOU'LL FIND ON <span className="text-purple-400">OUR SHOWS</span>
             </h2>
-            <p className="text-muted-foreground">Live Marvel card breaks with real cards, real pulls, real excitement.</p>
+            <p className="text-muted-foreground max-w-2xl mx-auto">Singles, box breaks, case breaks, and combo shows where we do a little bit of everything — plus giveaways for our entire community, not just buyers.</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {/* Premium Repacks */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Singles Shows */}
             <Card className="border-primary/20 overflow-hidden">
-              <div className="aspect-square bg-gradient-to-br from-primary/5 to-purple-500/5 flex items-center justify-center p-6">
-                <img src={IMAGES.cosmicDrop} alt="Premium Marvel Repacks" className="w-full h-full object-contain" loading="lazy" />
+              <div className="aspect-[4/3] bg-gradient-to-br from-primary/5 to-purple-500/5 flex items-center justify-center p-6">
+                <img src={IMAGES.cosmicDrop} alt="Singles Shows" className="w-full h-full object-contain" loading="lazy" />
               </div>
               <CardContent className="pt-4 pb-5">
-                <Badge className="bg-purple-500/10 text-purple-400 border-purple-500/30 mb-2">REPACKS</Badge>
-                <h3 className="text-xl font-bold mb-2" style={{ fontFamily: "'Anton', sans-serif" }}>PREMIUM MARVEL REPACKS</h3>
+                <Badge className="bg-primary/10 text-primary border-primary/30 mb-2">SINGLES</Badge>
+                <h3 className="text-lg font-bold mb-2" style={{ fontFamily: "'Anton', sans-serif" }}>SINGLES SHOWS</h3>
                 <ul className="space-y-1.5 text-sm text-muted-foreground">
+                  <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />Hand-picked individual cards</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />Graded slabs (CGC & AGS)</li>
                   <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />Numbered parallels (/199 to /1)</li>
-                  <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />CGC & AGS graded slabs</li>
-                  <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />Full published checklists</li>
                 </ul>
               </CardContent>
             </Card>
 
-            {/* Live Breaks */}
+            {/* Box & Case Breaks */}
             <Card className="border-red-500/20 overflow-hidden">
-              <div className="aspect-square bg-gradient-to-br from-red-500/5 to-purple-500/5 flex items-center justify-center p-6">
-                <img src={IMAGES.gambitDeck} alt="Live Card Breaks" className="w-full h-full object-contain" loading="lazy" />
+              <div className="aspect-[4/3] bg-gradient-to-br from-red-500/5 to-purple-500/5 flex items-center justify-center p-6">
+                <img src={IMAGES.gambitDeck} alt="Box & Case Breaks" className="w-full h-full object-contain" loading="lazy" />
               </div>
               <CardContent className="pt-4 pb-5">
-                <Badge className="bg-red-500/10 text-red-400 border-red-500/30 mb-2">LIVE ON CAMERA</Badge>
-                <h3 className="text-xl font-bold mb-2" style={{ fontFamily: "'Anton', sans-serif" }}>LIVE CARD BREAKS</h3>
+                <Badge className="bg-red-500/10 text-red-400 border-red-500/30 mb-2">LIVE BREAKS</Badge>
+                <h3 className="text-lg font-bold mb-2" style={{ fontFamily: "'Anton', sans-serif" }}>BOX & CASE BREAKS</h3>
                 <ul className="space-y-1.5 text-sm text-muted-foreground">
-                  <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-red-400 flex-shrink-0 mt-0.5" />Every pack opened live</li>
-                  <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-red-400 flex-shrink-0 mt-0.5" />Real-time chat community</li>
-                  <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-red-400 flex-shrink-0 mt-0.5" />Instant shipping after show</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-red-400 flex-shrink-0 mt-0.5" />Every pack ripped live on camera</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-red-400 flex-shrink-0 mt-0.5" />Full box & case break options</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-red-400 flex-shrink-0 mt-0.5" />Real-time chat & reactions</li>
                 </ul>
               </CardContent>
             </Card>
 
-            {/* Drawings & Events */}
-            <Card className="border-yellow-500/20 overflow-hidden">
-              <div className="aspect-square bg-gradient-to-br from-yellow-500/5 to-primary/5 flex items-center justify-center p-6">
-                <img src={IMAGES.chromeEdition} alt="Exclusive Drawings & Events" className="w-full h-full object-contain" loading="lazy" />
+            {/* Combo Shows */}
+            <Card className="border-purple-500/20 overflow-hidden">
+              <div className="aspect-[4/3] bg-gradient-to-br from-purple-500/5 to-primary/5 flex items-center justify-center p-6">
+                <img src={IMAGES.chromeEdition} alt="Combo Shows" className="w-full h-full object-contain" loading="lazy" />
               </div>
               <CardContent className="pt-4 pb-5">
-                <Badge className="bg-yellow-500/10 text-yellow-400 border-yellow-500/30 mb-2">EXCLUSIVE</Badge>
-                <h3 className="text-xl font-bold mb-2" style={{ fontFamily: "'Anton', sans-serif" }}>DRAWINGS & EVENTS</h3>
+                <Badge className="bg-purple-500/10 text-purple-400 border-purple-500/30 mb-2">COMBO</Badge>
+                <h3 className="text-lg font-bold mb-2" style={{ fontFamily: "'Anton', sans-serif" }}>COMBO SHOWS</h3>
                 <ul className="space-y-1.5 text-sm text-muted-foreground">
-                  <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-yellow-400 flex-shrink-0 mt-0.5" />Regular giveaways live</li>
-                  <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-yellow-400 flex-shrink-0 mt-0.5" />Subscriber-only events</li>
-                  <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-yellow-400 flex-shrink-0 mt-0.5" />Flash sales & promos</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-purple-400 flex-shrink-0 mt-0.5" />A little bit of everything</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-purple-400 flex-shrink-0 mt-0.5" />Singles, breaks & repacks</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-purple-400 flex-shrink-0 mt-0.5" />Something for every collector</li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            {/* Giveaways & Community */}
+            <Card className="border-yellow-500/20 overflow-hidden">
+              <div className="aspect-[4/3] bg-gradient-to-br from-yellow-500/5 to-primary/5 flex items-center justify-center relative p-6">
+                <div className="absolute top-3 right-3">
+                  <Badge className="bg-yellow-500 text-black font-bold border-0 animate-pulse">FREE</Badge>
+                </div>
+                <Trophy className="w-24 h-24 text-yellow-400/60" />
+              </div>
+              <CardContent className="pt-4 pb-5">
+                <Badge className="bg-yellow-500/10 text-yellow-400 border-yellow-500/30 mb-2">GIVEAWAYS</Badge>
+                <h3 className="text-lg font-bold mb-2" style={{ fontFamily: "'Anton', sans-serif" }}>GIVEAWAYS & COMMUNITY</h3>
+                <ul className="space-y-1.5 text-sm text-muted-foreground">
+                  <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-yellow-400 flex-shrink-0 mt-0.5" />Giveaways for ALL fans, not just buyers</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-yellow-400 flex-shrink-0 mt-0.5" />Rewards for our loyal community</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-yellow-400 flex-shrink-0 mt-0.5" />Helping new streamers level up</li>
                 </ul>
               </CardContent>
             </Card>

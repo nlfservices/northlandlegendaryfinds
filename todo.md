@@ -1072,3 +1072,9 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Images optimized (CDN-hosted, existing assets)
 - [x] All other pages/content preserved (81/81 integrity checks)
 - [x] 245/245 tests passing, checkpoint saved
+
+## /free-credit Content Update - Shows Section
+- [x] Update "What You'll Find on Our Shows" — now 4 cards: Singles Shows, Box & Case Breaks, Combo Shows, Giveaways & Community
+- [x] Giveaways for ALL fans (not just buyers), rewards for loyal community, helping new streamers level up
+- [x] 245/245 tests passing
+- [x] Checkpoint saved
