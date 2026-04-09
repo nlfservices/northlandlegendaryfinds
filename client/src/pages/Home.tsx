@@ -5,7 +5,7 @@
  */
 
 import { useAuth } from "@/_core/hooks/useAuth";
-import { ShoppingCart, Shield, Star, TrendingUp, Package, ArrowRight, Zap, BookOpen, Clock, Eye, Radio, HelpCircle, Search, Box, Gift, Sparkles, Compass, Users, Heart, Gamepad2, Play, MapPin, Lightbulb } from "lucide-react";
+import { ShoppingCart, Shield, Star, TrendingUp, Package, ArrowRight, Zap, BookOpen, Clock, Eye, Radio, HelpCircle, Search, Box, Gift, Sparkles, Compass, Users, Heart, Gamepad2, Play, MapPin, Lightbulb, Crown, Award } from "lucide-react";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
@@ -28,6 +28,68 @@ const IRON_MAN_CARD = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/
 const SPIDER_MAN_CARD = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/web-hero-card-nnb4jySYxm85VCLBiavLYC.webp";
 const FF_CARD = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/fantastic-four-card-hj632KBGq5hHBqFr24T7Bg.webp";
 const BLACK_PANTHER_CARD = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/black-panther-card-8p85njMmcGx6FSvhe3Txjb.webp";
+
+// Legacy Legends card images
+const LEGACY_HOPKINS_ODIN = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hopkins-odin-5PmHir8t54fyriEVpZF3Tj.webp";
+const LEGACY_MCKELLEN_MAGNETO = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mckellen-magneto-N8g4KBYRkiGLYhftfknYBc.webp";
+const LEGACY_STEWART_PROFX = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/stewart-professor-x-QoEpAmXirvvLiCbPvb8gyG.webp";
+const LEGACY_BLACK_PANTHER = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/black-panther-card-HTGdTwE7FjM5GKsJFH6VNw.webp";
+
+// Legacy Legends data — expansion-ready array
+const LEGACY_LEGENDS = [
+  {
+    id: "boseman",
+    actorName: "Chadwick Boseman",
+    characterName: "Black Panther",
+    badge: "No Autograph Exists",
+    badgeColor: "from-purple-500 to-purple-700",
+    badgeTextColor: "text-purple-100",
+    borderColor: "border-purple-500/40",
+    glowColor: "shadow-purple-500/30",
+    accentColor: "text-purple-400",
+    image: LEGACY_BLACK_PANTHER,
+    note: "Chadwick Boseman passed away in 2020. No autograph card will ever exist in any Topps set — making any Black Panther card a tribute to his legacy.",
+  },
+  {
+    id: "hopkins",
+    actorName: "Anthony Hopkins",
+    characterName: "Odin",
+    badge: "Debut Auto",
+    badgeColor: "from-amber-500 to-yellow-600",
+    badgeTextColor: "text-amber-950",
+    borderColor: "border-amber-500/40",
+    glowColor: "shadow-amber-500/30",
+    accentColor: "text-amber-400",
+    image: LEGACY_HOPKINS_ODIN,
+    note: "Sir Anthony Hopkins' first-ever autograph card in a Topps Marvel set. At 88 years old, this debut auto is an instant legacy piece.",
+  },
+  {
+    id: "mckellen",
+    actorName: "Ian McKellen",
+    characterName: "Magneto",
+    badge: "Debut Auto",
+    badgeColor: "from-red-500 to-red-700",
+    badgeTextColor: "text-red-100",
+    borderColor: "border-red-500/40",
+    glowColor: "shadow-red-500/30",
+    accentColor: "text-red-400",
+    image: LEGACY_MCKELLEN_MAGNETO,
+    note: "Sir Ian McKellen's first Topps autograph card. The definitive Magneto — his debut auto is one of the most anticipated pulls in the 2025 set.",
+  },
+  {
+    id: "stewart",
+    actorName: "Patrick Stewart",
+    characterName: "Professor X",
+    badge: "Debut Auto",
+    badgeColor: "from-blue-500 to-cyan-600",
+    badgeTextColor: "text-blue-100",
+    borderColor: "border-blue-500/40",
+    glowColor: "shadow-blue-500/30",
+    accentColor: "text-blue-400",
+    image: LEGACY_STEWART_PROFX,
+    note: "Sir Patrick Stewart's first Topps autograph card. The voice of the X-Men — his debut auto in the 2025 Marvel Studios set is a collector's dream.",
+  },
+];
 
 
 export default function Home() {
@@ -511,7 +573,94 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== 8. YOUR FANDOM, YOUR WAY — EXPANSION ROADMAP ===== */}
+      {/* ===== 8. LEGACY LEGENDS — ACTOR-FOCUSED PREMIUM SECTION ===== */}
+      <section className="relative py-16 lg:py-24 overflow-hidden">
+        {/* Premium dark background with gold accents */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-amber-950/10 to-background" />
+        <div className="absolute inset-0">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-amber-500/5 rounded-full blur-3xl" />
+          <div className="absolute top-20 right-20 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl" />
+          <div className="absolute bottom-20 left-20 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl" />
+        </div>
+
+        <div className="container relative z-10">
+          {/* Section Header */}
+          <div className="text-center mb-14">
+            <div className="inline-flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-amber-500/20 to-yellow-500/20 border border-amber-500/30 rounded-full mb-5">
+              <Crown className="w-4 h-4 text-amber-400" />
+              <span className="text-amber-400 text-sm font-bold tracking-widest uppercase">Premium Collection</span>
+            </div>
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-4" style={{ fontFamily: "'Anton', sans-serif" }}>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500">LEGACY</span>{" "}
+              <span className="text-foreground">LEGENDS</span>
+            </h2>
+            <p className="text-muted-foreground text-lg max-w-3xl mx-auto leading-relaxed">
+              Where character meets immortality. These actors didn't just play heroes — they <em>became</em> them. Their debut autograph cards in the 2025 Topps Marvel Studios set represent some of the most significant pulls in the hobby.
+            </p>
+          </div>
+
+          {/* Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-7xl mx-auto">
+            {LEGACY_LEGENDS.map((legend) => (
+              <div key={legend.id} className="group relative">
+                {/* Spotlight glow effect */}
+                <div className={`absolute -inset-3 bg-gradient-to-b ${legend.badgeColor} opacity-0 group-hover:opacity-20 rounded-2xl blur-xl transition-opacity duration-500`} />
+
+                <div className={`relative bg-card/80 backdrop-blur-sm border-2 ${legend.borderColor} rounded-2xl overflow-hidden hover:border-opacity-80 transition-all duration-500 group-hover:shadow-2xl ${legend.glowColor}`}>
+                  {/* Badge */}
+                  <div className="absolute top-3 right-3 z-20">
+                    <span className={`inline-flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r ${legend.badgeColor} ${legend.badgeTextColor} text-xs font-bold rounded-full shadow-lg`}>
+                      <Award className="w-3 h-3" />
+                      {legend.badge}
+                    </span>
+                  </div>
+
+                  {/* Card Image */}
+                  <div className="relative aspect-[3/4] overflow-hidden">
+                    <img
+                      src={legend.image}
+                      alt={`${legend.actorName} as ${legend.characterName} - Legacy Legend trading card`}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      loading="lazy"
+                    />
+                    {/* Gradient overlay at bottom */}
+                    <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/90 to-transparent" />
+                  </div>
+
+                  {/* Card Info */}
+                  <div className="p-5">
+                    <h3 className={`text-xl font-bold ${legend.accentColor} mb-0.5`} style={{ fontFamily: "'Anton', sans-serif" }}>
+                      {legend.actorName}
+                    </h3>
+                    <p className="text-sm text-muted-foreground font-medium mb-3">
+                      as <span className="text-foreground">{legend.characterName}</span>
+                    </p>
+                    <p className="text-xs text-muted-foreground/80 leading-relaxed">
+                      {legend.note}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Bottom CTA */}
+          <div className="text-center mt-12">
+            <p className="text-muted-foreground text-sm mb-4">
+              More Legacy Legends coming soon — as new debut autos are confirmed in upcoming sets.
+            </p>
+            <Link href="/cards">
+              <Button variant="outline" className="border-amber-500/30 text-amber-400 hover:bg-amber-500/10 font-bold">
+                <Search className="w-4 h-4 mr-2" />
+                Explore the Full Card Database
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== 9. YOUR FANDOM, YOUR WAY — EXPANSION ROADMAP ===== */}
       <section className="py-16 lg:py-20 bg-card/30 border-y border-border relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-20 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />

@@ -1143,3 +1143,15 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Change Disney from "Coming 2027" to "Fall 2026"
 - [x] Change WWE from "Coming Soon" to "Fall 2026"
 - [x] Change Boxing from "Coming Soon" to "Fall 2026"
+
+## Legacy Legends Section — Actor-Focused Premium Section
+- [x] Generate slab-style card images: Hopkins/Odin, McKellen/Magneto, Stewart/Professor X, Black Panther/Wakanda Forever
+- [x] Upload images to CDN (all 4 cards on CloudFront)
+- [x] Build Legacy Legends section on homepage (section 8, between Explore Collection and Fandom Roadmap)
+- [x] Gold/amber ambient glow, spotlight hover effects, slab-style card presentation
+- [x] Badge system: "Debut Auto" (Hopkins, McKellen, Stewart), "No Autograph Exists" (Boseman)
+- [x] Actor name, character name, and significance note per card
+- [x] Expansion-ready LEGACY_LEGENDS array — just add new objects to add more actors
+- [x] Respectful, premium, legacy-focused tone — Boseman note mentions his passing and tribute significance
+- [x] All 272 tests passing, 81/81 integrity checks green
+- [x] Save checkpoint
