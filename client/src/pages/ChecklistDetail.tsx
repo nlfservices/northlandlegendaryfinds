@@ -169,7 +169,7 @@ export default function ChecklistDetail() {
                 <Badge variant="outline">{product.category}</Badge>
                 {product.isWhatnotExclusive && (
                   <Badge variant="outline" className="border-purple-500/50 text-purple-400">
-                    <Radio className="w-3 h-3 mr-1" /> Whatnot Exclusive
+                    <Radio className="w-3 h-3 mr-1" /> Whatnot Live
                   </Badge>
                 )}
                 <Badge variant="outline" className="border-primary/50 text-primary">

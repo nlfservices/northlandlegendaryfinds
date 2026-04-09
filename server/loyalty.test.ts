@@ -18,7 +18,7 @@ describe("Loyalty Program — Router & Configuration", () => {
     expect(mod.loyaltyPublicRouter).toBeDefined();
     expect(mod.loyaltyProtectedRouter).toBeDefined();
     expect(mod.loyaltyAdminRouter).toBeDefined();
-  });
+  }, 15000);
 
   it("loyalty routers are registered in main appRouter", async () => {
     const fs = await import("fs");

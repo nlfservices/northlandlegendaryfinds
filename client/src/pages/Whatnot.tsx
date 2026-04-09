@@ -1,6 +1,6 @@
 /**
- * Whatnot Page - Exclusive live stream repacks
- * Showcases the 500-pack series, upcoming shows, and past show results
+ * Whatnot Page - Live stream card breaks & community
+ * Showcases live shows, free credit offer, upcoming shows, and past show results
  */
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
@@ -74,7 +74,7 @@ export default function Whatnot() {
     <div className="min-h-screen">
       <SEO
         title="Live on Whatnot"
-        description="Watch Northland Legendary Finds live pack openings on Whatnot. Join our streams for real-time Marvel trading card breaks and exclusive deals."
+        description="Watch Northland Legendary Finds live card breaks on Whatnot. Join our streams for real-time Marvel trading card reveals, giveaways, and great deals."
         path="/whatnot"
         jsonLd={breadcrumbJsonLd([{ name: "Home", url: "/" }, { name: "Whatnot", url: "/whatnot" }])}
       />
@@ -92,14 +92,14 @@ export default function Whatnot() {
               <span className="text-red-400 text-sm font-bold tracking-wide">LIVE ON WHATNOT</span>
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4" style={{ fontFamily: "'Anton', sans-serif" }}>
-              <span className="text-purple-400">EXCLUSIVE</span> LIVE
+              <span className="text-purple-400">LIVE</span> CARD
               <br />
-              <span className="text-primary">STREAM REPACKS</span>
+              <span className="text-primary">BREAKS ON WHATNOT</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-              Experience the thrill of live card breaks on Whatnot. Our exclusive 500-pack series 
-              drops 50 packs per show — creating an unforgettable experience for collectors. 
-              Watch the pulls happen live, track every card in real-time.
+              Experience the thrill of live card breaks on Whatnot. Watch packs get ripped 
+              in real-time, chat with other fans, and win giveaways. It's free to watch — 
+              just follow and you'll get notified when we go live.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <a href={WHATNOT_STORE_URL} target="_blank" rel="noopener noreferrer">
@@ -182,10 +182,10 @@ export default function Whatnot() {
               <div className="w-16 h-16 bg-amber-500/10 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-amber-500/20">
                 <Star className="w-8 h-8 text-amber-400" />
               </div>
-              <div className="text-3xl font-bold text-amber-400 mb-1" style={{ fontFamily: "'Anton', sans-serif" }}>ONLY</div>
-              <h3 className="font-bold mb-1">Whatnot Exclusive</h3>
+              <div className="text-3xl font-bold text-amber-400 mb-1" style={{ fontFamily: "'Anton', sans-serif" }}>WIN</div>
+              <h3 className="font-bold mb-1">Giveaways & Deals</h3>
               <p className="text-sm text-muted-foreground">
-                These repacks are ONLY available on Whatnot live streams. Not sold on the website.
+                Every show features giveaways, deals, and surprises. Follow us so you never miss one.
               </p>
             </div>
           </div>
@@ -353,7 +353,7 @@ export default function Whatnot() {
                 </p>
                 <a href={WHATNOT_STORE_URL} target="_blank" rel="noopener noreferrer">
                   <Button className="bg-purple-600 hover:bg-purple-700">
-                    <Radio className="w-4 h-4 mr-2" /> Follow on Whatnot
+                    <Radio className="w-3 h-3 mr-1" /> Whatnot Live
                   </Button>
                 </a>
               </CardContent>
@@ -409,16 +409,16 @@ export default function Whatnot() {
         </div>
       </section>
 
-      {/* Whatnot Exclusive Products */}
+      {/* Whatnot Products */}
       {whatnotProducts.length > 0 && (
         <section className="py-12 lg:py-16 bg-card border-y border-border">
           <div className="container">
             <div className="text-center mb-10">
               <h2 className="text-3xl md:text-4xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
-                WHATNOT <span className="text-purple-400">EXCLUSIVE</span> PRODUCTS
+                WHATNOT <span className="text-purple-400">LIVE</span> PRODUCTS
               </h2>
               <p className="text-muted-foreground text-lg">
-                These repacks are ONLY available during live streams
+                Available during our live shows on Whatnot
               </p>
             </div>
 
@@ -430,7 +430,7 @@ export default function Whatnot() {
                     <CardContent className="p-6">
                       <div className="flex items-center gap-2 mb-3">
                         <Badge variant="outline" className="border-purple-500/50 text-purple-400">
-                          <Radio className="w-3 h-3 mr-1" /> Whatnot Only
+                          <Radio className="w-3 h-3 mr-1" /> Live Show
                         </Badge>
                       </div>
                       <h3 className="text-xl font-bold mb-2 group-hover:text-purple-400 transition-colors">
@@ -495,7 +495,7 @@ export default function Whatnot() {
           </h2>
           <p className="text-muted-foreground text-lg mb-6">
             Follow Northland Legendary Finds on Whatnot to get notified when we go live. 
-            The 500-pack series won't last forever!
+            Follow us and never miss a show!
           </p>
 
           {/* QR Code */}

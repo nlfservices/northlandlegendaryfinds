@@ -1186,3 +1186,15 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Correct Whatnot QR code deployed across all 4 pages (Home, Footer, Whatnot, WhatnotDeal)
 - [x] All 272 tests passing, 81/81 integrity checks green
 - [x] Save checkpoint
+
+## Fix Whatnot Page Issues
+- [x] Free credit section confirmed present in Whatnot.tsx (lines 195-328)
+- [x] Removed ALL "exclusive repacks" / "Whatnot Exclusive" language from Whatnot.tsx
+- [x] Hero: "EXCLUSIVE LIVE STREAM REPACKS" → "LIVE CARD BREAKS ON WHATNOT"
+- [x] "Whatnot Exclusive" card → "Giveaways & Deals"
+- [x] "WHATNOT EXCLUSIVE PRODUCTS" → "WHATNOT LIVE PRODUCTS"
+- [x] "Whatnot Only" badge → "Live Show" badge
+- [x] Updated ChecklistDetail.tsx badge: "Whatnot Exclusive" → "Whatnot Live"
+- [x] Updated SEO description to remove "exclusive" language
+- [x] All 272 tests passing, 81/81 integrity checks green
+- [x] Save checkpoint
