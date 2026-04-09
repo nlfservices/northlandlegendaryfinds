@@ -143,7 +143,7 @@ export default function Whatnot() {
                   </Button>
                 </a>
                 <a href={WHATNOT_STORE_URL} target="_blank" rel="noopener noreferrer">
-                  <Button size="lg" variant="outline" className="border-purple-500/40 text-purple-400 hover:bg-purple-500/10 font-bold text-lg px-8 py-7 w-full sm:w-auto">
+                  <Button size="lg" variant="outline" className="bg-yellow-500 hover:bg-yellow-400 text-black border-yellow-500 font-bold text-lg px-8 py-7 w-full sm:w-auto">
                     <Radio className="w-5 h-5 mr-2" />
                     Follow on Whatnot
                   </Button>
@@ -400,7 +400,7 @@ export default function Whatnot() {
 
           <div className="flex flex-wrap gap-4 justify-center mt-10">
             <a href={WHATNOT_STORE_URL} target="_blank" rel="noopener noreferrer">
-              <Button size="lg" className="bg-purple-600 hover:bg-purple-700 text-white font-bold text-lg px-8 py-6">
+              <Button size="lg" className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-lg px-8 py-6">
                 <Radio className="w-5 h-5 mr-2" />
                 Follow on Whatnot
                 <ExternalLink className="w-4 h-4 ml-2" />
@@ -636,7 +636,7 @@ export default function Whatnot() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href={WHATNOT_STORE_URL} target="_blank" rel="noopener noreferrer">
-              <Button size="lg" className="bg-purple-600 hover:bg-purple-700 text-white font-bold text-lg px-10 py-7 shadow-xl shadow-purple-500/20 hover:shadow-purple-500/40 transition-all hover:scale-[1.02]">
+              <Button size="lg" className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-lg px-10 py-7 shadow-xl shadow-yellow-500/20 hover:shadow-yellow-500/40 transition-all hover:scale-[1.02]">
                 <Radio className="w-5 h-5 mr-2" />
                 Follow on Whatnot
                 <ExternalLink className="w-4 h-4 ml-2" />

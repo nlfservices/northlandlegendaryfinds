@@ -1259,4 +1259,8 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Hero already has prominent "Follow on Whatnot" + "Get My $15 Credit" buttons
 - [x] Total: 12+ clickable Whatnot links across the page
 - [x] Run integrity check and tests (81/81, 272/272)
+- [x] Save checkpoint
+
+## Follow on Whatnot Button — Yellow & Black
+- [x] Change all 3 "Follow on Whatnot" buttons on /whatnot page from purple/white to yellow bg + black text
 - [ ] Save checkpoint
