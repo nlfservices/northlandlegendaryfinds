@@ -60,7 +60,7 @@ import WhatnotDeal from "./pages/WhatnotDeal";
 import SiteMap from "./pages/SiteMap";
 
 // Routes that render as full-screen standalone experiences (no nav/footer)
-const STANDALONE_ROUTES = ["/card-display", "/matrix"];
+const STANDALONE_ROUTES = ["/card-display", "/matrix", "/free-credit"];
 
 function AppRouter() {
   const [location] = useLocation();
@@ -72,6 +72,7 @@ function AppRouter() {
       <Switch>
         <Route path="/card-display" component={CardDisplay} />
         <Route path="/matrix" component={MatrixPortal} />
+        <Route path="/free-credit" component={WhatnotDeal} />
       </Switch>
     );
   }

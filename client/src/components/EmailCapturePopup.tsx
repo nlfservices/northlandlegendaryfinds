@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { useLocation } from "wouter";
 import { X, Loader2, CheckCircle, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
@@ -18,6 +19,7 @@ import { toast } from "sonner";
  */
 
 export default function EmailCapturePopup() {
+  const [location] = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [isExitIntent, setIsExitIntent] = useState(false);
   const [email, setEmail] = useState("");
@@ -42,6 +44,9 @@ export default function EmailCapturePopup() {
   });
 
   useEffect(() => {
+    // Suppress popup entirely on landing pages (e.g., /free-credit) — it kills FB ad conversions
+    if (location === "/free-credit") return;
+
     // Check if user has already submitted (permanent — never show again)
     const hasSubmitted = localStorage.getItem("nlf_email_submitted");
     if (hasSubmitted) return;

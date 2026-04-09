@@ -1059,3 +1059,16 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Verify no cross-site links remain (0 matches for mintcomiccards, riseofdoom, comicbookcard)
 - [x] 81/81 integrity checks passed, 245/245 tests passing
 - [x] Checkpoint saved
+
+## /free-credit CRO Optimization (Facebook Ad Landing Page)
+- [x] Remove/delay email popup on /free-credit (suppressed, exit-intent only after 30s)
+- [x] Hide main navigation on /free-credit (standalone route, logo-only header)
+- [x] Consolidate all CTAs to single goal: "Claim Your $15 Free Credit" (yellow buttons)
+- [x] Add social proof/trust bar below hero (5-star, 1700+ collectors, 100% checklists, live)
+- [x] Condense "Why Whatnot?" and "What You'll Find" sections (tighter copy, 3-card grid)
+- [x] Add sticky mobile CTA button at bottom of screen (shows after scrolling past hero)
+- [x] Facebook Pixel fires WhatnotReferralClick on CTA clicks + Lead on form submit
+- [x] GHL dual-capture on lead form (tRPC API + hidden iframe)
+- [x] Images optimized (CDN-hosted, existing assets)
+- [x] All other pages/content preserved (81/81 integrity checks)
+- [x] 245/245 tests passing, checkpoint saved
