@@ -126,6 +126,18 @@ export default function Navigation() {
               {navItems.map((item) => {
                 const isActive = location === item.path ||
                   (item.path === "/checklists" && location.startsWith("/checklists"));
+                // Special styling for Whatnot tab
+                if (item.path === "/whatnot") {
+                  return (
+                    <Link key={item.path} href={item.path}>
+                      <button
+                        className="px-4 py-2 text-sm font-extrabold tracking-wide rounded-lg transition-all whitespace-nowrap border-2 border-green-500 text-yellow-400 hover:bg-green-500/10 hover:text-yellow-300 hover:border-green-400"
+                      >
+                        {item.label}
+                      </button>
+                    </Link>
+                  );
+                }
                 return (
                   <Link key={item.path} href={item.path}>
                     <button
@@ -303,6 +315,22 @@ export default function Navigation() {
             <div className="container py-4 space-y-1">
               {navItems.map((item) => {
                 const isActive = location === item.path;
+                // Special styling for Whatnot tab in mobile
+                if (item.path === "/whatnot") {
+                  return (
+                    <Link
+                      key={item.path}
+                      href={item.path}
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <div
+                        className="px-4 py-3 rounded-lg font-extrabold tracking-wide transition-colors border-2 border-green-500 text-yellow-400 hover:bg-green-500/10 hover:text-yellow-300"
+                      >
+                        {item.label}
+                      </div>
+                    </Link>
+                  );
+                }
                 return (
                   <Link
                     key={item.path}

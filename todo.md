@@ -1198,3 +1198,30 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Updated SEO description to remove "exclusive" language
 - [x] All 272 tests passing, 81/81 integrity checks green
 - [x] Save checkpoint
+
+## Consolidate Whatnot Pages — Keep Only /free-credit
+- [ ] Remove /whatnot route from App.tsx
+- [ ] Remove /whatnot-deal route from App.tsx
+- [ ] Update Whatnot nav tab to point to /free-credit
+- [ ] Update any internal links pointing to /whatnot or /whatnot-deal
+- [ ] Run tests and integrity check
+- [ ] Save checkpoint
+
+## Consolidate Whatnot Pages — Keep Only /free-credit
+- [ ] Remove /whatnot and /whatnot-deal routes from App.tsx
+- [ ] Update Whatnot nav tab to point to /free-credit (label stays "Whatnot")
+- [ ] Update any internal links pointing to /whatnot or /whatnot-deal
+- [ ] Run tests and integrity check
+- [ ] Save checkpoint
+
+## Consolidate Whatnot Pages
+- [ ] Remove /whatnot-deal route from App.tsx (user confirmed removal)
+- [ ] Keep /whatnot as main Whatnot page (nav tab "Whatnot" links here)
+- [ ] Keep /free-credit as standalone Facebook ad landing page
+- [ ] Update any internal links pointing to /whatnot-deal
+- [ ] Run tests and integrity check
+- [ ] Save checkpoint
+
+## Whatnot Nav Tab Styling
+- [x] Style Whatnot nav tab with green border and yellow text to make it stand out (desktop + mobile)
+- [ ] Save checkpoint
