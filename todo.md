@@ -1171,3 +1171,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 ## Add Whatnot Nav Tab
 - [x] Add Whatnot to main navigation bar linking to /whatnot
 - [x] Save checkpoint
+
+## Rename Gambit's Deck to Topps Marvel Mint Collection
+- [x] Renamed product from "Gambit's Deck" to "Topps Marvel Mint Collection"
+- [x] Updated description: highlights 2025 Topps Marvel Mint, complete Gambit set, other great cards
+- [x] Updated subtitle: "52 Premium Marvel Mint Packs — Complete Gambit Set Inside"
+- [x] Updated features list and product line tagline
+- [x] Save checkpoint

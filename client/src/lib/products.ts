@@ -73,20 +73,20 @@ export const products: Product[] = [
     id: "gambit-deck-52",
     slug: "gambit-deck-52",
     dbSlug: "nlf-marvel-52-singles",
-    name: "Gambit's Deck",
-    subtitle: "52 Single-Card Marvel Packs",
+    name: "Topps Marvel Mint Collection",
+    subtitle: "52 Premium Marvel Mint Packs — Complete Gambit Set Inside",
     category: "marvel",
     productLine: "gambit-deck",
     price: 600,
     packCount: 52,
     image: CDN.gambitDeck,
     images: [CDN.gambitDeck],
-    description: "52 single-card Marvel packs themed after Gambit's legendary playing cards. Each pack contains one card — Aces are the chase, Face cards are the hits, and Number cards form the base. Collect the full deck. This is the only NLF set with a pre-revealed checklist — see exactly what you're chasing before you buy.",
+    description: "52 premium packs featuring cards from the 2025 Topps Marvel Mint collection. Includes a complete Gambit set among other great cards from one of Topps' most sought-after Marvel releases. Each pack contains one card — Aces are the chase, Face cards are the hits, and Number cards form the base. This is the only NLF set with a pre-revealed checklist — see exactly what you're chasing before you buy.",
     features: [
-      "52 single-card Marvel packs — one card per pack",
+      "52 premium packs from 2025 Topps Marvel Mint",
+      "Complete Gambit set included among other great cards",
       "Playing card theme: Aces = chase, Face cards = hits, Number cards = base",
       "Full checklist revealed before launch — see what you're chasing",
-      "Cards from premium Marvel sets including Topps Chrome",
       "Sealed in custom NLF holographic mylar bag",
       "Limited to 52 packs — collect the full deck",
     ],
@@ -496,7 +496,7 @@ export function getProductsByLine(line: Product["productLine"]): Product[] {
   return products.filter((p) => p.productLine === line);
 }
 
-/** Get the featured/flagship product (Gambit's Deck) */
+/** Get the featured/flagship product (Topps Marvel Mint Collection) */
 export function getFeaturedProduct(): Product | undefined {
   return products.find((p) => p.productLine === "gambit-deck");
 }
@@ -506,8 +506,8 @@ export function getProductLines() {
   return [
     {
       id: "gambit-deck",
-      name: "Gambit's Deck",
-      tagline: "52 single-card packs — the only set with a pre-revealed checklist",
+      name: "Topps Marvel Mint Collection",
+      tagline: "52 premium packs with a complete Gambit set — the only set with a pre-revealed checklist",
       products: getProductsByLine("gambit-deck"),
       available: true,
     },
