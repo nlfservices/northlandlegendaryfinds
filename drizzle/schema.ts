@@ -678,3 +678,137 @@ export const blogPosts = mysqlTable("blog_posts", {
 
 export type BlogPost = typeof blogPosts.$inferSelect;
 export type InsertBlogPost = typeof blogPosts.$inferInsert;
+
+// ============================================================
+// LOYALTY PROGRAM - Points, Tiers, and Rewards
+// ============================================================
+
+/**
+ * Loyalty Members - tracks enrolled members and their current status
+ * Links to users table for authenticated members, or standalone for email-only signups
+ */
+export const loyaltyMembers = mysqlTable("loyalty_members", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Linked user account (null for email-only signups) */
+  userId: int("userId"),
+  /** Email address (required for all members) */
+  email: varchar("email", { length: 320 }).notNull().unique(),
+  /** First name */
+  firstName: varchar("firstName", { length: 100 }),
+  /** Last name */
+  lastName: varchar("lastName", { length: 100 }),
+  /** Current points balance */
+  pointsBalance: int("pointsBalance").notNull().default(0),
+  /** Lifetime points earned (never decreases) */
+  lifetimePoints: int("lifetimePoints").notNull().default(0),
+  /** Current tier */
+  tier: mysqlEnum("tier", ["collector", "silver", "gold", "legendary"]).notNull().default("collector"),
+  /** Member status */
+  status: mysqlEnum("loyalty_status", ["active", "paused", "banned"]).notNull().default("active"),
+  /** Birthday for birthday rewards (month/day only) */
+  birthday: varchar("birthday", { length: 5 }),
+  /** GHL contact ID for CRM sync */
+  ghlContactId: varchar("ghlContactId", { length: 100 }),
+  /** Referral code (unique per member) */
+  referralCode: varchar("referralCode", { length: 20 }).unique(),
+  /** Who referred this member (referral code of referrer) */
+  referredBy: varchar("referredBy", { length: 20 }),
+  /** Date they joined the loyalty program */
+  joinedAt: timestamp("joinedAt").defaultNow().notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type LoyaltyMember = typeof loyaltyMembers.$inferSelect;
+export type InsertLoyaltyMember = typeof loyaltyMembers.$inferInsert;
+
+/**
+ * Loyalty Transactions - full history of points earned and redeemed
+ * Every point change is logged here for transparency
+ */
+export const loyaltyTransactions = mysqlTable("loyalty_transactions", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Which member this transaction belongs to */
+  memberId: int("memberId").notNull(),
+  /** Type of transaction */
+  type: mysqlEnum("transaction_type", [
+    "purchase", "referral", "signup_bonus", "newsletter",
+    "social_follow", "drawing_entry", "birthday_bonus",
+    "admin_adjustment", "redemption", "tier_bonus"
+  ]).notNull(),
+  /** Points added (positive) or deducted (negative) */
+  points: int("points").notNull(),
+  /** Running balance after this transaction */
+  balanceAfter: int("balanceAfter").notNull(),
+  /** Description of the transaction */
+  description: varchar("description", { length: 500 }),
+  /** Reference ID (e.g., order ID, referral code, etc.) */
+  referenceId: varchar("referenceId", { length: 255 }),
+  /** Reference type (e.g., "order", "referral", "manual") */
+  referenceType: varchar("referenceType", { length: 50 }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type LoyaltyTransaction = typeof loyaltyTransactions.$inferSelect;
+export type InsertLoyaltyTransaction = typeof loyaltyTransactions.$inferInsert;
+
+/**
+ * Loyalty Rewards - available rewards members can redeem points for
+ */
+export const loyaltyRewards = mysqlTable("loyalty_rewards", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Reward name */
+  name: varchar("name", { length: 255 }).notNull(),
+  /** Reward description */
+  description: text("description"),
+  /** Points cost to redeem */
+  pointsCost: int("pointsCost").notNull(),
+  /** Minimum tier required */
+  minTier: mysqlEnum("min_tier", ["collector", "silver", "gold", "legendary"]).notNull().default("collector"),
+  /** Reward type */
+  rewardType: mysqlEnum("reward_type", [
+    "discount_code", "free_shipping", "exclusive_repack",
+    "drawing_entry", "early_access", "merch", "custom"
+  ]).notNull(),
+  /** Reward value (e.g., discount percentage, dollar amount in cents) */
+  rewardValue: varchar("rewardValue", { length: 100 }),
+  /** Image URL */
+  imageUrl: text("imageUrl"),
+  /** Whether this reward is currently available */
+  isActive: boolean("isActive").notNull().default(true),
+  /** Max redemptions (null = unlimited) */
+  maxRedemptions: int("maxRedemptions"),
+  /** Current redemption count */
+  redemptionCount: int("redemptionCount").notNull().default(0),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type LoyaltyReward = typeof loyaltyRewards.$inferSelect;
+export type InsertLoyaltyReward = typeof loyaltyRewards.$inferInsert;
+
+/**
+ * Loyalty Redemptions - tracks when members redeem rewards
+ */
+export const loyaltyRedemptions = mysqlTable("loyalty_redemptions", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Which member redeemed */
+  memberId: int("memberId").notNull(),
+  /** Which reward was redeemed */
+  rewardId: int("rewardId").notNull(),
+  /** Points spent */
+  pointsSpent: int("pointsSpent").notNull(),
+  /** Redemption status */
+  status: mysqlEnum("redemption_status", ["pending", "fulfilled", "cancelled", "expired"]).notNull().default("pending"),
+  /** Generated code (for discount codes) */
+  code: varchar("code", { length: 50 }),
+  /** Fulfillment notes */
+  notes: text("notes"),
+  /** When the redemption expires */
+  expiresAt: timestamp("expiresAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type LoyaltyRedemption = typeof loyaltyRedemptions.$inferSelect;
+export type InsertLoyaltyRedemption = typeof loyaltyRedemptions.$inferInsert;

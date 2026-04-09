@@ -12,6 +12,7 @@ import { articlePublicRouter, articleAdminRouter } from "./routers/articles";
 import { top5PublicRouter, top5AdminRouter } from "./routers/top5";
 import { youtubeRouter } from "./routers/youtube";
 import { blogPublicRouter, blogAdminRouter } from "./routers/blog";
+import { loyaltyPublicRouter, loyaltyProtectedRouter, loyaltyAdminRouter } from "./routers/loyalty";
 
 export const appRouter = router({
   system: systemRouter,
@@ -64,6 +65,15 @@ export const appRouter = router({
 
   // The Collector blog (admin)
   adminBlog: blogAdminRouter,
+
+  // Loyalty/Rewards program (public)
+  loyalty: loyaltyPublicRouter,
+
+  // Loyalty/Rewards program (authenticated member)
+  loyaltyMember: loyaltyProtectedRouter,
+
+  // Loyalty/Rewards program (admin)
+  adminLoyalty: loyaltyAdminRouter,
 });
 
 export type AppRouter = typeof appRouter;

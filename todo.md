@@ -1078,3 +1078,23 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Giveaways for ALL fans (not just buyers), rewards for loyal community, helping new streamers level up
 - [x] 245/245 tests passing
 - [x] Checkpoint saved
+
+## Loyalty/Rewards Program (Hidden - Ready for Future Launch)
+- [x] Design loyalty tier system (Collector/Silver/Gold/Legendary)
+- [x] Build DB schema: loyalty_members table with points, tier, join date
+- [x] Build DB schema: loyalty_transactions table for points history
+- [x] Build DB schema: loyalty_rewards and loyalty_redemptions tables
+- [x] Build tRPC procedures: enroll, getTierInfo, checkStatus, getRewards (public)
+- [x] Build tRPC procedures: getDashboard, redeemReward (protected/member)
+- [x] Build tRPC procedures: adminListMembers, adminAdjustPoints, adminManageReward, adminStats (admin)
+- [x] Build /rewards landing page (public-facing signup/info page with hero, tiers, earn methods, FAQ)
+- [x] Points logic: earn per $1 spent, bonus for referrals, social follows, drawing entries, birthday, signup
+- [x] Tier thresholds: Collector (0), Silver (500), Gold (2000), Legendary (5000)
+- [x] Tier perks: early access, exclusive repacks, free shipping, bonus drawing entries, multipliers
+- [x] GHL integration: tag loyalty members in CRM via createGHLContact with loyalty-member tag
+- [x] GHL dual-capture: hidden iframe backup form submission (same pattern as newsletter)
+- [x] Facebook Pixel: track loyalty VIP signup as Lead event
+- [x] Route added at /rewards but NOT linked in main nav (hidden until launch)
+- [x] Added to sitemap page registry
+- [x] Write 27 vitest tests (all passing)
+- [x] Save checkpoint
