@@ -1224,4 +1224,13 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 
 ## Whatnot Nav Tab Styling
 - [x] Style Whatnot nav tab with green border and yellow text to make it stand out (desktop + mobile)
+- [x] Save checkpoint
+
+## Remove Broken /whatnot/checklist Route
+- [x] Remove /whatnot/checklist/:slug route from App.tsx
+- [x] Remove WhatnotChecklist import from App.tsx
+- [x] Remove /whatnot-drops from sitemap (dead route)
+- [x] Fix product card link on /whatnot page (/whatnot/checklist → /checklist)
+- [x] Update Whatnot product description in DB (removed 'Whatnot-exclusive' language)
+- [x] Run integrity check and tests (81/81, 272/272)
 - [ ] Save checkpoint

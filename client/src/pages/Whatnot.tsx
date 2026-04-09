@@ -424,7 +424,7 @@ export default function Whatnot() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
               {whatnotProducts.map(product => (
-                <Link key={product.id} href={`/whatnot/checklist/${product.slug}`}>
+                <Link key={product.id} href={`/checklist/${product.slug}`}>
                   <Card className="group hover:border-purple-500/30 transition-all duration-300 cursor-pointer overflow-hidden h-full">
                     <div className="h-2 bg-gradient-to-r from-purple-600 to-red-600" />
                     <CardContent className="p-6">

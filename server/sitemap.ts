@@ -27,7 +27,6 @@ const STATIC_PAGES: { path: string; priority: string; changefreq: string }[] = [
   { path: "/card-hub", priority: "0.7", changefreq: "weekly" },
   { path: "/mcu-intel", priority: "0.7", changefreq: "weekly" },
   { path: "/matrix", priority: "0.6", changefreq: "weekly" },
-  { path: "/whatnot-drops", priority: "0.6", changefreq: "weekly" },
   { path: "/free-credit", priority: "0.8", changefreq: "weekly" },
   { path: "/sitemap", priority: "0.5", changefreq: "weekly" },
   { path: "/rewards", priority: "0.4", changefreq: "monthly" },

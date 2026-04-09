@@ -29,7 +29,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import Checklists from "./pages/Checklists";
 import ChecklistDetail from "./pages/ChecklistDetail";
 import Whatnot from "./pages/Whatnot";
-import WhatnotChecklist from "./pages/WhatnotChecklist";
+// import WhatnotChecklist from "./pages/WhatnotChecklist"; // Removed - broken route, hidden for now
 import OrderSuccess from "./pages/OrderSuccess";
 import CardDatabase from "./pages/CardDatabase";
 // import GradedInventory from "./pages/GradedInventory"; // Removed from public site
@@ -104,7 +104,6 @@ function AppRouter() {
           <Route path="/checklists" component={Checklists} />
           <Route path="/checklist/:slug" component={ChecklistDetail} />
           <Route path="/whatnot" component={Whatnot} />
-          <Route path="/whatnot/checklist/:slug" component={WhatnotChecklist} />
           <Route path="/order-success" component={OrderSuccess} />
           <Route path="/cards" component={CardDatabase} />
           <Route path="/cards/:setSlug/:cardNumber" component={CardDetailPage} />
