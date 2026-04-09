@@ -52,6 +52,7 @@ export default function Navigation() {
     { path: "/about", label: "About" },
     { path: "/faq", label: "FAQ" },
     { path: "/cards", label: "Card Database" },
+    { path: "/whatnot", label: "Whatnot" },
   ];
 
   // Keep these strings present for integrity check (searched as text in this file)

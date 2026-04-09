@@ -1167,3 +1167,7 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Mobile menu matches desktop with collapsible Marvel Resources and nested Market Intel
 - [x] All 272 tests passing, 81/81 integrity checks green
 - [x] Save checkpoint
+
+## Add Whatnot Nav Tab
+- [x] Add Whatnot to main navigation bar linking to /whatnot
+- [x] Save checkpoint
