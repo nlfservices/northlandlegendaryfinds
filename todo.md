@@ -1250,4 +1250,13 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Update WhatnotDeal.tsx (/free-credit) with same accurate terms (22 edits)
 - [x] Update all CTA buttons: "Claim Your $15 Free Credit" → "Get My $15 Credit"
 - [x] Run integrity check + tests (81/81, 272/272)
+- [x] Save checkpoint
+
+## Add Prominent Whatnot Profile CTAs to /whatnot Page
+- [x] Audit current page for existing Whatnot profile links (found 10 existing)
+- [x] Add sticky floating "Visit Our Whatnot" button (green gradient, pulsing dot, appears after scrolling past hero)
+- [x] Add mid-page "VISIT OUR WHATNOT STORE" banner (green themed, between 500-pack and Upcoming Shows)
+- [x] Hero already has prominent "Follow on Whatnot" + "Get My $15 Credit" buttons
+- [x] Total: 12+ clickable Whatnot links across the page
+- [x] Run integrity check and tests (81/81, 272/272)
 - [ ] Save checkpoint

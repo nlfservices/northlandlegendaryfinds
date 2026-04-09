@@ -26,6 +26,16 @@ export default function Whatnot() {
   const { data: upcomingShows, isLoading: showsLoading } = trpc.public.shows.upcoming.useQuery();
   const { data: allShows } = trpc.public.shows.list.useQuery();
 
+  // Sticky button visibility — show after scrolling past hero
+  const [showSticky, setShowSticky] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowSticky(window.scrollY > 400);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const whatnotProducts = products?.filter(p => p.isWhatnotExclusive) || [];
   const pastShows = allShows?.filter(s => s.status === 'completed') || [];
 
@@ -72,6 +82,7 @@ export default function Whatnot() {
   };
 
   return (
+    <>
     <div className="min-h-screen">
       <SEO
         title="Live on Whatnot"
@@ -405,6 +416,34 @@ export default function Whatnot() {
         </div>
       </section>
 
+      {/* ===== MID-PAGE WHATNOT BANNER ===== */}
+      <section className="py-6">
+        <div className="container">
+          <a
+            href={WHATNOT_STORE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group block bg-gradient-to-r from-green-600/20 via-green-500/10 to-green-600/20 border border-green-500/30 hover:border-green-400/50 rounded-2xl p-5 transition-all hover:shadow-lg hover:shadow-green-500/10"
+          >
+            <div className="flex items-center justify-between flex-wrap gap-4">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center border border-green-500/30 group-hover:scale-110 transition-transform">
+                  <Radio className="w-6 h-6 text-green-400" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-green-400" style={{ fontFamily: "'Anton', sans-serif" }}>VISIT OUR WHATNOT STORE</h3>
+                  <p className="text-sm text-muted-foreground">Browse our profile, see reviews, and follow for live show notifications</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 text-green-400 font-bold">
+                <span>Go to Whatnot</span>
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
+          </a>
+        </div>
+      </section>
+
       {/* ===== SECTION 4: UPCOMING SHOWS ===== */}
       <section className="py-14 lg:py-20 bg-card border-y border-border">
         <div className="container">
@@ -614,5 +653,27 @@ export default function Whatnot() {
         </div>
       </section>
     </div>
+
+    {/* ===== STICKY FLOATING WHATNOT BUTTON ===== */}
+    <div
+      className={`fixed bottom-6 right-6 z-50 transition-all duration-500 ${
+        showSticky ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'
+      }`}
+    >
+      <a
+        href={WHATNOT_STORE_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group flex items-center gap-3 bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-white font-bold px-6 py-4 rounded-full shadow-2xl shadow-green-500/30 hover:shadow-green-500/50 transition-all hover:scale-105 ring-2 ring-green-400/30"
+      >
+        <span className="relative flex h-3 w-3">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+          <span className="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
+        </span>
+        <span className="text-base tracking-wide">Visit Our Whatnot</span>
+        <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+      </a>
+    </div>
+    </>
   );
 }
