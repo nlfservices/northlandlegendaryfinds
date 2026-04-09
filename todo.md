@@ -1233,4 +1233,11 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Fix product card link on /whatnot page (/whatnot/checklist → /checklist)
 - [x] Update Whatnot product description in DB (removed 'Whatnot-exclusive' language)
 - [x] Run integrity check and tests (81/81, 272/272)
+- [x] Save checkpoint
+
+## Whatnot Page Redesign — Promo First, Awesome Design
+- [x] Move $15 free credit promo to the top as the hero section
+- [x] Rearrange page flow: Promo Hero → 3-Step Claim → 500-Pack Explainer → Upcoming Shows → Live Products → Past Shows → Follow CTA
+- [x] Make the page visually stunning with premium design (animated bg, hover effects, color-coded steps)
+- [x] Verify visually and run integrity check + tests (81/81, 272/272)
 - [ ] Save checkpoint
