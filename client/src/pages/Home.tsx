@@ -561,7 +561,7 @@ export default function Home() {
               <div className="bg-card/60 border border-border rounded-xl p-5 text-center hover:border-blue-500/30 transition-all duration-300 opacity-80 hover:opacity-100">
                 <div className="text-4xl mb-3">🏰</div>
                 <h3 className="font-bold text-sm mb-1">Disney</h3>
-                <p className="text-xs text-muted-foreground">Coming 2027</p>
+                <p className="text-xs text-muted-foreground">Fall 2026</p>
               </div>
             </div>
 
@@ -570,7 +570,7 @@ export default function Home() {
               <div className="bg-card/60 border border-border rounded-xl p-5 text-center hover:border-red-500/30 transition-all duration-300 opacity-80 hover:opacity-100">
                 <div className="text-4xl mb-3">🤼</div>
                 <h3 className="font-bold text-sm mb-1">WWE</h3>
-                <p className="text-xs text-muted-foreground">Coming Soon</p>
+                <p className="text-xs text-muted-foreground">Fall 2026</p>
               </div>
             </div>
 
@@ -579,7 +579,7 @@ export default function Home() {
               <div className="bg-card/60 border border-border rounded-xl p-5 text-center hover:border-orange-500/30 transition-all duration-300 opacity-80 hover:opacity-100">
                 <div className="text-4xl mb-3">🥊</div>
                 <h3 className="font-bold text-sm mb-1">UFC</h3>
-                <p className="text-xs text-muted-foreground">Coming Soon</p>
+                <p className="text-xs text-muted-foreground">Summer 2026</p>
               </div>
             </div>
 
@@ -588,7 +588,7 @@ export default function Home() {
               <div className="bg-card/60 border border-border rounded-xl p-5 text-center hover:border-yellow-500/30 transition-all duration-300 opacity-80 hover:opacity-100">
                 <div className="text-4xl mb-3">🥇</div>
                 <h3 className="font-bold text-sm mb-1">Boxing</h3>
-                <p className="text-xs text-muted-foreground">Coming Soon</p>
+                <p className="text-xs text-muted-foreground">Fall 2026</p>
               </div>
             </div>
           </div>

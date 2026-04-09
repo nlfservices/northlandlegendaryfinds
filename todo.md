@@ -1137,3 +1137,9 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] White CTA button on purple bg for maximum contrast, mobile QR code fallback
 - [x] All 272 tests passing, 81/81 integrity checks green
 - [x] Save checkpoint
+
+## Fandom Roadmap Date Updates
+- [x] Change UFC from "Coming Soon" to "Summer 2026"
+- [x] Change Disney from "Coming 2027" to "Fall 2026"
+- [x] Change WWE from "Coming Soon" to "Fall 2026"
+- [x] Change Boxing from "Coming Soon" to "Fall 2026"
