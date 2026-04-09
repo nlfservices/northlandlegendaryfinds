@@ -1,10 +1,11 @@
 /**
- * Homepage - E-commerce storefront
- * Design: Hero with pack image, Card Showcase, product lines, trust elements
+ * Homepage - Collector-First Identity
+ * Design: Hero with character cards, collector resources first, commerce second
+ * Character images: Doctor Doom, Iron Man, Spider-Man, Fantastic Four, Black Panther
  */
 
 import { useAuth } from "@/_core/hooks/useAuth";
-import { ShoppingCart, Shield, Star, TrendingUp, Package, ArrowRight, Zap, BookOpen, Clock, Eye, Radio, HelpCircle, Search, Box, Gift } from "lucide-react";
+import { ShoppingCart, Shield, Star, TrendingUp, Package, ArrowRight, Zap, BookOpen, Clock, Eye, Radio, HelpCircle, Search, Box, Gift, Sparkles, Compass, Users, Heart, Gamepad2 } from "lucide-react";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
@@ -17,9 +18,16 @@ import DoomsdaySection from "@/components/DoomsdaySection";
 import MarvelousTop5 from "@/components/MarvelousTop5";
 
 
-const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hero-banner-jniBj55ukeiEDpJxc2aLgB.webp";
+const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hero-collector-banner-VbjWsKXzVgGZ6irJXkBrQz.webp";
 const NLF_PACK = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-nlf-variant-2CkMPP3CsZhFkFXpzSuZkV.webp";
 const TRUST_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/trust-section-bg-kwnjuLkybJ2rqpCpEwiChw.webp";
+
+// Character card images
+const DOOM_CARD = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/doom-card-LTiPEJkmSfYjTgipmotMso.webp";
+const IRON_MAN_CARD = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/armored-hero-card-SdisyrpGhXuzM9QzK4oy8L.webp";
+const SPIDER_MAN_CARD = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/web-hero-card-nnb4jySYxm85VCLBiavLYC.webp";
+const FF_CARD = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/fantastic-four-card-hj632KBGq5hHBqFr24T7Bg.webp";
+const BLACK_PANTHER_CARD = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/black-panther-card-8p85njMmcGx6FSvhe3Txjb.webp";
 
 
 export default function Home() {
@@ -36,71 +44,106 @@ export default function Home() {
     <div className="min-h-screen">
       <SEO
         path="/"
+        title="Northland Legendary Finds | Marvel & Star Wars Trading Card Collector Hub"
+        description="Your home for Marvel and Star Wars trading card collecting. Browse 1,709+ cards, track Avengers: Doomsday intel, explore market analysis, and discover premium hand-curated repacks. Built by collectors, for collectors."
         noSuffix
         jsonLd={[organizationJsonLd(), websiteJsonLd(), localBusinessJsonLd()]}
       />
-      {/* ===== HERO SECTION ===== */}
-      <section className="relative min-h-[450px] sm:min-h-[600px] lg:min-h-[700px] flex items-center overflow-hidden">
+
+      {/* ===== HERO SECTION — COLLECTOR-FIRST ===== */}
+      <section className="relative min-h-[500px] sm:min-h-[600px] lg:min-h-[720px] flex items-center overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0">
           <img src={HERO_BG} alt="" className="w-full h-full object-cover" loading="eager" decoding="async" fetchPriority="high" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/40" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/80 to-black/50" />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
         </div>
 
         <div className="container relative z-10">
           <div className="grid lg:grid-cols-2 gap-8 items-center">
-            {/* Left: Text */}
+            {/* Left: Collector-First Messaging */}
             <div className="py-12 lg:py-0">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/15 border border-primary/30 rounded-full mb-6">
-                <Zap className="w-4 h-4 text-primary" />
-                <span className="text-primary text-sm font-bold tracking-wide">LAUNCHING APRIL 27, 2026</span>
+                <Sparkles className="w-4 h-4 text-primary" />
+                <span className="text-primary text-sm font-bold tracking-wide">BUILT BY COLLECTORS, FOR COLLECTORS</span>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[0.9] mb-4 sm:mb-6" style={{ fontFamily: "'Anton', sans-serif" }}>
-                <span className="text-white">UNBOX THE</span>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[0.9] mb-4 sm:mb-6" style={{ fontFamily: "'Anton', sans-serif" }}>
+                <span className="text-white">REMEMBER</span>
                 <br />
-                <span className="text-primary">LEGENDARY</span>
+                <span className="text-white">YOUR FIRST</span>
+                <br />
+                <span className="text-primary">HERO?</span>
               </h1>
 
               <p className="text-lg sm:text-xl text-gray-300 max-w-lg mb-8 leading-relaxed">
-                Premium <strong className="text-primary">Marvel</strong> trading card repacks built different — hand-curated, fully transparent, and packed with quality. Every card counts.
+                Whether it was reading comics as a kid, watching the movies with your family, or pulling your first chase card — that feeling never goes away. <strong className="text-white">We're here to keep it alive.</strong>
               </p>
 
-              {/* Launch countdown banner */}
-              <div className="inline-flex items-center gap-3 bg-primary/10 border border-primary/30 rounded-xl px-5 py-3 mb-6">
-                <Clock className="w-5 h-5 text-primary" />
-                <span className="text-primary font-bold text-sm uppercase tracking-wider">Available Sunday, April 27th at 7:00 PM CT</span>
-              </div>
-
               <div className="flex flex-wrap gap-4">
-                <Link href="/shop">
+                <Link href="/cards">
                   <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-lg px-8 py-6 shadow-lg shadow-primary/20">
-                    <Eye className="w-5 h-5 mr-2" />
-                    Preview Products
+                    <BookOpen className="w-5 h-5 mr-2" />
+                    Explore Card Database
                   </Button>
                 </Link>
-                <Link href="/checklists">
+                <Link href="/characters">
                   <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10 font-bold text-lg px-8 py-6">
-                    View Checklists
+                    Meet the Characters
                     <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
                 </Link>
               </div>
             </div>
 
-            {/* Right: Pack Image */}
-            <div className="hidden lg:flex justify-center">
-              <div className="relative">
-                <div className="absolute -inset-8 bg-primary/10 rounded-full blur-3xl" />
+            {/* Right: Floating Character Cards */}
+            <div className="hidden lg:flex justify-center items-center relative h-[500px]">
+              {/* Doctor Doom - center, largest */}
+              <div className="absolute z-30 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                <div className="relative group">
+                  <div className="absolute -inset-4 bg-green-500/15 rounded-2xl blur-2xl group-hover:bg-green-500/25 transition-all" />
+                  <img
+                    src={DOOM_CARD}
+                    alt="Doctor Doom holographic trading card"
+                    className="relative w-48 xl:w-56 rounded-xl shadow-2xl shadow-green-500/20 hover:scale-105 transition-transform duration-500 rotate-[-2deg]"
+                    loading="eager"
+                  />
+                </div>
+              </div>
+              {/* Iron Man - top left */}
+              <div className="absolute z-20 top-4 left-4 xl:left-0">
                 <img
-                  src={NLF_PACK}
-                  alt="NLF Repack"
+                  src={IRON_MAN_CARD}
+                  alt="Iron Man holographic trading card"
+                  className="w-32 xl:w-36 rounded-lg shadow-xl shadow-red-500/15 hover:scale-105 transition-transform duration-500 rotate-[-8deg] opacity-90 hover:opacity-100"
                   loading="eager"
-                  decoding="async"
-                  width={384}
-                  height={384}
-                  className="relative w-80 xl:w-96 drop-shadow-[0_0_40px_rgba(0,255,65,0.2)] hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              {/* Spider-Man - top right */}
+              <div className="absolute z-20 top-8 right-4 xl:right-0">
+                <img
+                  src={SPIDER_MAN_CARD}
+                  alt="Spider-Man holographic trading card"
+                  className="w-32 xl:w-36 rounded-lg shadow-xl shadow-blue-500/15 hover:scale-105 transition-transform duration-500 rotate-[6deg] opacity-90 hover:opacity-100"
+                  loading="eager"
+                />
+              </div>
+              {/* Fantastic Four - bottom left */}
+              <div className="absolute z-10 bottom-8 left-8 xl:left-4">
+                <img
+                  src={FF_CARD}
+                  alt="Fantastic Four holographic trading card"
+                  className="w-28 xl:w-32 rounded-lg shadow-xl shadow-blue-400/15 hover:scale-105 transition-transform duration-500 rotate-[5deg] opacity-80 hover:opacity-100"
+                  loading="lazy"
+                />
+              </div>
+              {/* Black Panther - bottom right */}
+              <div className="absolute z-10 bottom-4 right-8 xl:right-4">
+                <img
+                  src={BLACK_PANTHER_CARD}
+                  alt="Black Panther holographic trading card"
+                  className="w-28 xl:w-32 rounded-lg shadow-xl shadow-purple-500/15 hover:scale-105 transition-transform duration-500 rotate-[-4deg] opacity-80 hover:opacity-100"
+                  loading="lazy"
                 />
               </div>
             </div>
@@ -108,32 +151,289 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== STATS BAR ===== */}
+      {/* ===== STATS BAR — COLLECTOR RESOURCES ===== */}
       <section className="bg-card border-y border-border">
         <div className="container py-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 text-center">
-            <div>
-              <div className="text-3xl font-bold text-primary" style={{ fontFamily: "'Anton', sans-serif" }}>6</div>
-              <div className="text-xs text-muted-foreground uppercase tracking-wider mt-1">Product Lines</div>
+            <Link href="/cards">
+              <div className="group cursor-pointer">
+                <div className="text-3xl font-bold text-primary group-hover:scale-110 transition-transform" style={{ fontFamily: "'Anton', sans-serif" }}>1,709+</div>
+                <div className="text-xs text-muted-foreground uppercase tracking-wider mt-1 group-hover:text-primary transition-colors">Cards in Database</div>
+              </div>
+            </Link>
+            <Link href="/cards">
+              <div className="group cursor-pointer">
+                <div className="text-3xl font-bold text-cyan-400 group-hover:scale-110 transition-transform" style={{ fontFamily: "'Anton', sans-serif" }}>6</div>
+                <div className="text-xs text-muted-foreground uppercase tracking-wider mt-1 group-hover:text-cyan-400 transition-colors">Topps Marvel Sets</div>
+              </div>
+            </Link>
+            <Link href="/characters">
+              <div className="group cursor-pointer">
+                <div className="text-3xl font-bold text-amber-400 group-hover:scale-110 transition-transform" style={{ fontFamily: "'Anton', sans-serif" }}>200+</div>
+                <div className="text-xs text-muted-foreground uppercase tracking-wider mt-1 group-hover:text-amber-400 transition-colors">Characters</div>
+              </div>
+            </Link>
+            <Link href="/market-intel">
+              <div className="group cursor-pointer">
+                <div className="text-3xl font-bold text-purple-400 group-hover:scale-110 transition-transform" style={{ fontFamily: "'Anton', sans-serif" }}>INTEL</div>
+                <div className="text-xs text-muted-foreground uppercase tracking-wider mt-1 group-hover:text-purple-400 transition-colors">Market Analysis</div>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== DOOMSDAY — CHARACTER INTEL HUB ===== */}
+      <DoomsdaySection />
+
+      {/* ===== MARVELOUS TOP 5 ===== */}
+      <MarvelousTop5 />
+
+      {/* ===== COLLECTOR'S JOURNEY — CHARACTER CARDS + NOSTALGIA ===== */}
+      <section className="py-16 lg:py-20 overflow-hidden">
+        <div className="container">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/15 border border-primary/30 rounded-full mb-4">
+              <Heart className="w-4 h-4 text-primary" />
+              <span className="text-primary text-sm font-bold tracking-wide">THE COLLECTOR'S JOURNEY</span>
             </div>
-            <div>
-              <div className="text-3xl font-bold text-cyan-400" style={{ fontFamily: "'Anton', sans-serif" }}>100%</div>
-              <div className="text-xs text-muted-foreground uppercase tracking-wider mt-1">Authentic Topps</div>
+            <h2 className="text-4xl md:text-5xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
+              EVERY COLLECTOR HAS <span className="text-primary">A STORY</span>
+            </h2>
+            <p className="text-muted-foreground text-lg max-w-3xl mx-auto leading-relaxed">
+              Maybe it started with a comic book from a garage sale. Maybe it was watching the Avengers with your kids for the first time. Whatever sparked it — that's why we're here.
+            </p>
+          </div>
+
+          {/* Alternating image-text layout with character cards */}
+          <div className="space-y-16 max-w-6xl mx-auto">
+            {/* Row 1: Image Left, Text Right — Iron Man */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              <div className="flex justify-center">
+                <div className="relative group">
+                  <div className="absolute -inset-6 bg-red-500/10 rounded-3xl blur-2xl group-hover:bg-red-500/15 transition-all" />
+                  <img
+                    src={IRON_MAN_CARD}
+                    alt="Iron Man holographic trading card"
+                    className="relative w-56 sm:w-64 rounded-xl shadow-2xl shadow-red-500/20 rotate-[-3deg] group-hover:rotate-0 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+              <div className="text-center lg:text-left">
+                <h3 className="text-2xl sm:text-3xl font-bold mb-4" style={{ fontFamily: "'Anton', sans-serif" }}>
+                  THE <span className="text-red-400">CHILDHOOD</span> SPARK
+                </h3>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  Remember flipping through comic books at the store, imagining you were swinging through the city or flying in a suit of armor? That wonder doesn't fade — it evolves. Now you're chasing numbered parallels and graded slabs, but the feeling is the same.
+                </p>
+                <Link href="/the-collector">
+                  <Button variant="outline" className="border-red-500/30 text-red-400 hover:bg-red-500/10 font-bold">
+                    Read The Collector Blog <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </Link>
+              </div>
             </div>
-            <div>
-              <div className="text-3xl font-bold text-amber-400" style={{ fontFamily: "'Anton', sans-serif" }}>NO FILLER</div>
-              <div className="text-xs text-muted-foreground uppercase tracking-wider mt-1">Every Card Counts</div>
+
+            {/* Row 2: Text Left, Image Right — Fantastic Four */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              <div className="text-center lg:text-left order-2 lg:order-1">
+                <h3 className="text-2xl sm:text-3xl font-bold mb-4" style={{ fontFamily: "'Anton', sans-serif" }}>
+                  SHARE IT WITH <span className="text-blue-400">YOUR PEOPLE</span>
+                </h3>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  The best part of collecting isn't just the cards — it's the moments. Ripping packs with your kids, debating who's the strongest Avenger with your friends, or watching a live break and losing your mind when the chase card drops. Collecting is better together.
+                </p>
+                <Link href="/card-shows">
+                  <Button variant="outline" className="border-blue-500/30 text-blue-400 hover:bg-blue-500/10 font-bold">
+                    Find Card Shows Near You <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </Link>
+              </div>
+              <div className="flex justify-center order-1 lg:order-2">
+                <div className="relative group">
+                  <div className="absolute -inset-6 bg-blue-500/10 rounded-3xl blur-2xl group-hover:bg-blue-500/15 transition-all" />
+                  <img
+                    src={FF_CARD}
+                    alt="Fantastic Four holographic trading card"
+                    className="relative w-56 sm:w-64 rounded-xl shadow-2xl shadow-blue-500/20 rotate-[3deg] group-hover:rotate-0 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
             </div>
-            <div>
-              <div className="text-3xl font-bold text-purple-400" style={{ fontFamily: "'Anton', sans-serif" }}>FREE</div>
-              <div className="text-xs text-muted-foreground uppercase tracking-wider mt-1">Shipping Over $199</div>
+
+            {/* Row 3: Image Left, Text Right — Black Panther */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              <div className="flex justify-center">
+                <div className="relative group">
+                  <div className="absolute -inset-6 bg-purple-500/10 rounded-3xl blur-2xl group-hover:bg-purple-500/15 transition-all" />
+                  <img
+                    src={BLACK_PANTHER_CARD}
+                    alt="Black Panther holographic trading card"
+                    className="relative w-56 sm:w-64 rounded-xl shadow-2xl shadow-purple-500/20 rotate-[-2deg] group-hover:rotate-0 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+              <div className="text-center lg:text-left">
+                <h3 className="text-2xl sm:text-3xl font-bold mb-4" style={{ fontFamily: "'Anton', sans-serif" }}>
+                  KNOW YOUR <span className="text-purple-400">COLLECTION</span>
+                </h3>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  We built the tools we wished existed when we started collecting. A complete card database with every 2025 Topps Marvel set. Market analysis so you know what your cards are worth. Character deep-dives so you understand the stories behind the art. This is your collector's toolkit.
+                </p>
+                <Link href="/cards">
+                  <Button variant="outline" className="border-purple-500/30 text-purple-400 hover:bg-purple-500/10 font-bold">
+                    Browse Card Database <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== YOUR FANDOM, YOUR WAY — EXPANSION ROADMAP ===== */}
+      <section className="py-16 lg:py-20 bg-card/30 border-y border-border relative overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+          <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
+        </div>
+        <div className="container relative z-10">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-cyan-500/15 border border-cyan-500/30 rounded-full mb-4">
+              <Compass className="w-4 h-4 text-cyan-400" />
+              <span className="text-cyan-400 text-sm font-bold tracking-wide">THE ROADMAP</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
+              YOUR FANDOM, <span className="text-primary">YOUR WAY</span>
+            </h2>
+            <p className="text-muted-foreground text-lg max-w-3xl mx-auto leading-relaxed">
+              We're starting with Marvel and Star Wars — but this is just the beginning. NLF is building a home for collectors across every fandom you love. Stay tuned and stay informed.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-6xl mx-auto">
+            {/* Marvel — Active */}
+            <div className="relative group">
+              <div className="bg-card border-2 border-primary/50 rounded-xl p-5 text-center hover:border-primary transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
+                <div className="absolute -top-2 -right-2">
+                  <span className="bg-primary text-primary-foreground text-[10px] font-bold px-2 py-0.5 rounded-full">LIVE</span>
+                </div>
+                <div className="text-4xl mb-3">🦸</div>
+                <h3 className="font-bold text-sm mb-1">Marvel</h3>
+                <p className="text-xs text-primary font-bold">Collecting Now</p>
+              </div>
+            </div>
+
+            {/* Star Wars — Coming Soon */}
+            <div className="relative group">
+              <div className="bg-card border border-amber-500/30 rounded-xl p-5 text-center hover:border-amber-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/10">
+                <div className="absolute -top-2 -right-2">
+                  <span className="bg-amber-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">SOON</span>
+                </div>
+                <div className="text-4xl mb-3">⚔️</div>
+                <h3 className="font-bold text-sm mb-1">Star Wars</h3>
+                <p className="text-xs text-amber-400 font-bold">June 2026</p>
+              </div>
+            </div>
+
+            {/* Disney — Future */}
+            <div className="group">
+              <div className="bg-card/60 border border-border rounded-xl p-5 text-center hover:border-blue-500/30 transition-all duration-300 opacity-80 hover:opacity-100">
+                <div className="text-4xl mb-3">🏰</div>
+                <h3 className="font-bold text-sm mb-1">Disney</h3>
+                <p className="text-xs text-muted-foreground">Coming 2027</p>
+              </div>
+            </div>
+
+            {/* WWE — Future */}
+            <div className="group">
+              <div className="bg-card/60 border border-border rounded-xl p-5 text-center hover:border-red-500/30 transition-all duration-300 opacity-80 hover:opacity-100">
+                <div className="text-4xl mb-3">🤼</div>
+                <h3 className="font-bold text-sm mb-1">WWE</h3>
+                <p className="text-xs text-muted-foreground">Coming Soon</p>
+              </div>
+            </div>
+
+            {/* UFC — Future */}
+            <div className="group">
+              <div className="bg-card/60 border border-border rounded-xl p-5 text-center hover:border-orange-500/30 transition-all duration-300 opacity-80 hover:opacity-100">
+                <div className="text-4xl mb-3">🥊</div>
+                <h3 className="font-bold text-sm mb-1">UFC</h3>
+                <p className="text-xs text-muted-foreground">Coming Soon</p>
+              </div>
+            </div>
+
+            {/* Boxing — Future */}
+            <div className="group">
+              <div className="bg-card/60 border border-border rounded-xl p-5 text-center hover:border-yellow-500/30 transition-all duration-300 opacity-80 hover:opacity-100">
+                <div className="text-4xl mb-3">🥇</div>
+                <h3 className="font-bold text-sm mb-1">Boxing</h3>
+                <p className="text-xs text-muted-foreground">Coming Soon</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center mt-8">
+            <p className="text-muted-foreground text-sm mb-4">Want to be first to know when new fandoms drop?</p>
+            <NewsletterSignup variant="sidebar" source="homepage-fandom-roadmap" headline="Get Notified" subtext="Be the first to know when new fandoms launch" />
+          </div>
+        </div>
+      </section>
+
+      {/* ===== EXPLORE OUR COLLECTION — Card Database CTA with Spider-Man ===== */}
+      <section className="py-16 lg:py-20">
+        <div className="container">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-6xl mx-auto">
+            {/* Left: Spider-Man Card */}
+            <div className="flex justify-center">
+              <div className="relative group">
+                <div className="absolute -inset-8 bg-blue-500/10 rounded-3xl blur-3xl group-hover:bg-blue-500/15 transition-all" />
+                <img
+                  src={SPIDER_MAN_CARD}
+                  alt="Spider-Man holographic trading card"
+                  className="relative w-56 sm:w-72 rounded-xl shadow-2xl shadow-blue-500/20 rotate-[2deg] group-hover:rotate-0 transition-transform duration-500"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+            {/* Right: CTA */}
+            <div className="text-center lg:text-left">
+              <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ fontFamily: "'Anton', sans-serif" }}>
+                EXPLORE THE <span className="text-primary">COLLECTION</span>
+              </h2>
+              <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+                Browse every 2025 Topps Marvel card set — Chrome, Comic Book Heroes, Mint, Sapphire, Studios, and Studios Sapphire. 1,709 cards across 6 sets, all searchable, all with detailed info. Know exactly what you're collecting.
+              </p>
+              <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+                <Link href="/cards">
+                  <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold">
+                    <BookOpen className="w-5 h-5 mr-2" />
+                    Card Database
+                  </Button>
+                </Link>
+                <Link href="/characters">
+                  <Button size="lg" variant="outline" className="border-primary/30 text-primary hover:bg-primary/10 font-bold">
+                    <Users className="w-5 h-5 mr-2" />
+                    Characters
+                  </Button>
+                </Link>
+                <Link href="/market-intel">
+                  <Button size="lg" variant="outline" className="border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 font-bold">
+                    <TrendingUp className="w-5 h-5 mr-2" />
+                    Market Intel
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* ===== WHAT IS A REPACK? ===== */}
-      <section className="py-16 lg:py-20">
+      <section className="py-16 lg:py-20 bg-card/30 border-y border-border">
         <div className="container">
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-amber-500/15 border border-amber-500/30 rounded-full mb-4">
@@ -181,7 +481,7 @@ export default function Home() {
       </section>
 
       {/* ===== HOW IT WORKS ===== */}
-      <section className="py-16 lg:py-20 bg-card/30 border-y border-border">
+      <section className="py-16 lg:py-20">
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
@@ -232,14 +532,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== DOOMSDAY — CHARACTER INTEL HUB ===== */}
-      <DoomsdaySection />
-
-      {/* ===== MARVELOUS TOP 5 ===== */}
-      <MarvelousTop5 />
-
       {/* ===== PRODUCT PYRAMID — GAMBIT ON TOP, VARIANT SERIES BELOW ===== */}
-      <section className="py-16 lg:py-20">
+      <section className="py-16 lg:py-20 bg-card/30 border-y border-border">
         <div className="container">
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 border border-primary/30 rounded-full mb-4">
@@ -514,42 +808,6 @@ export default function Home() {
                 <p className="text-xs text-muted-foreground">Shows Per Series</p>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== EXPLORE OUR COLLECTION ===== */}
-      <section className="py-16 lg:py-20">
-        <div className="container">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
-              EXPLORE OUR <span className="text-primary">COLLECTION</span>
-            </h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Dive into the complete card database — browse every 2025 Topps Marvel set
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 gap-6 max-w-2xl mx-auto">
-            <Link href="/cards">
-              <div className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-blue-500/10 via-card to-purple-500/10 border border-border hover:border-primary/50 transition-all duration-300 p-8 cursor-pointer hover:shadow-lg hover:shadow-primary/5">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="p-3 rounded-xl bg-blue-500/15 border border-blue-500/30">
-                    <BookOpen className="w-8 h-8 text-blue-400" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold group-hover:text-primary transition-colors">Card Database</h3>
-                    <p className="text-sm text-muted-foreground">1,709 cards across 6 sets</p>
-                  </div>
-                </div>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  Browse every 2025 Topps Marvel card set — Chrome, Comic Book Heroes, Mint, Sapphire, Studios, and Studios Sapphire. Know exactly what you could pull from our repacks.
-                </p>
-                <div className="flex items-center gap-2 mt-4 text-primary text-sm font-bold">
-                  Browse Sets <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </div>
-              </div>
-            </Link>
           </div>
         </div>
       </section>

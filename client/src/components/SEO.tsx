@@ -1,9 +1,9 @@
 import { Helmet } from "react-helmet-async";
 
 const SITE_NAME = "Northland Legendary Finds";
-const DEFAULT_TITLE = "Northland Legendary Finds | Premium Marvel Trading Card Repacks";
+const DEFAULT_TITLE = "Northland Legendary Finds | Marvel & Star Wars Trading Card Collector Hub";
 const DEFAULT_DESCRIPTION =
-  "Premium Marvel trading card repacks with full published checklists. Featuring 2025 Topps Chrome, Comic Book Heroes, Marvel Mint, numbered parallels, graded slabs, and more.";
+  "Your home for Marvel and Star Wars trading card collecting. Browse 1,709+ cards across 6 Topps sets, track Avengers: Doomsday intel, explore market analysis, and discover premium hand-curated repacks. Built by collectors, for collectors.";
 const DEFAULT_IMAGE =
   "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hero-banner-jniBj55ukeiEDpJxc2aLgB.webp";
 const SITE_URL = "https://northlandlegendaryfinds.com";

@@ -1098,3 +1098,20 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Added to sitemap page registry
 - [x] Write 27 vitest tests (all passing)
 - [x] Save checkpoint
+
+## Homepage Repositioning Phase 1: Collector-First Identity
+- [x] Generate character images (Doctor Doom, Iron Man, Spider-Man, Fantastic Four, Black Panther)
+- [x] Generate new collector-first hero banner
+- [x] Upload all images to CDN
+- [x] Restructure homepage: new hero with collector-first messaging and character imagery
+- [x] Restructure homepage: reorder sections (collector content first, commerce second)
+- [x] Add character images throughout homepage sections (Iron Man, FF, Black Panther, Spider-Man)
+- [x] Update stats bar to highlight collector resources (1,709+ cards, 6 sets, 200+ characters, Market Intel)
+- [x] Build "Your Fandom, Your Way" expansion roadmap section (Marvel, Star Wars, Disney, WWE, UFC, Boxing)
+- [x] Update Navigation order (Card Database first, Shop moved down, The Collector elevated)
+- [x] Update SEO meta tags for collector-first positioning
+- [x] Update announcement bar to collector-first messaging
+- [x] New "Collector's Journey" section with alternating image/text layout and character cards
+- [x] New "Explore the Collection" section with Spider-Man card and CTA buttons
+- [x] All 272 tests passing, 81/81 integrity checks green
+- [x] Run integrity check and save checkpoint

@@ -34,17 +34,17 @@ export default function Navigation() {
   const marketIntelRef = useRef<HTMLDivElement>(null);
 
   const navItems = [
-    { path: "/shop", label: "Shop" },
     { path: "/cards", label: "Card Database" },
     { path: "/characters", label: "Characters" },
     { path: "/checklists", label: "Checklists" },
+    { path: "/shop", label: "Shop" },
     { path: "/card-shows", label: "Card Shows" },
+    { path: "/the-collector", label: "The Collector" },
     { path: "/about", label: "About" },
     { path: "/transparency", label: "Transparency" },
     { path: "/faq", label: "FAQ" },
     { path: "/marvel-card-hub", label: "Card Hub" },
     { path: "/our-process", label: "Our Process" },
-    { path: "/the-collector", label: "The Collector" },
   ];
 
   const isMarketIntelActive = location.startsWith("/market-intel");
@@ -82,7 +82,7 @@ export default function Navigation() {
     <>
       {/* Announcement Bar */}
       <div className="bg-primary text-primary-foreground text-center py-2 px-4 text-sm font-bold tracking-wide">
-        LAUNCHING APRIL 27TH — FREE SHIPPING ON ORDERS OVER $199
+        YOUR MARVEL & STAR WARS COLLECTOR HUB — 1,709+ CARDS | MARKET INTEL | PREMIUM REPACKS
       </div>
 
       {/* Main Navigation */}
