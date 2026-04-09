@@ -1155,3 +1155,15 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Respectful, premium, legacy-focused tone — Boseman note mentions his passing and tribute significance
 - [x] All 272 tests passing, 81/81 integrity checks green
 - [x] Save checkpoint
+
+## Fix Whatnot QR Code Sitewide
+- [x] Replace old QR code in Home.tsx, Footer.tsx, Whatnot.tsx, WhatnotDeal.tsx
+- [x] All 4 files updated with correct NLF-WhatNOT QR code from CDN
+
+## Simplify Navigation — 8 Focused Items
+- [x] Main nav: Marvel Characters, Repack, Shop Now, Events, About, FAQ, Card Database, Marvel Resources
+- [x] Marvel Resources dropdown: The Collector (Blog), Market Intel (nested with 6 articles), Transparency, Our Process, Card Hub
+- [x] Removed clutter — 12 items reduced to 8 visible + 1 dropdown
+- [x] Mobile menu matches desktop with collapsible Marvel Resources and nested Market Intel
+- [x] All 272 tests passing, 81/81 integrity checks green
+- [x] Save checkpoint

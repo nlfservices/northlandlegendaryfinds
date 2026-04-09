@@ -75,7 +75,7 @@ export default function Whatnot() {
             <div className="mt-8 flex flex-col items-center">
               <div className="bg-white rounded-xl p-3 shadow-lg shadow-purple-500/20">
                 <img
-                  src="https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/whatnot-qr-1_5cdbb693.png"
+                  src="https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nlf-whatnot-qr_a49cbbc8.jpg"
                   alt="Scan to follow us on Whatnot"
                   className="w-32 h-32"
                 />

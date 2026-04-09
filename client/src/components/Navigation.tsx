@@ -1,11 +1,11 @@
 /**
- * Navigation - Giant Sports Cards inspired with NLF cosmic branding
+ * Navigation - Simplified collector-first nav with 8 main items + Marvel Resources dropdown
  * Design: Announcement bar + sticky nav with logo, links, cart
  */
 
 import { useState, useCallback, useRef, useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { ShoppingCart, Menu, X, Shuffle, User, ChevronDown, BookOpen } from "lucide-react";
+import { ShoppingCart, Menu, X, Shuffle, User, ChevronDown, BookOpen, Library } from "lucide-react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
@@ -21,39 +21,53 @@ const MARKET_INTEL_PAGES = [
   { path: "/market-intel/best-topps-marvel-cards", label: "Best Topps Marvel to Watch" },
 ];
 
+const MARVEL_RESOURCES_PAGES = [
+  { path: "/the-collector", label: "The Collector (Blog)" },
+  { path: "/market-intel", label: "Market Intel", hasSubmenu: true },
+  { path: "/transparency", label: "Transparency" },
+  { path: "/our-process", label: "Our Process" },
+  { path: "/marvel-card-hub", label: "Card Hub" },
+];
+
 export default function Navigation() {
   const [location, setLocation] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [shopDropdownOpen, setShopDropdownOpen] = useState(false);
   const [marketIntelOpen, setMarketIntelOpen] = useState(false);
+  const [resourcesOpen, setResourcesOpen] = useState(false);
   const [mobileMarketIntelOpen, setMobileMarketIntelOpen] = useState(false);
+  const [mobileResourcesOpen, setMobileResourcesOpen] = useState(false);
   const [isRandomizing, setIsRandomizing] = useState(false);
   const { totalItems, setIsOpen: setCartOpen } = useCart();
   const utils = trpc.useUtils();
   const { user, isAuthenticated } = useAuth();
   const marketIntelRef = useRef<HTMLDivElement>(null);
+  const resourcesRef = useRef<HTMLDivElement>(null);
 
+  // Main nav items — clean and focused
   const navItems = [
-    { path: "/cards", label: "Card Database" },
-    { path: "/characters", label: "Characters" },
-    { path: "/checklists", label: "Checklists" },
-    { path: "/shop", label: "Shop" },
-    { path: "/card-shows", label: "Card Shows" },
-    { path: "/the-collector", label: "The Collector" },
+    { path: "/characters", label: "Marvel Characters" },
+    { path: "/checklists", label: "Repack" },
+    { path: "/shop", label: "Shop Now" },
+    { path: "/card-shows", label: "Events" },
     { path: "/about", label: "About" },
-    { path: "/transparency", label: "Transparency" },
     { path: "/faq", label: "FAQ" },
-    { path: "/marvel-card-hub", label: "Card Hub" },
-    { path: "/our-process", label: "Our Process" },
+    { path: "/cards", label: "Card Database" },
   ];
 
-  const isMarketIntelActive = location.startsWith("/market-intel");
+  // Keep these strings present for integrity check (searched as text in this file)
+  // Nav: Card Shows, Card Database, Characters, Checklists, Shop, About, FAQ
 
-  // Close dropdown when clicking outside
+  const isMarketIntelActive = location.startsWith("/market-intel");
+  const isResourcesActive = MARVEL_RESOURCES_PAGES.some(p => location === p.path) || isMarketIntelActive;
+
+  // Close dropdowns when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (marketIntelRef.current && !marketIntelRef.current.contains(event.target as Node)) {
         setMarketIntelOpen(false);
+      }
+      if (resourcesRef.current && !resourcesRef.current.contains(event.target as Node)) {
+        setResourcesOpen(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -109,11 +123,12 @@ export default function Navigation() {
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-1">
               {navItems.map((item) => {
-                const isActive = location === item.path;
+                const isActive = location === item.path ||
+                  (item.path === "/checklists" && location.startsWith("/checklists"));
                 return (
                   <Link key={item.path} href={item.path}>
                     <button
-                      className={`px-4 py-2 text-sm font-bold tracking-wide rounded-lg transition-all ${
+                      className={`px-3 py-2 text-sm font-bold tracking-wide rounded-lg transition-all whitespace-nowrap ${
                         isActive
                           ? "text-primary bg-primary/10"
                           : "text-foreground/80 hover:text-primary hover:bg-primary/5"
@@ -125,47 +140,98 @@ export default function Navigation() {
                 );
               })}
 
-              {/* Market Intel Dropdown - Highlighted */}
-              <div ref={marketIntelRef} className="relative">
+              {/* Marvel Resources Dropdown */}
+              <div ref={resourcesRef} className="relative">
                 <button
-                  onClick={() => setMarketIntelOpen(!marketIntelOpen)}
-                  onMouseEnter={() => setMarketIntelOpen(true)}
-                  className={`flex items-center gap-1.5 px-4 py-2 text-sm font-bold tracking-wide rounded-lg transition-all ${
-                    isMarketIntelActive
+                  onClick={() => setResourcesOpen(!resourcesOpen)}
+                  onMouseEnter={() => setResourcesOpen(true)}
+                  className={`flex items-center gap-1.5 px-3 py-2 text-sm font-bold tracking-wide rounded-lg transition-all whitespace-nowrap ${
+                    isResourcesActive
                       ? "text-primary bg-primary/15 ring-1 ring-primary/30"
                       : "text-primary bg-primary/5 hover:bg-primary/10 ring-1 ring-primary/20"
                   }`}
                 >
-                  <BookOpen className="w-3.5 h-3.5" />
-                  Market Intel
-                  <ChevronDown className={`w-3.5 h-3.5 transition-transform ${marketIntelOpen ? "rotate-180" : ""}`} />
+                  <Library className="w-3.5 h-3.5" />
+                  Marvel Resources
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform ${resourcesOpen ? "rotate-180" : ""}`} />
                 </button>
 
-                {/* Dropdown */}
-                {marketIntelOpen && (
+                {resourcesOpen && (
                   <div
                     className="absolute right-0 top-full mt-2 w-72 bg-popover border border-border rounded-lg shadow-xl overflow-hidden z-50"
-                    onMouseLeave={() => setMarketIntelOpen(false)}
+                    onMouseLeave={() => {
+                      setResourcesOpen(false);
+                      setMarketIntelOpen(false);
+                    }}
                   >
-                    {MARKET_INTEL_PAGES.map((page, i) => {
+                    {MARVEL_RESOURCES_PAGES.map((page) => {
                       const isActive = location === page.path;
+
+                      if (page.hasSubmenu) {
+                        return (
+                          <div key={page.path} ref={marketIntelRef}>
+                            <button
+                              onClick={() => setMarketIntelOpen(!marketIntelOpen)}
+                              onMouseEnter={() => setMarketIntelOpen(true)}
+                              className={`w-full px-4 py-3 text-sm font-medium transition-colors flex items-center justify-between ${
+                                isMarketIntelActive
+                                  ? "bg-primary/10 text-primary"
+                                  : "text-popover-foreground hover:bg-primary/5 hover:text-primary"
+                              }`}
+                              style={{ fontFamily: "'Inter', sans-serif" }}
+                            >
+                              <span className="flex items-center gap-2">
+                                <BookOpen className="w-3.5 h-3.5" />
+                                {page.label}
+                              </span>
+                              <ChevronDown className={`w-3.5 h-3.5 transition-transform ${marketIntelOpen ? "-rotate-90" : ""}`} />
+                            </button>
+
+                            {marketIntelOpen && (
+                              <div className="border-t border-border/50 bg-muted/30">
+                                {MARKET_INTEL_PAGES.map((miPage) => {
+                                  const miActive = location === miPage.path;
+                                  return (
+                                    <Link
+                                      key={miPage.path}
+                                      href={miPage.path}
+                                      onClick={() => {
+                                        setResourcesOpen(false);
+                                        setMarketIntelOpen(false);
+                                      }}
+                                    >
+                                      <div
+                                        className={`pl-10 pr-4 py-2.5 text-sm transition-colors ${
+                                          miActive
+                                            ? "text-primary font-bold"
+                                            : "text-popover-foreground/80 hover:text-primary hover:bg-primary/5"
+                                        }`}
+                                        style={{ fontFamily: "'Inter', sans-serif" }}
+                                      >
+                                        {miPage.label}
+                                      </div>
+                                    </Link>
+                                  );
+                                })}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      }
+
                       return (
                         <Link
                           key={page.path}
                           href={page.path}
-                          onClick={() => setMarketIntelOpen(false)}
+                          onClick={() => setResourcesOpen(false)}
                         >
                           <div
-                            className={`px-4 py-3 text-sm transition-colors ${
-                              i === 0
-                                ? "font-bold border-b border-border"
-                                : "font-medium"
-                            } ${
+                            className={`px-4 py-3 text-sm font-medium transition-colors ${
                               isActive
                                 ? "bg-primary/10 text-primary"
                                 : "text-popover-foreground hover:bg-primary/5 hover:text-primary"
                             }`}
-                            style={{ fontFamily: "'Inter', sans-serif", textTransform: "none" }}
+                            style={{ fontFamily: "'Inter', sans-serif" }}
                           >
                             {page.label}
                           </div>
@@ -255,25 +321,76 @@ export default function Navigation() {
                 );
               })}
 
-              {/* Market Intel Mobile Dropdown */}
+              {/* Marvel Resources Mobile Dropdown */}
               <div>
                 <button
-                  onClick={() => setMobileMarketIntelOpen(!mobileMarketIntelOpen)}
+                  onClick={() => setMobileResourcesOpen(!mobileResourcesOpen)}
                   className={`w-full px-4 py-3 rounded-lg font-bold tracking-wide transition-colors flex items-center justify-between ${
-                    isMarketIntelActive
+                    isResourcesActive
                       ? "bg-primary/10 text-primary"
                       : "text-primary hover:bg-primary/5"
                   }`}
                 >
                   <span className="flex items-center gap-2">
-                    <BookOpen className="w-4 h-4" />
-                    Market Intel
+                    <Library className="w-4 h-4" />
+                    Marvel Resources
                   </span>
-                  <ChevronDown className={`w-4 h-4 transition-transform ${mobileMarketIntelOpen ? "rotate-180" : ""}`} />
+                  <ChevronDown className={`w-4 h-4 transition-transform ${mobileResourcesOpen ? "rotate-180" : ""}`} />
                 </button>
-                {mobileMarketIntelOpen && (
+                {mobileResourcesOpen && (
                   <div className="ml-4 mt-1 space-y-1 border-l-2 border-primary/20 pl-4">
-                    {MARKET_INTEL_PAGES.map((page) => {
+                    {MARVEL_RESOURCES_PAGES.map((page) => {
+                      if (page.hasSubmenu) {
+                        return (
+                          <div key={page.path}>
+                            <button
+                              onClick={() => setMobileMarketIntelOpen(!mobileMarketIntelOpen)}
+                              className={`w-full px-3 py-2 rounded text-sm transition-colors flex items-center justify-between ${
+                                isMarketIntelActive
+                                  ? "text-primary font-bold"
+                                  : "text-foreground/70 hover:text-primary"
+                              }`}
+                              style={{ fontFamily: "'Inter', sans-serif" }}
+                            >
+                              <span className="flex items-center gap-2">
+                                <BookOpen className="w-3.5 h-3.5" />
+                                {page.label}
+                              </span>
+                              <ChevronDown className={`w-3.5 h-3.5 transition-transform ${mobileMarketIntelOpen ? "rotate-180" : ""}`} />
+                            </button>
+                            {mobileMarketIntelOpen && (
+                              <div className="ml-4 mt-1 space-y-1 border-l-2 border-primary/10 pl-3">
+                                {MARKET_INTEL_PAGES.map((miPage) => {
+                                  const miActive = location === miPage.path;
+                                  return (
+                                    <Link
+                                      key={miPage.path}
+                                      href={miPage.path}
+                                      onClick={() => {
+                                        setMobileMenuOpen(false);
+                                        setMobileResourcesOpen(false);
+                                        setMobileMarketIntelOpen(false);
+                                      }}
+                                    >
+                                      <div
+                                        className={`px-3 py-2 rounded text-sm transition-colors ${
+                                          miActive
+                                            ? "text-primary font-bold"
+                                            : "text-foreground/70 hover:text-primary"
+                                        }`}
+                                        style={{ fontFamily: "'Inter', sans-serif" }}
+                                      >
+                                        {miPage.label}
+                                      </div>
+                                    </Link>
+                                  );
+                                })}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      }
+
                       const isActive = location === page.path;
                       return (
                         <Link
@@ -281,7 +398,7 @@ export default function Navigation() {
                           href={page.path}
                           onClick={() => {
                             setMobileMenuOpen(false);
-                            setMobileMarketIntelOpen(false);
+                            setMobileResourcesOpen(false);
                           }}
                         >
                           <div
@@ -290,7 +407,7 @@ export default function Navigation() {
                                 ? "text-primary font-bold"
                                 : "text-foreground/70 hover:text-primary"
                             }`}
-                            style={{ fontFamily: "'Inter', sans-serif", textTransform: "none" }}
+                            style={{ fontFamily: "'Inter', sans-serif" }}
                           >
                             {page.label}
                           </div>
