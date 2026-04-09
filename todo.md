@@ -1263,4 +1263,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 
 ## Follow on Whatnot Button — Yellow & Black
 - [x] Change all 3 "Follow on Whatnot" buttons on /whatnot page from purple/white to yellow bg + black text
+- [x] Save checkpoint
+
+## About Us Page — Founder Story with Family Photos
+- [x] Upload all 42 family photos to CDN
+- [x] Rewrite About Us page with story-driven layout: Section 8 → Northland Fence → NLF with Landon
+- [x] Include key photos: Me and the Boy, Vegas Retreat, Star Wars cruiser, Boxing, MN Card Show, etc.
+- [x] Flexible image+text layouts (image left/right alternating, galleries)
+- [x] Run integrity check and tests (81/81, 272/272)
 - [ ] Save checkpoint
