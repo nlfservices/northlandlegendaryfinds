@@ -1277,3 +1277,6 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Update Builder section: replace "handed her the keys" with daughter and her husband now run Northland Fence
 - [x] Tone down arrogant language across About page (more humble, authentic)
 - [x] Fix hero subtitle — says "Section 8" twice, rewrite to avoid repetition
+
+## Bug Fixes
+- [x] Fix nested <a> tag error on homepage — <a> cannot contain a nested <a>

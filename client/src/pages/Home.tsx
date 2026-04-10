@@ -851,11 +851,12 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="border-t border-fuchsia-500/20 px-6 py-3 flex items-center justify-between bg-fuchsia-500/5">
-                    <Link href="/checklist/nlf-marvel-52-singles">
-                      <span className="text-sm font-bold text-fuchsia-400 hover:text-fuchsia-300 flex items-center gap-1.5 cursor-pointer">
-                        <Eye className="w-4 h-4" /> See the Full Checklist
-                      </span>
-                    </Link>
+                    <span
+                      className="text-sm font-bold text-fuchsia-400 hover:text-fuchsia-300 flex items-center gap-1.5 cursor-pointer"
+                      onClick={(e) => { e.preventDefault(); e.stopPropagation(); window.location.href = '/checklist/nlf-marvel-52-singles'; }}
+                    >
+                      <Eye className="w-4 h-4" /> See the Full Checklist
+                    </span>
                     <span className="text-sm font-bold text-primary flex items-center gap-1.5 group-hover:translate-x-1 transition-transform">
                       View Details <ArrowRight className="w-4 h-4" />
                     </span>
