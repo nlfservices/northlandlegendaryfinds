@@ -45,7 +45,7 @@ export default function About() {
     <div className="min-h-screen">
       <SEO
         title="About Northland Legendary Finds — Our Story"
-        description="From Section 8 housing to building Minnesota's largest residential fence company to launching a Marvel trading card business with his 8-year-old son. Meet the family behind Northland Legendary Finds."
+        description="From humble beginnings in Minnesota to building a successful fence company to launching a Marvel trading card business with his 8-year-old son. Meet the family behind Northland Legendary Finds."
         path="/about"
         jsonLd={breadcrumbJsonLd([{ name: "Home", url: "/" }, { name: "About", url: "/about" }])}
       />
@@ -76,7 +76,7 @@ export default function About() {
               <span className="text-white">RUN BY A FAMILY.</span>
             </h1>
             <p className="text-lg sm:text-xl text-gray-300 leading-relaxed max-w-xl">
-              From Section 8 housing in Minnesota to building a business empire — and now starting 
+              From humble beginnings in Minnesota to building a successful business — and now starting 
               a brand-new chapter ripping cards with my 8-year-old son.
             </p>
           </div>
@@ -102,7 +102,7 @@ export default function About() {
                 <p>
                   That strip mall had a card shop. And that card shop changed everything. I learned 
                   to trade, to negotiate, to spot value where other people saw junk. By the time I was 
-                  12, I was dealing cards like a stockbroker.
+                  12, I was trading cards with anyone who'd sit down.
                 </p>
                 <p>
                   Some kids had after-school programs. I had a folding table and a binder full of 
@@ -158,8 +158,8 @@ export default function About() {
                   with nothing but a truck and a dream.
                 </p>
                 <p>
-                  We grew it into the <strong className="text-white">largest residential fence installer 
-                  in Minnesota</strong>. Not by cutting corners. By outworking everyone and treating 
+                  We grew it into one of the <strong className="text-white">largest residential fence 
+                  installers in Minnesota</strong>. Not by cutting corners. By showing up every day and treating 
                   every customer like they were our only one.
                 </p>
                 <p className="text-amber-400/90 italic border-l-4 border-amber-500/50 pl-5">
