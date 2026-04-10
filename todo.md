@@ -1272,3 +1272,6 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Flexible image+text layouts (image left/right alternating, galleries)
 - [x] Run integrity check and tests (81/81, 272/272)
 - [ ] Save checkpoint
+
+## About Us — Text Edits
+- [x] Update Builder section: replace "handed her the keys" with daughter and her husband now run Northland Fence

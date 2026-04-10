@@ -167,8 +167,7 @@ export default function About() {
                   in a garage we rented."
                 </p>
                 <p>
-                  When my daughter was ready to take over Northland Fence, I handed her the keys. 
-                  She earned it. And it freed me up for something I'd been thinking about for years.
+                  Now my daughter and her husband run Northland Fence. They earned it. And it freed me up for something I'd been thinking about for years.
                 </p>
               </div>
             </div>
