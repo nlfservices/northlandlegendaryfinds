@@ -18,7 +18,7 @@ import {
 import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 import { Streamdown } from "streamdown";
 
-const PLACEHOLDER_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hulk_9ebdacfa.png";
+const PLACEHOLDER_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/character-placeholder-v2-CY48bnu9TGVPXs9qZJnG7S.webp";
 
 export default function CharacterPage() {
   const [, params] = useRoute("/characters/:slug");
@@ -161,9 +161,18 @@ export default function CharacterPage() {
         ])}
       />
 
-      {/* Hero Section */}
+      {/* Hero Section — Cinematic character card art banner */}
       <section className="relative border-b border-border/50 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-background to-background" />
+        {/* Background: blurred character image */}
+        <div className="absolute inset-0">
+          <img
+            src={characterImage}
+            alt=""
+            className="w-full h-full object-cover scale-110 blur-2xl opacity-20"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background" />
+        </div>
+
         <div className="container max-w-6xl relative py-8 lg:py-12">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
@@ -174,18 +183,20 @@ export default function CharacterPage() {
             <span className="text-foreground font-medium">{data.characterName}</span>
           </nav>
 
-          <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-start">
-            {/* Character Image */}
-            <div className="w-32 h-44 md:w-40 md:h-56 flex-shrink-0 rounded-xl overflow-hidden border-2 border-primary/30 shadow-lg shadow-primary/10">
-              <img
-                src={characterImage}
-                alt={data.characterName}
-                className="w-full h-full object-cover"
-              />
+          <div className="grid md:grid-cols-[240px_1fr] lg:grid-cols-[280px_1fr] gap-6 lg:gap-10 items-start">
+            {/* Character Card Art — Large */}
+            <div className="mx-auto md:mx-0 w-48 md:w-full">
+              <div className="aspect-[3/4] rounded-2xl overflow-hidden border-2 border-primary/40 shadow-2xl shadow-primary/20 ring-1 ring-primary/10">
+                <img
+                  src={characterImage}
+                  alt={data.characterName}
+                  className="w-full h-full object-cover object-top"
+                />
+              </div>
             </div>
 
             {/* Character Info */}
-            <div className="flex-1">
+            <div className="flex-1 pt-2">
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-3">
                 {data.characterName}
               </h1>
@@ -211,7 +222,7 @@ export default function CharacterPage() {
                 )}
               </div>
               {keyFacts?.notablePowers && keyFacts.notablePowers.length > 0 && (
-                <div className="flex flex-wrap gap-1.5">
+                <div className="flex flex-wrap gap-1.5 mb-4">
                   {keyFacts.notablePowers.slice(0, 6).map((power: string, i: number) => (
                     <Badge key={i} className="bg-primary/10 text-primary border-primary/20 text-xs">
                       <Zap className="w-3 h-3 mr-1" />
@@ -219,6 +230,12 @@ export default function CharacterPage() {
                     </Badge>
                   ))}
                 </div>
+              )}
+              {/* Quick summary from meta description */}
+              {metaDesc && (
+                <p className="text-muted-foreground leading-relaxed max-w-xl">
+                  {metaDesc}
+                </p>
               )}
             </div>
           </div>

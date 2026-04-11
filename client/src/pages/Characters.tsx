@@ -112,6 +112,39 @@ const TEAMS: TeamDef[] = [
       "KINGPIN", "CARNAGE",
     ],
   },
+  {
+    name: "Thunderbolts*",
+    subtitle: "Marvel's Anti-Heroes",
+    icon: <Zap className="w-5 h-5" />,
+    accentColor: "text-violet-400",
+    borderColor: "border-violet-500/30",
+    members: [
+      "BUCKY BARNES", "YELENA BELOVA", "GHOST", "TASKMASTER",
+      "RED GUARDIAN", "VALENTINA ALLEGRA DE FONTAINE",
+    ],
+  },
+  {
+    name: "Sinister Six",
+    subtitle: "Spider-Man's Greatest Foes",
+    icon: <Skull className="w-5 h-5" />,
+    accentColor: "text-emerald-400",
+    borderColor: "border-emerald-500/30",
+    members: [
+      "GREEN GOBLIN", "DOCTOR OCTOPUS", "VULTURE", "ELECTRO",
+      "SANDMAN", "MYSTERIO", "KRAVEN THE HUNTER", "RHINO", "SCORPION",
+    ],
+  },
+  {
+    name: "Young Avengers",
+    subtitle: "The Next Generation",
+    icon: <Star className="w-5 h-5" />,
+    accentColor: "text-pink-400",
+    borderColor: "border-pink-500/30",
+    members: [
+      "KATE BISHOP", "AMERICA CHAVEZ", "MS. MARVEL",
+      "CASSIE LANG", "PATRIOT",
+    ],
+  },
 ];
 
 // Collect ALL featured character names for the image query

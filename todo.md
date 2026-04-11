@@ -1305,3 +1305,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Upgrade character grid cards to show character images from database
 - [x] Keep existing search/filter/pagination for full database below teams
 - [x] Add new tRPC endpoint to fetch character images for featured characters
+
+## More Teams & Character Detail Hero Images
+- [x] Add Thunderbolts team section to Characters page
+- [x] Add Young Avengers team section to Characters page
+- [x] Add Sinister Six team section to Characters page
+- [x] Add character card art as hero image on CharacterPage detail pages
+- [x] Test and verify all new sections display correctly
