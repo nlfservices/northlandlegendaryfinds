@@ -189,13 +189,14 @@ export default function About() {
               <h2 className="text-4xl sm:text-5xl font-bold mb-6">THE NEXT CHAPTER</h2>
               <div className="space-y-5 text-gray-300 text-lg leading-relaxed">
                 <p>
-                  My son Landon is 8 years old. He's obsessed with Marvel. Iron Man, Spider-Man, 
-                  Captain America — he knows every character, every storyline, every post-credits scene.
+                  My son Landon is 8 years old. He's obsessed with Marvel and Star Wars — just like 
+                  his old man. It started with me buying him the same action figures I once played with 
+                  from my older brothers, hunting them down at nostalgia toy stores together.
                 </p>
                 <p>
-                  Watching him light up over a card pull is the same feeling I had at that strip mall 
-                  card shop 30 years ago. Except this time, I'm not alone. This time, I get to do it 
-                  with my boy.
+                  From there it was lightsaber battles in the house — I'm sure the neighbors got a 
+                  good laugh out of that one. And now, it's ripping cards together. Watching him light 
+                  up over a pull is the same feeling I had at that strip mall card shop all those years ago.
                 </p>
                 <p className="text-red-400/90 italic border-l-4 border-red-500/50 pl-5 text-xl font-medium">
                   "Unlike my father, I plan on doing everything I can to improve my boy's life."

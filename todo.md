@@ -1282,3 +1282,4 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Fix nested <a> tag error on homepage — <a> cannot contain a nested <a>
 - [x] Rewrite The Hustle section: warmer tone about dad, card show drop-offs, wheel and deal, drive to do better for own family
 - [x] Rename "Landon's Marvel Moments" section to cover both Marvel & Star Wars → "Out of This World Moments"
+- [x] Rewrite The Next Chapter section: nostalgia toy stores, lightsaber battles in the house, now ripping cards
