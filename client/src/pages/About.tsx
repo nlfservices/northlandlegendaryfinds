@@ -35,6 +35,10 @@ const PHOTOS = {
   landonSissy: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landon&Sissy_ef115e28.webp",
   avengersdinner: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/AvengersCruiseDinner_649ef3b3.jpg",
   falconLandon: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Falcon+Landon_b50f8549.webp",
+  // Row 5
+  avengersVsVillains: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/LandonAvengersvsVillains_60146c67.jpg",
+  mamaStarWarsCruise: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landon&Mama-StarWarsCruiseship2_561480c1.jpg",
+  sleepboy: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Sleepboy!_89ed6d95.jpg",
   // Kept for other sections
   toysForTots: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Northland-StarWarsToysforTots3_b11fe6fe.jpg",
 };
@@ -254,12 +258,15 @@ export default function About() {
               { src: PHOTOS.landonStarWarsCruise, alt: "Landon on Star Wars Cruise", label: "Star Wars Cruise" },
               { src: PHOTOS.avengersdinner, alt: "Avengers Cruise Dinner", label: "Avengers Dinner" },
               { src: PHOTOS.falconLandon, alt: "Landon at the Millennium Falcon", label: "Millennium Falcon" },
+              { src: PHOTOS.avengersVsVillains, alt: "Landon with Avengers vs Villains action figures", label: "Avengers vs Villains" },
+              { src: PHOTOS.mamaStarWarsCruise, alt: "Landon and Mama on Star Wars Cruise", label: "Mama & Landon" },
+              { src: PHOTOS.sleepboy, alt: "Landon sleeping after a big day", label: "Tapped Out" },
             ].map((photo, i) => (
               <div key={i} className="relative group overflow-hidden rounded-xl aspect-[3/4]">
                 <img
                   src={photo.src}
                   alt={photo.alt}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />

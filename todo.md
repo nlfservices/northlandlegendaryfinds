@@ -1290,3 +1290,6 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Upload 12 new photos for Out of This World Moments grid to CDN
 - [x] Replace/expand Out of This World Moments grid with 12 new photos (4 rows x 3)
 - [x] Swap Star Wars Cruise (pos 3) and Landon & Sissy (pos 10) in Out of This World grid
+- [x] Upload 3 new photos (Avengers vs Villains, Mama Star Wars Cruise, Sleepboy) to CDN
+- [x] Fix Millennium Falcon photo display (added object-top)
+- [x] Expand Out of This World grid to 15 photos (5 rows of 3)
