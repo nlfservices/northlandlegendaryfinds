@@ -1285,3 +1285,4 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Rewrite The Next Chapter section: nostalgia toy stores, lightsaber battles in the house, now ripping cards
 - [x] Replace Next Chapter quote with "I've seen the dark side. I choose the light."
 - [x] Replace "Me and the boy" photo in Next Chapter section with new uploaded photo
+- [x] Replace Next Chapter photo with MN Sports Cards store photo

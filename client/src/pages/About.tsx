@@ -16,7 +16,7 @@ const PHOTOS = {
   // Founders — couple shot
   founders: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/KayaandINLFVegasRetreat_ce081be8.jpg",
   // Father & son — warm, direct
-  fatherSon: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/me-and-the-boy-new_22ed6bb0.png",
+  fatherSon: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/MNSportsstore4_3c2e5a50.webp",
   // Boxing back in the day
   boxing: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Boxingbackintheday_82250df8.jpg",
   // Landon with Marvel heroes
@@ -213,12 +213,12 @@ export default function About() {
               <div className="absolute -inset-3 bg-gradient-to-br from-red-500/20 via-transparent to-primary/20 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity" />
               <img
                 src={PHOTOS.fatherSon}
-                alt="Me and Landon — the heart of NLF"
+                alt="Me and Landon outside MN Sports Cards — one of our favorite card stores"
                 className="relative rounded-xl w-full aspect-[4/3] object-cover shadow-2xl"
               />
               <div className="absolute bottom-4 left-4 bg-black/70 backdrop-blur-sm px-4 py-2 rounded-lg flex items-center gap-2">
                 <Heart className="w-4 h-4 text-red-400" />
-                <p className="text-sm text-gray-300 italic">Me and the boy</p>
+                <p className="text-sm text-gray-300 italic">Outside one of our favorite card stores</p>
               </div>
             </div>
           </div>
