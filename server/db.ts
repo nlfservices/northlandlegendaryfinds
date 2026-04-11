@@ -1443,3 +1443,37 @@ export async function getBlogPostsWithoutImages(): Promise<BlogPost[]> {
     .where(sql`${blogPosts.featuredImageUrl} IS NULL OR ${blogPosts.featuredImageUrl} = ''`)
     .orderBy(desc(blogPosts.createdAt));
 }
+
+
+/** Get a representative image URL for each character in a list of names */
+export async function getCharacterImages(names: string[]): Promise<Record<string, string>> {
+  const db = await getDb();
+  if (!db) return {};
+  
+  // Build a case-insensitive lookup: lowercase → original requested name
+  const lowerToRequested: Record<string, string> = {};
+  for (const n of names) {
+    lowerToRequested[n.toLowerCase()] = n;
+  }
+  const lowerNames = Object.keys(lowerToRequested);
+  
+  // Get all cards for these characters that have images (case-insensitive)
+  const cards = await db.select({
+    characterName: marvelCards.characterName,
+    imageUrl: marvelCards.imageUrl,
+  }).from(marvelCards)
+    .where(sql`LOWER(${marvelCards.characterName}) IN (${sql.join(lowerNames.map(n => sql`${n}`), sql`, `)}) AND ${marvelCards.imageUrl} IS NOT NULL AND ${marvelCards.imageUrl} != ''`)
+    .orderBy(asc(marvelCards.setId), asc(marvelCards.sortOrder));
+  
+  // Pick first image per character, keyed by the REQUESTED name (preserves caller's casing)
+  const result: Record<string, string> = {};
+  for (const card of cards) {
+    if (card.characterName && card.imageUrl) {
+      const requestedName = lowerToRequested[card.characterName.toLowerCase()];
+      if (requestedName && !result[requestedName]) {
+        result[requestedName] = card.imageUrl;
+      }
+    }
+  }
+  return result;
+}

@@ -15,6 +15,7 @@ import {
   parseParallels,
   getRandomCard,
   insertShowSubmission,
+  getCharacterImages,
 } from "../db";
 import { launchSubscribers } from "../../drizzle/schema";
 import { getDb } from "../db";
@@ -291,6 +292,11 @@ Format the response as JSON with these fields:
     const match = allChars.find((c: any) => characterNameToSlug(c.characterName) === input.slug);
     if (!match) return [];
     return getRelatedCharacters(match.characterName, input.limit);
+  }),
+
+  /** Get images for a list of featured character names */
+  featuredCharacterImages: publicProcedure.input(z.object({ names: z.array(z.string()) })).query(async ({ input }) => {
+    return getCharacterImages(input.names);
   }),
 
   /** Get all character slugs for sitemap/index */

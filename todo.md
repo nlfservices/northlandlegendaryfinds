@@ -1297,3 +1297,11 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Replace Millennium Falcon photo (showing black) with Landon & Thor photo
 - [x] Replace boxing photo in The Hustle section with family dinner (Texas trip) photo
 - [x] Replace The Hustle section photo with Landon & I Hayride photo (baby Landon in Northland Fence beanie)
+
+## Characters Page Redesign
+- [x] Add Doctor Doom featured hero section at top of Characters page
+- [x] Add Top 10 MCU Characters ranked list with character card images
+- [x] Add team sections (Avengers, X-Men, Guardians of the Galaxy, Fantastic Four, Villains)
+- [x] Upgrade character grid cards to show character images from database
+- [x] Keep existing search/filter/pagination for full database below teams
+- [x] Add new tRPC endpoint to fetch character images for featured characters
