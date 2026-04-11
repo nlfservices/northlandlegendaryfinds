@@ -25,7 +25,7 @@ const PHOTOS = {
   landonStarWarsCruise: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landon-StarWarsCruiseship_8ef5ee08.jpg",
   // Row 2
   landonSpidermanPresents: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/LandonSpiderman-Presents_ae93e17f.jpg",
-  landonGalaxy: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/LandonGalaxy2022-3_4c6b1f0c.webp",
+  landonReadyToRip: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/LandonReadyToRip_398dd41e.png",
   toySwapFun: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/ToySwapFun!_fd3c1d78.jpg",
   // Row 3
   starWarsSpaceHotel: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/StarWars-SpaceHotel_0364c8b3.jpg",
@@ -34,7 +34,7 @@ const PHOTOS = {
   // Row 4
   landonSissy: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landon&Sissy_ef115e28.webp",
   avengersdinner: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/AvengersCruiseDinner_649ef3b3.jpg",
-  falconLandon: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Falcon+Landon_b50f8549.webp",
+  landonThor: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landon&Thor_b859091f.jpg",
   // Row 5
   avengersVsVillains: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/LandonAvengersvsVillains_60146c67.jpg",
   mamaStarWarsCruise: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landon&Mama-StarWarsCruiseship2_561480c1.jpg",
@@ -250,14 +250,14 @@ export default function About() {
               { src: PHOTOS.landonAssemble, alt: "Landon Avengers Assemble", label: "Avengers Assemble" },
               { src: PHOTOS.landonSissy, alt: "Landon and Sissy", label: "Landon & Sissy" },
               { src: PHOTOS.landonSpidermanPresents, alt: "Landon Spider-Man presents", label: "Spider-Man Presents" },
-              { src: PHOTOS.landonGalaxy, alt: "Landon Galaxy's Edge 2022", label: "Galaxy's Edge" },
+              { src: PHOTOS.landonReadyToRip, alt: "Landon ready to rip cards", label: "Ready to Rip" },
               { src: PHOTOS.toySwapFun, alt: "Toy swap fun", label: "Toy Swap Fun" },
               { src: PHOTOS.starWarsSpaceHotel, alt: "Star Wars Space Hotel", label: "Space Hotel" },
               { src: PHOTOS.starWarsTwinCityCon, alt: "Star Wars Twin City Con", label: "Twin City Con" },
               { src: PHOTOS.mnCardShow, alt: "MN Sports Card Show", label: "Card Show" },
               { src: PHOTOS.landonStarWarsCruise, alt: "Landon on Star Wars Cruise", label: "Star Wars Cruise" },
               { src: PHOTOS.avengersdinner, alt: "Avengers Cruise Dinner", label: "Avengers Dinner" },
-              { src: PHOTOS.falconLandon, alt: "Landon at the Millennium Falcon", label: "Millennium Falcon" },
+              { src: PHOTOS.landonThor, alt: "Landon meeting Thor", label: "Landon & Thor" },
               { src: PHOTOS.avengersVsVillains, alt: "Landon with Avengers vs Villains action figures", label: "Avengers vs Villains" },
               { src: PHOTOS.mamaStarWarsCruise, alt: "Landon and Mama on Star Wars Cruise", label: "Mama & Landon" },
               { src: PHOTOS.sleepboy, alt: "Landon sleeping after a big day", label: "Tapped Out" },

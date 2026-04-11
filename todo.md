@@ -1293,3 +1293,5 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Upload 3 new photos (Avengers vs Villains, Mama Star Wars Cruise, Sleepboy) to CDN
 - [x] Fix Millennium Falcon photo display (added object-top)
 - [x] Expand Out of This World grid to 15 photos (5 rows of 3)
+- [x] Replace Galaxy's Edge photo with new photo, rename label to "Ready to Rip"
+- [x] Replace Millennium Falcon photo (showing black) with Landon & Thor photo
