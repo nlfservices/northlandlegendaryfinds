@@ -1295,3 +1295,4 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Expand Out of This World grid to 15 photos (5 rows of 3)
 - [x] Replace Galaxy's Edge photo with new photo, rename label to "Ready to Rip"
 - [x] Replace Millennium Falcon photo (showing black) with Landon & Thor photo
+- [x] Replace boxing photo in The Hustle section with family dinner (Texas trip) photo

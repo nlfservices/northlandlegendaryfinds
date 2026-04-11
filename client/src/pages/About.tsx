@@ -17,8 +17,8 @@ const PHOTOS = {
   founders: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/KayaandINLFVegasRetreat_ce081be8.jpg",
   // Father & son — warm, direct
   fatherSon: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/MNSportsstore4_3c2e5a50.webp",
-  // Boxing back in the day
-  boxing: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Boxingbackintheday_82250df8.jpg",
+  // Family dinner in Texas
+  familyDinner: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Texastip_6be4a4ef.webp",
   // Out of This World Moments — Row 1
   landonReading: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landonreading_fef412fa.jpg",
   landonAssemble: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landon-Assemble3_5789b932.jpg",
@@ -119,12 +119,12 @@ export default function About() {
             <div className="relative group">
               <div className="absolute -inset-3 bg-gradient-to-br from-primary/20 via-transparent to-purple-500/20 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity" />
               <img
-                src={PHOTOS.boxing}
-                alt="Back in the day — the hustle years"
+                src={PHOTOS.familyDinner}
+                alt="Family dinner in Texas"
                 className="relative rounded-xl w-full aspect-[4/3] object-cover shadow-2xl"
               />
               <div className="absolute bottom-4 left-4 bg-black/70 backdrop-blur-sm px-4 py-2 rounded-lg">
-                <p className="text-sm text-gray-300 italic">Back in the day</p>
+                <p className="text-sm text-gray-300 italic">Family dinner in Texas</p>
               </div>
             </div>
           </div>
