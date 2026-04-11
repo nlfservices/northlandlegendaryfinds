@@ -1287,3 +1287,5 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Replace "Me and the boy" photo in Next Chapter section with new uploaded photo
 - [x] Replace Next Chapter photo with MN Sports Cards store photo
 - [x] Fix MN Sports Cards photo cropping — changed to 3/4 aspect ratio with object-top to show sign
+- [x] Upload 12 new photos for Out of This World Moments grid to CDN
+- [x] Replace/expand Out of This World Moments grid with 12 new photos (4 rows x 3)

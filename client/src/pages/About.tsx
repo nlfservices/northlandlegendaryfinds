@@ -19,25 +19,24 @@ const PHOTOS = {
   fatherSon: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/MNSportsstore4_3c2e5a50.webp",
   // Boxing back in the day
   boxing: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Boxingbackintheday_82250df8.jpg",
-  // Landon with Marvel heroes
-  landonIronman: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landon&Ironman_2dfee5df.jpg",
-  landonSpiderman: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landon&Spiderman_17eb7847.jpg",
-  landonThor: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landon&Thor_c8979307.jpg",
-  landonCaptain: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landon&CaptainAMerica_bf78548f.jpg",
-  landonBlackWidow: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/LittleCaptain-withBlackwidow_0b3fd4cb.jpg",
-  landonWaspAntman: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/LandonwithWaspandAntman_d0f5f14b.jpg",
-  // Star Wars adventures
-  starWarsCruise: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landon-StarWarsCruiseship_d84f63dd.jpg",
-  mamaStarWars: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landon&Mama-StarWarsCruiseship_80ff6cc5.jpg",
-  // Card shows & hobby
-  mnCardShow: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/MNSportsCardShow_ce3636af.jpg",
+  // Out of This World Moments — Row 1
+  landonReading: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landonreading_fef412fa.jpg",
+  landonAssemble: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landon-Assemble3_5789b932.jpg",
+  landonStarWarsCruise: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landon-StarWarsCruiseship_8ef5ee08.jpg",
+  // Row 2
+  landonSpidermanPresents: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/LandonSpiderman-Presents_ae93e17f.jpg",
+  landonGalaxy: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/LandonGalaxy2022-3_4c6b1f0c.webp",
+  toySwapFun: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/ToySwapFun!_fd3c1d78.jpg",
+  // Row 3
+  starWarsSpaceHotel: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/StarWars-SpaceHotel_0364c8b3.jpg",
+  starWarsTwinCityCon: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Starwars-TwinCityCon_bc9e15fb.jpg",
+  mnCardShow: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/MNSportsCardShow_6e7594b5.jpg",
+  // Row 4
+  landonSissy: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landon&Sissy_ef115e28.webp",
+  avengersdinner: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/AvengersCruiseDinner_649ef3b3.jpg",
+  falconLandon: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Falcon+Landon_b50f8549.webp",
+  // Kept for other sections
   toysForTots: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Northland-StarWarsToysforTots3_b11fe6fe.jpg",
-  // Sweet moments
-  landonReading: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landonreading_7b5a53c1.jpg",
-  landonSpidermanSchool: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/LandonSpiderman-1stdayofschool_751d4404.jpg",
-  // Lifestyle
-  avengersdinner: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/AvengersCruiseDinner_12826755.jpg",
-  disneyYucatan: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/DisneyMagic-Yucatan_a9013dd4.webp",
 };
 
 export default function About() {
@@ -243,12 +242,18 @@ export default function About() {
           {/* Photo grid — 3 columns on desktop, 2 on mobile */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
             {[
-              { src: PHOTOS.landonIronman, alt: "Landon meeting Iron Man", label: "Iron Man" },
-              { src: PHOTOS.landonSpiderman, alt: "Landon with Spider-Man", label: "Spider-Man" },
-              { src: PHOTOS.landonThor, alt: "Landon with Thor", label: "Thor" },
-              { src: PHOTOS.landonCaptain, alt: "Landon with Captain America", label: "Captain America" },
-              { src: PHOTOS.landonBlackWidow, alt: "Little Captain with Black Widow", label: "Black Widow" },
-              { src: PHOTOS.landonWaspAntman, alt: "Landon with Wasp and Ant-Man", label: "Wasp & Ant-Man" },
+              { src: PHOTOS.landonReading, alt: "Landon reading", label: "Quiet Moments" },
+              { src: PHOTOS.landonAssemble, alt: "Landon Avengers Assemble", label: "Avengers Assemble" },
+              { src: PHOTOS.landonStarWarsCruise, alt: "Landon on Star Wars Cruise", label: "Star Wars Cruise" },
+              { src: PHOTOS.landonSpidermanPresents, alt: "Landon Spider-Man presents", label: "Spider-Man Presents" },
+              { src: PHOTOS.landonGalaxy, alt: "Landon Galaxy's Edge 2022", label: "Galaxy's Edge" },
+              { src: PHOTOS.toySwapFun, alt: "Toy swap fun", label: "Toy Swap Fun" },
+              { src: PHOTOS.starWarsSpaceHotel, alt: "Star Wars Space Hotel", label: "Space Hotel" },
+              { src: PHOTOS.starWarsTwinCityCon, alt: "Star Wars Twin City Con", label: "Twin City Con" },
+              { src: PHOTOS.mnCardShow, alt: "MN Sports Card Show", label: "Card Show" },
+              { src: PHOTOS.landonSissy, alt: "Landon and Sissy", label: "Landon & Sissy" },
+              { src: PHOTOS.avengersdinner, alt: "Avengers Cruise Dinner", label: "Avengers Dinner" },
+              { src: PHOTOS.falconLandon, alt: "Landon at the Millennium Falcon", label: "Millennium Falcon" },
             ].map((photo, i) => (
               <div key={i} className="relative group overflow-hidden rounded-xl aspect-[3/4]">
                 <img
@@ -351,44 +356,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════════════════
-          SECTION 7 — ADVENTURES: Star Wars + Family Life
-          Horizontal scroll / gallery feel
-      ═══════════════════════════════════════════════════════════════════ */}
-      <section className="py-16 lg:py-24 bg-card/50 border-y border-border/50">
-        <div className="container max-w-6xl">
-          <div className="text-center mb-10">
-            <p className="text-cyan-400 font-bold text-sm tracking-[0.2em] uppercase mb-3">Beyond the Cards</p>
-            <h2 className="text-4xl sm:text-5xl font-bold mb-4">FAMILY ADVENTURES</h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              We don't just collect — we live it. Star Wars cruises, Marvel dinners, 
-              conventions, and everything in between.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-            {[
-              { src: PHOTOS.starWarsCruise, alt: "Landon on Star Wars Cruise", label: "Star Wars Cruise" },
-              { src: PHOTOS.avengersdinner, alt: "Avengers Cruise Dinner", label: "Avengers Dinner" },
-              { src: PHOTOS.landonReading, alt: "Landon reading", label: "Quiet Moments" },
-              { src: PHOTOS.landonSpidermanSchool, alt: "Landon Spider-Man first day of school", label: "1st Day of School" },
-            ].map((photo, i) => (
-              <div key={i} className="relative group overflow-hidden rounded-xl aspect-square">
-                <img
-                  src={photo.src}
-                  alt={photo.alt}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                <div className="absolute bottom-3 left-3 right-3">
-                  <p className="text-white text-sm font-bold">{photo.label}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Family Adventures section consolidated into Out of This World Moments grid above */}
 
       {/* ═══════════════════════════════════════════════════════════════════
           SECTION 8 — THE WHY: Emotional Close
