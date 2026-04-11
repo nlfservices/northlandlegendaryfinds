@@ -244,14 +244,14 @@ export default function About() {
             {[
               { src: PHOTOS.landonReading, alt: "Landon reading", label: "Quiet Moments" },
               { src: PHOTOS.landonAssemble, alt: "Landon Avengers Assemble", label: "Avengers Assemble" },
-              { src: PHOTOS.landonStarWarsCruise, alt: "Landon on Star Wars Cruise", label: "Star Wars Cruise" },
+              { src: PHOTOS.landonSissy, alt: "Landon and Sissy", label: "Landon & Sissy" },
               { src: PHOTOS.landonSpidermanPresents, alt: "Landon Spider-Man presents", label: "Spider-Man Presents" },
               { src: PHOTOS.landonGalaxy, alt: "Landon Galaxy's Edge 2022", label: "Galaxy's Edge" },
               { src: PHOTOS.toySwapFun, alt: "Toy swap fun", label: "Toy Swap Fun" },
               { src: PHOTOS.starWarsSpaceHotel, alt: "Star Wars Space Hotel", label: "Space Hotel" },
               { src: PHOTOS.starWarsTwinCityCon, alt: "Star Wars Twin City Con", label: "Twin City Con" },
               { src: PHOTOS.mnCardShow, alt: "MN Sports Card Show", label: "Card Show" },
-              { src: PHOTOS.landonSissy, alt: "Landon and Sissy", label: "Landon & Sissy" },
+              { src: PHOTOS.landonStarWarsCruise, alt: "Landon on Star Wars Cruise", label: "Star Wars Cruise" },
               { src: PHOTOS.avengersdinner, alt: "Avengers Cruise Dinner", label: "Avengers Dinner" },
               { src: PHOTOS.falconLandon, alt: "Landon at the Millennium Falcon", label: "Millennium Falcon" },
             ].map((photo, i) => (
