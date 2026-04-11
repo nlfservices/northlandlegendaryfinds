@@ -1313,4 +1313,4 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add character card art as hero image on CharacterPage detail pages
 - [x] Test and verify all new sections display correctly
 - [x] Fix Avengers: Doomsday release date from "MAY 1, 2026" to December 2026 (DO NOT change again unless user says so)
-- [ ] Rewrite Legacy Legends descriptions to highlight actors' real accomplishments (Oscars, iconic roles, cultural impact) not just card investing
+- [x] Rewrite Legacy Legends descriptions to highlight actors' real accomplishments (Oscars, iconic roles, cultural impact) not just card investing

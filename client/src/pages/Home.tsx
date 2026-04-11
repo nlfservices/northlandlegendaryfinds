@@ -48,7 +48,7 @@ const LEGACY_LEGENDS = [
     glowColor: "shadow-purple-500/30",
     accentColor: "text-purple-400",
     image: LEGACY_BLACK_PANTHER,
-    note: "Chadwick Boseman passed away in 2020. No autograph card will ever exist in any Topps set — making any Black Panther card a tribute to his legacy.",
+    note: "Academy Award nominee. Howard University graduate. Brought Black Panther to life and inspired a generation — his 'Wakanda Forever' became a global symbol of strength. Passed away in 2020 at 43 after a private battle with cancer. No autograph card will ever exist.",
   },
   {
     id: "hopkins",
@@ -61,7 +61,7 @@ const LEGACY_LEGENDS = [
     glowColor: "shadow-amber-500/30",
     accentColor: "text-amber-400",
     image: LEGACY_HOPKINS_ODIN,
-    note: "Sir Anthony Hopkins' first-ever autograph card in a Topps Marvel set. At 88 years old, this debut auto is an instant legacy piece.",
+    note: "Academy Award winner for The Silence of the Lambs and The Father. Knighted by Queen Elizabeth II. From Hannibal Lecter to the All-Father of Asgard — at 88, Sir Anthony Hopkins is one of the greatest actors who ever lived. His first-ever Marvel autograph card.",
   },
   {
     id: "mckellen",
@@ -74,7 +74,7 @@ const LEGACY_LEGENDS = [
     glowColor: "shadow-red-500/30",
     accentColor: "text-red-400",
     image: LEGACY_MCKELLEN_MAGNETO,
-    note: "Sir Ian McKellen's first Topps autograph card. The definitive Magneto — his debut auto is one of the most anticipated pulls in the 2025 set.",
+    note: "Six-time Olivier Award winner. Knighted for services to the performing arts. Defined Gandalf and Magneto for an entire generation. Sir Ian McKellen has been a titan of stage and screen for over 60 years — and a fearless advocate for equality. His first-ever Marvel autograph card.",
   },
   {
     id: "stewart",
@@ -87,7 +87,7 @@ const LEGACY_LEGENDS = [
     glowColor: "shadow-blue-500/30",
     accentColor: "text-blue-400",
     image: LEGACY_STEWART_PROFX,
-    note: "Sir Patrick Stewart's first Topps autograph card. The voice of the X-Men — his debut auto in the 2025 Marvel Studios set is a collector's dream.",
+    note: "Legendary Royal Shakespeare Company actor. Knighted in 2010. Made Captain Picard and Professor X two of the most iconic characters in pop culture history. Sir Patrick Stewart brings gravitas to everything he touches — from Star Trek to the X-Men. His first-ever Marvel autograph card.",
   },
 ];
 
