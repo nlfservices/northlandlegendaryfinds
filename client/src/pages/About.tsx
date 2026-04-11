@@ -225,17 +225,17 @@ export default function About() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════════════
-          SECTION 5 — LANDON'S MARVEL MOMENTS: Photo Gallery
-          Grid of Landon meeting Marvel heroes
+          SECTION 5 — OUT OF THIS WORLD MOMENTS: Photo Gallery
+          Grid of Landon with Marvel heroes & Star Wars characters
       ═══════════════════════════════════════════════════════════════════ */}
       <section className="py-16 lg:py-24 bg-card/50 border-y border-border/50">
         <div className="container max-w-6xl">
           <div className="text-center mb-12">
             <p className="text-purple-400 font-bold text-sm tracking-[0.2em] uppercase mb-3">The Superfan</p>
-            <h2 className="text-4xl sm:text-5xl font-bold mb-4">LANDON'S MARVEL MOMENTS</h2>
+            <h2 className="text-4xl sm:text-5xl font-bold mb-4">OUT OF THIS WORLD MOMENTS</h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              This kid doesn't just collect Marvel — he lives it. Every convention, every character 
-              meet, every movie premiere. This is what it's all about.
+              Marvel heroes and Star Wars legends — Landon doesn't just watch, he lives it. 
+              Every convention, every character meet, every premiere. This is what it's all about.
             </p>
           </div>
 
