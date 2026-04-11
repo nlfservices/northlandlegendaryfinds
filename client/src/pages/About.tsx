@@ -16,7 +16,7 @@ const PHOTOS = {
   // Founders — couple shot
   founders: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/KayaandINLFVegasRetreat_ce081be8.jpg",
   // Father & son — warm, direct
-  fatherSon: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/MeandtheBoy_0a66ac02.jpg",
+  fatherSon: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/me-and-the-boy-new_22ed6bb0.png",
   // Boxing back in the day
   boxing: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Boxingbackintheday_82250df8.jpg",
   // Landon with Marvel heroes
@@ -199,7 +199,7 @@ export default function About() {
                   up over a pull is the same feeling I had at that strip mall card shop all those years ago.
                 </p>
                 <p className="text-red-400/90 italic border-l-4 border-red-500/50 pl-5 text-xl font-medium">
-                  "Unlike my father, I plan on doing everything I can to improve my boy's life."
+                  "I've seen the dark side. I choose the light."
                 </p>
                 <p>
                   That's what Northland Legendary Finds is. It's not just a card business. It's a 
