@@ -96,17 +96,18 @@ export default function About() {
               <h2 className="text-4xl sm:text-5xl font-bold mb-6">THE HUSTLE</h2>
               <div className="space-y-5 text-gray-300 text-lg leading-relaxed">
                 <p>
-                  I grew up on Section 8 in Minnesota. My dad would drop me off at the strip mall 
-                  and leave me there all day. No money, no plan — just a kid figuring it out.
+                  I grew up with my father in Section 8 housing in Minnesota. We didn't have much, 
+                  but even then my old man would find the time to drop me off at the local card show.
                 </p>
                 <p>
-                  That strip mall had a card shop. And that card shop changed everything. I learned 
-                  to trade, to negotiate, to spot value where other people saw junk. By the time I was 
-                  12, I was trading cards with anyone who'd sit down.
+                  That's where I learned to wheel and deal. Trading sports cards at the typical strip 
+                  mall card shop, figuring out what things were worth, negotiating with guys twice my 
+                  age. I never knew it at the time, but those tables taught me skills I still use in 
+                  business today.
                 </p>
                 <p>
-                  Some kids had after-school programs. I had a folding table and a binder full of 
-                  cards. That was my education.
+                  Maybe that's the kind of drive you get from growing up the way I did — that push 
+                  to do better for your own family one day.
                 </p>
               </div>
             </div>
