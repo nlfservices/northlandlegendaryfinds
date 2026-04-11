@@ -1314,3 +1314,6 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Test and verify all new sections display correctly
 - [x] Fix Avengers: Doomsday release date from "MAY 1, 2026" to December 2026 (DO NOT change again unless user says so)
 - [x] Rewrite Legacy Legends descriptions to highlight actors' real accomplishments (Oscars, iconic roles, cultural impact) not just card investing
+- [x] Add Robert Downey Jr. as 5th Legacy Legend (Oscar winner Oppenheimer, Iron Man decade, returning as Doctor Doom)
+- [x] Generate RDJ/Iron Man slab-style card image for Legacy Legends
+- [x] Add "Read more" toggle to Legacy Legends cards so descriptions stay compact

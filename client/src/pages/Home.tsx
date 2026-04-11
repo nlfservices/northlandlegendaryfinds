@@ -5,7 +5,8 @@
  */
 
 import { useAuth } from "@/_core/hooks/useAuth";
-import { ShoppingCart, Shield, Star, TrendingUp, Package, ArrowRight, Zap, BookOpen, Clock, Eye, Radio, HelpCircle, Search, Box, Gift, Sparkles, Compass, Users, Heart, Gamepad2, Play, MapPin, Lightbulb, Crown, Award } from "lucide-react";
+import { useState } from "react";
+import { ShoppingCart, Shield, Star, TrendingUp, Package, ArrowRight, Zap, BookOpen, Clock, Eye, Radio, HelpCircle, Search, Box, Gift, Sparkles, Compass, Users, Heart, Gamepad2, Play, MapPin, Lightbulb, Crown, Award, ChevronDown, ChevronUp } from "lucide-react";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
@@ -34,6 +35,7 @@ const LEGACY_HOPKINS_ODIN = "https://d2xsxph8kpxj0f.cloudfront.net/3104196630270
 const LEGACY_MCKELLEN_MAGNETO = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mckellen-magneto-N8g4KBYRkiGLYhftfknYBc.webp";
 const LEGACY_STEWART_PROFX = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/stewart-professor-x-QoEpAmXirvvLiCbPvb8gyG.webp";
 const LEGACY_BLACK_PANTHER = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/black-panther-card-HTGdTwE7FjM5GKsJFH6VNw.webp";
+const LEGACY_RDJ_IRON_MAN = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/rdj-iron-man-legacy-QegKWDGfdcUe8NRevdJ5GF.webp";
 
 // Legacy Legends data — expansion-ready array
 const LEGACY_LEGENDS = [
@@ -89,8 +91,83 @@ const LEGACY_LEGENDS = [
     image: LEGACY_STEWART_PROFX,
     note: "Legendary Royal Shakespeare Company actor. Knighted in 2010. Made Captain Picard and Professor X two of the most iconic characters in pop culture history. Sir Patrick Stewart brings gravitas to everything he touches — from Star Trek to the X-Men. His first-ever Marvel autograph card.",
   },
+  {
+    id: "downey",
+    actorName: "Robert Downey Jr.",
+    characterName: "Iron Man / Doctor Doom",
+    badge: "The Godfather",
+    badgeColor: "from-red-500 to-amber-600",
+    badgeTextColor: "text-red-100",
+    borderColor: "border-red-500/40",
+    glowColor: "shadow-red-500/30",
+    accentColor: "text-red-400",
+    image: LEGACY_RDJ_IRON_MAN,
+    note: "Academy Award winner for Oppenheimer. Launched the entire MCU as Tony Stark in 2008 and defined a generation of superhero cinema across 11 films. His 'I am Iron Man' became the most iconic line in Marvel history. Now returning as Doctor Doom in Avengers: Doomsday — the only actor to play both the MCU's greatest hero and its greatest villain.",
+  },
 ];
 
+
+// Legacy Legend Card with Read More toggle
+function LegacyLegendCard({ legend }: { legend: typeof LEGACY_LEGENDS[number] }) {
+  const [expanded, setExpanded] = useState(false);
+  const NOTE_PREVIEW_LENGTH = 100;
+  const isLong = legend.note.length > NOTE_PREVIEW_LENGTH;
+  const displayNote = expanded || !isLong ? legend.note : legend.note.slice(0, NOTE_PREVIEW_LENGTH).trimEnd() + "...";
+
+  return (
+    <div className="group relative">
+      {/* Spotlight glow effect */}
+      <div className={`absolute -inset-3 bg-gradient-to-b ${legend.badgeColor} opacity-0 group-hover:opacity-20 rounded-2xl blur-xl transition-opacity duration-500`} />
+
+      <div className={`relative bg-card/80 backdrop-blur-sm border-2 ${legend.borderColor} rounded-2xl overflow-hidden hover:border-opacity-80 transition-all duration-500 group-hover:shadow-2xl ${legend.glowColor}`}>
+        {/* Badge */}
+        <div className="absolute top-3 right-3 z-20">
+          <span className={`inline-flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r ${legend.badgeColor} ${legend.badgeTextColor} text-xs font-bold rounded-full shadow-lg`}>
+            <Award className="w-3 h-3" />
+            {legend.badge}
+          </span>
+        </div>
+
+        {/* Card Image */}
+        <div className="relative aspect-[3/4] overflow-hidden">
+          <img
+            src={legend.image}
+            alt={`${legend.actorName} as ${legend.characterName} - Legacy Legend trading card`}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            loading="lazy"
+          />
+          {/* Gradient overlay at bottom */}
+          <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/90 to-transparent" />
+        </div>
+
+        {/* Card Info */}
+        <div className="p-4">
+          <h3 className={`text-lg font-bold ${legend.accentColor} mb-0.5`} style={{ fontFamily: "'Anton', sans-serif" }}>
+            {legend.actorName}
+          </h3>
+          <p className="text-sm text-muted-foreground font-medium mb-2">
+            as <span className="text-foreground">{legend.characterName}</span>
+          </p>
+          <p className="text-xs text-muted-foreground/80 leading-relaxed">
+            {displayNote}
+          </p>
+          {isLong && (
+            <button
+              onClick={() => setExpanded(!expanded)}
+              className={`inline-flex items-center gap-1 mt-2 text-xs font-semibold ${legend.accentColor} hover:underline transition-colors cursor-pointer`}
+            >
+              {expanded ? (
+                <><ChevronUp className="w-3 h-3" /> Read less</>
+              ) : (
+                <><ChevronDown className="w-3 h-3" /> Read more</>
+              )}
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function Home() {
   let { user, loading, error, isAuthenticated, logout } = useAuth();
@@ -600,47 +677,9 @@ export default function Home() {
           </div>
 
           {/* Cards Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 lg:gap-6 max-w-7xl mx-auto">
             {LEGACY_LEGENDS.map((legend) => (
-              <div key={legend.id} className="group relative">
-                {/* Spotlight glow effect */}
-                <div className={`absolute -inset-3 bg-gradient-to-b ${legend.badgeColor} opacity-0 group-hover:opacity-20 rounded-2xl blur-xl transition-opacity duration-500`} />
-
-                <div className={`relative bg-card/80 backdrop-blur-sm border-2 ${legend.borderColor} rounded-2xl overflow-hidden hover:border-opacity-80 transition-all duration-500 group-hover:shadow-2xl ${legend.glowColor}`}>
-                  {/* Badge */}
-                  <div className="absolute top-3 right-3 z-20">
-                    <span className={`inline-flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r ${legend.badgeColor} ${legend.badgeTextColor} text-xs font-bold rounded-full shadow-lg`}>
-                      <Award className="w-3 h-3" />
-                      {legend.badge}
-                    </span>
-                  </div>
-
-                  {/* Card Image */}
-                  <div className="relative aspect-[3/4] overflow-hidden">
-                    <img
-                      src={legend.image}
-                      alt={`${legend.actorName} as ${legend.characterName} - Legacy Legend trading card`}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                      loading="lazy"
-                    />
-                    {/* Gradient overlay at bottom */}
-                    <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/90 to-transparent" />
-                  </div>
-
-                  {/* Card Info */}
-                  <div className="p-5">
-                    <h3 className={`text-xl font-bold ${legend.accentColor} mb-0.5`} style={{ fontFamily: "'Anton', sans-serif" }}>
-                      {legend.actorName}
-                    </h3>
-                    <p className="text-sm text-muted-foreground font-medium mb-3">
-                      as <span className="text-foreground">{legend.characterName}</span>
-                    </p>
-                    <p className="text-xs text-muted-foreground/80 leading-relaxed">
-                      {legend.note}
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <LegacyLegendCard key={legend.id} legend={legend} />
             ))}
           </div>
 
