@@ -214,7 +214,7 @@ export default function About() {
               <img
                 src={PHOTOS.fatherSon}
                 alt="Me and Landon outside MN Sports Cards — one of our favorite card stores"
-                className="relative rounded-xl w-full aspect-[4/3] object-cover shadow-2xl"
+                className="relative rounded-xl w-full aspect-[3/4] object-cover object-top shadow-2xl"
               />
               <div className="absolute bottom-4 left-4 bg-black/70 backdrop-blur-sm px-4 py-2 rounded-lg flex items-center gap-2">
                 <Heart className="w-4 h-4 text-red-400" />
