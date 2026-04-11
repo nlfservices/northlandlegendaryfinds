@@ -1296,3 +1296,4 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Replace Galaxy's Edge photo with new photo, rename label to "Ready to Rip"
 - [x] Replace Millennium Falcon photo (showing black) with Landon & Thor photo
 - [x] Replace boxing photo in The Hustle section with family dinner (Texas trip) photo
+- [x] Replace The Hustle section photo with Landon & I Hayride photo (baby Landon in Northland Fence beanie)
