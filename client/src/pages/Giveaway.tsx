@@ -1,6 +1,6 @@
 /**
- * Facebook Landing Page - $5,000 Marvel Giveaway + $15 Whatnot Credit
- * Designed for Facebook ad traffic. Compliant with Whatnot TOS & Facebook ad policies.
+ * Giveaway Landing Page - $5,000 Marvel Giveaway + $15 Whatnot Credit
+ * Designed for ad traffic. Compliant with Whatnot TOS & ad platform policies.
  */
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -56,7 +56,7 @@ const PRIZES = [
   },
 ];
 
-export default function Facebook() {
+export default function Giveaway() {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [submitted, setSubmitted] = useState(false);
@@ -70,7 +70,7 @@ export default function Facebook() {
       toast.success("You're in! We'll notify you before every stream.");
       if (typeof window !== "undefined" && (window as any).fbq) {
         (window as any).fbq("track", "Lead", {
-          content_name: "Facebook Landing Page Giveaway",
+          content_name: "Giveaway Landing Page",
           content_category: "email_signup",
           value: 5000,
           currency: "USD",
@@ -88,14 +88,14 @@ export default function Facebook() {
     subscribeMutation.mutate({
       email: email.trim(),
       firstName: firstName.trim() || undefined,
-      source: "facebook-landing-giveaway",
+      source: "giveaway-landing",
     });
   };
 
   const handleWhatnotClick = () => {
     if (typeof window !== "undefined" && (window as any).fbq) {
       (window as any).fbq("trackCustom", "WhatnotReferralClick", {
-        content_name: "Facebook Landing Page Invite Link",
+        content_name: "Giveaway Landing Page Invite Link",
         referral_url: WHATNOT_INVITE,
       });
     }
@@ -107,10 +107,10 @@ export default function Facebook() {
         <SEO
           title="$5,000 Marvel Card Giveaway — Join Our Live Stream"
           description="Northland Legendary Finds is giving away $5,000 in Marvel trading card products during our live Whatnot streams. Free packs, free boxes, free graded and raw cards. No purchase necessary."
-          path="/facebook"
+          path="/giveaway"
           jsonLd={breadcrumbJsonLd([
             { name: "Home", url: "/" },
-            { name: "Facebook Giveaway", url: "/facebook" },
+            { name: "$5K Giveaway", url: "/giveaway" },
           ])}
         />
 
