@@ -9,13 +9,12 @@ import { useState, useEffect } from "react";
 import { trpc } from "@/lib/trpc";
 import {
   Gift, Radio, ExternalLink, Shield, CheckCircle2, Clock, DollarSign,
-  Sparkles, Zap,
+  Sparkles,
 } from "lucide-react";
-import { toast } from "sonner";
+
 import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 
 const WHATNOT_INVITE = "https://whatnot.com/invite/northlandfinds";
-const QR_CODE = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nlf-whatnot-invite-qr_4f04b557.png";
 
 // Countdown hook — takes a UTC timestamp (ms), returns live d/h/m/s
 function useCountdown(targetMs: number | null) {
@@ -36,9 +35,6 @@ function useCountdown(targetMs: number | null) {
 }
 
 export default function Giveaway() {
-  const [email, setEmail] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [submitted, setSubmitted] = useState(false);
   const [showRules, setShowRules] = useState(false);
 
   // Fetch countdown target from DB (admin-configurable)
@@ -56,35 +52,7 @@ export default function Giveaway() {
   );
   const c = (key: string, fallback: string) => pageContent?.[key] ?? fallback;
 
-  const subscribeMutation = trpc.public.subscribe.submit.useMutation({
-    onSuccess: () => {
-      setSubmitted(true);
-      localStorage.setItem("nlf_email_submitted", "true");
-      localStorage.setItem("nlf_popup_closed", "permanent");
-      toast.success("You're in! We'll notify you before every stream.");
-      if (typeof window !== "undefined" && (window as any).fbq) {
-        (window as any).fbq("track", "Lead", {
-          content_name: "Giveaway Landing Page",
-          content_category: "email_signup",
-          value: 0,
-          currency: "USD",
-        });
-      }
-    },
-    onError: (error: any) => {
-      toast.error(error.message || "Something went wrong. Please try again.");
-    },
-  });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email.trim() || subscribeMutation.isPending) return;
-    subscribeMutation.mutate({
-      email: email.trim(),
-      firstName: firstName.trim() || undefined,
-      source: "giveaway-landing",
-    });
-  };
 
   const handleWhatnotClick = () => {
     if (typeof window !== "undefined" && (window as any).fbq) {
@@ -118,8 +86,7 @@ export default function Giveaway() {
           </div>
 
           <div className="container relative z-10">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-6xl mx-auto">
-              {/* Left: $15 Credit CTA */}
+            <div className="max-w-3xl mx-auto text-center">
               <div>
                 <Badge variant="outline" className="mb-6 border-yellow-500/30 text-yellow-400 px-4 py-1.5">
                   <Sparkles className="w-3.5 h-3.5 mr-1.5" />
@@ -218,81 +185,7 @@ export default function Giveaway() {
                 )}
               </div>
 
-              {/* Right: Email capture + QR */}
-              <div className="flex flex-col gap-6">
-                {/* Email Capture */}
-                <div className="bg-card border border-border rounded-3xl p-6 lg:p-8">
-                  <h2
-                    className="text-xl font-bold mb-1"
-                    style={{ fontFamily: "'Anton', sans-serif" }}
-                  >
-                    GET <span className="text-primary">NOTIFIED</span> BEFORE EVERY STREAM
-                  </h2>
-                  <p className="text-sm text-muted-foreground mb-5">
-                    We'll email you before we go live so you never miss a giveaway.
-                  </p>
-                  {submitted ? (
-                    <div className="bg-primary/10 border border-primary/30 rounded-xl p-5 text-center">
-                      <CheckCircle2 className="w-8 h-8 text-primary mx-auto mb-2" />
-                      <p className="font-bold text-primary">You're on the list!</p>
-                      <p className="text-sm text-muted-foreground mt-1">
-                        We'll notify you before every stream.
-                      </p>
-                    </div>
-                  ) : (
-                    <form onSubmit={handleSubmit} className="space-y-3">
-                      <input
-                        type="text"
-                        placeholder="First Name (optional)"
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
-                        className="w-full px-4 py-3 bg-background border border-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
-                      />
-                      <input
-                        type="email"
-                        placeholder="Your email address *"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                        className="w-full px-4 py-3 bg-background border border-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
-                      />
-                      <Button
-                        type="submit"
-                        className="w-full bg-primary hover:bg-primary/90 font-bold py-6"
-                        disabled={subscribeMutation.isPending}
-                      >
-                        <Zap className="w-4 h-4 mr-2" />
-                        {subscribeMutation.isPending
-                          ? "Signing up..."
-                          : "Get Stream Alerts & $15 Credit Info"}
-                      </Button>
-                      <p className="text-xs text-muted-foreground text-center">
-                        No spam, ever. Unsubscribe anytime.
-                      </p>
-                    </form>
-                  )}
-                </div>
 
-                {/* QR Code */}
-                <div className="bg-gradient-to-br from-purple-900/30 via-card to-yellow-900/10 border border-purple-500/20 rounded-3xl p-6 text-center backdrop-blur-sm">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-purple-500/15 border border-purple-500/30 rounded-full mb-3">
-                    <Radio className="w-3 h-3 text-purple-400" />
-                    <span className="text-purple-400 text-xs font-bold tracking-wide">
-                      SCAN TO FOLLOW
-                    </span>
-                  </div>
-                  <div className="bg-white rounded-2xl p-3 shadow-2xl shadow-purple-500/20 mx-auto w-fit mb-3">
-                    <img
-                      src={QR_CODE}
-                      alt="Scan to follow us on Whatnot"
-                      className="w-32 h-32"
-                    />
-                  </div>
-                  <p className="text-xs text-muted-foreground">
-                    Scan with your phone to follow us on Whatnot
-                  </p>
-                </div>
-              </div>
             </div>
           </div>
         </section>

@@ -1363,3 +1363,4 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Generate QR code for https://whatnot.com/invite/northlandfinds and replace current QR on /giveaway page (with NLF$15 center, saved to Google Drive)
 - [x] Regenerate QR code with yellow NLF$15 text and square center box
 - [x] Regenerate QR code with NLF logo in center (no text), linking to whatnot.com/invite/northlandfinds
+- [x] Remove email signup form and QR code/Scan to Follow sections from /giveaway page
