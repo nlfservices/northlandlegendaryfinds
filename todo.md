@@ -1317,3 +1317,14 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add Robert Downey Jr. as 5th Legacy Legend (Oscar winner Oppenheimer, Iron Man decade, returning as Doctor Doom)
 - [x] Generate RDJ/Iron Man slab-style card image for Legacy Legends
 - [x] Add "Read more" toggle to Legacy Legends cards so descriptions stay compact
+
+## Facebook Landing Page
+- [x] Create dedicated Facebook landing page at /facebook route
+- [x] Hero section: "JOIN OUR STREAM" - $5,000 in Marvel trading card giveaways, no purchase necessary
+- [x] $15 Whatnot credit section (same as Whatnot page referral link)
+- [x] Giveaway details: Free Packs, Free Boxes, Free Graded and Raw cards
+- [x] Legal disclaimers compliant with Whatnot TOS and Facebook ad policies
+- [x] CTA to follow on Whatnot and join the stream
+- [x] Newsletter/email signup to capture leads
+- [x] Register route in App.tsx
+- [ ] Create Facebook ad strategy document with copy recommendations
