@@ -1344,3 +1344,4 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Fix broken/incorrect links on /giveaway page (all links verified correct)
 - [x] Fix all "Follow us on Whatnot" links site-wide to use invite link (whatnot.com/invite/northlandfinds) instead of store URL
 - [x] Build admin-configurable countdown timer for giveaway page (set any date/time, live countdown display)
+- [x] Add prominent clickable Whatnot invite link just below the $5,000 GIVEAWAYS headline on /giveaway page

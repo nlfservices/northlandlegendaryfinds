@@ -224,6 +224,19 @@ export default function Giveaway() {
                 IN <span className="text-red-400">GIVEAWAYS</span>
               </h1>
 
+              {/* Prominent Whatnot invite link */}
+              <a
+                href={WHATNOT_INVITE}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={handleWhatnotClick}
+                className="inline-flex items-center gap-2 px-6 py-3 bg-primary/15 border border-primary/40 rounded-full mb-6 hover:bg-primary/25 transition-all group"
+              >
+                <Radio className="w-5 h-5 text-primary" />
+                <span className="text-primary font-bold text-base sm:text-lg tracking-wide">whatnot.com/invite/northlandfinds</span>
+                <ExternalLink className="w-4 h-4 text-primary opacity-60 group-hover:opacity-100 transition-opacity" />
+              </a>
+
               <p className="text-xl lg:text-2xl text-muted-foreground max-w-2xl mx-auto mb-4 leading-relaxed">
                 Northland Legendary Finds is giving away{" "}
                 <strong className="text-yellow-400">$5,000 in Marvel trading card products</strong>{" "}
