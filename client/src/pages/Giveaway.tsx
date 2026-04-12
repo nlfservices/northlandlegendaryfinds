@@ -205,9 +205,7 @@ export default function Giveaway() {
           </div>
 
           <div className="container relative z-10">
-            <p className="text-center text-sm uppercase tracking-[0.3em] text-primary/70 font-bold mb-10">
-              Cards You Could Win on Stream
-            </p>
+
 
             {/* Desktop: 5 cards in a row with varied rotations */}
             <div className="hidden md:flex justify-center items-end gap-4 lg:gap-6">
