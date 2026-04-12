@@ -1,5 +1,5 @@
 /**
- * Giveaway Landing Page - $5,000 Marvel Giveaway + $15 Whatnot Credit
+ * Giveaway Landing Page - Marvel Giveaway + $15 Whatnot Credit
  * Designed for ad traffic. Compliant with Whatnot TOS & ad platform policies.
  */
 import { Button } from "@/components/ui/button";
@@ -126,7 +126,7 @@ export default function Giveaway() {
         (window as any).fbq("track", "Lead", {
           content_name: "Giveaway Landing Page",
           content_category: "email_signup",
-          value: 5000,
+          value: 0,
           currency: "USD",
         });
       }
@@ -159,16 +159,16 @@ export default function Giveaway() {
     <>
       <div className="min-h-screen">
         <SEO
-          title="$5,000 Marvel Card Giveaway — Join Our Live Stream"
-          description="Northland Legendary Finds is giving away $5,000 in Marvel trading card products during our live Whatnot streams. Free packs, free boxes, free graded and raw cards. No purchase necessary."
+          title="Marvel Card Giveaway — Join Our Live Stream"
+          description="Northland Legendary Finds is giving away Marvel trading card products during our live Whatnot streams. Free packs, free boxes, free graded and raw cards. No purchase necessary."
           path="/giveaway"
           jsonLd={breadcrumbJsonLd([
             { name: "Home", url: "/" },
-            { name: "$5K Giveaway", url: "/giveaway" },
+            { name: "Giveaway", url: "/giveaway" },
           ])}
         />
 
-        {/* ===== HERO: $5,000 GIVEAWAY ===== */}
+        {/* ===== HERO: GIVEAWAY ===== */}
         <section className="relative py-16 lg:py-24 overflow-hidden">
           {/* Animated background */}
           <div className="absolute inset-0">
@@ -234,10 +234,10 @@ export default function Giveaway() {
                 <span className="text-primary">STREAM</span>
                 <br />
                 <span className="relative inline-block mt-2">
-                  <span className="text-yellow-400">$5,000</span>
+                  <span className="text-yellow-400">FREE</span>
                   <span className="absolute -bottom-1 left-0 w-full h-1.5 bg-yellow-400/60 rounded-full" />
                 </span>{" "}
-                IN <span className="text-red-400">GIVEAWAYS</span>
+                <span className="text-red-400">GIVEAWAYS</span>
               </h1>
 
               {/* Prominent Whatnot invite link */}
@@ -254,7 +254,7 @@ export default function Giveaway() {
               </a>
 
               <p className="text-xl lg:text-2xl text-muted-foreground max-w-2xl mx-auto mb-4 leading-relaxed">
-                {c("hero_description", "Northland Legendary Finds is giving away $5,000 in Marvel trading card products during our live Whatnot streams.")}
+                {c("hero_description", "Northland Legendary Finds is giving away Marvel trading card products during our live Whatnot streams.")}
               </p>
 
               <p className="text-lg text-muted-foreground/80 max-w-xl mx-auto mb-10">
@@ -331,7 +331,7 @@ export default function Giveaway() {
                 </span>
                 <span className="flex items-center gap-2">
                   <Trophy className="w-4 h-4 text-yellow-400" />
-                  $5,000+ in Prizes
+                  Free Prizes Every Stream
                 </span>
               </div>
             </div>
@@ -370,7 +370,7 @@ export default function Giveaway() {
                 WHAT YOU CAN <span className="text-yellow-400">WIN</span>
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Over $5,000 in Marvel trading card products given away across our live streams.
+                Marvel trading card products given away across our live streams.
                 Every item is real, authenticated, and shipped to your door.
               </p>
             </div>
@@ -682,7 +682,7 @@ export default function Giveaway() {
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                     {[
                       { num: c("who_stat_1_num", "1,700+"), label: c("who_stat_1_label", "Cards Tracked") },
-                      { num: c("who_stat_2_num", "$5,000+"), label: c("who_stat_2_label", "In Giveaways") },
+                      { num: c("who_stat_2_num", "FREE"), label: c("who_stat_2_label", "Giveaways") },
                       { num: c("who_stat_3_num", "100%"), label: c("who_stat_3_label", "Transparent") },
                       { num: c("who_stat_4_num", "LIVE"), label: c("who_stat_4_label", "On Whatnot") },
                     ].map((stat) => (
@@ -728,7 +728,7 @@ export default function Giveaway() {
                 <span className="text-orange-400">TOO GOOD TO BE TRUE</span>
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                {c("authenticity_paragraph_1", "We get it. $5,000 in free cards? No catch? It sounds wild. But here's the thing \u2014 the giveaways are just one part of what we do. We genuinely love this hobby. We're also launching our NLF repack business later this month \u2014 hand-built packs with public checklists and real value inside every one.")}
+                {c("authenticity_paragraph_1", "We get it. Free cards? No catch? It sounds wild. But here\u2019s the thing \u2014 the giveaways are just one part of what we do. We genuinely love this hobby. We're also launching our NLF repack business later this month \u2014 hand-built packs with public checklists and real value inside every one.")}
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed mb-8">
                 {c("authenticity_paragraph_2", "Beyond the giveaways and repacks, our streams are about showing off incredible cards, reading and hearing perspectives from other collectors, and building a community that actually cares about the hobby. We love the conversations, the debates over which pull is the best, and watching people light up when they hit something special.")}
@@ -814,8 +814,9 @@ export default function Giveaway() {
               className="text-4xl lg:text-6xl font-bold mb-4"
               style={{ fontFamily: "'Anton', sans-serif" }}
             >
-              DON'T MISS <span className="text-yellow-400">$5,000</span> IN{" "}
-              <span className="text-red-400">FREE</span> CARDS
+              DON'T MISS{" "}
+              <span className="text-red-400">FREE</span>{" "}
+              <span className="text-yellow-400">CARDS</span> EVERY STREAM
             </h2>
             <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-8">
               Follow us on Whatnot to get notified when we go live. Every stream is free to watch.
@@ -903,7 +904,7 @@ export default function Giveaway() {
 
                   <p>
                     <strong>Prizes:</strong> Approximate total retail value of all giveaway prizes
-                    across the promotion period: $5,000 USD. Prizes include sealed Marvel trading
+                    across the promotion period include sealed Marvel trading
                     card packs, sealed hobby boxes, PSA/CGC graded cards, and raw trading cards.
                     Individual prize values and descriptions will be announced at the time of each
                     giveaway. Prizes are non-transferable and no substitution or cash equivalent is

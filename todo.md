@@ -1357,3 +1357,4 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Build admin Page Content Manager UI in dashboard with editable fields
 - [x] Make Giveaway page read editable content from DB (headline, description, prizes, Whatnot link, authenticity section)
 - [x] Fallback to hardcoded defaults when no DB content exists
+- [x] Remove $5,000 giveaway headline and related dollar amount references from /giveaway page
