@@ -15,6 +15,7 @@ import {
   updateInventoryCard, deleteInventoryCard, allocateCardsToRepack, deallocateCardsFromRepack,
   getInventoryStats,
   getSiteSetting, setSiteSetting, getAllSiteSettings,
+  getPageContent, upsertPageContent, bulkUpsertPageContent, getAllEditablePages,
 } from "../db";
 
 // ==================== ADMIN PRODUCT ROUTES ====================
@@ -756,6 +757,81 @@ const siteSettingsRouter = router({
     }),
 });
 
+// ==================== PAGE CONTENT ROUTES ====================
+
+const pageContentRouter = router({
+  /** Get all editable pages */
+  listPages: adminProcedure.query(async () => {
+    const pages = await getAllEditablePages();
+    return pages;
+  }),
+
+  /** Get all content sections for a page */
+  getPage: adminProcedure
+    .input(z.object({ page: z.string() }))
+    .query(async ({ input }) => {
+      return getPageContent(input.page);
+    }),
+
+  /** Update a single section */
+  updateSection: adminProcedure
+    .input(z.object({
+      page: z.string(),
+      sectionKey: z.string(),
+      content: z.string(),
+      label: z.string().optional(),
+      groupName: z.string().optional(),
+    }))
+    .mutation(async ({ input }) => {
+      await upsertPageContent(input.page, input.sectionKey, input.content, {
+        label: input.label,
+        groupName: input.groupName,
+      });
+      return { success: true };
+    }),
+
+  /** Bulk update all sections for a page */
+  bulkUpdate: adminProcedure
+    .input(z.object({
+      items: z.array(z.object({
+        page: z.string(),
+        sectionKey: z.string(),
+        content: z.string(),
+        label: z.string().optional(),
+        groupName: z.string().optional(),
+        sortOrder: z.number().optional(),
+      })),
+    }))
+    .mutation(async ({ input }) => {
+      await bulkUpsertPageContent(input.items);
+      return { success: true };
+    }),
+
+  /** Seed default content for a page (won't overwrite existing) */
+  seedDefaults: adminProcedure
+    .input(z.object({
+      page: z.string(),
+      items: z.array(z.object({
+        sectionKey: z.string(),
+        content: z.string(),
+        label: z.string().optional(),
+        groupName: z.string().optional(),
+        sortOrder: z.number().optional(),
+      })),
+    }))
+    .mutation(async ({ input }) => {
+      const existing = await getPageContent(input.page);
+      const existingKeys = new Set(existing.map(e => e.sectionKey));
+      const newItems = input.items
+        .filter(item => !existingKeys.has(item.sectionKey))
+        .map(item => ({ ...item, page: input.page }));
+      if (newItems.length > 0) {
+        await bulkUpsertPageContent(newItems);
+      }
+      return { seeded: newItems.length };
+    }),
+});
+
 // ==================== COMBINED ADMIN ROUTER ====================
 export const adminRouter = router({
   products: productRouter,
@@ -766,4 +842,5 @@ export const adminRouter = router({
   inventory: inventoryRouter,
   launchSubscribers: launchSubscriberRouter,
   siteSettings: siteSettingsRouter,
+  pageContent: pageContentRouter,
 });

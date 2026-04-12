@@ -41,6 +41,8 @@ const PRIZES = [
     color: "text-yellow-400",
     bg: "bg-yellow-500/10",
     border: "border-yellow-500/20",
+    labelKey: "prize_1_label",
+    descKey: "prize_1_description",
   },
   {
     icon: Box,
@@ -49,6 +51,8 @@ const PRIZES = [
     color: "text-purple-400",
     bg: "bg-purple-500/10",
     border: "border-purple-500/20",
+    labelKey: "prize_2_label",
+    descKey: "prize_2_description",
   },
   {
     icon: Award,
@@ -57,6 +61,8 @@ const PRIZES = [
     color: "text-blue-400",
     bg: "bg-blue-500/10",
     border: "border-blue-500/20",
+    labelKey: "prize_3_label",
+    descKey: "prize_3_description",
   },
   {
     icon: Star,
@@ -65,6 +71,8 @@ const PRIZES = [
     color: "text-green-400",
     bg: "bg-green-500/10",
     border: "border-green-500/20",
+    labelKey: "prize_4_label",
+    descKey: "prize_4_description",
   },
 ];
 
@@ -99,6 +107,14 @@ export default function Giveaway() {
   );
   const countdownTarget = countdownSetting?.value ? Number(countdownSetting.value) : null;
   const countdown = useCountdown(countdownTarget);
+
+  // Editable page content from DB (falls back to hardcoded defaults)
+  const { data: pageContent } = trpc.public.pageContent.getPage.useQuery(
+    { page: "giveaway" },
+    { staleTime: 30_000 }
+  );
+  // Helper to get content with fallback
+  const c = (key: string, fallback: string) => pageContent?.[key] ?? fallback;
 
   const subscribeMutation = trpc.public.subscribe.submit.useMutation({
     onSuccess: () => {
@@ -238,15 +254,11 @@ export default function Giveaway() {
               </a>
 
               <p className="text-xl lg:text-2xl text-muted-foreground max-w-2xl mx-auto mb-4 leading-relaxed">
-                Northland Legendary Finds is giving away{" "}
-                <strong className="text-yellow-400">$5,000 in Marvel trading card products</strong>{" "}
-                during our live Whatnot streams.
+                {c("hero_description", "Northland Legendary Finds is giving away $5,000 in Marvel trading card products during our live Whatnot streams.")}
               </p>
 
               <p className="text-lg text-muted-foreground/80 max-w-xl mx-auto mb-10">
-                Free NLF Repacks. Free Boxes. Free Graded Cards. Free Raw Cards.{" "}
-                <strong className="text-foreground">No purchase necessary.</strong>{" "}
-                Plus — our repack business launches later this month!
+                {c("hero_subtitle", "Free NLF Repacks. Free Boxes. Free Graded Cards. Free Raw Cards. No purchase necessary. Plus \u2014 our repack business launches later this month!")}
               </p>
 
               {/* CTA Buttons */}
@@ -379,10 +391,10 @@ export default function Giveaway() {
                       className={`text-lg font-bold mb-2 ${prize.color}`}
                       style={{ fontFamily: "'Anton', sans-serif" }}
                     >
-                      {prize.label}
+                      {prize.labelKey ? c(prize.labelKey, prize.label) : prize.label}
                     </h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">
-                      {prize.description}
+                      {prize.descKey ? c(prize.descKey, prize.description) : prize.description}
                     </p>
                   </CardContent>
                 </Card>
@@ -665,17 +677,14 @@ export default function Giveaway() {
                     NORTHLAND <span className="text-primary">LEGENDARY</span> FINDS
                   </h2>
                   <p className="text-muted-foreground leading-relaxed mb-6">
-                    We're a Minnesota-based Marvel trading card company specializing in premium repacks, 
-                    live card breaks, and building the best collector community in the hobby. Every pack 
-                    is hand-built, every checklist is public, and every pull is live. We track over 1,700+ 
-                    cards in our database and bring real transparency to the hobby.
+                    {c("who_we_are_description", "We're a Minnesota-based Marvel trading card company specializing in premium repacks, live card breaks, and building the best collector community in the hobby. Every pack is hand-built, every checklist is public, and every pull is live. We track over 1,700+ cards in our database and bring real transparency to the hobby.")}
                   </p>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                     {[
-                      { num: "1,700+", label: "Cards Tracked" },
-                      { num: "$5,000+", label: "In Giveaways" },
-                      { num: "100%", label: "Transparent" },
-                      { num: "LIVE", label: "On Whatnot" },
+                      { num: c("who_stat_1_num", "1,700+"), label: c("who_stat_1_label", "Cards Tracked") },
+                      { num: c("who_stat_2_num", "$5,000+"), label: c("who_stat_2_label", "In Giveaways") },
+                      { num: c("who_stat_3_num", "100%"), label: c("who_stat_3_label", "Transparent") },
+                      { num: c("who_stat_4_num", "LIVE"), label: c("who_stat_4_label", "On Whatnot") },
                     ].map((stat) => (
                       <div key={stat.label} className="text-center">
                         <div className="text-2xl font-bold text-primary" style={{ fontFamily: "'Anton', sans-serif" }}>
@@ -719,17 +728,10 @@ export default function Giveaway() {
                 <span className="text-orange-400">TOO GOOD TO BE TRUE</span>
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                We get it. $5,000 in free cards? No catch? It sounds wild. But here's the thing — the giveaways
-                are just one part of what we do. We genuinely love this hobby. We're also{" "}
-                <strong className="text-foreground">launching our NLF repack business later this month</strong> —
-                hand-built packs with public checklists and real value inside every one.
+                {c("authenticity_paragraph_1", "We get it. $5,000 in free cards? No catch? It sounds wild. But here's the thing \u2014 the giveaways are just one part of what we do. We genuinely love this hobby. We're also launching our NLF repack business later this month \u2014 hand-built packs with public checklists and real value inside every one.")}
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-                Beyond the giveaways and repacks, our streams are about{" "}
-                <strong className="text-foreground">showing off incredible cards</strong>,{" "}
-                <strong className="text-foreground">reading and hearing perspectives from other collectors</strong>,
-                and building a community that actually cares about the hobby. We love the conversations,
-                the debates over which pull is the best, and watching people light up when they hit something special.
+                {c("authenticity_paragraph_2", "Beyond the giveaways and repacks, our streams are about showing off incredible cards, reading and hearing perspectives from other collectors, and building a community that actually cares about the hobby. We love the conversations, the debates over which pull is the best, and watching people light up when they hit something special.")}
               </p>
 
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
@@ -779,7 +781,7 @@ export default function Giveaway() {
               </div>
 
               <p className="text-base text-muted-foreground italic">
-                The giveaways are real. The community is real. Come see for yourself.
+                {c("authenticity_closing", "The giveaways are real. The community is real. Come see for yourself.")}
               </p>
             </div>
           </div>

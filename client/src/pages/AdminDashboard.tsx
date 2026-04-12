@@ -33,6 +33,7 @@ import ChecklistSheet from "@/components/ChecklistSheet";
 import ArticleManager from "@/components/ArticleManager";
 import Top5Manager from "@/components/Top5Manager";
 import BlogManager from "@/components/BlogManager";
+import PageContentManager from "@/components/PageContentManager";
 
 // ==================== SITE SETTINGS (COUNTDOWN TIMER) ====================
 
@@ -1607,6 +1608,9 @@ export default function AdminDashboard() {
             <TabsTrigger value="blog" className="flex items-center gap-2">
               <Sparkles className="w-4 h-4" /> The Collector
             </TabsTrigger>
+            <TabsTrigger value="pages" className="flex items-center gap-2">
+              <FileSpreadsheet className="w-4 h-4" /> Pages
+            </TabsTrigger>
             <TabsTrigger value="settings" className="flex items-center gap-2">
               <Settings className="w-4 h-4" /> Settings
             </TabsTrigger>
@@ -1647,6 +1651,9 @@ export default function AdminDashboard() {
           </TabsContent>
           <TabsContent value="blog">
             <BlogManager />
+          </TabsContent>
+          <TabsContent value="pages">
+            <PageContentManager />
           </TabsContent>
           <TabsContent value="settings">
             <SiteSettingsManager />

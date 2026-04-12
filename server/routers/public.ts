@@ -17,6 +17,7 @@ import {
   insertShowSubmission,
   getCharacterImages,
   getSiteSetting,
+  getPageContent,
 } from "../db";
 import { launchSubscribers } from "../../drizzle/schema";
 import { getDb } from "../db";
@@ -698,6 +699,23 @@ const publicSiteSettingsRouter = router({
     }),
 });
 
+// ==================== PUBLIC PAGE CONTENT ROUTER ====================
+
+const publicPageContentRouter = router({
+  /** Get all content sections for a page (public-facing) */
+  getPage: publicProcedure
+    .input(z.object({ page: z.string() }))
+    .query(async ({ input }) => {
+      const sections = await getPageContent(input.page);
+      // Return as a key-value map for easy consumption
+      const contentMap: Record<string, string> = {};
+      for (const s of sections) {
+        contentMap[s.sectionKey] = s.content;
+      }
+      return contentMap;
+    }),
+});
+
 // ==================== COMBINED PUBLIC ROUTER ====================
 
 export const publicRouter = router({
@@ -711,4 +729,5 @@ export const publicRouter = router({
   subscribe: publicSubscribeRouter,
   cardShows: publicCardShowRouter,
   settings: publicSiteSettingsRouter,
+  pageContent: publicPageContentRouter,
 });

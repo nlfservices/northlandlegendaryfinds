@@ -1350,3 +1350,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add repack business launch teaser (launching later this month) to giveaway page
 - [x] Add fast shipping pride messaging to /giveaway page
 - [x] Add "cards for all types of collectors and budgets" messaging to /giveaway page
+
+## Page Content Manager
+- [x] Create pageContent DB table for editable page sections
+- [x] Create backend routes for getting/updating page content (admin + public)
+- [x] Build admin Page Content Manager UI in dashboard with editable fields
+- [x] Make Giveaway page read editable content from DB (headline, description, prizes, Whatnot link, authenticity section)
+- [x] Fallback to hardcoded defaults when no DB content exists

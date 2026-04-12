@@ -134,6 +134,13 @@
       "when": 1775977421756,
       "tag": "0018_uneven_matthew_murdock",
       "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "5",
+      "when": 1776000282886,
+      "tag": "0019_lush_iron_fist",
+      "breakpoints": true
     }
   ]
 }

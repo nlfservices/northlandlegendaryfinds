@@ -15,6 +15,7 @@ import {
   showSubmissions, ShowSubmission, InsertShowSubmission,
   blogPosts, BlogPost, InsertBlogPost,
   siteSettings, SiteSetting, InsertSiteSetting,
+  pageContent, PageContent, InsertPageContent,
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -1504,4 +1505,74 @@ export async function getAllSiteSettings(): Promise<SiteSetting[]> {
   const db = await getDb();
   if (!db) return [];
   return db.select().from(siteSettings).orderBy(siteSettings.key);
+}
+
+// ─── Page Content ─────────────────────────────────────────────────────────────
+
+/** Get all content sections for a specific page */
+export async function getPageContent(page: string): Promise<PageContent[]> {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(pageContent)
+    .where(eq(pageContent.page, page))
+    .orderBy(pageContent.groupName, pageContent.sortOrder);
+}
+
+/** Get a single content section by page + sectionKey */
+export async function getPageSection(page: string, sectionKey: string): Promise<string | null> {
+  const db = await getDb();
+  if (!db) return null;
+  const rows = await db.select().from(pageContent)
+    .where(and(eq(pageContent.page, page), eq(pageContent.sectionKey, sectionKey)))
+    .limit(1);
+  return rows[0]?.content ?? null;
+}
+
+/** Upsert a page content section */
+export async function upsertPageContent(
+  page: string,
+  sectionKey: string,
+  content: string,
+  opts?: { label?: string; groupName?: string; sortOrder?: number }
+): Promise<void> {
+  const db = await getDb();
+  if (!db) return;
+  const existing = await db.select().from(pageContent)
+    .where(and(eq(pageContent.page, page), eq(pageContent.sectionKey, sectionKey)))
+    .limit(1);
+  if (existing.length > 0) {
+    await db.update(pageContent)
+      .set({ content, ...(opts?.label ? { label: opts.label } : {}), ...(opts?.groupName ? { groupName: opts.groupName } : {}) })
+      .where(and(eq(pageContent.page, page), eq(pageContent.sectionKey, sectionKey)));
+  } else {
+    await db.insert(pageContent).values({
+      page,
+      sectionKey,
+      content,
+      label: opts?.label ?? sectionKey,
+      groupName: opts?.groupName ?? "General",
+      sortOrder: opts?.sortOrder ?? 0,
+    });
+  }
+}
+
+/** Bulk upsert page content sections */
+export async function bulkUpsertPageContent(
+  items: Array<{ page: string; sectionKey: string; content: string; label?: string; groupName?: string; sortOrder?: number }>
+): Promise<void> {
+  for (const item of items) {
+    await upsertPageContent(item.page, item.sectionKey, item.content, {
+      label: item.label,
+      groupName: item.groupName,
+      sortOrder: item.sortOrder,
+    });
+  }
+}
+
+/** Get all pages that have content */
+export async function getAllEditablePages(): Promise<string[]> {
+  const db = await getDb();
+  if (!db) return [];
+  const rows = await db.selectDistinct({ page: pageContent.page }).from(pageContent);
+  return rows.map(r => r.page);
 }

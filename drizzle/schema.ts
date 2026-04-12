@@ -828,3 +828,29 @@ export const siteSettings = mysqlTable("site_settings", {
 
 export type SiteSetting = typeof siteSettings.$inferSelect;
 export type InsertSiteSetting = typeof siteSettings.$inferInsert;
+
+
+/**
+ * Page content - editable text sections for each page
+ * Allows admin to update page copy from the dashboard without code changes.
+ * Each row = one editable section on a specific page.
+ */
+export const pageContent = mysqlTable("page_content", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Which page this content belongs to (e.g., "giveaway", "home", "about") */
+  page: varchar("page", { length: 100 }).notNull(),
+  /** Section key within the page (e.g., "hero_headline", "prize_1_label") */
+  sectionKey: varchar("sectionKey", { length: 150 }).notNull(),
+  /** The editable content value */
+  content: text("content").notNull(),
+  /** Human-readable label for the admin UI */
+  label: varchar("label", { length: 255 }),
+  /** Group name for organizing sections in the admin UI */
+  groupName: varchar("groupName", { length: 100 }),
+  /** Sort order within the group */
+  sortOrder: int("sortOrder").notNull().default(0),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type PageContent = typeof pageContent.$inferSelect;
+export type InsertPageContent = typeof pageContent.$inferInsert;
