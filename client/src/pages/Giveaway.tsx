@@ -1,79 +1,28 @@
 /**
- * Giveaway Landing Page - Marvel Giveaway + $15 Whatnot Credit
- * Designed for ad traffic. Compliant with Whatnot TOS & ad platform policies.
+ * Giveaway Landing Page — Lean Facebook Funnel
+ * Minimal content: Hero → CTA to Whatnot → $15 Credit + Email Capture → Legal
+ * Designed for ad traffic. Facebook Pixel fires on page load + clicks.
  */
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { trpc } from "@/lib/trpc";
 import {
   Gift, Radio, ExternalLink, Shield, CheckCircle2, Clock, DollarSign,
-  Package, Star, Zap, Users, TrendingUp, ArrowRight, Play, Sparkles,
-  Trophy, Target, Flame, Box, Award, Heart, MessageCircle, Truck, Wallet
+  Play, Sparkles, Zap, Flame,
 } from "lucide-react";
 import { toast } from "sonner";
 import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 
-const WHATNOT_STORE_URL = "https://whatnot.com/invite/northlandfinds";
 const WHATNOT_INVITE = "https://whatnot.com/invite/northlandfinds";
 const QR_CODE = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nlf-whatnot-qr_a49cbbc8.jpg";
-const NLF_LOGO = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/rwZcaJaSCFxygqjF.png";
 
-// Marvel card artwork for showcase gallery
+// A few card images for visual flair
 const SHOWCASE_CARDS = [
   { name: "The Specter", img: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/card-specter_160ffa0e.png" },
   { name: "Thor", img: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/card-thor_cd8e02ee.png" },
   { name: "Magneto CGC 10", img: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/card-magneto-cgc_e49d572c.png" },
-  { name: "Nighthawk", img: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/card-nighthawk_bbdb2437.png" },
   { name: "Wolverine CGC 10", img: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/card-wolverine-cgc_bad1e34b.png" },
-  { name: "Gambit", img: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/card-gambit_ac4d7a84.png" },
-  { name: "Molecule Man", img: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/card-molecule-man_dba2bb5f.png" },
-  { name: "Okoye", img: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/card-okoye_39a8275c.png" },
-];
-
-// Giveaway prize breakdown
-const PRIZES = [
-  {
-    icon: Package,
-    label: "FREE NLF REPACKS",
-    description: "Our hand-built NLF repack packs — every card curated, every checklist public. Launching later this month!",
-    color: "text-yellow-400",
-    bg: "bg-yellow-500/10",
-    border: "border-yellow-500/20",
-    labelKey: "prize_1_label",
-    descKey: "prize_1_description",
-  },
-  {
-    icon: Box,
-    label: "FREE BOXES",
-    description: "Full sealed hobby boxes and blasters — the real deal, not resealed",
-    color: "text-purple-400",
-    bg: "bg-purple-500/10",
-    border: "border-purple-500/20",
-    labelKey: "prize_2_label",
-    descKey: "prize_2_description",
-  },
-  {
-    icon: Award,
-    label: "FREE GRADED CARDS",
-    description: "PSA & CGC graded slabs — authenticated, graded, and ready for your collection",
-    color: "text-blue-400",
-    bg: "bg-blue-500/10",
-    border: "border-blue-500/20",
-    labelKey: "prize_3_label",
-    descKey: "prize_3_description",
-  },
-  {
-    icon: Star,
-    label: "FREE RAW CARDS",
-    description: "Raw hits, inserts, parallels, and chase cards pulled from premium sets",
-    color: "text-green-400",
-    bg: "bg-green-500/10",
-    border: "border-green-500/20",
-    labelKey: "prize_4_label",
-    descKey: "prize_4_description",
-  },
 ];
 
 // Countdown hook — takes a UTC timestamp (ms), returns live d/h/m/s
@@ -103,7 +52,7 @@ export default function Giveaway() {
   // Fetch countdown target from DB (admin-configurable)
   const { data: countdownSetting } = trpc.public.settings.get.useQuery(
     { key: "giveaway_countdown_target" },
-    { refetchInterval: 60_000 } // refresh every minute
+    { refetchInterval: 60_000 }
   );
   const countdownTarget = countdownSetting?.value ? Number(countdownSetting.value) : null;
   const countdown = useCountdown(countdownTarget);
@@ -113,7 +62,6 @@ export default function Giveaway() {
     { page: "giveaway" },
     { staleTime: 30_000 }
   );
-  // Helper to get content with fallback
   const c = (key: string, fallback: string) => pageContent?.[key] ?? fallback;
 
   const subscribeMutation = trpc.public.subscribe.submit.useMutation({
@@ -168,15 +116,13 @@ export default function Giveaway() {
           ])}
         />
 
-        {/* ===== HERO: GIVEAWAY ===== */}
-        <section className="relative py-16 lg:py-24 overflow-hidden">
+        {/* ===== HERO — GET THEM TO WHATNOT ===== */}
+        <section className="relative py-20 lg:py-32 overflow-hidden">
           {/* Animated background */}
           <div className="absolute inset-0">
             <div className="absolute inset-0 bg-gradient-to-br from-red-900/40 via-background to-yellow-900/20" />
             <div className="absolute top-10 left-[5%] w-80 h-80 bg-red-500/20 rounded-full blur-[120px] animate-pulse" />
             <div className="absolute bottom-10 right-[5%] w-80 h-80 bg-yellow-500/15 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: "1s" }} />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-500/8 rounded-full blur-[150px]" />
-            {/* Grid pattern */}
             <div
               className="absolute inset-0 opacity-[0.03]"
               style={{
@@ -187,41 +133,41 @@ export default function Giveaway() {
             />
           </div>
 
-          {/* Floating card accents in hero — hidden on mobile */}
+          {/* Floating card accents — hidden on mobile */}
           <div className="hidden lg:block absolute inset-0 z-[5] pointer-events-none overflow-hidden">
             <img
               src={SHOWCASE_CARDS[0].img}
               alt={SHOWCASE_CARDS[0].name}
-              className="absolute top-[12%] left-[3%] w-28 xl:w-36 rounded-lg shadow-2xl shadow-red-500/30 opacity-60 hover:opacity-100 transition-all duration-500 pointer-events-auto"
+              className="absolute top-[10%] left-[3%] w-32 xl:w-40 rounded-lg shadow-2xl shadow-red-500/30 opacity-50 hover:opacity-90 transition-all duration-500 pointer-events-auto"
               style={{ transform: "rotate(-12deg)" }}
             />
             <img
               src={SHOWCASE_CARDS[1].img}
               alt={SHOWCASE_CARDS[1].name}
-              className="absolute top-[8%] right-[3%] w-28 xl:w-36 rounded-lg shadow-2xl shadow-yellow-500/30 opacity-60 hover:opacity-100 transition-all duration-500 pointer-events-auto"
+              className="absolute top-[8%] right-[3%] w-32 xl:w-40 rounded-lg shadow-2xl shadow-yellow-500/30 opacity-50 hover:opacity-90 transition-all duration-500 pointer-events-auto"
               style={{ transform: "rotate(10deg)" }}
             />
             <img
               src={SHOWCASE_CARDS[2].img}
               alt={SHOWCASE_CARDS[2].name}
-              className="absolute bottom-[15%] left-[5%] w-24 xl:w-32 rounded-lg shadow-2xl shadow-blue-500/30 opacity-50 hover:opacity-100 transition-all duration-500 pointer-events-auto"
+              className="absolute bottom-[12%] left-[5%] w-28 xl:w-36 rounded-lg shadow-2xl shadow-blue-500/30 opacity-40 hover:opacity-90 transition-all duration-500 pointer-events-auto"
               style={{ transform: "rotate(8deg)" }}
             />
             <img
               src={SHOWCASE_CARDS[3].img}
               alt={SHOWCASE_CARDS[3].name}
-              className="absolute bottom-[18%] right-[4%] w-24 xl:w-32 rounded-lg shadow-2xl shadow-purple-500/30 opacity-50 hover:opacity-100 transition-all duration-500 pointer-events-auto"
+              className="absolute bottom-[15%] right-[4%] w-28 xl:w-36 rounded-lg shadow-2xl shadow-purple-500/30 opacity-40 hover:opacity-90 transition-all duration-500 pointer-events-auto"
               style={{ transform: "rotate(-8deg)" }}
             />
           </div>
 
           <div className="container relative z-10">
-            <div className="text-center max-w-4xl mx-auto">
+            <div className="text-center max-w-3xl mx-auto">
               {/* Badge */}
               <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-red-500/15 border border-red-500/40 rounded-full mb-8 animate-bounce" style={{ animationDuration: "2s" }}>
                 <Flame className="w-5 h-5 text-red-400" />
                 <span className="text-red-400 text-sm font-bold tracking-wider">
-                  NO PURCHASE NECESSARY
+                  FREE MARVEL CARD GIVEAWAYS
                 </span>
               </div>
 
@@ -230,7 +176,7 @@ export default function Giveaway() {
                 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[0.9] mb-6"
                 style={{ fontFamily: "'Anton', sans-serif" }}
               >
-                JOIN OUR{" "}
+                {c("hero_headline", "JOIN OUR")}{" "}
                 <span className="text-primary">STREAM</span>
                 <br />
                 <span className="relative inline-block mt-2">
@@ -240,7 +186,7 @@ export default function Giveaway() {
                 <span className="text-red-400">GIVEAWAYS</span>
               </h1>
 
-              {/* Prominent Whatnot invite link */}
+              {/* Whatnot invite link — prominent */}
               <a
                 href={WHATNOT_INVITE}
                 target="_blank"
@@ -253,16 +199,13 @@ export default function Giveaway() {
                 <ExternalLink className="w-4 h-4 text-primary opacity-60 group-hover:opacity-100 transition-opacity" />
               </a>
 
-              <p className="text-xl lg:text-2xl text-muted-foreground max-w-2xl mx-auto mb-4 leading-relaxed">
-                {c("hero_description", "Northland Legendary Finds is giving away Marvel trading card products during our live Whatnot streams.")}
+              {/* Short description */}
+              <p className="text-xl lg:text-2xl text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed">
+                {c("hero_description", "Free packs, free boxes, free graded cards — given away live on every stream. Follow us on Whatnot to get in.")}
               </p>
 
-              <p className="text-lg text-muted-foreground/80 max-w-xl mx-auto mb-10">
-                {c("hero_subtitle", "Free NLF Repacks. Free Boxes. Free Graded Cards. Free Raw Cards. No purchase necessary. Plus \u2014 our repack business launches later this month!")}
-              </p>
-
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
+              {/* Primary CTA — BIG */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
                 <a
                   href={WHATNOT_INVITE}
                   target="_blank"
@@ -271,28 +214,28 @@ export default function Giveaway() {
                 >
                   <Button
                     size="lg"
-                    className="bg-red-600 hover:bg-red-500 text-white font-bold text-lg px-10 py-7 shadow-xl shadow-red-500/25 hover:shadow-red-500/40 transition-all hover:scale-[1.02] w-full sm:w-auto"
+                    className="bg-red-600 hover:bg-red-500 text-white font-bold text-xl px-12 py-8 shadow-xl shadow-red-500/25 hover:shadow-red-500/40 transition-all hover:scale-[1.03] w-full sm:w-auto"
                   >
-                    <Play className="w-6 h-6 mr-2" />
+                    <Play className="w-7 h-7 mr-2" />
                     Join the Stream FREE
-                    <ExternalLink className="w-4 h-4 ml-2" />
+                    <ExternalLink className="w-5 h-5 ml-2" />
                   </Button>
                 </a>
-                <a href="#get-notified">
+                <a href="#bonus">
                   <Button
                     size="lg"
                     variant="outline"
-                    className="border-yellow-500/50 text-yellow-400 hover:bg-yellow-500/10 font-bold text-lg px-10 py-7 w-full sm:w-auto"
+                    className="border-yellow-500/50 text-yellow-400 hover:bg-yellow-500/10 font-bold text-lg px-8 py-8 w-full sm:w-auto"
                   >
                     <Gift className="w-5 h-5 mr-2" />
-                    Get Notified + $15 Credit
+                    Get $15 Credit
                   </Button>
                 </a>
               </div>
 
               {/* Countdown Timer — only shows when admin sets a target time */}
               {countdown && (
-                <div className="mb-10">
+                <div className="mb-8">
                   <p className="text-sm text-muted-foreground uppercase tracking-widest mb-3 font-bold">
                     <Clock className="w-4 h-4 inline mr-1.5 text-red-400" />
                     Next Stream Starts In
@@ -315,212 +258,20 @@ export default function Giveaway() {
                 </div>
               )}
 
-              {/* Trust badges */}
-              <div className="flex flex-wrap gap-6 justify-center text-sm text-muted-foreground">
-                <span className="flex items-center gap-2">
-                  <Shield className="w-4 h-4 text-green-400" />
-                  100% Free to Watch
-                </span>
-                <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-green-400" />
-                  No Purchase Necessary
-                </span>
-                <span className="flex items-center gap-2">
-                  <Users className="w-4 h-4 text-green-400" />
-                  Live on Whatnot
-                </span>
-                <span className="flex items-center gap-2">
-                  <Trophy className="w-4 h-4 text-yellow-400" />
-                  Free Prizes Every Stream
-                </span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ===== CARD SHOWCASE STRIP 1 ===== */}
-        <div className="py-6 overflow-hidden">
-          <div className="flex gap-6 justify-center items-center opacity-40 hover:opacity-70 transition-opacity duration-700">
-            {SHOWCASE_CARDS.slice(0, 4).map((card, i) => (
-              <img
-                key={card.name}
-                src={card.img}
-                alt={card.name}
-                className="w-20 sm:w-24 lg:w-28 rounded-lg shadow-lg"
-                style={{ transform: `rotate(${i % 2 === 0 ? -3 : 3}deg)` }}
-                loading="lazy"
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* ===== WHAT YOU CAN WIN ===== */}
-        <section className="py-16 lg:py-20 relative">
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-red-900/5 to-transparent" />
-          <div className="container relative z-10">
-            <div className="text-center mb-12">
-              <Badge variant="outline" className="mb-4 border-yellow-500/30 text-yellow-400 px-4 py-1">
-                <Trophy className="w-3.5 h-3.5 mr-1.5" />
-                PRIZE BREAKDOWN
-              </Badge>
-              <h2
-                className="text-4xl lg:text-5xl font-bold mb-4"
-                style={{ fontFamily: "'Anton', sans-serif" }}
-              >
-                WHAT YOU CAN <span className="text-yellow-400">WIN</span>
-              </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Marvel trading card products given away across our live streams.
-                Every item is real, authenticated, and shipped to your door.
+              {/* Trust line */}
+              <p className="text-sm text-muted-foreground/70">
+                No purchase necessary · 100% free to watch · Live on Whatnot
               </p>
             </div>
-
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
-              {PRIZES.map((prize) => (
-                <Card
-                  key={prize.label}
-                  className={`${prize.bg} ${prize.border} border bg-opacity-50 hover:scale-[1.03] transition-transform duration-300`}
-                >
-                  <CardContent className="p-6 text-center">
-                    <div
-                      className={`w-14 h-14 ${prize.bg} rounded-2xl flex items-center justify-center mx-auto mb-4`}
-                    >
-                      <prize.icon className={`w-7 h-7 ${prize.color}`} />
-                    </div>
-                    <h3
-                      className={`text-lg font-bold mb-2 ${prize.color}`}
-                      style={{ fontFamily: "'Anton', sans-serif" }}
-                    >
-                      {prize.labelKey ? c(prize.labelKey, prize.label) : prize.label}
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {prize.descKey ? c(prize.descKey, prize.description) : prize.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
           </div>
         </section>
 
-        {/* ===== HOW IT WORKS ===== */}
-        <section className="py-16 lg:py-20 relative">
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/5 to-transparent" />
-          <div className="container relative z-10">
-            <div className="text-center mb-12">
-              <Badge variant="outline" className="mb-4 border-purple-500/30 text-purple-400 px-4 py-1">
-                <Target className="w-3.5 h-3.5 mr-1.5" />
-                THREE SIMPLE STEPS
-              </Badge>
-              <h2
-                className="text-4xl lg:text-5xl font-bold mb-4"
-                style={{ fontFamily: "'Anton', sans-serif" }}
-              >
-                HOW TO <span className="text-purple-400">ENTER</span>
-              </h2>
-              <p className="text-lg text-muted-foreground max-w-xl mx-auto">
-                It takes less than 30 seconds. Completely free.
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-              {[
-                {
-                  step: "01",
-                  title: "Follow Us on Whatnot",
-                  desc: 'Click the link below to create a free Whatnot account (or log in). You\'ll automatically follow our page and get notified when we go live.',
-                  icon: Radio,
-                  color: "text-purple-400",
-                  bg: "bg-purple-500/10",
-                },
-                {
-                  step: "02",
-                  title: "Join the Live Stream",
-                  desc: "When we go live, hop in! Our streams feature live Marvel card breaks, pack openings, and community fun. Free to watch.",
-                  icon: Play,
-                  color: "text-red-400",
-                  bg: "bg-red-500/10",
-                },
-                {
-                  step: "03",
-                  title: 'Hit "Enter Giveaway"',
-                  desc: "When a giveaway is pinned during the stream, press the Enter Giveaway button. That's it — you're entered. Winners are drawn live on stream.",
-                  icon: Gift,
-                  color: "text-yellow-400",
-                  bg: "bg-yellow-500/10",
-                },
-              ].map((item) => (
-                <div key={item.step} className="text-center">
-                  <div
-                    className={`w-16 h-16 ${item.bg} rounded-2xl flex items-center justify-center mx-auto mb-4 border border-white/5`}
-                  >
-                    <item.icon className={`w-8 h-8 ${item.color}`} />
-                  </div>
-                  <div className="flex items-center justify-center gap-2 mb-2">
-                    <span
-                      className={`text-3xl font-bold ${item.color} opacity-40`}
-                      style={{ fontFamily: "'Anton', sans-serif" }}
-                    >
-                      {item.step}
-                    </span>
-                    <ArrowRight className="w-4 h-4 text-muted-foreground/40 hidden md:block" />
-                  </div>
-                  <h3
-                    className="text-xl font-bold mb-2"
-                    style={{ fontFamily: "'Anton', sans-serif" }}
-                  >
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {item.desc}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            {/* Big CTA */}
-            <div className="text-center mt-12">
-              <a
-                href={WHATNOT_INVITE}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={handleWhatnotClick}
-              >
-                <Button
-                  size="lg"
-                  className="bg-purple-600 hover:bg-purple-500 text-white font-bold text-lg px-10 py-7 shadow-xl shadow-purple-500/25 hover:shadow-purple-500/40 transition-all hover:scale-[1.02]"
-                >
-                  <Radio className="w-5 h-5 mr-2" />
-                  Follow on Whatnot — It's Free
-                  <ExternalLink className="w-4 h-4 ml-2" />
-                </Button>
-              </a>
-            </div>
-          </div>
-        </section>
-
-        {/* ===== CARD SHOWCASE STRIP 2 ===== */}
-        <div className="py-6 overflow-hidden">
-          <div className="flex gap-6 justify-center items-center opacity-40 hover:opacity-70 transition-opacity duration-700">
-            {SHOWCASE_CARDS.slice(4, 8).map((card, i) => (
-              <img
-                key={card.name}
-                src={card.img}
-                alt={card.name}
-                className="w-20 sm:w-24 lg:w-28 rounded-lg shadow-lg"
-                style={{ transform: `rotate(${i % 2 === 0 ? 4 : -4}deg)` }}
-                loading="lazy"
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* ===== $15 CREDIT BONUS ===== */}
-        <section id="get-notified" className="py-16 lg:py-20 relative">
+        {/* ===== $15 CREDIT + EMAIL CAPTURE ===== */}
+        <section id="bonus" className="py-16 lg:py-20 relative">
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-yellow-900/8 to-transparent" />
           <div className="container relative z-10">
             <div className="grid lg:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
-              {/* Left: Text + CTA */}
+              {/* Left: $15 Credit CTA */}
               <div>
                 <Badge variant="outline" className="mb-4 border-yellow-500/30 text-yellow-400 px-4 py-1">
                   <Sparkles className="w-3.5 h-3.5 mr-1.5" />
@@ -541,7 +292,7 @@ export default function Giveaway() {
                   automatically at checkout. Use it on any of our live shows — no minimum spend, no code needed.
                 </p>
 
-                <div className="flex flex-col sm:flex-row gap-4 mb-8">
+                <div className="flex flex-col sm:flex-row gap-4 mb-6">
                   <a
                     href={WHATNOT_INVITE}
                     target="_blank"
@@ -658,195 +409,6 @@ export default function Giveaway() {
           </div>
         </section>
 
-        {/* ===== WHO WE ARE ===== */}
-        <section className="py-16 lg:py-20 relative">
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-green-900/5 to-transparent" />
-          <div className="container relative z-10">
-            <div className="max-w-4xl mx-auto">
-              <div className="grid lg:grid-cols-5 gap-8 items-center">
-                {/* Left: Logo + info (3 cols) */}
-                <div className="lg:col-span-3">
-                  <Badge variant="outline" className="mb-4 border-green-500/30 text-green-400 px-4 py-1">
-                    <Shield className="w-3.5 h-3.5 mr-1.5" />
-                    WHO WE ARE
-                  </Badge>
-                  <h2
-                    className="text-3xl lg:text-4xl font-bold mb-4"
-                    style={{ fontFamily: "'Anton', sans-serif" }}
-                  >
-                    NORTHLAND <span className="text-primary">LEGENDARY</span> FINDS
-                  </h2>
-                  <p className="text-muted-foreground leading-relaxed mb-6">
-                    {c("who_we_are_description", "We're a Minnesota-based Marvel trading card company specializing in premium repacks, live card breaks, and building the best collector community in the hobby. Every pack is hand-built, every checklist is public, and every pull is live. We track over 1,700+ cards in our database and bring real transparency to the hobby.")}
-                  </p>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                    {[
-                      { num: c("who_stat_1_num", "1,700+"), label: c("who_stat_1_label", "Cards Tracked") },
-                      { num: c("who_stat_2_num", "FREE"), label: c("who_stat_2_label", "Giveaways") },
-                      { num: c("who_stat_3_num", "100%"), label: c("who_stat_3_label", "Transparent") },
-                      { num: c("who_stat_4_num", "LIVE"), label: c("who_stat_4_label", "On Whatnot") },
-                    ].map((stat) => (
-                      <div key={stat.label} className="text-center">
-                        <div className="text-2xl font-bold text-primary" style={{ fontFamily: "'Anton', sans-serif" }}>
-                          {stat.num}
-                        </div>
-                        <div className="text-xs text-muted-foreground">{stat.label}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Right: Logo (2 cols) */}
-                <div className="lg:col-span-2 flex justify-center">
-                  <div className="w-48 h-48 lg:w-56 lg:h-56 rounded-3xl overflow-hidden border border-primary/20 shadow-2xl shadow-primary/10">
-                    <img
-                      src={NLF_LOGO}
-                      alt="Northland Legendary Finds"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ===== TOO GOOD TO BE TRUE? ===== */}
-        <section className="py-16 lg:py-20 relative">
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-orange-900/5 to-transparent" />
-          <div className="container relative z-10">
-            <div className="max-w-3xl mx-auto text-center">
-              <Badge variant="outline" className="mb-4 border-orange-500/30 text-orange-400 px-4 py-1">
-                <Heart className="w-3.5 h-3.5 mr-1.5" />
-                REAL TALK
-              </Badge>
-              <h2
-                className="text-3xl lg:text-5xl font-bold mb-6"
-                style={{ fontFamily: "'Anton', sans-serif" }}
-              >
-                THIS MIGHT SOUND{" "}
-                <span className="text-orange-400">TOO GOOD TO BE TRUE</span>
-              </h2>
-              <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                {c("authenticity_paragraph_1", "We get it. Free cards? No catch? It sounds wild. But here\u2019s the thing \u2014 the giveaways are just one part of what we do. We genuinely love this hobby. We're also launching our NLF repack business later this month \u2014 hand-built packs with public checklists and real value inside every one.")}
-              </p>
-              <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-                {c("authenticity_paragraph_2", "Beyond the giveaways and repacks, our streams are about showing off incredible cards, reading and hearing perspectives from other collectors, and building a community that actually cares about the hobby. We love the conversations, the debates over which pull is the best, and watching people light up when they hit something special.")}
-              </p>
-
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
-                {[
-                  {
-                    icon: MessageCircle,
-                    title: "Collector Perspectives",
-                    desc: "We read and share what the community thinks — your opinions matter here.",
-                    color: "text-orange-400",
-                    bg: "bg-orange-500/10",
-                  },
-                  {
-                    icon: Star,
-                    title: "Card Showcases",
-                    desc: "Every stream features incredible pulls, rare finds, and cards worth talking about.",
-                    color: "text-yellow-400",
-                    bg: "bg-yellow-500/10",
-                  },
-                  {
-                    icon: Truck,
-                    title: "Fast Shipping",
-                    desc: "We take pride in getting your cards out the door fast — no waiting around for weeks.",
-                    color: "text-green-400",
-                    bg: "bg-green-500/10",
-                  },
-                  {
-                    icon: Wallet,
-                    title: "Every Budget",
-                    desc: "Cards for all types of collectors and budgets — from casual fans to serious hobbyists.",
-                    color: "text-blue-400",
-                    bg: "bg-blue-500/10",
-                  },
-                  {
-                    icon: Users,
-                    title: "Community First",
-                    desc: "It's not just about cards — it's about the people who collect them.",
-                    color: "text-red-400",
-                    bg: "bg-red-500/10",
-                  },
-                ].map((item) => (
-                  <div key={item.title} className={`${item.bg} rounded-2xl p-5 border border-white/5`}>
-                    <item.icon className={`w-8 h-8 ${item.color} mx-auto mb-3`} />
-                    <h3 className="font-bold text-sm mb-1">{item.title}</h3>
-                    <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
-                  </div>
-                ))}
-              </div>
-
-              <p className="text-base text-muted-foreground italic">
-                {c("authenticity_closing", "The giveaways are real. The community is real. Come see for yourself.")}
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* ===== CARD SHOWCASE STRIP 3 ===== */}
-        <div className="py-8 overflow-hidden">
-          <div className="flex gap-4 sm:gap-6 justify-center items-end opacity-50 hover:opacity-80 transition-opacity duration-700">
-            {SHOWCASE_CARDS.map((card, i) => (
-              <img
-                key={card.name + "-final"}
-                src={card.img}
-                alt={card.name}
-                className="rounded-lg shadow-xl"
-                style={{
-                  width: i === 3 || i === 4 ? "6rem" : "4rem",
-                  transform: `rotate(${(i - 3.5) * 5}deg) translateY(${Math.abs(i - 3.5) * 8}px)`,
-                }}
-                loading="lazy"
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* ===== FINAL CTA ===== */}
-        <section className="py-16 lg:py-24 relative">
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-red-900/10 to-transparent" />
-          <div className="container relative z-10 text-center">
-            <h2
-              className="text-4xl lg:text-6xl font-bold mb-4"
-              style={{ fontFamily: "'Anton', sans-serif" }}
-            >
-              DON'T MISS{" "}
-              <span className="text-red-400">FREE</span>{" "}
-              <span className="text-yellow-400">CARDS</span> EVERY STREAM
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-8">
-              Follow us on Whatnot to get notified when we go live. Every stream is free to watch.
-              No purchase necessary to enter giveaways.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-              <a
-                href={WHATNOT_INVITE}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={handleWhatnotClick}
-              >
-                <Button
-                  size="lg"
-                  className="bg-red-600 hover:bg-red-500 text-white font-bold text-xl px-12 py-8 shadow-xl shadow-red-500/25 hover:shadow-red-500/40 transition-all hover:scale-[1.02]"
-                >
-                  <Play className="w-6 h-6 mr-2" />
-                  Join the Stream — It's FREE
-                  <ExternalLink className="w-5 h-5 ml-2" />
-                </Button>
-              </a>
-            </div>
-
-            <p className="text-xs text-muted-foreground/60 max-w-lg mx-auto">
-              NO PURCHASE NECESSARY TO ENTER OR WIN. Void where prohibited.
-            </p>
-          </div>
-        </section>
-
         {/* ===== OFFICIAL RULES / LEGAL DISCLAIMER ===== */}
         <section className="py-12 border-t border-border/30">
           <div className="container">
@@ -903,8 +465,7 @@ export default function Giveaway() {
                   </p>
 
                   <p>
-                    <strong>Prizes:</strong> Approximate total retail value of all giveaway prizes
-                    across the promotion period include sealed Marvel trading
+                    <strong>Prizes:</strong> Prizes include sealed Marvel trading
                     card packs, sealed hobby boxes, PSA/CGC graded cards, and raw trading cards.
                     Individual prize values and descriptions will be announced at the time of each
                     giveaway. Prizes are non-transferable and no substitution or cash equivalent is
