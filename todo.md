@@ -1364,3 +1364,9 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Regenerate QR code with yellow NLF$15 text and square center box
 - [x] Regenerate QR code with NLF logo in center (no text), linking to whatnot.com/invite/northlandfinds
 - [x] Remove email signup form and QR code/Scan to Follow sections from /giveaway page
+
+## Giveaway Page — Card Images & Centered Layout
+- [x] Upload 5 Marvel card images (Doom, Gambit, Iron Man, Wolverine, Magneto) to CDN
+- [x] Add card images to giveaway page for visual appeal
+- [x] Center all text and CTAs on giveaway page (desktop and mobile)
+- [x] Fix hero description text (removed $5,000 DB override, hardcoded correct copy)

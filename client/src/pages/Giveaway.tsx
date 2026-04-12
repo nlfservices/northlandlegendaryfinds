@@ -16,6 +16,15 @@ import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 
 const WHATNOT_INVITE = "https://whatnot.com/invite/northlandfinds";
 
+// Card images
+const CARD_IMAGES = {
+  doom: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Doom_bff032b0.png",
+  gambit: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Gambit-Comic_0e247f0b.png",
+  ironman: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/IronMan-Comic_25f3c15d.png",
+  wolverine: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Wolverine-Comic_cb2b9fd2.png",
+  magneto: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Magneto-Comic2_5df7b4c4.png",
+};
+
 // Countdown hook — takes a UTC timestamp (ms), returns live d/h/m/s
 function useCountdown(targetMs: number | null) {
   const [now, setNow] = useState(Date.now());
@@ -101,8 +110,8 @@ export default function Giveaway() {
                   <br />
                   YOUR FIRST BUY
                 </h1>
-                <p className="text-lg lg:text-xl text-muted-foreground mb-6 leading-relaxed max-w-lg">
-                  {c("hero_description", "New to Whatnot? Sign up through our link and get")}
+                <p className="text-lg lg:text-xl text-muted-foreground mb-6 leading-relaxed max-w-lg mx-auto">
+                  New to Whatnot? Sign up through our link and get
                   {" "}<strong className="text-yellow-400">$15 in free credit</strong> applied
                   automatically at checkout. Use it on any of our live shows — no minimum spend, no code needed.
                 </p>
@@ -121,7 +130,7 @@ export default function Giveaway() {
                 </a>
 
                 {/* Big CTA */}
-                <div className="flex flex-col sm:flex-row gap-4 mb-6">
+                <div className="flex justify-center mb-6">
                   <a
                     href={WHATNOT_INVITE}
                     target="_blank"
@@ -130,7 +139,7 @@ export default function Giveaway() {
                   >
                     <Button
                       size="lg"
-                      className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-lg px-10 py-7 shadow-xl shadow-yellow-500/25 hover:shadow-yellow-500/40 transition-all hover:scale-[1.02] w-full sm:w-auto"
+                      className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-lg px-10 py-7 shadow-xl shadow-yellow-500/25 hover:shadow-yellow-500/40 transition-all hover:scale-[1.02]"
                     >
                       <Gift className="w-6 h-6 mr-2" />
                       Get My $15 Credit
@@ -140,7 +149,7 @@ export default function Giveaway() {
                 </div>
 
                 {/* Trust badges */}
-                <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
+                <div className="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
                   <span className="flex items-center gap-2">
                     <Shield className="w-4 h-4 text-green-400" />
                     No Minimum Spend
@@ -166,7 +175,7 @@ export default function Giveaway() {
                       <Clock className="w-4 h-4 inline mr-1.5 text-red-400" />
                       Next Stream Starts In
                     </p>
-                    <div className="flex gap-3 sm:gap-5">
+                    <div className="flex justify-center gap-3 sm:gap-5">
                       {[
                         { val: countdown.days, label: "Days" },
                         { val: countdown.hours, label: "Hours" },
@@ -184,8 +193,90 @@ export default function Giveaway() {
                   </div>
                 )}
               </div>
+            </div>
+          </div>
+        </section>
 
+        {/* ===== CARD SHOWCASE — FLOATING CARDS ===== */}
+        <section className="relative py-16 lg:py-20 overflow-hidden">
+          {/* Subtle background glow */}
+          <div className="absolute inset-0">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-primary/8 rounded-full blur-[180px]" />
+          </div>
 
+          <div className="container relative z-10">
+            <p className="text-center text-sm uppercase tracking-[0.3em] text-primary/70 font-bold mb-10">
+              Cards You Could Win on Stream
+            </p>
+
+            {/* Desktop: 5 cards in a row with varied rotations */}
+            <div className="hidden md:flex justify-center items-end gap-4 lg:gap-6">
+              {[
+                { src: CARD_IMAGES.doom, alt: "Doctor Doom — Mystery Men 1/5 Limited Edition", rotate: "-6deg", delay: "0s" },
+                { src: CARD_IMAGES.gambit, alt: "Gambit — Marvel Mint CGC 9", rotate: "3deg", delay: "0.1s" },
+                { src: CARD_IMAGES.ironman, alt: "Iron Man — Topps Chrome 45/50", rotate: "-2deg", delay: "0.2s" },
+                { src: CARD_IMAGES.wolverine, alt: "Wolverine — Marvel Mint CGC 10", rotate: "4deg", delay: "0.3s" },
+                { src: CARD_IMAGES.magneto, alt: "Magneto — Marvel Mint CGC 10", rotate: "-5deg", delay: "0.4s" },
+              ].map((card, i) => (
+                <div
+                  key={i}
+                  className="group relative flex-shrink-0 transition-all duration-500 hover:scale-110 hover:z-20"
+                  style={{
+                    transform: `rotate(${card.rotate})`,
+                    animationDelay: card.delay,
+                  }}
+                >
+                  <div className="relative">
+                    {/* Card glow on hover */}
+                    <div className="absolute -inset-3 bg-yellow-500/0 group-hover:bg-yellow-500/20 rounded-2xl blur-xl transition-all duration-500" />
+                    <img
+                      src={card.src}
+                      alt={card.alt}
+                      loading="lazy"
+                      decoding="async"
+                      className="relative w-36 lg:w-44 xl:w-48 rounded-xl shadow-2xl shadow-black/50 border border-white/10 group-hover:border-yellow-500/40 transition-all duration-500 group-hover:shadow-yellow-500/20"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Mobile: Horizontal scroll strip */}
+            <div className="md:hidden overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide">
+              <div className="flex gap-4 w-max">
+                {[
+                  { src: CARD_IMAGES.doom, alt: "Doctor Doom — Mystery Men 1/5 Limited Edition" },
+                  { src: CARD_IMAGES.gambit, alt: "Gambit — Marvel Mint CGC 9" },
+                  { src: CARD_IMAGES.ironman, alt: "Iron Man — Topps Chrome 45/50" },
+                  { src: CARD_IMAGES.wolverine, alt: "Wolverine — Marvel Mint CGC 10" },
+                  { src: CARD_IMAGES.magneto, alt: "Magneto — Marvel Mint CGC 10" },
+                ].map((card, i) => (
+                  <div key={i} className="flex-shrink-0">
+                    <img
+                      src={card.src}
+                      alt={card.alt}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-40 rounded-xl shadow-2xl shadow-black/50 border border-white/10"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Bottom CTA under cards */}
+            <div className="mt-10 text-center">
+              <a
+                href={WHATNOT_INVITE}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={handleWhatnotClick}
+                className="inline-flex items-center gap-2 text-yellow-400 hover:text-yellow-300 font-bold text-sm transition-colors"
+              >
+                <Gift className="w-4 h-4" />
+                Join a live stream to win cards like these
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
             </div>
           </div>
         </section>
@@ -193,7 +284,7 @@ export default function Giveaway() {
         {/* ===== OFFICIAL RULES / LEGAL DISCLAIMER ===== */}
         <section className="py-12 border-t border-border/30">
           <div className="container">
-            <div className="max-w-3xl mx-auto">
+            <div className="max-w-3xl mx-auto text-center">
               <button
                 onClick={() => setShowRules(!showRules)}
                 className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mx-auto"
@@ -205,7 +296,7 @@ export default function Giveaway() {
               </button>
 
               {showRules && (
-                <div className="mt-6 p-6 bg-card border border-border rounded-2xl text-xs text-muted-foreground space-y-4 leading-relaxed">
+                <div className="mt-6 p-6 bg-card border border-border rounded-2xl text-xs text-muted-foreground space-y-4 leading-relaxed text-left">
                   <h4 className="text-sm font-bold text-foreground">
                     OFFICIAL GIVEAWAY RULES — NORTHLAND LEGENDARY FINDS
                   </h4>
@@ -250,7 +341,7 @@ export default function Giveaway() {
                     card packs, sealed hobby boxes, PSA/CGC graded cards, and raw trading cards.
                     Individual prize values and descriptions will be announced at the time of each
                     giveaway. Prizes are non-transferable and no substitution or cash equivalent is
-                    permitted, except at Sponsor's sole discretion.
+                    available unless at Sponsor's sole discretion.
                   </p>
 
                   <p>
