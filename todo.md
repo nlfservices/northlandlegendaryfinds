@@ -1360,3 +1360,4 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Remove $5,000 giveaway headline and related dollar amount references from /giveaway page
 - [x] Rebuild /giveaway page as lean Facebook funnel: hero + CTA to Whatnot + $15 credit bonus, minimal content, fast conversion
 - [x] Remove current hero section from /giveaway page and make $15 credit bonus section the main hero
+- [x] Generate QR code for https://whatnot.com/invite/northlandfinds and replace current QR on /giveaway page (with NLF$15 center, saved to Google Drive)

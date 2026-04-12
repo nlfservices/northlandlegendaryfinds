@@ -15,7 +15,7 @@ import { toast } from "sonner";
 import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 
 const WHATNOT_INVITE = "https://whatnot.com/invite/northlandfinds";
-const QR_CODE = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nlf-whatnot-qr_a49cbbc8.jpg";
+const QR_CODE = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nlf-whatnot-invite-qr_18cfad76.png";
 
 // Countdown hook — takes a UTC timestamp (ms), returns live d/h/m/s
 function useCountdown(targetMs: number | null) {
