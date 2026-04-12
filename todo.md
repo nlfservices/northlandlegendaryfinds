@@ -1329,3 +1329,4 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Register route in App.tsx
 - [x] Create Facebook ad strategy document with copy recommendations
 - [x] Rename Facebook landing page route from /facebook to /giveaway
+- [x] Move email popup to lower-left corner of the site (all pages)

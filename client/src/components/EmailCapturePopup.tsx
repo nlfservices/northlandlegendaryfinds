@@ -6,7 +6,7 @@ import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 
 /**
- * Smart Email Capture Popup Component — Top Right Corner Style
+ * Smart Email Capture Popup Component — Bottom Left Corner Style
  * 
  * Behavior:
  * - Shows 2 seconds after page load on first visit
@@ -128,9 +128,7 @@ export default function EmailCapturePopup() {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-in fade-in duration-300">
-      {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/50" onClick={handleClose} />
+    <div className="fixed bottom-4 left-4 z-50 animate-in slide-in-from-bottom-5 fade-in duration-500">
       <div className="relative w-80 sm:w-96 bg-green-600 border-4 border-black rounded-xl shadow-2xl shadow-black/60">
         {/* Close button */}
         <button
