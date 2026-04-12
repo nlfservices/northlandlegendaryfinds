@@ -14,6 +14,7 @@ import {
   top5BuzzItems, Top5BuzzItem, InsertTop5BuzzItem,
   showSubmissions, ShowSubmission, InsertShowSubmission,
   blogPosts, BlogPost, InsertBlogPost,
+  siteSettings, SiteSetting, InsertSiteSetting,
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -1476,4 +1477,31 @@ export async function getCharacterImages(names: string[]): Promise<Record<string
     }
   }
   return result;
+}
+
+
+// ─── Site Settings ───────────────────────────────────────────────────────────
+
+export async function getSiteSetting(key: string): Promise<string | null> {
+  const db = await getDb();
+  if (!db) return null;
+  const rows = await db.select().from(siteSettings).where(eq(siteSettings.key, key)).limit(1);
+  return rows[0]?.value ?? null;
+}
+
+export async function setSiteSetting(key: string, value: string, label?: string): Promise<void> {
+  const db = await getDb();
+  if (!db) return;
+  const existing = await db.select().from(siteSettings).where(eq(siteSettings.key, key)).limit(1);
+  if (existing.length > 0) {
+    await db.update(siteSettings).set({ value, ...(label ? { label } : {}) }).where(eq(siteSettings.key, key));
+  } else {
+    await db.insert(siteSettings).values({ key, value, label: label ?? key });
+  }
+}
+
+export async function getAllSiteSettings(): Promise<SiteSetting[]> {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(siteSettings).orderBy(siteSettings.key);
 }

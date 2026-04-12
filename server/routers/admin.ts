@@ -14,6 +14,7 @@ import {
   getAllInventoryCards, getInventoryCardById, createInventoryCard, bulkCreateInventoryCards,
   updateInventoryCard, deleteInventoryCard, allocateCardsToRepack, deallocateCardsFromRepack,
   getInventoryStats,
+  getSiteSetting, setSiteSetting, getAllSiteSettings,
 } from "../db";
 
 // ==================== ADMIN PRODUCT ROUTES ====================
@@ -726,6 +727,35 @@ const launchSubscriberRouter = router({
     }),
 });
 
+// ==================== ADMIN SITE SETTINGS ROUTES ====================
+
+const siteSettingsRouter = router({
+  /** Get all site settings */
+  list: adminProcedure.query(async () => {
+    return getAllSiteSettings();
+  }),
+
+  /** Get a single setting */
+  get: adminProcedure
+    .input(z.object({ key: z.string() }))
+    .query(async ({ input }) => {
+      const value = await getSiteSetting(input.key);
+      return { key: input.key, value };
+    }),
+
+  /** Update a setting */
+  update: adminProcedure
+    .input(z.object({
+      key: z.string(),
+      value: z.string(),
+      label: z.string().optional(),
+    }))
+    .mutation(async ({ input }) => {
+      await setSiteSetting(input.key, input.value, input.label);
+      return { success: true };
+    }),
+});
+
 // ==================== COMBINED ADMIN ROUTER ====================
 export const adminRouter = router({
   products: productRouter,
@@ -735,4 +765,5 @@ export const adminRouter = router({
   cardSets: cardSetRouter,
   inventory: inventoryRouter,
   launchSubscribers: launchSubscriberRouter,
+  siteSettings: siteSettingsRouter,
 });

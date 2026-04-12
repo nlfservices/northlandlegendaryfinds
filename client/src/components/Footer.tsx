@@ -44,7 +44,7 @@ export default function Footer() {
               <a href="https://www.instagram.com/northlandlegendaryfinds" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-muted flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all" title="Follow us on Instagram">
                 <Instagram className="w-4 h-4" />
               </a>
-              <a href="https://www.whatnot.com/user/northlandfinds" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-muted flex items-center justify-center text-muted-foreground hover:text-purple-400 hover:bg-purple-500/10 transition-all" title="Follow us on Whatnot">
+              <a href="https://whatnot.com/invite/northlandfinds" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-muted flex items-center justify-center text-muted-foreground hover:text-purple-400 hover:bg-purple-500/10 transition-all" title="Follow us on Whatnot">
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg>
               </a>
             </div>
@@ -95,7 +95,7 @@ export default function Footer() {
         {/* Whatnot QR Code Banner */}
         <div className="border-t border-border mt-8 pt-8">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="https://www.whatnot.com/user/northlandfinds" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group">
+            <a href="https://whatnot.com/invite/northlandfinds" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group">
               <div className="bg-white rounded-lg p-1.5 shadow-sm">
                 <img
                   src="https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nlf-whatnot-qr_a49cbbc8.jpg"

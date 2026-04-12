@@ -21,7 +21,7 @@ import { getLoginUrl } from "@/const";
 import {
   Package, ListChecks, Zap, Radio, Plus, Trash2, Edit, Eye,
   CheckCircle2, Circle, ArrowLeft, Loader2, Calendar, ExternalLink,
-  ShoppingBag, Truck, CreditCard, Boxes, Hammer, Download, BarChart3, FileSpreadsheet, Flame, Sparkles
+  ShoppingBag, Truck, CreditCard, Boxes, Hammer, Download, BarChart3, FileSpreadsheet, Flame, Sparkles, Settings, Clock
 } from "lucide-react";
 import { useState, useMemo, useEffect } from "react";
 import { Link } from "wouter";
@@ -33,6 +33,136 @@ import ChecklistSheet from "@/components/ChecklistSheet";
 import ArticleManager from "@/components/ArticleManager";
 import Top5Manager from "@/components/Top5Manager";
 import BlogManager from "@/components/BlogManager";
+
+// ==================== SITE SETTINGS (COUNTDOWN TIMER) ====================
+
+function SiteSettingsManager() {
+  const utils = trpc.useUtils();
+  const { data: countdownSetting, isLoading } = trpc.admin.siteSettings.get.useQuery({ key: "giveaway_countdown_target" });
+  const updateMutation = trpc.admin.siteSettings.update.useMutation({
+    onSuccess: () => {
+      utils.admin.siteSettings.get.invalidate();
+      utils.public.settings.get.invalidate();
+      toast.success("Countdown timer updated!");
+    },
+    onError: (err: any) => toast.error(err.message || "Failed to update"),
+  });
+
+  const [dateStr, setDateStr] = useState("");
+  const [timeStr, setTimeStr] = useState("");
+
+  // Parse existing value into date/time inputs
+  useEffect(() => {
+    if (countdownSetting?.value) {
+      const d = new Date(Number(countdownSetting.value));
+      if (!isNaN(d.getTime())) {
+        // Format to local date/time for the inputs
+        const year = d.getFullYear();
+        const month = String(d.getMonth() + 1).padStart(2, "0");
+        const day = String(d.getDate()).padStart(2, "0");
+        const hours = String(d.getHours()).padStart(2, "0");
+        const mins = String(d.getMinutes()).padStart(2, "0");
+        setDateStr(`${year}-${month}-${day}`);
+        setTimeStr(`${hours}:${mins}`);
+      }
+    }
+  }, [countdownSetting?.value]);
+
+  const handleSave = () => {
+    if (!dateStr || !timeStr) {
+      toast.error("Please set both date and time");
+      return;
+    }
+    // Parse as local time, store as UTC ms
+    const target = new Date(`${dateStr}T${timeStr}:00`);
+    if (isNaN(target.getTime())) {
+      toast.error("Invalid date/time");
+      return;
+    }
+    updateMutation.mutate({
+      key: "giveaway_countdown_target",
+      value: String(target.getTime()),
+      label: "Giveaway Countdown Target (UTC ms)",
+    });
+  };
+
+  const handleClear = () => {
+    updateMutation.mutate({
+      key: "giveaway_countdown_target",
+      value: "",
+      label: "Giveaway Countdown Target (UTC ms)",
+    });
+    setDateStr("");
+    setTimeStr("");
+  };
+
+  const previewTarget = dateStr && timeStr ? new Date(`${dateStr}T${timeStr}:00`) : null;
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <Clock className="w-5 h-5 text-red-400" />
+          Giveaway Countdown Timer
+        </CardTitle>
+        <CardDescription>
+          Set the date and time for the next stream. A live countdown will appear on the /giveaway page.
+          Leave blank or clear to hide the countdown.
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        {isLoading ? (
+          <div className="flex items-center gap-2 text-muted-foreground">
+            <Loader2 className="w-4 h-4 animate-spin" /> Loading...
+          </div>
+        ) : (
+          <>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <Label>Date</Label>
+                <Input
+                  type="date"
+                  value={dateStr}
+                  onChange={(e) => setDateStr(e.target.value)}
+                />
+              </div>
+              <div>
+                <Label>Time (your local time)</Label>
+                <Input
+                  type="time"
+                  value={timeStr}
+                  onChange={(e) => setTimeStr(e.target.value)}
+                />
+              </div>
+            </div>
+
+            {previewTarget && !isNaN(previewTarget.getTime()) && (
+              <p className="text-sm text-muted-foreground">
+                Preview: <strong className="text-foreground">{previewTarget.toLocaleString()}</strong> (your local time)
+              </p>
+            )}
+
+            {countdownSetting?.value && (
+              <p className="text-sm text-green-400">
+                Currently set to: {new Date(Number(countdownSetting.value)).toLocaleString()}
+              </p>
+            )}
+
+            <div className="flex gap-3">
+              <Button onClick={handleSave} disabled={updateMutation.isPending}>
+                {updateMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+                Save Countdown
+              </Button>
+              <Button variant="outline" onClick={handleClear} disabled={updateMutation.isPending}>
+                Clear (Hide Timer)
+              </Button>
+            </div>
+          </>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
 
 // ==================== PRODUCT MANAGEMENT ====================
 
@@ -1477,6 +1607,9 @@ export default function AdminDashboard() {
             <TabsTrigger value="blog" className="flex items-center gap-2">
               <Sparkles className="w-4 h-4" /> The Collector
             </TabsTrigger>
+            <TabsTrigger value="settings" className="flex items-center gap-2">
+              <Settings className="w-4 h-4" /> Settings
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="products">
@@ -1514,6 +1647,9 @@ export default function AdminDashboard() {
           </TabsContent>
           <TabsContent value="blog">
             <BlogManager />
+          </TabsContent>
+          <TabsContent value="settings">
+            <SiteSettingsManager />
           </TabsContent>
         </Tabs>
       </div>

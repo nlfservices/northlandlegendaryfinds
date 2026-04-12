@@ -5,7 +5,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { trpc } from "@/lib/trpc";
 import {
   Gift, Radio, ExternalLink, Shield, CheckCircle2, Clock, DollarSign,
@@ -15,10 +15,22 @@ import {
 import { toast } from "sonner";
 import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 
-const WHATNOT_STORE_URL = "https://www.whatnot.com/user/northlandfinds";
+const WHATNOT_STORE_URL = "https://whatnot.com/invite/northlandfinds";
 const WHATNOT_INVITE = "https://whatnot.com/invite/northlandfinds";
 const QR_CODE = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nlf-whatnot-qr_a49cbbc8.jpg";
 const NLF_LOGO = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/rwZcaJaSCFxygqjF.png";
+
+// Marvel card artwork for showcase gallery
+const SHOWCASE_CARDS = [
+  { name: "The Specter", img: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/card-specter_160ffa0e.png" },
+  { name: "Thor", img: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/card-thor_cd8e02ee.png" },
+  { name: "Magneto CGC 10", img: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/card-magneto-cgc_e49d572c.png" },
+  { name: "Nighthawk", img: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/card-nighthawk_bbdb2437.png" },
+  { name: "Wolverine CGC 10", img: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/card-wolverine-cgc_bad1e34b.png" },
+  { name: "Gambit", img: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/card-gambit_ac4d7a84.png" },
+  { name: "Molecule Man", img: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/card-molecule-man_dba2bb5f.png" },
+  { name: "Okoye", img: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/card-okoye_39a8275c.png" },
+];
 
 // Giveaway prize breakdown
 const PRIZES = [
@@ -56,11 +68,37 @@ const PRIZES = [
   },
 ];
 
+// Countdown hook — takes a UTC timestamp (ms), returns live d/h/m/s
+function useCountdown(targetMs: number | null) {
+  const [now, setNow] = useState(Date.now());
+  useEffect(() => {
+    if (!targetMs) return;
+    const id = setInterval(() => setNow(Date.now()), 1_000);
+    return () => clearInterval(id);
+  }, [targetMs]);
+  if (!targetMs || targetMs <= now) return null;
+  const diff = targetMs - now;
+  return {
+    days: Math.floor(diff / 86_400_000),
+    hours: Math.floor((diff % 86_400_000) / 3_600_000),
+    minutes: Math.floor((diff % 3_600_000) / 60_000),
+    seconds: Math.floor((diff % 60_000) / 1_000),
+  };
+}
+
 export default function Giveaway() {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [showRules, setShowRules] = useState(false);
+
+  // Fetch countdown target from DB (admin-configurable)
+  const { data: countdownSetting } = trpc.public.settings.get.useQuery(
+    { key: "giveaway_countdown_target" },
+    { refetchInterval: 60_000 } // refresh every minute
+  );
+  const countdownTarget = countdownSetting?.value ? Number(countdownSetting.value) : null;
+  const countdown = useCountdown(countdownTarget);
 
   const subscribeMutation = trpc.public.subscribe.submit.useMutation({
     onSuccess: () => {
@@ -133,6 +171,34 @@ export default function Giveaway() {
             />
           </div>
 
+          {/* Floating card accents in hero — hidden on mobile */}
+          <div className="hidden lg:block absolute inset-0 z-[5] pointer-events-none overflow-hidden">
+            <img
+              src={SHOWCASE_CARDS[0].img}
+              alt={SHOWCASE_CARDS[0].name}
+              className="absolute top-[12%] left-[3%] w-28 xl:w-36 rounded-lg shadow-2xl shadow-red-500/30 opacity-60 hover:opacity-100 transition-all duration-500 pointer-events-auto"
+              style={{ transform: "rotate(-12deg)" }}
+            />
+            <img
+              src={SHOWCASE_CARDS[1].img}
+              alt={SHOWCASE_CARDS[1].name}
+              className="absolute top-[8%] right-[3%] w-28 xl:w-36 rounded-lg shadow-2xl shadow-yellow-500/30 opacity-60 hover:opacity-100 transition-all duration-500 pointer-events-auto"
+              style={{ transform: "rotate(10deg)" }}
+            />
+            <img
+              src={SHOWCASE_CARDS[2].img}
+              alt={SHOWCASE_CARDS[2].name}
+              className="absolute bottom-[15%] left-[5%] w-24 xl:w-32 rounded-lg shadow-2xl shadow-blue-500/30 opacity-50 hover:opacity-100 transition-all duration-500 pointer-events-auto"
+              style={{ transform: "rotate(8deg)" }}
+            />
+            <img
+              src={SHOWCASE_CARDS[3].img}
+              alt={SHOWCASE_CARDS[3].name}
+              className="absolute bottom-[18%] right-[4%] w-24 xl:w-32 rounded-lg shadow-2xl shadow-purple-500/30 opacity-50 hover:opacity-100 transition-all duration-500 pointer-events-auto"
+              style={{ transform: "rotate(-8deg)" }}
+            />
+          </div>
+
           <div className="container relative z-10">
             <div className="text-center max-w-4xl mx-auto">
               {/* Badge */}
@@ -198,6 +264,31 @@ export default function Giveaway() {
                 </a>
               </div>
 
+              {/* Countdown Timer — only shows when admin sets a target time */}
+              {countdown && (
+                <div className="mb-10">
+                  <p className="text-sm text-muted-foreground uppercase tracking-widest mb-3 font-bold">
+                    <Clock className="w-4 h-4 inline mr-1.5 text-red-400" />
+                    Next Stream Starts In
+                  </p>
+                  <div className="flex gap-3 sm:gap-5 justify-center">
+                    {[
+                      { val: countdown.days, label: "Days" },
+                      { val: countdown.hours, label: "Hours" },
+                      { val: countdown.minutes, label: "Min" },
+                      { val: countdown.seconds, label: "Sec" },
+                    ].map((t) => (
+                      <div key={t.label} className="flex flex-col items-center">
+                        <span className="text-3xl sm:text-5xl font-bold text-white tabular-nums" style={{ fontFamily: "'Anton', sans-serif" }}>
+                          {String(t.val).padStart(2, "0")}
+                        </span>
+                        <span className="text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider mt-1">{t.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Trust badges */}
               <div className="flex flex-wrap gap-6 justify-center text-sm text-muted-foreground">
                 <span className="flex items-center gap-2">
@@ -220,6 +311,22 @@ export default function Giveaway() {
             </div>
           </div>
         </section>
+
+        {/* ===== CARD SHOWCASE STRIP 1 ===== */}
+        <div className="py-6 overflow-hidden">
+          <div className="flex gap-6 justify-center items-center opacity-40 hover:opacity-70 transition-opacity duration-700">
+            {SHOWCASE_CARDS.slice(0, 4).map((card, i) => (
+              <img
+                key={card.name}
+                src={card.img}
+                alt={card.name}
+                className="w-20 sm:w-24 lg:w-28 rounded-lg shadow-lg"
+                style={{ transform: `rotate(${i % 2 === 0 ? -3 : 3}deg)` }}
+                loading="lazy"
+              />
+            ))}
+          </div>
+        </div>
 
         {/* ===== WHAT YOU CAN WIN ===== */}
         <section className="py-16 lg:py-20 relative">
@@ -365,6 +472,22 @@ export default function Giveaway() {
             </div>
           </div>
         </section>
+
+        {/* ===== CARD SHOWCASE STRIP 2 ===== */}
+        <div className="py-6 overflow-hidden">
+          <div className="flex gap-6 justify-center items-center opacity-40 hover:opacity-70 transition-opacity duration-700">
+            {SHOWCASE_CARDS.slice(4, 8).map((card, i) => (
+              <img
+                key={card.name}
+                src={card.img}
+                alt={card.name}
+                className="w-20 sm:w-24 lg:w-28 rounded-lg shadow-lg"
+                style={{ transform: `rotate(${i % 2 === 0 ? 4 : -4}deg)` }}
+                loading="lazy"
+              />
+            ))}
+          </div>
+        </div>
 
         {/* ===== $15 CREDIT BONUS ===== */}
         <section id="get-notified" className="py-16 lg:py-20 relative">
@@ -564,6 +687,25 @@ export default function Giveaway() {
             </div>
           </div>
         </section>
+
+        {/* ===== CARD SHOWCASE STRIP 3 ===== */}
+        <div className="py-8 overflow-hidden">
+          <div className="flex gap-4 sm:gap-6 justify-center items-end opacity-50 hover:opacity-80 transition-opacity duration-700">
+            {SHOWCASE_CARDS.map((card, i) => (
+              <img
+                key={card.name + "-final"}
+                src={card.img}
+                alt={card.name}
+                className="rounded-lg shadow-xl"
+                style={{
+                  width: i === 3 || i === 4 ? "6rem" : "4rem",
+                  transform: `rotate(${(i - 3.5) * 5}deg) translateY(${Math.abs(i - 3.5) * 8}px)`,
+                }}
+                loading="lazy"
+              />
+            ))}
+          </div>
+        </div>
 
         {/* ===== FINAL CTA ===== */}
         <section className="py-16 lg:py-24 relative">

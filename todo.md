@@ -1330,3 +1330,17 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Create Facebook ad strategy document with copy recommendations
 - [x] Rename Facebook landing page route from /facebook to /giveaway
 - [x] Move email popup to lower-left corner of the site (all pages)
+- [ ] Upload 8 card images (Specter, Thor, Magneto, Nighthawk, Wolverine, Gambit, Molecule Man, Okoye) to CDN
+- [x] Add card images throughout the giveaway page to make it visually stunning
+
+## Giveaway Page Card Showcase Gallery
+- [x] Add 8 Marvel card artwork images scattered throughout /giveaway page as floating/angled card displays
+- [x] Add cinematic card showcase strip between hero and prize sections
+- [x] Add floating card accents alongside How To Enter and Bonus sections
+- [x] Add card fan gallery above the Final CTA section
+- [x] Add hover effects and animations to all card images
+- [x] Make Whatnot invite link (whatnot.com/invite/northlandfinds) prominently accessible everywhere on /giveaway page
+- [x] Make Whatnot invite link (whatnot.com/invite/northlandfinds) prominently accessible everywhere on /giveaway page
+- [x] Fix broken/incorrect links on /giveaway page (all links verified correct)
+- [x] Fix all "Follow us on Whatnot" links site-wide to use invite link (whatnot.com/invite/northlandfinds) instead of store URL
+- [x] Build admin-configurable countdown timer for giveaway page (set any date/time, live countdown display)

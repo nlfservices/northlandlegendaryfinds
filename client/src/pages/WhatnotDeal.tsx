@@ -34,7 +34,7 @@ import { toast } from "sonner";
 import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 
 const WHATNOT_INVITE = "https://whatnot.com/invite/northlandfinds";
-const WHATNOT_STORE = "https://www.whatnot.com/user/northlandfinds";
+const WHATNOT_STORE = "https://whatnot.com/invite/northlandfinds";
 
 // Product images from CDN
 const IMAGES = {

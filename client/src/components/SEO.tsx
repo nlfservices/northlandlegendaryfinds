@@ -98,7 +98,7 @@ export function organizationJsonLd() {
     logo: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nlf-logo-lmgLHqHqRKDwTnMGBxPxqP.webp",
     description: DEFAULT_DESCRIPTION,
     sameAs: [
-      "https://www.whatnot.com/user/northlandfinds",
+      "https://whatnot.com/invite/northlandfinds",
     ],
     contactPoint: {
       "@type": "ContactPoint",

@@ -16,6 +16,7 @@ import {
   getRandomCard,
   insertShowSubmission,
   getCharacterImages,
+  getSiteSetting,
 } from "../db";
 import { launchSubscribers } from "../../drizzle/schema";
 import { getDb } from "../db";
@@ -685,6 +686,20 @@ const publicCardShowRouter = router({
 
 // ==================== COMBINED PUBLIC ROUTER ====================
 
+// ==================== PUBLIC SITE SETTINGS ROUTER ====================
+
+const publicSiteSettingsRouter = router({
+  /** Get a single site setting by key */
+  get: publicProcedure
+    .input(z.object({ key: z.string() }))
+    .query(async ({ input }) => {
+      const value = await getSiteSetting(input.key);
+      return { key: input.key, value };
+    }),
+});
+
+// ==================== COMBINED PUBLIC ROUTER ====================
+
 export const publicRouter = router({
   products: publicProductRouter,
   checklist: publicChecklistRouter,
@@ -695,4 +710,5 @@ export const publicRouter = router({
   launch: publicLaunchRouter,
   subscribe: publicSubscribeRouter,
   cardShows: publicCardShowRouter,
+  settings: publicSiteSettingsRouter,
 });

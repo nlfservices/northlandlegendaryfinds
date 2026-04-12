@@ -812,3 +812,19 @@ export const loyaltyRedemptions = mysqlTable("loyalty_redemptions", {
 
 export type LoyaltyRedemption = typeof loyaltyRedemptions.$inferSelect;
 export type InsertLoyaltyRedemption = typeof loyaltyRedemptions.$inferInsert;
+
+
+/**
+ * Site settings - key/value store for admin-configurable settings
+ * Used for: giveaway countdown timer, stream dates, feature flags, etc.
+ */
+export const siteSettings = mysqlTable("site_settings", {
+  id: int("id").autoincrement().primaryKey(),
+  key: varchar("key", { length: 100 }).notNull().unique(),
+  value: text("value").notNull(),
+  label: varchar("label", { length: 255 }),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type SiteSetting = typeof siteSettings.$inferSelect;
+export type InsertSiteSetting = typeof siteSettings.$inferInsert;

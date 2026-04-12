@@ -356,7 +356,7 @@ export default function Home() {
               </p>
 
               <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
-                <a href="https://www.whatnot.com/user/northlandfinds" target="_blank" rel="noopener noreferrer">
+                <a href="https://whatnot.com/invite/northlandfinds" target="_blank" rel="noopener noreferrer">
                   <Button size="lg" className="bg-white text-purple-900 hover:bg-purple-100 font-bold text-lg px-8 py-6 shadow-xl shadow-purple-500/30">
                     <Radio className="w-5 h-5 mr-2" />
                     Follow on Whatnot

@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import { useMemo } from "react";
 
-const WHATNOT_STORE_URL = "https://www.whatnot.com/user/northlandfinds";
+const WHATNOT_STORE_URL = "https://whatnot.com/invite/northlandfinds";
 const CARD_PLACEHOLDER = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/card-placeholder-AFtdwioDcmq6GHzFUFUpif.webp";
 
 // Tier configuration with new naming
