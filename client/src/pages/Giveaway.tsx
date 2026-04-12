@@ -274,7 +274,7 @@ export default function Giveaway() {
                 className="inline-flex items-center gap-2 text-yellow-400 hover:text-yellow-300 font-bold text-sm transition-colors"
               >
                 <Gift className="w-4 h-4" />
-                Join a live stream to win cards like these
+                Check out our streams to learn about the cards and enjoy some good old fun entertainment
                 <ExternalLink className="w-3.5 h-3.5" />
               </a>
             </div>

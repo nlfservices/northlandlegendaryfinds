@@ -1370,3 +1370,4 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add card images to giveaway page for visual appeal
 - [x] Center all text and CTAs on giveaway page (desktop and mobile)
 - [x] Fix hero description text (removed $5,000 DB override, hardcoded correct copy)
+- [x] Update card showcase CTA text: "Join a live stream..." → "Check out our streams..."
