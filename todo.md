@@ -1346,3 +1346,7 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Build admin-configurable countdown timer for giveaway page (set any date/time, live countdown display)
 - [x] Add prominent clickable Whatnot invite link just below the $5,000 GIVEAWAYS headline on /giveaway page
 - [x] Add "This might sound too good to be true" authenticity section to /giveaway page — explain community passion, showing cards, reading perspectives
+- [x] Update giveaway page to mention NLF repacks are part of the giveaways
+- [x] Add repack business launch teaser (launching later this month) to giveaway page
+- [x] Add fast shipping pride messaging to /giveaway page
+- [x] Add "cards for all types of collectors and budgets" messaging to /giveaway page

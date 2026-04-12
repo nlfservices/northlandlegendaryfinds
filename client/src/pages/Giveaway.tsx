@@ -10,7 +10,7 @@ import { trpc } from "@/lib/trpc";
 import {
   Gift, Radio, ExternalLink, Shield, CheckCircle2, Clock, DollarSign,
   Package, Star, Zap, Users, TrendingUp, ArrowRight, Play, Sparkles,
-  Trophy, Target, Flame, Box, Award, Heart, MessageCircle
+  Trophy, Target, Flame, Box, Award, Heart, MessageCircle, Truck, Wallet
 } from "lucide-react";
 import { toast } from "sonner";
 import SEO, { breadcrumbJsonLd } from "@/components/SEO";
@@ -36,8 +36,8 @@ const SHOWCASE_CARDS = [
 const PRIZES = [
   {
     icon: Package,
-    label: "FREE PACKS",
-    description: "Sealed Marvel trading card packs — Topps Chrome, Platinum, and more",
+    label: "FREE NLF REPACKS",
+    description: "Our hand-built NLF repack packs — every card curated, every checklist public. Launching later this month!",
     color: "text-yellow-400",
     bg: "bg-yellow-500/10",
     border: "border-yellow-500/20",
@@ -244,8 +244,9 @@ export default function Giveaway() {
               </p>
 
               <p className="text-lg text-muted-foreground/80 max-w-xl mx-auto mb-10">
-                Free Packs. Free Boxes. Free Graded Cards. Free Raw Cards.{" "}
-                <strong className="text-foreground">No purchase necessary.</strong>
+                Free NLF Repacks. Free Boxes. Free Graded Cards. Free Raw Cards.{" "}
+                <strong className="text-foreground">No purchase necessary.</strong>{" "}
+                Plus — our repack business launches later this month!
               </p>
 
               {/* CTA Buttons */}
@@ -719,17 +720,19 @@ export default function Giveaway() {
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed mb-6">
                 We get it. $5,000 in free cards? No catch? It sounds wild. But here's the thing — the giveaways
-                are just one part of what we do. We genuinely love this hobby.
+                are just one part of what we do. We genuinely love this hobby. We're also{" "}
+                <strong className="text-foreground">launching our NLF repack business later this month</strong> —
+                hand-built packs with public checklists and real value inside every one.
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-                Beyond the giveaways, our streams are about{" "}
+                Beyond the giveaways and repacks, our streams are about{" "}
                 <strong className="text-foreground">showing off incredible cards</strong>,{" "}
                 <strong className="text-foreground">reading and hearing perspectives from other collectors</strong>,
                 and building a community that actually cares about the hobby. We love the conversations,
                 the debates over which pull is the best, and watching people light up when they hit something special.
               </p>
 
-              <div className="grid sm:grid-cols-3 gap-6 mb-8">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
                 {[
                   {
                     icon: MessageCircle,
@@ -744,6 +747,20 @@ export default function Giveaway() {
                     desc: "Every stream features incredible pulls, rare finds, and cards worth talking about.",
                     color: "text-yellow-400",
                     bg: "bg-yellow-500/10",
+                  },
+                  {
+                    icon: Truck,
+                    title: "Fast Shipping",
+                    desc: "We take pride in getting your cards out the door fast — no waiting around for weeks.",
+                    color: "text-green-400",
+                    bg: "bg-green-500/10",
+                  },
+                  {
+                    icon: Wallet,
+                    title: "Every Budget",
+                    desc: "Cards for all types of collectors and budgets — from casual fans to serious hobbyists.",
+                    color: "text-blue-400",
+                    bg: "bg-blue-500/10",
                   },
                   {
                     icon: Users,
