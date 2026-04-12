@@ -10,7 +10,7 @@ import { trpc } from "@/lib/trpc";
 import {
   Gift, Radio, ExternalLink, Shield, CheckCircle2, Clock, DollarSign,
   Package, Star, Zap, Users, TrendingUp, ArrowRight, Play, Sparkles,
-  Trophy, Target, Flame, Box, Award
+  Trophy, Target, Flame, Box, Award, Heart, MessageCircle
 } from "lucide-react";
 import { toast } from "sonner";
 import SEO, { breadcrumbJsonLd } from "@/components/SEO";
@@ -697,6 +697,73 @@ export default function Giveaway() {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ===== TOO GOOD TO BE TRUE? ===== */}
+        <section className="py-16 lg:py-20 relative">
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-orange-900/5 to-transparent" />
+          <div className="container relative z-10">
+            <div className="max-w-3xl mx-auto text-center">
+              <Badge variant="outline" className="mb-4 border-orange-500/30 text-orange-400 px-4 py-1">
+                <Heart className="w-3.5 h-3.5 mr-1.5" />
+                REAL TALK
+              </Badge>
+              <h2
+                className="text-3xl lg:text-5xl font-bold mb-6"
+                style={{ fontFamily: "'Anton', sans-serif" }}
+              >
+                THIS MIGHT SOUND{" "}
+                <span className="text-orange-400">TOO GOOD TO BE TRUE</span>
+              </h2>
+              <p className="text-lg text-muted-foreground leading-relaxed mb-6">
+                We get it. $5,000 in free cards? No catch? It sounds wild. But here's the thing — the giveaways
+                are just one part of what we do. We genuinely love this hobby.
+              </p>
+              <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+                Beyond the giveaways, our streams are about{" "}
+                <strong className="text-foreground">showing off incredible cards</strong>,{" "}
+                <strong className="text-foreground">reading and hearing perspectives from other collectors</strong>,
+                and building a community that actually cares about the hobby. We love the conversations,
+                the debates over which pull is the best, and watching people light up when they hit something special.
+              </p>
+
+              <div className="grid sm:grid-cols-3 gap-6 mb-8">
+                {[
+                  {
+                    icon: MessageCircle,
+                    title: "Collector Perspectives",
+                    desc: "We read and share what the community thinks — your opinions matter here.",
+                    color: "text-orange-400",
+                    bg: "bg-orange-500/10",
+                  },
+                  {
+                    icon: Star,
+                    title: "Card Showcases",
+                    desc: "Every stream features incredible pulls, rare finds, and cards worth talking about.",
+                    color: "text-yellow-400",
+                    bg: "bg-yellow-500/10",
+                  },
+                  {
+                    icon: Users,
+                    title: "Community First",
+                    desc: "It's not just about cards — it's about the people who collect them.",
+                    color: "text-red-400",
+                    bg: "bg-red-500/10",
+                  },
+                ].map((item) => (
+                  <div key={item.title} className={`${item.bg} rounded-2xl p-5 border border-white/5`}>
+                    <item.icon className={`w-8 h-8 ${item.color} mx-auto mb-3`} />
+                    <h3 className="font-bold text-sm mb-1">{item.title}</h3>
+                    <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
+                  </div>
+                ))}
+              </div>
+
+              <p className="text-base text-muted-foreground italic">
+                The giveaways are real. The community is real. Come see for yourself.
+              </p>
             </div>
           </div>
         </section>
