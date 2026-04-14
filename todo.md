@@ -1373,3 +1373,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Update card showcase CTA text: "Join a live stream..." → "Check out our streams..."
 - [x] Remove "Cards You Could Win on Stream" heading from giveaway page
 - [x] Update all Star Wars "June 2026" references to "Fall 2026" across the entire site (Footer, Home, StarWars, Subscribe, SiteMap)
+- [x] Remove Star Wars from homepage hero — refocus on Marvel/MCU only
+- [x] Update hero headline from "LOVE MARVEL OR STAR WARS?" to "LOVE MARVEL? START HERE."
+- [x] Update hero description to focus on MCU/Marvel only
+- [x] Update SEO title/description on homepage + default SEO to be Marvel-focused
+- [x] Update announcement bar to remove Star Wars mention
+- [x] Update Footer description and nav link (removed Star Wars, changed to Coming Soon)
+- [x] Updated New to Collecting and Roadmap sections to remove Star Wars mentions

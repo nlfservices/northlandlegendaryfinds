@@ -97,7 +97,7 @@ export default function Navigation() {
     <>
       {/* Announcement Bar */}
       <div className="bg-primary text-primary-foreground text-center py-2 px-4 text-sm font-bold tracking-wide">
-        YOUR MARVEL & STAR WARS COLLECTOR HUB — 1,709+ CARDS | MARKET INTEL | PREMIUM REPACKS
+        YOUR MARVEL COLLECTOR HUB — 1,709+ CARDS | MARKET INTEL | PREMIUM REPACKS
       </div>
 
       {/* Main Navigation */}

@@ -183,8 +183,8 @@ export default function Home() {
     <div className="min-h-screen">
       <SEO
         path="/"
-        title="Northland Legendary Finds | Marvel & Star Wars Trading Card Collector Hub"
-        description="Your home for Marvel and Star Wars fans and trading card collectors. Explore characters, track Avengers: Doomsday news, browse 1,709+ cards, and discover the hobby — whether you're brand new or a lifelong collector."
+        title="Northland Legendary Finds | Marvel Trading Card Collector Hub"
+        description="Your home for Marvel fans and trading card collectors. Explore characters, track Avengers: Doomsday news, browse 1,709+ cards, and discover the hobby — whether you're brand new or a lifelong collector."
         noSuffix
         jsonLd={[organizationJsonLd(), websiteJsonLd(), localBusinessJsonLd()]}
       />
@@ -208,9 +208,7 @@ export default function Home() {
               </div>
 
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[0.9] mb-4 sm:mb-6" style={{ fontFamily: "'Anton', sans-serif" }}>
-                <span className="text-white">LOVE MARVEL</span>
-                <br />
-                <span className="text-white">OR STAR WARS?</span>
+                <span className="text-white">LOVE MARVEL?</span>
                 <br />
                 <span className="text-primary">START HERE.</span>
               </h1>
@@ -428,7 +426,7 @@ export default function Home() {
               NEW TO <span className="text-primary">COLLECTING?</span>
             </h2>
             <p className="text-muted-foreground text-lg max-w-3xl mx-auto leading-relaxed">
-              You don't need to be an expert. If you love Marvel or Star Wars, you already belong here. Trading cards are just another way to connect with the characters and stories you care about — and we'll help you get started.
+              You don't need to be an expert. If you love Marvel, you already belong here. Trading cards are just another way to connect with the characters and stories you care about — and we'll help you get started.
             </p>
           </div>
 
@@ -715,7 +713,7 @@ export default function Home() {
               YOUR FANDOM, <span className="text-primary">YOUR WAY</span>
             </h2>
             <p className="text-muted-foreground text-lg max-w-3xl mx-auto leading-relaxed">
-              We're starting with Marvel and Star Wars — but this is just the beginning. NLF is building a home for fans and collectors across every universe you love. Stay tuned and stay informed.
+              We're starting with Marvel — but this is just the beginning. NLF is building a home for fans and collectors across every universe you love. Stay tuned and stay informed.
             </p>
           </div>
 
