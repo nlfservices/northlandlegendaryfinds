@@ -20,6 +20,12 @@ import { Streamdown } from "streamdown";
 
 const PLACEHOLDER_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/character-placeholder-v2-CY48bnu9TGVPXs9qZJnG7S.webp";
 
+// Static image overrides for characters without trading cards in the database
+const CHARACTER_IMAGE_OVERRIDES: Record<string, string> = {
+  "kang": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/kang-character-3ikm66jFTWEESTn5mpNv6X.webp",
+  "red-skull": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/red-skull-character-WZAUMsSGJp4nqcvHpwhX5L.webp",
+};
+
 export default function CharacterPage() {
   const [, params] = useRoute("/characters/:slug");
   const slug = params?.slug || "";
@@ -87,8 +93,10 @@ export default function CharacterPage() {
     }
   }, [data?.content?.keyFacts]);
 
-  // Pick the best representative image: prefer cards whose image filename contains the character name
+  // Pick the best representative image: check overrides first, then cards
   const characterImage = useMemo(() => {
+    // Check static overrides first (for characters without cards in DB)
+    if (CHARACTER_IMAGE_OVERRIDES[slug]) return CHARACTER_IMAGE_OVERRIDES[slug];
     if (!data?.cards?.length) return PLACEHOLDER_IMG;
     const charWords = data.characterName.toLowerCase().split(/\s+/).filter(w => w.length > 2);
     // Try to find a card whose image URL contains the character name

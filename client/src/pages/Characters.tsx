@@ -21,6 +21,12 @@ const ALPHABET = "#ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 const PAGE_SIZE = 60;
 const PLACEHOLDER_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/character-placeholder-v2-CY48bnu9TGVPXs9qZJnG7S.webp";
 
+// Static image overrides for characters without trading cards in the database
+const CHARACTER_IMAGE_OVERRIDES: Record<string, string> = {
+  "KANG": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/kang-character-3ikm66jFTWEESTn5mpNv6X.webp",
+  "RED SKULL": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/red-skull-character-WZAUMsSGJp4nqcvHpwhX5L.webp",
+};
+
 function characterNameToSlug(name: string): string {
   return name
     .toLowerCase()
@@ -289,8 +295,8 @@ export default function Characters() {
     return map;
   }, [data?.characters]);
 
-  // Helper to get image for a character
-  const getImg = (name: string) => featuredImages?.[name] || PLACEHOLDER_IMG;
+  // Helper to get image for a character (check overrides first, then DB images, then placeholder)
+  const getImg = (name: string) => CHARACTER_IMAGE_OVERRIDES[name] || featuredImages?.[name] || PLACEHOLDER_IMG;
   const getCount = (name: string) => cardCountMap[name.toUpperCase()] ?? 0;
 
   // Filter logic for the full database
