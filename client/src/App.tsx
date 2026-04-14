@@ -60,6 +60,7 @@ import WhatnotDeal from "./pages/WhatnotDeal";
 import SiteMap from "./pages/SiteMap";
 import Rewards from "./pages/Rewards";
 import Giveaway from "./pages/Giveaway";
+import TrendingCards from "./pages/TrendingCards";
 
 // Routes that render as full-screen standalone experiences (no nav/footer)
 const STANDALONE_ROUTES = ["/card-display", "/matrix", "/free-credit"];
@@ -134,6 +135,7 @@ function AppRouter() {
           <Route path="/sitemap" component={SiteMap} />
           <Route path="/rewards" component={Rewards} />
           <Route path="/giveaway" component={Giveaway} />
+          <Route path="/trending" component={TrendingCards} />
           <Route path="/login" component={JarvisProtocol} />
           <Route path="/404" component={NotFound} />
           <Route component={NotFound} />

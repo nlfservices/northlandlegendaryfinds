@@ -1380,3 +1380,15 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Update announcement bar to remove Star Wars mention
 - [x] Update Footer description and nav link (removed Star Wars, changed to Coming Soon)
 - [x] Updated New to Collecting and Roadmap sections to remove Star Wars mentions
+- [ ] Add MCU countdown section to homepage with dual movie countdowns
+- [ ] Avengers: Doomsday (Dec 18, 2026) — main emphasis, large countdown
+- [ ] Spider-Man: Brand New Day (July 31, 2026) — secondary countdown
+- [ ] Live countdown timer (days, hours, minutes, seconds)
+- [x] Fix hero description — change "just saw Avengers: Doomsday" to anticipation wording (movie not released yet)
+- [x] Build "Marvel Cards to Collect Right Now" page (also works as Facebook ad landing page)
+- [x] Hero section with strong hook for cold Facebook traffic
+- [x] Top trending cards section tied to upcoming movies (Doomsday, Spider-Man)
+- [x] Trending characters section with reasons why they're hot
+- [x] Beginner tips section — what makes a card valuable
+- [x] CTAs throughout pushing to shop, card database, Whatnot streams
+- [x] Register route in App.tsx and add navigation links

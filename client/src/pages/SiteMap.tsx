@@ -59,6 +59,7 @@ const SITE_SECTIONS: SiteSection[] = [
       { path: "/market-intel/marvel-vs-pokemon-cards", label: "Marvel vs Pokemon Cards", description: "Comparing the two biggest trading card markets" },
       { path: "/market-intel/why-fanatics-trading-cards", label: "Why Fanatics Matters", description: "How Fanatics is reshaping the trading card industry" },
       { path: "/market-intel/best-topps-marvel-cards", label: "Best Topps Marvel Cards", description: "Top cards to watch from 2025 Topps Marvel sets" },
+      { path: "/trending", label: "Trending Cards", description: "Marvel cards to collect right now — movie-driven picks and beginner tips" },
     ],
   },
   {

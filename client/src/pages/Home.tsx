@@ -16,6 +16,7 @@ import { useLaunchCountdown } from "@/hooks/useLaunchCountdown";
 import ProductCard from "@/components/ProductCard";
 import SEO, { organizationJsonLd, websiteJsonLd, localBusinessJsonLd } from "@/components/SEO";
 import DoomsdaySection from "@/components/DoomsdaySection";
+import MCUCountdown from "@/components/MCUCountdown";
 import MarvelousTop5 from "@/components/MarvelousTop5";
 
 
@@ -214,7 +215,7 @@ export default function Home() {
               </h1>
 
               <p className="text-lg sm:text-xl text-gray-300 max-w-lg mb-8 leading-relaxed">
-                Whether you grew up reading comics, watched every movie with your kids, or just saw Avengers: Doomsday and want to know more — <strong className="text-white">you're in the right place.</strong>
+                Whether you grew up reading comics, watched every movie with your kids, or can't wait for Avengers: Doomsday — <strong className="text-white">you're in the right place.</strong>
               </p>
 
               <div className="flex flex-wrap gap-4">
@@ -593,7 +594,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== 5. DOOMSDAY — CHARACTER INTEL HUB ===== */}
+      {/* ===== 5. MCU COUNTDOWN — DOOMSDAY & SPIDER-MAN ===== */}
+      <MCUCountdown />
+
+      {/* ===== 5b. DOOMSDAY — CHARACTER INTEL HUB ===== */}
       <DoomsdaySection />
 
       {/* ===== 6. MARVELOUS TOP 5 ===== */}
