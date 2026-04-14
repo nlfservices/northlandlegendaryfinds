@@ -18,8 +18,8 @@ import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 
 const WHATNOT_STORE_URL = "https://whatnot.com/invite/northlandfinds";
 const WHATNOT_INVITE = "https://whatnot.com/invite/northlandfinds";
-const QR_CODE_1 = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nlf-whatnot-qr_a49cbbc8.jpg";
-const QR_CODE_2 = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/whatnot-qr-2_8fab5940.png";
+const QR_CODE_1 = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/whatnot-invite-qr-new_df6b80b3.png";
+const QR_CODE_2 = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/whatnot-invite-qr-new_df6b80b3.png";
 
 export default function Whatnot() {
   const { data: products, isLoading: productsLoading } = trpc.public.products.list.useQuery();

@@ -1406,3 +1406,5 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Register dynamic route /trending/:slug in App.tsx
 - [x] Add character pages to sitemap for Google crawling (dynamic from DB)
 - [x] Ensure new checklists auto-populate character pages without manual updates
+- [x] Generate QR code linking to https://whatnot.com/invite/northlandfinds
+- [x] Replace existing QR code on /whatnot page with new one (both top and bottom sections)
