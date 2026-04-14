@@ -1,5 +1,5 @@
 /**
- * Star Wars Category Page - Coming June 2026 with Mandalorian movie tie-in
+ * Star Wars Category Page - Coming Fall 2026 with Mandalorian movie tie-in
  */
 
 import { getProductsByCategory } from "@/lib/products";
@@ -31,13 +31,13 @@ export default function StarWars() {
         <div className="container relative z-10">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-cyan-500/15 border border-cyan-500/30 rounded-full mb-6">
             <Calendar className="w-4 h-4 text-cyan-400" />
-            <span className="text-cyan-400 text-sm font-bold tracking-wide">COMING JUNE 2026</span>
+            <span className="text-cyan-400 text-sm font-bold tracking-wide">COMING FALL 2026</span>
           </div>
           <h1 className="text-5xl md:text-7xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
             <span className="text-cyan-400">STAR WARS</span> COLLECTION
           </h1>
           <p className="text-xl text-gray-300 max-w-2xl">
-            Premium Star Wars trading card repacks featuring the most sought-after cards from across the galaxy. Launching this summer to coincide with The Mandalorian &amp; Grogu theatrical release.
+            Premium Star Wars trading card repacks featuring the most sought-after cards from across the galaxy. Launching this fall to coincide with The Mandalorian &amp; Grogu theatrical release.
           </p>
         </div>
       </section>
@@ -54,7 +54,7 @@ export default function StarWars() {
                   THE FORCE
                 </h2>
                 <p className="text-muted-foreground mb-6 leading-relaxed">
-                  Our premium Star Wars trading card repack is currently in grading with AGS, CGC, and PSA. We're timing the release with The Mandalorian &amp; Grogu movie this summer for maximum excitement. Every pack will include professionally graded slabs and guaranteed hits.
+                  Our premium Star Wars trading card repack is currently in grading with AGS, CGC, and PSA. We're timing the release with The Mandalorian &amp; Grogu movie this fall for maximum excitement. Every pack will include professionally graded slabs and guaranteed hits.
                 </p>
                 <div className="space-y-3 mb-6">
                   <div className="flex items-center gap-3">
@@ -91,7 +91,7 @@ export default function StarWars() {
                 ) : (
                   <div className="aspect-square bg-gradient-to-br from-cyan-500/5 to-blue-500/5 rounded-xl border border-cyan-500/10 flex items-center justify-center">
                     <div className="text-center">
-                      <p className="text-4xl font-bold text-cyan-400/30" style={{ fontFamily: "'Anton', sans-serif" }}>JUNE</p>
+                      <p className="text-4xl font-bold text-cyan-400/30" style={{ fontFamily: "'Anton', sans-serif" }}>FALL</p>
                       <p className="text-6xl font-bold text-cyan-400/20" style={{ fontFamily: "'Anton', sans-serif" }}>2026</p>
                     </div>
                   </div>

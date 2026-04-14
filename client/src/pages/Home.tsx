@@ -740,7 +740,7 @@ export default function Home() {
                 </div>
                 <div className="text-4xl mb-3">⚔️</div>
                 <h3 className="font-bold text-sm mb-1">Star Wars</h3>
-                <p className="text-xs text-amber-400 font-bold">June 2026</p>
+                <p className="text-xs text-amber-400 font-bold">Fall 2026</p>
               </div>
             </div>
 

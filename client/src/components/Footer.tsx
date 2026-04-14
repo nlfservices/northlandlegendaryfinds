@@ -29,7 +29,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-              Premium Marvel trading card repacks with guaranteed hits. Star Wars collection dropping June 2026.
+              Premium Marvel trading card repacks with guaranteed hits. Star Wars collection dropping Fall 2026.
             </p>
             <div className="flex gap-3">
               <a href="mailto:contact@nlfservices.com" className="w-9 h-9 rounded-lg bg-muted flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all" title="Email us">
@@ -56,7 +56,7 @@ export default function Footer() {
             <ul className="space-y-2.5">
               <li><Link href="/shop" className="text-sm text-muted-foreground hover:text-primary transition-colors">All Products</Link></li>
               <li><Link href="/marvel" className="text-sm text-muted-foreground hover:text-primary transition-colors">Marvel</Link></li>
-              <li><Link href="/star-wars" className="text-sm text-muted-foreground hover:text-cyan-400 transition-colors">Star Wars (June 2026)</Link></li>
+              <li><Link href="/star-wars" className="text-sm text-muted-foreground hover:text-cyan-400 transition-colors">Star Wars (Fall 2026)</Link></li>
               <li><Link href="/checklists" className="text-sm text-muted-foreground hover:text-primary transition-colors">Checklists</Link></li>
               <li><Link href="/characters" className="text-sm text-muted-foreground hover:text-primary transition-colors">Characters</Link></li>
             </ul>

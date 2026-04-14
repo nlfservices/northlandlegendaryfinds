@@ -90,7 +90,7 @@ export default function Subscribe() {
             
             <Link href="/star-wars">
               <Button className="w-full bg-cyan-500 hover:bg-cyan-600 text-black font-bold py-3 rounded-lg">
-                Star Wars — Coming June 2026
+                Star Wars — Coming Fall 2026
               </Button>
             </Link>
 
