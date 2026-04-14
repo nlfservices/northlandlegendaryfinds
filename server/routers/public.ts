@@ -16,6 +16,7 @@ import {
   getRandomCard,
   insertShowSubmission,
   getCharacterImages,
+  getChecklistCardsByCharacterName,
   getSiteSetting,
   getPageContent,
 } from "../db";
@@ -318,6 +319,60 @@ Format the response as JSON with these fields:
     return {
       characters: all.slice(start, end),
       total: all.length,
+    };
+  }),
+
+  /** Get trending character data: marvelCards + checklistItems + content + related characters */
+  trendingCharacter: publicProcedure.input(z.object({ slug: z.string() })).query(async ({ input }) => {
+    // Find character name from slug
+    const allChars = await getAllCharacterSlugs();
+    const match = allChars.find((c: any) => characterNameToSlug(c.characterName) === input.slug);
+    if (!match) return null;
+
+    const characterName = match.characterName;
+
+    // Parallel fetch: marvelCards, checklistItems, content, related characters
+    const [marvelCards, checklistCards, content, related] = await Promise.all([
+      getCardsByCharacterName(characterName),
+      getChecklistCardsByCharacterName(characterName),
+      getCharacterContentBySlug(input.slug),
+      getRelatedCharacters(characterName, 8),
+    ]);
+
+    // Group marvelCards by set
+    const cardsBySet: Record<string, { setName: string; setSlug: string; cards: typeof marvelCards }> = {};
+    for (const card of marvelCards) {
+      const key = (card as any).setName || "Unknown Set";
+      if (!cardsBySet[key]) {
+        cardsBySet[key] = { setName: key, setSlug: (card as any).setSlug || "", cards: [] };
+      }
+      cardsBySet[key].cards.push(card);
+    }
+
+    // Group checklistCards by product
+    const checklistByProduct: Record<string, { productName: string; productSlug: string; cards: typeof checklistCards }> = {};
+    for (const card of checklistCards) {
+      const key = card.productName || "Unknown Product";
+      if (!checklistByProduct[key]) {
+        checklistByProduct[key] = { productName: key, productSlug: card.productSlug || "", cards: [] };
+      }
+      checklistByProduct[key].cards.push(card);
+    }
+
+    return {
+      characterName,
+      slug: input.slug,
+      totalMarvelCards: marvelCards.length,
+      totalChecklistCards: checklistCards.length,
+      cardsBySet: Object.values(cardsBySet),
+      checklistByProduct: Object.values(checklistByProduct),
+      content: content ? {
+        historyMarkdown: content.historyMarkdown,
+        metaDescription: content.metaDescription,
+        keyFacts: content.keyFacts,
+        status: content.status,
+      } : null,
+      relatedCharacters: related,
     };
   }),
 

@@ -1481,6 +1481,32 @@ export async function getCharacterImages(names: string[]): Promise<Record<string
 }
 
 
+// ─── Trending Character Cards (cross-checklist) ────────────────────────────
+
+/** Get all checklist items matching a character name across ALL products */
+export async function getChecklistCardsByCharacterName(characterName: string) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({
+    id: checklistItems.id,
+    productId: checklistItems.productId,
+    cardName: checklistItems.cardName,
+    cardSet: checklistItems.cardSet,
+    cardYear: checklistItems.cardYear,
+    cardNumber: checklistItems.cardNumber,
+    parallel: checklistItems.parallel,
+    tier: checklistItems.tier,
+    cardCondition: checklistItems.cardCondition,
+    imageUrl: checklistItems.imageUrl,
+    isPulled: checklistItems.isPulled,
+    productName: repackProducts.name,
+    productSlug: repackProducts.slug,
+  }).from(checklistItems)
+    .innerJoin(repackProducts, eq(checklistItems.productId, repackProducts.id))
+    .where(like(checklistItems.cardName, `%${characterName}%`))
+    .orderBy(asc(repackProducts.name), asc(checklistItems.sortOrder));
+}
+
 // ─── Site Settings ───────────────────────────────────────────────────────────
 
 export async function getSiteSetting(key: string): Promise<string | null> {

@@ -36,6 +36,7 @@ interface TrendingCard {
   reason: string;
   movieTie: string;
   slug: string;
+  characterSlug: string;
 }
 
 const TRENDING_CARDS: TrendingCard[] = [
@@ -49,6 +50,7 @@ const TRENDING_CARDS: TrendingCard[] = [
     reason: "Robert Downey Jr.'s return as Doctor Doom has sent this card into orbit. As the main villain of Avengers: Doomsday, demand is only going to increase as December gets closer.",
     movieTie: "Avengers: Doomsday (Dec 2026)",
     slug: "2025-topps-chrome/148",
+    characterSlug: "doctor-doom",
   },
   {
     name: "Spider-Man #101",
@@ -60,6 +62,7 @@ const TRENDING_CARDS: TrendingCard[] = [
     reason: "The Brand New Day trailer just dropped and the hype is massive. Tom Holland's fourth solo film hits theaters July 31 — Spider-Man cards are surging across the board.",
     movieTie: "Spider-Man: Brand New Day (Jul 2026)",
     slug: "2025-topps-chrome/101",
+    characterSlug: "spider-man",
   },
   {
     name: "Wolverine #103",
@@ -71,6 +74,7 @@ const TRENDING_CARDS: TrendingCard[] = [
     reason: "Hugh Jackman is rumored to appear in Avengers: Doomsday. After Deadpool & Wolverine's massive box office, Wolverine cards remain one of the most sought-after in the hobby.",
     movieTie: "Avengers: Doomsday (Dec 2026)",
     slug: "2025-topps-chrome/103",
+    characterSlug: "wolverine",
   },
   {
     name: "Gambit #105",
@@ -82,6 +86,7 @@ const TRENDING_CARDS: TrendingCard[] = [
     reason: "Channing Tatum's Gambit is confirmed for Doomsday with a more serious role. After his breakout in Deadpool & Wolverine, collectors are stacking Gambit cards before the next price spike.",
     movieTie: "Avengers: Doomsday (Dec 2026)",
     slug: "2025-topps-chrome/105",
+    characterSlug: "gambit",
   },
   {
     name: "Captain America #185",
@@ -93,6 +98,7 @@ const TRENDING_CARDS: TrendingCard[] = [
     reason: "Anthony Mackie's Sam Wilson is leading the Avengers in Doomsday. After Brave New World established him as the new Cap, his cards are steadily climbing.",
     movieTie: "Avengers: Doomsday (Dec 2026)",
     slug: "2025-topps-chrome/185",
+    characterSlug: "captain-america",
   },
   {
     name: "Magneto #169",
@@ -104,6 +110,7 @@ const TRENDING_CARDS: TrendingCard[] = [
     reason: "Ian McKellen returns as Magneto in Doomsday and has revealed his character will destroy New Jersey in the film. X-Men nostalgia is driving serious collector interest.",
     movieTie: "Avengers: Doomsday (Dec 2026)",
     slug: "2025-topps-chrome/169",
+    characterSlug: "magneto",
   },
 ];
 
@@ -299,12 +306,20 @@ export default function TrendingCards() {
                       {card.reason}
                     </p>
 
-                    <Link href={`/cards/${card.slug}`}>
-                      <Button size="sm" variant="outline" className="border-primary/30 text-primary hover:bg-primary/10 font-bold">
-                        View Card Details
-                        <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-                      </Button>
-                    </Link>
+                    <div className="flex flex-wrap gap-2">
+                      <Link href={`/trending/${card.characterSlug}`}>
+                        <Button size="sm" className="bg-primary hover:bg-primary/90 text-black font-bold">
+                          All {card.character} Cards
+                          <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+                        </Button>
+                      </Link>
+                      <Link href={`/cards/${card.slug}`}>
+                        <Button size="sm" variant="outline" className="border-primary/30 text-primary hover:bg-primary/10 font-bold">
+                          View This Card
+                          <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+                        </Button>
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>

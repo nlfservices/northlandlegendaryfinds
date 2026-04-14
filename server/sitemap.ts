@@ -134,6 +134,16 @@ export function registerSitemapRoute(app: Express) {
         console.warn("[Sitemap] Failed to fetch card detail slugs from database");
       }
 
+      // Dynamic trending character pages (reuses character slugs)
+      try {
+        const trendingChars = await getAllCharacterSlugs();
+        for (const char of trendingChars) {
+          entries.push(buildUrlEntry(`/trending/${char.slug}`, "0.7", "weekly", today));
+        }
+      } catch {
+        console.warn("[Sitemap] Failed to fetch trending character slugs from database");
+      }
+
       // Dynamic blog post pages (The Collector)
       try {
         const blogPosts = await getPublishedBlogPosts();

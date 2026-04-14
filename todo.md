@@ -1399,3 +1399,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Audit XML sitemap — ensure all pages including /trending are listed
 - [x] Add any missing pages to sitemap for Google crawling (added 13 pages: /trending, /giveaway, /market-intel + 5 articles, /star-wars, /marvel-card-hub, /submit-show, /whatnot)
 - [x] Ensure future pages/blogs are always added to sitemap (blog posts already auto-added from DB)
+- [x] Build reusable character card listing template page (auto-pulls from all checklists)
+- [x] Create server-side tRPC query to get cards by character name across all products
+- [x] SEO-optimize template for "character name + Topps Marvel cards + graded" keywords
+- [x] Link character pages from /trending page
+- [x] Register dynamic route /trending/:slug in App.tsx
+- [x] Add character pages to sitemap for Google crawling (dynamic from DB)
+- [x] Ensure new checklists auto-populate character pages without manual updates

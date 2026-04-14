@@ -61,6 +61,7 @@ import SiteMap from "./pages/SiteMap";
 import Rewards from "./pages/Rewards";
 import Giveaway from "./pages/Giveaway";
 import TrendingCards from "./pages/TrendingCards";
+import TrendingCharacterPage from "./pages/TrendingCharacterPage";
 
 // Routes that render as full-screen standalone experiences (no nav/footer)
 const STANDALONE_ROUTES = ["/card-display", "/matrix", "/free-credit"];
@@ -136,6 +137,7 @@ function AppRouter() {
           <Route path="/rewards" component={Rewards} />
           <Route path="/giveaway" component={Giveaway} />
           <Route path="/trending" component={TrendingCards} />
+          <Route path="/trending/:slug" component={TrendingCharacterPage} />
           <Route path="/login" component={JarvisProtocol} />
           <Route path="/404" component={NotFound} />
           <Route component={NotFound} />
