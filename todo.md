@@ -1408,3 +1408,4 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Ensure new checklists auto-populate character pages without manual updates
 - [x] Generate QR code linking to https://whatnot.com/invite/northlandfinds
 - [x] Replace existing QR code on /whatnot page with new one (both top and bottom sections)
+- [x] Replace Doctor Doom card image with Spider-Man CGC card on giveaway page

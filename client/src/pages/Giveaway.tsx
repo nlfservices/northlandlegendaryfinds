@@ -18,7 +18,7 @@ const WHATNOT_INVITE = "https://whatnot.com/invite/northlandfinds";
 
 // Card images
 const CARD_IMAGES = {
-  doom: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Doom_bff032b0.png",
+  spiderman: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/spiderman-cgc-card_cf73b504.png",
   gambit: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Gambit-Comic_0e247f0b.png",
   ironman: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/IronMan-Comic_25f3c15d.png",
   wolverine: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Wolverine-Comic_cb2b9fd2.png",
@@ -210,7 +210,7 @@ export default function Giveaway() {
             {/* Desktop: 5 cards in a row with varied rotations */}
             <div className="hidden md:flex justify-center items-end gap-4 lg:gap-6">
               {[
-                { src: CARD_IMAGES.doom, alt: "Doctor Doom — Mystery Men 1/5 Limited Edition", rotate: "-6deg", delay: "0s" },
+                { src: CARD_IMAGES.spiderman, alt: "Spider-Man — Marvel Mint Gambit's Deck CGC 9", rotate: "-6deg", delay: "0s" },
                 { src: CARD_IMAGES.gambit, alt: "Gambit — Marvel Mint CGC 9", rotate: "3deg", delay: "0.1s" },
                 { src: CARD_IMAGES.ironman, alt: "Iron Man — Topps Chrome 45/50", rotate: "-2deg", delay: "0.2s" },
                 { src: CARD_IMAGES.wolverine, alt: "Wolverine — Marvel Mint CGC 10", rotate: "4deg", delay: "0.3s" },
@@ -243,7 +243,7 @@ export default function Giveaway() {
             <div className="md:hidden overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide">
               <div className="flex gap-4 w-max">
                 {[
-                  { src: CARD_IMAGES.doom, alt: "Doctor Doom — Mystery Men 1/5 Limited Edition" },
+                  { src: CARD_IMAGES.spiderman, alt: "Spider-Man — Marvel Mint Gambit's Deck CGC 9" },
                   { src: CARD_IMAGES.gambit, alt: "Gambit — Marvel Mint CGC 9" },
                   { src: CARD_IMAGES.ironman, alt: "Iron Man — Topps Chrome 45/50" },
                   { src: CARD_IMAGES.wolverine, alt: "Wolverine — Marvel Mint CGC 10" },
