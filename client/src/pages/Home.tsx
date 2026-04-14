@@ -416,8 +416,13 @@ export default function Home() {
       </section>
 
       {/* ===== 4. NEW TO COLLECTING? — BEGINNER WELCOME ===== */}
-      <section id="new-to-collecting" className="py-16 lg:py-20 overflow-hidden">
-        <div className="container">
+      <section id="new-to-collecting" className="relative py-16 lg:py-20 overflow-hidden">
+        {/* Deep Green Background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-green-950 via-green-950/95 to-green-950" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-green-800/15 via-transparent to-transparent" />
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-green-500/30 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-green-500/30 to-transparent" />
+        <div className="container relative z-10">
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-amber-500/15 border border-amber-500/30 rounded-full mb-4">
               <Lightbulb className="w-4 h-4 text-amber-400" />
@@ -489,9 +494,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== 4. COLLECTOR'S JOURNEY — REWRITTEN FOR FANS ===== */}
-      <section className="py-16 lg:py-20 bg-card/30 border-y border-border overflow-hidden">
-        <div className="container">
+      {/* ===== 4b. COLLECTOR'S JOURNEY — REWRITTEN FOR FANS ===== */}
+      <section className="relative py-16 lg:py-20 overflow-hidden">
+        {/* Deep Black Background */}
+        <div className="absolute inset-0 bg-black" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gray-900/50 via-transparent to-transparent" />
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="container relative z-10">
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/15 border border-primary/30 rounded-full mb-4">
               <Heart className="w-4 h-4 text-primary" />
@@ -604,8 +614,13 @@ export default function Home() {
       <MarvelousTop5 />
 
       {/* ===== 7. EXPLORE OUR COLLECTION — Spider-Man CTA ===== */}
-      <section className="py-16 lg:py-20">
-        <div className="container">
+      <section className="relative py-16 lg:py-20 overflow-hidden">
+        {/* Deep Purple Background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-purple-950 via-purple-950/95 to-purple-950" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-purple-800/15 via-transparent to-transparent" />
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
+        <div className="container relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-6xl mx-auto">
             {/* Left: Spider-Man Card */}
             <div className="flex justify-center">
@@ -654,8 +669,11 @@ export default function Home() {
 
       {/* ===== 8. LEGACY LEGENDS — ACTOR-FOCUSED PREMIUM SECTION ===== */}
       <section className="relative py-16 lg:py-24 overflow-hidden">
-        {/* Premium dark background with gold accents */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-amber-950/10 to-background" />
+        {/* Rich Gold/Amber Background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-amber-950 via-amber-950/95 to-amber-950" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-800/20 via-transparent to-transparent" />
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-amber-500/40 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-amber-500/40 to-transparent" />
         <div className="absolute inset-0">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-amber-500/5 rounded-full blur-3xl" />
           <div className="absolute top-20 right-20 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl" />
@@ -702,7 +720,12 @@ export default function Home() {
       </section>
 
       {/* ===== 9. YOUR FANDOM, YOUR WAY — EXPANSION ROADMAP ===== */}
-      <section className="py-16 lg:py-20 bg-card/30 border-y border-border relative overflow-hidden">
+      <section className="relative py-16 lg:py-20 overflow-hidden">
+        {/* NLF Green Background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-green-950 via-green-950/95 to-green-950" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-green-800/15 via-transparent to-transparent" />
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-green-500/30 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-green-500/30 to-transparent" />
         <div className="absolute inset-0">
           <div className="absolute top-20 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
           <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
@@ -793,8 +816,13 @@ export default function Home() {
       {/* ===== WHATNOT SECTION MOVED TO POSITION 3 ===== */}
 
       {/* ===== 10. WHAT IS A REPACK? — SIMPLIFIED FOR BEGINNERS ===== */}
-      <section className="py-16 lg:py-20 bg-card/30 border-y border-border">
-        <div className="container">
+      <section className="relative py-16 lg:py-20 overflow-hidden">
+        {/* Deep Black Background */}
+        <div className="absolute inset-0 bg-black" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900/50 via-transparent to-transparent" />
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="container relative z-10">
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-amber-500/15 border border-amber-500/30 rounded-full mb-4">
               <HelpCircle className="w-4 h-4 text-amber-400" />
@@ -841,8 +869,13 @@ export default function Home() {
       </section>
 
       {/* ===== 11. PRODUCT PYRAMID — REPACKS (SECONDARY) ===== */}
-      <section className="py-16 lg:py-20">
-        <div className="container">
+      <section className="relative py-16 lg:py-20 overflow-hidden">
+        {/* Deep Purple Background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-purple-950 via-purple-950/95 to-purple-950" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-purple-800/15 via-transparent to-transparent" />
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
+        <div className="container relative z-10">
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 border border-primary/30 rounded-full mb-4">
               <Zap className="w-4 h-4 text-primary" />
@@ -933,11 +966,15 @@ export default function Home() {
       </section>
 
       {/* ===== 12. TRUST / WHY NLF ===== */}
-      <section className="relative py-16 lg:py-20 overflow-hidden bg-card/30 border-y border-border">
+      <section className="relative py-16 lg:py-20 overflow-hidden">
+        {/* Rich Gold/Amber Background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-amber-950 via-amber-950/95 to-amber-950" />
         <div className="absolute inset-0">
-          <img src={TRUST_BG} alt="" className="w-full h-full object-cover opacity-30" loading="lazy" decoding="async" />
-          <div className="absolute inset-0 bg-background/90" />
+          <img src={TRUST_BG} alt="" className="w-full h-full object-cover opacity-15" loading="lazy" decoding="async" />
         </div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-amber-800/15 via-transparent to-transparent" />
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-amber-500/40 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-amber-500/40 to-transparent" />
         <div className="container relative z-10">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
@@ -994,8 +1031,13 @@ export default function Home() {
 
       {/* ===== 13. COMING SOON PRODUCT LINES ===== */}
       {comingSoonLines.length > 0 && (
-        <section className="py-16 lg:py-20">
-          <div className="container">
+        <section className="relative py-16 lg:py-20 overflow-hidden">
+          {/* Deep Black Background */}
+          <div className="absolute inset-0 bg-black" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gray-900/40 via-transparent to-transparent" />
+          <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+          <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+          <div className="container relative z-10">
             <div className="text-center mb-12">
               <h2 className="text-4xl md:text-5xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
                 <span className="text-cyan-400">COMING</span> SOON

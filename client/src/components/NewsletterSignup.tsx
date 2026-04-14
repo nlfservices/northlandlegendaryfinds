@@ -156,8 +156,13 @@ export default function NewsletterSignup({
           aria-hidden="true"
         />
 
-        <section className="py-16 lg:py-20 bg-card border-y border-border">
-          <div className="container max-w-2xl text-center">
+        <section className="relative py-16 lg:py-20 overflow-hidden">
+          {/* NLF Green Background */}
+          <div className="absolute inset-0 bg-gradient-to-b from-green-950 via-green-950/95 to-green-950" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-green-800/15 via-transparent to-transparent" />
+          <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-green-500/30 to-transparent" />
+          <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-green-500/30 to-transparent" />
+          <div className="container max-w-2xl text-center relative z-10">
             <h2
               className="text-4xl md:text-5xl font-bold mb-3"
               style={{ fontFamily: "'Anton', sans-serif" }}
