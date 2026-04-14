@@ -1396,3 +1396,6 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Update Checklists.tsx: unlock only after launch date (not 1 week before)
 - [x] Update ChecklistDetail.tsx: use per-product launch date instead of hardcoded global date
 - [x] Gate checklist data on server side so it's not sent before release
+- [x] Audit XML sitemap — ensure all pages including /trending are listed
+- [x] Add any missing pages to sitemap for Google crawling (added 13 pages: /trending, /giveaway, /market-intel + 5 articles, /star-wars, /marvel-card-hub, /submit-show, /whatnot)
+- [x] Ensure future pages/blogs are always added to sitemap (blog posts already auto-added from DB)

@@ -31,6 +31,18 @@ const STATIC_PAGES: { path: string; priority: string; changefreq: string }[] = [
   { path: "/sitemap", priority: "0.5", changefreq: "weekly" },
   { path: "/rewards", priority: "0.4", changefreq: "monthly" },
   { path: "/login", priority: "0.2", changefreq: "yearly" },
+  { path: "/trending", priority: "0.8", changefreq: "weekly" },
+  { path: "/giveaway", priority: "0.7", changefreq: "weekly" },
+  { path: "/market-intel", priority: "0.7", changefreq: "weekly" },
+  { path: "/market-intel/2024-vs-2025-topps-marvel", priority: "0.6", changefreq: "monthly" },
+  { path: "/market-intel/topps-vs-upper-deck-marvel", priority: "0.6", changefreq: "monthly" },
+  { path: "/market-intel/marvel-vs-pokemon-cards", priority: "0.6", changefreq: "monthly" },
+  { path: "/market-intel/why-fanatics-trading-cards", priority: "0.6", changefreq: "monthly" },
+  { path: "/market-intel/best-topps-marvel-cards", priority: "0.6", changefreq: "monthly" },
+  { path: "/star-wars", priority: "0.5", changefreq: "monthly" },
+  { path: "/marvel-card-hub", priority: "0.7", changefreq: "weekly" },
+  { path: "/submit-show", priority: "0.4", changefreq: "monthly" },
+  { path: "/whatnot", priority: "0.7", changefreq: "daily" },
 ];
 
 // Product slugs (static, from products.ts)
