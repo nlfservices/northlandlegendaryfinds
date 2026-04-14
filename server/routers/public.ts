@@ -52,8 +52,17 @@ const publicProductRouter = router({
 // ==================== PUBLIC CHECKLIST ROUTES ====================
 
 const publicChecklistRouter = router({
-  /** Get the full checklist for a product */
+  /** Get the full checklist for a product — gated by launch date */
   getByProduct: publicProcedure.input(z.object({ productId: z.number() })).query(async ({ input }) => {
+    // Look up the product to check its slug against launch dates
+    const product = await getProductById(input.productId);
+    if (product) {
+      const { isChecklistReleaseDatePassed } = await import("../../shared/launchDates");
+      if (!isChecklistReleaseDatePassed(product.slug)) {
+        // Return empty array — checklist not yet released
+        return [];
+      }
+    }
     return getChecklistByProductId(input.productId);
   }),
 });

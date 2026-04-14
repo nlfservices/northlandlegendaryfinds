@@ -20,13 +20,21 @@ import {
 } from "lucide-react";
 import { useMemo, useState } from "react";
 
-// Pre-launch blur: hide card details until April 27, 2026 7:00 PM CT (UTC-5)
-const LAUNCH_DATE = new Date("2026-04-28T00:00:00Z");
+import { products as frontendProducts } from "@/lib/products";
+
 // Slugs that are exempt from pre-launch hide (checklist already revealed)
 const REVEALED_SLUGS: string[] = [];
+
+/** Check if a product's checklist is still pre-launch (hidden) based on its own launch date */
 const isPreLaunch = (slug?: string) => {
-  if (slug && REVEALED_SLUGS.includes(slug)) return false;
-  return new Date() < LAUNCH_DATE;
+  if (!slug) return true;
+  if (REVEALED_SLUGS.includes(slug)) return false;
+  // Find the product in frontend data to get its launch date
+  const product = frontendProducts.find(
+    p => p.dbSlug === slug || p.checklistSlug === slug || p.slug === slug
+  );
+  if (!product?.launchDate) return true; // No launch date = hidden
+  return new Date() < new Date(product.launchDate);
 };
 
 const CARD_PLACEHOLDER = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/card-placeholder-AFtdwioDcmq6GHzFUFUpif.webp";
@@ -116,7 +124,7 @@ export default function ChecklistDetail() {
     );
   }
 
-  const progressPercent = stats ? Math.round(((stats.totalPacks - stats.packsRemaining) / stats.totalPacks) * 100) : 0;
+  const progressPercent = stats?.totalPacks ? Math.round(((stats.totalPacks - stats.packsRemaining) / stats.totalPacks) * 100) : 0;
 
   // Build the finalization statement
   const finalizedDate = product.checklistFinalizedAt
@@ -314,8 +322,8 @@ export default function ChecklistDetail() {
                       <Lock className="w-10 h-10 text-primary mx-auto mb-4" />
                       <h4 className="font-bold text-2xl mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>CHECKLIST HIDDEN</h4>
                       <p className="text-sm text-muted-foreground mb-4">
-                        The full checklist will be revealed on <strong className="text-foreground">Sunday, April 27th at 7:00 PM CT</strong>. 
-                        We want to keep the surprise!
+                        The full checklist will be revealed on launch day. 
+                        We want to keep the surprise until the product goes live!
                       </p>
                       <div className="inline-flex items-center gap-2 text-primary text-sm font-bold">
                         <Clock className="w-4 h-4" />

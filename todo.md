@@ -1392,3 +1392,7 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Beginner tips section — what makes a card valuable
 - [x] CTAs throughout pushing to shop, card database, Whatnot streams
 - [x] Register route in App.tsx and add navigation links
+- [x] Hide product checklists until their release date (don't reveal checklist contents before launch)
+- [x] Update Checklists.tsx: unlock only after launch date (not 1 week before)
+- [x] Update ChecklistDetail.tsx: use per-product launch date instead of hardcoded global date
+- [x] Gate checklist data on server side so it's not sent before release

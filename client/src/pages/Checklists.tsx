@@ -24,22 +24,20 @@ import { useMemo } from "react";
 /** Slugs that are always revealed regardless of date */
 const ALWAYS_REVEALED_SLUGS: string[] = [];
 
-/** Check if a product's checklist is unlocked (1 week before launch or always revealed) */
+/** Check if a product's checklist is unlocked (only after launch date) */
 function isChecklistUnlocked(product: { dbSlug?: string; checklistSlug?: string; launchDate?: string; isComingSoon: boolean }): boolean {
   const slug = product.dbSlug || product.checklistSlug || "";
   if (ALWAYS_REVEALED_SLUGS.includes(slug)) return true;
   if (product.isComingSoon || !product.launchDate) return false;
   
   const launchDate = new Date(product.launchDate);
-  const oneWeekBefore = new Date(launchDate.getTime() - 7 * 24 * 60 * 60 * 1000);
-  return new Date() >= oneWeekBefore;
+  return new Date() >= launchDate;
 }
 
-/** Get the reveal date (1 week before launch) */
-function getRevealDate(launchDate?: string): Date | null {
+/** Get the launch date for display */
+function getLaunchDate(launchDate?: string): Date | null {
   if (!launchDate) return null;
-  const launch = new Date(launchDate);
-  return new Date(launch.getTime() - 7 * 24 * 60 * 60 * 1000);
+  return new Date(launchDate);
 }
 
 /** Format date for display */
@@ -108,8 +106,8 @@ export default function Checklists() {
               PRODUCT <span className="text-primary">CHECKLISTS</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Every NLF repack has a full checklist published before launch. Browse below to see what's inside 
-              each set. Checklists are revealed one week before their launch date.
+              Every NLF repack has a full checklist published on launch day. Browse below to see what's inside 
+              each set. Checklists are revealed when the product goes live.
             </p>
           </div>
         </div>
@@ -220,7 +218,7 @@ function ChecklistCard({ product, dbProduct, unlocked, categoryColors, categoryL
   categoryLabels: Record<string, string>;
 }) {
   const slug = product.dbSlug || product.checklistSlug || product.slug;
-  const revealDate = getRevealDate(product.launchDate);
+  const revealDate = getLaunchDate(product.launchDate);
   const launchDate = product.launchDate ? new Date(product.launchDate) : null;
 
   // For unlocked products, fetch stats
@@ -324,11 +322,11 @@ function ChecklistCard({ product, dbProduct, unlocked, categoryColors, categoryL
           </div>
           {revealDate ? (
             <p className="text-xs text-muted-foreground">
-              Full checklist reveals on <span className="font-semibold text-foreground">{formatDate(revealDate)}</span> — one week before launch.
+              Full checklist reveals on <span className="font-semibold text-foreground">{formatDate(revealDate)}</span> — launch day.
             </p>
           ) : (
             <p className="text-xs text-muted-foreground">
-              Full checklist will be published one week before launch. Stay tuned!
+              Full checklist will be published on launch day. Stay tuned!
             </p>
           )}
         </div>
