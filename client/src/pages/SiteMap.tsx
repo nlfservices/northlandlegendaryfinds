@@ -68,7 +68,7 @@ const SITE_SECTIONS: SiteSection[] = [
     color: "text-purple-400",
     pages: [
       { path: "/the-collector", label: "The Collector Blog", description: "Articles, guides, and insights for Marvel card collectors" },
-      { path: "/mcu-intel", label: "MCU News", description: "Marvel Cinematic Universe news and card market impact analysis" },
+      { path: "/mcu-news", label: "MCU News", description: "Marvel Cinematic Universe news and card market impact analysis" },
       { path: "/card-shows", label: "Card Shows & Events", description: "Find upcoming card shows, conventions, and collector events" },
       { path: "/submit-show", label: "Submit a Card Show", description: "Know about an upcoming show? Submit it to our directory" },
       { path: "/subscribers", label: "Subscriber Hub", description: "Exclusive content and perks for NLF subscribers" },

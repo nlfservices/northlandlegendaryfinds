@@ -45,7 +45,7 @@ function formatDate(timestamp: number | null): string {
   });
 }
 
-export default function MCUIntelArticle() {
+export default function MCUNewsArticle() {
   const { slug } = useParams<{ slug: string }>();
   const [, setLocation] = useLocation();
 
@@ -91,7 +91,7 @@ export default function MCUIntelArticle() {
           <Newspaper className="w-16 h-16 text-muted-foreground/40 mx-auto mb-4" />
           <h1 className="text-3xl font-bold mb-2">Article Not Found</h1>
           <p className="text-muted-foreground mb-6">This article may have been removed or doesn't exist.</p>
-          <Link href="/mcu-intel">
+          <Link href="/mcu-news">
             <Button>
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to MCU News
@@ -111,14 +111,14 @@ export default function MCUIntelArticle() {
       <SEO
         title={article.title}
         description={article.metaDescription || article.excerpt || ""}
-        path={`/mcu-intel/${article.slug}`}
+        path={`/mcu-news/${article.slug}`}
         image={article.featuredImageUrl || CARD_MARKET_IMG}
         type="article"
         jsonLd={[
           breadcrumbJsonLd([
             { name: "Home", url: "/" },
-           { name: "MCU News", url: "/mcu-intel" },
-            { name: article.title, url: `/mcu-intel/${article.slug}` },
+           { name: "MCU News", url: "/mcu-news" },
+            { name: article.title, url: `/mcu-news/${article.slug}` },
           ]),
           {
             "@context": "https://schema.org",
@@ -135,7 +135,7 @@ export default function MCUIntelArticle() {
       {/* Back nav */}
       <div className="border-b border-border bg-card/30">
         <div className="container max-w-4xl py-3">
-          <Link href="/mcu-intel" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors">
+          <Link href="/mcu-news" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors">
             <ArrowLeft className="w-4 h-4" />            Back to MCU News
           </Link>        </div>
       </div>
@@ -270,7 +270,7 @@ export default function MCUIntelArticle() {
             <p className="text-sm text-muted-foreground">Browse all our articles or check out the card database.</p>
           </div>
           <div className="flex gap-3">
-            <Link href="/mcu-intel">
+            <Link href="/mcu-news">
               <Button variant="outline" size="sm">
                 All Articles
               </Button>

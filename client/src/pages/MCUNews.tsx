@@ -114,7 +114,7 @@ function getCategoryLabel(key: string): string {
   return CATEGORIES.find(c => c.key === key)?.label ?? key;
 }
 
-export default function MCUIntel() {
+export default function MCUNews() {
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -142,12 +142,12 @@ export default function MCUIntel() {
       <SEO
         title="MCU News — Marvel News, Rumors & Card Market Impact"
         description="Your command center for MCU news, casting updates, release dates, and how they impact the Marvel trading card market. Stay ahead of the curve."
-        path="/mcu-intel"
+        path="/mcu-news"
         image={HERO_IMG}
         type="website"
         jsonLd={breadcrumbJsonLd([
           { name: "Home", url: "/" },
-          { name: "MCU News", url: "/mcu-intel" },
+          { name: "MCU News", url: "/mcu-news" },
         ])}
       />
 
@@ -186,7 +186,7 @@ export default function MCUIntel() {
               {/* Main Featured */}
               {mainFeatured && (
                 <Link
-                  href={`/mcu-intel/${mainFeatured.slug}`}
+                  href={`/mcu-news/${mainFeatured.slug}`}
                   className="lg:col-span-2 group relative rounded-xl overflow-hidden bg-card border border-border hover:border-primary/50 transition-all duration-300"
                 >
                   <div className="aspect-[16/9] overflow-hidden">
@@ -229,7 +229,7 @@ export default function MCUIntel() {
                 {sideFeatured.map(article => (
                   <Link
                     key={article.id}
-                    href={`/mcu-intel/${article.slug}`}
+                    href={`/mcu-news/${article.slug}`}
                     className="group relative rounded-xl overflow-hidden bg-card border border-border hover:border-primary/50 transition-all duration-300 flex-1"
                   >
                     <div className="aspect-[16/9] overflow-hidden">
@@ -404,7 +404,7 @@ export default function MCUIntel() {
                     return (
                     <Link
                       key={article.id}
-                      href={`/mcu-intel/${article.slug}`}
+                      href={`/mcu-news/${article.slug}`}
                       className={`group flex flex-col sm:flex-row gap-4 rounded-xl border p-4 transition-all duration-300 ${
                         theme
                           ? `${theme.border} ${theme.glow} ${theme.bg} hover:shadow-lg`
@@ -527,7 +527,7 @@ export default function MCUIntel() {
               <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl border border-primary/20 p-5">
                 <h3 className="font-bold mb-2">Stay in the Loop</h3>
                 <p className="text-sm text-muted-foreground mb-4">
-                  Get MCU intel and card market updates delivered to your inbox.
+                  Get MCU news and card market updates delivered to your inbox.
                 </p>
                 <Link href="/subscribe">
                   <Button className="w-full" size="sm">

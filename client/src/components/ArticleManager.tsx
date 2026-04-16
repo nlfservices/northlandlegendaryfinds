@@ -275,7 +275,7 @@ export default function ArticleManager() {
                     placeholder="url-friendly-slug"
                   />
                   <p className="text-xs text-muted-foreground mt-1">
-                    URL: /mcu-intel/{form.slug || "..."}
+                    URL: /mcu-news/{form.slug || "..."}
                   </p>
                 </div>
                 <div>
@@ -555,7 +555,7 @@ export default function ArticleManager() {
                       <p className="text-xs text-muted-foreground truncate mt-0.5">{article.excerpt}</p>
                     )}
                     <p className="text-[10px] text-muted-foreground/60 mt-1">
-                      By {article.authorName} · /mcu-intel/{article.slug}
+                      By {article.authorName} · /mcu-news/{article.slug}
                     </p>
                   </div>
 
@@ -591,7 +591,7 @@ export default function ArticleManager() {
                       <Edit className="w-4 h-4" />
                     </Button>
                     {article.isPublished && (
-                      <a href={`/mcu-intel/${article.slug}`} target="_blank" rel="noopener noreferrer">
+                      <a href={`/mcu-news/${article.slug}`} target="_blank" rel="noopener noreferrer">
                         <Button variant="ghost" size="icon" className="h-8 w-8">
                           <ExternalLink className="w-4 h-4" />
                         </Button>

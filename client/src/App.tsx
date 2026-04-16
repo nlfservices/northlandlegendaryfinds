@@ -41,8 +41,8 @@ import CharacterPage from "./pages/CharacterPage";
 import CardDetailPage from "./pages/CardDetailPage";
 import JarvisProtocol from "./pages/JarvisProtocol";
 import MatrixPortal from "./pages/MatrixPortal";
-import MCUIntel from "./pages/MCUIntel";
-import MCUIntelArticle from "./pages/MCUIntelArticle";
+import MCUNews from "./pages/MCUNews";
+import MCUNewsArticle from "./pages/MCUNewsArticle";
 import SubscriberHub from "./pages/SubscriberHub";
 import CardShows from "./pages/CardShows";
 import SubmitShow from "./pages/SubmitShow";
@@ -117,8 +117,11 @@ function AppRouter() {
           <Route path="/admin" component={AdminDashboard} />
           <Route path="/admin/ebay-comps" component={EbayComps} />
           <Route path="/transparency" component={Transparency} />
-          <Route path="/mcu-intel" component={MCUIntel} />
-          <Route path="/mcu-intel/:slug" component={MCUIntelArticle} />
+          <Route path="/mcu-news" component={MCUNews} />
+          <Route path="/mcu-news/:slug" component={MCUNewsArticle} />
+          {/* Redirects from old /mcu-intel URLs */}
+          <Route path="/mcu-intel">{() => { window.location.replace("/mcu-news"); return null; }}</Route>
+          <Route path="/mcu-intel/:slug">{(params: any) => { window.location.replace(`/mcu-news/${params.slug}`); return null; }}</Route>
           <Route path="/subscribers" component={SubscriberHub} />
           <Route path="/card-shows" component={CardShows} />
           <Route path="/submit-show" component={SubmitShow} />

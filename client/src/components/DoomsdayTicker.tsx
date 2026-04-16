@@ -205,7 +205,7 @@ export default function DoomsdayTicker() {
 
         <div className="relative flex items-center justify-center gap-2 sm:gap-4 px-3 py-1.5 sm:py-2">
           {/* Zap icon + Title — links to MCU News */}
-          <Link href="/mcu-intel" className="flex items-center gap-2 hover:opacity-80 transition-opacity group">
+          <Link href="/mcu-news" className="flex items-center gap-2 hover:opacity-80 transition-opacity group">
             <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 shrink-0 drop-shadow-[0_0_8px_rgba(74,222,128,0.7)] group-hover:drop-shadow-[0_0_12px_rgba(74,222,128,1)]" />
             <span
               className="text-[10px] sm:text-xs uppercase tracking-[0.15em] text-green-400 font-bold hidden sm:inline drop-shadow-[0_0_4px_rgba(74,222,128,0.4)]"
@@ -225,7 +225,7 @@ export default function DoomsdayTicker() {
           <div className="w-px h-4 bg-green-400/40 hidden sm:block shadow-[0_0_4px_rgba(74,222,128,0.5)]" />
 
           {/* Countdown units — links to MCU News */}
-          <Link href="/mcu-intel" className="flex items-center gap-1.5 sm:gap-2.5 hover:opacity-80 transition-opacity relative">
+          <Link href="/mcu-news" className="flex items-center gap-1.5 sm:gap-2.5 hover:opacity-80 transition-opacity relative">
             <TickerUnit value={countdown.days} label="D" />
             <span className="text-green-400/60 text-xs font-light drop-shadow-[0_0_3px_rgba(74,222,128,0.4)]">:</span>
             <TickerUnit value={countdown.hours} label="H" />
@@ -239,7 +239,7 @@ export default function DoomsdayTicker() {
           <div className="w-px h-4 bg-green-400/40 hidden md:block shadow-[0_0_4px_rgba(74,222,128,0.5)]" />
 
           {/* CTA link — desktop only */}
-          <Link href="/mcu-intel" className="hidden md:flex items-center gap-1 text-[10px] sm:text-xs text-green-400/70 hover:text-green-300 transition-colors group">
+          <Link href="/mcu-news" className="hidden md:flex items-center gap-1 text-[10px] sm:text-xs text-green-400/70 hover:text-green-300 transition-colors group">
             <span className="drop-shadow-[0_0_3px_rgba(74,222,128,0.3)]">MCU News</span>
             <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
           </Link>
