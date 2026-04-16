@@ -1,5 +1,5 @@
 import type { Express } from "express";
-import { getAllMarvelSets, getAllCharacterSlugs, getAllCardDetailSlugs, getPublishedBlogPosts } from "./db";
+import { getAllMarvelSets, getAllCharacterSlugs, getAllCardDetailSlugs, getPublishedBlogPosts, getPublishedArticles } from "./db";
 
 const SITE_URL = "https://northlandlegendaryfinds.com";
 
@@ -142,6 +142,20 @@ export function registerSitemapRoute(app: Express) {
         }
       } catch {
         console.warn("[Sitemap] Failed to fetch trending character slugs from database");
+      }
+
+      // Dynamic MCU News article pages
+      try {
+        const mcuArticles = await getPublishedArticles();
+        for (const article of mcuArticles) {
+          const articleDate = article.publishedAt
+            ? new Date(typeof article.publishedAt === "number" ? article.publishedAt : Date.now()).toISOString().split("T")[0]
+            : today;
+          entries.push(buildUrlEntry(`/mcu-news/${escapeXml(article.slug)}`, "0.7", "weekly", articleDate));
+        }
+        console.log(`[Sitemap] Added ${mcuArticles.length} MCU News article URLs`);
+      } catch {
+        console.warn("[Sitemap] Failed to fetch MCU News articles from database");
       }
 
       // Dynamic blog post pages (The Collector)
