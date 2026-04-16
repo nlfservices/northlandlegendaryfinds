@@ -6,7 +6,8 @@
 
 import { useLaunchCountdown } from "@/hooks/useLaunchCountdown";
 import { useState } from "react";
-import { Flame, X } from "lucide-react";
+import { Flame, X, ArrowRight } from "lucide-react";
+import { Link } from "wouter";
 
 const DOOMSDAY_DATE = "2026-12-18T00:00:00Z";
 
@@ -39,28 +40,28 @@ export default function DoomsdayTicker() {
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-green-500/5 to-transparent animate-pulse" />
 
         <div className="relative flex items-center justify-center gap-2 sm:gap-4 px-3 py-1.5 sm:py-2">
-          {/* Flame icon */}
-          <Flame className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 shrink-0 animate-pulse" />
-
-          {/* Title */}
-          <span
-            className="text-[10px] sm:text-xs uppercase tracking-[0.15em] text-green-400 font-bold hidden sm:inline"
-            style={{ fontFamily: "'Anton', sans-serif" }}
-          >
-            Avengers: Doomsday
-          </span>
-          <span
-            className="text-[10px] uppercase tracking-wider text-green-400 font-bold sm:hidden"
-            style={{ fontFamily: "'Anton', sans-serif" }}
-          >
-            Doomsday
-          </span>
+          {/* Flame icon + Title — links to MCU Intel */}
+          <Link href="/mcu-intel" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <Flame className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 shrink-0 animate-pulse" />
+            <span
+              className="text-[10px] sm:text-xs uppercase tracking-[0.15em] text-green-400 font-bold hidden sm:inline"
+              style={{ fontFamily: "'Anton', sans-serif" }}
+            >
+              Avengers: Doomsday
+            </span>
+            <span
+              className="text-[10px] uppercase tracking-wider text-green-400 font-bold sm:hidden"
+              style={{ fontFamily: "'Anton', sans-serif" }}
+            >
+              Doomsday
+            </span>
+          </Link>
 
           {/* Separator */}
           <div className="w-px h-4 bg-green-500/30 hidden sm:block" />
 
-          {/* Countdown units */}
-          <div className="flex items-center gap-1.5 sm:gap-2.5">
+          {/* Countdown units — links to MCU Intel */}
+          <Link href="/mcu-intel" className="flex items-center gap-1.5 sm:gap-2.5 hover:opacity-80 transition-opacity">
             <TickerUnit value={countdown.days} label="D" />
             <span className="text-green-500/50 text-xs font-light">:</span>
             <TickerUnit value={countdown.hours} label="H" />
@@ -68,15 +69,16 @@ export default function DoomsdayTicker() {
             <TickerUnit value={countdown.minutes} label="M" />
             <span className="text-green-500/50 text-xs font-light">:</span>
             <TickerUnit value={countdown.seconds} label="S" />
-          </div>
+          </Link>
 
           {/* Separator */}
           <div className="w-px h-4 bg-green-500/30 hidden md:block" />
 
-          {/* CTA text — desktop only */}
-          <span className="text-[10px] sm:text-xs text-gray-400 hidden md:inline">
-            Dec 18, 2026
-          </span>
+          {/* CTA link — desktop only */}
+          <Link href="/mcu-intel" className="hidden md:flex items-center gap-1 text-[10px] sm:text-xs text-green-400/70 hover:text-green-300 transition-colors group">
+            <span>MCU News</span>
+            <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+          </Link>
 
           {/* Dismiss button */}
           <button
