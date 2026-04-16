@@ -45,10 +45,10 @@ export const appRouter = router({
   // Subscriber routes
   subscriber: subscriberRouter,
 
-  // MCU Intel articles (public)
+  // MCU News articles (public)
   articles: articlePublicRouter,
 
-  // MCU Intel articles (admin)
+  // MCU News articles (admin)
   adminArticles: articleAdminRouter,
 
   // Top 5 Buzz (public)

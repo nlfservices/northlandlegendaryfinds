@@ -1597,7 +1597,7 @@ export default function AdminDashboard() {
               <Hammer className="w-4 h-4" /> Repack Builder
             </TabsTrigger>
             <TabsTrigger value="articles" className="flex items-center gap-2">
-              <FileSpreadsheet className="w-4 h-4" /> MCU Intel
+              <FileSpreadsheet className="w-4 h-4" /> MCU News
             </TabsTrigger>
             <TabsTrigger value="top5" className="flex items-center gap-2">
               <Flame className="w-4 h-4" /> Top 5

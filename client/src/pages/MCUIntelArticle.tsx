@@ -1,5 +1,4 @@
-/**
- * MCU Intel Article Detail Page
+/** * MCU News Article Detail Page
  * Full article view with markdown rendering, sources, related characters, and card market impact
  */
 
@@ -95,7 +94,7 @@ export default function MCUIntelArticle() {
           <Link href="/mcu-intel">
             <Button>
               <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to MCU Intel
+              Back to MCU News
             </Button>
           </Link>
         </div>
@@ -118,7 +117,7 @@ export default function MCUIntelArticle() {
         jsonLd={[
           breadcrumbJsonLd([
             { name: "Home", url: "/" },
-            { name: "MCU Intel", url: "/mcu-intel" },
+           { name: "MCU News", url: "/mcu-intel" },
             { name: article.title, url: `/mcu-intel/${article.slug}` },
           ]),
           {
@@ -137,10 +136,8 @@ export default function MCUIntelArticle() {
       <div className="border-b border-border bg-card/30">
         <div className="container max-w-4xl py-3">
           <Link href="/mcu-intel" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors">
-            <ArrowLeft className="w-4 h-4" />
-            Back to MCU Intel
-          </Link>
-        </div>
+            <ArrowLeft className="w-4 h-4" />            Back to MCU News
+          </Link>        </div>
       </div>
 
       <article className="container max-w-4xl py-8 lg:py-12">
@@ -269,7 +266,7 @@ export default function MCUIntelArticle() {
         {/* Bottom CTA */}
         <div className="flex flex-col sm:flex-row gap-4 items-center justify-between bg-card/50 rounded-xl border border-border p-6">
           <div>
-            <h3 className="font-bold mb-1">Want more MCU Intel?</h3>
+            <h3 className="font-bold mb-1">Want more MCU News?</h3>
             <p className="text-sm text-muted-foreground">Browse all our articles or check out the card database.</p>
           </div>
           <div className="flex gap-3">

@@ -1,5 +1,5 @@
 /**
- * ArticleManager - Admin CMS for MCU Intel articles
+ * ArticleManager - Admin CMS for MCU News articles
  * Supports create, edit, delete, toggle publish/featured
  */
 import { trpc } from "@/lib/trpc";
@@ -468,7 +468,7 @@ export default function ArticleManager() {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-xl font-bold flex items-center gap-2">
-            <Newspaper className="w-5 h-5 text-primary" /> MCU Intel Articles
+            <Newspaper className="w-5 h-5 text-primary" /> MCU News Articles
           </h2>
           <p className="text-sm text-muted-foreground mt-1">
             {articles?.length || 0} articles total

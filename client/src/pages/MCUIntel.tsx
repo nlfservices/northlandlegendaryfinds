@@ -1,5 +1,5 @@
 /**
- * MCU Intel - News, Rumors & Card Market Impact Hub
+ * MCU News - News, Rumors & Card Market Impact Hub
  * A content-rich page with featured articles, category filters, MCU timeline, and card market analysis
  */
 
@@ -18,7 +18,7 @@ const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqX
 const CARD_MARKET_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mcu-intel-card-market-Lt56dsta4y7Hzfj6pzAysR.webp";
 
 const CATEGORIES = [
-  { key: "all", label: "All Intel", icon: Newspaper },
+  { key: "all", label: "All News", icon: Newspaper },
   { key: "movie_news", label: "Movies", icon: Film },
   { key: "show_news", label: "Shows", icon: Tv },
   { key: "casting", label: "Casting", icon: Users },
@@ -37,6 +37,55 @@ const CATEGORY_COLORS: Record<string, string> = {
   rumors: "bg-red-500/20 text-red-400 border-red-500/30",
   analysis: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
 };
+
+// Character-themed color accents for article cards
+// Each entry: [borderColor, glowColor, accentTextColor]
+const CHARACTER_THEMES: Record<string, { border: string; glow: string; accent: string; bg: string }> = {
+  // Heroes
+  "spider-man": { border: "border-red-500/50", glow: "shadow-[0_0_15px_rgba(239,68,68,0.15)]", accent: "text-red-400", bg: "bg-gradient-to-r from-red-500/10 via-blue-500/5 to-transparent" },
+  "spiderman": { border: "border-red-500/50", glow: "shadow-[0_0_15px_rgba(239,68,68,0.15)]", accent: "text-red-400", bg: "bg-gradient-to-r from-red-500/10 via-blue-500/5 to-transparent" },
+  "iron man": { border: "border-red-600/50", glow: "shadow-[0_0_15px_rgba(220,38,38,0.15)]", accent: "text-red-500", bg: "bg-gradient-to-r from-red-600/10 via-yellow-500/5 to-transparent" },
+  "captain america": { border: "border-blue-500/50", glow: "shadow-[0_0_15px_rgba(59,130,246,0.15)]", accent: "text-blue-400", bg: "bg-gradient-to-r from-blue-500/10 via-red-500/5 to-transparent" },
+  "thor": { border: "border-sky-400/50", glow: "shadow-[0_0_15px_rgba(56,189,248,0.15)]", accent: "text-sky-400", bg: "bg-gradient-to-r from-sky-400/10 via-yellow-500/5 to-transparent" },
+  "hulk": { border: "border-green-500/50", glow: "shadow-[0_0_15px_rgba(34,197,94,0.15)]", accent: "text-green-400", bg: "bg-gradient-to-r from-green-500/10 to-transparent" },
+  "black panther": { border: "border-purple-500/50", glow: "shadow-[0_0_15px_rgba(168,85,247,0.15)]", accent: "text-purple-400", bg: "bg-gradient-to-r from-purple-500/10 via-violet-500/5 to-transparent" },
+  "wolverine": { border: "border-yellow-500/50", glow: "shadow-[0_0_15px_rgba(234,179,8,0.15)]", accent: "text-yellow-400", bg: "bg-gradient-to-r from-yellow-500/10 to-transparent" },
+  "deadpool": { border: "border-red-500/50", glow: "shadow-[0_0_15px_rgba(239,68,68,0.15)]", accent: "text-red-400", bg: "bg-gradient-to-r from-red-500/10 to-transparent" },
+  "scarlet witch": { border: "border-red-400/50", glow: "shadow-[0_0_15px_rgba(248,113,113,0.15)]", accent: "text-red-400", bg: "bg-gradient-to-r from-red-400/10 via-rose-500/5 to-transparent" },
+  "wanda": { border: "border-red-400/50", glow: "shadow-[0_0_15px_rgba(248,113,113,0.15)]", accent: "text-red-400", bg: "bg-gradient-to-r from-red-400/10 via-rose-500/5 to-transparent" },
+  "doctor strange": { border: "border-orange-500/50", glow: "shadow-[0_0_15px_rgba(249,115,22,0.15)]", accent: "text-orange-400", bg: "bg-gradient-to-r from-orange-500/10 via-purple-500/5 to-transparent" },
+  "fantastic four": { border: "border-blue-400/50", glow: "shadow-[0_0_15px_rgba(96,165,250,0.15)]", accent: "text-blue-400", bg: "bg-gradient-to-r from-blue-400/10 to-transparent" },
+  "daredevil": { border: "border-red-700/50", glow: "shadow-[0_0_15px_rgba(185,28,28,0.15)]", accent: "text-red-600", bg: "bg-gradient-to-r from-red-700/10 to-transparent" },
+  "punisher": { border: "border-zinc-400/50", glow: "shadow-[0_0_15px_rgba(161,161,170,0.15)]", accent: "text-zinc-300", bg: "bg-gradient-to-r from-zinc-500/10 to-transparent" },
+  "x-men": { border: "border-yellow-400/50", glow: "shadow-[0_0_15px_rgba(250,204,21,0.15)]", accent: "text-yellow-400", bg: "bg-gradient-to-r from-yellow-400/10 via-blue-500/5 to-transparent" },
+  // Villains
+  "doom": { border: "border-green-500/50", glow: "shadow-[0_0_15px_rgba(34,197,94,0.15)]", accent: "text-green-400", bg: "bg-gradient-to-r from-green-500/10 via-emerald-500/5 to-transparent" },
+  "doomsday": { border: "border-green-500/50", glow: "shadow-[0_0_15px_rgba(34,197,94,0.15)]", accent: "text-green-400", bg: "bg-gradient-to-r from-green-500/10 via-emerald-500/5 to-transparent" },
+  "thanos": { border: "border-purple-600/50", glow: "shadow-[0_0_15px_rgba(147,51,234,0.15)]", accent: "text-purple-500", bg: "bg-gradient-to-r from-purple-600/10 via-yellow-500/5 to-transparent" },
+  "loki": { border: "border-emerald-500/50", glow: "shadow-[0_0_15px_rgba(16,185,129,0.15)]", accent: "text-emerald-400", bg: "bg-gradient-to-r from-emerald-500/10 via-yellow-500/5 to-transparent" },
+  "venom": { border: "border-zinc-300/50", glow: "shadow-[0_0_15px_rgba(212,212,216,0.15)]", accent: "text-zinc-300", bg: "bg-gradient-to-r from-zinc-400/10 to-transparent" },
+  "kang": { border: "border-blue-500/50", glow: "shadow-[0_0_15px_rgba(59,130,246,0.15)]", accent: "text-blue-400", bg: "bg-gradient-to-r from-blue-500/10 via-purple-500/5 to-transparent" },
+  "galactus": { border: "border-purple-500/50", glow: "shadow-[0_0_15px_rgba(168,85,247,0.15)]", accent: "text-purple-400", bg: "bg-gradient-to-r from-purple-500/10 to-transparent" },
+  "red skull": { border: "border-red-600/50", glow: "shadow-[0_0_15px_rgba(220,38,38,0.15)]", accent: "text-red-500", bg: "bg-gradient-to-r from-red-600/10 to-transparent" },
+  // Movies/Events
+  "secret wars": { border: "border-violet-500/50", glow: "shadow-[0_0_15px_rgba(139,92,246,0.15)]", accent: "text-violet-400", bg: "bg-gradient-to-r from-violet-500/10 to-transparent" },
+  "avengers": { border: "border-indigo-500/50", glow: "shadow-[0_0_15px_rgba(99,102,241,0.15)]", accent: "text-indigo-400", bg: "bg-gradient-to-r from-indigo-500/10 to-transparent" },
+  "thunderbolts": { border: "border-yellow-500/50", glow: "shadow-[0_0_15px_rgba(234,179,8,0.15)]", accent: "text-yellow-400", bg: "bg-gradient-to-r from-yellow-500/10 to-transparent" },
+};
+
+/** Get character theme from article title, tags, or related characters */
+function getArticleTheme(article: { title: string; tags?: string[] | string | null; relatedCharacters?: string[] | string | null }) {
+  const searchText = [
+    article.title,
+    ...(Array.isArray(article.tags) ? article.tags : []),
+    ...(Array.isArray(article.relatedCharacters) ? article.relatedCharacters : []),
+  ].join(" ").toLowerCase();
+
+  for (const [keyword, theme] of Object.entries(CHARACTER_THEMES)) {
+    if (searchText.includes(keyword)) return theme;
+  }
+  return null;
+}
 
 // MCU Phase 6 Timeline Data
 const MCU_TIMELINE = [
@@ -91,14 +140,14 @@ export default function MCUIntel() {
   return (
     <div className="min-h-screen">
       <SEO
-        title="MCU Intel — Marvel News, Rumors & Card Market Impact"
+        title="MCU News — Marvel News, Rumors & Card Market Impact"
         description="Your command center for MCU news, casting updates, release dates, and how they impact the Marvel trading card market. Stay ahead of the curve."
         path="/mcu-intel"
         image={HERO_IMG}
         type="website"
         jsonLd={breadcrumbJsonLd([
           { name: "Home", url: "/" },
-          { name: "MCU Intel", url: "/mcu-intel" },
+          { name: "MCU News", url: "/mcu-intel" },
         ])}
       />
 
@@ -113,10 +162,10 @@ export default function MCUIntel() {
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/15 border border-primary/30 rounded-full mb-6">
               <Zap className="w-4 h-4 text-primary" />
-              <span className="text-primary text-sm font-bold tracking-wide">INTELLIGENCE BRIEFING</span>
+              <span className="text-primary text-sm font-bold tracking-wide">MCU NEWS HUB</span>
             </div>
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[0.95] mb-4">
-              MCU <span className="text-primary">INTEL</span>
+              MCU <span className="text-primary">NEWS</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
               Your command center for Marvel Cinematic Universe news, casting updates, release dates, and how every announcement impacts the trading card market.
@@ -131,7 +180,7 @@ export default function MCUIntel() {
           <div className="container">
             <div className="flex items-center gap-3 mb-8">
               <Sparkles className="w-5 h-5 text-primary" />
-              <h2 className="text-2xl font-bold">Featured Intel</h2>
+              <h2 className="text-2xl font-bold">Featured News</h2>
             </div>
             <div className="grid lg:grid-cols-3 gap-6">
               {/* Main Featured */}
@@ -207,7 +256,7 @@ export default function MCUIntel() {
                 ))}
                 {sideFeatured.length === 0 && (
                   <div className="flex-1 rounded-xl bg-card/50 border border-dashed border-border flex items-center justify-center p-8">
-                    <p className="text-muted-foreground text-center text-sm">More featured intel coming soon</p>
+                    <p className="text-muted-foreground text-center text-sm">More featured news coming soon</p>
                   </div>
                 )}
               </div>
@@ -282,7 +331,7 @@ export default function MCUIntel() {
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <input
                     type="text"
-                    placeholder="Search intel..."
+                    placeholder="Search news..."
                     value={searchQuery}
                     onChange={e => setSearchQuery(e.target.value)}
                     className="w-full pl-10 pr-4 py-2.5 bg-card border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50"
@@ -336,7 +385,7 @@ export default function MCUIntel() {
               ) : filteredArticles.length === 0 ? (
                 <div className="text-center py-16 bg-card/50 rounded-xl border border-dashed border-border">
                   <Newspaper className="w-12 h-12 text-muted-foreground/40 mx-auto mb-4" />
-                  <h3 className="text-xl font-bold mb-2">No Intel Found</h3>
+                  <h3 className="text-xl font-bold mb-2">No News Found</h3>
                   <p className="text-muted-foreground mb-6">
                     {searchQuery
                       ? `No articles matching "${searchQuery}"`
@@ -350,11 +399,17 @@ export default function MCUIntel() {
                 </div>
               ) : (
                 <div className="space-y-6">
-                  {filteredArticles.map(article => (
+                  {filteredArticles.map(article => {
+                    const theme = getArticleTheme(article as any);
+                    return (
                     <Link
                       key={article.id}
                       href={`/mcu-intel/${article.slug}`}
-                      className="group flex flex-col sm:flex-row gap-4 bg-card rounded-xl border border-border p-4 hover:border-primary/50 transition-all duration-300"
+                      className={`group flex flex-col sm:flex-row gap-4 rounded-xl border p-4 transition-all duration-300 ${
+                        theme
+                          ? `${theme.border} ${theme.glow} ${theme.bg} hover:shadow-lg`
+                          : "bg-card border-border hover:border-primary/50"
+                      }`}
                     >
                       {/* Thumbnail */}
                       <div className="w-full sm:w-48 h-32 rounded-lg overflow-hidden flex-shrink-0">
@@ -403,10 +458,11 @@ export default function MCUIntel() {
 
                       {/* Arrow */}
                       <div className="hidden sm:flex items-center">
-                        <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                        <ChevronRight className={`w-5 h-5 transition-colors ${theme ? `text-muted-foreground group-hover:${theme.accent}` : "text-muted-foreground group-hover:text-primary"}`} />
                       </div>
                     </Link>
-                  ))}
+                  );
+                  })}
                 </div>
               )}
             </div>

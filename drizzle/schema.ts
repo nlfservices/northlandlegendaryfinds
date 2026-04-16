@@ -505,7 +505,7 @@ export type MatrixBypassToken = typeof matrixBypassTokens.$inferSelect;
 export type InsertMatrixBypassToken = typeof matrixBypassTokens.$inferInsert;
 
 /**
- * MCU Intel Articles — news articles about MCU movies, shows, card market impact
+ * MCU News Articles — news articles about MCU movies, shows, card market impact
  */
 export const articles = mysqlTable("articles", {
   id: int("id").autoincrement().primaryKey(),

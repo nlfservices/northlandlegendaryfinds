@@ -204,7 +204,7 @@ export default function DoomsdayTicker() {
         </div>
 
         <div className="relative flex items-center justify-center gap-2 sm:gap-4 px-3 py-1.5 sm:py-2">
-          {/* Zap icon + Title — links to MCU Intel */}
+          {/* Zap icon + Title — links to MCU News */}
           <Link href="/mcu-intel" className="flex items-center gap-2 hover:opacity-80 transition-opacity group">
             <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 shrink-0 drop-shadow-[0_0_8px_rgba(74,222,128,0.7)] group-hover:drop-shadow-[0_0_12px_rgba(74,222,128,1)]" />
             <span
@@ -224,7 +224,7 @@ export default function DoomsdayTicker() {
           {/* Separator — electrified */}
           <div className="w-px h-4 bg-green-400/40 hidden sm:block shadow-[0_0_4px_rgba(74,222,128,0.5)]" />
 
-          {/* Countdown units — links to MCU Intel */}
+          {/* Countdown units — links to MCU News */}
           <Link href="/mcu-intel" className="flex items-center gap-1.5 sm:gap-2.5 hover:opacity-80 transition-opacity relative">
             <TickerUnit value={countdown.days} label="D" />
             <span className="text-green-400/60 text-xs font-light drop-shadow-[0_0_3px_rgba(74,222,128,0.4)]">:</span>

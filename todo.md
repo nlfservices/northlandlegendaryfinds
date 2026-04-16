@@ -1416,3 +1416,5 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add sticky Doomsday countdown ticker at top of homepage that follows user on scroll
 - [x] Add clickable links on Doomsday countdown ticker to navigate to /mcu-intel page
 - [x] Add lightning/electrical shock effects to Doomsday countdown ticker (Doctor Doom inspired)
+- [x] Rename MCU Intel to MCU News across entire site (page title, nav, links, references)
+- [x] Add character-themed colors to MCU News article cards (Spider-Man red/blue, Doomsday green, etc.)
