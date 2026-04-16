@@ -18,6 +18,7 @@ import SEO, { organizationJsonLd, websiteJsonLd, localBusinessJsonLd } from "@/c
 import DoomsdaySection from "@/components/DoomsdaySection";
 import MCUCountdown from "@/components/MCUCountdown";
 import MarvelousTop5 from "@/components/MarvelousTop5";
+import DoomsdayTicker from "@/components/DoomsdayTicker";
 
 
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hero-collector-banner-VbjWsKXzVgGZ6irJXkBrQz.webp";
@@ -182,6 +183,9 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
+      {/* Sticky Doomsday Countdown Ticker */}
+      <DoomsdayTicker />
+
       <SEO
         path="/"
         title="Northland Legendary Finds | Marvel Trading Card Collector Hub"

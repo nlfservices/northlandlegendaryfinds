@@ -1413,3 +1413,4 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add distinct background colors to each homepage section (black, green, purple, gold) to create visual breaks
 - [x] Add image for Kang on /characters page
 - [x] Add image for Red Skull on /characters page
+- [x] Add sticky Doomsday countdown ticker at top of homepage that follows user on scroll
