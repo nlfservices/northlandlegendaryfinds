@@ -1421,3 +1421,8 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Generate unique character-themed thumbnail images for each MCU News article
 - [x] Complete removal of ALL remaining MCU Intel references - replace with MCU News everywhere
 - [x] Write featured Avengers: Doomsday article for MCU News page with green Doom theme and thumbnail
+
+## CinemaCon 2026 Doomsday Article
+- [x] Write CinemaCon Avengers Doomsday article and add to MCU News page
+- [x] Generate CinemaCon-themed featured image for article
+- [x] Insert article into database as featured + published
