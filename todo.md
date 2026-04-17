@@ -1426,3 +1426,16 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Write CinemaCon Avengers Doomsday article and add to MCU News page
 - [x] Generate CinemaCon-themed featured image for article
 - [x] Insert article into database as featured + published
+
+## CinemaCon 2026 Article Series (6 articles)
+- [ ] Article 1: Infinity Vision — Disney's IMAX Killer (publish NOW)
+- [ ] Article 2: Doomsday Trailer Breakdown — Every Scene Described (schedule 6am tomorrow)
+- [ ] Article 3: Steve Rogers Returns — Chris Evans Is Back (schedule 11am tomorrow)
+- [ ] Article 4: X-Men Meet the Avengers — Every Mutant Confirmed (schedule 3pm tomorrow)
+- [ ] Article 5: Doom Catches Mjolnir — Most Powerful MCU Villain (schedule 6pm tomorrow)
+- [ ] Article 6: Dune 3 vs Doomsday — December Box Office War (bonus article)
+- [ ] Generate featured images for all 6 articles
+- [ ] Schedule publishing for articles 2-6 at specified times
+
+## Navigation Update
+- [x] Add MCU News link to navigation bar with red lettering to highlight it

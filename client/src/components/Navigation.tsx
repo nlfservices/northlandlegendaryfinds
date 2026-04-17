@@ -46,6 +46,7 @@ export default function Navigation() {
 
   // Main nav items — clean and focused
   const navItems = [
+    { path: "/mcu-news", label: "MCU News", highlight: "red" as const },
     { path: "/characters", label: "Marvel Characters" },
     { path: "/checklists", label: "Repack" },
     { path: "/shop", label: "Shop Now" },
@@ -127,6 +128,18 @@ export default function Navigation() {
               {navItems.map((item) => {
                 const isActive = location === item.path ||
                   (item.path === "/checklists" && location.startsWith("/checklists"));
+                // Special styling for MCU News tab — red highlight
+                if (item.path === "/mcu-news") {
+                  return (
+                    <Link key={item.path} href={item.path}>
+                      <button
+                        className="px-4 py-2 text-sm font-extrabold tracking-wide rounded-lg transition-all whitespace-nowrap text-red-500 hover:text-red-400 hover:bg-red-500/10 animate-pulse"
+                      >
+                        {item.label}
+                      </button>
+                    </Link>
+                  );
+                }
                 // Special styling for Whatnot tab
                 if (item.path === "/whatnot") {
                   return (
@@ -316,6 +329,22 @@ export default function Navigation() {
             <div className="container py-4 space-y-1">
               {navItems.map((item) => {
                 const isActive = location === item.path;
+                // Special styling for MCU News tab in mobile — red highlight
+                if (item.path === "/mcu-news") {
+                  return (
+                    <Link
+                      key={item.path}
+                      href={item.path}
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <div
+                        className="px-4 py-3 rounded-lg font-extrabold tracking-wide transition-colors text-red-500 hover:bg-red-500/10 hover:text-red-400 animate-pulse"
+                      >
+                        {item.label}
+                      </div>
+                    </Link>
+                  );
+                }
                 // Special styling for Whatnot tab in mobile
                 if (item.path === "/whatnot") {
                   return (
