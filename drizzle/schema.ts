@@ -537,6 +537,8 @@ export const articles = mysqlTable("articles", {
   authorName: varchar("authorName", { length: 255 }).default("NLF Team"),
   /** Publish date (UTC timestamp in ms) */
   publishedAt: bigint("publishedAt", { mode: "number" }),
+  /** Scheduled publish date (UTC timestamp in ms) — for auto-publish queue */
+  scheduledAt: bigint("scheduledAt", { mode: "number" }),
   /** SEO meta description */
   metaDescription: varchar("metaDescription", { length: 320 }),
   createdAt: timestamp("createdAt").defaultNow().notNull(),

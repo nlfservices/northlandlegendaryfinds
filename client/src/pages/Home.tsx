@@ -19,6 +19,7 @@ import DoomsdaySection from "@/components/DoomsdaySection";
 import MCUCountdown from "@/components/MCUCountdown";
 import MarvelousTop5 from "@/components/MarvelousTop5";
 import DoomsdayTicker from "@/components/DoomsdayTicker";
+import { trpc } from "@/lib/trpc";
 
 
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hero-collector-banner-VbjWsKXzVgGZ6irJXkBrQz.webp";
@@ -168,6 +169,122 @@ function LegacyLegendCard({ legend }: { legend: typeof LEGACY_LEGENDS[number] })
         </div>
       </div>
     </div>
+  );
+}
+
+// Latest MCU News section — auto-populated from published articles
+function LatestMCUNews() {
+  const { data: articles = [], isLoading } = trpc.articles.list.useQuery({ limit: 3 });
+
+  if (isLoading || articles.length === 0) return null;
+
+  function formatDate(timestamp: number | null): string {
+    if (!timestamp) return "";
+    return new Date(timestamp).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  }
+
+  const CATEGORY_COLORS: Record<string, string> = {
+    movie_news: "bg-blue-500/20 text-blue-400 border-blue-500/30",
+    show_news: "bg-purple-500/20 text-purple-400 border-purple-500/30",
+    casting: "bg-amber-500/20 text-amber-400 border-amber-500/30",
+    card_market: "bg-primary/20 text-primary border-primary/30",
+    release_dates: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30",
+    rumors: "bg-red-500/20 text-red-400 border-red-500/30",
+    analysis: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
+  };
+
+  const CATEGORY_LABELS: Record<string, string> = {
+    movie_news: "Movies",
+    show_news: "Shows",
+    casting: "Casting",
+    card_market: "Card Market",
+    release_dates: "Releases",
+    rumors: "Rumors",
+    analysis: "Analysis",
+  };
+
+  return (
+    <section className="relative py-16 lg:py-20 overflow-hidden">
+      {/* Dark red/crimson background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-red-950 via-red-950/95 to-red-950" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-red-800/15 via-transparent to-transparent" />
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-500/40 to-transparent" />
+      <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-500/40 to-transparent" />
+
+      <div className="container relative z-10">
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-red-500/15 border border-red-500/30 rounded-full mb-4">
+            <Zap className="w-4 h-4 text-red-400" />
+            <span className="text-red-400 text-sm font-bold tracking-wide">BREAKING NEWS</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
+            LATEST <span className="text-red-400">MCU NEWS</span>
+          </h2>
+          <p className="text-muted-foreground text-lg max-w-3xl mx-auto leading-relaxed">
+            Stay up to date with the biggest stories from the Marvel Cinematic Universe
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          {articles.map((article: any) => (
+            <Link key={article.id} href={`/mcu-news/${article.slug}`}>
+              <div className="group relative bg-card/80 backdrop-blur-sm border border-red-500/20 rounded-xl overflow-hidden hover:border-red-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-red-500/10 h-full">
+                {/* Image */}
+                {article.featuredImageUrl && (
+                  <div className="relative aspect-[16/9] overflow-hidden">
+                    <img
+                      src={article.featuredImageUrl}
+                      alt={article.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                    {/* Category badge */}
+                    <div className="absolute top-3 left-3">
+                      <span className={`inline-flex items-center px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-full border ${CATEGORY_COLORS[article.category] || "bg-gray-500/20 text-gray-400 border-gray-500/30"}`}>
+                        {CATEGORY_LABELS[article.category] || article.category}
+                      </span>
+                    </div>
+                  </div>
+                )}
+                {/* Content */}
+                <div className="p-5">
+                  <h3 className="font-bold text-lg mb-2 group-hover:text-red-400 transition-colors line-clamp-2">
+                    {article.title}
+                  </h3>
+                  {article.excerpt && (
+                    <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
+                      {article.excerpt}
+                    </p>
+                  )}
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-muted-foreground">
+                      {formatDate(article.publishedAt)}
+                    </span>
+                    <span className="text-xs font-bold text-red-400 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                      Read More <ArrowRight className="w-3 h-3" />
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        <div className="text-center mt-10">
+          <Link href="/mcu-news">
+            <Button size="lg" variant="outline" className="border-red-500/30 text-red-400 hover:bg-red-500/10 font-bold">
+              View All MCU News
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+          </Link>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -613,6 +730,9 @@ export default function Home() {
 
       {/* ===== 5b. DOOMSDAY — CHARACTER INTEL HUB ===== */}
       <DoomsdaySection />
+
+      {/* ===== 5c. LATEST MCU NEWS — AUTO-POPULATED ===== */}
+      <LatestMCUNews />
 
       {/* ===== 6. MARVELOUS TOP 5 ===== */}
       <MarvelousTop5 />

@@ -1245,6 +1245,20 @@ export async function toggleArticlePublished(id: number): Promise<void> {
   }).where(eq(articles.id, id));
 }
 
+/** Auto-publish articles whose scheduledAt time has passed */
+export async function publishScheduledArticles(): Promise<number> {
+  const db = await getDb();
+  if (!db) return 0;
+  const now = Date.now();
+  const result = await db.update(articles)
+    .set({ isPublished: true, publishedAt: now })
+    .where(and(
+      eq(articles.isPublished, false),
+      sql`${articles.scheduledAt} IS NOT NULL AND ${articles.scheduledAt} <= ${now}`
+    ));
+  return (result as any)[0]?.affectedRows ?? 0;
+}
+
 
 // ==================== TOP 5 BUZZ ITEMS HELPERS ====================
 

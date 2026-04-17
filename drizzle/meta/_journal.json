@@ -141,6 +141,13 @@
       "when": 1776000282886,
       "tag": "0019_lush_iron_fist",
       "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "5",
+      "when": 1776456951485,
+      "tag": "0020_left_ricochet",
+      "breakpoints": true
     }
   ]
 }

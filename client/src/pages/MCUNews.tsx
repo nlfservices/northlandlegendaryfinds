@@ -187,27 +187,57 @@ export default function MCUNews() {
               {mainFeatured && (
                 <Link
                   href={`/mcu-news/${mainFeatured.slug}`}
-                  className="lg:col-span-2 group relative rounded-xl overflow-hidden bg-card border border-border hover:border-primary/50 transition-all duration-300"
+                  className="lg:col-span-2 group rounded-xl overflow-hidden bg-card border border-border hover:border-primary/50 transition-all duration-300"
                 >
-                  <div className="aspect-[16/9] overflow-hidden">
+                  {/* Image section */}
+                  <div className="relative aspect-[16/9] lg:aspect-[2/1] overflow-hidden">
                     <img
                       src={mainFeatured.featuredImageUrl || CARD_MARKET_IMG}
                       alt={mainFeatured.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                    {/* Desktop: overlay text on image */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent hidden lg:block" />
+                    <div className="absolute bottom-0 left-0 right-0 p-8 hidden lg:block">
+                      <span className={`inline-block px-3 py-1 text-xs font-bold rounded-full border mb-3 ${CATEGORY_COLORS[mainFeatured.category] || CATEGORY_COLORS.movie_news}`}>
+                        {getCategoryLabel(mainFeatured.category)}
+                      </span>
+                      <h3 className="text-3xl font-bold mb-2 group-hover:text-primary transition-colors">
+                        {mainFeatured.title}
+                      </h3>
+                      <p className="text-muted-foreground line-clamp-2 mb-3">{mainFeatured.excerpt}</p>
+                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                        <span className="flex items-center gap-1">
+                          <Clock className="w-3.5 h-3.5" />
+                          {formatDate(mainFeatured.publishedAt)}
+                        </span>
+                        {mainFeatured.authorName && (
+                          <span>By {mainFeatured.authorName}</span>
+                        )}
+                      </div>
+                      {mainFeatured.cardMarketImpact && (
+                        <div className="mt-3 flex items-center gap-2 text-sm text-primary">
+                          <TrendingUp className="w-4 h-4" />
+                          <span className="font-medium">{mainFeatured.cardMarketImpact}</span>
+                        </div>
+                      )}
+                    </div>
+                    {/* Mobile: category badge on image */}
+                    <div className="absolute top-3 left-3 lg:hidden">
+                      <span className={`inline-block px-3 py-1 text-xs font-bold rounded-full border ${CATEGORY_COLORS[mainFeatured.category] || CATEGORY_COLORS.movie_news}`}>
+                        {getCategoryLabel(mainFeatured.category)}
+                      </span>
+                    </div>
                   </div>
-                  <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
-                    <span className={`inline-block px-3 py-1 text-xs font-bold rounded-full border mb-3 ${CATEGORY_COLORS[mainFeatured.category] || CATEGORY_COLORS.movie_news}`}>
-                      {getCategoryLabel(mainFeatured.category)}
-                    </span>
-                    <h3 className="text-2xl lg:text-3xl font-bold mb-2 group-hover:text-primary transition-colors">
+                  {/* Mobile: text below image */}
+                  <div className="p-4 lg:hidden">
+                    <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
                       {mainFeatured.title}
                     </h3>
-                    <p className="text-muted-foreground line-clamp-2 mb-3">{mainFeatured.excerpt}</p>
-                    <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                    <p className="text-sm text-muted-foreground line-clamp-2 mb-3">{mainFeatured.excerpt}</p>
+                    <div className="flex items-center gap-4 text-xs text-muted-foreground">
                       <span className="flex items-center gap-1">
-                        <Clock className="w-3.5 h-3.5" />
+                        <Clock className="w-3 h-3" />
                         {formatDate(mainFeatured.publishedAt)}
                       </span>
                       {mainFeatured.authorName && (
@@ -215,9 +245,9 @@ export default function MCUNews() {
                       )}
                     </div>
                     {mainFeatured.cardMarketImpact && (
-                      <div className="mt-3 flex items-center gap-2 text-sm text-primary">
-                        <TrendingUp className="w-4 h-4" />
-                        <span className="font-medium">{mainFeatured.cardMarketImpact}</span>
+                      <div className="mt-2 flex items-center gap-2 text-xs text-primary">
+                        <TrendingUp className="w-3.5 h-3.5" />
+                        <span className="font-medium line-clamp-2">{mainFeatured.cardMarketImpact}</span>
                       </div>
                     )}
                   </div>
@@ -230,21 +260,38 @@ export default function MCUNews() {
                   <Link
                     key={article.id}
                     href={`/mcu-news/${article.slug}`}
-                    className="group relative rounded-xl overflow-hidden bg-card border border-border hover:border-primary/50 transition-all duration-300 flex-1"
+                    className="group rounded-xl overflow-hidden bg-card border border-border hover:border-primary/50 transition-all duration-300 flex-1"
                   >
-                    <div className="aspect-[16/9] overflow-hidden">
+                    <div className="relative aspect-[16/9] overflow-hidden">
                       <img
                         src={article.featuredImageUrl || CARD_MARKET_IMG}
                         alt={article.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                      {/* Desktop: overlay text */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent hidden lg:block" />
+                      <div className="absolute bottom-0 left-0 right-0 p-4 hidden lg:block">
+                        <span className={`inline-block px-2 py-0.5 text-xs font-bold rounded-full border mb-2 ${CATEGORY_COLORS[article.category] || CATEGORY_COLORS.movie_news}`}>
+                          {getCategoryLabel(article.category)}
+                        </span>
+                        <h3 className="text-lg font-bold group-hover:text-primary transition-colors line-clamp-2">
+                          {article.title}
+                        </h3>
+                        <span className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
+                          <Clock className="w-3 h-3" />
+                          {formatDate(article.publishedAt)}
+                        </span>
+                      </div>
+                      {/* Mobile: category badge on image */}
+                      <div className="absolute top-3 left-3 lg:hidden">
+                        <span className={`inline-block px-2 py-0.5 text-xs font-bold rounded-full border ${CATEGORY_COLORS[article.category] || CATEGORY_COLORS.movie_news}`}>
+                          {getCategoryLabel(article.category)}
+                        </span>
+                      </div>
                     </div>
-                    <div className="absolute bottom-0 left-0 right-0 p-4">
-                      <span className={`inline-block px-2 py-0.5 text-xs font-bold rounded-full border mb-2 ${CATEGORY_COLORS[article.category] || CATEGORY_COLORS.movie_news}`}>
-                        {getCategoryLabel(article.category)}
-                      </span>
-                      <h3 className="text-lg font-bold group-hover:text-primary transition-colors line-clamp-2">
+                    {/* Mobile: text below image */}
+                    <div className="p-3 lg:hidden">
+                      <h3 className="text-base font-bold group-hover:text-primary transition-colors line-clamp-2">
                         {article.title}
                       </h3>
                       <span className="text-xs text-muted-foreground mt-1 flex items-center gap-1">

@@ -1428,14 +1428,38 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Insert article into database as featured + published
 
 ## CinemaCon 2026 Article Series (6 articles)
-- [ ] Article 1: Infinity Vision — Disney's IMAX Killer (publish NOW)
-- [ ] Article 2: Doomsday Trailer Breakdown — Every Scene Described (schedule 6am tomorrow)
-- [ ] Article 3: Steve Rogers Returns — Chris Evans Is Back (schedule 11am tomorrow)
-- [ ] Article 4: X-Men Meet the Avengers — Every Mutant Confirmed (schedule 3pm tomorrow)
-- [ ] Article 5: Doom Catches Mjolnir — Most Powerful MCU Villain (schedule 6pm tomorrow)
-- [ ] Article 6: Dune 3 vs Doomsday — December Box Office War (bonus article)
-- [ ] Generate featured images for all 6 articles
-- [ ] Schedule publishing for articles 2-6 at specified times
+- [x] Article 1: Infinity Vision — Disney's IMAX Killer (publish NOW)
+- [x] Article 2: Doomsday Trailer Breakdown — Every Scene Described (schedule 6am tomorrow)
+- [x] Article 3: Steve Rogers Returns — Chris Evans Is Back (schedule 11am tomorrow)
+- [x] Article 4: X-Men Meet the Avengers — Every Mutant Confirmed (schedule 3pm tomorrow)
+- [x] Article 5: Doom Catches Mjolnir — Most Powerful MCU Villain (schedule 6pm tomorrow)
+- [x] Article 6: Dune 3 vs Doomsday — December Box Office War (bonus article)
+- [x] Generate featured images for all 6 articles
+- [x] Schedule publishing for articles 2-6 at specified times
 
 ## Navigation Update
 - [x] Add MCU News link to navigation bar with red lettering to highlight it
+
+## Homepage MCU News Section
+- [x] Add Latest MCU News section to homepage that auto-displays recent published articles
+
+## Article Publishing Schedule (April 17, 2026)
+- [x] Publish Doomsday Trailer Breakdown article NOW (~2:40pm CT)
+- [x] Schedule Steve Rogers Returns for 3:30pm CT
+- [x] Schedule X-Men Meet Avengers for 5:00pm CT
+- [x] Schedule Doom Catches Stormbreaker for 7:00pm CT
+
+## Automated Daily Publishing (6am / 12pm / 7pm CT)
+- [x] Build auto-publish system that publishes draft articles at 6am, 12pm, 7pm CT daily
+- [x] Articles use scheduledAt field — scheduler checks every 5 min and auto-publishes
+- [x] Updated blog auto-generation from 8am/1pm/6pm to 6am/12pm/7pm CT
+- [x] Added publishScheduledArticles() to db.ts for MCU News articles
+
+## Facebook Posts for Scheduled Articles
+- [x] Write Facebook post for Doomsday Trailer Breakdown
+- [x] Write Facebook post for Steve Rogers Returns
+- [x] Write Facebook post for X-Men Meet Avengers
+- [x] Write Facebook post for Doom Catches Stormbreaker
+
+## MCU News Page Bug Fix
+- [x] Fix featured article card on MCU News page — excerpt text overlapping image, title cut off on mobile

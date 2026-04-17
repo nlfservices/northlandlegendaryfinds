@@ -17,7 +17,7 @@
  * - Deduplication: checks existing slugs/titles before generating
  */
 
-import { publishScheduledBlogPosts, createBlogPost, getPublishedBlogPosts } from "./db";
+import { publishScheduledBlogPosts, publishScheduledArticles, createBlogPost, getPublishedBlogPosts } from "./db";
 import { invokeLLM } from "./_core/llm";
 import { generateImage } from "./_core/imageGeneration";
 import {
@@ -33,8 +33,8 @@ const CHECK_INTERVAL_MS = 5 * 60 * 1000; // 5 minutes
 const DB_RETRY_ATTEMPTS = 3;
 const DB_RETRY_DELAY_MS = 3000;
 
-// Generation hours in UTC (8am, 1pm, 6pm CT = CDT UTC-5)
-const GENERATION_HOURS_UTC = [13, 18, 23];
+// Generation hours in UTC (6am, 12pm, 7pm CT = CDT UTC-5)
+const GENERATION_HOURS_UTC = [11, 17, 0];
 
 // ==================== RETRY HELPERS ====================
 
@@ -287,15 +287,28 @@ async function generateAndPublishArticle(): Promise<boolean> {
 
 async function checkScheduledPosts(): Promise<void> {
   try {
-    const count = await withRetry(
+    const blogCount = await withRetry(
       () => publishScheduledBlogPosts(),
-      "Publish scheduled posts"
+      "Publish scheduled blog posts"
     );
-    if (count > 0) {
-      console.log(`[Blog Scheduler] Published ${count} scheduled post(s)`);
+    if (blogCount > 0) {
+      console.log(`[Blog Scheduler] Published ${blogCount} scheduled blog post(s)`);
     }
   } catch (err) {
-    console.error("[Blog Scheduler] Error publishing scheduled posts:", err);
+    console.error("[Blog Scheduler] Error publishing scheduled blog posts:", err);
+  }
+
+  // Also check MCU News articles with scheduledAt
+  try {
+    const articleCount = await withRetry(
+      () => publishScheduledArticles(),
+      "Publish scheduled articles"
+    );
+    if (articleCount > 0) {
+      console.log(`[Blog Scheduler] Published ${articleCount} scheduled MCU article(s)`);
+    }
+  } catch (err) {
+    console.error("[Blog Scheduler] Error publishing scheduled articles:", err);
   }
 }
 
@@ -376,7 +389,7 @@ async function checkAutoGeneration(): Promise<void> {
 
 export function startBlogScheduler(): void {
   console.log("[Blog Scheduler] Starting blog auto-publisher (every 5 min check)");
-  console.log("[Blog Scheduler] Auto-generation enabled: 3 articles/day at 8am, 1pm, 6pm CT");
+  console.log("[Blog Scheduler] Auto-generation enabled: 3 articles/day at 6am, 12pm, 7pm CT");
   console.log("[Blog Scheduler] Using centralized NLF content strategy (Topps-only, no Fleer/Upper Deck)");
   console.log("[Blog Scheduler] Retry logic: DB operations (3 retries), image generation (3 retries with fallback prompts)");
 
