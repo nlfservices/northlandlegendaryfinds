@@ -1463,3 +1463,13 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 
 ## MCU News Page Bug Fix
 - [x] Fix featured article card on MCU News page — excerpt text overlapping image, title cut off on mobile
+
+## New MCU Articles - April 17 Batch (from Google News)
+- [x] Research all Doomsday trailer news + Endgame re-release news
+- [x] Write article about Avengers Endgame re-release (new footage, Infinity Vision, Sept 25)
+- [x] Write article about Doomsday trailer leak controversy
+- [x] Write article about RDJ as Doctor Doom (scarred face, motion capture, accent)
+- [x] Write article about X-Men/Gambit/Magneto officially joining MCU
+- [x] Generate featured images for all new articles
+- [x] Insert articles into database with scheduled publishing (6am/12pm/7pm CT Apr 18 + 6am Apr 19)
+- [x] Write Facebook posts for the new articles
