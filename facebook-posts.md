@@ -1,14 +1,10 @@
 # Facebook Posts for CinemaCon 2026 Articles
 
-Ready to copy-paste to Facebook. Each post includes the article link, engaging hook, hashtags, and a call to action.
+Ready to copy-paste to Facebook. Each post has the article link directly in the post body.
 
 ---
 
 ## Post 1: Doomsday Trailer Breakdown (LIVE NOW)
-
-**Link:** https://northlandlegendaryfinds.com/mcu-news/avengers-doomsday-cinemacon-trailer-breakdown-every-scene
-
-**Post:**
 
 THE TRAILER JUST DROPPED. 🎬
 
@@ -18,19 +14,15 @@ Doctor Doom's opening narration. The Fantastic Four arriving. X-Men crossing int
 
 Every character in this trailer is now a verified card target. If you collect Marvel cards, you NEED to read this breakdown.
 
-Full scene-by-scene analysis on our site — link in comments.
-
 What scene got you the most hyped? Drop it below. 👇
+
+🔗 https://northlandlegendaryfinds.com/mcu-news/avengers-doomsday-cinemacon-trailer-breakdown-every-scene
 
 #AvengersDoomsday #MCU #CinemaCon2026 #MarvelTrailer #DoctorDoom #MarvelCards #TradingCards #NorthlandLegendaryFinds #MarvelCollector
 
 ---
 
 ## Post 2: Steve Rogers Returns (Scheduled 3:30pm CT)
-
-**Link:** https://northlandlegendaryfinds.com/mcu-news/steve-rogers-returns-chris-evans-mcu-doomsday
-
-**Post:**
 
 "I can do this all day."
 
@@ -40,19 +32,15 @@ This isn't a cameo. This isn't a variant. This is THE Steve Rogers.
 
 We break down how he returns, what it means for the MCU, and why Captain America cards just became the hottest thing in the hobby.
 
-Full breakdown on our site — link below.
-
 Are you buying Cap cards right now or waiting? Let us know. 👇
+
+🔗 https://northlandlegendaryfinds.com/mcu-news/steve-rogers-returns-chris-evans-mcu-doomsday
 
 #SteveRogers #CaptainAmerica #ChrisEvans #AvengersDoomsday #Mjolnir #MCU #MarvelCards #NorthlandLegendaryFinds #MarvelCollector
 
 ---
 
 ## Post 3: X-Men Meet the Avengers (Scheduled 5:00pm CT)
-
-**Link:** https://northlandlegendaryfinds.com/mcu-news/xmen-meet-avengers-every-mutant-confirmed-doomsday
-
-**Post:**
 
 IT'S FINALLY HAPPENING.
 
@@ -62,19 +50,15 @@ Decades of waiting. One trailer. Everything changed.
 
 We identified every mutant in the trailer and broke down what it means for the story AND the card market. Legacy X-Men cards now have dual relevance — Fox era AND MCU era.
 
-Full mutant-by-mutant breakdown on our site.
-
 Which X-Men character are you most excited to see in the MCU? 👇
+
+🔗 https://northlandlegendaryfinds.com/mcu-news/xmen-meet-avengers-every-mutant-confirmed-doomsday
 
 #XMen #Avengers #Doomsday #Gambit #Cyclops #ProfessorXavier #Magneto #MCU #MarvelCards #NorthlandLegendaryFinds #MarvelCollector
 
 ---
 
 ## Post 4: Doom Catches Stormbreaker (Scheduled 7:00pm CT)
-
-**Link:** https://northlandlegendaryfinds.com/mcu-news/doom-catches-stormbreaker-most-powerful-mcu-villain
-
-**Post:**
 
 He caught it. With his BARE HANDS.
 
@@ -86,9 +70,9 @@ We break down why this scene matters, how Doom's power level compares to every M
 
 Robert Downey Jr. as Doom. Chrome refractors going crazy. This is the article collectors need to read.
 
-Full analysis on our site — link below.
-
 Doom vs. Thanos — who wins? Drop your pick. 👇
+
+🔗 https://northlandlegendaryfinds.com/mcu-news/doom-catches-stormbreaker-most-powerful-mcu-villain
 
 #DoctorDoom #Stormbreaker #Thor #AvengersDoomsday #RobertDowneyJr #MCU #MarvelVillain #MarvelCards #NorthlandLegendaryFinds #MarvelCollector
 
@@ -104,7 +88,6 @@ Doom vs. Thanos — who wins? Drop your pick. 👇
 | 4 | Doom Catches Stormbreaker | 7:00pm | Post when article goes live |
 
 **Tips:**
-- Post the article link in the first comment (not in the main post) for better Facebook reach
 - Add the featured image from the article as the post image
 - Respond to every comment within the first hour for maximum engagement
 - Share to relevant Marvel/trading card Facebook groups after posting to your page
@@ -117,10 +100,6 @@ Doom vs. Thanos — who wins? Drop your pick. 👇
 
 ## Post 5: Endgame Re-Release (Publishes 6am CT April 18)
 
-**Link:** https://northlandlegendaryfinds.com/mcu-news/avengers-endgame-re-release-september-2026-new-footage-infinity-vision
-
-**Post:**
-
 ENDGAME IS COMING BACK. 🎬
 
 The Russo Brothers just confirmed Avengers: Endgame returns to theaters SEPTEMBER 25 — with BRAND NEW FOOTAGE that wasn't in the original 3-hour cut.
@@ -131,17 +110,13 @@ Plus it'll be shown in Disney's new Infinity Vision premium format — the bigge
 
 For collectors: this creates a DOUBLE catalyst. September nostalgia wave for OG Avengers cards, then December Doomsday hype for the new roster. Captain America and Doctor Doom cards are the ones to watch.
 
-Full breakdown on our site — link in comments 👇
+🔗 https://northlandlegendaryfinds.com/mcu-news/avengers-endgame-re-release-september-2026-new-footage-infinity-vision
 
 #AvengersEndgame #MCU #Marvel #InfinityVision #Endgame2026 #MarvelCards #TradingCards #NorthlandLegendaryFinds
 
 ---
 
 ## Post 6: Doomsday Trailer Leaks (Publishes 12pm CT April 18)
-
-**Link:** https://northlandlegendaryfinds.com/mcu-news/avengers-doomsday-trailer-leak-cinemacon-real-or-ai
-
-**Post:**
 
 REAL OR FAKE? 🤔
 
@@ -153,17 +128,13 @@ Professor X's warning. Gambit vs. Shang-Chi. Doom catching Mjolnir. Cap's return
 
 Whether the leaks are real or not, the hype is REAL — and it's driving massive demand for Marvel cards.
 
-Full analysis on our site — link in comments 👇
+🔗 https://northlandlegendaryfinds.com/mcu-news/avengers-doomsday-trailer-leak-cinemacon-real-or-ai
 
 #AvengersDoomsday #TrailerLeak #CinemaCon2026 #AIvsReal #DoctorDoom #MarvelCards #NorthlandLegendaryFinds
 
 ---
 
 ## Post 7: RDJ's Doctor Doom Revealed (Publishes 7pm CT April 18)
-
-**Link:** https://northlandlegendaryfinds.com/mcu-news/rdj-doctor-doom-revealed-scarred-face-catches-mjolnir-doomsday
-
-**Post:**
 
 THIS. IS. NOT. TONY STARK. 🎭
 
@@ -178,17 +149,13 @@ Thor said Doom is "the scariest threat he has ever seen." And this is a god who 
 
 For collectors: Doctor Doom cards are about to EXPLODE. RDJ's star power + Doom's insane power level + limited existing card supply = massive opportunity.
 
-Full breakdown on our site — link in comments 👇
+🔗 https://northlandlegendaryfinds.com/mcu-news/rdj-doctor-doom-revealed-scarred-face-catches-mjolnir-doomsday
 
 #DoctorDoom #RDJ #AvengersDoomsday #Mjolnir #MCUVillain #MarvelCards #TradingCards #NorthlandLegendaryFinds
 
 ---
 
 ## Post 8: X-Men Join the MCU (Publishes 6am CT April 19)
-
-**Link:** https://northlandlegendaryfinds.com/mcu-news/x-men-gambit-magneto-officially-join-mcu-doomsday-trailer
-
-**Post:**
 
 THE X-MEN ARE OFFICIALLY IN THE MCU. 🔥
 
@@ -203,17 +170,13 @@ They're not rebooting the X-Men — they're IMPORTING them from the Fox universe
 
 For collectors: X-Men cards have been UNDERVALUED compared to Avengers cards for years. That gap is about to close FAST. Gambit cards especially — limited supply, surging demand.
 
-Full breakdown on our site — link in comments 👇
+🔗 https://northlandlegendaryfinds.com/mcu-news/x-men-gambit-magneto-officially-join-mcu-doomsday-trailer
 
 #XMen #Gambit #Magneto #AvengersDoomsday #MCU #MarvelCards #TradingCards #NorthlandLegendaryFinds #MutantsInMCU
 
 ---
 
 ## Post 9: CinemaCon Security Lockdown (Publishes 12pm CT April 19)
-
-**Link:** https://northlandlegendaryfinds.com/mcu-news/cinemacon-2026-security-lockdown-doomsday-trailer-every-exclusive-revealed
-
-**Post:**
 
 🔒 CinemaCon was a FORTRESS this year.
 
@@ -234,13 +197,6 @@ NONE of it has been released online. Every fan is sweating.
 
 Full breakdown of every trailer shown + what it means for card collectors 👇
 
-[LINK IN FIRST COMMENT]
-
----
-
-**First Comment:**
-Full article: https://northlandlegendaryfinds.com/mcu-news/cinemacon-2026-security-lockdown-doomsday-trailer-every-exclusive-revealed
-
-Shop NLF: https://northlandlegendaryfinds.com
+🔗 https://northlandlegendaryfinds.com/mcu-news/cinemacon-2026-security-lockdown-doomsday-trailer-every-exclusive-revealed
 
 #CinemaCon2026 #AvengersDoomsday #MarvelTrailer #SpiderMan #Dune3 #Mandalorian #MovieTrailers #TradingCards #MarvelCards #NorthlandLegendaryFinds
