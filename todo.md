@@ -1473,3 +1473,11 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Generate featured images for all new articles
 - [x] Insert articles into database with scheduled publishing (6am/12pm/7pm CT Apr 18 + 6am Apr 19)
 - [x] Write Facebook posts for the new articles
+
+## CinemaCon Anti-Leak & Anticipation Article
+- [x] Research CinemaCon 2026 security measures to prevent trailer leaks
+- [x] Research all other trailers shown at CinemaCon 2026 (not just Doomsday)
+- [x] Write article about CinemaCon lockdown + other trailers building anticipation
+- [x] Generate featured image for the article
+- [x] Insert article into database with scheduled publishing (12pm CT April 19)
+- [x] Write Facebook post for the article

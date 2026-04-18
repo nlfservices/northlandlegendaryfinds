@@ -206,3 +206,41 @@ For collectors: X-Men cards have been UNDERVALUED compared to Avengers cards for
 Full breakdown on our site — link in comments 👇
 
 #XMen #Gambit #Magneto #AvengersDoomsday #MCU #MarvelCards #TradingCards #NorthlandLegendaryFinds #MutantsInMCU
+
+---
+
+## Post 9: CinemaCon Security Lockdown (Publishes 12pm CT April 19)
+
+**Link:** https://northlandlegendaryfinds.com/mcu-news/cinemacon-2026-security-lockdown-doomsday-trailer-every-exclusive-revealed
+
+**Post:**
+
+🔒 CinemaCon was a FORTRESS this year.
+
+Marvel showed the Doomsday trailer behind closed doors — and security physically removed people who tried to record it. Not a single verified frame has leaked.
+
+But Doomsday wasn't the only exclusive. Over 40 trailers were shown behind closed doors this week:
+
+🕷️ Spider-Man: Brand New Day
+🏜️ Dune 3 (first 7 minutes!)
+🦇 Clayface (body horror DC)
+🚀 The Mandalorian & Grogu
+🎬 Christopher Nolan's The Odyssey
+🔫 Street Fighter with Jason Momoa
+🧸 Toy Story 5
+🌊 Live-action Moana
+
+NONE of it has been released online. Every fan is sweating.
+
+Full breakdown of every trailer shown + what it means for card collectors 👇
+
+[LINK IN FIRST COMMENT]
+
+---
+
+**First Comment:**
+Full article: https://northlandlegendaryfinds.com/mcu-news/cinemacon-2026-security-lockdown-doomsday-trailer-every-exclusive-revealed
+
+Shop NLF: https://northlandlegendaryfinds.com
+
+#CinemaCon2026 #AvengersDoomsday #MarvelTrailer #SpiderMan #Dune3 #Mandalorian #MovieTrailers #TradingCards #MarvelCards #NorthlandLegendaryFinds
