@@ -1524,3 +1524,6 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add dual CTAs (invite + upcoming shows) to every section
 - [x] Responsive text sizing (smaller on mobile, larger on desktop)
 - [x] Safe area padding for iOS notch/home indicator
+
+## Giveaway Page Button Color Fix
+- [x] Change black buttons to alternate green/purple per section on giveaway page

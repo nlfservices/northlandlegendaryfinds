@@ -49,13 +49,27 @@ function useCountdown(targetMs: number | null) {
   };
 }
 
-/** Reusable Whatnot Invite CTA button */
-function WhatnotInviteButton({ label = "Get $15 Free Credit", size = "lg" as const, className = "", onClick }: { label?: string; size?: "lg" | "default" | "sm"; className?: string; onClick?: () => void }) {
+/** Color config for alternating section buttons */
+const BUTTON_COLORS = {
+  green: {
+    primary: "bg-green-600 hover:bg-green-500 text-white shadow-xl shadow-green-500/25 hover:shadow-green-500/40",
+    secondary: "border-green-500 bg-green-600/20 text-green-400 hover:bg-green-600/40 hover:text-green-300",
+  },
+  purple: {
+    primary: "bg-purple-600 hover:bg-purple-500 text-white shadow-xl shadow-purple-500/25 hover:shadow-purple-500/40",
+    secondary: "border-purple-500 bg-purple-600/20 text-purple-400 hover:bg-purple-600/40 hover:text-purple-300",
+  },
+} as const;
+
+type SectionColor = keyof typeof BUTTON_COLORS;
+
+/** Reusable Whatnot Invite CTA button — alternates green/purple per section */
+function WhatnotInviteButton({ label = "Get $15 Free Credit", size = "lg" as const, className = "", onClick, color = "green" }: { label?: string; size?: "lg" | "default" | "sm"; className?: string; onClick?: () => void; color?: SectionColor }) {
   return (
     <a href={WHATNOT_INVITE} target="_blank" rel="noopener noreferrer" onClick={onClick}>
       <Button
         size={size}
-        className={`bg-yellow-500 hover:bg-yellow-400 text-black font-bold shadow-xl shadow-yellow-500/25 hover:shadow-yellow-500/40 transition-all hover:scale-[1.02] ${className}`}
+        className={`${BUTTON_COLORS[color].primary} font-bold transition-all hover:scale-[1.02] ${className}`}
       >
         <Gift className="w-5 h-5 mr-2 flex-shrink-0" />
         {label}
@@ -64,14 +78,14 @@ function WhatnotInviteButton({ label = "Get $15 Free Credit", size = "lg" as con
   );
 }
 
-/** Reusable Upcoming Shows button */
-function UpcomingShowsButton({ label = "See Upcoming Shows", size = "lg" as const, className = "" }: { label?: string; size?: "lg" | "default" | "sm"; className?: string }) {
+/** Reusable Upcoming Shows button — alternates green/purple per section */
+function UpcomingShowsButton({ label = "See Upcoming Shows", size = "lg" as const, className = "", color = "green" }: { label?: string; size?: "lg" | "default" | "sm"; className?: string; color?: SectionColor }) {
   return (
     <a href={WHATNOT_PROFILE} target="_blank" rel="noopener noreferrer">
       <Button
         size={size}
         variant="outline"
-        className={`border-green-500 bg-green-600 text-white hover:bg-green-500 font-bold ${className}`}
+        className={`${BUTTON_COLORS[color].secondary} font-bold transition-all hover:scale-[1.02] ${className}`}
       >
         <Radio className="w-5 h-5 mr-2 flex-shrink-0" />
         {label}
@@ -153,15 +167,17 @@ export default function Giveaway() {
                   Every live show on Whatnot, we give away <strong className="text-yellow-400">graded cards, raw singles, sealed packs, and hobby boxes</strong> — completely free. We're always switching it up, dropping random cards throughout our shows to keep things fresh. No catch. Just show up and enter.
                 </p>
 
-                {/* Dual CTAs — stacked on mobile, side by side on sm+ */}
+                {/* Dual CTAs — stacked on mobile, side by side on sm+ — SECTION 1: GREEN */}
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6">
                   <WhatnotInviteButton
                     label="Get $15 Free Credit"
                     onClick={handleWhatnotClick}
+                    color="green"
                     className="text-base sm:text-lg px-6 sm:px-8 py-6 sm:py-7 w-full sm:w-auto"
                   />
                   <UpcomingShowsButton
                     label="See Upcoming Shows"
+                    color="green"
                     className="text-base sm:text-lg px-6 sm:px-8 py-6 sm:py-7 w-full sm:w-auto"
                   />
                 </div>
@@ -313,17 +329,19 @@ export default function Giveaway() {
                   ))}
                 </div>
 
-                {/* CTA buttons after prize list */}
+                {/* CTA buttons after prize list — SECTION 2: PURPLE */}
                 <div className="flex flex-col sm:flex-row gap-3">
                   <WhatnotInviteButton
                     label="Get $15 Free Credit"
                     size="default"
                     onClick={handleWhatnotClick}
+                    color="purple"
                     className="px-6 py-5 text-base w-full sm:w-auto"
                   />
                   <UpcomingShowsButton
                     label="Follow Us on Whatnot"
                     size="default"
+                    color="purple"
                     className="px-6 py-5 text-base w-full sm:w-auto"
                   />
                 </div>
@@ -373,15 +391,17 @@ export default function Giveaway() {
                 <ExternalLink className="w-3.5 h-3.5 text-primary opacity-60 group-hover:opacity-100 transition-opacity flex-shrink-0" />
               </a>
 
-              {/* Big CTA */}
+              {/* Big CTA — SECTION 3: GREEN */}
               <div className="flex flex-col sm:flex-row justify-center gap-3 mb-6 sm:mb-8 px-4 sm:px-0">
                 <WhatnotInviteButton
                   label="Get My $15 Credit"
                   onClick={handleWhatnotClick}
+                  color="green"
                   className="text-base sm:text-lg px-8 sm:px-10 py-6 sm:py-7 w-full sm:w-auto"
                 />
                 <UpcomingShowsButton
                   label="Browse Our Shows"
+                  color="green"
                   className="text-base sm:text-lg px-8 sm:px-10 py-6 sm:py-7 w-full sm:w-auto"
                 />
               </div>
@@ -468,17 +488,19 @@ export default function Giveaway() {
               ))}
             </div>
 
-            {/* CTA after How It Works */}
+            {/* CTA after How It Works — SECTION 4: PURPLE */}
             <div className="mt-8 sm:mt-12 text-center">
               <p className="text-muted-foreground text-sm sm:text-base mb-4">Ready to get started? It takes 30 seconds.</p>
               <div className="flex flex-col sm:flex-row justify-center gap-3">
                 <WhatnotInviteButton
                   label="Sign Up & Get $15"
                   onClick={handleWhatnotClick}
+                  color="purple"
                   className="text-base px-8 py-6 w-full sm:w-auto"
                 />
                 <UpcomingShowsButton
                   label="See When We're Live"
+                  color="purple"
                   className="text-base px-8 py-6 w-full sm:w-auto"
                 />
               </div>
@@ -559,17 +581,19 @@ export default function Giveaway() {
               </div>
             </div>
 
-            {/* CTA under cards — full button instead of text link */}
+            {/* CTA under cards — SECTION 5: GREEN */}
             <div className="mt-8 sm:mt-10 text-center">
               <p className="text-muted-foreground text-sm sm:text-base mb-4">Want cards like these? They're free at our shows.</p>
               <div className="flex flex-col sm:flex-row justify-center gap-3">
                 <WhatnotInviteButton
                   label="Get $15 Free Credit"
                   onClick={handleWhatnotClick}
+                  color="green"
                   className="text-base px-8 py-6 w-full sm:w-auto"
                 />
                 <UpcomingShowsButton
                   label="See Upcoming Shows"
+                  color="green"
                   className="text-base px-8 py-6 w-full sm:w-auto"
                 />
               </div>
@@ -593,14 +617,17 @@ export default function Giveaway() {
               <p className="text-muted-foreground text-base sm:text-lg mb-6 sm:mb-8 px-4 sm:px-0">
                 Follow us on Whatnot to get notified when we go live. Free giveaways. Legendary cards. Every single show.
               </p>
+              {/* SECTION 6: PURPLE */}
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4 sm:px-0">
                 <WhatnotInviteButton
                   label="Claim $15 Free Credit"
                   onClick={handleWhatnotClick}
+                  color="purple"
                   className="text-base sm:text-lg px-6 sm:px-8 py-6 sm:py-7 w-full sm:w-auto"
                 />
                 <UpcomingShowsButton
                   label="View Upcoming Shows"
+                  color="purple"
                   className="text-base sm:text-lg px-6 sm:px-8 py-6 sm:py-7 w-full sm:w-auto"
                 />
               </div>
@@ -738,7 +765,7 @@ export default function Giveaway() {
             onClick={handleWhatnotClick}
             className="flex-1"
           >
-            <Button className="w-full bg-yellow-500 hover:bg-yellow-400 text-black font-bold py-5 text-sm shadow-lg">
+            <Button className="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-5 text-sm shadow-lg">
               <Gift className="w-4 h-4 mr-1.5 flex-shrink-0" />
               $15 Free Credit
             </Button>
@@ -749,7 +776,7 @@ export default function Giveaway() {
             rel="noopener noreferrer"
             className="flex-1"
           >
-            <Button className="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-5 text-sm shadow-lg">
+            <Button className="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-5 text-sm shadow-lg">
               <Radio className="w-4 h-4 mr-1.5 flex-shrink-0" />
               Our Shows
             </Button>
