@@ -118,8 +118,7 @@ export default function Giveaway() {
                 </h1>
 
                 <p className="text-lg lg:text-xl text-gray-300 mb-8 leading-relaxed max-w-lg">
-                  Every live show on Whatnot, we give away <strong className="text-yellow-400">top-tier graded cards, sealed packs, and hobby boxes</strong> — completely free. 
-                  No catch. Just show up and enter.
+Every live show on Whatnot, we give away <strong className="text-yellow-400">graded cards, raw singles, sealed packs, and hobby boxes</strong> — completely free. We're always switching it up, dropping random cards throughout our shows to keep things fresh. No catch. Just show up and enter.
                 </p>
 
                 {/* Dual CTAs */}
@@ -145,22 +144,19 @@ export default function Giveaway() {
                   </a>
                 </div>
 
-                {/* Stats row */}
-                <div className="flex gap-6 text-sm">
+                {/* Trust badges */}
+                <div className="flex flex-wrap gap-4 text-sm">
                   <div className="flex items-center gap-2 text-yellow-400">
                     <Star className="w-4 h-4 fill-yellow-400" />
-                    <span className="font-bold">5.0</span>
-                    <span className="text-gray-400">(361 reviews)</span>
+                    <span className="font-bold">5.0 Seller Rating</span>
                   </div>
                   <div className="flex items-center gap-2 text-green-400">
-                    <Package className="w-4 h-4" />
-                    <span className="font-bold">3,700+</span>
-                    <span className="text-gray-400">sold</span>
+                    <Zap className="w-4 h-4" />
+                    <span className="font-bold">Lightning-Fast Shipping</span>
                   </div>
                   <div className="flex items-center gap-2 text-blue-400">
-                    <Users className="w-4 h-4" />
-                    <span className="font-bold">3,300+</span>
-                    <span className="text-gray-400">followers</span>
+                    <Shield className="w-4 h-4" />
+                    <span className="font-bold">Our Reviews Speak for Themselves</span>
                   </div>
                 </div>
               </div>
@@ -269,7 +265,7 @@ export default function Giveaway() {
 
                 <div className="space-y-4 mb-8">
                   {[
-                    { icon: Crown, color: "text-yellow-400", bg: "bg-yellow-500/10", title: "PSA & CGC Graded Slabs", desc: "Top-tier graded Marvel cards — Spider-Man, Wolverine, Doctor Doom, and more" },
+                    { icon: Crown, color: "text-yellow-400", bg: "bg-yellow-500/10", title: "Graded Raw Cards", desc: "Top-tier graded and raw Marvel cards — Spider-Man, Wolverine, Doctor Doom, and more" },
                     { icon: Package, color: "text-blue-400", bg: "bg-blue-500/10", title: "Sealed Hobby Boxes & Packs", desc: "Factory-sealed Marvel Mint, Topps Chrome, and new release products" },
                     { icon: Zap, color: "text-purple-400", bg: "bg-purple-500/10", title: "Rare Singles & Parallels", desc: "Numbered parallels, refractors, and chase cards you won't find anywhere else" },
                     { icon: Sparkles, color: "text-pink-400", bg: "bg-pink-500/10", title: "Surprise Drops", desc: "Random bonus giveaways throughout the show — you never know what's next" },
