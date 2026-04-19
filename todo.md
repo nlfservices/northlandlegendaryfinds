@@ -1514,3 +1514,13 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 ## Giveaway Page Redesign
 - [x] Redesign giveaway page with more hype, energy, and better layout for Whatnot singles shows
 - [ ] Write Facebook post driving people to Whatnot singles show via giveaway page
+
+## Giveaway Page Mobile Optimization
+- [x] Add multiple Whatnot invite buttons (whatnot.com/invite/northlandfinds) throughout the page
+- [x] Optimize entire giveaway page for mobile (iOS & Android) — killer mobile experience
+- [x] Add sticky mobile CTA bar at bottom of screen (yellow $15 Credit + green Our Shows)
+- [x] Make all buttons full-width on mobile with 48px+ touch targets
+- [x] Add snap-scroll to mobile card showcase for better swipe experience
+- [x] Add dual CTAs (invite + upcoming shows) to every section
+- [x] Responsive text sizing (smaller on mobile, larger on desktop)
+- [x] Safe area padding for iOS notch/home indicator
