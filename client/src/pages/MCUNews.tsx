@@ -582,6 +582,25 @@ export default function MCUNews() {
                   </Button>
                 </Link>
               </div>
+
+              {/* Facebook Follow CTA */}
+              <a
+                href="https://www.facebook.com/profile.php?id=61575227498498"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block bg-gradient-to-br from-blue-600/10 to-blue-500/5 rounded-xl border border-blue-500/20 p-5 group hover:border-blue-500/40 transition-all"
+              >
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center shadow-md shadow-blue-600/20">
+                    <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                  </div>
+                  <h3 className="font-bold group-hover:text-blue-400 transition-colors">Follow on Facebook</h3>
+                </div>
+                <p className="text-sm text-muted-foreground mb-3">
+                  Join the NLF community for breaking MCU news, card drops, and live stream alerts.
+                </p>
+                <span className="text-sm font-bold text-blue-400 group-hover:text-blue-300 transition-colors">Like Our Page &rarr;</span>
+              </a>
             </aside>
           </div>
         </div>

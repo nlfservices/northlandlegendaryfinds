@@ -92,9 +92,20 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Whatnot QR Code Banner */}
+        {/* Social Follow Banners */}
         <div className="border-t border-border mt-8 pt-8">
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-12">
+            {/* Facebook Follow */}
+            <a href="https://www.facebook.com/profile.php?id=61575227498498" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group">
+              <div className="w-14 h-14 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/20 group-hover:shadow-blue-600/40 transition-all">
+                <Facebook className="w-7 h-7 text-white" />
+              </div>
+              <div>
+                <p className="text-sm font-bold text-blue-400 group-hover:text-blue-300 transition-colors">Like us on Facebook</p>
+                <p className="text-xs text-muted-foreground">Join the NLF community for news & drops</p>
+              </div>
+            </a>
+            {/* Whatnot Follow */}
             <a href="https://whatnot.com/invite/northlandfinds" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group">
               <div className="bg-white rounded-lg p-1.5 shadow-sm">
                 <img

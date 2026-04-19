@@ -5,7 +5,7 @@
 import { Link, useParams, useLocation } from "wouter";
 import {
   ArrowLeft, Clock, Tag, TrendingUp, ExternalLink, User, Share2,
-  ChevronRight, Newspaper,
+  ChevronRight, Newspaper, Facebook,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
@@ -280,6 +280,28 @@ export default function MCUNewsArticle() {
                 Card Database
               </Button>
             </Link>
+          </div>
+        </div>
+
+        {/* Facebook Follow CTA */}
+        <div className="mt-6 bg-gradient-to-r from-blue-600/10 via-blue-500/5 to-blue-600/10 border border-blue-500/20 rounded-xl p-6">
+          <div className="flex flex-col sm:flex-row items-center gap-4">
+            <div className="w-14 h-14 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/30 flex-shrink-0">
+              <Facebook className="w-7 h-7 text-white" />
+            </div>
+            <div className="text-center sm:text-left flex-1">
+              <h3 className="font-bold text-lg mb-1">Follow NLF on Facebook</h3>
+              <p className="text-sm text-muted-foreground">Get breaking MCU news, card market updates, and exclusive drops in your feed.</p>
+            </div>
+            <a
+              href="https://www.facebook.com/profile.php?id=61575227498498"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition-colors shadow-lg shadow-blue-600/20 hover:shadow-blue-600/40 flex-shrink-0"
+            >
+              <Facebook className="w-5 h-5" />
+              Like Our Page
+            </a>
           </div>
         </div>
       </article>

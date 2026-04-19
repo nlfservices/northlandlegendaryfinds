@@ -1481,3 +1481,36 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Generate featured image for the article
 - [x] Insert article into database with scheduled publishing (12pm CT April 19)
 - [x] Write Facebook post for the article
+
+## Facebook Like/Follow Page Integration
+- [ ] Add Facebook Follow/Like CTA button in the site footer
+- [ ] Add Facebook Follow CTA on MCU News article pages (after article content)
+- [ ] Add Facebook community section on homepage
+- [ ] Ensure Facebook icon links in footer/header go to NLF Facebook page
+
+## New Article Batch — April 18, 2026
+- [ ] Article 10: Spider-Man Brand New Day CinemaCon Breakdown (hero image + FB image + article + FB post)
+- [ ] Article 11: Edward Norton Hulk Variant Rumors (hero image + FB image + article + FB post)
+- [ ] Article 12: Doomsday $700M Budget Analysis (hero image + FB image + article + FB post)
+- [ ] Article 13: Doomsday Trailer Not Released Online Yet (hero image + FB image + article + FB post)
+- [ ] Article 14: Topps Finest Fantastic Four 65th Anniversary (hero image + FB image + article + FB post)
+- [ ] Article 15: Marvel/DC Crossover Comics Collected (hero image + FB image + article + FB post)
+- [ ] Article 16: Dune 3 vs Doomsday December Box Office War (hero image + FB image + article + FB post)
+- [ ] Article 17: Trading Card Market Booming - TCGPlayer CEO (hero image + FB image + article + FB post)
+
+## Image Fix — Doomsday Trailer Leak Article
+- [x] Replace Superman image on avengers-doomsday-trailer-leak-cinemacon-real-or-ai article with funny Doctor Doom in pink suit
+
+## Article Layout Variations & Multi-Image Support
+- [ ] Build alternating article layout templates (image-top, image-right/text-left, image-left/text-right)
+- [ ] Add layout field to articles database schema
+- [ ] Support multiple inline images per article (not just hero image)
+- [ ] Cycle layouts automatically so each article looks different
+- [ ] Generate 2-3 images per article (hero + inline images)
+
+## Card Site Links in Articles
+- [x] Add rotating card site links to ALL articles (mintcomiccards.com, comicbookcard.com, riseofdoom.com) — never same site back-to-back
+
+## Giveaway Page Redesign
+- [x] Redesign giveaway page with more hype, energy, and better layout for Whatnot singles shows
+- [ ] Write Facebook post driving people to Whatnot singles show via giveaway page
