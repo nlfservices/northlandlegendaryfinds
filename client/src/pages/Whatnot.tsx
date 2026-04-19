@@ -1,76 +1,116 @@
 /**
- * Whatnot Page - Live stream card breaks & community
- * Layout: $15 Promo Hero → 3-Step Claim → 500-Pack Explainer → Upcoming Shows → Live Products → Past Shows → Follow CTA
+ * Whatnot Page — Same design as Giveaway page
+ * Hero with treasure chest → What We Give Away → $15 Credit → How It Works → Card Showcase → Final CTA → Legal
+ * Designed for ad traffic. Facebook Pixel fires on page load + clicks.
+ * MOBILE-FIRST: Sticky CTA bar, large touch targets, optimized spacing
  */
-import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
-import { Link } from "wouter";
 import { useState, useEffect } from "react";
+import { trpc } from "@/lib/trpc";
 import {
-  Radio, Zap, Package, Calendar, ArrowRight, ExternalLink,
-  Loader2, Clock, Users, TrendingUp, Eye, Star, Gift, Shield,
-  CheckCircle2, Sparkles, DollarSign, UserPlus, ShoppingBag, Play
+  Gift, Radio, ExternalLink, Shield, CheckCircle2, Clock, DollarSign,
+  Sparkles, Trophy, Star, Flame, Zap, Package, Crown,
 } from "lucide-react";
-import { toast } from "sonner";
+
 import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 
-const WHATNOT_STORE_URL = "https://whatnot.com/invite/northlandfinds";
 const WHATNOT_INVITE = "https://whatnot.com/invite/northlandfinds";
-const QR_CODE_1 = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/whatnot-invite-qr-new_df6b80b3.png";
-const QR_CODE_2 = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/whatnot-invite-qr-new_df6b80b3.png";
+const WHATNOT_PROFILE = "https://www.whatnot.com/user/northlandfinds";
+
+// Hero images
+const HERO_TREASURE = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/NLFStudio-1_a59bb3e4.webp";
+const LIVE_TABLE = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nlfstudio2_7ffc29b2.webp";
+
+// Card images
+const CARD_IMAGES = {
+  spiderman: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/spiderman-cgc-card_cf73b504.png",
+  gambit: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Gambit-Comic_0e247f0b.png",
+  ironman: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/IronMan-Comic_25f3c15d.png",
+  wolverine: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Wolverine-Comic_cb2b9fd2.png",
+  magneto: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Magneto-Comic2_5df7b4c4.png",
+};
+
+// Countdown hook — takes a UTC timestamp (ms), returns live d/h/m/s
+function useCountdown(targetMs: number | null) {
+  const [now, setNow] = useState(Date.now());
+  useEffect(() => {
+    if (!targetMs) return;
+    const id = setInterval(() => setNow(Date.now()), 1_000);
+    return () => clearInterval(id);
+  }, [targetMs]);
+  if (!targetMs || targetMs <= now) return null;
+  const diff = targetMs - now;
+  return {
+    days: Math.floor(diff / 86_400_000),
+    hours: Math.floor((diff % 86_400_000) / 3_600_000),
+    minutes: Math.floor((diff % 3_600_000) / 60_000),
+    seconds: Math.floor((diff % 60_000) / 1_000),
+  };
+}
+
+/** Color config for alternating section buttons */
+const BUTTON_COLORS = {
+  green: {
+    primary: "bg-green-600 hover:bg-green-500 text-white shadow-xl shadow-green-500/25 hover:shadow-green-500/40",
+    secondary: "border-green-500 bg-green-600/20 text-green-400 hover:bg-green-600/40 hover:text-green-300",
+  },
+  purple: {
+    primary: "bg-purple-600 hover:bg-purple-500 text-white shadow-xl shadow-purple-500/25 hover:shadow-purple-500/40",
+    secondary: "border-purple-500 bg-purple-600/20 text-purple-400 hover:bg-purple-600/40 hover:text-purple-300",
+  },
+} as const;
+
+type SectionColor = keyof typeof BUTTON_COLORS;
+
+/** Reusable Whatnot Invite CTA button — alternates green/purple per section */
+function WhatnotInviteButton({ label = "Get $15 Free Credit", size = "lg" as const, className = "", onClick, color = "green" }: { label?: string; size?: "lg" | "default" | "sm"; className?: string; onClick?: () => void; color?: SectionColor }) {
+  return (
+    <a href={WHATNOT_INVITE} target="_blank" rel="noopener noreferrer" onClick={onClick}>
+      <Button
+        size={size}
+        className={`${BUTTON_COLORS[color].primary} font-bold transition-all hover:scale-[1.02] ${className}`}
+      >
+        <Gift className="w-5 h-5 mr-2 flex-shrink-0" />
+        {label}
+      </Button>
+    </a>
+  );
+}
+
+/** Reusable Upcoming Shows button — alternates green/purple per section */
+function UpcomingShowsButton({ label = "See Upcoming Shows", size = "lg" as const, className = "", color = "green" }: { label?: string; size?: "lg" | "default" | "sm"; className?: string; color?: SectionColor }) {
+  return (
+    <a href={WHATNOT_PROFILE} target="_blank" rel="noopener noreferrer">
+      <Button
+        size={size}
+        variant="outline"
+        className={`${BUTTON_COLORS[color].secondary} font-bold transition-all hover:scale-[1.02] ${className}`}
+      >
+        <Radio className="w-5 h-5 mr-2 flex-shrink-0" />
+        {label}
+      </Button>
+    </a>
+  );
+}
 
 export default function Whatnot() {
-  const { data: products, isLoading: productsLoading } = trpc.public.products.list.useQuery();
-  const { data: upcomingShows, isLoading: showsLoading } = trpc.public.shows.upcoming.useQuery();
-  const { data: allShows } = trpc.public.shows.list.useQuery();
+  const [showRules, setShowRules] = useState(false);
 
-  // Sticky button visibility — show after scrolling past hero
-  const [showSticky, setShowSticky] = useState(false);
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowSticky(window.scrollY > 400);
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  // Fetch countdown target from DB (admin-configurable)
+  const { data: countdownSetting } = trpc.public.settings.get.useQuery(
+    { key: "giveaway_countdown_target" },
+    { refetchInterval: 60_000 }
+  );
+  const countdownTarget = countdownSetting?.value ? Number(countdownSetting.value) : null;
+  const countdown = useCountdown(countdownTarget);
 
-  const whatnotProducts = products?.filter(p => p.isWhatnotExclusive) || [];
-  const pastShows = allShows?.filter(s => s.status === 'completed') || [];
-
-  // Free credit section state
-  const [email, setEmail] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-
-  const subscribeMutation = trpc.public.subscribe.submit.useMutation({
-    onSuccess: () => {
-      setSubmitted(true);
-      localStorage.setItem("nlf_email_submitted", "true");
-      localStorage.setItem("nlf_popup_closed", "permanent");
-      toast.success("You're in! Check your inbox for updates.");
-      if (typeof window !== "undefined" && (window as any).fbq) {
-        (window as any).fbq("track", "Lead", {
-          content_name: "Whatnot Page Credit Offer",
-          content_category: "email_signup",
-        });
-      }
-    },
-    onError: (error: any) => {
-      toast.error(error.message || "Something went wrong. Please try again.");
-    },
-  });
-
-  const handleCreditSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email.trim() || subscribeMutation.isPending) return;
-    subscribeMutation.mutate({
-      email: email.trim(),
-      firstName: firstName.trim() || undefined,
-      source: "whatnot-page-free-credit",
-    });
-  };
+  // Editable page content from DB (falls back to hardcoded defaults)
+  const { data: pageContent } = trpc.public.pageContent.getPage.useQuery(
+    { page: "giveaway" },
+    { staleTime: 30_000 }
+  );
+  const c = (key: string, fallback: string) => pageContent?.[key] ?? fallback;
 
   const handleWhatnotClick = () => {
     if (typeof window !== "undefined" && (window as any).fbq) {
@@ -83,597 +123,654 @@ export default function Whatnot() {
 
   return (
     <>
-    <div className="min-h-screen">
-      <SEO
-        title="Live on Whatnot"
-        description="Watch Northland Legendary Finds live card breaks on Whatnot. Join our streams for real-time Marvel trading card reveals, giveaways, and great deals. New users get $15 credit towards their first purchase!"
-        path="/whatnot"
-        jsonLd={breadcrumbJsonLd([{ name: "Home", url: "/" }, { name: "Whatnot", url: "/whatnot" }])}
-      />
+      <div className="min-h-screen pb-20 md:pb-0">
+        <SEO
+          title="Live on Whatnot — Free Marvel Card Giveaways + $15 Credit"
+          description="Watch Northland Legendary Finds live on Whatnot for free Marvel card giveaways, graded slabs, sealed packs, and more. New users get $15 free credit."
+          path="/whatnot"
+          jsonLd={breadcrumbJsonLd([
+            { name: "Home", url: "/" },
+            { name: "Whatnot", url: "/whatnot" },
+          ])}
+        />
 
-      {/* ===== SECTION 1: $15 CREDIT HERO ===== */}
-      <section className="relative py-16 lg:py-24 overflow-hidden">
-        {/* Animated background */}
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-yellow-900/30 via-background to-purple-900/20" />
-          <div className="absolute top-0 left-0 w-full h-full">
-            <div className="absolute top-10 left-[10%] w-72 h-72 bg-yellow-500/15 rounded-full blur-[100px] animate-pulse" />
-            <div className="absolute bottom-10 right-[10%] w-72 h-72 bg-purple-500/15 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '1s' }} />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-green-500/8 rounded-full blur-[120px]" />
+        {/* ===== HERO SECTION — TREASURE CHEST ===== */}
+        <section className="relative min-h-[500px] sm:min-h-[600px] lg:min-h-[700px] flex items-center overflow-hidden">
+          {/* Background Image */}
+          <div className="absolute inset-0">
+            <img src={HERO_TREASURE} alt="" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/75 to-black/40 md:to-black/30" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
           </div>
-          {/* Subtle grid pattern */}
-          <div className="absolute inset-0 opacity-[0.03]" style={{
-            backgroundImage: 'linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)',
-            backgroundSize: '60px 60px'
-          }} />
-        </div>
 
-        <div className="container relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left: Big promo text */}
-            <div>
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-yellow-500/15 border border-yellow-500/40 rounded-full mb-6 animate-bounce" style={{ animationDuration: '2s' }}>
-                <Gift className="w-5 h-5 text-yellow-400" />
-                <span className="text-yellow-400 text-sm font-bold tracking-wider">NEW TO WHATNOT? GET $15 OFF YOUR FIRST BUY</span>
-              </div>
+          <div className="container relative z-10">
+            <div className="grid lg:grid-cols-2 gap-8 items-center">
+              {/* Left: Text Content */}
+              <div className="py-8 sm:py-12 lg:py-0">
+                <Badge variant="outline" className="mb-4 border-yellow-500/40 text-yellow-400 px-3 sm:px-4 py-1.5 animate-pulse text-xs sm:text-sm">
+                  <Flame className="w-3 h-3 sm:w-3.5 sm:h-3.5 mr-1.5" />
+                  FREE GIVEAWAYS EVERY SHOW
+                </Badge>
 
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[0.95] mb-6" style={{ fontFamily: "'Anton', sans-serif" }}>
-                GET{" "}
-                <span className="relative inline-block">
-                  <span className="text-yellow-400">$15 OFF</span>
-                  <span className="absolute -bottom-1 left-0 w-full h-1 bg-yellow-400/60 rounded-full" />
-                </span>
-                <br />
-                <span className="text-purple-400">YOUR FIRST</span>
-                <br />
-                LIVE PURCHASE
-              </h1>
+                <h1
+                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-5 leading-[0.9] text-white"
+                  style={{ fontFamily: "'Anton', sans-serif" }}
+                >
+                  WE GIVE AWAY
+                  <br />
+                  <span className="text-yellow-400">LEGENDARY</span>
+                  <br />
+                  CARDS
+                </h1>
 
-              <p className="text-xl text-muted-foreground max-w-lg mb-8 leading-relaxed">
-                Sign up through our link and Whatnot gives you <strong className="text-yellow-400">$15 in credit</strong> — applied 
-                automatically at checkout on your first purchase. Use it at any of our live Marvel card break shows. No code needed.
-              </p>
+                <p className="text-base sm:text-lg lg:text-xl text-gray-300 mb-6 sm:mb-8 leading-relaxed max-w-lg">
+                  Every live show on Whatnot, we give away <strong className="text-yellow-400">graded cards, raw singles, sealed packs, hobby boxes, and NLF Repacks</strong> — completely free. We're always switching it up, dropping random cards throughout our shows to keep things fresh. No catch. Just show up and enter.
+                </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                <a href={WHATNOT_INVITE} target="_blank" rel="noopener noreferrer" onClick={handleWhatnotClick}>
-                  <Button size="lg" className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-lg px-8 py-7 shadow-xl shadow-yellow-500/25 hover:shadow-yellow-500/40 transition-all hover:scale-[1.02] w-full sm:w-auto">
-                    <Gift className="w-6 h-6 mr-2" />
-                    Get My $15 Credit
-                    <ExternalLink className="w-4 h-4 ml-2" />
-                  </Button>
-                </a>
-                <a href={WHATNOT_STORE_URL} target="_blank" rel="noopener noreferrer">
-                  <Button size="lg" variant="outline" className="bg-yellow-500 hover:bg-yellow-400 text-black border-yellow-500 font-bold text-lg px-8 py-7 w-full sm:w-auto">
-                    <Radio className="w-5 h-5 mr-2" />
-                    Follow on Whatnot
-                  </Button>
-                </a>
-              </div>
-
-              {/* Trust badges */}
-              <div className="flex flex-wrap gap-6 text-sm text-muted-foreground">
-                <span className="flex items-center gap-2">
-                  <div className="w-8 h-8 bg-green-500/10 rounded-full flex items-center justify-center">
-                    <Shield className="w-4 h-4 text-green-400" />
-                  </div>
-                  No Minimum Spend
-                </span>
-                <span className="flex items-center gap-2">
-                  <div className="w-8 h-8 bg-green-500/10 rounded-full flex items-center justify-center">
-                    <CheckCircle2 className="w-4 h-4 text-green-400" />
-                  </div>
-                  Auto-Follow Our Shows
-                </span>
-                <span className="flex items-center gap-2">
-                  <div className="w-8 h-8 bg-green-500/10 rounded-full flex items-center justify-center">
-                    <Clock className="w-4 h-4 text-green-400" />
-                  </div>
-                  30-Second Signup
-                </span>
-                <span className="flex items-center gap-2">
-                  <div className="w-8 h-8 bg-green-500/10 rounded-full flex items-center justify-center">
-                    <DollarSign className="w-4 h-4 text-green-400" />
-                  </div>
-                  Applied at Checkout
-                </span>
-              </div>
-            </div>
-
-            {/* Right: QR code + email capture card */}
-            <div className="flex flex-col gap-6">
-              {/* QR Code Card */}
-              <div className="bg-gradient-to-br from-purple-900/30 via-card to-yellow-900/10 border border-purple-500/20 rounded-3xl p-8 text-center backdrop-blur-sm">
-                <div className="inline-flex items-center gap-2 px-3 py-1 bg-purple-500/15 border border-purple-500/30 rounded-full mb-4">
-                  <Radio className="w-3 h-3 text-purple-400" />
-                  <span className="text-purple-400 text-xs font-bold tracking-wide">SCAN TO FOLLOW</span>
-                </div>
-                <div className="bg-white rounded-2xl p-4 shadow-2xl shadow-purple-500/20 mx-auto w-fit mb-4">
-                  <img
-                    src={QR_CODE_1}
-                    alt="Scan to follow us on Whatnot"
-                    className="w-40 h-40"
+                {/* Dual CTAs — SECTION 1: Green invite + Purple shows */}
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6">
+                  <WhatnotInviteButton
+                    label="Get $15 Free Credit"
+                    onClick={handleWhatnotClick}
+                    color="green"
+                    className="text-base sm:text-lg px-6 sm:px-8 py-6 sm:py-7 w-full sm:w-auto"
+                  />
+                  <UpcomingShowsButton
+                    label="See Upcoming Shows"
+                    color="purple"
+                    className="text-base sm:text-lg px-6 sm:px-8 py-6 sm:py-7 w-full sm:w-auto"
                   />
                 </div>
-                <p className="text-sm text-muted-foreground">
-                  Scan with your phone to follow us on Whatnot
-                </p>
+
+                {/* Trust badges — wrap nicely on mobile */}
+                <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 text-sm">
+                  <div className="flex items-center gap-2 text-yellow-400">
+                    <Star className="w-4 h-4 fill-yellow-400 flex-shrink-0" />
+                    <span className="font-bold">5.0 Seller Rating</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-green-400">
+                    <Zap className="w-4 h-4 flex-shrink-0" />
+                    <span className="font-bold">Lightning-Fast Shipping</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-blue-400">
+                    <Shield className="w-4 h-4 flex-shrink-0" />
+                    <span className="font-bold">Our Reviews Speak for Themselves</span>
+                  </div>
+                </div>
               </div>
 
-              {/* Email Capture */}
-              <div className="bg-card border border-border rounded-3xl p-6">
-                <h3 className="text-lg font-bold mb-1" style={{ fontFamily: "'Anton', sans-serif" }}>
-                  STAY IN THE <span className="text-primary">LOOP</span>
-                </h3>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Get notified about upcoming shows, drawings, and new drops.
-                </p>
-                {submitted ? (
-                  <div className="bg-primary/10 border border-primary/30 rounded-xl p-5 text-center">
-                    <CheckCircle2 className="w-10 h-10 text-primary mx-auto mb-2" />
-                    <h4 className="text-lg font-bold text-primary mb-1">You're In!</h4>
-                    <p className="text-sm text-muted-foreground mb-3">We'll keep you posted on upcoming shows.</p>
-                    <a href={WHATNOT_INVITE} target="_blank" rel="noopener noreferrer" onClick={handleWhatnotClick}>
-                      <Button className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold">
-                        <Gift className="w-4 h-4 mr-2" />
-                        Get My $15 Credit
-                        <ExternalLink className="w-4 h-4 ml-2" />
-                      </Button>
-                    </a>
+              {/* Right: Countdown Timer (if active) — desktop only */}
+              <div className="hidden lg:flex justify-center">
+                {countdown && (
+                  <div className="p-8 bg-black/60 backdrop-blur-md border border-yellow-500/30 rounded-3xl">
+                    <p className="text-center text-sm text-yellow-400 uppercase tracking-widest mb-4 font-bold">
+                      <Flame className="w-4 h-4 inline mr-1.5 text-red-500 animate-pulse" />
+                      Next Live Show Starts In
+                    </p>
+                    <div className="flex justify-center gap-4">
+                      {[
+                        { val: countdown.days, label: "Days" },
+                        { val: countdown.hours, label: "Hours" },
+                        { val: countdown.minutes, label: "Min" },
+                        { val: countdown.seconds, label: "Sec" },
+                      ].map((t) => (
+                        <div key={t.label} className="flex flex-col items-center">
+                          <span className="text-4xl sm:text-5xl font-bold text-white tabular-nums" style={{ fontFamily: "'Anton', sans-serif" }}>
+                            {String(t.val).padStart(2, "0")}
+                          </span>
+                          <span className="text-xs text-gray-400 uppercase tracking-wider mt-1">{t.label}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mt-6 text-center">
+                      <a href={WHATNOT_PROFILE} target="_blank" rel="noopener noreferrer">
+                        <Button size="sm" className="bg-red-600 hover:bg-red-500 text-white font-bold">
+                          <Radio className="w-4 h-4 mr-2 animate-pulse" />
+                          Set Reminder
+                        </Button>
+                      </a>
+                    </div>
                   </div>
-                ) : (
-                  <form onSubmit={handleCreditSubmit} className="space-y-3">
-                    <input
-                      type="text"
-                      placeholder="First Name (optional)"
-                      value={firstName}
-                      onChange={(e) => setFirstName(e.target.value)}
-                      className="w-full px-4 py-3 bg-input border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
-                    />
-                    <input
-                      type="email"
-                      placeholder="Your email address *"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                      className="w-full px-4 py-3 bg-input border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
-                    />
-                    <Button
-                      type="submit"
-                      size="lg"
-                      className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-base py-5"
-                      disabled={subscribeMutation.isPending}
-                    >
-                      {subscribeMutation.isPending ? (
-                        <><Loader2 className="w-5 h-5 mr-2 animate-spin" />Signing Up...</>
-                      ) : (
-                        <><Zap className="w-5 h-5 mr-2" />Get Show Alerts & Updates</>
-                      )}
-                    </Button>
-                    <p className="text-xs text-muted-foreground text-center">No spam, ever. Unsubscribe anytime.</p>
-                  </form>
                 )}
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ===== SECTION 2: HOW TO CLAIM — 3 STEPS ===== */}
-      <section className="relative py-14 lg:py-20 bg-card border-y border-border overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.02]" style={{
-          backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)',
-          backgroundSize: '40px 40px'
-        }} />
-        <div className="container max-w-5xl relative z-10">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
-              HOW TO <span className="text-yellow-400">GET</span> YOUR $15 CREDIT
-            </h2>
-            <p className="text-muted-foreground text-lg">Three simple steps. Takes less than 30 seconds.</p>
+        {/* Mobile countdown — shows below hero on small screens */}
+        {countdown && (
+          <section className="lg:hidden py-6 bg-card/50 border-y border-border/30">
+            <div className="container">
+              <p className="text-center text-sm text-yellow-400 uppercase tracking-widest mb-3 font-bold">
+                <Flame className="w-4 h-4 inline mr-1.5 text-red-500 animate-pulse" />
+                Next Live Show Starts In
+              </p>
+              <div className="flex justify-center gap-4">
+                {[
+                  { val: countdown.days, label: "Days" },
+                  { val: countdown.hours, label: "Hours" },
+                  { val: countdown.minutes, label: "Min" },
+                  { val: countdown.seconds, label: "Sec" },
+                ].map((t) => (
+                  <div key={t.label} className="flex flex-col items-center">
+                    <span className="text-3xl font-bold text-white tabular-nums" style={{ fontFamily: "'Anton', sans-serif" }}>
+                      {String(t.val).padStart(2, "0")}
+                    </span>
+                    <span className="text-xs text-gray-400 uppercase tracking-wider mt-1">{t.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ===== WHAT WE GIVE AWAY — Side by Side Layout ===== */}
+        <section className="relative py-14 sm:py-20 lg:py-24 overflow-hidden">
+          <div className="absolute inset-0">
+            <div className="absolute top-20 right-[10%] w-96 h-96 bg-green-500/10 rounded-full blur-[160px]" />
+            <div className="absolute bottom-20 left-[10%] w-80 h-80 bg-yellow-500/8 rounded-full blur-[140px]" />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Step 1 */}
-            <div className="relative group">
-              <div className="bg-gradient-to-b from-yellow-500/10 to-transparent border border-yellow-500/20 rounded-2xl p-8 text-center h-full transition-all group-hover:border-yellow-500/40 group-hover:shadow-lg group-hover:shadow-yellow-500/10">
-                <div className="w-20 h-20 bg-yellow-500/15 rounded-full flex items-center justify-center mx-auto mb-5 border-2 border-yellow-500/30 group-hover:scale-110 transition-transform">
-                  <UserPlus className="w-10 h-10 text-yellow-400" />
+          <div className="container relative z-10">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+              {/* Left: Image */}
+              <div className="relative group">
+                <div className="absolute -inset-4 bg-gradient-to-r from-yellow-500/20 to-green-500/20 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                <img
+                  src={LIVE_TABLE}
+                  alt="Marvel graded cards and sealed products laid out for a live show"
+                  className="relative w-full rounded-2xl shadow-2xl shadow-black/50 border border-white/10"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+
+              {/* Right: What We Give Away */}
+              <div>
+                <Badge variant="outline" className="mb-4 border-green-500/30 text-green-400 px-3 py-1 text-xs sm:text-sm">
+                  <Trophy className="w-3 h-3 sm:w-3.5 sm:h-3.5 mr-1.5" />
+                  EVERY SINGLE SHOW
+                </Badge>
+
+                <h2
+                  className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-5 sm:mb-6 leading-[0.95]"
+                  style={{ fontFamily: "'Anton', sans-serif" }}
+                >
+                  WHAT WE
+                  <br />
+                  <span className="text-green-400">GIVE AWAY</span>
+                </h2>
+
+                <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
+                  {[
+                    { icon: Crown, color: "text-yellow-400", bg: "bg-yellow-500/10", title: "Graded Raw Cards", desc: "Top-tier graded and raw Marvel cards — Spider-Man, Wolverine, Doctor Doom, and more" },
+                    { icon: Package, color: "text-blue-400", bg: "bg-blue-500/10", title: "Sealed Hobby Boxes & Packs", desc: "Factory-sealed Marvel Mint, Topps Chrome, and new release products" },
+                    { icon: Gift, color: "text-green-400", bg: "bg-green-500/10", title: "NLF Repacks", desc: "Our hand-curated repack products loaded with hits, parallels, and guaranteed value" },
+                    { icon: Zap, color: "text-purple-400", bg: "bg-purple-500/10", title: "Rare Singles & Parallels", desc: "Numbered parallels, refractors, and chase cards you won't find anywhere else" },
+                    { icon: Sparkles, color: "text-pink-400", bg: "bg-pink-500/10", title: "Surprise Drops", desc: "Random bonus giveaways throughout the show — you never know what's next" },
+                  ].map((item, i) => (
+                    <div key={i} className="flex gap-3 sm:gap-4 items-start">
+                      <div className={`flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 ${item.bg} rounded-xl flex items-center justify-center`}>
+                        <item.icon className={`w-5 h-5 sm:w-6 sm:h-6 ${item.color}`} />
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-white text-base sm:text-lg">{item.title}</h3>
+                        <p className="text-muted-foreground text-xs sm:text-sm">{item.desc}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-                <div className="text-5xl font-bold text-yellow-400/20 mb-2" style={{ fontFamily: "'Anton', sans-serif" }}>01</div>
-                <h3 className="text-xl font-bold mb-2">Sign Up via Our Link</h3>
-                <p className="text-sm text-muted-foreground">
-                  Click our referral link and create your free Whatnot account. Takes 30 seconds.
-                </p>
-              </div>
-              <div className="hidden md:flex absolute top-1/2 -right-4 -translate-y-1/2 z-10">
-                <ArrowRight className="w-8 h-8 text-yellow-500/30" />
-              </div>
-            </div>
 
-            {/* Step 2 */}
-            <div className="relative group">
-              <div className="bg-gradient-to-b from-green-500/10 to-transparent border border-green-500/20 rounded-2xl p-8 text-center h-full transition-all group-hover:border-green-500/40 group-hover:shadow-lg group-hover:shadow-green-500/10">
-                <div className="w-20 h-20 bg-green-500/15 rounded-full flex items-center justify-center mx-auto mb-5 border-2 border-green-500/30 group-hover:scale-110 transition-transform">
-                  <DollarSign className="w-10 h-10 text-green-400" />
+                {/* CTA buttons after prize list — SECTION 2: Purple invite + Green shows */}
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <WhatnotInviteButton
+                    label="Get $15 Free Credit"
+                    size="default"
+                    onClick={handleWhatnotClick}
+                    color="purple"
+                    className="px-6 py-5 text-base w-full sm:w-auto"
+                  />
+                  <UpcomingShowsButton
+                    label="Follow Us on Whatnot"
+                    size="default"
+                    color="green"
+                    className="px-6 py-5 text-base w-full sm:w-auto"
+                  />
                 </div>
-                <div className="text-5xl font-bold text-green-400/20 mb-2" style={{ fontFamily: "'Anton', sans-serif" }}>02</div>
-                <h3 className="text-xl font-bold mb-2">$15 Credit Added</h3>
-                <p className="text-sm text-muted-foreground">
-                  $15 is added to your account automatically. You'll also auto-follow our page.
-                </p>
-              </div>
-              <div className="hidden md:flex absolute top-1/2 -right-4 -translate-y-1/2 z-10">
-                <ArrowRight className="w-8 h-8 text-green-500/30" />
               </div>
             </div>
+          </div>
+        </section>
 
-            {/* Step 3 */}
-            <div className="group">
-              <div className="bg-gradient-to-b from-purple-500/10 to-transparent border border-purple-500/20 rounded-2xl p-8 text-center h-full transition-all group-hover:border-purple-500/40 group-hover:shadow-lg group-hover:shadow-purple-500/10">
-                <div className="w-20 h-20 bg-purple-500/15 rounded-full flex items-center justify-center mx-auto mb-5 border-2 border-purple-500/30 group-hover:scale-110 transition-transform">
-                  <ShoppingBag className="w-10 h-10 text-purple-400" />
+        {/* ===== $15 CREDIT SECTION ===== */}
+        <section className="relative py-14 sm:py-20 lg:py-24 overflow-hidden bg-gradient-to-b from-yellow-900/10 via-background to-background">
+          <div className="absolute inset-0">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-yellow-500/8 rounded-full blur-[200px]" />
+          </div>
+
+          <div className="container relative z-10">
+            <div className="max-w-3xl mx-auto text-center">
+              <Badge variant="outline" className="mb-4 sm:mb-6 border-yellow-500/30 text-yellow-400 px-3 sm:px-4 py-1.5 text-xs sm:text-sm">
+                <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 mr-1.5" />
+                NEW TO WHATNOT?
+              </Badge>
+
+              <h2
+                className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-5 leading-[0.9]"
+                style={{ fontFamily: "'Anton', sans-serif" }}
+              >
+                GET{" "}
+                <span className="text-yellow-400">$15 FREE</span>
+                <br />
+                JUST FOR SIGNING UP
+              </h2>
+
+              <p className="text-base sm:text-lg lg:text-xl text-muted-foreground mb-6 sm:mb-8 leading-relaxed max-w-lg mx-auto px-2">
+                Sign up through our link and get <strong className="text-yellow-400">$15 in free credit</strong> applied automatically at checkout. 
+                Use it on any of our live Marvel singles shows — no minimum spend, no code needed.
+              </p>
+
+              {/* Whatnot invite link pill */}
+              <a
+                href={WHATNOT_INVITE}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={handleWhatnotClick}
+                className="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 bg-primary/15 border border-primary/40 rounded-full mb-6 hover:bg-primary/25 transition-all group"
+              >
+                <Radio className="w-4 h-4 text-primary flex-shrink-0" />
+                <span className="text-primary font-bold text-xs sm:text-sm md:text-base tracking-wide break-all sm:break-normal">whatnot.com/invite/northlandfinds</span>
+                <ExternalLink className="w-3.5 h-3.5 text-primary opacity-60 group-hover:opacity-100 transition-opacity flex-shrink-0" />
+              </a>
+
+              {/* Big CTA — SECTION 3: Green invite + Purple shows */}
+              <div className="flex flex-col sm:flex-row justify-center gap-3 mb-6 sm:mb-8 px-4 sm:px-0">
+                <WhatnotInviteButton
+                  label="Get My $15 Credit"
+                  onClick={handleWhatnotClick}
+                  color="green"
+                  className="text-base sm:text-lg px-8 sm:px-10 py-6 sm:py-7 w-full sm:w-auto"
+                />
+                <UpcomingShowsButton
+                  label="Browse Our Shows"
+                  color="purple"
+                  className="text-base sm:text-lg px-8 sm:px-10 py-6 sm:py-7 w-full sm:w-auto"
+                />
+              </div>
+
+              {/* Trust badges — 2x2 grid on mobile, row on desktop */}
+              <div className="grid grid-cols-2 sm:flex sm:flex-wrap sm:justify-center gap-3 sm:gap-6 text-xs sm:text-sm text-muted-foreground px-4 sm:px-0">
+                {[
+                  { icon: Shield, label: "No Minimum Spend" },
+                  { icon: CheckCircle2, label: "Auto-Follow Shows" },
+                  { icon: Clock, label: "30-Second Signup" },
+                  { icon: DollarSign, label: "Applied at Checkout" },
+                ].map((b) => (
+                  <span key={b.label} className="flex items-center gap-2 justify-center sm:justify-start">
+                    <b.icon className="w-4 h-4 text-green-400 flex-shrink-0" />
+                    <span className="font-medium">{b.label}</span>
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ===== HOW IT WORKS — 3 STEPS ===== */}
+        <section className="relative py-14 sm:py-20 lg:py-24 overflow-hidden">
+          <div className="absolute inset-0">
+            <div className="absolute top-10 left-[20%] w-80 h-80 bg-purple-500/8 rounded-full blur-[160px]" />
+            <div className="absolute bottom-10 right-[20%] w-80 h-80 bg-green-500/8 rounded-full blur-[160px]" />
+          </div>
+
+          <div className="container relative z-10">
+            <div className="text-center mb-10 sm:mb-14">
+              <h2
+                className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3"
+                style={{ fontFamily: "'Anton', sans-serif" }}
+              >
+                HOW IT <span className="text-green-400">WORKS</span>
+              </h2>
+              <p className="text-muted-foreground text-base sm:text-lg">Three steps. Thirty seconds. Free cards.</p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6 sm:gap-8 max-w-5xl mx-auto">
+              {[
+                {
+                  step: "01",
+                  color: "text-green-400",
+                  borderColor: "border-green-500/20 hover:border-green-500/40",
+                  bg: "bg-green-500/5",
+                  title: "Sign Up Free",
+                  desc: "Use our referral link to create a Whatnot account. You'll get $15 in free credit instantly — no code needed.",
+                },
+                {
+                  step: "02",
+                  color: "text-purple-400",
+                  borderColor: "border-purple-500/20 hover:border-purple-500/40",
+                  bg: "bg-purple-500/5",
+                  title: "Join the Live Show",
+                  desc: "Tune into our Marvel Singles shows. We go live regularly with graded cards, sealed packs, and rare pulls.",
+                },
+                {
+                  step: "03",
+                  color: "text-yellow-400",
+                  borderColor: "border-yellow-500/20 hover:border-yellow-500/40",
+                  bg: "bg-yellow-500/5",
+                  title: "Win Free Cards",
+                  desc: "We run giveaways throughout every show. Just hit 'Enter Giveaway' when it pops up. That's it. Free legendary cards.",
+                },
+              ].map((s) => (
+                <div
+                  key={s.step}
+                  className={`${s.bg} border ${s.borderColor} rounded-2xl p-6 sm:p-8 transition-all duration-300 hover:scale-[1.02]`}
+                >
+                  <div className={`text-sm font-bold ${s.color} uppercase tracking-widest mb-3`}>
+                    STEP {s.step}
+                  </div>
+                  <h3 className="text-xl sm:text-2xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
+                    {s.title}
+                  </h3>
+                  <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">{s.desc}</p>
                 </div>
-                <div className="text-5xl font-bold text-purple-400/20 mb-2" style={{ fontFamily: "'Anton', sans-serif" }}>03</div>
-                <h3 className="text-xl font-bold mb-2">Use It on Your First Buy</h3>
-                <p className="text-sm text-muted-foreground">
-                  Credit applies automatically at checkout on your first purchase. No minimum spend!
-                </p>
+              ))}
+            </div>
+
+            {/* CTA under steps — SECTION 4: Purple invite + Green shows */}
+            <div className="mt-10 sm:mt-12 text-center">
+              <p className="text-muted-foreground text-sm sm:text-base mb-4">Ready to get started? It takes 30 seconds.</p>
+              <div className="flex flex-col sm:flex-row justify-center gap-3">
+                <WhatnotInviteButton
+                  label="Sign Up & Get $15"
+                  onClick={handleWhatnotClick}
+                  color="purple"
+                  className="text-base px-8 py-6 w-full sm:w-auto"
+                />
+                <UpcomingShowsButton
+                  label="See When We're Live"
+                  color="green"
+                  className="text-base px-8 py-6 w-full sm:w-auto"
+                />
               </div>
             </div>
           </div>
+        </section>
 
-          {/* CTA under steps */}
-          <div className="text-center mt-10">
-            <a href={WHATNOT_INVITE} target="_blank" rel="noopener noreferrer" onClick={handleWhatnotClick}>
-              <Button size="lg" className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-lg px-10 py-7 shadow-xl shadow-yellow-500/20 hover:shadow-yellow-500/40 transition-all hover:scale-[1.02]">
-                <Gift className="w-6 h-6 mr-2" />
-                Get My $15 Credit
-                <ExternalLink className="w-4 h-4 ml-2" />
-              </Button>
-            </a>
+        {/* ===== CARD SHOWCASE — FLOATING CARDS ===== */}
+        <section className="relative py-12 sm:py-16 lg:py-20 overflow-hidden">
+          {/* Subtle background glow */}
+          <div className="absolute inset-0">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-primary/8 rounded-full blur-[180px]" />
           </div>
-        </div>
-      </section>
 
-      {/* ===== SECTION 3: HOW THE 500-PACK SERIES WORKS ===== */}
-      <section className="py-14 lg:py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-purple-900/10 via-transparent to-transparent" />
-        <div className="container max-w-5xl relative z-10">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-purple-500/15 border border-purple-500/30 rounded-full mb-4">
-              <Play className="w-4 h-4 text-purple-400" />
-              <span className="text-purple-400 text-sm font-bold tracking-wide">OUR LIVE SHOWS</span>
+          <div className="container relative z-10">
+            <div className="text-center mb-8 sm:mb-10">
+              <h2
+                className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3"
+                style={{ fontFamily: "'Anton', sans-serif" }}
+              >
+                CARDS WE'VE <span className="text-yellow-400">GIVEN AWAY</span>
+              </h2>
+              <p className="text-muted-foreground text-sm sm:text-base">Real cards. Real winners. Real legends.</p>
             </div>
-            <h2 className="text-3xl md:text-5xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
-              HOW THE <span className="text-purple-400">500-PACK SERIES</span> WORKS
-            </h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              A limited series designed for the ultimate live stream experience. Every card is real, every pull is live, every checklist is public.
-            </p>
-          </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-            <div className="bg-card border border-border rounded-2xl p-6 text-center hover:border-purple-500/30 transition-all hover:shadow-lg hover:shadow-purple-500/5">
-              <div className="w-14 h-14 bg-purple-500/10 rounded-xl flex items-center justify-center mx-auto mb-4 border border-purple-500/20">
-                <Package className="w-7 h-7 text-purple-400" />
+            {/* Desktop: 5 cards in a row with varied rotations */}
+            <div className="hidden md:flex justify-center items-end gap-4 lg:gap-6">
+              {[
+                { src: CARD_IMAGES.spiderman, alt: "Spider-Man — Marvel Mint Gambit's Deck CGC 9", rotate: "-6deg", delay: "0s" },
+                { src: CARD_IMAGES.gambit, alt: "Gambit — Marvel Mint CGC 9", rotate: "3deg", delay: "0.1s" },
+                { src: CARD_IMAGES.ironman, alt: "Iron Man — Topps Chrome 45/50", rotate: "-2deg", delay: "0.2s" },
+                { src: CARD_IMAGES.wolverine, alt: "Wolverine — Marvel Mint CGC 10", rotate: "4deg", delay: "0.3s" },
+                { src: CARD_IMAGES.magneto, alt: "Magneto — Marvel Mint CGC 10", rotate: "-5deg", delay: "0.4s" },
+              ].map((card, i) => (
+                <div
+                  key={i}
+                  className="group relative flex-shrink-0 transition-all duration-500 hover:scale-110 hover:z-20"
+                  style={{
+                    transform: `rotate(${card.rotate})`,
+                    animationDelay: card.delay,
+                  }}
+                >
+                  <div className="relative">
+                    {/* Card glow on hover */}
+                    <div className="absolute -inset-3 bg-yellow-500/0 group-hover:bg-yellow-500/20 rounded-2xl blur-xl transition-all duration-500" />
+                    <img
+                      src={card.src}
+                      alt={card.alt}
+                      loading="lazy"
+                      decoding="async"
+                      className="relative w-36 lg:w-44 xl:w-48 rounded-xl shadow-2xl shadow-black/50 border border-white/10 group-hover:border-yellow-500/40 transition-all duration-500 group-hover:shadow-yellow-500/20"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Mobile: Horizontal scroll strip — larger cards, better touch */}
+            <div className="md:hidden overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide snap-x snap-mandatory">
+              <div className="flex gap-4 w-max">
+                {[
+                  { src: CARD_IMAGES.spiderman, alt: "Spider-Man — Marvel Mint Gambit's Deck CGC 9" },
+                  { src: CARD_IMAGES.gambit, alt: "Gambit — Marvel Mint CGC 9" },
+                  { src: CARD_IMAGES.ironman, alt: "Iron Man — Topps Chrome 45/50" },
+                  { src: CARD_IMAGES.wolverine, alt: "Wolverine — Marvel Mint CGC 10" },
+                  { src: CARD_IMAGES.magneto, alt: "Magneto — Marvel Mint CGC 10" },
+                ].map((card, i) => (
+                  <div key={i} className="flex-shrink-0 snap-center">
+                    <img
+                      src={card.src}
+                      alt={card.alt}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-44 rounded-xl shadow-2xl shadow-black/50 border border-white/10"
+                    />
+                  </div>
+                ))}
               </div>
-              <div className="text-4xl font-bold text-purple-400 mb-1" style={{ fontFamily: "'Anton', sans-serif" }}>500</div>
-              <h3 className="font-bold mb-1 text-sm">Total Packs</h3>
-              <p className="text-xs text-muted-foreground">
-                Limited to exactly 500 packs. Once they're gone, they're gone forever.
+            </div>
+
+            {/* CTA under cards — SECTION 5: Green invite + Purple shows */}
+            <div className="mt-8 sm:mt-10 text-center">
+              <p className="text-muted-foreground text-sm sm:text-base mb-4">Want cards like these? They're free at our shows.</p>
+              <div className="flex flex-col sm:flex-row justify-center gap-3">
+                <WhatnotInviteButton
+                  label="Get $15 Free Credit"
+                  onClick={handleWhatnotClick}
+                  color="green"
+                  className="text-base px-8 py-6 w-full sm:w-auto"
+                />
+                <UpcomingShowsButton
+                  label="See Upcoming Shows"
+                  color="purple"
+                  className="text-base px-8 py-6 w-full sm:w-auto"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ===== FINAL CTA — BOTTOM BANNER ===== */}
+        <section className="relative py-12 sm:py-16 lg:py-20 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-yellow-900/20 via-background to-green-900/20" />
+          <div className="container relative z-10">
+            <div className="max-w-2xl mx-auto text-center">
+              <h2
+                className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4"
+                style={{ fontFamily: "'Anton', sans-serif" }}
+              >
+                DON'T MISS THE
+                <br />
+                <span className="text-yellow-400">NEXT SHOW</span>
+              </h2>
+              <p className="text-muted-foreground text-base sm:text-lg mb-6 sm:mb-8 px-4 sm:px-0">
+                Follow us on Whatnot to get notified when we go live. Free giveaways. Legendary cards. Every single show.
               </p>
-            </div>
-
-            <div className="bg-card border border-border rounded-2xl p-6 text-center hover:border-red-500/30 transition-all hover:shadow-lg hover:shadow-red-500/5">
-              <div className="w-14 h-14 bg-red-500/10 rounded-xl flex items-center justify-center mx-auto mb-4 border border-red-500/20">
-                <Radio className="w-7 h-7 text-red-400" />
+              {/* SECTION 6: Purple invite + Green shows */}
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4 sm:px-0">
+                <WhatnotInviteButton
+                  label="Claim $15 Free Credit"
+                  onClick={handleWhatnotClick}
+                  color="purple"
+                  className="text-base sm:text-lg px-6 sm:px-8 py-6 sm:py-7 w-full sm:w-auto"
+                />
+                <UpcomingShowsButton
+                  label="View Upcoming Shows"
+                  color="green"
+                  className="text-base sm:text-lg px-6 sm:px-8 py-6 sm:py-7 w-full sm:w-auto"
+                />
               </div>
-              <div className="text-4xl font-bold text-red-400 mb-1" style={{ fontFamily: "'Anton', sans-serif" }}>50</div>
-              <h3 className="font-bold mb-1 text-sm">Packs Per Show</h3>
-              <p className="text-xs text-muted-foreground">
-                50 packs opened live each show. 10 shows to complete the series.
-              </p>
-            </div>
-
-            <div className="bg-card border border-border rounded-2xl p-6 text-center hover:border-primary/30 transition-all hover:shadow-lg hover:shadow-primary/5">
-              <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-4 border border-primary/20">
-                <Zap className="w-7 h-7 text-primary" />
-              </div>
-              <div className="text-4xl font-bold text-primary mb-1" style={{ fontFamily: "'Anton', sans-serif" }}>LIVE</div>
-              <h3 className="font-bold mb-1 text-sm">Real-Time Pulls</h3>
-              <p className="text-xs text-muted-foreground">
-                Every pull logged live. Check the checklist to see what's been pulled.
-              </p>
-            </div>
-
-            <div className="bg-card border border-border rounded-2xl p-6 text-center hover:border-amber-500/30 transition-all hover:shadow-lg hover:shadow-amber-500/5">
-              <div className="w-14 h-14 bg-amber-500/10 rounded-xl flex items-center justify-center mx-auto mb-4 border border-amber-500/20">
-                <Star className="w-7 h-7 text-amber-400" />
-              </div>
-              <div className="text-4xl font-bold text-amber-400 mb-1" style={{ fontFamily: "'Anton', sans-serif" }}>WIN</div>
-              <h3 className="font-bold mb-1 text-sm">Giveaways & Deals</h3>
-              <p className="text-xs text-muted-foreground">
-                Every show features giveaways, deals, and surprises. Don't miss out.
-              </p>
             </div>
           </div>
+        </section>
 
-          <div className="flex flex-wrap gap-4 justify-center mt-10">
-            <a href={WHATNOT_STORE_URL} target="_blank" rel="noopener noreferrer">
-              <Button size="lg" className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-lg px-8 py-6">
-                <Radio className="w-5 h-5 mr-2" />
-                Follow on Whatnot
-                <ExternalLink className="w-4 h-4 ml-2" />
-              </Button>
-            </a>
-            <Link href="/checklists">
-              <Button size="lg" variant="outline" className="border-primary/30 text-primary hover:bg-primary/10 font-bold text-lg px-8 py-6">
-                <Eye className="w-5 h-5 mr-2" />
-                View Checklists
-              </Button>
-            </Link>
+        {/* ===== OFFICIAL RULES / LEGAL DISCLAIMER ===== */}
+        <section className="py-8 sm:py-12 border-t border-border/30">
+          <div className="container">
+            <div className="max-w-3xl mx-auto text-center">
+              <button
+                onClick={() => setShowRules(!showRules)}
+                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mx-auto min-h-[48px] px-4"
+              >
+                <Shield className="w-4 h-4" />
+                <span className="underline underline-offset-2">
+                  {showRules ? "Hide" : "View"} Official Giveaway Rules & Disclaimers
+                </span>
+              </button>
+
+              {showRules && (
+                <div className="mt-6 p-4 sm:p-6 bg-card border border-border rounded-2xl text-xs text-muted-foreground space-y-4 leading-relaxed text-left">
+                  <h4 className="text-sm font-bold text-foreground">
+                    OFFICIAL GIVEAWAY RULES — NORTHLAND LEGENDARY FINDS
+                  </h4>
+
+                  <p>
+                    <strong>NO PURCHASE NECESSARY TO ENTER OR WIN.</strong> Void where prohibited.
+                    Open to legal residents of the 50 United States and the District of Columbia
+                    who are 18 years of age or older (19+ in AL and NE, 21+ in MS) at the time of entry.
+                  </p>
+
+                  <p>
+                    <strong>Sponsor:</strong> Northland Legendary Finds, Minnesota, USA.
+                    Contact: support@northlandlegendaryfinds.com
+                  </p>
+
+                  <p>
+                    <strong>Promotion Period:</strong> Giveaways occur during live streams on the
+                    Whatnot platform hosted by Northland Legendary Finds (username: northlandfinds).
+                    Specific dates and times will be announced on our Whatnot page and via email
+                    notifications to subscribers. Each individual giveaway runs for up to five (5)
+                    minutes during the live stream.
+                  </p>
+
+                  <p>
+                    <strong>How to Enter:</strong> During a live stream on Whatnot, when a giveaway
+                    is pinned to the livestream, press the "Enter Giveaway" button to gain entry.
+                    You must be present in the live stream to win. Limit one (1) entry per person
+                    per giveaway, regardless of method of entry.
+                  </p>
+
+                  <p>
+                    <strong>Alternative Method of Entry (AMOE):</strong> To enter without making a
+                    purchase or being present on Whatnot, send an email to
+                    support@northlandlegendaryfinds.com with the subject line "Giveaway Entry" and
+                    include your full name, email address, and mailing address. Entries must be
+                    received during the applicable giveaway period. Limit one (1) AMOE entry per
+                    person per giveaway.
+                  </p>
+
+                  <p>
+                    <strong>Prizes:</strong> Prizes include sealed Marvel trading
+                    card packs, sealed hobby boxes, PSA/CGC graded cards, and raw trading cards.
+                    Individual prize values and descriptions will be announced at the time of each
+                    giveaway. Prizes are non-transferable and no substitution or cash equivalent is
+                    available unless at Sponsor's sole discretion.
+                  </p>
+
+                  <p>
+                    <strong>Winner Selection:</strong> Winners are selected at random using Whatnot's
+                    built-in giveaway feature during the live stream. Odds of winning depend on the
+                    number of eligible entries received for each individual giveaway.
+                  </p>
+
+                  <p>
+                    <strong>Winner Notification & Prize Fulfillment:</strong> Winners will be
+                    announced live during the stream and notified via the Whatnot platform. Winners
+                    must provide a valid shipping address within the United States for prize delivery.
+                    Prizes will be shipped within 14 business days of winner confirmation.
+                  </p>
+
+                  <p>
+                    <strong>General Conditions:</strong> By entering, participants agree to be bound
+                    by these Official Rules. Sponsor reserves the right to disqualify any entrant
+                    who tampers with the entry process or violates these rules. All federal, state,
+                    and local taxes on prizes are the sole responsibility of the winner.
+                  </p>
+
+                  <p>
+                    <strong>Release of Liability:</strong> By entering, participants agree to release
+                    and hold harmless Sponsor, Whatnot Inc., Meta Platforms Inc. (Facebook), and
+                    their respective officers, directors, employees, agents, and affiliates from any
+                    and all liability for injuries, losses, or damages of any kind arising from
+                    participation in the promotion or acceptance of any prize.
+                  </p>
+
+                  <p>
+                    <strong>Platform Disclaimer:</strong> This promotion is in no way sponsored,
+                    endorsed, administered by, or associated with Whatnot, Inc. or its affiliates.
+                    This promotion is also in no way sponsored, endorsed, administered by, or associated
+                    with Meta Platforms, Inc. (Facebook/Instagram) or its affiliates. Participants
+                    are providing information to Northland Legendary Finds and not to Whatnot or Meta.
+                  </p>
+
+                  <p>
+                    <strong>Privacy:</strong> Information collected from entrants is subject to
+                    Sponsor's Privacy Policy available at northlandlegendaryfinds.com/privacy.
+                  </p>
+
+                  <p>
+                    <strong>Governing Law:</strong> This promotion is governed by the laws of the
+                    State of Minnesota, without regard to conflict of law principles.
+                  </p>
+
+                  <p className="text-muted-foreground/50 italic">
+                    Last updated: April 2026. These rules may be updated periodically. Check this
+                    page for the most current version.
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
-      {/* ===== MID-PAGE WHATNOT BANNER ===== */}
-      <section className="py-6">
-        <div className="container">
+      {/* ===== STICKY MOBILE CTA BAR — Always visible on phones ===== */}
+      <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-background/95 backdrop-blur-lg border-t border-border/50 px-4 py-3 safe-area-bottom">
+        <div className="flex gap-2">
           <a
-            href={WHATNOT_STORE_URL}
+            href={WHATNOT_INVITE}
             target="_blank"
             rel="noopener noreferrer"
-            className="group block bg-gradient-to-r from-green-600/20 via-green-500/10 to-green-600/20 border border-green-500/30 hover:border-green-400/50 rounded-2xl p-5 transition-all hover:shadow-lg hover:shadow-green-500/10"
+            onClick={handleWhatnotClick}
+            className="flex-1"
           >
-            <div className="flex items-center justify-between flex-wrap gap-4">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center border border-green-500/30 group-hover:scale-110 transition-transform">
-                  <Radio className="w-6 h-6 text-green-400" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-green-400" style={{ fontFamily: "'Anton', sans-serif" }}>VISIT OUR WHATNOT STORE</h3>
-                  <p className="text-sm text-muted-foreground">Browse our profile, see reviews, and follow for live show notifications</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-2 text-green-400 font-bold">
-                <span>Go to Whatnot</span>
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </div>
-            </div>
+            <Button className="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-5 text-sm shadow-lg">
+              <Gift className="w-4 h-4 mr-1.5 flex-shrink-0" />
+              $15 Free Credit
+            </Button>
+          </a>
+          <a
+            href={WHATNOT_PROFILE}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1"
+          >
+            <Button className="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-5 text-sm shadow-lg">
+              <Radio className="w-4 h-4 mr-1.5 flex-shrink-0" />
+              Our Shows
+            </Button>
           </a>
         </div>
-      </section>
-
-      {/* ===== SECTION 4: UPCOMING SHOWS ===== */}
-      <section className="py-14 lg:py-20 bg-card border-y border-border">
-        <div className="container">
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold" style={{ fontFamily: "'Anton', sans-serif" }}>
-                <span className="text-red-400">UPCOMING</span> SHOWS
-              </h2>
-              <p className="text-muted-foreground">Don't miss a show — follow us on Whatnot for notifications</p>
-            </div>
-          </div>
-
-          {showsLoading ? (
-            <div className="flex items-center justify-center py-12">
-              <Loader2 className="w-8 h-8 animate-spin text-primary" />
-            </div>
-          ) : !upcomingShows || upcomingShows.length === 0 ? (
-            <div className="bg-gradient-to-br from-purple-900/10 via-card to-card border border-purple-500/10 rounded-2xl p-12 text-center">
-              <Calendar className="w-14 h-14 text-muted-foreground mx-auto mb-4" />
-              <h3 className="text-2xl font-bold mb-2" style={{ fontFamily: "'Anton', sans-serif" }}>NO SHOWS SCHEDULED YET</h3>
-              <p className="text-muted-foreground max-w-md mx-auto mb-6">
-                Shows will be announced soon. Follow us on Whatnot to get notified when we go live!
-              </p>
-              <a href={WHATNOT_STORE_URL} target="_blank" rel="noopener noreferrer">
-                <Button className="bg-purple-600 hover:bg-purple-700 text-white font-bold px-6 py-5">
-                  <Radio className="w-4 h-4 mr-2" /> Whatnot Live
-                </Button>
-              </a>
-            </div>
-          ) : (
-            <div className="grid gap-4">
-              {upcomingShows.map(show => (
-                <Card key={show.id} className="hover:border-purple-500/30 transition-colors overflow-hidden">
-                  <div className="h-1 bg-gradient-to-r from-purple-600 to-red-600" />
-                  <CardContent className="py-5">
-                    <div className="flex items-center justify-between flex-wrap gap-4">
-                      <div className="flex items-center gap-4">
-                        <div className="w-14 h-14 bg-gradient-to-br from-purple-500/20 to-red-500/20 rounded-xl flex items-center justify-center border border-purple-500/20">
-                          <Radio className="w-7 h-7 text-purple-400" />
-                        </div>
-                        <div>
-                          <h3 className="text-lg font-bold">{show.title}</h3>
-                          <div className="flex items-center gap-3 text-sm text-muted-foreground flex-wrap">
-                            <span className="flex items-center gap-1">
-                              <Calendar className="w-4 h-4" />
-                              {new Date(Number(show.showDate)).toLocaleDateString('en-US', {
-                                weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'
-                              })}
-                            </span>
-                            <span className="flex items-center gap-1">
-                              <Clock className="w-4 h-4" />
-                              {new Date(Number(show.showDate)).toLocaleTimeString('en-US', {
-                                hour: 'numeric', minute: '2-digit', timeZoneName: 'short'
-                              })}
-                            </span>
-                          </div>
-                          {show.notes && <p className="text-sm text-muted-foreground mt-1">{show.notes}</p>}
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <Badge className="bg-blue-500/10 text-blue-400 border-blue-500/30">
-                          <Clock className="w-3 h-3 mr-1" /> Upcoming
-                        </Badge>
-                        {show.whatnotUrl && (
-                          <a href={show.whatnotUrl} target="_blank" rel="noopener noreferrer">
-                            <Button variant="outline" className="border-purple-500/30 text-purple-400 hover:bg-purple-500/10">
-                              <ExternalLink className="w-4 h-4 mr-1" /> Whatnot
-                            </Button>
-                          </a>
-                        )}
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* ===== SECTION 5: WHATNOT LIVE PRODUCTS ===== */}
-      {whatnotProducts.length > 0 && (
-        <section className="py-14 lg:py-20">
-          <div className="container">
-            <div className="text-center mb-10">
-              <h2 className="text-3xl md:text-4xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
-                WHATNOT <span className="text-purple-400">LIVE</span> PRODUCTS
-              </h2>
-              <p className="text-muted-foreground text-lg">
-                Available during our live shows on Whatnot
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-              {whatnotProducts.map(product => (
-                <Link key={product.id} href={`/checklist/${product.slug}`}>
-                  <Card className="group hover:border-purple-500/30 transition-all duration-300 cursor-pointer overflow-hidden h-full">
-                    <div className="h-2 bg-gradient-to-r from-purple-600 to-red-600" />
-                    <CardContent className="p-6">
-                      <div className="flex items-center gap-2 mb-3">
-                        <Badge variant="outline" className="border-purple-500/50 text-purple-400">
-                          <Radio className="w-3 h-3 mr-1" /> Live Show
-                        </Badge>
-                      </div>
-                      <h3 className="text-xl font-bold mb-2 group-hover:text-purple-400 transition-colors">
-                        {product.name}
-                      </h3>
-                      {product.description && (
-                        <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{product.description}</p>
-                      )}
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="text-muted-foreground">
-                          {product.packsRemaining}/{product.totalPacks} packs left
-                        </span>
-                        <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-purple-400 group-hover:translate-x-1 transition-all" />
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* ===== SECTION 6: PAST SHOWS ===== */}
-      {pastShows.length > 0 && (
-        <section className="py-14 lg:py-20 bg-card border-y border-border">
-          <div className="container">
-            <h2 className="text-3xl font-bold mb-6" style={{ fontFamily: "'Anton', sans-serif" }}>
-              PAST <span className="text-green-400">SHOWS</span>
-            </h2>
-            <div className="grid gap-3">
-              {pastShows.map(show => (
-                <Card key={show.id} className="hover:border-green-500/20 transition-colors">
-                  <CardContent className="py-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-green-500/10 rounded-lg flex items-center justify-center">
-                          <Radio className="w-5 h-5 text-green-400" />
-                        </div>
-                        <div>
-                          <h3 className="font-bold">{show.title}</h3>
-                          <div className="text-sm text-muted-foreground">
-                            {new Date(Number(show.showDate)).toLocaleDateString()} · {show.packsOpened} packs opened
-                          </div>
-                        </div>
-                      </div>
-                      <Badge className="bg-green-500/10 text-green-400 border-green-500/30">Completed</Badge>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* ===== SECTION 7: FINAL CTA — DON'T MISS THE ACTION ===== */}
-      <section className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-purple-900/15 via-transparent to-transparent" />
-        <div className="absolute top-10 left-1/3 w-64 h-64 bg-purple-500/10 rounded-full blur-[100px]" />
-        <div className="absolute bottom-10 right-1/3 w-64 h-64 bg-yellow-500/10 rounded-full blur-[100px]" />
-
-        <div className="container max-w-3xl text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-purple-500/15 border border-purple-500/30 rounded-full mb-6">
-            <Sparkles className="w-4 h-4 text-purple-400" />
-            <span className="text-purple-400 text-sm font-bold tracking-wide">JOIN THE COMMUNITY</span>
-          </div>
-
-          <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ fontFamily: "'Anton', sans-serif" }}>
-            DON'T MISS THE <span className="text-purple-400">ACTION</span>
-          </h2>
-          <p className="text-xl text-muted-foreground mb-8 max-w-xl mx-auto">
-            Follow Northland Legendary Finds on Whatnot to get notified when we go live. 
-            Every show is free to watch.
-          </p>
-
-          {/* QR Code */}
-          <div className="flex flex-col items-center mb-8">
-            <div className="bg-white rounded-2xl p-4 shadow-2xl shadow-purple-500/20">
-              <img
-                src={QR_CODE_2}
-                alt="Scan to follow us on Whatnot"
-                className="w-40 h-40"
-              />
-            </div>
-            <p className="text-sm text-muted-foreground mt-3">Scan to follow on Whatnot</p>
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href={WHATNOT_STORE_URL} target="_blank" rel="noopener noreferrer">
-              <Button size="lg" className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-lg px-10 py-7 shadow-xl shadow-yellow-500/20 hover:shadow-yellow-500/40 transition-all hover:scale-[1.02]">
-                <Radio className="w-5 h-5 mr-2" />
-                Follow on Whatnot
-                <ExternalLink className="w-4 h-4 ml-2" />
-              </Button>
-            </a>
-            <a href={WHATNOT_INVITE} target="_blank" rel="noopener noreferrer" onClick={handleWhatnotClick}>
-              <Button size="lg" className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-lg px-10 py-7">
-                <Gift className="w-5 h-5 mr-2" />
-                Get $15 Credit
-                <ExternalLink className="w-4 h-4 ml-2" />
-              </Button>
-            </a>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    {/* ===== STICKY FLOATING WHATNOT BUTTON ===== */}
-    <div
-      className={`fixed bottom-6 right-6 z-50 transition-all duration-500 ${
-        showSticky ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'
-      }`}
-    >
-      <a
-        href={WHATNOT_STORE_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="group flex items-center gap-3 bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-white font-bold px-6 py-4 rounded-full shadow-2xl shadow-green-500/30 hover:shadow-green-500/50 transition-all hover:scale-105 ring-2 ring-green-400/30"
-      >
-        <span className="relative flex h-3 w-3">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
-        </span>
-        <span className="text-base tracking-wide">Visit Our Whatnot</span>
-        <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-      </a>
-    </div>
+      </div>
     </>
   );
 }

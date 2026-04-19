@@ -1539,3 +1539,6 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 ## Giveaway Page - Add NLF Repacks
 - [x] Add NLF Repacks to hero description text
 - [x] Add NLF Repacks as a prize category in "What We Give Away" section
+
+## Whatnot Page Redesign
+- [x] Make Whatnot page (/whatnot) match the same design/content as the Giveaway page (/giveaway)
