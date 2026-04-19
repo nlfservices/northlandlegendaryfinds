@@ -167,7 +167,7 @@ export default function Giveaway() {
                   Every live show on Whatnot, we give away <strong className="text-yellow-400">graded cards, raw singles, sealed packs, and hobby boxes</strong> — completely free. We're always switching it up, dropping random cards throughout our shows to keep things fresh. No catch. Just show up and enter.
                 </p>
 
-                {/* Dual CTAs — stacked on mobile, side by side on sm+ — SECTION 1: GREEN */}
+                {/* Dual CTAs — SECTION 1: Green invite + Purple shows */}
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6">
                   <WhatnotInviteButton
                     label="Get $15 Free Credit"
@@ -177,7 +177,7 @@ export default function Giveaway() {
                   />
                   <UpcomingShowsButton
                     label="See Upcoming Shows"
-                    color="green"
+                    color="purple"
                     className="text-base sm:text-lg px-6 sm:px-8 py-6 sm:py-7 w-full sm:w-auto"
                   />
                 </div>
@@ -329,7 +329,7 @@ export default function Giveaway() {
                   ))}
                 </div>
 
-                {/* CTA buttons after prize list — SECTION 2: PURPLE */}
+                {/* CTA buttons after prize list — SECTION 2: Purple invite + Green shows */}
                 <div className="flex flex-col sm:flex-row gap-3">
                   <WhatnotInviteButton
                     label="Get $15 Free Credit"
@@ -341,7 +341,7 @@ export default function Giveaway() {
                   <UpcomingShowsButton
                     label="Follow Us on Whatnot"
                     size="default"
-                    color="purple"
+                    color="green"
                     className="px-6 py-5 text-base w-full sm:w-auto"
                   />
                 </div>
@@ -391,7 +391,7 @@ export default function Giveaway() {
                 <ExternalLink className="w-3.5 h-3.5 text-primary opacity-60 group-hover:opacity-100 transition-opacity flex-shrink-0" />
               </a>
 
-              {/* Big CTA — SECTION 3: GREEN */}
+              {/* Big CTA — SECTION 3: Green invite + Purple shows */}
               <div className="flex flex-col sm:flex-row justify-center gap-3 mb-6 sm:mb-8 px-4 sm:px-0">
                 <WhatnotInviteButton
                   label="Get My $15 Credit"
@@ -401,7 +401,7 @@ export default function Giveaway() {
                 />
                 <UpcomingShowsButton
                   label="Browse Our Shows"
-                  color="green"
+                  color="purple"
                   className="text-base sm:text-lg px-8 sm:px-10 py-6 sm:py-7 w-full sm:w-auto"
                 />
               </div>
@@ -488,7 +488,7 @@ export default function Giveaway() {
               ))}
             </div>
 
-            {/* CTA after How It Works — SECTION 4: PURPLE */}
+            {/* CTA after How It Works — SECTION 4: Purple invite + Green shows */}
             <div className="mt-8 sm:mt-12 text-center">
               <p className="text-muted-foreground text-sm sm:text-base mb-4">Ready to get started? It takes 30 seconds.</p>
               <div className="flex flex-col sm:flex-row justify-center gap-3">
@@ -500,7 +500,7 @@ export default function Giveaway() {
                 />
                 <UpcomingShowsButton
                   label="See When We're Live"
-                  color="purple"
+                  color="green"
                   className="text-base px-8 py-6 w-full sm:w-auto"
                 />
               </div>
@@ -581,7 +581,7 @@ export default function Giveaway() {
               </div>
             </div>
 
-            {/* CTA under cards — SECTION 5: GREEN */}
+            {/* CTA under cards — SECTION 5: Green invite + Purple shows */}
             <div className="mt-8 sm:mt-10 text-center">
               <p className="text-muted-foreground text-sm sm:text-base mb-4">Want cards like these? They're free at our shows.</p>
               <div className="flex flex-col sm:flex-row justify-center gap-3">
@@ -593,7 +593,7 @@ export default function Giveaway() {
                 />
                 <UpcomingShowsButton
                   label="See Upcoming Shows"
-                  color="green"
+                  color="purple"
                   className="text-base px-8 py-6 w-full sm:w-auto"
                 />
               </div>
@@ -617,7 +617,7 @@ export default function Giveaway() {
               <p className="text-muted-foreground text-base sm:text-lg mb-6 sm:mb-8 px-4 sm:px-0">
                 Follow us on Whatnot to get notified when we go live. Free giveaways. Legendary cards. Every single show.
               </p>
-              {/* SECTION 6: PURPLE */}
+              {/* SECTION 6: Purple invite + Green shows */}
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4 sm:px-0">
                 <WhatnotInviteButton
                   label="Claim $15 Free Credit"
@@ -627,7 +627,7 @@ export default function Giveaway() {
                 />
                 <UpcomingShowsButton
                   label="View Upcoming Shows"
-                  color="purple"
+                  color="green"
                   className="text-base sm:text-lg px-6 sm:px-8 py-6 sm:py-7 w-full sm:w-auto"
                 />
               </div>

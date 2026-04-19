@@ -1527,3 +1527,6 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 
 ## Giveaway Page Button Color Fix
 - [x] Change black buttons to alternate green/purple per section on giveaway page
+
+## Giveaway Page Two-Color Buttons Per Section
+- [x] Make each section's two buttons different colors (one green, one purple), alternating lead per section
