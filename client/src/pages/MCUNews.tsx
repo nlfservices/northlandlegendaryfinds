@@ -123,19 +123,48 @@ export default function MCUNews() {
   );
   const { data: featuredArticles = [] } = trpc.articles.featured.useQuery();
 
-  const filteredArticles = useMemo(() => {
-    if (!searchQuery.trim()) return allArticles;
-    const q = searchQuery.toLowerCase();
-    return allArticles.filter(
-      a =>
-        a.title.toLowerCase().includes(q) ||
-        a.excerpt?.toLowerCase().includes(q) ||
-        (a.tags as string[] | null)?.some(t => t.toLowerCase().includes(q))
-    );
-  }, [allArticles, searchQuery]);
+  // Daily rotation helper — shared between featured and grid
+  const dayOfYear = useMemo(() => {
+    const now = new Date();
+    const startOfYear = new Date(now.getFullYear(), 0, 0);
+    return Math.floor((now.getTime() - startOfYear.getTime()) / 86_400_000);
+  }, []);
 
-  const mainFeatured = featuredArticles[0];
-  const sideFeatured = featuredArticles.slice(1, 3);
+  const filteredArticles = useMemo(() => {
+    let list = allArticles;
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      list = list.filter(
+        a =>
+          a.title.toLowerCase().includes(q) ||
+          a.excerpt?.toLowerCase().includes(q) ||
+          (a.tags as string[] | null)?.some(t => t.toLowerCase().includes(q))
+      );
+    }
+    // Apply daily round-robin rotation to the article grid
+    // Only rotate when not searching (search results should be relevance-ordered)
+    if (!searchQuery.trim() && list.length > 1) {
+      const offset = dayOfYear % list.length;
+      list = [...list.slice(offset), ...list.slice(0, offset)];
+    }
+    return list;
+  }, [allArticles, searchQuery, dayOfYear]);
+
+  // Daily round-robin rotation: the "main featured" article rotates each day
+  // Uses day-of-year so every morning visitors see a different hero article
+  const rotatedFeatured = useMemo(() => {
+    if (featuredArticles.length === 0) return { main: null, side: [] as typeof featuredArticles };
+    const mainIndex = dayOfYear % featuredArticles.length;
+    // Rotate the array so mainIndex becomes position 0
+    const rotated = [
+      ...featuredArticles.slice(mainIndex),
+      ...featuredArticles.slice(0, mainIndex),
+    ];
+    return { main: rotated[0], side: rotated.slice(1, 3) };
+  }, [featuredArticles, dayOfYear]);
+
+  const mainFeatured = rotatedFeatured.main;
+  const sideFeatured = rotatedFeatured.side;
 
   return (
     <div className="min-h-screen">
