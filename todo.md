@@ -1542,3 +1542,9 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 
 ## Whatnot Page Redesign
 - [x] Make Whatnot page (/whatnot) match the same design/content as the Giveaway page (/giveaway)
+
+## New MCU News Articles - April 19, 2026
+- [x] Research latest Marvel Doomsday/MCU news topics (CinemaCon, test screenings, F4 box office, Phase 6)
+- [x] Write 5 articles with AI-generated images, card collecting tie-ins, and Collector's Corner
+- [x] Publish all 5 articles immediately (breaking CinemaCon news)
+- [ ] Schedule future article batches at 6AM/11AM/5PM rotation
