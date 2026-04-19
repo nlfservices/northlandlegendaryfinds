@@ -137,7 +137,7 @@ export default function Giveaway() {
                     <Button
                       size="lg"
                       variant="outline"
-                      className="border-white/30 text-white hover:bg-white/10 font-bold text-lg px-8 py-7 w-full sm:w-auto"
+                      className="border-green-500 bg-green-600 text-white hover:bg-green-500 font-bold text-lg px-8 py-7 w-full sm:w-auto"
                     >
                       <Radio className="w-5 h-5 mr-2" />
                       See Upcoming Shows
@@ -557,7 +557,7 @@ export default function Giveaway() {
                   <Button
                     size="lg"
                     variant="outline"
-                    className="border-white/30 text-white hover:bg-white/10 font-bold text-lg px-8 py-7"
+                    className="border-green-500 bg-green-600 text-white hover:bg-green-500 font-bold text-lg px-8 py-7"
                   >
                     <Radio className="w-5 h-5 mr-2" />
                     View Upcoming Shows
