@@ -164,7 +164,7 @@ export default function Giveaway() {
                 </h1>
 
                 <p className="text-base sm:text-lg lg:text-xl text-gray-300 mb-6 sm:mb-8 leading-relaxed max-w-lg">
-                  Every live show on Whatnot, we give away <strong className="text-yellow-400">graded cards, raw singles, sealed packs, and hobby boxes</strong> — completely free. We're always switching it up, dropping random cards throughout our shows to keep things fresh. No catch. Just show up and enter.
+                  Every live show on Whatnot, we give away <strong className="text-yellow-400">graded cards, raw singles, sealed packs, hobby boxes, and NLF Repacks</strong> — completely free. We're always switching it up, dropping random cards throughout our shows to keep things fresh. No catch. Just show up and enter.
                 </p>
 
                 {/* Dual CTAs — SECTION 1: Green invite + Purple shows */}
@@ -314,6 +314,7 @@ export default function Giveaway() {
                   {[
                     { icon: Crown, color: "text-yellow-400", bg: "bg-yellow-500/10", title: "Graded Raw Cards", desc: "Top-tier graded and raw Marvel cards — Spider-Man, Wolverine, Doctor Doom, and more" },
                     { icon: Package, color: "text-blue-400", bg: "bg-blue-500/10", title: "Sealed Hobby Boxes & Packs", desc: "Factory-sealed Marvel Mint, Topps Chrome, and new release products" },
+                    { icon: Gift, color: "text-green-400", bg: "bg-green-500/10", title: "NLF Repacks", desc: "Our hand-curated repack products loaded with hits, parallels, and guaranteed value" },
                     { icon: Zap, color: "text-purple-400", bg: "bg-purple-500/10", title: "Rare Singles & Parallels", desc: "Numbered parallels, refractors, and chase cards you won't find anywhere else" },
                     { icon: Sparkles, color: "text-pink-400", bg: "bg-pink-500/10", title: "Surprise Drops", desc: "Random bonus giveaways throughout the show — you never know what's next" },
                   ].map((item, i) => (

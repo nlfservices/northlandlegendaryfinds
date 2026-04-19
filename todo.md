@@ -1535,3 +1535,7 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Implement daily round-robin rotation for featured/hero article on MCU News page
 - [x] Featured article changes automatically each morning (by day of year modulo article count)
 - [x] Also rotate the full article grid daily so different articles get top placement
+
+## Giveaway Page - Add NLF Repacks
+- [x] Add NLF Repacks to hero description text
+- [x] Add NLF Repacks as a prize category in "What We Give Away" section
