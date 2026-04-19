@@ -18,7 +18,7 @@ const WHATNOT_INVITE = "https://whatnot.com/invite/northlandfinds";
 const WHATNOT_PROFILE = "https://www.whatnot.com/user/northlandfinds";
 
 // Hero images
-const HERO_TREASURE = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/giveaway-hero-marvel-live_12b43cc4.jpg";
+const HERO_TREASURE = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/NLFStudio-1_a59bb3e4.webp";
 const LIVE_TABLE = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/giveaway-whatnot-live-energy_c1648813.jpg";
 
 // Card images
