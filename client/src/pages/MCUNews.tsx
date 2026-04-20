@@ -123,12 +123,7 @@ export default function MCUNews() {
   );
   const { data: featuredArticles = [] } = trpc.articles.featured.useQuery();
 
-  // Daily rotation helper — shared between featured and grid
-  const dayOfYear = useMemo(() => {
-    const now = new Date();
-    const startOfYear = new Date(now.getFullYear(), 0, 0);
-    return Math.floor((now.getTime() - startOfYear.getTime()) / 86_400_000);
-  }, []);
+
 
   const filteredArticles = useMemo(() => {
     let list = allArticles;
@@ -141,30 +136,12 @@ export default function MCUNews() {
           (a.tags as string[] | null)?.some(t => t.toLowerCase().includes(q))
       );
     }
-    // Apply daily round-robin rotation to the article grid
-    // Only rotate when not searching (search results should be relevance-ordered)
-    if (!searchQuery.trim() && list.length > 1) {
-      const offset = dayOfYear % list.length;
-      list = [...list.slice(offset), ...list.slice(0, offset)];
-    }
     return list;
-  }, [allArticles, searchQuery, dayOfYear]);
+  }, [allArticles, searchQuery]);
 
-  // Daily round-robin rotation: the "main featured" article rotates each day
-  // Uses day-of-year so every morning visitors see a different hero article
-  const rotatedFeatured = useMemo(() => {
-    if (featuredArticles.length === 0) return { main: null, side: [] as typeof featuredArticles };
-    const mainIndex = dayOfYear % featuredArticles.length;
-    // Rotate the array so mainIndex becomes position 0
-    const rotated = [
-      ...featuredArticles.slice(mainIndex),
-      ...featuredArticles.slice(0, mainIndex),
-    ];
-    return { main: rotated[0], side: rotated.slice(1, 3) };
-  }, [featuredArticles, dayOfYear]);
-
-  const mainFeatured = rotatedFeatured.main;
-  const sideFeatured = rotatedFeatured.side;
+  // Featured articles: newest first (no rotation)
+  const mainFeatured = featuredArticles.length > 0 ? featuredArticles[0] : null;
+  const sideFeatured = featuredArticles.slice(1, 3);
 
   return (
     <div className="min-h-screen">

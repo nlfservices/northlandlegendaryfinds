@@ -1548,3 +1548,14 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Write 5 articles with AI-generated images, card collecting tie-ins, and Collector's Corner
 - [x] Publish all 5 articles immediately (breaking CinemaCon news)
 - [ ] Schedule future article batches at 6AM/11AM/5PM rotation
+
+## Daily Topps Marvel Trading Card Articles
+- [ ] Research Topps reclaiming Marvel/Disney license in 2025
+- [ ] Write first article: Topps returns to Marvel in 2025 after reclaiming licensing rights
+- [ ] Publish first article immediately
+- [ ] Schedule daily recurring task for Topps Marvel articles at 6AM/11AM/5PM
+
+## MCU News Sort Order Fix
+- [x] Remove daily round-robin rotation from MCU News page
+- [x] Sort articles newest to oldest (standard chronological)
+- [x] Fix and publish Topps Marvel license article (ID: 300055)
