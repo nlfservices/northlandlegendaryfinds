@@ -3,12 +3,12 @@
  * All product data for the storefront
  *
  * Product Lines:
- * 1. The Variant Series (launching April 27, 2026)
+ * 1. The Variant Series (launching May 21, 2026)
  *    - Cosmic Drop (500 packs)
  *    - Chrome Edition (100 packs)
- * 2. The Snap Collection (Coming Soon)
+ * 2. The Snap Collection (launching May 21, 2026)
  *    - 100-pack + 500-pack versions
- * 3. Multiverse Vault (Coming Soon)
+ * 3. Multiverse Vault (launching May 21, 2026)
  *    - Origins (100pk + 500pk)
  *    - Parallel Edition (100pk + 500pk)
  *    - Legendary Drop (100pk + 500pk)
@@ -67,7 +67,7 @@ export const SHOPIFY_STORE = "f1ipn9-h0.myshopify.com";
 
 export const products: Product[] = [
   // ===================================================================
-  // GAMBIT'S DECK — 52 Singles — Launching April 24, 2026
+  // GAMBIT'S DECK — 52 Singles — Launching May 21, 2026
   // ===================================================================
   {
     id: "gambit-deck-52",
@@ -90,18 +90,18 @@ export const products: Product[] = [
       "Sealed in custom NLF holographic mylar bag",
       "Limited to 52 packs — collect the full deck",
     ],
-    badge: "DROPPING APR 24",
+    badge: "DROPPING MAY 21",
     badgeColor: "magenta",
     inStock: true,
     inventory: 52,
     isRepack: true,
     isComingSoon: false,
-    launchDate: "2026-04-24T00:00:00Z",
+    launchDate: "2026-05-21T00:00:00Z",
     checklistSlug: "nlf-marvel-52-singles",
   },
 
   // ===================================================================
-  // THE VARIANT SERIES — Launching Sunday, April 27, 2026
+  // THE VARIANT SERIES — Launching May 21, 2026
   // ===================================================================
   {
     id: "variant-cosmic-drop",
@@ -124,13 +124,13 @@ export const products: Product[] = [
       "Limited to 500 packs — once they're gone, they're gone",
       "Sealed in custom NLF holographic mylar bag",
     ],
-    badge: "DROPPING APR 27",
+    badge: "DROPPING MAY 21",
     badgeColor: "cyan",
     inStock: true,
     inventory: 500,
     isRepack: true,
     isComingSoon: false,
-    launchDate: "2026-04-28T00:00:00Z",
+    launchDate: "2026-05-21T00:00:00Z",
   },
   {
     id: "variant-chrome-edition",
@@ -153,17 +153,17 @@ export const products: Product[] = [
       "Focused on premium Topps Chrome Marvel cards",
       "Limited to 100 packs — ultra-exclusive drop",
     ],
-    badge: "LAUNCH EXCLUSIVE",
+    badge: "DROPPING MAY 21",
     badgeColor: "green",
     inStock: true,
     inventory: 100,
     isRepack: true,
     isComingSoon: false,
-    launchDate: "2026-04-28T00:00:00Z",
+    launchDate: "2026-05-21T00:00:00Z",
   },
 
   // ===================================================================
-  // THE SNAP COLLECTION — Coming Soon
+  // THE SNAP COLLECTION — Launching May 21, 2026
   // ===================================================================
   {
     id: "snap-collection-100",
@@ -185,12 +185,13 @@ export const products: Product[] = [
       "Full checklist published — see every possible card",
       "Sealed in custom NLF holographic mylar bag",
     ],
-    badge: "COMING SOON",
+    badge: "DROPPING MAY 21",
     badgeColor: "cyan",
-    inStock: false,
-    inventory: 0,
+    inStock: true,
+    inventory: 100,
     isRepack: true,
-    isComingSoon: true,
+    isComingSoon: false,
+    launchDate: "2026-05-21T00:00:00Z",
   },
   {
     id: "snap-collection-500",
@@ -212,16 +213,17 @@ export const products: Product[] = [
       "Full checklist published — see every possible card",
       "Sealed in custom NLF holographic mylar bag",
     ],
-    badge: "COMING SOON",
+    badge: "DROPPING MAY 21",
     badgeColor: "cyan",
-    inStock: false,
-    inventory: 0,
+    inStock: true,
+    inventory: 500,
     isRepack: true,
-    isComingSoon: true,
+    isComingSoon: false,
+    launchDate: "2026-05-21T00:00:00Z",
   },
 
   // ===================================================================
-  // MULTIVERSE VAULT — Coming Soon
+  // MULTIVERSE VAULT — Launching May 21, 2026
   // ===================================================================
   {
     id: "mv-origins-100",
@@ -243,12 +245,13 @@ export const products: Product[] = [
       "Full checklist published — see every possible card",
       "Sealed in custom NLF holographic mylar bag",
     ],
-    badge: "COMING SOON",
+    badge: "DROPPING MAY 21",
     badgeColor: "purple",
-    inStock: false,
-    inventory: 0,
+    inStock: true,
+    inventory: 100,
     isRepack: true,
-    isComingSoon: true,
+    isComingSoon: false,
+    launchDate: "2026-05-21T00:00:00Z",
   },
   {
     id: "mv-origins-500",
@@ -270,12 +273,13 @@ export const products: Product[] = [
       "Full checklist published — see every possible card",
       "Sealed in custom NLF holographic mylar bag",
     ],
-    badge: "COMING SOON",
+    badge: "DROPPING MAY 21",
     badgeColor: "purple",
-    inStock: false,
-    inventory: 0,
+    inStock: true,
+    inventory: 500,
     isRepack: true,
-    isComingSoon: true,
+    isComingSoon: false,
+    launchDate: "2026-05-21T00:00:00Z",
   },
   {
     id: "mv-parallel-100",
@@ -297,12 +301,13 @@ export const products: Product[] = [
       "Full checklist published — see every possible card",
       "Sealed in custom NLF holographic mylar bag",
     ],
-    badge: "COMING SOON",
+    badge: "DROPPING MAY 21",
     badgeColor: "purple",
-    inStock: false,
-    inventory: 0,
+    inStock: true,
+    inventory: 100,
     isRepack: true,
-    isComingSoon: true,
+    isComingSoon: false,
+    launchDate: "2026-05-21T00:00:00Z",
   },
   {
     id: "mv-parallel-500",
@@ -324,12 +329,13 @@ export const products: Product[] = [
       "Full checklist published — see every possible card",
       "Sealed in custom NLF holographic mylar bag",
     ],
-    badge: "COMING SOON",
+    badge: "DROPPING MAY 21",
     badgeColor: "purple",
-    inStock: false,
-    inventory: 0,
+    inStock: true,
+    inventory: 500,
     isRepack: true,
-    isComingSoon: true,
+    isComingSoon: false,
+    launchDate: "2026-05-21T00:00:00Z",
   },
   {
     id: "mv-legendary-100",
@@ -351,12 +357,13 @@ export const products: Product[] = [
       "Full checklist published — see every possible card",
       "Sealed in custom NLF holographic mylar bag",
     ],
-    badge: "COMING SOON",
+    badge: "DROPPING MAY 21",
     badgeColor: "purple",
-    inStock: false,
-    inventory: 0,
+    inStock: true,
+    inventory: 100,
     isRepack: true,
-    isComingSoon: true,
+    isComingSoon: false,
+    launchDate: "2026-05-21T00:00:00Z",
   },
   {
     id: "mv-legendary-500",
@@ -378,12 +385,13 @@ export const products: Product[] = [
       "Full checklist published — see every possible card",
       "Sealed in custom NLF holographic mylar bag",
     ],
-    badge: "COMING SOON",
+    badge: "DROPPING MAY 21",
     badgeColor: "purple",
-    inStock: false,
-    inventory: 0,
+    inStock: true,
+    inventory: 500,
     isRepack: true,
-    isComingSoon: true,
+    isComingSoon: false,
+    launchDate: "2026-05-21T00:00:00Z",
   },
 
   // ===================================================================
@@ -514,23 +522,23 @@ export function getProductLines() {
     {
       id: "variant-series",
       name: "The Variant Series",
-      tagline: "Our flagship Marvel repack line — launching April 27th",
+      tagline: "Our flagship Marvel repack line — launching May 21st",
       products: getProductsByLine("variant-series"),
       available: true,
     },
     {
       id: "snap-collection",
       name: "The Snap Collection",
-      tagline: "Iconic Marvel moments in every pack",
+      tagline: "Iconic Marvel moments in every pack — launching May 21st",
       products: getProductsByLine("snap-collection"),
-      available: false,
+      available: true,
     },
     {
       id: "multiverse-vault",
       name: "Multiverse Vault",
-      tagline: "Deep cuts from across the Marvel multiverse",
+      tagline: "Deep cuts from across the Marvel multiverse — launching May 21st",
       products: getProductsByLine("multiverse-vault"),
-      available: false,
+      available: true,
     },
   ];
 }

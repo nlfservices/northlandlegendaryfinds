@@ -100,7 +100,7 @@ export default function Shop() {
                   {/* Badge */}
                   <div className="absolute top-4 left-4 z-10">
                     <span className="px-3 py-1 bg-fuchsia-600 text-white text-xs font-bold tracking-wider rounded-full shadow-lg">
-                      DROPPING MAY 22
+                      DROPPING MAY 21
                     </span>
                   </div>
 
@@ -212,7 +212,7 @@ export default function Shop() {
                     <div className="flex items-center gap-3 mb-2">
                       <div className="inline-flex items-center gap-2 px-3 py-1 bg-fuchsia-500/10 border border-fuchsia-500/30 rounded-full">
                         <Sparkles className="w-3.5 h-3.5 text-fuchsia-400" />
-                        <span className="text-fuchsia-400 text-xs font-bold">DROPPING MAY 22ND</span>
+                        <span className="text-fuchsia-400 text-xs font-bold">DROPPING MAY 21ST</span>
                       </div>
                     </div>
                     <h2 className="text-3xl md:text-4xl font-bold" style={{ fontFamily: "'Anton', sans-serif" }}>
@@ -235,13 +235,13 @@ export default function Shop() {
                     <div className="flex items-center gap-3 mb-2">
                       <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/30 rounded-full">
                         <Zap className="w-3.5 h-3.5 text-primary" />
-                        <span className="text-primary text-xs font-bold">AVAILABLE APRIL 27TH</span>
+                        <span className="text-primary text-xs font-bold">DROPPING MAY 21ST</span>
                       </div>
                     </div>
                     <h2 className="text-3xl md:text-4xl font-bold" style={{ fontFamily: "'Anton', sans-serif" }}>
                       THE <span className="text-primary">VARIANT</span> SERIES
                     </h2>
-                    <p className="text-muted-foreground text-sm mt-1">Our flagship Marvel repack line — launching April 27th</p>
+                    <p className="text-muted-foreground text-sm mt-1">Our flagship Marvel repack line — launching May 21st</p>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
                     {variantProducts.map((product) => (
@@ -258,7 +258,7 @@ export default function Shop() {
                     <div className="flex items-center gap-3 mb-2">
                       <div className="inline-flex items-center gap-2 px-3 py-1 bg-cyan-500/10 border border-cyan-500/30 rounded-full">
                         <Clock className="w-3.5 h-3.5 text-cyan-400" />
-                        <span className="text-cyan-400 text-xs font-bold">COMING SOON</span>
+                        <span className="text-cyan-400 text-xs font-bold">DROPPING MAY 21ST</span>
                       </div>
                     </div>
                     <h2 className="text-3xl md:text-4xl font-bold" style={{ fontFamily: "'Anton', sans-serif" }}>
@@ -284,7 +284,7 @@ export default function Shop() {
                     <div className="flex items-center gap-3 mb-2">
                       <div className="inline-flex items-center gap-2 px-3 py-1 bg-purple-500/10 border border-purple-500/30 rounded-full">
                         <Clock className="w-3.5 h-3.5 text-purple-400" />
-                        <span className="text-purple-400 text-xs font-bold">COMING SOON</span>
+                        <span className="text-purple-400 text-xs font-bold">DROPPING MAY 21ST</span>
                       </div>
                     </div>
                     <h2 className="text-3xl md:text-4xl font-bold" style={{ fontFamily: "'Anton', sans-serif" }}>

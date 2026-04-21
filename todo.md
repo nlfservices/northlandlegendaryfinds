@@ -1559,3 +1559,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Remove daily round-robin rotation from MCU News page
 - [x] Sort articles newest to oldest (standard chronological)
 - [x] Fix and publish Topps Marvel license article (ID: 300055)
+
+## Repack Launch Date Update
+- [x] Update all repack products to launch date May 21, 2026
+- [x] Updated Gambit's Deck, Variant Series, Snap Collection, Multiverse Vault (all 11 repacks)
+- [x] Updated Shop.tsx section headers (DROPPING MAY 21ST)
+- [x] Updated product line taglines
+- [x] Snap Collection and Multiverse Vault now marked as available (not Coming Soon)
