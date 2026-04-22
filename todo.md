@@ -1566,3 +1566,8 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Updated Shop.tsx section headers (DROPPING MAY 21ST)
 - [x] Updated product line taglines
 - [x] Snap Collection and Multiverse Vault now marked as available (not Coming Soon)
+- [x] Article: Marvel Returns to Hall H — SDCC 2026 Doomsday Panel (published Apr 21)
+- [x] Article: Avengers Endgame Doomsday Retcon — Re-Release with New Footage (published Apr 21)
+- [x] Article: Avengers Doomsday CinemaCon Trailer Breakdown — Every Detail (published Apr 21)
+- [x] Article: Doctor Doom Stops Stormbreaker — 6 Jaw-Dropping Trailer Moments (published Apr 21)
+- [x] Updated integrity check script: MCUIntel.tsx → MCUNews.tsx references
