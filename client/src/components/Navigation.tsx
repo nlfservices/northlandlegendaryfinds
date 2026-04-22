@@ -22,6 +22,7 @@ const MARKET_INTEL_PAGES = [
 ];
 
 const MARVEL_RESOURCES_PAGES = [
+  { path: "/mcu-spotlight", label: "MCU Spotlight" },
   { path: "/trending", label: "Trending Cards" },
   { path: "/the-collector", label: "The Collector (Blog)" },
   { path: "/market-intel", label: "Market Intel", hasSubmenu: true },

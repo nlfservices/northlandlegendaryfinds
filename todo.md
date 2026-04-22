@@ -1574,3 +1574,16 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Change notification email from pulljack1979@gmail.com to contact@nlfservices.com (resolved: disabled Manus notifications, GHL handles all)
 - [x] Route form notification emails to contact@nlfservices.com instead of Manus account email (resolved: disabled Manus notifications)
 - [x] Remove notifyOwner email notifications from form submissions (subscribe, card show) — GHL handles contacts
+- [ ] Article: Complete MCU Release Calendar 2025-2027 (movies, series, cartoons)
+- [ ] Article: Every Upcoming MCU Disney+ Series Ranked by Hype
+- [ ] Article: Marvel Animation Renaissance — Your Watch Party Guide
+- [ ] Article: Which MCU Phase 6 Movies Will Have the Best Trading Cards?
+- [ ] New Page: MCU Spotlight with 3 rotating round-robin templates
+- [ ] Template A: Actor left, character/card info right, chase cards below
+- [ ] Template B: Full-width hero banner, actor bio below, chase cards grid
+- [ ] Template C: Split diagonal, cards prominent, actor/series info
+- [ ] Orange placeholder images (1,2,3) with dimensions labeled
+- [ ] Actor-to-character-to-card cross-reference system
+- [ ] Chase cards section per character
+- [ ] Backend: spotlight data model and tRPC procedures
+- [ ] Route /mcu-spotlight and navigation entry
