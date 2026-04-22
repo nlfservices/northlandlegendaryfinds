@@ -1571,3 +1571,6 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Article: Avengers Doomsday CinemaCon Trailer Breakdown — Every Detail (published Apr 21)
 - [x] Article: Doctor Doom Stops Stormbreaker — 6 Jaw-Dropping Trailer Moments (published Apr 21)
 - [x] Updated integrity check script: MCUIntel.tsx → MCUNews.tsx references
+- [x] Change notification email from pulljack1979@gmail.com to contact@nlfservices.com (resolved: disabled Manus notifications, GHL handles all)
+- [x] Route form notification emails to contact@nlfservices.com instead of Manus account email (resolved: disabled Manus notifications)
+- [x] Remove notifyOwner email notifications from form submissions (subscribe, card show) — GHL handles contacts

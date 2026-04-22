@@ -24,7 +24,6 @@ import { launchSubscribers } from "../../drizzle/schema";
 import { getDb } from "../db";
 import { eq, and } from "drizzle-orm";
 import { createGHLContact } from "../ghl";
-import { notifyOwner } from "../_core/notification";
 
 // ==================== PUBLIC PRODUCT ROUTES ====================
 
@@ -646,27 +645,8 @@ const publicSubscribeRouter = router({
         // Don't fail the request — still notify owner
       }
 
-      // 2. Send notification to admin
-      try {
-        await notifyOwner({
-          title: `New Email Subscriber: ${email}`,
-          content: [
-            `**New subscriber from ${source}**`,
-            ``,
-            `- **Email:** ${email}`,
-            input.firstName ? `- **First Name:** ${input.firstName}` : "",
-            input.lastName ? `- **Last Name:** ${input.lastName}` : "",
-            `- **Source:** ${source}`,
-            `- **GHL Status:** ${ghlResult.isDuplicate ? "Already exists" : ghlResult.success ? "Contact created" : "Failed — " + (ghlResult.error || "unknown")}`,
-            ghlResult.contactId ? `- **GHL Contact ID:** ${ghlResult.contactId}` : "",
-            `- **Time:** ${new Date().toLocaleString("en-US", { timeZone: "America/Chicago" })}`,
-          ]
-            .filter(Boolean)
-            .join("\n"),
-        });
-      } catch (notifyErr) {
-        console.warn("[Subscribe] Owner notification failed:", notifyErr);
-      }
+      // Notification disabled — GHL handles all subscriber alerts
+      console.log(`[Subscribe] New subscriber: ${email} (source: ${source}, GHL: ${ghlResult.isDuplicate ? "duplicate" : ghlResult.success ? "created" : "failed"})`);
 
       return {
         success: true,
@@ -720,31 +700,8 @@ const publicCardShowRouter = router({
         recurrenceNote: input.recurrenceNote || null,
         status: "pending",
       });
-      try {
-        await notifyOwner({
-          title: "New Card Show Submission",
-          content: [
-            `**${input.showName}** in ${input.city}, ${input.state}`,
-            ``,
-            `- **Promoter:** ${input.promoterName}`,
-            `- **Email:** ${input.email}`,
-            input.phone ? `- **Phone:** ${input.phone}` : "",
-            input.venue ? `- **Venue:** ${input.venue}` : "",
-            input.address ? `- **Address:** ${input.address}` : "",
-            `- **Date:** ${new Date(input.startDate).toLocaleDateString("en-US")}${input.startDate !== input.endDate ? " - " + new Date(input.endDate).toLocaleDateString("en-US") : ""}`,
-            input.tableCount ? `- **Tables:** ${input.tableCount}` : "",
-            input.admission ? `- **Admission:** ${input.admission}` : "",
-            input.website ? `- **Website:** ${input.website}` : "",
-            input.description ? `\n**Description:** ${input.description}` : "",
-            ``,
-            `Review at: https://northlandlegendaryfinds.com/admin`,
-          ]
-            .filter(Boolean)
-            .join("\n"),
-        });
-      } catch (err) {
-        console.warn("[CardShow] Owner notification failed:", err);
-      }
+      // Notification disabled — card show submissions are reviewed in admin panel
+      console.log(`[CardShow] New submission: ${input.showName} in ${input.city}, ${input.state} (ID: ${id})`);
       return { success: true, id };
     }),
 });
