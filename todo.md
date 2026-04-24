@@ -1588,3 +1588,4 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [ ] Backend: spotlight data model and tRPC procedures
 - [ ] Route /mcu-spotlight and navigation entry
 - [x] Article: Top Marvel Characters Everyone Is Collecting — push Topps cards, NLF site, Whatnot streams
+- [x] Update Top 10 Marvel Characters article with real eBay sold comps for all 10 characters
