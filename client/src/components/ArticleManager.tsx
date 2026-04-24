@@ -16,7 +16,7 @@ import { Separator } from "@/components/ui/separator";
 import { toast } from "sonner";
 import {
   Plus, Trash2, Edit, Eye, EyeOff, Star, StarOff, Loader2,
-  ExternalLink, FileText, Newspaper, ArrowLeft
+  ExternalLink, FileText, Newspaper, ArrowLeft, Clock, CalendarIcon, Rocket
 } from "lucide-react";
 import { useState } from "react";
 
@@ -28,7 +28,8 @@ const CATEGORIES = [
   { value: "release_dates", label: "Releases" },
   { value: "rumors", label: "Rumors" },
   { value: "analysis", label: "Analysis" },
-] as const;
+  { value: "interactive_social", label: "Interactive" },
+];
 
 const CATEGORY_COLORS: Record<string, string> = {
   movie_news: "bg-blue-500/20 text-blue-400 border-blue-500/30",
@@ -38,6 +39,7 @@ const CATEGORY_COLORS: Record<string, string> = {
   release_dates: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30",
   rumors: "bg-red-500/20 text-red-400 border-red-500/30",
   analysis: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
+  interactive_social: "bg-pink-500/20 text-pink-400 border-pink-500/30",
 };
 
 interface ArticleForm {
@@ -55,6 +57,7 @@ interface ArticleForm {
   isPublished: boolean;
   authorName: string;
   metaDescription: string;
+  scheduledAt: string; // ISO date string for the date picker
 }
 
 const emptyForm: ArticleForm = {
@@ -72,6 +75,7 @@ const emptyForm: ArticleForm = {
   isPublished: false,
   authorName: "NLF Team",
   metaDescription: "",
+  scheduledAt: "",
 };
 
 function slugify(text: string): string {
@@ -128,6 +132,7 @@ export default function ArticleManager() {
       isPublished: article.isPublished,
       authorName: article.authorName || "NLF Team",
       metaDescription: article.metaDescription || "",
+      scheduledAt: article.scheduledAt ? new Date(article.scheduledAt).toISOString().slice(0, 16) : "",
     });
     setShowEditor(true);
   };
@@ -162,6 +167,7 @@ export default function ArticleManager() {
       isPublished: form.isPublished,
       authorName: form.authorName,
       metaDescription: form.metaDescription || undefined,
+      scheduledAt: form.scheduledAt ? new Date(form.scheduledAt).getTime() : undefined,
     };
 
     try {
@@ -360,6 +366,25 @@ export default function ArticleManager() {
                     onCheckedChange={(v) => setForm((f) => ({ ...f, isFeatured: v }))}
                   />
                 </div>
+                {!form.isPublished && (
+                  <div>
+                    <Label className="flex items-center gap-1.5 mb-1.5">
+                      <CalendarIcon className="w-3.5 h-3.5 text-primary" />
+                      Schedule Publish Date
+                    </Label>
+                    <Input
+                      type="datetime-local"
+                      value={form.scheduledAt}
+                      onChange={(e) => setForm((f) => ({ ...f, scheduledAt: e.target.value }))}
+                      className="text-sm"
+                    />
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {form.scheduledAt
+                        ? `Will auto-publish on ${new Date(form.scheduledAt).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}`
+                        : "Leave empty to keep as draft until manually published"}
+                    </p>
+                  </div>
+                )}
                 <Separator />
                 <div>
                   <Label>Category</Label>
@@ -549,6 +574,11 @@ export default function ArticleManager() {
                           <Star className="w-3 h-3 mr-0.5" /> Featured
                         </Badge>
                       )}
+                      {!article.isPublished && article.scheduledAt && (
+                        <Badge variant="outline" className="text-[10px] bg-blue-500/20 text-blue-400 border-blue-500/30">
+                          <Clock className="w-3 h-3 mr-0.5" /> Scheduled {new Date(article.scheduledAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                        </Badge>
+                      )}
                     </div>
                     <h3 className="font-semibold text-sm truncate">{article.title}</h3>
                     {article.excerpt && (
@@ -590,6 +620,17 @@ export default function ArticleManager() {
                     <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => handleEdit(article)}>
                       <Edit className="w-4 h-4" />
                     </Button>
+                    {!article.isPublished && (
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8"
+                        title="Publish Now"
+                        onClick={() => handleTogglePublished(article.id)}
+                      >
+                        <Rocket className="w-4 h-4 text-blue-400" />
+                      </Button>
+                    )}
                     {article.isPublished && (
                       <a href={`/mcu-news/${article.slug}`} target="_blank" rel="noopener noreferrer">
                         <Button variant="ghost" size="icon" className="h-8 w-8">

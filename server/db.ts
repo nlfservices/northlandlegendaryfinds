@@ -1157,7 +1157,7 @@ export async function getPublishedArticles(limit?: number): Promise<Article[]> {
   const db = await getDb();
   if (!db) return [];
   let query = db.select().from(articles)
-    .where(eq(articles.isPublished, true))
+    .where(and(eq(articles.isPublished, true), sql`${articles.category} != 'interactive_social'`))
     .orderBy(desc(articles.publishedAt));
   if (limit) {
     query = query.limit(limit) as typeof query;
@@ -1179,7 +1179,7 @@ export async function getFeaturedArticles(): Promise<Article[]> {
   const db = await getDb();
   if (!db) return [];
   return db.select().from(articles)
-    .where(and(eq(articles.isPublished, true), eq(articles.isFeatured, true)))
+    .where(and(eq(articles.isPublished, true), eq(articles.isFeatured, true), sql`${articles.category} != 'interactive_social'`))
     .orderBy(desc(articles.publishedAt))
     .limit(3);
 }

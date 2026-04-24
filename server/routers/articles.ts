@@ -13,7 +13,7 @@ const articleInput = z.object({
   excerpt: z.string().optional(),
   contentMarkdown: z.string().min(1),
   featuredImageUrl: z.string().optional(),
-  category: z.enum(["movie_news", "show_news", "casting", "card_market", "release_dates", "rumors", "analysis"]).default("movie_news"),
+  category: z.enum(["movie_news", "show_news", "casting", "card_market", "release_dates", "rumors", "analysis", "interactive_social"]).default("movie_news"),
   tags: z.array(z.string()).optional(),
   cardMarketImpact: z.string().optional(),
   relatedCharacters: z.array(z.string()).optional(),
@@ -22,6 +22,7 @@ const articleInput = z.object({
   isPublished: z.boolean().default(false),
   authorName: z.string().default("NLF Team"),
   publishedAt: z.number().optional(),
+  scheduledAt: z.number().optional(),
   metaDescription: z.string().optional(),
 });
 
@@ -46,6 +47,7 @@ export const articleAdminRouter = router({
       relatedCharacters: input.relatedCharacters ?? null,
       sources: input.sources ?? null,
       publishedAt: input.isPublished ? (input.publishedAt ?? Date.now()) : null,
+      scheduledAt: (!input.isPublished && input.scheduledAt) ? input.scheduledAt : null,
       metaDescription: input.metaDescription ?? null,
     });
     return { success: true };

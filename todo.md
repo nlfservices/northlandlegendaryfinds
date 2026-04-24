@@ -1612,3 +1612,54 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Generate NORAD-style secret grading facility image with "CLOSED TO PUBLIC" vault door
 - [x] Update all 3 grading articles with new images in database
 - [x] Verify updated articles display correctly
+
+## Grading Article Images - Marvel Only Fix
+- [ ] Identify all DC (Superman, Batman) and Pokemon images in grading articles
+- [ ] Regenerate all non-Marvel images with Marvel-only characters (Spider-Man, Iron Man, Wolverine, etc.)
+- [ ] Update all 3 grading articles in database with Marvel-only images
+- [ ] Verify no DC or Pokemon content remains in any article images
+
+## Grading Articles - Marvel Only Images + Staggered Dates
+- [x] Regenerate ALL grading article images with Marvel-only characters (no DC, no Pokemon)
+- [x] Update "Does Grading Even Matter?" - keep Apr 24 publish date
+- [x] Update "PSA's Monopoly Play" - change to May 1 publish date (draft)
+- [x] Update "The Grading Arbitrage" - change to May 8 publish date (draft)
+- [x] Verify no DC or Pokemon content in any article images
+
+## Topps Marvel Set Articles (New Request)
+- [ ] Research and write 2025 Topps Marvel Studios Chrome article
+- [ ] Research and write 2025 Topps Comic Book Heroes article
+- [ ] Research and write 2025 Topps Marvel Collect article
+- [ ] Research and write 2025 Topps Marvel Mint article
+- [ ] Generate Marvel-only images for all 4 articles
+- [ ] Publish all 4 articles to database
+
+## Topps Marvel Set Articles (Daily - Apr 25-28)
+- [ ] Apr 25: 2025 Topps Marvel Studios Chrome - Collector's Buyer Guide
+- [ ] Apr 26: 2025 Topps Comic Book Heroes - The Art Collector's Set
+- [ ] Apr 27: 2025 Topps Marvel Mint - Beyond the Card: Medallions & Memorabilia
+- [ ] Apr 28: 2025 Topps Marvel Collect - Digital Meets Physical
+- [ ] Generate Marvel-only images for all 4 set articles
+
+## Grading Articles - Staggered Weekly
+- [ ] May 1: PSA's Monopoly Play publish date update
+- [ ] May 8: The Grading Arbitrage publish date update
+
+## SDCC 2026 Articles (Future - June/July)
+- [ ] Jun 12: SDCC 2026 Marvel Card Collector's Survival Guide
+- [ ] Jun 19: Every SDCC Exclusive Marvel Card Ever Made
+- [ ] Jul 3: SDCC 2026 Preview - Marvel Announcements That Could Move the Card Market
+
+## Draft/Schedule System
+- [x] Add scheduledAt support to article router input schema
+- [x] Add scheduled date picker to ArticleManager editor
+- [x] Show scheduled date badge on draft articles in list view
+- [x] Add "Publish Now" rocket button for draft articles
+- [ ] Set up daily scheduled task for auto-publishing drafts (existing blog-scheduler handles this)
+
+## Interactive Articles Section
+- [x] Add "interactive_social" category to articles schema
+- [x] Add Interactive filter to admin ArticleManager
+- [x] Filter interactive articles from public MCU News page
+- [ ] Create batch of interactive poll content with images for Facebook
+- [ ] Interactive articles never auto-publish - always stay as drafts for manual social posting
