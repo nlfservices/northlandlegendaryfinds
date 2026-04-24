@@ -1606,3 +1606,9 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Write Article 3: "Does Grading Even Matter?" — authentication vs premium slabs
 - [x] Publish all 3 articles to database
 - [x] Set "Does Grading Even Matter?" as featured article
+
+## Grading Article Image Overhaul
+- [x] Regenerate all grading article images with Marvel card focus and comic/animated style
+- [x] Generate NORAD-style secret grading facility image with "CLOSED TO PUBLIC" vault door
+- [x] Update all 3 grading articles with new images in database
+- [x] Verify updated articles display correctly
