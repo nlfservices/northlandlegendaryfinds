@@ -1588,3 +1588,21 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [ ] Backend: spotlight data model and tRPC procedures
 - [ ] Route /mcu-spotlight and navigation entry
 - [x] Add concept images to MCU Release Calendar article (Doomsday, Spider-Man, Secret Wars, Punisher, X-Men 97, VisionQuest, Endgame)
+
+## Daredevil Born Again Deep-Dive Article
+- [x] Research Daredevil Born Again cast, episodes, plot, card market impact
+- [x] Generate featured and inline images for article
+- [x] Write full article with actor-to-card cross-references
+- [x] Publish article to database
+- [x] Verify article displays correctly
+
+## Trading Card Grading Articles (3-part series)
+- [x] Research PSA acquisitions, GemRate data, antitrust lawsuit, pricing
+- [x] Research grading arbitrage / crossover strategy
+- [x] Research authentication vs premium grading, Pokemon dominance
+- [x] Generate hero images for all 3 articles (5 images total)
+- [x] Write Article 1: "PSA's Monopoly Play" — acquisitions, antitrust, pricing
+- [x] Write Article 2: "The Grading Arbitrage" — crossover strategy guide
+- [x] Write Article 3: "Does Grading Even Matter?" — authentication vs premium slabs
+- [x] Publish all 3 articles to database
+- [x] Set "Does Grading Even Matter?" as featured article
