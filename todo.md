@@ -1614,10 +1614,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Verify updated articles display correctly
 
 ## Grading Article Images - Marvel Only Fix
-- [ ] Identify all DC (Superman, Batman) and Pokemon images in grading articles
-- [ ] Regenerate all non-Marvel images with Marvel-only characters (Spider-Man, Iron Man, Wolverine, etc.)
-- [ ] Update all 3 grading articles in database with Marvel-only images
-- [ ] Verify no DC or Pokemon content remains in any article images
+- [x] Identify all DC (Superman, Batman) and Pokemon images in grading articles
+- [x] Regenerate all non-Marvel images with Marvel-only characters (Spider-Man, Iron Man, Wolverine, etc.)
+- [x] Update all 3 grading articles in database with Marvel-only images
+- [x] Verify no DC or Pokemon content remains in any article images
 
 ## Grading Articles - Marvel Only Images + Staggered Dates
 - [x] Regenerate ALL grading article images with Marvel-only characters (no DC, no Pokemon)
@@ -1630,14 +1630,14 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [ ] Research and write 2025 Topps Marvel Studios Chrome article
 - [ ] Research and write 2025 Topps Comic Book Heroes article
 - [ ] Research and write 2025 Topps Marvel Collect article
-- [ ] Research and write 2025 Topps Marvel Mint article
+- [x] Research and write 2025 Topps Marvel Mint article (published Apr 25)
 - [ ] Generate Marvel-only images for all 4 articles
 - [ ] Publish all 4 articles to database
 
 ## Topps Marvel Set Articles (Daily - Apr 25-28)
 - [ ] Apr 25: 2025 Topps Marvel Studios Chrome - Collector's Buyer Guide
 - [ ] Apr 26: 2025 Topps Comic Book Heroes - The Art Collector's Set
-- [ ] Apr 27: 2025 Topps Marvel Mint - Beyond the Card: Medallions & Memorabilia
+- [x] Apr 25: 2025 Topps Marvel Mint - The Hidden Gem of 2025 (PUBLISHED)
 - [ ] Apr 28: 2025 Topps Marvel Collect - Digital Meets Physical
 - [ ] Generate Marvel-only images for all 4 set articles
 
