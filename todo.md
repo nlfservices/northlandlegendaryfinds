@@ -1663,3 +1663,13 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Filter interactive articles from public MCU News page
 - [ ] Create batch of interactive poll content with images for Facebook
 - [ ] Interactive articles never auto-publish - always stay as drafts for manual social posting
+
+## Top 15 Strongest Marvel Characters Article
+- [x] Read NLF Article Publisher skill and references
+- [x] Generate featured image (cosmic showdown / Doctor Doom)
+- [x] Generate inline images (cosmic entity, magic user)
+- [x] Write full article with 15-character ranking and Collector's Corner
+- [x] Create and run publish script
+- [x] Run integrity check
+- [ ] Save checkpoint
+- [ ] Provide direct link and Facebook post to user
