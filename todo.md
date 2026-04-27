@@ -1671,5 +1671,28 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Write full article with 15-character ranking and Collector's Corner
 - [x] Create and run publish script
 - [x] Run integrity check
+- [x] Save checkpoint
+- [x] Provide direct link and Facebook post to user
+
+## Avengers: Endgame 7th Anniversary Article
+- [ ] Research Endgame re-release details (September 2025/2026)
+- [ ] Read NLF Article Publisher skill and references
+- [x] Generate featured image (Endgame anniversary themed)
+- [x] Generate inline images (iconic moments, card market)
+- [ ] Write full article with anniversary + re-release + card market tie-ins
+- [ ] Create and run publish script
+- [ ] Run integrity check
+- [ ] Save checkpoint
+- [ ] Provide direct link and Facebook post to user
+
+## Avengers: Endgame 7th Anniversary Article
+- [x] Research Endgame re-release details (September 2025/2026)
+- [x] Read NLF Article Publisher skill and references
+- [x] Pull Thanos cards from database (Marvel Mint + Marvel Studios Chrome)
+- [x] Generate featured image (Endgame anniversary themed)
+- [x] Generate inline images (iconic moments, card market)
+- [x] Write full article with anniversary + re-release + Thanos cards + card market tie-ins
+- [x] Create and run publish script
+- [x] Run integrity check
 - [ ] Save checkpoint
 - [ ] Provide direct link and Facebook post to user
