@@ -1704,4 +1704,14 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Update article contentMarkdown with real card images and subsection headings
 - [x] Verify all 5 card images render correctly on live site
 - [x] Run integrity check (81/81 passed)
-- [ ] Save checkpoint and deliver to user
+- [x] Save checkpoint and deliver to user
+
+## Remove Non-Topps Cards from Endgame Article + Facebook Post
+- [x] Query current article content from database
+- [x] Replace Iron Man #1 image with correct Topps Chrome version (was Upper Deck)
+- [x] Remove Iron Man/Doom R-5 Reflections insert (not confirmed Topps) image and section
+- [x] Keep only Topps cards: Thanos #77 Mint, Thanos H-8 Gambit's Deck, Thanos #100 Chrome, Iron Man #1 Chrome
+- [x] Update article text to flow properly after removals
+- [x] Verify no non-Topps references remain
+- [ ] Write attention-catching Facebook post
+- [ ] Save checkpoint and deliver
