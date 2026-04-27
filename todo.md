@@ -1682,8 +1682,8 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [ ] Write full article with anniversary + re-release + card market tie-ins
 - [ ] Create and run publish script
 - [ ] Run integrity check
-- [ ] Save checkpoint
-- [ ] Provide direct link and Facebook post to user
+- [x] Save checkpoint
+- [x] Provide direct link and Facebook post to user
 
 ## Avengers: Endgame 7th Anniversary Article
 - [x] Research Endgame re-release details (September 2025/2026)
@@ -1694,5 +1694,14 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Write full article with anniversary + re-release + Thanos cards + card market tie-ins
 - [x] Create and run publish script
 - [x] Run integrity check
-- [ ] Save checkpoint
-- [ ] Provide direct link and Facebook post to user
+- [x] Save checkpoint
+- [x] Provide direct link and Facebook post to user
+
+## Update Endgame Article with Real Card Images
+- [x] Find actual Thanos card images (Marvel Mint #77, Marvel Studios Chrome #100, Gambit's Deck H-8)
+- [x] Find actual Iron Man card images (Marvel Studios Chrome #1, R-5 Reflections)
+- [x] Upload card images to CDN (5 images)
+- [x] Update article contentMarkdown with real card images and subsection headings
+- [x] Verify all 5 card images render correctly on live site
+- [x] Run integrity check (81/81 passed)
+- [ ] Save checkpoint and deliver to user
