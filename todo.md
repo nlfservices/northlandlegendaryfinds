@@ -1713,5 +1713,21 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Keep only Topps cards: Thanos #77 Mint, Thanos H-8 Gambit's Deck, Thanos #100 Chrome, Iron Man #1 Chrome
 - [x] Update article text to flow properly after removals
 - [x] Verify no non-Topps references remain
-- [ ] Write attention-catching Facebook post
+- [x] Write attention-catching Facebook post
+- [x] Save checkpoint and deliver
+
+## 10 New Articles for Dashboard Queue
+- [x] Article 1: Topps Takes Over the NFL Draft 2026
+- [x] Article 2: 2025 Topps Marvel Mint — From $450 Retail to $600+ Aftermarket
+- [x] Article 3: SDCC 2026 Collector's Preview — What Topps Exclusives Could Drop
+- [x] Article 4: 2026 Topps Finest Fantastic Four — First Look and Collector's Guide
+- [x] Article 5: The Topps Marvel Timeline — Every 2025-2026 Release Ranked
+- [x] Article 6: Why SDCC Exclusive Cards Are the Hottest Investment in the Hobby
+- [x] Article 7: Iron Man to Doctor Doom — The Robert Downey Jr. Card Collecting Guide
+- [x] Article 8: 5 Topps Marvel Cards Under $50 That Could 10x Before Doomsday
+- [x] Article 9: Topps Collector Destination — How the Hobby Is Going Mainstream
+- [x] Article 10: SDCC 2026 Hall H Preview — Every Marvel Announcement That Could Move the Card Market
+- [x] Generate 10 featured images
+- [x] Write and publish all 10 articles
+- [x] Run integrity check (81/81 passed)
 - [ ] Save checkpoint and deliver
