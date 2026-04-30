@@ -1738,4 +1738,14 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Upload images to CDN
 - [x] Update article with character images (alternating left/right float, #1 centered full-width)
 - [x] Verify all 10 images render correctly on live site
-- [ ] Save checkpoint and deliver
+- [x] Save checkpoint and deliver
+
+## Article: 2025 Topps Comic Book Heroes Hidden Gem
+- [x] Research 1975/1976 Topps Marvel sticker sets history
+- [x] Extract checklist and odds data from PDFs
+- [x] Research eBay sold prices and PriceCharting market data
+- [x] Analyze missing characters and 2026 speculation
+- [x] Generate 5 article images (featured, vintage, market, missing, speculation)
+- [x] Write full article with all sections and Collector's Corner
+- [x] Publish article to database
+- [x] Pass all 81 integrity checks
