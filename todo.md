@@ -1749,3 +1749,13 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Write full article with all sections and Collector's Corner
 - [x] Publish article to database
 - [x] Pass all 81 integrity checks
+
+## Articles: Avengers Doomsday & Secret Wars Card Collecting Guides (April 30, 2026)
+- [x] Analyze YouTube video on Doomsday/Secret Wars storylines
+- [x] Research confirmed cast (23+ characters) and rumored characters
+- [x] Research card market data (PriceCharting, eBay sold prices)
+- [x] Generate featured images for both articles
+- [x] Write Doomsday card collecting guide (30+ characters, tiered strategy, budget guide)
+- [x] Write Secret Wars card collecting guide (Battleworld leads, multiverse variants, set recommendations)
+- [x] Publish both articles to database
+- [x] Integrity check passed (81/81)
