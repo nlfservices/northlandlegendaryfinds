@@ -1771,3 +1771,11 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Write and publish Gambit's Chrome Deck article
 - [x] Write and publish AGS Grading comparison article
 - [x] Verify all 81 integrity checks pass
+
+## Article: Comics Explained (Rob Jefferson) — May 2026
+- [x] Research Comics Explained YouTube channel (2.62M subs, 1B+ views, 3,714 videos)
+- [x] Research Rob Jefferson background (Robert Jefferson, 25+ years reading comics)
+- [x] Generate featured image (comic book desk with Marvel graphic novels and podcast mic)
+- [x] Write article covering channel overview, Marvel deep dives, collector relevance
+- [x] Publish to database with card sites: TCGPlayer, eBay, PSA
+- [x] Integrity check passed (81/81)
