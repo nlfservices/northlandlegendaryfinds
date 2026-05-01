@@ -1759,3 +1759,15 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Write Secret Wars card collecting guide (Battleworld leads, multiverse variants, set recommendations)
 - [x] Publish both articles to database
 - [x] Integrity check passed (81/81)
+
+## Articles: Marvel Mint, Doom Comic Cuts, Gambit's Deck, AGS Grading (May 2026)
+- [x] Research 2025 Topps Marvel Mint SDCC set details (Topps Ripped, ChecklistInsider)
+- [x] Research riseofdoom.com for Doctor Doom Comic Cuts context
+- [x] Research mintcomiccards.com for Gambit's Deck checklist
+- [x] Research AGS grading technology and comparison to PSA/CGC/TAG
+- [x] Generate featured and inline images for all four articles
+- [x] Write and publish Marvel Mint SDCC article
+- [x] Write and publish Doctor Doom Comic Cuts article
+- [x] Write and publish Gambit's Chrome Deck article
+- [x] Write and publish AGS Grading comparison article
+- [x] Verify all 81 integrity checks pass
