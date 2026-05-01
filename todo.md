@@ -1779,3 +1779,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Write article covering channel overview, Marvel deep dives, collector relevance
 - [x] Publish to database with card sites: TCGPlayer, eBay, PSA
 - [x] Integrity check passed (81/81)
+
+## Fix: Gambit's Deck Featured Image — DC/Batman Characters Detected
+- [x] Regenerate gambit-deck-featured.jpg with STRICTLY Marvel-only characters (no DC/Batman)
+- [x] Upload new image to CDN
+- [x] Update article in database with new image URL
+- [x] Run integrity check (81/81)
+- [ ] Save checkpoint
