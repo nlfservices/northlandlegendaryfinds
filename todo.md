@@ -1785,4 +1785,17 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Upload new image to CDN
 - [x] Update article in database with new image URL
 - [x] Run integrity check (81/81)
-- [ ] Save checkpoint
+- [x] Save checkpoint
+
+## Rewrite: Avengers Doomsday Card Collecting Guide - Topps Only
+- [ ] Remove all references to Upper Deck, Panini, and other unlicensed brands
+- [ ] Rewrite to focus exclusively on Topps products (Marvel Mint, Chrome, Cosmic, etc.)
+- [ ] Update article in database
+- [ ] Verify changes on live site
+
+## Rewrite: Avengers Doomsday Card Collecting Guide - Topps Only
+- [x] Remove all references to Upper Deck, SkyBox, Panini, Impel, Fleer, and other unlicensed brands
+- [x] Rewrite to focus exclusively on Topps products (Marvel Mint, Chrome, Chrome Studios, Comic Book Heroes, The Collector)
+- [x] Update article in database
+- [x] Verify no non-Topps brand references remain (verification passed)
+- [x] Run integrity check (81/81)
