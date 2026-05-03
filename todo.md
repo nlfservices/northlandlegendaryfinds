@@ -1799,3 +1799,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Update article in database
 - [x] Verify no non-Topps brand references remain (verification passed)
 - [x] Run integrity check (81/81)
+
+## Fix: Remove Specific Pricing from Avengers Doomsday Article
+- [x] Fetch current article content
+- [x] Remove all specific dollar amounts and pricing references
+- [x] Replace with evergreen language (e.g., "commanding premium prices", "budget-friendly")
+- [x] Update article in database
+- [ ] Save checkpoint
