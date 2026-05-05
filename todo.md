@@ -1805,4 +1805,4 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Remove all specific dollar amounts and pricing references
 - [x] Replace with evergreen language (e.g., "commanding premium prices", "budget-friendly")
 - [x] Update article in database
-- [ ] Save checkpoint
+- [x] Save checkpoint

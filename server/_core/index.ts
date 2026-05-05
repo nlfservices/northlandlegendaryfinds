@@ -7,6 +7,7 @@ import { registerOAuthRoutes } from "./oauth";
 import { registerStripeWebhook } from "../stripe-webhook";
 import { registerEbayDeletionEndpoint } from "../ebay-deletion";
 import { registerSitemapRoute } from "../sitemap";
+import { registerScheduledPublishRoute } from "../scheduled-publish";
 import { appRouter } from "../routers";
 import { startBlogScheduler } from "../blog-scheduler";
 import { createContext } from "./context";
@@ -45,6 +46,8 @@ async function startServer() {
   registerEbayDeletionEndpoint(app);
   // Dynamic sitemap.xml
   registerSitemapRoute(app);
+  // Scheduled task endpoints
+  registerScheduledPublishRoute(app);
   // tRPC API
   app.use(
     "/api/trpc",
