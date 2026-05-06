@@ -1806,3 +1806,13 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Replace with evergreen language (e.g., "commanding premium prices", "budget-friendly")
 - [x] Update article in database
 - [x] Save checkpoint
+
+## Tony Stark vs Doctor Doom Article (May 5, 2026)
+- [x] Analyze YouTube video on Tony Stark vs Doom parallels (7Q_sYAZgwR8)
+- [x] Analyze YouTube video on Doom kills Kang concept (xjrsvzKKYSg)
+- [x] Research from ComicBook.com, Den of Geek, Kevin Feige quotes
+- [x] Generate featured image (split duality composition)
+- [x] Generate inline images (Doom vs Kang Council, Stark/Doom parallels, God Emperor Doom)
+- [x] Write full article with 7 sections + Collector's Corner
+- [x] Publish to database as featured article (category: analysis)
+- [x] Run integrity check (81/81 passed)
