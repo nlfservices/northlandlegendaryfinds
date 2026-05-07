@@ -1823,3 +1823,45 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Generate featured image
 - [x] Publish to database
 - [ ] Create Facebook post for the article
+
+## Avengers Doomsday 14-Article Series (May 2026)
+- [ ] Article 1: The Original Six — Who Returns for Doomsday? (TEAM)
+- [ ] Article 2: Top 5 Cards to Buy Before Thunderbolts Drops (FILLER)
+- [ ] Article 3: The Thunderbolts — From Villains to Heroes (TEAM)
+- [ ] Article 4: Secret Wars 1984 vs 2015 — A Collector's Guide (FILLER)
+- [ ] Article 5: The Fantastic Four — Doom's Greatest Enemies (TEAM)
+- [ ] Article 6: MCU Phase 6 Rumor Roundup (FILLER)
+- [ ] Article 7: The Young Avengers — Next Generation Assembled (TEAM)
+- [ ] Article 8: Grading Guide: When to Send Cards to PSA vs CGC (FILLER)
+- [ ] Article 9: The X-Men — Mutants Enter the MCU (TEAM)
+- [ ] Article 10: 5 Undervalued Doom Cards Right Now (FILLER)
+- [ ] Article 11: Doom's Army — The Cabal Assembles (TEAM)
+- [ ] Article 12: Multiverse of Madness Card Market 1 Year Later (FILLER)
+- [ ] Article 13: The Multiverse Avengers — Every Variant Assembled (TEAM)
+- [ ] Article 14: Weekly Card Market Movers (FILLER)
+- [ ] Generate featured images for all 14 articles
+- [ ] Interlink all articles to each other
+- [ ] Schedule daily publishing (1 per day starting May 7)
+- [ ] Every article links to Whatnot page (mandatory)
+- [ ] Rotate links to comicbookcard.com, riseofdoom.com, mintcomiccards.com
+
+## Avengers Doomsday 14-Article Series — PUBLISHED
+- [x] Article 1: The Original Six — Who Returns for Doomsday? (published May 7)
+- [x] Article 2: Top 5 Cards to Buy Before Thunderbolts Drops (published May 8)
+- [x] Article 3: The Thunderbolts — From Villains to Heroes (published May 9)
+- [x] Article 4: Secret Wars 1984 vs 2015 — A Collector's Guide (published May 10)
+- [x] Article 5: The Fantastic Four — Doom's Greatest Enemies (published May 11)
+- [x] Article 6: MCU Phase 6 Rumor Roundup (published May 12)
+- [x] Article 7: The Young Avengers — Next Generation Assembled (published May 13)
+- [x] Article 8: Grading Guide: When to Send Cards to PSA vs CGC (published May 14)
+- [x] Article 9: The X-Men — Mutants Enter the MCU (published May 15)
+- [x] Article 10: 5 Undervalued Doom Cards Right Now (published May 16)
+- [x] Article 11: Doom's Army — The Cabal Assembles (published May 17)
+- [x] Article 12: Multiverse of Madness Card Market 1 Year Later (published May 18)
+- [x] Article 13: The Multiverse Avengers — Every Variant Assembled (published May 19)
+- [x] Article 14: Weekly Card Market Movers (published May 20)
+- [x] All 14 articles have Whatnot links (northlandlegendaryfinds.com/whatnot)
+- [x] All 14 articles have rotating partner links (comicbookcard.com, riseofdoom.com, mintcomiccards.com)
+- [x] All 14 articles interlinked to each other
+- [x] Scheduled daily publishing (1 per day starting May 7)
+- [x] Verified on live site
