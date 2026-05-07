@@ -1816,3 +1816,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Write full article with 7 sections + Collector's Corner
 - [x] Publish to database as featured article (category: analysis)
 - [x] Run integrity check (81/81 passed)
+
+## Top 10 MCU Villains Article
+- [x] Research top MCU villains for the list
+- [x] Write full article (Doctor Doom #1, Thanos #2)
+- [x] Generate featured image
+- [x] Publish to database
+- [ ] Create Facebook post for the article
