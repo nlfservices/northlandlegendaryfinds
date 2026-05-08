@@ -1890,3 +1890,17 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Spread dates across Apr 25 - May 8, 2026 (one per day)
 - [x] Verify on live site
 - [x] Save checkpoint
+
+## 2025 Topps Marvel Mint Gambit Chrome Deck Article
+- [x] Research: Read checklist PDF and odds PDF
+- [x] Research: Find top eBay sold listings / PriceCharting data for Gambit Deck cards
+- [x] Extract card images from zip, organize by suit (52 front images)
+- [x] Upload all 52 card images to CDN via manus-storage
+- [x] Generate featured image (chrome cards with Gambit energy)
+- [x] Write article with "All-Star Game" angle, top sales, Whatnot giveaway mention
+- [x] Added Avengers: Doomsday / Spider-Man: Brand New Day cast connection angle
+- [x] Build interactive card slideshow organized by suit (Hearts, Diamonds, Clubs, Spades)
+- [x] Created dedicated /gambit-deck page with full gallery component
+- [x] Added to sitemap
+- [x] Verify on live site
+- [x] Save checkpoint

@@ -60,6 +60,7 @@ const SITE_SECTIONS: SiteSection[] = [
       { path: "/market-intel/why-fanatics-trading-cards", label: "Why Fanatics Matters", description: "How Fanatics is reshaping the trading card industry" },
       { path: "/market-intel/best-topps-marvel-cards", label: "Best Topps Marvel Cards", description: "Top cards to watch from 2025 Topps Marvel sets" },
       { path: "/trending", label: "Trending Cards", description: "Marvel cards to collect right now — movie-driven picks and beginner tips" },
+      { path: "/gambit-deck", label: "Gambit Chrome Deck Guide", description: "Complete guide to the 2025 Topps Marvel Mint Gambit Deck — all 52 cards, prices, and MCU connections" },
     ],
   },
   {
