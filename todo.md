@@ -1884,3 +1884,9 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Automatic for all articles (template-level, not content-level)
 - [x] Test on live dev server
 - [x] Save checkpoint
+
+## Fix Article Publish Dates (No Future Dates)
+- [x] Update all 14 Doomsday articles to have past/present dates (not future)
+- [x] Spread dates across Apr 25 - May 8, 2026 (one per day)
+- [x] Verify on live site
+- [x] Save checkpoint
