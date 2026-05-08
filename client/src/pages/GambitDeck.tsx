@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import GambitDeckGallery from "@/components/GambitDeckGallery";
 import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 
-const FEATURED_IMG = "/manus-storage/gambit-deck-featured_c35f1d51.jpg";
+const FEATURED_IMG = "/manus-storage/gambit-deck-hero-final_c67c7a3f.png";
 
 export default function GambitDeck() {
   return (
