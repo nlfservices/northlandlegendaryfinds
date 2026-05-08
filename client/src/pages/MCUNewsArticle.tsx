@@ -217,6 +217,21 @@ export default function MCUNewsArticle() {
           <Streamdown>{article.contentMarkdown}</Streamdown>
         </div>
 
+        {/* Whatnot Live Stream CTA */}
+        <div className="bg-gradient-to-r from-yellow-500/10 via-yellow-400/5 to-yellow-500/10 border-2 border-yellow-500/40 rounded-xl p-6 sm:p-8 mb-8 text-center">
+          <h3 className="text-xl sm:text-2xl font-bold mb-2">Like Marvel Cards? Come Hang Out Live</h3>
+          <p className="text-muted-foreground mb-5 max-w-lg mx-auto">
+            We rip packs, give away free cards every stream, and talk Marvel with collectors like you. New to Whatnot? You'll get <span className="text-yellow-400 font-bold">$15 off</span> your first purchase just for signing up.
+          </p>
+          <a
+            href="https://northlandlegendaryfinds.com/whatnot"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-lg rounded-lg transition-all shadow-lg shadow-yellow-500/20 hover:shadow-yellow-500/40 hover:scale-[1.02]"
+          >
+            Watch Us Live — Free Giveaways Every Show
+          </a>
+          <p className="text-xs text-muted-foreground mt-3">No purchase necessary to watch or win. Just show up.</p>
+        </div>
+
         {/* Sources */}
         {sources.length > 0 && (
           <div className="bg-card rounded-xl border border-border p-6 mb-8">

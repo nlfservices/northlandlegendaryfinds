@@ -1865,3 +1865,13 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] All 14 articles interlinked to each other
 - [x] Scheduled daily publishing (1 per day starting May 7)
 - [x] Verified on live site
+
+## Yellow Whatnot CTA Button on All Articles
+- [x] Add prominent yellow CTA button to every MCU News article page
+- [x] Tone: community invite, NOT salesy — "free giveaways + $15 credit for new users"
+- [x] Button links to /whatnot page (referral funnel)
+- [x] Make it a permanent component so all future articles automatically get it
+- [x] Goal: Facebook boost → article → trust → Whatnot signup → referral credits pay for ads
+- [x] Test on live articles
+- [x] Fixed malformed partner link text in all 14 articles
+- [x] Save checkpoint
