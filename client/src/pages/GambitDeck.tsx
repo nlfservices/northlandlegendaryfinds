@@ -76,7 +76,7 @@ export default function GambitDeck() {
           <div>
             <h4 className="font-bold text-sm text-primary mb-1">Card Market Impact</h4>
             <p className="text-sm text-foreground">
-              Complete set valued at $20,000+. Individual Aces selling for $2,000+. Superfractors hitting $10,000. With 16+ characters confirmed for Avengers: Doomsday, prices are positioned to spike when trailers drop.
+              Complete set valued at $20,000+. Spider-Man Ace sold for $2,500. Doctor Doom and Gambit Aces at $1,400 each. With 16+ characters confirmed for Avengers: Doomsday, prices are positioned to spike when trailers drop.
             </p>
           </div>
         </div>
@@ -151,52 +151,63 @@ export default function GambitDeck() {
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
-              <tr className="bg-card/50"><td className="px-4 py-3">Ace of Spades</td><td className="px-4 py-3 font-bold">Gambit</td><td className="px-4 py-3 text-primary font-bold">$2,043</td><td className="px-4 py-3 text-muted-foreground">The deck's namesake — the Ragin' Cajun himself</td></tr>
-              <tr><td className="px-4 py-3">Ace of Hearts</td><td className="px-4 py-3 font-bold">Spider-Man</td><td className="px-4 py-3 text-primary font-bold">$2,000</td><td className="px-4 py-3 text-muted-foreground">Marvel's most popular character, period</td></tr>
-              <tr className="bg-card/50"><td className="px-4 py-3">Ace of Clubs</td><td className="px-4 py-3 font-bold">Wolverine</td><td className="px-4 py-3 text-primary font-bold">$1,975 <span className="text-xs">(PSA 9: $2,950)</span></td><td className="px-4 py-3 text-muted-foreground">The most collected X-Man of all time</td></tr>
-              <tr><td className="px-4 py-3">Ace of Diamonds</td><td className="px-4 py-3 font-bold">Magneto</td><td className="px-4 py-3 text-primary font-bold">$412 <span className="text-xs">(SF: $10,000)</span></td><td className="px-4 py-3 text-muted-foreground">The Master of Magnetism</td></tr>
+              <tr className="bg-card/50"><td className="px-4 py-3">Ace of Hearts</td><td className="px-4 py-3 font-bold">Spider-Man</td><td className="px-4 py-3 text-primary font-bold">$2,500</td><td className="px-4 py-3 text-muted-foreground">Marvel's most popular character, period</td></tr>
+              <tr><td className="px-4 py-3">Ace of Spades</td><td className="px-4 py-3 font-bold">Gambit</td><td className="px-4 py-3 text-primary font-bold">$1,400</td><td className="px-4 py-3 text-muted-foreground">The deck's namesake — the Ragin' Cajun himself</td></tr>
+              <tr className="bg-card/50"><td className="px-4 py-3">King of Clubs</td><td className="px-4 py-3 font-bold">Doctor Doom</td><td className="px-4 py-3 text-primary font-bold">$1,400</td><td className="px-4 py-3 text-muted-foreground">The MCU's next big villain — Robert Downey Jr.</td></tr>
+              <tr><td className="px-4 py-3">Ace of Clubs</td><td className="px-4 py-3 font-bold">Wolverine</td><td className="px-4 py-3 text-primary font-bold">$1,975</td><td className="px-4 py-3 text-muted-foreground">The most collected X-Man of all time</td></tr>
+              <tr className="bg-card/50"><td className="px-4 py-3">Ace of Diamonds</td><td className="px-4 py-3 font-bold">Magneto</td><td className="px-4 py-3 text-primary font-bold">$599+</td><td className="px-4 py-3 text-muted-foreground">The Master of Magnetism</td></tr>
             </tbody>
           </table>
         </div>
 
         <div className="prose prose-invert prose-lg max-w-none prose-headings:text-foreground prose-headings:font-bold prose-p:text-muted-foreground prose-p:leading-relaxed prose-strong:text-foreground mb-8">
           <p>
-            Let that sink in. A single base Gambit Ace of Spades — numbered to 99 — sold for over <strong>$2,000</strong>. A graded Wolverine Ace of Clubs hit <strong>$2,950</strong>. And the Magneto Superfractor (1 of 1) commanded a staggering <strong>$10,000</strong>.
+            Let that sink in. A single base Spider-Man Ace of Hearts — numbered to 99 — sold for <strong>$2,500</strong>. The Doctor Doom King of Clubs hit <strong>$1,400</strong>. And Gambit's own Ace of Spades commanded <strong>$1,400</strong>. These aren't Superfractors or graded slabs — these are raw base cards from a 99-copy print run.
           </p>
 
-          <h2>The Superfractor Market: Five-Figure Territory</h2>
+          <h2>Top Recent eBay Sales</h2>
           <p>
-            The Superfractor parallels (numbered 1/1) are where things get truly insane. These are the rarest versions of each card in existence — literally one copy on Earth:
+            Here are real, verified sold listings from eBay. These are the prices collectors are actually paying for Gambit Deck cards right now:
           </p>
         </div>
 
-        {/* Superfractor Table */}
+        {/* Real eBay Sales Table */}
         <div className="overflow-x-auto mb-8">
           <table className="w-full text-sm border border-border rounded-lg overflow-hidden">
             <thead className="bg-yellow-500/10">
               <tr>
                 <th className="px-4 py-3 text-left font-bold">Card</th>
-                <th className="px-4 py-3 text-left font-bold">Superfractor Sale (1/1)</th>
+                <th className="px-4 py-3 text-left font-bold">Sold Price</th>
+                <th className="px-4 py-3 text-left font-bold">Date</th>
+                <th className="px-4 py-3 text-left font-bold">Link</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
-              <tr className="bg-card/50"><td className="px-4 py-3">Magneto Ace of Diamonds</td><td className="px-4 py-3 text-yellow-400 font-bold">$10,000</td></tr>
-              <tr><td className="px-4 py-3">Hulk 9 of Clubs</td><td className="px-4 py-3 text-yellow-400 font-bold">$6,300</td></tr>
-              <tr className="bg-card/50"><td className="px-4 py-3">Cyclops King of Diamonds</td><td className="px-4 py-3 text-yellow-400 font-bold">$5,700</td></tr>
-              <tr><td className="px-4 py-3">Iceman 5 of Diamonds</td><td className="px-4 py-3 text-yellow-400 font-bold">$5,000</td></tr>
-              <tr className="bg-card/50"><td className="px-4 py-3">Nightcrawler 3 of Spades</td><td className="px-4 py-3 text-yellow-400 font-bold">$4,000</td></tr>
-              <tr><td className="px-4 py-3">Storm Queen of Clubs</td><td className="px-4 py-3 text-yellow-400 font-bold">$3,819</td></tr>
-              <tr className="bg-card/50"><td className="px-4 py-3">Vision 7 of Diamonds</td><td className="px-4 py-3 text-yellow-400 font-bold">$3,500</td></tr>
-              <tr><td className="px-4 py-3">The Thing 4 of Diamonds</td><td className="px-4 py-3 text-yellow-400 font-bold">$3,383</td></tr>
-              <tr className="bg-card/50"><td className="px-4 py-3">Blade 9 of Diamonds</td><td className="px-4 py-3 text-yellow-400 font-bold">$3,275</td></tr>
-              <tr><td className="px-4 py-3">Ant-Man 7 of Hearts</td><td className="px-4 py-3 text-yellow-400 font-bold">$2,500</td></tr>
+              <tr className="bg-card/50">
+                <td className="px-4 py-3 font-medium">Spider-Man — Ace of Hearts #H-A /99</td>
+                <td className="px-4 py-3 text-yellow-400 font-bold">$2,500</td>
+                <td className="px-4 py-3 text-muted-foreground">Apr 22, 2025</td>
+                <td className="px-4 py-3"><a href="https://www.ebay.com/itm/236722459537" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline text-xs">View Sale</a></td>
+              </tr>
+              <tr>
+                <td className="px-4 py-3 font-medium">Doctor Doom — King of Clubs #C-K /99</td>
+                <td className="px-4 py-3 text-yellow-400 font-bold">$1,400</td>
+                <td className="px-4 py-3 text-muted-foreground">Feb 18, 2025</td>
+                <td className="px-4 py-3"><a href="https://www.ebay.com/itm/358204510372" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline text-xs">View Sale</a></td>
+              </tr>
+              <tr className="bg-card/50">
+                <td className="px-4 py-3 font-medium">Gambit — Ace of Spades #S-A /99</td>
+                <td className="px-4 py-3 text-yellow-400 font-bold">$1,400</td>
+                <td className="px-4 py-3 text-muted-foreground">Mar 27, 2025</td>
+                <td className="px-4 py-3"><a href="https://www.ebay.com/itm/188174554741" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline text-xs">View Sale</a></td>
+              </tr>
             </tbody>
           </table>
         </div>
 
         <div className="prose prose-invert prose-lg max-w-none prose-headings:text-foreground prose-headings:font-bold prose-p:text-muted-foreground prose-p:leading-relaxed prose-strong:text-foreground mb-8">
           <p>
-            The complete 52-card base set (all /99) carries an estimated value north of <strong>$20,000</strong>. Even the lowest-value cards in the deck are selling for $200+. There is no "junk" in this deck.
+            That's <strong>$5,300 in confirmed sales</strong> across just three cards. The complete 52-card base set (all /99) carries an estimated value north of <strong>$20,000</strong>. Even the lowest-value cards in the deck are selling for $200+. There is no "junk" in this deck.
           </p>
 
           <h2>The Avengers: Doomsday Connection</h2>
