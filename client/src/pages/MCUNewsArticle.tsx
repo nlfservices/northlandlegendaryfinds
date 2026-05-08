@@ -3,9 +3,10 @@
  */
 
 import { Link, useParams, useLocation } from "wouter";
+import { useMemo } from "react";
 import {
   ArrowLeft, Clock, Tag, TrendingUp, ExternalLink, User, Share2,
-  ChevronRight, Newspaper, Facebook,
+  ChevronRight, Newspaper, Facebook, Tv,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
@@ -43,6 +44,85 @@ function formatDate(timestamp: number | null): string {
     day: "numeric",
     year: "numeric",
   });
+}
+
+/**
+ * Splits article markdown content and inserts a mid-article Whatnot banner
+ * after the first major section (first H2/H3 heading break or ~30% through content)
+ */
+function ArticleContentWithBanner({ content }: { content: string }) {
+  const { firstHalf, secondHalf } = useMemo(() => {
+    const lines = content.split('\n');
+    // Find a good split point: after the first ## or ### heading that appears
+    // after at least 8 lines of content (to ensure we're past the intro)
+    let splitIndex = -1;
+    for (let i = 8; i < lines.length; i++) {
+      if (lines[i].match(/^#{2,3}\s/) && i < lines.length * 0.6) {
+        splitIndex = i;
+        break;
+      }
+    }
+    // Fallback: split at roughly 35% through the content
+    if (splitIndex === -1) {
+      splitIndex = Math.floor(lines.length * 0.35);
+    }
+    return {
+      firstHalf: lines.slice(0, splitIndex).join('\n'),
+      secondHalf: lines.slice(splitIndex).join('\n'),
+    };
+  }, [content]);
+
+  const proseClasses = `prose prose-invert prose-lg max-w-none
+    prose-headings:text-foreground prose-headings:font-bold
+    prose-p:text-muted-foreground prose-p:leading-relaxed
+    prose-a:text-primary prose-a:no-underline hover:prose-a:underline
+    prose-strong:text-foreground
+    prose-blockquote:border-primary prose-blockquote:text-muted-foreground
+    prose-code:text-primary prose-code:bg-muted prose-code:px-1 prose-code:rounded
+    prose-img:rounded-lg prose-img:border prose-img:border-border`;
+
+  return (
+    <div className="mb-12">
+      {/* First half of article */}
+      <div className={proseClasses}>
+        <Streamdown>{firstHalf}</Streamdown>
+      </div>
+
+      {/* Mid-Article Whatnot Banner */}
+      <div className="my-8 relative">
+        {/* Decorative divider lines */}
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-yellow-500/50 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-yellow-500/50 to-transparent" />
+        
+        <div className="py-6 px-4 sm:px-6 bg-yellow-500/5 border-l-4 border-yellow-500 rounded-r-lg">
+          <div className="flex flex-col sm:flex-row items-center gap-4">
+            <div className="w-12 h-12 bg-yellow-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+              <Tv className="w-6 h-6 text-yellow-400" />
+            </div>
+            <div className="text-center sm:text-left flex-1">
+              <p className="font-bold text-foreground text-base sm:text-lg mb-1">
+                We're going LIVE this week — free cards every stream
+              </p>
+              <p className="text-sm text-muted-foreground">
+                New to Whatnot? Get <span className="text-yellow-400 font-semibold">$15 off</span> your first purchase. No strings attached.
+              </p>
+            </div>
+            <a
+              href="https://northlandlegendaryfinds.com/whatnot"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-sm rounded-lg transition-all hover:scale-[1.02] flex-shrink-0 whitespace-nowrap"
+            >
+              Watch Free
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Second half of article */}
+      <div className={proseClasses}>
+        <Streamdown>{secondHalf}</Streamdown>
+      </div>
+    </div>
+  );
 }
 
 export default function MCUNewsArticle() {
@@ -204,18 +284,8 @@ export default function MCUNewsArticle() {
           </div>
         )}
 
-        {/* Article Content */}
-        <div className="prose prose-invert prose-lg max-w-none mb-12
-          prose-headings:text-foreground prose-headings:font-bold
-          prose-p:text-muted-foreground prose-p:leading-relaxed
-          prose-a:text-primary prose-a:no-underline hover:prose-a:underline
-          prose-strong:text-foreground
-          prose-blockquote:border-primary prose-blockquote:text-muted-foreground
-          prose-code:text-primary prose-code:bg-muted prose-code:px-1 prose-code:rounded
-          prose-img:rounded-lg prose-img:border prose-img:border-border
-        ">
-          <Streamdown>{article.contentMarkdown}</Streamdown>
-        </div>
+        {/* Article Content with Mid-Article Whatnot Banner */}
+        <ArticleContentWithBanner content={article.contentMarkdown} />
 
         {/* Whatnot Live Stream CTA */}
         <div className="bg-gradient-to-r from-yellow-500/10 via-yellow-400/5 to-yellow-500/10 border-2 border-yellow-500/40 rounded-xl p-6 sm:p-8 mb-8 text-center">

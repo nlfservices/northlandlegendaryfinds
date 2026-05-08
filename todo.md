@@ -1875,3 +1875,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Test on live articles
 - [x] Fixed malformed partner link text in all 14 articles
 - [x] Save checkpoint
+
+## Mid-Article Whatnot Banner (Page Break)
+- [x] Add a mid-article yellow Whatnot banner that acts as a visual page break
+- [x] Position after first major section (catches readers while engaged)
+- [x] Different copy from bottom CTA to avoid repetition
+- [x] Clean, eye-catching but not intrusive design
+- [x] Automatic for all articles (template-level, not content-level)
+- [x] Test on live dev server
+- [x] Save checkpoint
