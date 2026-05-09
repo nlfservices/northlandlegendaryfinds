@@ -1,49 +1,28 @@
 /**
- * Navigation - Simplified collector-first nav with 8 main items + Marvel Resources dropdown
+ * Navigation - Simplified collector-first nav with main items
  * Design: Announcement bar + sticky nav with logo, links, cart
  */
 
-import { useState, useCallback, useRef, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { Link, useLocation } from "wouter";
-import { ShoppingCart, Menu, X, Shuffle, User, ChevronDown, BookOpen, Library } from "lucide-react";
+import { ShoppingCart, Menu, X, Shuffle, User } from "lucide-react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 
-const MARKET_INTEL_PAGES = [
-  { path: "/market-intel", label: "The Future of Marvel Cards" },
-  { path: "/market-intel/2024-vs-2025-topps-marvel", label: "2024 vs 2025 Topps Marvel" },
-  { path: "/market-intel/topps-vs-upper-deck-marvel", label: "Topps vs Upper Deck" },
-  { path: "/market-intel/marvel-vs-pokemon-cards", label: "Marvel vs Pokémon Cards" },
-  { path: "/market-intel/why-fanatics-trading-cards", label: "Why Fanatics Matters" },
-  { path: "/market-intel/best-topps-marvel-cards", label: "Best Topps Marvel to Watch" },
-];
 
-const MARVEL_RESOURCES_PAGES = [
-  { path: "/mcu-spotlight", label: "MCU Spotlight" },
-  { path: "/trending", label: "Trending Cards" },
-  { path: "/the-collector", label: "The Collector (Blog)" },
-  { path: "/market-intel", label: "Market Intel", hasSubmenu: true },
-  { path: "/transparency", label: "Transparency" },
-  { path: "/our-process", label: "Our Process" },
-  { path: "/marvel-card-hub", label: "Card Hub" },
-];
 
 export default function Navigation() {
   const [location, setLocation] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [marketIntelOpen, setMarketIntelOpen] = useState(false);
-  const [resourcesOpen, setResourcesOpen] = useState(false);
-  const [mobileMarketIntelOpen, setMobileMarketIntelOpen] = useState(false);
-  const [mobileResourcesOpen, setMobileResourcesOpen] = useState(false);
+
   const [isRandomizing, setIsRandomizing] = useState(false);
   const { totalItems, setIsOpen: setCartOpen } = useCart();
   const utils = trpc.useUtils();
   const { user, isAuthenticated } = useAuth();
-  const marketIntelRef = useRef<HTMLDivElement>(null);
-  const resourcesRef = useRef<HTMLDivElement>(null);
+
 
   // Main nav items — clean and focused
   const navItems = [
@@ -61,22 +40,9 @@ export default function Navigation() {
   // Keep these strings present for integrity check (searched as text in this file)
   // Nav: Card Shows, Card Database, Characters, Checklists, Shop, About, FAQ
 
-  const isMarketIntelActive = location.startsWith("/market-intel");
-  const isResourcesActive = MARVEL_RESOURCES_PAGES.some(p => location === p.path) || isMarketIntelActive;
 
-  // Close dropdowns when clicking outside
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (marketIntelRef.current && !marketIntelRef.current.contains(event.target as Node)) {
-        setMarketIntelOpen(false);
-      }
-      if (resourcesRef.current && !resourcesRef.current.contains(event.target as Node)) {
-        setResourcesOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+
+
 
   const handleRandomCard = useCallback(async () => {
     if (isRandomizing) return;
@@ -168,107 +134,7 @@ export default function Navigation() {
                 );
               })}
 
-              {/* Marvel Resources Dropdown */}
-              <div ref={resourcesRef} className="relative">
-                <button
-                  onClick={() => setResourcesOpen(!resourcesOpen)}
-                  onMouseEnter={() => setResourcesOpen(true)}
-                  className={`flex items-center gap-1.5 px-3 py-2 text-sm font-bold tracking-wide rounded-lg transition-all whitespace-nowrap ${
-                    isResourcesActive
-                      ? "text-primary bg-primary/15 ring-1 ring-primary/30"
-                      : "text-primary bg-primary/5 hover:bg-primary/10 ring-1 ring-primary/20"
-                  }`}
-                >
-                  <Library className="w-3.5 h-3.5" />
-                  Marvel Resources
-                  <ChevronDown className={`w-3.5 h-3.5 transition-transform ${resourcesOpen ? "rotate-180" : ""}`} />
-                </button>
 
-                {resourcesOpen && (
-                  <div
-                    className="absolute right-0 top-full mt-2 w-72 bg-popover border border-border rounded-lg shadow-xl overflow-hidden z-50"
-                    onMouseLeave={() => {
-                      setResourcesOpen(false);
-                      setMarketIntelOpen(false);
-                    }}
-                  >
-                    {MARVEL_RESOURCES_PAGES.map((page) => {
-                      const isActive = location === page.path;
-
-                      if (page.hasSubmenu) {
-                        return (
-                          <div key={page.path} ref={marketIntelRef}>
-                            <button
-                              onClick={() => setMarketIntelOpen(!marketIntelOpen)}
-                              onMouseEnter={() => setMarketIntelOpen(true)}
-                              className={`w-full px-4 py-3 text-sm font-medium transition-colors flex items-center justify-between ${
-                                isMarketIntelActive
-                                  ? "bg-primary/10 text-primary"
-                                  : "text-popover-foreground hover:bg-primary/5 hover:text-primary"
-                              }`}
-                              style={{ fontFamily: "'Inter', sans-serif" }}
-                            >
-                              <span className="flex items-center gap-2">
-                                <BookOpen className="w-3.5 h-3.5" />
-                                {page.label}
-                              </span>
-                              <ChevronDown className={`w-3.5 h-3.5 transition-transform ${marketIntelOpen ? "-rotate-90" : ""}`} />
-                            </button>
-
-                            {marketIntelOpen && (
-                              <div className="border-t border-border/50 bg-muted/30">
-                                {MARKET_INTEL_PAGES.map((miPage) => {
-                                  const miActive = location === miPage.path;
-                                  return (
-                                    <Link
-                                      key={miPage.path}
-                                      href={miPage.path}
-                                      onClick={() => {
-                                        setResourcesOpen(false);
-                                        setMarketIntelOpen(false);
-                                      }}
-                                    >
-                                      <div
-                                        className={`pl-10 pr-4 py-2.5 text-sm transition-colors ${
-                                          miActive
-                                            ? "text-primary font-bold"
-                                            : "text-popover-foreground/80 hover:text-primary hover:bg-primary/5"
-                                        }`}
-                                        style={{ fontFamily: "'Inter', sans-serif" }}
-                                      >
-                                        {miPage.label}
-                                      </div>
-                                    </Link>
-                                  );
-                                })}
-                              </div>
-                            )}
-                          </div>
-                        );
-                      }
-
-                      return (
-                        <Link
-                          key={page.path}
-                          href={page.path}
-                          onClick={() => setResourcesOpen(false)}
-                        >
-                          <div
-                            className={`px-4 py-3 text-sm font-medium transition-colors ${
-                              isActive
-                                ? "bg-primary/10 text-primary"
-                                : "text-popover-foreground hover:bg-primary/5 hover:text-primary"
-                            }`}
-                            style={{ fontFamily: "'Inter', sans-serif" }}
-                          >
-                            {page.label}
-                          </div>
-                        </Link>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
             </div>
 
             {/* Right Side */}
@@ -381,102 +247,7 @@ export default function Navigation() {
                 );
               })}
 
-              {/* Marvel Resources Mobile Dropdown */}
-              <div>
-                <button
-                  onClick={() => setMobileResourcesOpen(!mobileResourcesOpen)}
-                  className={`w-full px-4 py-3 rounded-lg font-bold tracking-wide transition-colors flex items-center justify-between ${
-                    isResourcesActive
-                      ? "bg-primary/10 text-primary"
-                      : "text-primary hover:bg-primary/5"
-                  }`}
-                >
-                  <span className="flex items-center gap-2">
-                    <Library className="w-4 h-4" />
-                    Marvel Resources
-                  </span>
-                  <ChevronDown className={`w-4 h-4 transition-transform ${mobileResourcesOpen ? "rotate-180" : ""}`} />
-                </button>
-                {mobileResourcesOpen && (
-                  <div className="ml-4 mt-1 space-y-1 border-l-2 border-primary/20 pl-4">
-                    {MARVEL_RESOURCES_PAGES.map((page) => {
-                      if (page.hasSubmenu) {
-                        return (
-                          <div key={page.path}>
-                            <button
-                              onClick={() => setMobileMarketIntelOpen(!mobileMarketIntelOpen)}
-                              className={`w-full px-3 py-2 rounded text-sm transition-colors flex items-center justify-between ${
-                                isMarketIntelActive
-                                  ? "text-primary font-bold"
-                                  : "text-foreground/70 hover:text-primary"
-                              }`}
-                              style={{ fontFamily: "'Inter', sans-serif" }}
-                            >
-                              <span className="flex items-center gap-2">
-                                <BookOpen className="w-3.5 h-3.5" />
-                                {page.label}
-                              </span>
-                              <ChevronDown className={`w-3.5 h-3.5 transition-transform ${mobileMarketIntelOpen ? "rotate-180" : ""}`} />
-                            </button>
-                            {mobileMarketIntelOpen && (
-                              <div className="ml-4 mt-1 space-y-1 border-l-2 border-primary/10 pl-3">
-                                {MARKET_INTEL_PAGES.map((miPage) => {
-                                  const miActive = location === miPage.path;
-                                  return (
-                                    <Link
-                                      key={miPage.path}
-                                      href={miPage.path}
-                                      onClick={() => {
-                                        setMobileMenuOpen(false);
-                                        setMobileResourcesOpen(false);
-                                        setMobileMarketIntelOpen(false);
-                                      }}
-                                    >
-                                      <div
-                                        className={`px-3 py-2 rounded text-sm transition-colors ${
-                                          miActive
-                                            ? "text-primary font-bold"
-                                            : "text-foreground/70 hover:text-primary"
-                                        }`}
-                                        style={{ fontFamily: "'Inter', sans-serif" }}
-                                      >
-                                        {miPage.label}
-                                      </div>
-                                    </Link>
-                                  );
-                                })}
-                              </div>
-                            )}
-                          </div>
-                        );
-                      }
 
-                      const isActive = location === page.path;
-                      return (
-                        <Link
-                          key={page.path}
-                          href={page.path}
-                          onClick={() => {
-                            setMobileMenuOpen(false);
-                            setMobileResourcesOpen(false);
-                          }}
-                        >
-                          <div
-                            className={`px-3 py-2 rounded text-sm transition-colors ${
-                              isActive
-                                ? "text-primary font-bold"
-                                : "text-foreground/70 hover:text-primary"
-                            }`}
-                            style={{ fontFamily: "'Inter', sans-serif" }}
-                          >
-                            {page.label}
-                          </div>
-                        </Link>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
 
               {/* Random Card in mobile menu */}
               <button

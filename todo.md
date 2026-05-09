@@ -1922,3 +1922,19 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add Variant Series product images (Cosmic Drop purple bag + Chrome Edition silver bag) to the page
 - [x] Ensure page shows Coming Soon only — no prices, no details, no checklists
 - [x] Save checkpoint
+
+## MCU Spotlight - Replace Placeholder Images
+- [ ] Replace Placeholder 1 (600x750 actor portrait) with character images for Daredevil, Doctor Doom, Spider-Man
+- [ ] Replace Placeholder 2 (600x340 scene/promo image) with character images
+- [ ] Replace Placeholder 3 (1100x300 chase cards banner) with character banner images
+- [ ] Save checkpoint
+
+## Weekly Auto-Update for Card Shows & Market Intel
+- [ ] Determine best approach for weekly auto-updates (AGENT cron vs Heartbeat)
+- [ ] Set up weekly scheduled task for card shows page refresh
+- [ ] Set up weekly scheduled task for market intel page refresh
+- [ ] Save checkpoint and deploy
+
+## Remove Marvel Resources from Navigation Bar
+- [ ] Remove "Marvel Resources" button/dropdown from the navigation component
+- [ ] Save checkpoint
