@@ -1,0 +1,35 @@
+{
+  "query": "SELECT productId, COUNT(*) as total, SUM(isPulled) as pulled FROM checklist_items GROUP BY productId;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT productId, COUNT(*) as total, SUM(isPulled) as pulled FROM checklist_items GROUP BY productId;",
+  "rows": [
+    {
+      "productId": "999",
+      "total": "600",
+      "pulled": "2"
+    },
+    {
+      "productId": "30001",
+      "total": "100",
+      "pulled": "0"
+    },
+    {
+      "productId": "30003",
+      "total": "52",
+      "pulled": "0"
+    },
+    {
+      "productId": "30002",
+      "total": "50",
+      "pulled": "0"
+    },
+    {
+      "productId": "1",
+      "total": "500",
+      "pulled": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "productId\ttotal\tpulled\n999\t600\t2\n30001\t100\t0\n30003\t52\t0\n30002\t50\t0\n1\t500\t0\n",
+  "stderr": "",
+  "execution_time_ms": 270
+}

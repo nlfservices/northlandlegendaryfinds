@@ -40,7 +40,7 @@ const SITE_SECTIONS: SiteSection[] = [
       { path: "/shop", label: "Shop All Products", description: "Browse our full collection of premium Marvel trading card repacks" },
       { path: "/marvel", label: "Marvel Collection", description: "Explore our Marvel-focused repack products and exclusive drops" },
       { path: "/star-wars", label: "Star Wars Collection", description: "Coming Fall 2026 — Star Wars trading card repacks" },
-      { path: "/checklists", label: "Product Checklists", description: "Full transparency — see every card that could be in your repack" },
+      { path: "/checklists", label: "NLF Cosmic Hits", description: "Full transparency — see every card in each series. Updated after every stream." },
       { path: "/whatnot", label: "Whatnot Live Shows", description: "Watch our live card breaks and exclusive Whatnot drops" },
       { path: "/free-credit", label: "Get $15 Free on Whatnot", description: "Sign up through our referral link and get $15 to shop live shows" },
     ],

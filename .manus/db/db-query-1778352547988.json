@@ -1,0 +1,42 @@
+{
+  "query": "SELECT id, name, slug, status, totalPacks, packsRemaining FROM repack_products ORDER BY id;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, name, slug, status, totalPacks, packsRemaining FROM repack_products ORDER BY id;",
+  "rows": [
+    {
+      "id": "1",
+      "name": "NLF Marvel 500-Pack Series",
+      "slug": "nlf-marvel-500-whatnot",
+      "status": "active",
+      "totalPacks": "500",
+      "packsRemaining": "500"
+    },
+    {
+      "id": "30001",
+      "name": "NLF Marvel 100-Pack Series",
+      "slug": "nlf-marvel-100-series",
+      "status": "active",
+      "totalPacks": "100",
+      "packsRemaining": "100"
+    },
+    {
+      "id": "30002",
+      "name": "NLF Marvel 50-Pack Series",
+      "slug": "nlf-marvel-50-series",
+      "status": "active",
+      "totalPacks": "50",
+      "packsRemaining": "50"
+    },
+    {
+      "id": "30003",
+      "name": "Gambit's Deck — 52 Singles",
+      "slug": "nlf-marvel-52-singles",
+      "status": "active",
+      "totalPacks": "52",
+      "packsRemaining": "52"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tslug\tstatus\ttotalPacks\tpacksRemaining\n1\tNLF Marvel 500-Pack Series\tnlf-marvel-500-whatnot\tactive\t500\t500\n30001\tNLF Marvel 100-Pack Series\tnlf-marvel-100-series\tactive\t100\t100\n30002\tNLF Marvel 50-Pack Series\tnlf-marvel-50-series\tactive\t50\t50\n30003\tGambit's Deck — 52 Singles\tnlf-marvel-52-singles\tactive\t52\t52\n",
+  "stderr": "",
+  "execution_time_ms": 327
+}

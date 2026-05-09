@@ -1,141 +1,81 @@
 /**
- * Public Checklists Page - Browse all product checklists
- * The HIGHLIGHT feature of the site - builds trust through transparency
- * 
- * Logic:
- * - Gambit's Deck: Always visible (transparency preview)
- * - Products with launch dates: Checklist unlocks 1 week before launch
- * - Coming Soon products: Shown as locked with no reveal date
+ * NLF Cosmic Hits - Checklists Page
+ * Hit Parade-inspired simple layout: grid of series → modal with flat card list
+ * Updated after each stream to show pulled status
  */
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
-import { Link } from "wouter";
-import {
-  ListChecks, ArrowRight, Package, Zap, Radio,
-  CheckCircle2, Circle, Loader2, TrendingUp, Eye,
-  Lock, Clock
-} from "lucide-react";
+import { Loader2, X, CheckCircle2, Sparkles, Eye, ListChecks } from "lucide-react";
 import SEO, { breadcrumbJsonLd } from "@/components/SEO";
-import { products as frontendProducts } from "@/lib/products";
-import { useMemo } from "react";
+import { useState, useMemo } from "react";
 
-/** Slugs that are always revealed regardless of date */
-const ALWAYS_REVEALED_SLUGS: string[] = [];
-
-/** Check if a product's checklist is unlocked (only after launch date) */
-function isChecklistUnlocked(product: { dbSlug?: string; checklistSlug?: string; launchDate?: string; isComingSoon: boolean }): boolean {
-  const slug = product.dbSlug || product.checklistSlug || "";
-  if (ALWAYS_REVEALED_SLUGS.includes(slug)) return true;
-  if (product.isComingSoon || !product.launchDate) return false;
-  
-  const launchDate = new Date(product.launchDate);
-  return new Date() >= launchDate;
+interface DbProduct {
+  id: number;
+  name: string;
+  slug: string;
+  description: string | null;
+  imageUrl: string | null;
+  totalPacks: number;
+  packsRemaining: number;
+  category: string;
+  status: string;
+  isWhatnotExclusive: boolean;
+  whatnotSeriesName: string | null;
+  sortOrder: number;
 }
 
-/** Get the launch date for display */
-function getLaunchDate(launchDate?: string): Date | null {
-  if (!launchDate) return null;
-  return new Date(launchDate);
-}
-
-/** Format date for display */
-function formatDate(date: Date): string {
-  return date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+interface ChecklistItem {
+  id: number;
+  productId: number;
+  cardName: string;
+  cardSet: string | null;
+  cardYear: string | null;
+  cardNumber: string | null;
+  parallel: string | null;
+  tier: string;
+  cardCondition: string | null;
+  isPulled: boolean;
+  estimatedValue: string | null;
+  imageUrl: string | null;
+  sortOrder: number;
 }
 
 export default function Checklists() {
   const { data: dbProducts, isLoading } = trpc.public.products.list.useQuery();
+  const [selectedProduct, setSelectedProduct] = useState<DbProduct | null>(null);
 
-  // Get all repack products from frontend data (includes all product lines, even coming soon)
-  const allRepacks = useMemo(() => frontendProducts.filter(p => p.isRepack), []);
-
-  // Deduplicate by product line — show one card per product line
-  const productLines = useMemo(() => {
-    const seen = new Set<string>();
-    const result: typeof allRepacks = [];
-    
-    for (const product of allRepacks) {
-      const lineKey = product.productLine || product.id;
-      if (!seen.has(lineKey)) {
-        seen.add(lineKey);
-        result.push(product);
-      }
-    }
-    return result;
-  }, [allRepacks]);
-
-  // Count unlocked vs total
-  const unlockedCount = productLines.filter(p => isChecklistUnlocked(p)).length;
-
-  const categoryColors: Record<string, string> = {
-    marvel: "from-red-600 to-red-800",
-    starwars: "from-cyan-600 to-blue-800",
-    sports: "from-green-600 to-green-800",
-    pokemon: "from-yellow-600 to-amber-800",
-    other: "from-purple-600 to-purple-800",
-  };
-
-  const categoryLabels: Record<string, string> = {
-    marvel: "Marvel",
-    starwars: "Star Wars",
-    sports: "Sports",
-    pokemon: "Pokemon",
-    other: "Other",
-  };
+  // Only show active products
+  const activeProducts = useMemo(() => {
+    if (!dbProducts) return [];
+    return (dbProducts as DbProduct[])
+      .filter(p => p.status === "active")
+      .sort((a, b) => a.sortOrder - b.sortOrder);
+  }, [dbProducts]);
 
   return (
     <div className="min-h-screen">
       <SEO
-        title="Card Set Checklists"
-        description="Complete checklists for all Marvel trading card sets included in Northland Legendary Finds repacks. Track your collection progress."
+        title="NLF Cosmic Hits | Checklists"
+        description="Complete checklists for all NLF Cosmic Hits trading card series. Full transparency — see every card before you buy."
         path="/checklists"
-        jsonLd={breadcrumbJsonLd([{ name: "Home", url: "/" }, { name: "Checklists", url: "/checklists" }])}
+        jsonLd={breadcrumbJsonLd([{ name: "Home", url: "/" }, { name: "NLF Cosmic Hits", url: "/checklists" }])}
       />
-      {/* Hero Section */}
-      <section className="relative py-16 lg:py-24 overflow-hidden">
+
+      {/* Hero Section — clean and simple */}
+      <section className="relative py-16 lg:py-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
         <div className="container relative z-10">
           <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/15 border border-primary/30 rounded-full mb-6">
-              <Eye className="w-4 h-4 text-primary" />
-              <span className="text-primary text-sm font-bold tracking-wide">FULL TRANSPARENCY</span>
-            </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4" style={{ fontFamily: "'Anton', sans-serif" }}>
-              PRODUCT <span className="text-primary">CHECKLISTS</span>
+              NLF <span className="text-primary">COSMIC HITS</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Every NLF repack has a full checklist published on launch day. Browse below to see what's inside 
-              each set. Checklists are revealed when the product goes live.
+              Every series. Every card. Full transparency. View the complete checklist for each NLF Cosmic Hits series below.
             </p>
           </div>
         </div>
       </section>
-
-      {/* Stats Bar */}
-      <section className="bg-card border-y border-border">
-        <div className="container py-6">
-          <div className="grid grid-cols-3 gap-6 text-center">
-            <div>
-              <div className="text-2xl font-bold text-primary" style={{ fontFamily: "'Anton', sans-serif" }}>
-                {unlockedCount} / {productLines.length}
-              </div>
-              <div className="text-xs text-muted-foreground uppercase tracking-wider mt-1">Checklists Revealed</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-cyan-400" style={{ fontFamily: "'Anton', sans-serif" }}>100%</div>
-              <div className="text-xs text-muted-foreground uppercase tracking-wider mt-1">Published Before Launch</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-amber-400" style={{ fontFamily: "'Anton', sans-serif" }}>FULL</div>
-              <div className="text-xs text-muted-foreground uppercase tracking-wider mt-1">Transparency</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Gambit Preview Banner — hidden until checklists are revealed */}
 
       {/* Product Grid */}
       <section className="py-12 lg:py-16">
@@ -144,216 +84,263 @@ export default function Checklists() {
             <div className="flex items-center justify-center py-20">
               <Loader2 className="w-8 h-8 animate-spin text-primary" />
             </div>
+          ) : activeProducts.length === 0 ? (
+            <div className="text-center py-20">
+              <ListChecks className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+              <p className="text-muted-foreground">No series available yet. Check back soon!</p>
+            </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {productLines.map(product => {
-                const unlocked = isChecklistUnlocked(product);
-                const dbProduct = dbProducts?.find(
-                  (p: any) => p.slug === product.dbSlug || p.slug === product.checklistSlug
-                );
-                return (
-                  <ChecklistCard
-                    key={product.id}
-                    product={product}
-                    dbProduct={dbProduct}
-                    unlocked={unlocked}
-                    categoryColors={categoryColors}
-                    categoryLabels={categoryLabels}
-                  />
-                );
-              })}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {activeProducts.map(product => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  onViewChecklist={() => setSelectedProduct(product)}
+                />
+              ))}
             </div>
           )}
         </div>
       </section>
 
-      {/* Trust Section */}
-      <section className="py-12 bg-card border-y border-border">
+      {/* Trust Footer */}
+      <section className="py-12 bg-card border-t border-border">
         <div className="container max-w-4xl">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
-              WHY WE PUBLISH <span className="text-primary">CHECKLISTS</span>
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="text-center">
-              <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-4">
-                <Eye className="w-7 h-7 text-primary" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+            <div>
+              <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-3">
+                <Eye className="w-6 h-6 text-primary" />
               </div>
-              <h3 className="font-bold mb-2">Full Transparency</h3>
-              <p className="text-sm text-muted-foreground">
-                Every card is listed before you buy. Know exactly what's possible in every pack.
-              </p>
+              <h3 className="font-bold mb-1 text-sm">Full Transparency</h3>
+              <p className="text-xs text-muted-foreground">Every card listed before you buy.</p>
             </div>
-            <div className="text-center">
-              <div className="w-14 h-14 bg-cyan-500/10 rounded-xl flex items-center justify-center mx-auto mb-4">
-                <Zap className="w-7 h-7 text-cyan-400" />
+            <div>
+              <div className="w-12 h-12 bg-cyan-500/10 rounded-xl flex items-center justify-center mx-auto mb-3">
+                <Sparkles className="w-6 h-6 text-cyan-400" />
               </div>
-              <h3 className="font-bold mb-2">Live Tracking</h3>
-              <p className="text-sm text-muted-foreground">
-                Track pack openings live during streams. See what's still available in real-time.
-              </p>
+              <h3 className="font-bold mb-1 text-sm">Updated Live</h3>
+              <p className="text-xs text-muted-foreground">Checklists updated after every stream.</p>
             </div>
-            <div className="text-center">
-              <div className="w-14 h-14 bg-amber-500/10 rounded-xl flex items-center justify-center mx-auto mb-4">
-                <TrendingUp className="w-7 h-7 text-amber-400" />
+            <div>
+              <div className="w-12 h-12 bg-amber-500/10 rounded-xl flex items-center justify-center mx-auto mb-3">
+                <CheckCircle2 className="w-6 h-6 text-amber-400" />
               </div>
-              <h3 className="font-bold mb-2">Collector Confidence</h3>
-              <p className="text-sm text-muted-foreground">
-                See exactly what's in every set before you buy. Full transparency builds trust.
-              </p>
+              <h3 className="font-bold mb-1 text-sm">Verified Checklists</h3>
+              <p className="text-xs text-muted-foreground">Every card authenticated and documented.</p>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Checklist Modal */}
+      {selectedProduct && (
+        <ChecklistModal
+          product={selectedProduct}
+          onClose={() => setSelectedProduct(null)}
+        />
+      )}
     </div>
   );
 }
 
-function ChecklistCard({ product, dbProduct, unlocked, categoryColors, categoryLabels }: {
-  product: any;
-  dbProduct: any;
-  unlocked: boolean;
-  categoryColors: Record<string, string>;
-  categoryLabels: Record<string, string>;
-}) {
-  const slug = product.dbSlug || product.checklistSlug || product.slug;
-  const revealDate = getLaunchDate(product.launchDate);
-  const launchDate = product.launchDate ? new Date(product.launchDate) : null;
+/** Product card in the grid — simple image + name + button */
+function ProductCard({ product, onViewChecklist }: { product: DbProduct; onViewChecklist: () => void }) {
+  const packsOpened = product.totalPacks - product.packsRemaining;
+  const progressPercent = product.totalPacks > 0 ? Math.round((packsOpened / product.totalPacks) * 100) : 0;
 
-  // For unlocked products, fetch stats
-  const { data: stats } = trpc.public.products.stats.useQuery(
-    { id: dbProduct?.id },
-    { enabled: !!dbProduct && unlocked }
+  return (
+    <div className="group bg-card border border-border rounded-xl overflow-hidden hover:border-primary/30 transition-all duration-300">
+      {/* Product Image */}
+      {product.imageUrl && (
+        <div className="aspect-square bg-muted overflow-hidden">
+          <img
+            src={product.imageUrl}
+            alt={product.name}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            loading="lazy"
+          />
+        </div>
+      )}
+
+      {/* Product Info */}
+      <div className="p-4">
+        <h3 className="font-bold text-lg mb-1 line-clamp-2">{product.name}</h3>
+        <div className="flex items-center gap-2 mb-3">
+          <span className="text-sm text-muted-foreground">{product.totalPacks} packs</span>
+          {progressPercent > 0 && (
+            <Badge variant="outline" className="text-xs border-green-500/50 text-green-400">
+              {progressPercent}% opened
+            </Badge>
+          )}
+        </div>
+
+        <Button
+          onClick={onViewChecklist}
+          className="w-full"
+          variant="default"
+        >
+          View Checklist
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+/** Checklist modal — Hit Parade style flat list */
+function ChecklistModal({ product, onClose }: { product: DbProduct; onClose: () => void }) {
+  const { data: checklist, isLoading } = trpc.public.checklist.getByProduct.useQuery(
+    { productId: product.id },
+    { enabled: !!product.id }
   );
 
-  const progressPercent = stats?.totalPacks ? Math.round(((stats.totalPacks - stats.packsRemaining) / stats.totalPacks) * 100) : 0;
+  // Group by tier for the "headlined by" section
+  const chaseCards = useMemo(() => {
+    if (!checklist) return [];
+    return (checklist as ChecklistItem[]).filter(c => c.tier === "chase").slice(0, 5);
+  }, [checklist]);
 
-  // Unlocked card — clickable link to checklist
-  if (unlocked) {
-    return (
-      <Link href={`/checklist/${slug}`}>
-        <Card className="group hover:border-primary/30 transition-all duration-300 cursor-pointer overflow-hidden h-full">
-          {/* Category Banner */}
-          <div className={`h-2 bg-gradient-to-r ${categoryColors[product.category] || categoryColors.other}`} />
-          
-          <CardContent className="p-6">
-            <div className="flex items-start justify-between mb-4">
-              <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <Badge variant="outline" className="text-xs">
-                    {categoryLabels[product.category] || product.category}
-                  </Badge>
-                  <Badge className="text-xs bg-primary/20 text-primary border-primary/30">
-                    <Eye className="w-3 h-3 mr-1" /> Viewable
-                  </Badge>
-                </div>
-                <h3 className="text-xl font-bold group-hover:text-primary transition-colors">
-                  {product.productLine === "gambit-deck" ? "Gambit's Deck" : product.name}
-                </h3>
-                <p className="text-sm text-muted-foreground mt-1">{product.subtitle}</p>
-              </div>
-              <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all shrink-0 mt-1" />
-            </div>
+  const allCards = useMemo(() => {
+    if (!checklist) return [];
+    return checklist as ChecklistItem[];
+  }, [checklist]);
 
-            {product.description && (
-              <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{product.description}</p>
-            )}
+  const pulledCount = useMemo(() => allCards.filter(c => c.isPulled).length, [allCards]);
+  const availableCount = allCards.length - pulledCount;
 
-            {/* Stats */}
-            <div className="space-y-3">
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">Checklist</span>
-                <span className="font-bold">{stats?.totalChecklist || dbProduct?.totalChecklist || "—"} cards</span>
-              </div>
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">Packs</span>
-                <span className="font-bold text-primary">{product.packCount || stats?.totalPacks || "—"}</span>
-              </div>
+  // Format a card into a single-line description (Hit Parade style)
+  const formatCardLine = (item: ChecklistItem): string => {
+    const parts: string[] = [];
+    if (item.cardYear) parts.push(item.cardYear);
+    if (item.cardSet) parts.push(item.cardSet);
+    parts.push(item.cardName);
+    if (item.parallel) parts.push(item.parallel);
+    if (item.cardNumber) parts.push(`#${item.cardNumber}`);
+    if (item.cardCondition) parts.push(item.cardCondition);
+    return parts.join(" ");
+  };
 
-              {stats?.totalPacks ? (
-                <>
-                  <div className="w-full bg-muted rounded-full h-2 overflow-hidden">
-                    <div
-                      className="h-full bg-gradient-to-r from-primary to-green-400 rounded-full transition-all duration-500"
-                      style={{ width: `${progressPercent}%` }}
-                    />
-                  </div>
-                  <div className="text-xs text-muted-foreground text-center">
-                    {progressPercent}% opened
-                  </div>
-                </>
-              ) : null}
-            </div>
-          </CardContent>
-        </Card>
-      </Link>
-    );
-  }
-
-  // Locked card — not clickable
   return (
-    <Card className="overflow-hidden h-full opacity-80 relative">
-      {/* Category Banner */}
-      <div className={`h-2 bg-gradient-to-r ${categoryColors[product.category] || categoryColors.other} opacity-50`} />
-      
-      <CardContent className="p-6">
-        <div className="flex items-start justify-between mb-4">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+      {/* Backdrop */}
+      <div
+        className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+        onClick={onClose}
+      />
+
+      {/* Modal Content */}
+      <div className="relative bg-card border border-border rounded-2xl w-full max-w-2xl max-h-[85vh] flex flex-col shadow-2xl">
+        {/* Header */}
+        <div className="flex items-center justify-between p-6 border-b border-border shrink-0">
           <div>
-            <div className="flex items-center gap-2 mb-2">
-              <Badge variant="outline" className="text-xs">
-                {categoryLabels[product.category] || product.category}
-              </Badge>
-              <Badge variant="outline" className="text-xs border-amber-500/50 text-amber-400">
-                <Lock className="w-3 h-3 mr-1" /> Locked
-              </Badge>
+            <h2 className="text-2xl font-bold" style={{ fontFamily: "'Anton', sans-serif" }}>
+              {product.name}
+            </h2>
+            <div className="flex items-center gap-3 mt-1 text-sm text-muted-foreground">
+              <span>{product.totalPacks} packs</span>
+              <span>·</span>
+              <span className="text-green-400">{availableCount} available</span>
+              {pulledCount > 0 && (
+                <>
+                  <span>·</span>
+                  <span className="text-muted-foreground">{pulledCount} pulled</span>
+                </>
+              )}
             </div>
-            <h3 className="text-xl font-bold text-muted-foreground">{product.name}</h3>
-            <p className="text-sm text-muted-foreground mt-1">{product.subtitle}</p>
           </div>
-          <Lock className="w-5 h-5 text-muted-foreground/50 shrink-0 mt-1" />
+          <button
+            onClick={onClose}
+            className="w-10 h-10 rounded-full bg-muted hover:bg-muted/80 flex items-center justify-center transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
         </div>
 
-        {/* Lock message */}
-        <div className="bg-muted/50 rounded-lg p-4 mb-4 border border-border/50">
-          <div className="flex items-center gap-2 mb-2">
-            <Clock className="w-4 h-4 text-amber-400" />
-            <span className="text-sm font-bold text-amber-400">Checklist Coming Soon</span>
-          </div>
-          {revealDate ? (
-            <p className="text-xs text-muted-foreground">
-              Full checklist reveals on <span className="font-semibold text-foreground">{formatDate(revealDate)}</span> — launch day.
-            </p>
+        {/* Scrollable Body */}
+        <div className="flex-1 overflow-y-auto p-6">
+          {isLoading ? (
+            <div className="flex items-center justify-center py-12">
+              <Loader2 className="w-6 h-6 animate-spin text-primary" />
+            </div>
+          ) : allCards.length === 0 ? (
+            <div className="text-center py-12">
+              <ListChecks className="w-10 h-10 text-muted-foreground mx-auto mb-3" />
+              <p className="text-muted-foreground">Checklist coming soon. Check back on launch day!</p>
+            </div>
           ) : (
-            <p className="text-xs text-muted-foreground">
-              Full checklist will be published on launch day. Stay tuned!
-            </p>
+            <>
+              {/* Description */}
+              {product.description && (
+                <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
+                  {product.description}
+                </p>
+              )}
+
+              {/* Headlined By */}
+              {chaseCards.length > 0 && (
+                <div className="mb-6">
+                  <h3 className="font-bold text-sm uppercase tracking-wider text-primary mb-3">
+                    Headlined By:
+                  </h3>
+                  <div className="space-y-1.5">
+                    {chaseCards.map(card => (
+                      <div key={card.id} className="flex items-center gap-2">
+                        <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                        <span className="text-sm font-medium">
+                          {formatCardLine(card)}
+                        </span>
+                        {card.isPulled && (
+                          <Badge variant="outline" className="text-[10px] border-red-500/50 text-red-400 ml-auto shrink-0">
+                            PULLED
+                          </Badge>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Divider */}
+              <div className="border-t border-border my-6" />
+
+              {/* Full Card List */}
+              <div>
+                <h3 className="font-bold text-sm uppercase tracking-wider text-muted-foreground mb-4">
+                  Full Checklist ({allCards.length} cards)
+                </h3>
+                <div className="space-y-1">
+                  {allCards.map((card, index) => (
+                    <div
+                      key={card.id}
+                      className={`flex items-center gap-2 py-1.5 px-2 rounded text-sm ${
+                        card.isPulled
+                          ? "bg-muted/30 text-muted-foreground line-through opacity-60"
+                          : "hover:bg-muted/20"
+                      }`}
+                    >
+                      <span className="text-muted-foreground text-xs w-6 shrink-0 text-right">
+                        {index + 1}.
+                      </span>
+                      <span className="flex-1 min-w-0 truncate">
+                        {formatCardLine(card)}
+                      </span>
+                      {card.isPulled && (
+                        <CheckCircle2 className="w-3.5 h-3.5 text-green-400 shrink-0" />
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </>
           )}
         </div>
 
-        {/* Basic info */}
-        <div className="space-y-3">
-          <div className="flex items-center justify-between text-sm">
-            <span className="text-muted-foreground">Packs</span>
-            <span className="font-bold">{product.packCount || "TBA"}</span>
-          </div>
-          {launchDate ? (
-            <div className="flex items-center justify-between text-sm">
-              <span className="text-muted-foreground">Launch Date</span>
-              <span className="font-bold">{formatDate(launchDate)}</span>
-            </div>
-          ) : (
-            <div className="flex items-center justify-between text-sm">
-              <span className="text-muted-foreground">Launch Date</span>
-              <span className="font-bold text-muted-foreground">Coming Soon</span>
-            </div>
-          )}
-          <div className="flex items-center justify-between text-sm">
-            <span className="text-muted-foreground">Price</span>
-            <span className="font-bold">${product.price}</span>
-          </div>
+        {/* Footer */}
+        <div className="border-t border-border p-4 shrink-0">
+          <p className="text-xs text-muted-foreground text-center">
+            Checklists are updated after every stream. Cards marked as pulled have been opened live.
+          </p>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }

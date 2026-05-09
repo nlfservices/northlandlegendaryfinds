@@ -49,7 +49,7 @@ export default function Navigation() {
   const navItems = [
     { path: "/mcu-news", label: "MCU News", highlight: "red" as const },
     { path: "/characters", label: "Marvel Characters" },
-    { path: "/checklists", label: "Repack" },
+    { path: "/checklists", label: "Cosmic Hits" },
     { path: "/shop", label: "Shop Now" },
     { path: "/card-shows", label: "Events" },
     { path: "/about", label: "About" },

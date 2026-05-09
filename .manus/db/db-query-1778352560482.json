@@ -1,0 +1,130 @@
+{
+  "query": "SELECT id, productId, cardName, cardSet, cardYear, cardNumber, parallel, tier, cardCondition, isPulled FROM checklist_items WHERE productId = 1 LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, productId, cardName, cardSet, cardYear, cardNumber, parallel, tier, cardCondition, isPulled FROM checklist_items WHERE productId = 1 LIMIT 10;",
+  "rows": [
+    {
+      "id": "30005",
+      "productId": "1",
+      "cardName": "Spider-Man",
+      "cardSet": "2024 Topps Chrome Marvel",
+      "cardYear": "2024",
+      "cardNumber": "CH-001",
+      "parallel": "Superfractor 1/1",
+      "tier": "chase",
+      "cardCondition": "NULL",
+      "isPulled": "0"
+    },
+    {
+      "id": "30006",
+      "productId": "1",
+      "cardName": "Wolverine",
+      "cardSet": "2024 Topps Chrome Marvel",
+      "cardYear": "2024",
+      "cardNumber": "CH-002",
+      "parallel": "Superfractor 1/1",
+      "tier": "chase",
+      "cardCondition": "NULL",
+      "isPulled": "0"
+    },
+    {
+      "id": "30007",
+      "productId": "1",
+      "cardName": "Iron Man",
+      "cardSet": "2024 Topps Chrome Marvel",
+      "cardYear": "2024",
+      "cardNumber": "CH-003",
+      "parallel": "Superfractor 1/1",
+      "tier": "chase",
+      "cardCondition": "NULL",
+      "isPulled": "0"
+    },
+    {
+      "id": "30008",
+      "productId": "1",
+      "cardName": "Deadpool",
+      "cardSet": "2024 Topps Chrome Marvel",
+      "cardYear": "2024",
+      "cardNumber": "CH-004",
+      "parallel": "Superfractor 1/1",
+      "tier": "chase",
+      "cardCondition": "NULL",
+      "isPulled": "0"
+    },
+    {
+      "id": "30009",
+      "productId": "1",
+      "cardName": "Venom",
+      "cardSet": "2024 Topps Chrome Marvel",
+      "cardYear": "2024",
+      "cardNumber": "CH-005",
+      "parallel": "Superfractor 1/1",
+      "tier": "chase",
+      "cardCondition": "NULL",
+      "isPulled": "0"
+    },
+    {
+      "id": "30010",
+      "productId": "1",
+      "cardName": "Captain America",
+      "cardSet": "2024 Topps Chrome Marvel",
+      "cardYear": "2024",
+      "cardNumber": "CH-006",
+      "parallel": "Gold Auto /5",
+      "tier": "chase",
+      "cardCondition": "NULL",
+      "isPulled": "0"
+    },
+    {
+      "id": "30011",
+      "productId": "1",
+      "cardName": "Thor",
+      "cardSet": "2024 Topps Chrome Marvel",
+      "cardYear": "2024",
+      "cardNumber": "CH-007",
+      "parallel": "Gold Auto /5",
+      "tier": "chase",
+      "cardCondition": "NULL",
+      "isPulled": "0"
+    },
+    {
+      "id": "30012",
+      "productId": "1",
+      "cardName": "Black Panther",
+      "cardSet": "2024 Topps Chrome Marvel",
+      "cardYear": "2024",
+      "cardNumber": "CH-008",
+      "parallel": "Gold Auto /5",
+      "tier": "chase",
+      "cardCondition": "NULL",
+      "isPulled": "0"
+    },
+    {
+      "id": "30013",
+      "productId": "1",
+      "cardName": "Doctor Strange",
+      "cardSet": "2024 Topps Chrome Marvel",
+      "cardYear": "2024",
+      "cardNumber": "CH-009",
+      "parallel": "Gold Auto /5",
+      "tier": "chase",
+      "cardCondition": "NULL",
+      "isPulled": "0"
+    },
+    {
+      "id": "30014",
+      "productId": "1",
+      "cardName": "Hulk",
+      "cardSet": "2024 Topps Chrome Marvel",
+      "cardYear": "2024",
+      "cardNumber": "CH-010",
+      "parallel": "Gold Auto /5",
+      "tier": "chase",
+      "cardCondition": "NULL",
+      "isPulled": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tproductId\tcardName\tcardSet\tcardYear\tcardNumber\tparallel\ttier\tcardCondition\tisPulled\n30005\t1\tSpider-Man\t2024 Topps Chrome Marvel\t2024\tCH-001\tSuperfractor 1/1\tchase\tNULL\t0\n30006\t1\tWolverine\t2024 Topps Chrome Marvel\t2024\tCH-002\tSuperfractor 1/1\tchase\tNULL\t0\n30007\t1\tIron Man\t2024 Topps Chrome Marvel\t2024\tCH-003\tSuperfractor 1/1\tchase\tNULL\t0\n30008\t1\tDeadpool\t2024 Topps Chrome Marvel\t2024\tCH-004\tSuperfractor 1/1\tchase\tNULL\t0\n30009\t1\tVenom\t2024 Topps Chrome Marvel\t2024\tCH-005\tSuperfractor 1/1\tchase\tNULL\t0\n30010\t1\tCaptain America\t2024 Topps Chrome Marvel\t2024\tCH-006\tGold Auto /5\tchase\tNULL\t0\n30011\t1\tThor\t2024 Topps Chrome Marvel\t2024\tCH-007\tGold Auto /5\tchase\tNULL\t0\n30012\t1\tBlack Panther\t2024 Topps Chrome Marvel\t2024\tCH-008\tGold Auto /5\tchase\tNULL\t0\n30013\t1\tDoctor Strange\t2024 Topps Chrome Marvel\t2024\tCH-009\tGold Auto /5\tchase\tNULL\t0\n30014\t1\tHulk\t2024 Topps Chrome Marvel\t2024\tCH-010\tGold Auto /5\tchase\tNULL\t0\n",
+  "stderr": "",
+  "execution_time_ms": 278
+}

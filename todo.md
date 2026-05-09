@@ -1904,3 +1904,11 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Added to sitemap
 - [x] Verify on live site
 - [x] Save checkpoint
+
+## NLF Cosmic Hits - Checklists Page Rework
+- [x] Rebrand checklists page from "Product Checklists" to "NLF Cosmic Hits"
+- [x] Rework page to follow Hit Parade's simple grid layout (product image + name + View Checklist button)
+- [x] Build modal/popup for viewing individual checklists (flat card list with pulled/available status)
+- [x] Update navigation label from "Checklists" to "Cosmic Hits" (nav, footer, sitemap)
+- [x] Ensure admin can still mark cards as pulled after each stream (existing admin routes preserved)
+- [x] Test and save checkpoint (275 tests, 81/81 integrity)
