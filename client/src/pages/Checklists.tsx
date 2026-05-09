@@ -3,16 +3,20 @@
  * Hit Parade-inspired simple layout: grid of series → modal with flat card list
  * Updated after each stream to show pulled status
  * 
- * NOTE: Products removed for now — building out series later.
+ * NOTE: Currently showing Coming Soon with Variant Series product images.
+ * No details, no prices, no checklists — just images and names.
  * The ProductCard and ChecklistModal components are preserved below
- * for when series are ready to be added back.
+ * for when series are ready to be fully activated.
  */
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Loader2, X, CheckCircle2, Sparkles, Eye, ListChecks, Rocket } from "lucide-react";
+import { Loader2, X, CheckCircle2, Sparkles, Eye, ListChecks, Rocket, Clock } from "lucide-react";
 import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 import { useState, useMemo } from "react";
+
+const COSMIC_DROP_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-nlf-variant-2CkMPP3CsZhFkFXpzSuZkV.webp";
+const CHROME_EDITION_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-100-pack-LsACR5odDHrd8r7na6iEeJ.webp";
 
 interface DbProduct {
   id: number;
@@ -45,6 +49,17 @@ interface ChecklistItem {
   sortOrder: number;
 }
 
+const comingSoonSeries = [
+  {
+    name: "Variant Series: Cosmic Drop",
+    image: COSMIC_DROP_IMG,
+  },
+  {
+    name: "Variant Series: Chrome Edition",
+    image: CHROME_EDITION_IMG,
+  },
+];
+
 export default function Checklists() {
   return (
     <div className="min-h-screen">
@@ -64,29 +79,56 @@ export default function Checklists() {
               NLF <span className="text-primary">COSMIC HITS</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Every series. Every card. Full transparency. View the complete checklist for each NLF Cosmic Hits series below.
+              Every series. Every card. Full transparency.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Coming Soon Section */}
-      <section className="py-16 lg:py-24">
-        <div className="container max-w-2xl">
-          <div className="text-center">
-            <div className="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
-              <Rocket className="w-10 h-10 text-primary" />
+      {/* Coming Soon Series Grid */}
+      <section className="py-12 lg:py-16">
+        <div className="container max-w-4xl">
+          {/* Coming Soon Badge */}
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-4">
+              <Clock className="w-4 h-4 text-primary" />
+              <span className="text-sm text-primary font-bold tracking-wide">COMING SOON</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-bold mb-4" style={{ fontFamily: "'Anton', sans-serif" }}>
-              SERIES <span className="text-primary">COMING SOON</span>
-            </h2>
-            <p className="text-muted-foreground max-w-lg mx-auto mb-8">
-              We're building something special. NLF Cosmic Hits series checklists will be published here with full transparency — every card listed before you buy.
-            </p>
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full">
-              <Sparkles className="w-4 h-4 text-primary" />
-              <span className="text-sm text-primary font-medium">Stay tuned for our first drop</span>
-            </div>
+          </div>
+
+          {/* Series Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            {comingSoonSeries.map((series) => (
+              <div
+                key={series.name}
+                className="group bg-card border border-border rounded-xl overflow-hidden relative"
+              >
+                {/* Coming Soon Overlay */}
+                <div className="absolute inset-0 z-10 bg-black/20 flex items-end justify-center pb-6 pointer-events-none">
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary/90 rounded-full">
+                    <Sparkles className="w-3.5 h-3.5 text-black" />
+                    <span className="text-xs font-bold text-black tracking-wide">COMING SOON</span>
+                  </div>
+                </div>
+
+                {/* Product Image */}
+                <div className="aspect-[3/4] bg-muted overflow-hidden">
+                  <img
+                    src={series.image}
+                    alt={series.name}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+
+                {/* Series Name Only — no details */}
+                <div className="p-4">
+                  <h3 className="font-bold text-lg" style={{ fontFamily: "'Anton', sans-serif" }}>
+                    {series.name}
+                  </h3>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

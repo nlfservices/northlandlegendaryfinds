@@ -1917,3 +1917,8 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Remove product cards from /checklists page (keep page shell/branding only)
 - [x] Show "Coming Soon" or placeholder messaging instead
 - [x] Save checkpoint
+
+## NLF Cosmic Hits - Show Variant Series Images + Coming Soon Only
+- [x] Add Variant Series product images (Cosmic Drop purple bag + Chrome Edition silver bag) to the page
+- [x] Ensure page shows Coming Soon only — no prices, no details, no checklists
+- [x] Save checkpoint
