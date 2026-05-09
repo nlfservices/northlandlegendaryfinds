@@ -1,0 +1,1 @@
+ALTER TABLE `card_shows` MODIFY COLUMN `city` varchar(255) NOT NULL;

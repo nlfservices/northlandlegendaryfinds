@@ -7,7 +7,7 @@ import { useState, useMemo, useRef, useEffect } from "react";
 import { Link } from "wouter";
 import {
   Search, MapPin, Calendar, Clock, Users, DollarSign, ChevronDown, ChevronUp,
-  ExternalLink, Mail, Phone, Navigation, Star, Filter, ArrowRight, Plus,
+  ExternalLink, Mail, Phone, Navigation, Star, Filter, ArrowRight, Plus, Loader2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,6 +16,7 @@ import { Badge } from "@/components/ui/badge";
 import SEO from "@/components/SEO";
 import USMapSVG from "@/components/USMapSVG";
 import ComicConsSection from "@/components/ComicConsSection";
+import { trpc } from "@/lib/trpc";
 import { ALL_SHOWS, CARD_SHOWS_STATS, type CardShow } from "@/lib/cardShowsData";
 
 // ===== CONSTANTS =====
@@ -177,7 +178,7 @@ function ShowCard({ show }: { show: CardShow }) {
         {/* Show details */}
         <div className="flex-1 min-w-0">
           <h3 className="font-bold text-foreground text-base leading-tight mb-1 pr-24" style={{ fontFamily: "'Anton', sans-serif", letterSpacing: "0.02em" }}>
-            {show.name.toUpperCase()}
+            {show.name.toUpperCase()} — {show.city.toUpperCase()}, {show.state}
           </h3>
 
           <p className="text-sm text-muted-foreground mb-2">
@@ -327,9 +328,61 @@ export default function CardShows() {
   const [sortBy, setSortBy] = useState("date");
   const [expandedStates, setExpandedStates] = useState<Set<string>>(new Set());
 
+  // Fetch shows from database
+  const { data: dbShows, isLoading } = trpc.cardShows.list.useQuery({
+    state: "",
+    month: 0,
+    status: "all",
+    search: "",
+    limit: 500,
+    offset: 0,
+  });
+  const { data: dbStats } = trpc.cardShows.stats.useQuery();
+
+  // Use database shows if available, fallback to static data
+  const showsSource: CardShow[] = useMemo(() => {
+    if (dbShows && dbShows.length > 0) {
+      return dbShows.map(s => ({
+        name: s.name,
+        dateDisplay: s.dateDisplay,
+        startDate: s.startDate,
+        endDate: s.endDate,
+        month: s.month,
+        venue: s.venue || "",
+        address: s.address || "",
+        city: s.city,
+        state: s.state,
+        stateName: s.stateName,
+        hours: s.hours || "",
+        tableCount: s.tableCount || null,
+        admission: s.admission || "",
+        isFree: s.isFree || false,
+        email: s.email || "",
+        phone: s.phone || "",
+        website: s.website || "",
+        featured: s.featured || false,
+        status: s.status as string,
+      }));
+    }
+    return ALL_SHOWS;
+  }, [dbShows]);
+
+  // Use database stats if available, fallback to static
+  const stats = useMemo(() => {
+    if (dbStats) {
+      return {
+        totalShows: dbStats.totalShows,
+        totalStates: dbStats.totalStates,
+        freeAdmission: dbStats.freeAdmission,
+        upcomingShows: dbStats.upcomingShows,
+      };
+    }
+    return CARD_SHOWS_STATS;
+  }, [dbStats]);
+
   // Filter and sort shows
   const filteredShows = useMemo(() => {
-    let result = [...ALL_SHOWS];
+    let result = [...showsSource];
 
     // Search filter
     if (search.trim()) {
@@ -395,7 +448,7 @@ export default function CardShows() {
     <div className="min-h-screen">
       <SEO
         title="Sports Card Shows Directory 2026 — Find Card Shows Near You"
-        description={`Complete directory of ${CARD_SHOWS_STATS.totalShows} sports card shows across ${CARD_SHOWS_STATS.totalStates} states. Find card shows near you with full addresses, websites, and contact info. March through December 2026.`}
+        description={`Complete directory of ${stats.totalShows} sports card shows across ${stats.totalStates} states. Find card shows near you with full addresses, websites, and contact info. March through December 2026.`}
         path="/card-shows"
         jsonLd={[cardShowsJsonLd(), faqJsonLd()]}
       />
@@ -460,21 +513,21 @@ export default function CardShows() {
                   <div className="text-center">
                     <div className="flex items-center gap-1 justify-center">
                       <MapPin className="w-3.5 h-3.5 text-primary" />
-                      <span className="text-xl sm:text-2xl font-bold text-primary">{CARD_SHOWS_STATS.totalStates}</span>
+                      <span className="text-xl sm:text-2xl font-bold text-primary">{stats.totalStates}</span>
                     </div>
                     <span className="text-[10px] sm:text-xs text-muted-foreground">States</span>
                   </div>
                   <div className="text-center">
                     <div className="flex items-center gap-1 justify-center">
                       <Calendar className="w-3.5 h-3.5 text-orange-400" />
-                      <span className="text-xl sm:text-2xl font-bold text-orange-400">{CARD_SHOWS_STATS.totalShows}</span>
+                      <span className="text-xl sm:text-2xl font-bold text-orange-400">{stats.totalShows}</span>
                     </div>
                     <span className="text-[10px] sm:text-xs text-muted-foreground">Shows</span>
                   </div>
                   <div className="text-center">
                     <div className="flex items-center gap-1 justify-center">
                       <DollarSign className="w-3.5 h-3.5 text-emerald-400" />
-                      <span className="text-xl sm:text-2xl font-bold text-emerald-400">{CARD_SHOWS_STATS.freeAdmission}</span>
+                      <span className="text-xl sm:text-2xl font-bold text-emerald-400">{stats.freeAdmission}</span>
                     </div>
                     <span className="text-[10px] sm:text-xs text-muted-foreground">Free</span>
                   </div>
@@ -628,8 +681,8 @@ export default function CardShows() {
             <p>
               Whether you are a seasoned collector hunting for vintage gems or a newcomer exploring the hobby,
               attending a sports card show is one of the best ways to buy, sell, and trade cards in person.
-              Our comprehensive directory lists <strong className="text-foreground">{CARD_SHOWS_STATS.totalShows} card shows
-              across {CARD_SHOWS_STATS.totalStates} states</strong> from March through December 2026, making it easy to find events near you.
+              Our comprehensive directory lists <strong className="text-foreground">{stats.totalShows} card shows
+              across {stats.totalStates} states</strong> from March through December 2026, making it easy to find events near you.
             </p>
             <p>
               Sports card shows range from small local gatherings with 20-30 tables to massive multi-day expos
@@ -674,7 +727,7 @@ export default function CardShows() {
               },
               {
                 q: "Are sports card shows free to attend?",
-                a: `Many sports card shows offer free admission — in fact, ${CARD_SHOWS_STATS.freeAdmission} of the ${CARD_SHOWS_STATS.totalShows} shows in our directory are free to attend. Shows that do charge admission typically range from $2 to $15, with some larger expos charging up to $25-$35 for multi-day passes.`,
+                a: `Many sports card shows offer free admission — in fact, ${stats.freeAdmission} of the ${stats.totalShows} shows in our directory are free to attend. Shows that do charge admission typically range from $2 to $15, with some larger expos charging up to $25-$35 for multi-day passes.`,
               },
               {
                 q: "What should I bring to a sports card show?",

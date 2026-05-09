@@ -856,3 +856,63 @@ export const pageContent = mysqlTable("page_content", {
 
 export type PageContent = typeof pageContent.$inferSelect;
 export type InsertPageContent = typeof pageContent.$inferInsert;
+
+
+// ============================================================
+// CARD SHOWS DIRECTORY - Database-driven show listings
+// ============================================================
+
+/**
+ * Card Shows - comprehensive directory of sports/trading card shows across the US
+ * Migrated from static data to enable weekly auto-updates and admin management
+ */
+export const cardShows = mysqlTable("card_shows", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Show name */
+  name: varchar("name", { length: 500 }).notNull(),
+  /** SEO-friendly slug (city-state-name format) */
+  slug: varchar("slug", { length: 500 }).notNull().unique(),
+  /** Display date string (e.g., "March 20-22, 2026") */
+  dateDisplay: varchar("dateDisplay", { length: 100 }).notNull(),
+  /** Start date (ISO format YYYY-MM-DD) */
+  startDate: varchar("startDate", { length: 10 }).notNull(),
+  /** End date (ISO format YYYY-MM-DD) */
+  endDate: varchar("endDate", { length: 10 }).notNull(),
+  /** Month number (1-12) for filtering */
+  month: int("month").notNull(),
+  /** Venue name */
+  venue: varchar("venue", { length: 500 }),
+  /** Full street address */
+  address: varchar("address", { length: 500 }),
+  /** City */
+  city: varchar("city", { length: 255 }).notNull(),
+  /** State abbreviation (e.g., "TX", "CA") */
+  state: varchar("state", { length: 5 }).notNull(),
+  /** Full state name (e.g., "Texas", "California") */
+  stateName: varchar("stateName", { length: 100 }).notNull(),
+  /** Show hours (e.g., "9am-4pm") */
+  hours: varchar("hours", { length: 255 }),
+  /** Number of dealer tables */
+  tableCount: int("tableCount"),
+  /** Admission info (e.g., "FREE", "$5", "$2 early bird / $1 general") */
+  admission: varchar("admission", { length: 255 }),
+  /** Whether admission is free */
+  isFree: boolean("isFree").default(false),
+  /** Contact email */
+  email: varchar("email", { length: 320 }),
+  /** Contact phone */
+  phone: varchar("phone", { length: 50 }),
+  /** Website URL */
+  website: varchar("website", { length: 500 }),
+  /** Whether this show is featured/highlighted */
+  featured: boolean("featured").default(false),
+  /** Show status */
+  status: mysqlEnum("show_status", ["upcoming", "past", "cancelled"]).notNull().default("upcoming"),
+  /** Source where this show was found */
+  source: varchar("source", { length: 255 }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type CardShowEntry = typeof cardShows.$inferSelect;
+export type InsertCardShowEntry = typeof cardShows.$inferInsert;

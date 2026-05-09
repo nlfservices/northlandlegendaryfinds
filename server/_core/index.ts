@@ -9,6 +9,7 @@ import { registerStripeWebhook } from "../stripe-webhook";
 import { registerEbayDeletionEndpoint } from "../ebay-deletion";
 import { registerSitemapRoute } from "../sitemap";
 import { registerScheduledPublishRoute } from "../scheduled-publish";
+import { registerCardShowsScheduledRoute } from "../scheduled-card-shows";
 import { appRouter } from "../routers";
 import { startBlogScheduler } from "../blog-scheduler";
 import { createContext } from "./context";
@@ -51,6 +52,7 @@ async function startServer() {
   registerSitemapRoute(app);
   // Scheduled task endpoints
   registerScheduledPublishRoute(app);
+  registerCardShowsScheduledRoute(app);
   // tRPC API
   app.use(
     "/api/trpc",

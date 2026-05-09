@@ -1,0 +1,50 @@
+{
+  "query": "SELECT id, name, slug, city, state, show_status FROM card_shows LIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, name, slug, city, state, show_status FROM card_shows LIMIT 5;",
+  "rows": [
+    {
+      "id": "707",
+      "name": "Alabama Coin Traders Card Coin & Collectibles Trade Show",
+      "slug": "gadsden-al-alabama-coin-traders-card-coin-collectibles-trade-show",
+      "city": "Gadsden",
+      "state": "AL",
+      "show_status": "past"
+    },
+    {
+      "id": "708",
+      "name": "Muscle Shoals Sportscards and Memorabilia Show",
+      "slug": "sheffield-al-muscle-shoals-sportscards-and-memorabilia-show",
+      "city": "Sheffield",
+      "state": "AL",
+      "show_status": "past"
+    },
+    {
+      "id": "709",
+      "name": "All Sports: Nothing But Sports Cards Show",
+      "slug": "gardendale-al-all-sports-nothing-but-sports-cards-show",
+      "city": "Gardendale",
+      "state": "AL",
+      "show_status": "past"
+    },
+    {
+      "id": "710",
+      "name": "The Flip Sports Card & Collectibles Trade Show",
+      "slug": "huntsville-al-the-flip-sports-card-collectibles-trade-show",
+      "city": "Huntsville",
+      "state": "AL",
+      "show_status": "past"
+    },
+    {
+      "id": "711",
+      "name": "Rickwood Field America's Oldest Baseball Park",
+      "slug": "birmingham-al-rickwood-field-america-s-oldest-baseball-park",
+      "city": "Birmingham",
+      "state": "AL",
+      "show_status": "past"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tslug\tcity\tstate\tshow_status\n707\tAlabama Coin Traders Card Coin & Collectibles Trade Show\tgadsden-al-alabama-coin-traders-card-coin-collectibles-trade-show\tGadsden\tAL\tpast\n708\tMuscle Shoals Sportscards and Memorabilia Show\tsheffield-al-muscle-shoals-sportscards-and-memorabilia-show\tSheffield\tAL\tpast\n709\tAll Sports: Nothing But Sports Cards Show\tgardendale-al-all-sports-nothing-but-sports-cards-show\tGardendale\tAL\tpast\n710\tThe Flip Sports Card & Collectibles Trade Show\thuntsville-al-the-flip-sports-card-collectibles-trade-show\tHuntsville\tAL\tpast\n711\tRickwood Field America's Oldest Baseball Park\tbirmingham-al-rickwood-field-america-s-oldest-baseball-park\tBirmingham\tAL\tpast\n",
+  "stderr": "",
+  "execution_time_ms": 267
+}
