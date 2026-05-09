@@ -2,11 +2,15 @@
  * NLF Cosmic Hits - Checklists Page
  * Hit Parade-inspired simple layout: grid of series → modal with flat card list
  * Updated after each stream to show pulled status
+ * 
+ * NOTE: Products removed for now — building out series later.
+ * The ProductCard and ChecklistModal components are preserved below
+ * for when series are ready to be added back.
  */
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Loader2, X, CheckCircle2, Sparkles, Eye, ListChecks } from "lucide-react";
+import { Loader2, X, CheckCircle2, Sparkles, Eye, ListChecks, Rocket } from "lucide-react";
 import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 import { useState, useMemo } from "react";
 
@@ -42,17 +46,6 @@ interface ChecklistItem {
 }
 
 export default function Checklists() {
-  const { data: dbProducts, isLoading } = trpc.public.products.list.useQuery();
-  const [selectedProduct, setSelectedProduct] = useState<DbProduct | null>(null);
-
-  // Only show active products
-  const activeProducts = useMemo(() => {
-    if (!dbProducts) return [];
-    return (dbProducts as DbProduct[])
-      .filter(p => p.status === "active")
-      .sort((a, b) => a.sortOrder - b.sortOrder);
-  }, [dbProducts]);
-
   return (
     <div className="min-h-screen">
       <SEO
@@ -77,29 +70,24 @@ export default function Checklists() {
         </div>
       </section>
 
-      {/* Product Grid */}
-      <section className="py-12 lg:py-16">
-        <div className="container">
-          {isLoading ? (
-            <div className="flex items-center justify-center py-20">
-              <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      {/* Coming Soon Section */}
+      <section className="py-16 lg:py-24">
+        <div className="container max-w-2xl">
+          <div className="text-center">
+            <div className="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <Rocket className="w-10 h-10 text-primary" />
             </div>
-          ) : activeProducts.length === 0 ? (
-            <div className="text-center py-20">
-              <ListChecks className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-              <p className="text-muted-foreground">No series available yet. Check back soon!</p>
+            <h2 className="text-2xl sm:text-3xl font-bold mb-4" style={{ fontFamily: "'Anton', sans-serif" }}>
+              SERIES <span className="text-primary">COMING SOON</span>
+            </h2>
+            <p className="text-muted-foreground max-w-lg mx-auto mb-8">
+              We're building something special. NLF Cosmic Hits series checklists will be published here with full transparency — every card listed before you buy.
+            </p>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full">
+              <Sparkles className="w-4 h-4 text-primary" />
+              <span className="text-sm text-primary font-medium">Stay tuned for our first drop</span>
             </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {activeProducts.map(product => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  onViewChecklist={() => setSelectedProduct(product)}
-                />
-              ))}
-            </div>
-          )}
+          </div>
         </div>
       </section>
 
@@ -131,19 +119,11 @@ export default function Checklists() {
           </div>
         </div>
       </section>
-
-      {/* Checklist Modal */}
-      {selectedProduct && (
-        <ChecklistModal
-          product={selectedProduct}
-          onClose={() => setSelectedProduct(null)}
-        />
-      )}
     </div>
   );
 }
 
-/** Product card in the grid — simple image + name + button */
+/** Product card in the grid — simple image + name + button (preserved for future use) */
 function ProductCard({ product, onViewChecklist }: { product: DbProduct; onViewChecklist: () => void }) {
   const packsOpened = product.totalPacks - product.packsRemaining;
   const progressPercent = product.totalPacks > 0 ? Math.round((packsOpened / product.totalPacks) * 100) : 0;
@@ -186,7 +166,7 @@ function ProductCard({ product, onViewChecklist }: { product: DbProduct; onViewC
   );
 }
 
-/** Checklist modal — Hit Parade style flat list */
+/** Checklist modal — Hit Parade style flat list (preserved for future use) */
 function ChecklistModal({ product, onClose }: { product: DbProduct; onClose: () => void }) {
   const { data: checklist, isLoading } = trpc.public.checklist.getByProduct.useQuery(
     { productId: product.id },

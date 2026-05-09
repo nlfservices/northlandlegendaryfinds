@@ -1912,3 +1912,8 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Update navigation label from "Checklists" to "Cosmic Hits" (nav, footer, sitemap)
 - [x] Ensure admin can still mark cards as pulled after each stream (existing admin routes preserved)
 - [x] Test and save checkpoint (275 tests, 81/81 integrity)
+
+## NLF Cosmic Hits - Remove Products (Building Later)
+- [x] Remove product cards from /checklists page (keep page shell/branding only)
+- [x] Show "Coming Soon" or placeholder messaging instead
+- [x] Save checkpoint
