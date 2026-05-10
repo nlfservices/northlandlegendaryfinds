@@ -1156,8 +1156,9 @@ export async function getAllArticles(): Promise<Article[]> {
 export async function getPublishedArticles(limit?: number): Promise<Article[]> {
   const db = await getDb();
   if (!db) return [];
+  const now = Date.now();
   let query = db.select().from(articles)
-    .where(and(eq(articles.isPublished, true), sql`${articles.category} != 'interactive_social'`))
+    .where(and(eq(articles.isPublished, true), sql`${articles.category} != 'interactive_social'`, sql`${articles.publishedAt} <= ${now}`))
     .orderBy(desc(articles.publishedAt));
   if (limit) {
     query = query.limit(limit) as typeof query;
@@ -1169,8 +1170,9 @@ export async function getPublishedArticles(limit?: number): Promise<Article[]> {
 export async function getPublishedArticlesByCategory(category: string): Promise<Article[]> {
   const db = await getDb();
   if (!db) return [];
+  const now = Date.now();
   return db.select().from(articles)
-    .where(and(eq(articles.isPublished, true), eq(articles.category, category as any)))
+    .where(and(eq(articles.isPublished, true), eq(articles.category, category as any), sql`${articles.publishedAt} <= ${now}`))
     .orderBy(desc(articles.publishedAt));
 }
 
@@ -1184,7 +1186,7 @@ export async function getFeaturedArticles(): Promise<Article[]> {
   const fourDaysAgo = now - (4 * 24 * 60 * 60 * 1000);
   const fiveDaysAgo = now - (5 * 24 * 60 * 60 * 1000);
   
-  const baseWhere = and(eq(articles.isPublished, true), sql`${articles.category} != 'interactive_social'`);
+  const baseWhere = and(eq(articles.isPublished, true), sql`${articles.category} != 'interactive_social'`, sql`${articles.publishedAt} <= ${now}`);
   
   // Slot 1: Most recent article
   const newest = await db.select().from(articles)

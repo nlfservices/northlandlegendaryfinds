@@ -1,0 +1,16 @@
+{
+  "query": "SELECT id, slug, publishedAt, isFeatured FROM articles WHERE slug = 'triumph-and-torment-doom-betrayal-mothers-rejection';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, slug, publishedAt, isFeatured FROM articles WHERE slug = 'triumph-and-torment-doom-betrayal-mothers-rejection';",
+  "rows": [
+    {
+      "id": "930002",
+      "slug": "triumph-and-torment-doom-betrayal-mothers-rejection",
+      "publishedAt": "1778508000000",
+      "isFeatured": "1"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tslug\tpublishedAt\tisFeatured\n930002\ttriumph-and-torment-doom-betrayal-mothers-rejection\t1778508000000\t1\n",
+  "stderr": "",
+  "execution_time_ms": 300
+}
