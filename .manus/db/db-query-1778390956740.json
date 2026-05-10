@@ -1,0 +1,50 @@
+{
+  "query": "SELECT characterName, MIN(imageUrl) as imageUrl FROM marvel_cards WHERE setId IN (1, 2, 3, 4, 5, 6) AND imageUrl IS NOT NULL AND characterName IN ('Mister Fantastic', 'Invisible Woman', 'Human Torch', 'The Thing', 'Doctor Doom', 'Silver Surfer', 'Spider-Man', 'Storm', 'Thor', 'Ant-Man') GROUP BY characterName;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT characterName, MIN(imageUrl) as imageUrl FROM marvel_cards WHERE setId IN (1, 2, 3, 4, 5, 6) AND imageUrl IS NOT NULL AND characterName IN ('Mister Fantastic', 'Invisible Woman', 'Human Torch', 'The Thing', 'Doctor Doom', 'Silver Surfer', 'Spider-Man', 'Storm', 'Thor', 'Ant-Man') GROUP BY characterName;",
+  "rows": [
+    {
+      "characterName": "Silver Surfer",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/cbh_50_silver_surfer-eMdiSRfFi74nzkVRQ5ZZCb.webp"
+    },
+    {
+      "characterName": "Spider-Man",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/cbh_22_spider_man-6ZVJ8yTfTTztKqUD5oq95C.webp"
+    },
+    {
+      "characterName": "The Thing",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/cbh_146_the_thing-6t8htTNrgkfVASuN33wuFw.webp"
+    },
+    {
+      "characterName": "Thor",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-025_Thor_e699fbe8.webp"
+    },
+    {
+      "characterName": "Ant-Man",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/ant-man_0abb7126.png"
+    },
+    {
+      "characterName": "Mister Fantastic",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/cbh_19_mister_fantastic-nWTprwKtbTxDnRtn7BTNQL.webp"
+    },
+    {
+      "characterName": "Storm",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/cbh_95_storm-HMuPzndB423pHbZcKhos6n.webp"
+    },
+    {
+      "characterName": "Invisible Woman",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-044_Invisible_Woman_65a34b27.webp"
+    },
+    {
+      "characterName": "Doctor Doom",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-004_Doctor_Doom-ABjcxG8F2y8LSKoqXxdLY5.webp"
+    },
+    {
+      "characterName": "Human Torch",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-011_Human_Torch_63626d10.webp"
+    }
+  ],
+  "messages": [],
+  "stdout": "characterName\timageUrl\nSilver Surfer\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/cbh_50_silver_surfer-eMdiSRfFi74nzkVRQ5ZZCb.webp\nSpider-Man\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/cbh_22_spider_man-6ZVJ8yTfTTztKqUD5oq95C.webp\nThe Thing\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/cbh_146_the_thing-6t8htTNrgkfVASuN33wuFw.webp\nThor\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-025_Thor_e699fbe8.webp\nAnt-Man\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/ant-man_0abb7126.png\nMister Fantastic\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/cbh_19_mister_fantastic-nWTprwKtbTxDnRtn7BTNQL.webp\nStorm\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/cbh_95_storm-HMuPzndB423pHbZcKhos6n.webp\nInvisible Woman\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-044_Invisible_Woman_65a34b27.webp\nDoctor Doom\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-004_Doctor_Doom-ABjcxG8F2y8LSKoqXxdLY5.webp\nHuman Torch\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-011_Human_Torch_63626d10.webp\n",
+  "stderr": "",
+  "execution_time_ms": 259
+}

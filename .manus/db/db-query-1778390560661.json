@@ -1,0 +1,210 @@
+{
+  "query": "SELECT DISTINCT characterName, imageUrl FROM marvel_cards WHERE imageUrl IS NOT NULL AND imageUrl != '' AND characterName IN ('Silver Surfer', 'Doctor Doom', 'Hulk', 'Thor', 'Wolverine', 'Black Panther', 'Scarlet Witch', 'Iron Man', 'Captain America', 'Spider-Man', 'Namor', 'Ghost Rider', 'She-Hulk', 'Thanos', 'Vision', 'Ant-Man', 'Galactus', 'Nick Fury', 'Medusa', 'Nova', 'Wasp', 'Storm', 'Luke Cage', 'Human Torch', 'The Thing', 'Mister Fantastic', 'Invisible Woman') LIMIT 50;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT DISTINCT characterName, imageUrl FROM marvel_cards WHERE imageUrl IS NOT NULL AND imageUrl != '' AND characterName IN ('Silver Surfer', 'Doctor Doom', 'Hulk', 'Thor', 'Wolverine', 'Black Panther', 'Scarlet Witch', 'Iron Man', 'Captain America', 'Spider-Man', 'Namor', 'Ghost Rider', 'She-Hulk', 'Thanos', 'Vision', 'Ant-Man', 'Galactus', 'Nick Fury', 'Medusa', 'Nova', 'Wasp', 'Storm', 'Luke Cage', 'Human Torch', 'The Thing', 'Mister Fantastic', 'Invisible Woman') LIMIT 50;",
+  "rows": [
+    {
+      "characterName": "Storm",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_95_storm-bmPfmRN8VDUJS3L4HLg6P8.webp"
+    },
+    {
+      "characterName": "Mister Fantastic",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-019_Mister_Fantastic_ea6ba454.webp"
+    },
+    {
+      "characterName": "Thanos",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-158_Thanos_a5e7aa46.webp"
+    },
+    {
+      "characterName": "Captain America",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-031_Captain_America_6c733897.webp"
+    },
+    {
+      "characterName": "Iron Man",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_IM-9_Iron_Man_cf13694f.png"
+    },
+    {
+      "characterName": "She-Hulk",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_110_she_hulk-DDPpXAkXjZ7aAJET88iBw5.webp"
+    },
+    {
+      "characterName": "Thor",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_MI-3_Thor_81e3009c.png"
+    },
+    {
+      "characterName": "Iron Man",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_mm10_iron_man-dcpSEKtWbC4s2hdDzj7dtJ.webp"
+    },
+    {
+      "characterName": "Nova",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-023_Nova_07551b6a.webp"
+    },
+    {
+      "characterName": "Invisible Woman",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mint_plat_118_invisible_woman-n5JAZELiCNN2kAGnGaYyjr.webp"
+    },
+    {
+      "characterName": "Galactus",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/galactus_29357a33.png"
+    },
+    {
+      "characterName": "The Thing",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/the-thing_e9dbd811.png"
+    },
+    {
+      "characterName": "Spider-Man",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_MR-3_Spider-Man_263cdb09.png"
+    },
+    {
+      "characterName": "Storm",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_XM-4_Storm_4fd219e7.png"
+    },
+    {
+      "characterName": "Captain America",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/studios-cap-bnw-2-CVFYtVa7r7N5vQaLWLforB.webp"
+    },
+    {
+      "characterName": "Iron Man",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_IM-5_Iron_Man_ded143be.png"
+    },
+    {
+      "characterName": "Nick Fury",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nick-fury_eb1b65ac.png"
+    },
+    {
+      "characterName": "Wolverine",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/wolverine_6921e77b.png"
+    },
+    {
+      "characterName": "Thor",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-025_Thor_e699fbe8.webp"
+    },
+    {
+      "characterName": "Invisible Woman",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-073_Invisible_Woman_d5837e73.webp"
+    },
+    {
+      "characterName": "The Thing",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_109_the_thing-nKgU373p6GnrT9dYmrkPko.webp"
+    },
+    {
+      "characterName": "Thanos",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_158_thanos-5MvVa7Lz3JsTR56qNqJfUQ.webp"
+    },
+    {
+      "characterName": "Thanos",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_TP-4_Thanos_7276c0f9.png"
+    },
+    {
+      "characterName": "The Thing",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-096_The_Thing_956e3289.webp"
+    },
+    {
+      "characterName": "Iron Man",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-013_Iron_Man_185446b3.webp"
+    },
+    {
+      "characterName": "Spider-Man",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/cbh_22_spider_man-6ZVJ8yTfTTztKqUD5oq95C.webp"
+    },
+    {
+      "characterName": "Spider-Man",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_101_spider_man-eaciWTbEQ9RmSJzctj8UiE.webp"
+    },
+    {
+      "characterName": "Captain America",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/studios-cap-bnw-1-YANLNDFteAmRsCZya8uzB9.webp"
+    },
+    {
+      "characterName": "Iron Man",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-001_Iron_Man_80cf3e9d.webp"
+    },
+    {
+      "characterName": "The Thing",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-109_The_Thing_a5dae37c.webp"
+    },
+    {
+      "characterName": "Silver Surfer",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/chrome_i2_silver_surfer-nEVdxyfKUeTUKtHQeivgCU.webp"
+    },
+    {
+      "characterName": "Silver Surfer",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/silver-surfer_5d8ec34d.png"
+    },
+    {
+      "characterName": "Black Panther",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/black-panther_87423259.png"
+    },
+    {
+      "characterName": "Iron Man",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_MI-7_Iron_Man_71bcf44d.png"
+    },
+    {
+      "characterName": "Invisible Woman",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/chrome_174_invisible_woman-hERLcKYLf5Y9rYL6D2sTUk.webp"
+    },
+    {
+      "characterName": "Storm",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-095_Storm_48dff8d7.webp"
+    },
+    {
+      "characterName": "Mister Fantastic",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/cbh_19_mister_fantastic-nWTprwKtbTxDnRtn7BTNQL.webp"
+    },
+    {
+      "characterName": "Thor",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-054_Thor_ff748b85.webp"
+    },
+    {
+      "characterName": "Mister Fantastic",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_ss3_mister_fantastic-XnMyEFfXVN9zVNA2ZQqgtf.webp"
+    },
+    {
+      "characterName": "Black Panther",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-136_Black_Panther_118340ab.webp"
+    },
+    {
+      "characterName": "Medusa",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-018_Medusa_44959743.webp"
+    },
+    {
+      "characterName": "Scarlet Witch",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-170_Punisher_f05f01bf.webp"
+    },
+    {
+      "characterName": "Mister Fantastic",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mister-fantastic_ce56e851.png"
+    },
+    {
+      "characterName": "Medusa",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/medusa_3648e46c.png"
+    },
+    {
+      "characterName": "Galactus",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-037_Galactus_4f71bc74.webp"
+    },
+    {
+      "characterName": "Captain America",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-108_Captain_America_b4e4ab53.webp"
+    },
+    {
+      "characterName": "Luke Cage",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/cbh_48_luke_cage-KhCGSeZzRbHyTT5sWzAiwp.webp"
+    },
+    {
+      "characterName": "Captain America",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/captain-america_4f3e2a8b.png"
+    },
+    {
+      "characterName": "Iron Man",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_is5_iron_man-7jnhkcf7L4RywBSqgz9dQK.webp"
+    },
+    {
+      "characterName": "She-Hulk",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-110_She-Hulk_bab83f86.webp"
+    }
+  ],
+  "messages": [],
+  "stdout": "characterName\timageUrl\nStorm\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_95_storm-bmPfmRN8VDUJS3L4HLg6P8.webp\nMister Fantastic\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-019_Mister_Fantastic_ea6ba454.webp\nThanos\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-158_Thanos_a5e7aa46.webp\nCaptain America\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-031_Captain_America_6c733897.webp\nIron Man\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_IM-9_Iron_Man_cf13694f.png\nShe-Hulk\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_110_she_hulk-DDPpXAkXjZ7aAJET88iBw5.webp\nThor\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_MI-3_Thor_81e3009c.png\nIron Man\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_mm10_iron_man-dcpSEKtWbC4s2hdDzj7dtJ.webp\nNova\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-023_Nova_07551b6a.webp\nInvisible Woman\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mint_plat_118_invisible_woman-n5JAZELiCNN2kAGnGaYyjr.webp\nGalactus\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/galactus_29357a33.png\nThe Thing\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/the-thing_e9dbd811.png\nSpider-Man\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_MR-3_Spider-Man_263cdb09.png\nStorm\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_XM-4_Storm_4fd219e7.png\nCaptain America\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/studios-cap-bnw-2-CVFYtVa7r7N5vQaLWLforB.webp\nIron Man\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_IM-5_Iron_Man_ded143be.png\nNick Fury\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nick-fury_eb1b65ac.png\nWolverine\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/wolverine_6921e77b.png\nThor\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-025_Thor_e699fbe8.webp\nInvisible Woman\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-073_Invisible_Woman_d5837e73.webp\nThe Thing\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_109_the_thing-nKgU373p6GnrT9dYmrkPko.webp\nThanos\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_158_thanos-5MvVa7Lz3JsTR56qNqJfUQ.webp\nThanos\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_TP-4_Thanos_7276c0f9.png\nThe Thing\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-096_The_Thing_956e3289.webp\nIron Man\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-013_Iron_Man_185446b3.webp\nSpider-Man\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/cbh_22_spider_man-6ZVJ8yTfTTztKqUD5oq95C.webp\nSpider-Man\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_101_spider_man-eaciWTbEQ9RmSJzctj8UiE.webp\nCaptain America\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/studios-cap-bnw-1-YANLNDFteAmRsCZya8uzB9.webp\nIron Man\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-001_Iron_Man_80cf3e9d.webp\nThe Thing\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-109_The_Thing_a5dae37c.webp\nSilver Surfer\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/chrome_i2_silver_surfer-nEVdxyfKUeTUKtHQeivgCU.webp\nSilver Surfer\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/silver-surfer_5d8ec34d.png\nBlack Panther\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/black-panther_87423259.png\nIron Man\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_MI-7_Iron_Man_71bcf44d.png\nInvisible Woman\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/chrome_174_invisible_woman-hERLcKYLf5Y9rYL6D2sTUk.webp\nStorm\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-095_Storm_48dff8d7.webp\nMister Fantastic\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/cbh_19_mister_fantastic-nWTprwKtbTxDnRtn7BTNQL.webp\nThor\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-054_Thor_ff748b85.webp\nMister Fantastic\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_ss3_mister_fantastic-XnMyEFfXVN9zVNA2ZQqgtf.webp\nBlack Panther\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-136_Black_Panther_118340ab.webp\nMedusa\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-018_Medusa_44959743.webp\nScarlet Witch\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-170_Punisher_f05f01bf.webp\nMister Fantastic\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mister-fantastic_ce56e851.png\nMedusa\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/medusa_3648e46c.png\nGalactus\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-037_Galactus_4f71bc74.webp\nCaptain America\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-108_Captain_America_b4e4ab53.webp\nLuke Cage\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/cbh_48_luke_cage-KhCGSeZzRbHyTT5sWzAiwp.webp\nCaptain America\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/captain-america_4f3e2a8b.png\nIron Man\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_is5_iron_man-7jnhkcf7L4RywBSqgz9dQK.webp\nShe-Hulk\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-110_She-Hulk_bab83f86.webp\n",
+  "stderr": "",
+  "execution_time_ms": 265
+}

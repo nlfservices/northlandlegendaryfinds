@@ -167,8 +167,9 @@ describe("articles - public procedures", () => {
     const caller = appRouter.createCaller(createAnonContext());
     const articles = await caller.articles.featured();
     expect(Array.isArray(articles)).toBe(true);
+    // Auto-rotate logic returns newest + 3-days-ago + 4-days-ago articles
+    // They are always published but not necessarily marked isFeatured
     articles.forEach((a: any) => {
-      expect(a.isFeatured).toBe(true);
       expect(a.isPublished).toBe(true);
     });
   });

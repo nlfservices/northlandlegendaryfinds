@@ -16,7 +16,7 @@ const navItems = [
   { path: "/", label: "Home", icon: Home },
   { path: "/sets", label: "Card Sets", icon: Grid3x3 },
   { path: "/characters", label: "Characters", icon: Users },
-  { path: "/shop", label: "Shop", icon: ShoppingCart },
+  // { path: "/shop", label: "Shop", icon: ShoppingCart }, // Hidden until launch
   { path: "/about", label: "About", icon: Info },
 ];
 

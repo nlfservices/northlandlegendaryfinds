@@ -50,15 +50,15 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Shop */}
+          {/* Explore */}
           <div>
-            <h3 className="font-bold text-sm uppercase tracking-wider mb-4">Shop</h3>
+            <h3 className="font-bold text-sm uppercase tracking-wider mb-4">Explore</h3>
             <ul className="space-y-2.5">
-              <li><Link href="/shop" className="text-sm text-muted-foreground hover:text-primary transition-colors">All Products</Link></li>
-              <li><Link href="/marvel" className="text-sm text-muted-foreground hover:text-primary transition-colors">Marvel</Link></li>
-              <li><Link href="/star-wars" className="text-sm text-muted-foreground hover:text-cyan-400 transition-colors">Star Wars (Coming Soon)</Link></li>
               <li><Link href="/checklists" className="text-sm text-muted-foreground hover:text-primary transition-colors">Cosmic Hits</Link></li>
               <li><Link href="/characters" className="text-sm text-muted-foreground hover:text-primary transition-colors">Characters</Link></li>
+              <li><Link href="/cards" className="text-sm text-muted-foreground hover:text-primary transition-colors">Card Database</Link></li>
+              <li><Link href="/card-shows" className="text-sm text-muted-foreground hover:text-primary transition-colors">Card Shows</Link></li>
+              <li><Link href="/whatnot" className="text-sm text-muted-foreground hover:text-primary transition-colors">Whatnot</Link></li>
             </ul>
           </div>
 

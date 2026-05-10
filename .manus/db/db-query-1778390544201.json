@@ -1,0 +1,410 @@
+{
+  "query": "SELECT DISTINCT characterName, imageUrl FROM marvel_cards WHERE imageUrl IS NOT NULL AND imageUrl != '' ORDER BY characterName LIMIT 100;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT DISTINCT characterName, imageUrl FROM marvel_cards WHERE imageUrl IS NOT NULL AND imageUrl != '' ORDER BY characterName LIMIT 100;",
+  "rows": [
+    {
+      "characterName": "\"The Mandarin\" Trevor Slattery Iron Man 3 Phase Two",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/STUDIOS_710_The_Mandarin_Trevor_Slattery_I_Base_1c8a34af.png"
+    },
+    {
+      "characterName": "\"The Mandarin\" Trevor Slattery Iron Man 3 Phase Two",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/STUDIOS_1028_The_Mandarin_Trevor_Slattery_I_THE_SNAP_VARIATION_9f881a84.png"
+    },
+    {
+      "characterName": "\"The Mandarin\" Trevor Slattery Iron Man 3 Phase Two",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/0_qlF6XHTXLHOGeQnCZlcZyN_1773128007536_na1fn_L2hvbWUvdWJ1bnR1L2Jlbl9raW5nc2xleV9hc190cmV2b3Jfc2xhdHRlcnk_236d62f3.png"
+    },
+    {
+      "characterName": "10 of Clubs",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/10Clubs-Front_1dfe9b33.jpg"
+    },
+    {
+      "characterName": "10 of Diamonds",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/10Diamond-Front_0f2a8144.jpg"
+    },
+    {
+      "characterName": "10 of Hearts",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/10Heart-Front_cd1afdff.jpg"
+    },
+    {
+      "characterName": "10 of Spades",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/10Spade-Front_a2257d27.jpg"
+    },
+    {
+      "characterName": "2 of Clubs",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/2Clubs-Front_0f812b92.jpg"
+    },
+    {
+      "characterName": "2 of Diamonds",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/2Diamond-Front_7dc3e3c6.jpg"
+    },
+    {
+      "characterName": "2 of Hearts",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/2Heart-Front_a962bf70.jpg"
+    },
+    {
+      "characterName": "2 of Spades",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/2Spade-Front_3d249578.jpg"
+    },
+    {
+      "characterName": "3 of Clubs",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/3Clubs-Front_1f30ca2d.jpg"
+    },
+    {
+      "characterName": "3 of Diamonds",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/3Diamond-Front_5a80f674.jpg"
+    },
+    {
+      "characterName": "3 of Hearts",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/3Heart-Front_d9ce85c9.jpg"
+    },
+    {
+      "characterName": "3 of Spades",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/3Spade-Front_0b6695c7.jpg"
+    },
+    {
+      "characterName": "4 of Clubs",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/4Clubs-Front_831c7f3e.jpg"
+    },
+    {
+      "characterName": "4 of Diamonds",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/4Diamond-Front_286aa15f.jpg"
+    },
+    {
+      "characterName": "4 of Hearts",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/4Heart-Front_731b62ea.jpg"
+    },
+    {
+      "characterName": "4 of Spades",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/4Spade-Front_afdb599b.jpg"
+    },
+    {
+      "characterName": "5 of Clubs",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/5Clubs-Front_f7056312.jpg"
+    },
+    {
+      "characterName": "5 of Diamonds",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/5Diamond-Front_16c7a233.jpg"
+    },
+    {
+      "characterName": "5 of Hearts",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/5Heart-Front_b659183d.jpg"
+    },
+    {
+      "characterName": "5 of Spades",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/5Spade-Front_d7587292.jpg"
+    },
+    {
+      "characterName": "6 of Clubs",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/6Clubs-Front_9cb08892.jpg"
+    },
+    {
+      "characterName": "6 of Diamonds",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/6Diamond-Front_1aef2a89.jpg"
+    },
+    {
+      "characterName": "6 of Hearts",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/6Heart-Front_771ae956.jpg"
+    },
+    {
+      "characterName": "6 of Spades",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/6Spade-Front_e4e9ccda.jpg"
+    },
+    {
+      "characterName": "60 Years Of S.H.I.E.L.D.",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/1_5dzU3ZjU0AnyTyBTt3erQz_1773127582940_na1fn_L2hvbWUvdWJ1bnR1LzYwX3llYXJzX29mX3NoaWVsZA_d5136c8c.png"
+    },
+    {
+      "characterName": "7 of Clubs",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/7Clubs-Front_f546733b.jpg"
+    },
+    {
+      "characterName": "7 of Diamonds",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/7Diamond-Front_e276b177.jpg"
+    },
+    {
+      "characterName": "7 of Hearts",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/7Heart-Front_85d0ba80.jpg"
+    },
+    {
+      "characterName": "7 of Spades",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/7Spade-Front_22ea6bbd.jpg"
+    },
+    {
+      "characterName": "8 of Clubs",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/8Clubs-Front_f0678522.jpg"
+    },
+    {
+      "characterName": "8 of Diamonds",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/8Diamond-Front_ea9a0dcd.jpg"
+    },
+    {
+      "characterName": "8 of Hearts",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/8Heart-Front_75064471.jpg"
+    },
+    {
+      "characterName": "8 of Spades",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/8Spade-Front_37ff3e97.jpg"
+    },
+    {
+      "characterName": "9 of Clubs",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/9Clubs-Front_c3c8d92a.jpg"
+    },
+    {
+      "characterName": "9 of Diamonds",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/9Diamond-Front_c51bf065.jpg"
+    },
+    {
+      "characterName": "9 of Hearts",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/9Heart-Front_0b13e44a.jpg"
+    },
+    {
+      "characterName": "9 of Spades",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/9Spade-Front_9eb8a4cc.jpg"
+    },
+    {
+      "characterName": "A Legacy Lives On",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/ss-legacy-lives-on-9HJooFNq5fQHkK6HqWysmX.webp"
+    },
+    {
+      "characterName": "A Universal Threat Emerges",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/ss-universal-threat-AUCN45nt8SMCFeScCjHPCy.webp"
+    },
+    {
+      "characterName": "Abomination",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-132_Abomination_a65fdabe.webp"
+    },
+    {
+      "characterName": "Abomination",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_132_abomination-Uwh34TFUxs3UC7uXJDUynT.webp"
+    },
+    {
+      "characterName": "Ace of Clubs",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/AceClubs-Front_62e89e8b.jpg"
+    },
+    {
+      "characterName": "Ace of Diamonds",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/AceDiamond-Front_baf733c9.jpg"
+    },
+    {
+      "characterName": "Ace of Hearts",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/AceHeart-Front_1db88310.jpg"
+    },
+    {
+      "characterName": "Ace of Spades",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/AceSpade-Front_e499a742.jpg"
+    },
+    {
+      "characterName": "Adam Kubert",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_212001_e4ae1949.jpg"
+    },
+    {
+      "characterName": "Adam Warlock",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-027_Adam_Warlock_b19056af.webp"
+    },
+    {
+      "characterName": "Adam Warlock",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-144_Adam_Warlock_0147f0a3.webp"
+    },
+    {
+      "characterName": "Adam Warlock",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_144_adam_warlock-WuqXYwCs3vgJseQEHxiqLv.webp"
+    },
+    {
+      "characterName": "Adam Warlock Guardians of the Galaxy Vol. 3 Phase Five",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/studios-snap-adam-warlock-S7eyqPffNU7mgPxKRLBceY.webp"
+    },
+    {
+      "characterName": "Adam Warlock Guardians of the Galaxy Vol. 3 Phase Five",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/studios_149_adam_warlock-6SomNC3iaVeicyXuTLDN9C.webp"
+    },
+    {
+      "characterName": "Adam Warlock Guardians of the Galaxy Vol. 3 Phase Five",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-144_Adam_Warlock_0147f0a3.webp"
+    },
+    {
+      "characterName": "Agatha Harkness",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_6_agatha-nGpbEqoXpYUykXqyc6T3pj.webp"
+    },
+    {
+      "characterName": "Agatha Harkness",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-006_Agatha_Harkness_c6809028.webp"
+    },
+    {
+      "characterName": "Agatha Harkness (Kathryn Hahn)",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-006_Agatha_Harkness_c6809028.webp"
+    },
+    {
+      "characterName": "Agatha Harkness Agatha All Along Phase Five",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/studios_162_agatha-n4Y7H7gYz7XfhtHx8AGBmU.webp"
+    },
+    {
+      "characterName": "Agatha Harkness Agatha All Along Phase Five",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-006_Agatha_Harkness_c6809028.webp"
+    },
+    {
+      "characterName": "Agatha Harkness Agatha All Along Phase Five",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/snap-s162-agatha-oXMDfrnGSYSYvriq5Y8G47.webp"
+    },
+    {
+      "characterName": "Agent 13 Sharon Carter Captain America: The Winter Soldier Phase Two",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/snap-s39-agent13-fyhDKsxV3s6etofCckEKWs.webp"
+    },
+    {
+      "characterName": "Agent 13 Sharon Carter Captain America: The Winter Soldier Phase Two",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/2_ovIbLNnEX7TRmMNOMj6ezM_1773127604907_na1fn_L2hvbWUvdWJ1bnR1L2FnZW50XzEzX3NoYXJvbl9jYXJ0ZXI_bbd8439a.png"
+    },
+    {
+      "characterName": "Agent Carter",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/agent-carter_a8e8f466.png"
+    },
+    {
+      "characterName": "Agent Hill",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/agent-hill_57e7551a.png"
+    },
+    {
+      "characterName": "Agent Maria Hill Marvel's The Avengers Phase One",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/3_XiP3I47pCsbwB2rsmBYEtE_1773128009610_na1fn_L2hvbWUvdWJ1bnR1L2FnZW50X21hcmlhX2hpbGxfY2FyZA_28cd12c3.png"
+    },
+    {
+      "characterName": "Agent Maria Hill Marvel's The Avengers Phase One",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/fix-studios-30-maria-hill-WkkUH6eVRZA7HPgsjyBLqC.webp"
+    },
+    {
+      "characterName": "Agent Peggy Carter Captain America: The First Avenger Phase One",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/4_wUxp9UODzfQcbRXZmuRDlN_1773127593948_na1fn_L2hvbWUvdWJ1bnR1L2FnZW50X3BlZ2d5X2NhcnRlcg_6ab97c23.png"
+    },
+    {
+      "characterName": "Agent Peggy Carter Captain America: The First Avenger Phase One",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/studios-snap-peggy-carter-PhEZUQRwXs3kXyBk8jmway.webp"
+    },
+    {
+      "characterName": "Agent Phil Coulson Marvel's The Avengers Phase One",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/5_FStzkREB8nvEaigYzUW1Au_1773127946315_na1fn_L2hvbWUvdWJ1bnR1L2FnZW50X2NhcmQ_37eb2d80.png"
+    },
+    {
+      "characterName": "Agent Phil Coulson Marvel's The Avengers Phase One",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/studios-snap-coulson-6VNnZcLWMhQWKL7GwP7vjW.webp"
+    },
+    {
+      "characterName": "Ajak Eternals Phase Four",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/snap-s119-ajak-27daegrvTyLE4x7BasqhQQ.webp"
+    },
+    {
+      "characterName": "Ajak Eternals Phase Four",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/6_JAzT2Rbm0gkw124ZRyAzAv_1773127871047_na1fn_L2hvbWUvdWJ1bnR1L2FqYWtfZXRlcm5hbHNfcGhhc2VfZm91cg_93d27482.png"
+    },
+    {
+      "characterName": "Aldrich Killian",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/collector-aldrich-killian_1e346b54.webp"
+    },
+    {
+      "characterName": "Aldrich Killian Iron Man 3 Phase Two",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/STUDIOS_1029_Aldrich_Killian_Iron_Man_3_Pha_THE_SNAP_VARIATION_e360b3f4.png"
+    },
+    {
+      "characterName": "Aldrich Killian Iron Man 3 Phase Two",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/STUDIOS_711_Aldrich_Killian_Iron_Man_3_Pha_Base_874486c9.png"
+    },
+    {
+      "characterName": "Aldrich Killian Iron Man 3 Phase Two",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/7_0DgNsUFJRhwKwfym2ywD44_1773127825481_na1fn_L2hvbWUvdWJ1bnR1L2FscmljaF9raWxsaWFuX2NhcmQ_04fbc3bc.png"
+    },
+    {
+      "characterName": "Alice Wu-Gulliver Agatha All Along Phase Five DEBUT",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/8_W6LdmbZRdKdmPcry312SgS_1773127819588_na1fn_L2hvbWUvdWJ1bnR1L2FnYXRoYV9oYXJrbmVzc19jYXJk_f6060646.png"
+    },
+    {
+      "characterName": "Alice Wu-Gulliver Agatha All Along Phase Five DEBUT",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/studios-snap-alice-eCz6R7AxoRtpZ4uVm7PDdS.webp"
+    },
+    {
+      "characterName": "Alioth Loki",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/studios_tva12_alioth-PNL7wu8eHE2SCxjQuseRdD.webp"
+    },
+    {
+      "characterName": "Alioth Loki",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/9_rS66YmAD3vA8wTdezBJaMP_1773128412721_na1fn_L2hvbWUvdWJ1bnR1L2FsaW90aF9sb2tp_fc37cb13.png"
+    },
+    {
+      "characterName": "All-New Venom",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-101_All-New_Venom_92a4b5d6.webp"
+    },
+    {
+      "characterName": "Alligator Loki Loki",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/10_Lkk9pbxqCfyfyBdyj6rag7_1773127666054_na1fn_L2hvbWUvdWJ1bnR1L2FsbGlnYXRvcl9sb2tpX2xva2k_0246c854.png"
+    },
+    {
+      "characterName": "Amaranth",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_FS-8_Amaranth_18e305e2.png"
+    },
+    {
+      "characterName": "Amaranth",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-099_Amaranth_bffcd255.webp"
+    },
+    {
+      "characterName": "Amaranth",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_99_amaranth-eksKZ7ZdjXbsEdysKSx7Dp.webp"
+    },
+    {
+      "characterName": "Amazing Fantasy #15",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/11_FFkcEiQWrPe7IIPyH7DHWq_1773127939328_na1fn_L2hvbWUvdWJ1bnR1L2FtYXppbmdfZmFudGFzeV8xNQ_11b3bee2.png"
+    },
+    {
+      "characterName": "America Chavez",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mint_bronze_48_america_chavez-Y9V5CC26cJWehKm6fqxhmp.webp"
+    },
+    {
+      "characterName": "America Chavez",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-102_America_Chavez_b4b2cabf.webp"
+    },
+    {
+      "characterName": "America Chavez",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_153_america_chavez-V3CY6hv76dxsLXnASuYNMz.webp"
+    },
+    {
+      "characterName": "America Chavez",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-153_America_Chavez_3c09d5a3.webp"
+    },
+    {
+      "characterName": "America Chavez Doctor Strange in the Multiverse of Phase Four",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/america-chavez_873b572b.png"
+    },
+    {
+      "characterName": "America Chavez Doctor Strange in the Multiverse of Phase Four",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/studios-snap-america-chavez-QuJ5kZUHryphwEPcp7uofj.webp"
+    },
+    {
+      "characterName": "Ammit Moon Knight",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/12_W5yj9mrweR33fnCnIVEdmB_1773127843172_na1fn_L2hvbWUvdWJ1bnR1L2FtbWl0X21vb25fa25pZ2h0_0cb85a5c.png"
+    },
+    {
+      "characterName": "Amongst the Cherry Blossoms",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/13_lf9UI6PIDw9lcO3R2mANfR_1773127737393_na1fn_L2hvbWUvdWJ1bnR1L2Ftb25nc3RfdGhlX2NoZXJyeV9ibG9zc29tcw_601e7fd5.png"
+    },
+    {
+      "characterName": "An Explosive Escape",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/ss-explosive-escape-GZahGuK5bAw2Z34h8B424o.webp"
+    },
+    {
+      "characterName": "Ancient One",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mint_silver_71_ancient_one-iHD69fvE2Lv7yexCSAmRaA.webp"
+    },
+    {
+      "characterName": "Andy Kubert",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_212039_eae17b7f.jpg"
+    },
+    {
+      "characterName": "Aneka Black Panther: Wakanda Forever Phase Four",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/studios-snap-aneka-9PhGgNPVCbsZuV5U5r4fL2.webp"
+    },
+    {
+      "characterName": "Aneka Black Panther: Wakanda Forever Phase Four",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/14_SpZ2g8slxKPbJDd8pIKd7o_1773127997673_na1fn_L2hvbWUvdWJ1bnR1L2FuZWthX2NhcmQ_be733dc7.png"
+    }
+  ],
+  "messages": [],
+  "stdout": "characterName\timageUrl\n\"The Mandarin\" Trevor Slattery Iron Man 3 Phase Two\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/STUDIOS_710_The_Mandarin_Trevor_Slattery_I_Base_1c8a34af.png\n\"The Mandarin\" Trevor Slattery Iron Man 3 Phase Two\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/STUDIOS_1028_The_Mandarin_Trevor_Slattery_I_THE_SNAP_VARIATION_9f881a84.png\n\"The Mandarin\" Trevor Slattery Iron Man 3 Phase Two\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/0_qlF6XHTXLHOGeQnCZlcZyN_1773128007536_na1fn_L2hvbWUvdWJ1bnR1L2Jlbl9raW5nc2xleV9hc190cmV2b3Jfc2xhdHRlcnk_236d62f3.png\n10 of Clubs\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/10Clubs-Front_1dfe9b33.jpg\n10 of Diamonds\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/10Diamond-Front_0f2a8144.jpg\n10 of Hearts\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/10Heart-Front_cd1afdff.jpg\n10 of Spades\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/10Spade-Front_a2257d27.jpg\n2 of Clubs\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/2Clubs-Front_0f812b92.jpg\n2 of Diamonds\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/2Diamond-Front_7dc3e3c6.jpg\n2 of Hearts\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/2Heart-Front_a962bf70.jpg\n2 of Spades\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/2Spade-Front_3d249578.jpg\n3 of Clubs\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/3Clubs-Front_1f30ca2d.jpg\n3 of Diamonds\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/3Diamond-Front_5a80f674.jpg\n3 of Hearts\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/3Heart-Front_d9ce85c9.jpg\n3 of Spades\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/3Spade-Front_0b6695c7.jpg\n4 of Clubs\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/4Clubs-Front_831c7f3e.jpg\n4 of Diamonds\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/4Diamond-Front_286aa15f.jpg\n4 of Hearts\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/4Heart-Front_731b62ea.jpg\n4 of Spades\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/4Spade-Front_afdb599b.jpg\n5 of Clubs\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/5Clubs-Front_f7056312.jpg\n5 of Diamonds\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/5Diamond-Front_16c7a233.jpg\n5 of Hearts\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/5Heart-Front_b659183d.jpg\n5 of Spades\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/5Spade-Front_d7587292.jpg\n6 of Clubs\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/6Clubs-Front_9cb08892.jpg\n6 of Diamonds\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/6Diamond-Front_1aef2a89.jpg\n6 of Hearts\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/6Heart-Front_771ae956.jpg\n6 of Spades\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/6Spade-Front_e4e9ccda.jpg\n60 Years Of S.H.I.E.L.D.\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/1_5dzU3ZjU0AnyTyBTt3erQz_1773127582940_na1fn_L2hvbWUvdWJ1bnR1LzYwX3llYXJzX29mX3NoaWVsZA_d5136c8c.png\n7 of Clubs\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/7Clubs-Front_f546733b.jpg\n7 of Diamonds\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/7Diamond-Front_e276b177.jpg\n7 of Hearts\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/7Heart-Front_85d0ba80.jpg\n7 of Spades\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/7Spade-Front_22ea6bbd.jpg\n8 of Clubs\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/8Clubs-Front_f0678522.jpg\n8 of Diamonds\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/8Diamond-Front_ea9a0dcd.jpg\n8 of Hearts\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/8Heart-Front_75064471.jpg\n8 of Spades\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/8Spade-Front_37ff3e97.jpg\n9 of Clubs\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/9Clubs-Front_c3c8d92a.jpg\n9 of Diamonds\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/9Diamond-Front_c51bf065.jpg\n9 of Hearts\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/9Heart-Front_0b13e44a.jpg\n9 of Spades\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/9Spade-Front_9eb8a4cc.jpg\nA Legacy Lives On\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/ss-legacy-lives-on-9HJooFNq5fQHkK6HqWysmX.webp\nA Universal Threat Emerges\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/ss-universal-threat-AUCN45nt8SMCFeScCjHPCy.webp\nAbomination\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-132_Abomination_a65fdabe.webp\nAbomination\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_132_abomination-Uwh34TFUxs3UC7uXJDUynT.webp\nAce of Clubs\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/AceClubs-Front_62e89e8b.jpg\nAce of Diamonds\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/AceDiamond-Front_baf733c9.jpg\nAce of Hearts\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/AceHeart-Front_1db88310.jpg\nAce of Spades\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/AceSpade-Front_e499a742.jpg\nAdam Kubert\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_212001_e4ae1949.jpg\nAdam Warlock\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-027_Adam_Warlock_b19056af.webp\nAdam Warlock\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-144_Adam_Warlock_0147f0a3.webp\nAdam Warlock\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_144_adam_warlock-WuqXYwCs3vgJseQEHxiqLv.webp\nAdam Warlock Guardians of the Galaxy Vol. 3 Phase Five\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/studios-snap-adam-warlock-S7eyqPffNU7mgPxKRLBceY.webp\nAdam Warlock Guardians of the Galaxy Vol. 3 Phase Five\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/studios_149_adam_warlock-6SomNC3iaVeicyXuTLDN9C.webp\nAdam Warlock Guardians of the Galaxy Vol. 3 Phase Five\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-144_Adam_Warlock_0147f0a3.webp\nAgatha Harkness\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_6_agatha-nGpbEqoXpYUykXqyc6T3pj.webp\nAgatha Harkness\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-006_Agatha_Harkness_c6809028.webp\nAgatha Harkness (Kathryn Hahn)\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-006_Agatha_Harkness_c6809028.webp\nAgatha Harkness Agatha All Along Phase Five\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/studios_162_agatha-n4Y7H7gYz7XfhtHx8AGBmU.webp\nAgatha Harkness Agatha All Along Phase Five\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-006_Agatha_Harkness_c6809028.webp\nAgatha Harkness Agatha All Along Phase Five\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/snap-s162-agatha-oXMDfrnGSYSYvriq5Y8G47.webp\nAgent 13 Sharon Carter Captain America: The Winter Soldier Phase Two\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/snap-s39-agent13-fyhDKsxV3s6etofCckEKWs.webp\nAgent 13 Sharon Carter Captain America: The Winter Soldier Phase Two\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/2_ovIbLNnEX7TRmMNOMj6ezM_1773127604907_na1fn_L2hvbWUvdWJ1bnR1L2FnZW50XzEzX3NoYXJvbl9jYXJ0ZXI_bbd8439a.png\nAgent Carter\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/agent-carter_a8e8f466.png\nAgent Hill\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/agent-hill_57e7551a.png\nAgent Maria Hill Marvel's The Avengers Phase One\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/3_XiP3I47pCsbwB2rsmBYEtE_1773128009610_na1fn_L2hvbWUvdWJ1bnR1L2FnZW50X21hcmlhX2hpbGxfY2FyZA_28cd12c3.png\nAgent Maria Hill Marvel's The Avengers Phase One\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/fix-studios-30-maria-hill-WkkUH6eVRZA7HPgsjyBLqC.webp\nAgent Peggy Carter Captain America: The First Avenger Phase One\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/4_wUxp9UODzfQcbRXZmuRDlN_1773127593948_na1fn_L2hvbWUvdWJ1bnR1L2FnZW50X3BlZ2d5X2NhcnRlcg_6ab97c23.png\nAgent Peggy Carter Captain America: The First Avenger Phase One\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/studios-snap-peggy-carter-PhEZUQRwXs3kXyBk8jmway.webp\nAgent Phil Coulson Marvel's The Avengers Phase One\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/5_FStzkREB8nvEaigYzUW1Au_1773127946315_na1fn_L2hvbWUvdWJ1bnR1L2FnZW50X2NhcmQ_37eb2d80.png\nAgent Phil Coulson Marvel's The Avengers Phase One\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/studios-snap-coulson-6VNnZcLWMhQWKL7GwP7vjW.webp\nAjak Eternals Phase Four\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/snap-s119-ajak-27daegrvTyLE4x7BasqhQQ.webp\nAjak Eternals Phase Four\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/6_JAzT2Rbm0gkw124ZRyAzAv_1773127871047_na1fn_L2hvbWUvdWJ1bnR1L2FqYWtfZXRlcm5hbHNfcGhhc2VfZm91cg_93d27482.png\nAldrich Killian\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/collector-aldrich-killian_1e346b54.webp\nAldrich Killian Iron Man 3 Phase Two\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/STUDIOS_1029_Aldrich_Killian_Iron_Man_3_Pha_THE_SNAP_VARIATION_e360b3f4.png\nAldrich Killian Iron Man 3 Phase Two\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/STUDIOS_711_Aldrich_Killian_Iron_Man_3_Pha_Base_874486c9.png\nAldrich Killian Iron Man 3 Phase Two\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/7_0DgNsUFJRhwKwfym2ywD44_1773127825481_na1fn_L2hvbWUvdWJ1bnR1L2FscmljaF9raWxsaWFuX2NhcmQ_04fbc3bc.png\nAlice Wu-Gulliver Agatha All Along Phase Five DEBUT\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/8_W6LdmbZRdKdmPcry312SgS_1773127819588_na1fn_L2hvbWUvdWJ1bnR1L2FnYXRoYV9oYXJrbmVzc19jYXJk_f6060646.png\nAlice Wu-Gulliver Agatha All Along Phase Five DEBUT\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/studios-snap-alice-eCz6R7AxoRtpZ4uVm7PDdS.webp\nAlioth Loki\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/studios_tva12_alioth-PNL7wu8eHE2SCxjQuseRdD.webp\nAlioth Loki\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/9_rS66YmAD3vA8wTdezBJaMP_1773128412721_na1fn_L2hvbWUvdWJ1bnR1L2FsaW90aF9sb2tp_fc37cb13.png\nAll-New Venom\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-101_All-New_Venom_92a4b5d6.webp\nAlligator Loki Loki\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/10_Lkk9pbxqCfyfyBdyj6rag7_1773127666054_na1fn_L2hvbWUvdWJ1bnR1L2FsbGlnYXRvcl9sb2tpX2xva2k_0246c854.png\nAmaranth\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_FS-8_Amaranth_18e305e2.png\nAmaranth\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-099_Amaranth_bffcd255.webp\nAmaranth\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_99_amaranth-eksKZ7ZdjXbsEdysKSx7Dp.webp\nAmazing Fantasy #15\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/11_FFkcEiQWrPe7IIPyH7DHWq_1773127939328_na1fn_L2hvbWUvdWJ1bnR1L2FtYXppbmdfZmFudGFzeV8xNQ_11b3bee2.png\nAmerica Chavez\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mint_bronze_48_america_chavez-Y9V5CC26cJWehKm6fqxhmp.webp\nAmerica Chavez\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-102_America_Chavez_b4b2cabf.webp\nAmerica Chavez\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_153_america_chavez-V3CY6hv76dxsLXnASuYNMz.webp\nAmerica Chavez\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-153_America_Chavez_3c09d5a3.webp\nAmerica Chavez Doctor Strange in the Multiverse of Phase Four\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/america-chavez_873b572b.png\nAmerica Chavez Doctor Strange in the Multiverse of Phase Four\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/studios-snap-america-chavez-QuJ5kZUHryphwEPcp7uofj.webp\nAmmit Moon Knight\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/12_W5yj9mrweR33fnCnIVEdmB_1773127843172_na1fn_L2hvbWUvdWJ1bnR1L2FtbWl0X21vb25fa25pZ2h0_0cb85a5c.png\nAmongst the Cherry Blossoms\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/13_lf9UI6PIDw9lcO3R2mANfR_1773127737393_na1fn_L2hvbWUvdWJ1bnR1L2Ftb25nc3RfdGhlX2NoZXJyeV9ibG9zc29tcw_601e7fd5.png\nAn Explosive Escape\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/ss-explosive-escape-GZahGuK5bAw2Z34h8B424o.webp\nAncient One\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mint_silver_71_ancient_one-iHD69fvE2Lv7yexCSAmRaA.webp\nAndy Kubert\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_212039_eae17b7f.jpg\nAneka Black Panther: Wakanda Forever Phase Four\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/studios-snap-aneka-9PhGgNPVCbsZuV5U5r4fL2.webp\nAneka Black Panther: Wakanda Forever Phase Four\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/14_SpZ2g8slxKPbJDd8pIKd7o_1773127997673_na1fn_L2hvbWUvdWJ1bnR1L2FuZWthX2NhcmQ_be733dc7.png\n",
+  "stderr": "",
+  "execution_time_ms": 275
+}

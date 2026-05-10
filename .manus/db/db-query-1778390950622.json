@@ -1,0 +1,38 @@
+{
+  "query": "SELECT characterName, MIN(imageUrl) as imageUrl FROM marvel_cards WHERE setId IN (1, 2) AND imageUrl IS NOT NULL AND characterName IN ('Galactus', 'Namor', 'She-Hulk', 'Ghost Rider', 'Wolverine', 'Hulk', 'Black Panther') GROUP BY characterName;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT characterName, MIN(imageUrl) as imageUrl FROM marvel_cards WHERE setId IN (1, 2) AND imageUrl IS NOT NULL AND characterName IN ('Galactus', 'Namor', 'She-Hulk', 'Ghost Rider', 'Wolverine', 'Hulk', 'Black Panther') GROUP BY characterName;",
+  "rows": [
+    {
+      "characterName": "She-Hulk",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-090_She-Hulk_2b80fdcb.webp"
+    },
+    {
+      "characterName": "Namor",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-021_Namor_083abd08.webp"
+    },
+    {
+      "characterName": "Ghost Rider",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/cbh_8_ghost_rider-SmSUFhGZvjuLqZ8qoa7Wi8.webp"
+    },
+    {
+      "characterName": "Wolverine",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-099_Wolverine-2yqcjAhdQNrxE37EUhTZ7j.webp"
+    },
+    {
+      "characterName": "Hulk",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-010_Hulk_5021737a.webp"
+    },
+    {
+      "characterName": "Galactus",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-037_Galactus_4f71bc74.webp"
+    },
+    {
+      "characterName": "Black Panther",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/cbh_61_black_panther-NL5iwAy2nDzqfR36yqjm5g.webp"
+    }
+  ],
+  "messages": [],
+  "stdout": "characterName\timageUrl\nShe-Hulk\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-090_She-Hulk_2b80fdcb.webp\nNamor\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-021_Namor_083abd08.webp\nGhost Rider\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/cbh_8_ghost_rider-SmSUFhGZvjuLqZ8qoa7Wi8.webp\nWolverine\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-099_Wolverine-2yqcjAhdQNrxE37EUhTZ7j.webp\nHulk\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-010_Hulk_5021737a.webp\nGalactus\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-037_Galactus_4f71bc74.webp\nBlack Panther\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/cbh_61_black_panther-NL5iwAy2nDzqfR36yqjm5g.webp\n",
+  "stderr": "",
+  "execution_time_ms": 263
+}

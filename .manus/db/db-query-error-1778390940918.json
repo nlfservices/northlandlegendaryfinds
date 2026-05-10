@@ -1,0 +1,8 @@
+{
+  "query": "SELECT characterName, imageUrl FROM marvel_cards WHERE setId IN (1, 2) AND imageUrl IS NOT NULL AND characterName IN ('Galactus', 'Namor', 'She-Hulk', 'Ghost Rider', 'Wolverine', 'Hulk', 'Black Panther') GROUP BY characterName LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT characterName, imageUrl FROM marvel_cards WHERE setId IN (1, 2) AND imageUrl IS NOT NULL AND characterName IN ('Galactus', 'Namor', 'She-Hulk', 'Ghost Rider', 'Wolverine', 'Hulk', 'Black Panther') GROUP BY characterName LIMIT 10;",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1055 (42000) at line 1: Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'SGHqXeh8PZJcCDnFiAMuFi.marvel_cards.imageUrl' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by"
+  ]
+}

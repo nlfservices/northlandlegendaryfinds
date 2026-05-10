@@ -1924,10 +1924,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Save checkpoint
 
 ## MCU Spotlight - Replace Placeholder Images
-- [ ] Replace Placeholder 1 (600x750 actor portrait) with character images for Daredevil, Doctor Doom, Spider-Man
-- [ ] Replace Placeholder 2 (600x340 scene/promo image) with character images
-- [ ] Replace Placeholder 3 (1100x300 chase cards banner) with character banner images
-- [ ] Save checkpoint
+- [x] Replace Placeholder 1 (600x750 actor portrait) with character images for Daredevil, Doctor Doom, Spider-Man
+- [x] Replace Placeholder 2 (600x340 scene/promo image) with character images
+- [x] Replace Placeholder 3 (1100x300 chase cards banner) with character banner images
+- [x] Save checkpoint
 
 ## Weekly Auto-Update for Card Shows & Market Intel
 - [ ] Determine best approach for weekly auto-updates (AGENT cron vs Heartbeat)
@@ -1945,3 +1945,20 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Default view shows upcoming shows only
 - [x] Past shows still render full details for SEO backlink value
 - [x] Save checkpoint
+
+## MCU News - Auto-Rotate Featured Articles
+- [x] Change featured articles logic to auto-rotate (newest + 3 days ago + 4 days ago)
+- [x] Remove hardcoded featured article selection
+- [ ] Save checkpoint
+
+## Hide Shop Page
+- [x] Remove Shop from navigation bar
+- [x] Remove Shop from footer links
+- [x] Remove Shop from any other visible references (MobileMenu, SiteMap, About, Home)
+- [x] Keep Shop page code intact (just hidden)
+- [x] Save checkpoint
+
+## Add 2026 Topps Finest Fantastic Four Set
+- [ ] Research full checklist for 2026 Topps Finest Fantastic Four
+- [ ] Add set to card database with same layout as existing sets
+- [ ] Save checkpoint

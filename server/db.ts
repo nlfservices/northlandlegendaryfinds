@@ -1174,14 +1174,64 @@ export async function getPublishedArticlesByCategory(category: string): Promise<
     .orderBy(desc(articles.publishedAt));
 }
 
-/** Get featured published articles */
+/** Get featured published articles - auto-rotates: newest + 3 days ago + 4 days ago */
 export async function getFeaturedArticles(): Promise<Article[]> {
   const db = await getDb();
   if (!db) return [];
-  return db.select().from(articles)
-    .where(and(eq(articles.isPublished, true), eq(articles.isFeatured, true), sql`${articles.category} != 'interactive_social'`))
+  
+  const now = Date.now();
+  const threeDaysAgo = now - (3 * 24 * 60 * 60 * 1000);
+  const fourDaysAgo = now - (4 * 24 * 60 * 60 * 1000);
+  const fiveDaysAgo = now - (5 * 24 * 60 * 60 * 1000);
+  
+  const baseWhere = and(eq(articles.isPublished, true), sql`${articles.category} != 'interactive_social'`);
+  
+  // Slot 1: Most recent article
+  const newest = await db.select().from(articles)
+    .where(baseWhere)
     .orderBy(desc(articles.publishedAt))
-    .limit(3);
+    .limit(1);
+  
+  // Slot 2: First article from ~3 days ago
+  const threeDaysAgoArticle = await db.select().from(articles)
+    .where(and(
+      baseWhere,
+      sql`${articles.publishedAt} <= ${threeDaysAgo}`,
+      sql`${articles.publishedAt} > ${fourDaysAgo}`
+    ))
+    .orderBy(desc(articles.publishedAt))
+    .limit(1);
+  
+  // Slot 3: First article from ~4 days ago
+  const fourDaysAgoArticle = await db.select().from(articles)
+    .where(and(
+      baseWhere,
+      sql`${articles.publishedAt} <= ${fourDaysAgo}`,
+      sql`${articles.publishedAt} > ${fiveDaysAgo}`
+    ))
+    .orderBy(desc(articles.publishedAt))
+    .limit(1);
+  
+  // Combine results
+  const featured: Article[] = [];
+  if (newest.length > 0) featured.push(newest[0]);
+  if (threeDaysAgoArticle.length > 0) featured.push(threeDaysAgoArticle[0]);
+  if (fourDaysAgoArticle.length > 0) featured.push(fourDaysAgoArticle[0]);
+  
+  // If we don't have 3 articles, fill with next most recent (excluding already selected)
+  if (featured.length < 3) {
+    const excludeIds = featured.map(a => a.id);
+    const excludeClause = excludeIds.length > 0 
+      ? sql`${articles.id} NOT IN (${sql.raw(excludeIds.join(','))})` 
+      : sql`1=1`;
+    const fillers = await db.select().from(articles)
+      .where(and(baseWhere, excludeClause))
+      .orderBy(desc(articles.publishedAt))
+      .limit(3 - featured.length);
+    featured.push(...fillers);
+  }
+  
+  return featured;
 }
 
 /** Get article by slug (public - must be published) */

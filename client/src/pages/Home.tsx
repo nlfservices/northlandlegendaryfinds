@@ -1079,9 +1079,9 @@ export default function Home() {
           )}
 
           <div className="text-center mt-10">
-            <Link href="/shop">
+            <Link href="/checklists">
               <Button variant="outline" size="lg" className="border-primary/30 text-primary hover:bg-primary/10 font-bold">
-                View All Products
+                View Cosmic Hits
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>

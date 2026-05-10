@@ -405,10 +405,10 @@ export default function About() {
             Whether you're a lifelong collector or just getting started — we'd love to have you.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/shop">
+            <Link href="/checklists">
               <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 font-bold text-lg px-8">
                 <Package className="w-5 h-5 mr-2" />
-                Browse Repacks
+                View Cosmic Hits
               </Button>
             </Link>
             <Link href="/whatnot">

@@ -29,7 +29,7 @@ export default function Navigation() {
     { path: "/mcu-news", label: "MCU News", highlight: "red" as const },
     { path: "/characters", label: "Marvel Characters" },
     { path: "/checklists", label: "Cosmic Hits" },
-    { path: "/shop", label: "Shop Now" },
+    // { path: "/shop", label: "Shop Now" }, // Hidden until launch
     { path: "/card-shows", label: "Events" },
     { path: "/about", label: "About" },
     { path: "/faq", label: "FAQ" },

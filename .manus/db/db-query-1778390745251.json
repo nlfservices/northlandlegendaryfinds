@@ -1,0 +1,59 @@
+{
+  "query": "SELECT id, name, slug, totalCards, releaseYear FROM marvel_sets ORDER BY id;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, name, slug, totalCards, releaseYear FROM marvel_sets ORDER BY id;",
+  "rows": [
+    {
+      "id": "1",
+      "name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome",
+      "totalCards": "361",
+      "releaseYear": "2025"
+    },
+    {
+      "id": "2",
+      "name": "2025 Topps Comic Book Heroes",
+      "slug": "2025-topps-comic-book-heroes",
+      "totalCards": "150",
+      "releaseYear": "2025"
+    },
+    {
+      "id": "3",
+      "name": "2025 Topps Marvel Mint",
+      "slug": "2025-topps-marvel-mint",
+      "totalCards": "156",
+      "releaseYear": "2025"
+    },
+    {
+      "id": "4",
+      "name": "2025 Topps Marvel Sapphire",
+      "slug": "2025-topps-marvel-sapphire",
+      "totalCards": "225",
+      "releaseYear": "2025"
+    },
+    {
+      "id": "5",
+      "name": "2025 Topps Marvel Studios",
+      "slug": "2025-topps-marvel-studios",
+      "totalCards": "543",
+      "releaseYear": "2025"
+    },
+    {
+      "id": "6",
+      "name": "2025 Topps Marvel Studios Sapphire",
+      "slug": "2025-topps-marvel-studios-sapphire",
+      "totalCards": "210",
+      "releaseYear": "2025"
+    },
+    {
+      "id": "30001",
+      "name": "2025 Topps Marvel Studios: The Collector",
+      "slug": "2025-marvel-the-collector",
+      "totalCards": "257",
+      "releaseYear": "2025"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tslug\ttotalCards\treleaseYear\n1\t2025 Topps Chrome\t2025-topps-chrome\t361\t2025\n2\t2025 Topps Comic Book Heroes\t2025-topps-comic-book-heroes\t150\t2025\n3\t2025 Topps Marvel Mint\t2025-topps-marvel-mint\t156\t2025\n4\t2025 Topps Marvel Sapphire\t2025-topps-marvel-sapphire\t225\t2025\n5\t2025 Topps Marvel Studios\t2025-topps-marvel-studios\t543\t2025\n6\t2025 Topps Marvel Studios Sapphire\t2025-topps-marvel-studios-sapphire\t210\t2025\n30001\t2025 Topps Marvel Studios: The Collector\t2025-marvel-the-collector\t257\t2025\n",
+  "stderr": "",
+  "execution_time_ms": 259
+}
