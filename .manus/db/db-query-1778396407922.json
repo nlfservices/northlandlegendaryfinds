@@ -1,0 +1,30 @@
+{
+  "query": "SELECT title, publishedAt FROM articles ORDER BY publishedAt DESC LIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT title, publishedAt FROM articles ORDER BY publishedAt DESC LIMIT 5;",
+  "rows": [
+    {
+      "title": "Jack Kirby: The King Who Built Marvel's Visual Universe",
+      "publishedAt": "1778393849102"
+    },
+    {
+      "title": "From Sticker Packs to Sapphire: The Complete History of Marvel Trading Cards",
+      "publishedAt": "1778390249102"
+    },
+    {
+      "title": "Stan Lee: The Storyteller Who Made Marvel Matter",
+      "publishedAt": "1778386649102"
+    },
+    {
+      "title": "Avengers: Doomsday — The Avengers Roster Breakdown and Cards to Collect",
+      "publishedAt": "1778307754520"
+    },
+    {
+      "title": "Avengers: Doomsday — The X-Men Roster Breakdown and Cards to Collect",
+      "publishedAt": "1778304154520"
+    }
+  ],
+  "messages": [],
+  "stdout": "title\tpublishedAt\nJack Kirby: The King Who Built Marvel's Visual Universe\t1778393849102\nFrom Sticker Packs to Sapphire: The Complete History of Marvel Trading Cards\t1778390249102\nStan Lee: The Storyteller Who Made Marvel Matter\t1778386649102\nAvengers: Doomsday — The Avengers Roster Breakdown and Cards to Collect\t1778307754520\nAvengers: Doomsday — The X-Men Roster Breakdown and Cards to Collect\t1778304154520\n",
+  "stderr": "",
+  "execution_time_ms": 345
+}

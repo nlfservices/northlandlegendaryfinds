@@ -1,0 +1,475 @@
+{
+  "query": "SELECT id, title, slug FROM articles WHERE isPublished = 1 ORDER BY publishedAt DESC;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, title, slug FROM articles WHERE isPublished = 1 ORDER BY publishedAt DESC;",
+  "rows": [
+    {
+      "id": "840001",
+      "title": "Jack Kirby: The King Who Built Marvel's Visual Universe",
+      "slug": "jack-kirby-king-built-marvel-visual-universe"
+    },
+    {
+      "id": "840002",
+      "title": "From Sticker Packs to Sapphire: The Complete History of Marvel Trading Cards",
+      "slug": "history-marvel-trading-cards-1974-topps-stickers-to-sapphire"
+    },
+    {
+      "id": "840003",
+      "title": "Stan Lee: The Storyteller Who Made Marvel Matter",
+      "slug": "stan-lee-storyteller-made-marvel-matter"
+    },
+    {
+      "id": "840004",
+      "title": "Avengers: Doomsday — The Avengers Roster Breakdown and Cards to Collect",
+      "slug": "avengers-doomsday-avengers-roster-breakdown-cards"
+    },
+    {
+      "id": "840005",
+      "title": "Avengers: Doomsday — The X-Men Roster Breakdown and Cards to Collect",
+      "slug": "avengers-doomsday-x-men-roster-breakdown-cards"
+    },
+    {
+      "id": "840006",
+      "title": "Avengers: Doomsday — The Fantastic Four Roster Breakdown and Cards to Collect",
+      "slug": "avengers-doomsday-fantastic-four-roster-breakdown-cards"
+    },
+    {
+      "id": "840007",
+      "title": "Avengers: Doomsday — Every Hero Confirmed for the Full Roster",
+      "slug": "avengers-doomsday-full-roster-every-hero-confirmed"
+    },
+    {
+      "id": "690014",
+      "title": "Weekly Card Market Movers — May 2026",
+      "slug": "weekly-card-market-movers-may-2026"
+    },
+    {
+      "id": "840009",
+      "title": "Jonathan Hickman: The Architect Behind Avengers Doomsday and Secret Wars",
+      "slug": "jonathan-hickman-architect-avengers-doomsday-secret-wars"
+    },
+    {
+      "id": "840010",
+      "title": "Wolverine in Avengers: Doomsday — The Mutant Who Changed Everything and His Most Valuable Cards",
+      "slug": "wolverine-avengers-doomsday-most-valuable-cards"
+    },
+    {
+      "id": "840011",
+      "title": "Doctor Doom: Marvel's Greatest Villain and the Cards Every Collector Needs",
+      "slug": "doctor-doom-marvel-greatest-villain-cards-collector-needs"
+    },
+    {
+      "id": "690013",
+      "title": "The Multiverse Avengers — Every Variant Assembled for Secret Wars",
+      "slug": "multiverse-avengers-every-variant-assembled-secret-wars"
+    },
+    {
+      "id": "840012",
+      "title": "Spider-Man in Avengers: Doomsday — Your Friendly Neighborhood Wall-Crawler and His Hottest Cards",
+      "slug": "spider-man-avengers-doomsday-hottest-cards"
+    },
+    {
+      "id": "840013",
+      "title": "Thor in Avengers: Doomsday — The God of Thunder Returns and His Best Trading Cards",
+      "slug": "thor-avengers-doomsday-god-of-thunder-best-cards"
+    },
+    {
+      "id": "840014",
+      "title": "Captain America (Sam Wilson) in Avengers: Doomsday — The New Shield-Bearer and Cards to Collect",
+      "slug": "captain-america-sam-wilson-doomsday-cards-collect"
+    },
+    {
+      "id": "570001",
+      "title": "THE TOP 10 MOST POPULAR MCU VILLAINS OF ALL TIME — ALL ROADS END WITH DOOM",
+      "slug": "top-10-most-popular-mcu-villains-all-time"
+    },
+    {
+      "id": "690012",
+      "title": "Multiverse of Madness Card Market — One Year Later",
+      "slug": "multiverse-of-madness-card-market-one-year-later"
+    },
+    {
+      "id": "870001",
+      "title": "Doctor Strange in Avengers: Doomsday — The Sorcerer Supreme and His Most Sought-After Cards",
+      "slug": "doctor-strange-avengers-doomsday-sorcerer-supreme-cards"
+    },
+    {
+      "id": "870002",
+      "title": "Magneto in Avengers: Doomsday — The Master of Magnetism Joins the MCU and Cards to Watch",
+      "slug": "magneto-avengers-doomsday-master-magnetism-mcu-cards"
+    },
+    {
+      "id": "870003",
+      "title": "Loki in Avengers: Doomsday — The God of Mischief, the TVA, and His Best Trading Cards",
+      "slug": "loki-avengers-doomsday-god-of-mischief-tva-cards"
+    },
+    {
+      "id": "630001",
+      "title": "Same Face, Different Fate: Why Robert Downey Jr. Playing Both Tony Stark and Doctor Doom Is Marvel's Greatest Storytelling Gamble",
+      "slug": "tony-stark-vs-doctor-doom-rdj-marvel-duality"
+    },
+    {
+      "id": "600001",
+      "title": "The Punisher: One Last Kill Marks a New Era for Marvel's Defenders on Disney+",
+      "slug": "punisher-one-last-kill-new-era-defenders-disney-plus"
+    },
+    {
+      "id": "600002",
+      "title": "Avengers: Doomsday Still Filming Reshoots 6 Months Before Release",
+      "slug": "avengers-doomsday-reshoots-still-filming-pinewood-studios"
+    },
+    {
+      "id": "690011",
+      "title": "Doom's Army — The Cabal Assembles in the MCU",
+      "slug": "dooms-army-cabal-assembles-mcu"
+    },
+    {
+      "id": "540001",
+      "title": "Who's Your Favorite? The Top 10 Most Popular MCU Characters of All Time",
+      "slug": "top-10-most-popular-mcu-characters-all-time"
+    },
+    {
+      "id": "510001",
+      "title": "Tom Hiddleston Confirmed to Return as Loki in Avengers: Secret Wars",
+      "slug": "tom-hiddleston-loki-return-avengers-secret-wars"
+    },
+    {
+      "id": "690010",
+      "title": "5 Undervalued Doom Cards You Should Buy Right Now",
+      "slug": "5-undervalued-doom-cards-buy-now"
+    },
+    {
+      "id": "690009",
+      "title": "The X-Men — Mutants Finally Enter the MCU in Doomsday",
+      "slug": "x-men-mutants-enter-mcu-doomsday"
+    },
+    {
+      "id": "690008",
+      "title": "Grading Guide: When to Send Cards to PSA vs CGC",
+      "slug": "grading-guide-psa-vs-cgc-marvel-cards"
+    },
+    {
+      "id": "480001",
+      "title": "Comics Explained: Why Rob Jefferson Is the Most Knowledgeable Voice in the Comic Book Space",
+      "slug": "comics-explained-rob-jefferson-youtube-channel-marvel-guide"
+    },
+    {
+      "id": "450001",
+      "title": "2025 Topps Marvel Mint: The SDCC Exclusive That Started a New Era",
+      "slug": "2025-topps-marvel-mint-sdcc-exclusive-premium-set-guide"
+    },
+    {
+      "id": "450002",
+      "title": "Doctor Doom Comic Cuts: 200 One-of-One Pieces of Marvel History",
+      "slug": "doctor-doom-comic-cuts-marvel-mint-2025-one-of-one-guide"
+    },
+    {
+      "id": "450003",
+      "title": "Gambit's Chrome Deck: The 52-Card Marvel Playing Card Set You Need to Complete",
+      "slug": "gambits-chrome-deck-marvel-mint-2025-complete-checklist-guide"
+    },
+    {
+      "id": "450004",
+      "title": "AGS Grading: Can an AI-Driven Grader Compete with PSA, CGC, and TAG?",
+      "slug": "ags-grading-ai-card-grading-psa-cgc-tag-comparison-2026"
+    },
+    {
+      "id": "690007",
+      "title": "The Young Avengers — Next Generation Assembled for Doomsday",
+      "slug": "young-avengers-next-generation-assembled-doomsday"
+    },
+    {
+      "id": "420002",
+      "title": "Avengers: Doomsday Card Collecting Guide — Every Character to Target Before May 2026",
+      "slug": "avengers-doomsday-card-collecting-guide-characters-sets-2026"
+    },
+    {
+      "id": "420003",
+      "title": "Secret Wars Card Collecting Guide — Battleworld Characters, Multiverse Variants, and the Cards to Buy Now",
+      "slug": "secret-wars-card-collecting-guide-battleworld-multiverse-2027"
+    },
+    {
+      "id": "420001",
+      "title": "2025 Topps Comic Book Heroes: The Hidden Gem Set That Has It All",
+      "slug": "2025-topps-comic-book-heroes-hidden-gem-1975-golden-anniversary"
+    },
+    {
+      "id": "690006",
+      "title": "MCU Phase 6 Rumor Roundup — What's Coming After Doomsday",
+      "slug": "mcu-phase-6-rumor-roundup-after-doomsday"
+    },
+    {
+      "id": "690005",
+      "title": "The Fantastic Four — Doom's Greatest Enemies in the MCU",
+      "slug": "fantastic-four-dooms-greatest-enemies-mcu"
+    },
+    {
+      "id": "690004",
+      "title": "Secret Wars 1984 vs 2015 — A Collector's Guide",
+      "slug": "secret-wars-1984-vs-2015-collectors-guide"
+    },
+    {
+      "id": "390001",
+      "title": "Topps Takes Over the NFL Draft 2026: Marvel Cards Meet 205,000 Football Fans",
+      "slug": "topps-collector-destination-nfl-draft-2026-marvel-cards"
+    },
+    {
+      "id": "390002",
+      "title": "2025 Topps Marvel Mint: From $450 Retail to $600+ Aftermarket — Why Boxes Keep Climbing",
+      "slug": "2025-topps-marvel-mint-price-surge-retail-to-aftermarket"
+    },
+    {
+      "id": "390003",
+      "title": "SDCC 2026 Collector's Preview: What Topps Marvel Exclusives Could Drop This July",
+      "slug": "sdcc-2026-topps-marvel-exclusives-collectors-preview"
+    },
+    {
+      "id": "390004",
+      "title": "2026 Topps Finest Fantastic Four: Complete Collector's Guide to Marvel's Newest Set",
+      "slug": "2026-topps-finest-fantastic-four-collectors-guide"
+    },
+    {
+      "id": "390005",
+      "title": "The Topps Marvel Timeline: Every 2025-2026 Release Ranked for Collectors",
+      "slug": "topps-marvel-2025-2026-every-release-ranked-collectors"
+    },
+    {
+      "id": "390006",
+      "title": "Why SDCC Exclusive Marvel Cards Are the Hottest Investment in the Hobby Right Now",
+      "slug": "sdcc-exclusive-marvel-cards-hottest-investment-hobby"
+    },
+    {
+      "id": "390007",
+      "title": "Iron Man to Doctor Doom: The Complete Robert Downey Jr. Card Collecting Guide",
+      "slug": "robert-downey-jr-iron-man-doctor-doom-card-collecting-guide"
+    },
+    {
+      "id": "390008",
+      "title": "5 Topps Marvel Cards Under $50 That Could 10x Before Avengers: Doomsday",
+      "slug": "5-topps-marvel-cards-under-50-dollars-10x-before-doomsday"
+    },
+    {
+      "id": "390009",
+      "title": "Topps Collector Destination: How the Trading Card Hobby Is Going Mainstream",
+      "slug": "topps-collector-destination-trading-card-hobby-going-mainstream"
+    },
+    {
+      "id": "360001",
+      "title": "Avengers: Endgame Turns 7 — And It's Coming Back to Theaters with New Footage",
+      "slug": "avengers-endgame-7th-anniversary-re-release-september-2026"
+    },
+    {
+      "id": "390010",
+      "title": "SDCC 2026 Hall H Preview: Every Marvel Announcement That Could Move the Card Market",
+      "slug": "sdcc-2026-hall-h-marvel-announcements-card-market-impact"
+    },
+    {
+      "id": "690003",
+      "title": "The Thunderbolts — From Villains to Heroes in the MCU",
+      "slug": "thunderbolts-villains-to-heroes-mcu-doomsday"
+    },
+    {
+      "id": "330017",
+      "title": "The Top 15 Strongest Marvel Characters of All Time — Comics, MCU, and the Cards That Prove It",
+      "slug": "top-15-strongest-marvel-characters-all-time-comics-mcu"
+    },
+    {
+      "id": "690002",
+      "title": "Top 5 Cards to Buy Before Thunderbolts Drops",
+      "slug": "top-5-cards-buy-before-thunderbolts-drops"
+    },
+    {
+      "id": "330016",
+      "title": "2025 Topps Marvel Mint: The Hidden Gem of 2025 That Collectors Are Sleeping On",
+      "slug": "2025-topps-marvel-mint-hidden-gem-collectors-guide"
+    },
+    {
+      "id": "690001",
+      "title": "The Original Six — Who Returns for Avengers: Doomsday?",
+      "slug": "original-six-avengers-doomsday-who-returns"
+    },
+    {
+      "id": "330012",
+      "title": "Daredevil: Born Again — The Complete Deep Dive for Marvel Card Collectors",
+      "slug": "daredevil-born-again-complete-deep-dive-actor-card-guide"
+    },
+    {
+      "id": "330015",
+      "title": "Does Grading Even Matter? The Case for Authentication Over Perfect 10s",
+      "slug": "does-card-grading-matter-authentication-vs-premium-slabs-2026"
+    },
+    {
+      "id": "330008",
+      "title": "The Complete MCU Release Calendar: Every Movie, Series & Cartoon Coming Through 2028",
+      "slug": "complete-mcu-release-calendar-every-movie-series-cartoon-2026-2028"
+    },
+    {
+      "id": "330009",
+      "title": "Every Upcoming MCU Disney+ Series Ranked by Hype — And What Each One Means for Your Collection",
+      "slug": "upcoming-mcu-disney-plus-series-ranked-hype-collector-guide-2026"
+    },
+    {
+      "id": "330010",
+      "title": "The Marvel Animation Renaissance Is Here — And Collectors Are Paying Attention",
+      "slug": "marvel-animation-renaissance-2026-collectors-guide"
+    },
+    {
+      "id": "330011",
+      "title": "Which Phase 6 Movies Will Produce the Best Trading Cards? A Collector's Prediction Guide",
+      "slug": "phase-6-movies-best-trading-cards-collector-prediction-guide-2026"
+    },
+    {
+      "id": "330007",
+      "title": "Forget Funko Pops — These Are the 10 Marvel Characters Every Serious Collector Is Chasing on Cards Right Now",
+      "slug": "top-10-marvel-characters-collectors-chasing-cards-2026"
+    },
+    {
+      "id": "330001",
+      "title": "Marvel Returns to Hall H: SDCC 2026 Doomsday Panel Is Going to Be Legendary",
+      "slug": "marvel-returns-hall-h-sdcc-2026-doomsday-panel"
+    },
+    {
+      "id": "330002",
+      "title": "Avengers: Endgame Is Getting a Doomsday Retcon — And It Changes Everything",
+      "slug": "avengers-endgame-doomsday-retcon-re-release-2026"
+    },
+    {
+      "id": "330003",
+      "title": "Avengers: Doomsday CinemaCon Trailer Breakdown — Every Detail, Every Easter Egg",
+      "slug": "avengers-doomsday-cinemacon-trailer-breakdown-every-detail"
+    },
+    {
+      "id": "330004",
+      "title": "Doctor Doom Stops Stormbreaker With His Bare Hand — And 5 Other Jaw-Dropping Doomsday Trailer Moments",
+      "slug": "doctor-doom-stops-stormbreaker-6-jaw-dropping-doomsday-trailer-moments"
+    },
+    {
+      "id": "300055",
+      "title": "Topps Is Back With Marvel — And It Changes Everything for Collectors",
+      "slug": "topps-is-back-with-marvel-changes-everything-for-collectors"
+    },
+    {
+      "id": "300049",
+      "title": "CinemaCon 2026 Was a Fortress: How Marvel Locked Down the Doomsday Trailer — and the 40+ Other Trailers Making Fans Sweat",
+      "slug": "cinemacon-2026-security-lockdown-doomsday-trailer-every-exclusive-revealed"
+    },
+    {
+      "id": "300050",
+      "title": "RDJ Unveils 'Trailer of Doom' at CinemaCon 2026 — Everything We Know About Avengers: Doomsday",
+      "slug": "rdj-unveils-trailer-of-doom-cinemacon-2026"
+    },
+    {
+      "id": "300051",
+      "title": "Avengers: Doomsday Test Screening Reactions Compare It to Infinity War — Is This the MCU's Comeback?",
+      "slug": "avengers-doomsday-test-screening-infinity-war-level"
+    },
+    {
+      "id": "300052",
+      "title": "Spider-Man: Brand New Day Drops New CinemaCon Footage — Boomerang, Tarantula, and Daredevil Hints",
+      "slug": "spider-man-brand-new-day-cinemacon-footage-villains"
+    },
+    {
+      "id": "300053",
+      "title": "Fantastic Four: First Steps Passes $521 Million but Falls Short of MCU Expectations — What Went Wrong?",
+      "slug": "fantastic-four-first-steps-521-million-box-office-analysis"
+    },
+    {
+      "id": "300048",
+      "title": "Gambit, Magneto, and the X-Men Officially Join the MCU — Every Mutant Confirmed in the Doomsday Trailer",
+      "slug": "x-men-gambit-magneto-officially-join-mcu-doomsday-trailer"
+    },
+    {
+      "id": "300054",
+      "title": "Marvel Phase 6 Roadmap: Only 4 Films and 6 Shows — Why Less Could Finally Mean More for the MCU",
+      "slug": "marvel-phase-6-roadmap-fewer-projects-quality-over-quantity"
+    },
+    {
+      "id": "300047",
+      "title": "Robert Downey Jr.'s Doctor Doom Revealed: Scarred Face, Eastern European Accent, and He Catches Mjolnir",
+      "slug": "rdj-doctor-doom-revealed-scarred-face-catches-mjolnir-doomsday"
+    },
+    {
+      "id": "300046",
+      "title": "Doomsday Trailer 'Leaks' Flood Social Media — But Are They Real or AI Fakes?",
+      "slug": "avengers-doomsday-trailer-leak-cinemacon-real-or-ai"
+    },
+    {
+      "id": "300045",
+      "title": "Avengers: Endgame Returns to Theaters September 25 with Brand-New Footage and Infinity Vision",
+      "slug": "avengers-endgame-re-release-september-2026-new-footage-infinity-vision"
+    },
+    {
+      "id": "300042",
+      "title": "Doom Catches Stormbreaker: Why Doctor Doom Is Already the Most Powerful MCU Villain",
+      "slug": "doom-catches-stormbreaker-most-powerful-mcu-villain"
+    },
+    {
+      "id": "300041",
+      "title": "X-Men Meet the Avengers: Every Mutant Confirmed for Doomsday and What It Means",
+      "slug": "xmen-meet-avengers-every-mutant-confirmed-doomsday"
+    },
+    {
+      "id": "300040",
+      "title": "Steve Rogers Is Back: How Chris Evans Returns to the MCU and Why It Changes Everything",
+      "slug": "steve-rogers-returns-chris-evans-mcu-doomsday"
+    },
+    {
+      "id": "300039",
+      "title": "Avengers: Doomsday CinemaCon Trailer Breakdown — Every Scene, Every Character, Every Detail",
+      "slug": "avengers-doomsday-cinemacon-trailer-breakdown-every-scene"
+    },
+    {
+      "id": "300043",
+      "title": "Dune 3 vs. Doomsday: The December Box Office War Just Escalated at CinemaCon",
+      "slug": "dune-3-vs-doomsday-december-box-office-war-cinemacon"
+    },
+    {
+      "id": "300038",
+      "title": "Infinity Vision: Disney Launches Its Own Premium Theater Format to Counter IMAX's Dune 3 Lockout",
+      "slug": "infinity-vision-disney-premium-theater-format-doomsday"
+    },
+    {
+      "id": "300037",
+      "title": "CinemaCon 2026: Avengers Doomsday Takes Center Stage — What We Know So Far",
+      "slug": "cinemacon-2026-avengers-doomsday-first-look"
+    },
+    {
+      "id": "300036",
+      "title": "Avengers: Doomsday — Everything We Know About the Biggest MCU Event Since Endgame",
+      "slug": "avengers-doomsday-everything-we-know-2026"
+    },
+    {
+      "id": "1",
+      "title": "Avengers: Doomsday vs. Dune 3 — The December Box Office Showdown",
+      "slug": "avengers-doomsday-vs-dune-3-december-showdown"
+    },
+    {
+      "id": "2",
+      "title": "Spider-Man: Brand New Day Trailer Drops — Card Market Reacts",
+      "slug": "spider-man-brand-new-day-trailer-card-market"
+    },
+    {
+      "id": "3",
+      "title": "Daredevil: Born Again Season 2 Premieres — The Street-Level Card Surge",
+      "slug": "daredevil-born-again-season-2-card-surge"
+    },
+    {
+      "id": "4",
+      "title": "Collectibles Market Hits $602.4 Billion — What It Means for Marvel Cards",
+      "slug": "collectibles-market-602-billion-2026"
+    },
+    {
+      "id": "5",
+      "title": "Secret Wars Production Begins — The Endgame of Card Collecting",
+      "slug": "secret-wars-production-begins-card-collecting"
+    },
+    {
+      "id": "6",
+      "title": "MCU Phase 6 Complete Release Calendar — Every Movie & Show in 2026",
+      "slug": "mcu-phase-6-complete-release-calendar-2026"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tslug\n840001\tJack Kirby: The King Who Built Marvel's Visual Universe\tjack-kirby-king-built-marvel-visual-universe\n840002\tFrom Sticker Packs to Sapphire: The Complete History of Marvel Trading Cards\thistory-marvel-trading-cards-1974-topps-stickers-to-sapphire\n840003\tStan Lee: The Storyteller Who Made Marvel Matter\tstan-lee-storyteller-made-marvel-matter\n840004\tAvengers: Doomsday — The Avengers Roster Breakdown and Cards to Collect\tavengers-doomsday-avengers-roster-breakdown-cards\n840005\tAvengers: Doomsday — The X-Men Roster Breakdown and Cards to Collect\tavengers-doomsday-x-men-roster-breakdown-cards\n840006\tAvengers: Doomsday — The Fantastic Four Roster Breakdown and Cards to Collect\tavengers-doomsday-fantastic-four-roster-breakdown-cards\n840007\tAvengers: Doomsday — Every Hero Confirmed for the Full Roster\tavengers-doomsday-full-roster-every-hero-confirmed\n690014\tWeekly Card Market Movers — May 2026\tweekly-card-market-movers-may-2026\n840009\tJonathan Hickman: The Architect Behind Avengers Doomsday and Secret Wars\tjonathan-hickman-architect-avengers-doomsday-secret-wars\n840010\tWolverine in Avengers: Doomsday — The Mutant Who Changed Everything and His Most Valuable Cards\twolverine-avengers-doomsday-most-valuable-cards\n840011\tDoctor Doom: Marvel's Greatest Villain and the Cards Every Collector Needs\tdoctor-doom-marvel-greatest-villain-cards-collector-needs\n690013\tThe Multiverse Avengers — Every Variant Assembled for Secret Wars\tmultiverse-avengers-every-variant-assembled-secret-wars\n840012\tSpider-Man in Avengers: Doomsday — Your Friendly Neighborhood Wall-Crawler and His Hottest Cards\tspider-man-avengers-doomsday-hottest-cards\n840013\tThor in Avengers: Doomsday — The God of Thunder Returns and His Best Trading Cards\tthor-avengers-doomsday-god-of-thunder-best-cards\n840014\tCaptain America (Sam Wilson) in Avengers: Doomsday — The New Shield-Bearer and Cards to Collect\tcaptain-america-sam-wilson-doomsday-cards-collect\n570001\tTHE TOP 10 MOST POPULAR MCU VILLAINS OF ALL TIME — ALL ROADS END WITH DOOM\ttop-10-most-popular-mcu-villains-all-time\n690012\tMultiverse of Madness Card Market — One Year Later\tmultiverse-of-madness-card-market-one-year-later\n870001\tDoctor Strange in Avengers: Doomsday — The Sorcerer Supreme and His Most Sought-After Cards\tdoctor-strange-avengers-doomsday-sorcerer-supreme-cards\n870002\tMagneto in Avengers: Doomsday — The Master of Magnetism Joins the MCU and Cards to Watch\tmagneto-avengers-doomsday-master-magnetism-mcu-cards\n870003\tLoki in Avengers: Doomsday — The God of Mischief, the TVA, and His Best Trading Cards\tloki-avengers-doomsday-god-of-mischief-tva-cards\n630001\tSame Face, Different Fate: Why Robert Downey Jr. Playing Both Tony Stark and Doctor Doom Is Marvel's Greatest Storytelling Gamble\ttony-stark-vs-doctor-doom-rdj-marvel-duality\n600001\tThe Punisher: One Last Kill Marks a New Era for Marvel's Defenders on Disney+\tpunisher-one-last-kill-new-era-defenders-disney-plus\n600002\tAvengers: Doomsday Still Filming Reshoots 6 Months Before Release\tavengers-doomsday-reshoots-still-filming-pinewood-studios\n690011\tDoom's Army — The Cabal Assembles in the MCU\tdooms-army-cabal-assembles-mcu\n540001\tWho's Your Favorite? The Top 10 Most Popular MCU Characters of All Time\ttop-10-most-popular-mcu-characters-all-time\n510001\tTom Hiddleston Confirmed to Return as Loki in Avengers: Secret Wars\ttom-hiddleston-loki-return-avengers-secret-wars\n690010\t5 Undervalued Doom Cards You Should Buy Right Now\t5-undervalued-doom-cards-buy-now\n690009\tThe X-Men — Mutants Finally Enter the MCU in Doomsday\tx-men-mutants-enter-mcu-doomsday\n690008\tGrading Guide: When to Send Cards to PSA vs CGC\tgrading-guide-psa-vs-cgc-marvel-cards\n480001\tComics Explained: Why Rob Jefferson Is the Most Knowledgeable Voice in the Comic Book Space\tcomics-explained-rob-jefferson-youtube-channel-marvel-guide\n450001\t2025 Topps Marvel Mint: The SDCC Exclusive That Started a New Era\t2025-topps-marvel-mint-sdcc-exclusive-premium-set-guide\n450002\tDoctor Doom Comic Cuts: 200 One-of-One Pieces of Marvel History\tdoctor-doom-comic-cuts-marvel-mint-2025-one-of-one-guide\n450003\tGambit's Chrome Deck: The 52-Card Marvel Playing Card Set You Need to Complete\tgambits-chrome-deck-marvel-mint-2025-complete-checklist-guide\n450004\tAGS Grading: Can an AI-Driven Grader Compete with PSA, CGC, and TAG?\tags-grading-ai-card-grading-psa-cgc-tag-comparison-2026\n690007\tThe Young Avengers — Next Generation Assembled for Doomsday\tyoung-avengers-next-generation-assembled-doomsday\n420002\tAvengers: Doomsday Card Collecting Guide — Every Character to Target Before May 2026\tavengers-doomsday-card-collecting-guide-characters-sets-2026\n420003\tSecret Wars Card Collecting Guide — Battleworld Characters, Multiverse Variants, and the Cards to Buy Now\tsecret-wars-card-collecting-guide-battleworld-multiverse-2027\n420001\t2025 Topps Comic Book Heroes: The Hidden Gem Set That Has It All\t2025-topps-comic-book-heroes-hidden-gem-1975-golden-anniversary\n690006\tMCU Phase 6 Rumor Roundup — What's Coming After Doomsday\tmcu-phase-6-rumor-roundup-after-doomsday\n690005\tThe Fantastic Four — Doom's Greatest Enemies in the MCU\tfantastic-four-dooms-greatest-enemies-mcu\n690004\tSecret Wars 1984 vs 2015 — A Collector's Guide\tsecret-wars-1984-vs-2015-collectors-guide\n390001\tTopps Takes Over the NFL Draft 2026: Marvel Cards Meet 205,000 Football Fans\ttopps-collector-destination-nfl-draft-2026-marvel-cards\n390002\t2025 Topps Marvel Mint: From $450 Retail to $600+ Aftermarket — Why Boxes Keep Climbing\t2025-topps-marvel-mint-price-surge-retail-to-aftermarket\n390003\tSDCC 2026 Collector's Preview: What Topps Marvel Exclusives Could Drop This July\tsdcc-2026-topps-marvel-exclusives-collectors-preview\n390004\t2026 Topps Finest Fantastic Four: Complete Collector's Guide to Marvel's Newest Set\t2026-topps-finest-fantastic-four-collectors-guide\n390005\tThe Topps Marvel Timeline: Every 2025-2026 Release Ranked for Collectors\ttopps-marvel-2025-2026-every-release-ranked-collectors\n390006\tWhy SDCC Exclusive Marvel Cards Are the Hottest Investment in the Hobby Right Now\tsdcc-exclusive-marvel-cards-hottest-investment-hobby\n390007\tIron Man to Doctor Doom: The Complete Robert Downey Jr. Card Collecting Guide\trobert-downey-jr-iron-man-doctor-doom-card-collecting-guide\n390008\t5 Topps Marvel Cards Under $50 That Could 10x Before Avengers: Doomsday\t5-topps-marvel-cards-under-50-dollars-10x-before-doomsday\n390009\tTopps Collector Destination: How the Trading Card Hobby Is Going Mainstream\ttopps-collector-destination-trading-card-hobby-going-mainstream\n360001\tAvengers: Endgame Turns 7 — And It's Coming Back to Theaters with New Footage\tavengers-endgame-7th-anniversary-re-release-september-2026\n390010\tSDCC 2026 Hall H Preview: Every Marvel Announcement That Could Move the Card Market\tsdcc-2026-hall-h-marvel-announcements-card-market-impact\n690003\tThe Thunderbolts — From Villains to Heroes in the MCU\tthunderbolts-villains-to-heroes-mcu-doomsday\n330017\tThe Top 15 Strongest Marvel Characters of All Time — Comics, MCU, and the Cards That Prove It\ttop-15-strongest-marvel-characters-all-time-comics-mcu\n690002\tTop 5 Cards to Buy Before Thunderbolts Drops\ttop-5-cards-buy-before-thunderbolts-drops\n330016\t2025 Topps Marvel Mint: The Hidden Gem of 2025 That Collectors Are Sleeping On\t2025-topps-marvel-mint-hidden-gem-collectors-guide\n690001\tThe Original Six — Who Returns for Avengers: Doomsday?\toriginal-six-avengers-doomsday-who-returns\n330012\tDaredevil: Born Again — The Complete Deep Dive for Marvel Card Collectors\tdaredevil-born-again-complete-deep-dive-actor-card-guide\n330015\tDoes Grading Even Matter? The Case for Authentication Over Perfect 10s\tdoes-card-grading-matter-authentication-vs-premium-slabs-2026\n330008\tThe Complete MCU Release Calendar: Every Movie, Series & Cartoon Coming Through 2028\tcomplete-mcu-release-calendar-every-movie-series-cartoon-2026-2028\n330009\tEvery Upcoming MCU Disney+ Series Ranked by Hype — And What Each One Means for Your Collection\tupcoming-mcu-disney-plus-series-ranked-hype-collector-guide-2026\n330010\tThe Marvel Animation Renaissance Is Here — And Collectors Are Paying Attention\tmarvel-animation-renaissance-2026-collectors-guide\n330011\tWhich Phase 6 Movies Will Produce the Best Trading Cards? A Collector's Prediction Guide\tphase-6-movies-best-trading-cards-collector-prediction-guide-2026\n330007\tForget Funko Pops — These Are the 10 Marvel Characters Every Serious Collector Is Chasing on Cards Right Now\ttop-10-marvel-characters-collectors-chasing-cards-2026\n330001\tMarvel Returns to Hall H: SDCC 2026 Doomsday Panel Is Going to Be Legendary\tmarvel-returns-hall-h-sdcc-2026-doomsday-panel\n330002\tAvengers: Endgame Is Getting a Doomsday Retcon — And It Changes Everything\tavengers-endgame-doomsday-retcon-re-release-2026\n330003\tAvengers: Doomsday CinemaCon Trailer Breakdown — Every Detail, Every Easter Egg\tavengers-doomsday-cinemacon-trailer-breakdown-every-detail\n330004\tDoctor Doom Stops Stormbreaker With His Bare Hand — And 5 Other Jaw-Dropping Doomsday Trailer Moments\tdoctor-doom-stops-stormbreaker-6-jaw-dropping-doomsday-trailer-moments\n300055\tTopps Is Back With Marvel — And It Changes Everything for Collectors\ttopps-is-back-with-marvel-changes-everything-for-collectors\n300049\tCinemaCon 2026 Was a Fortress: How Marvel Locked Down the Doomsday Trailer — and the 40+ Other Trailers Making Fans Sweat\tcinemacon-2026-security-lockdown-doomsday-trailer-every-exclusive-revealed\n300050\tRDJ Unveils 'Trailer of Doom' at CinemaCon 2026 — Everything We Know About Avengers: Doomsday\trdj-unveils-trailer-of-doom-cinemacon-2026\n300051\tAvengers: Doomsday Test Screening Reactions Compare It to Infinity War — Is This the MCU's Comeback?\tavengers-doomsday-test-screening-infinity-war-level\n300052\tSpider-Man: Brand New Day Drops New CinemaCon Footage — Boomerang, Tarantula, and Daredevil Hints\tspider-man-brand-new-day-cinemacon-footage-villains\n300053\tFantastic Four: First Steps Passes $521 Million but Falls Short of MCU Expectations — What Went Wrong?\tfantastic-four-first-steps-521-million-box-office-analysis\n300048\tGambit, Magneto, and the X-Men Officially Join the MCU — Every Mutant Confirmed in the Doomsday Trailer\tx-men-gambit-magneto-officially-join-mcu-doomsday-trailer\n300054\tMarvel Phase 6 Roadmap: Only 4 Films and 6 Shows — Why Less Could Finally Mean More for the MCU\tmarvel-phase-6-roadmap-fewer-projects-quality-over-quantity\n300047\tRobert Downey Jr.'s Doctor Doom Revealed: Scarred Face, Eastern European Accent, and He Catches Mjolnir\trdj-doctor-doom-revealed-scarred-face-catches-mjolnir-doomsday\n300046\tDoomsday Trailer 'Leaks' Flood Social Media — But Are They Real or AI Fakes?\tavengers-doomsday-trailer-leak-cinemacon-real-or-ai\n300045\tAvengers: Endgame Returns to Theaters September 25 with Brand-New Footage and Infinity Vision\tavengers-endgame-re-release-september-2026-new-footage-infinity-vision\n300042\tDoom Catches Stormbreaker: Why Doctor Doom Is Already the Most Powerful MCU Villain\tdoom-catches-stormbreaker-most-powerful-mcu-villain\n300041\tX-Men Meet the Avengers: Every Mutant Confirmed for Doomsday and What It Means\txmen-meet-avengers-every-mutant-confirmed-doomsday\n300040\tSteve Rogers Is Back: How Chris Evans Returns to the MCU and Why It Changes Everything\tsteve-rogers-returns-chris-evans-mcu-doomsday\n300039\tAvengers: Doomsday CinemaCon Trailer Breakdown — Every Scene, Every Character, Every Detail\tavengers-doomsday-cinemacon-trailer-breakdown-every-scene\n300043\tDune 3 vs. Doomsday: The December Box Office War Just Escalated at CinemaCon\tdune-3-vs-doomsday-december-box-office-war-cinemacon\n300038\tInfinity Vision: Disney Launches Its Own Premium Theater Format to Counter IMAX's Dune 3 Lockout\tinfinity-vision-disney-premium-theater-format-doomsday\n300037\tCinemaCon 2026: Avengers Doomsday Takes Center Stage — What We Know So Far\tcinemacon-2026-avengers-doomsday-first-look\n300036\tAvengers: Doomsday — Everything We Know About the Biggest MCU Event Since Endgame\tavengers-doomsday-everything-we-know-2026\n1\tAvengers: Doomsday vs. Dune 3 — The December Box Office Showdown\tavengers-doomsday-vs-dune-3-december-showdown\n2\tSpider-Man: Brand New Day Trailer Drops — Card Market Reacts\tspider-man-brand-new-day-trailer-card-market\n3\tDaredevil: Born Again Season 2 Premieres — The Street-Level Card Surge\tdaredevil-born-again-season-2-card-surge\n4\tCollectibles Market Hits $602.4 Billion — What It Means for Marvel Cards\tcollectibles-market-602-billion-2026\n5\tSecret Wars Production Begins — The Endgame of Card Collecting\tsecret-wars-production-begins-card-collecting\n6\tMCU Phase 6 Complete Release Calendar — Every Movie & Show in 2026\tmcu-phase-6-complete-release-calendar-2026\n",
+  "stderr": "",
+  "execution_time_ms": 325
+}

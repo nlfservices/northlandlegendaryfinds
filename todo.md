@@ -1989,3 +1989,21 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Write & publish: Magneto character spotlight
 - [x] Write & publish: Loki character spotlight
 - [x] Save checkpoint
+
+## More Character Spotlight Articles
+- [x] Write & publish: Cyclops character spotlight
+- [x] Write & publish: Gambit character spotlight
+- [x] Write & publish: Storm character spotlight
+- [x] Write & publish: Scarlet Witch character spotlight
+- [x] Write & publish: Black Panther character spotlight
+- [x] Write & publish: Shang-Chi character spotlight
+- [ ] Save checkpoint
+
+## Add 2026 Topps Finest Fantastic Four Set to Card Database
+- [ ] Upload box image and create set entry
+- [ ] Insert all base cards and insert sets
+- [ ] Save checkpoint
+
+## Extract All Facebook Posts
+- [x] Extract Facebook posts from all 16+ articles into one document
+- [ ] Save checkpoint
