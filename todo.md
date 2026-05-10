@@ -1936,5 +1936,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [ ] Save checkpoint and deploy
 
 ## Remove Marvel Resources from Navigation Bar
-- [ ] Remove "Marvel Resources" button/dropdown from the navigation component
-- [ ] Save checkpoint
+- [x] Remove "Marvel Resources" button/dropdown from the navigation component
+- [x] Save checkpoint
+
+## Card Shows - Past Shows Filter
+- [x] Add filter tabs (Upcoming / All Shows / Past Shows) to Card Shows page
+- [x] Grey out past shows with "PAST" badge (keep visible for SEO)
+- [x] Default view shows upcoming shows only
+- [x] Past shows still render full details for SEO backlink value
+- [x] Save checkpoint

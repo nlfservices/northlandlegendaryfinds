@@ -145,18 +145,29 @@ function ShowCard({ show }: { show: CardShow }) {
   const startDate = new Date(show.startDate + "T12:00:00");
   const monthShort = startDate.toLocaleString("en-US", { month: "short" }).toUpperCase();
   const day = startDate.getDate();
+  const today = new Date().toISOString().split("T")[0];
+  const isPast = show.status === "past" || show.endDate < today;
 
   const mapsUrl = show.address
     ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(show.address + ", " + show.city + ", " + show.state)}`
     : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(show.city + ", " + show.state)}`;
 
   return (
-    <div className={`relative rounded-xl border transition-all duration-200 hover:shadow-lg ${
-      show.featured
-        ? "border-orange-500/40 bg-gradient-to-br from-orange-500/5 via-card to-card hover:border-orange-500/60"
-        : "border-border bg-card hover:border-primary/40"
+    <div className={`relative rounded-xl border transition-all duration-200 ${
+      isPast
+        ? "border-border/50 bg-card/40 opacity-60"
+        : show.featured
+          ? "border-orange-500/40 bg-gradient-to-br from-orange-500/5 via-card to-card hover:border-orange-500/60 hover:shadow-lg"
+          : "border-border bg-card hover:border-primary/40 hover:shadow-lg"
     }`}>
-      {show.featured && (
+      {isPast && (
+        <div className="absolute top-3 right-3">
+          <Badge className="bg-muted/50 text-muted-foreground border-border text-xs font-bold">
+            PAST
+          </Badge>
+        </div>
+      )}
+      {!isPast && show.featured && (
         <div className="absolute top-3 right-3">
           <Badge className="bg-orange-500/20 text-orange-400 border-orange-500/30 text-xs font-bold">
             <Star className="w-3 h-3 mr-1 fill-orange-400" /> FEATURED
@@ -281,6 +292,9 @@ function StateSection({
   onToggle: () => void;
 }) {
   const featuredCount = shows.filter(s => s.featured).length;
+  const today = new Date().toISOString().split("T")[0];
+  const pastCount = shows.filter(s => s.status === "past" || s.endDate < today).length;
+  const upcomingCount = shows.length - pastCount;
   const sectionRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -298,6 +312,12 @@ function StateSection({
           </h2>
           <div className="flex items-center gap-3 text-xs text-muted-foreground">
             <span>{shows.length} show{shows.length !== 1 ? "s" : ""}</span>
+            {upcomingCount > 0 && (
+              <span className="text-primary font-semibold">{upcomingCount} upcoming</span>
+            )}
+            {pastCount > 0 && (
+              <span className="text-muted-foreground/60">{pastCount} past</span>
+            )}
             {featuredCount > 0 && (
               <span className="text-orange-400 font-semibold">{featuredCount} featured</span>
             )}
@@ -325,6 +345,7 @@ function StateSection({
 export default function CardShows() {
   const [search, setSearch] = useState("");
   const [monthFilter, setMonthFilter] = useState("all");
+  const [statusFilter, setStatusFilter] = useState<"upcoming" | "past" | "all">("upcoming");
   const [sortBy, setSortBy] = useState("date");
   const [expandedStates, setExpandedStates] = useState<Set<string>>(new Set());
 
@@ -384,6 +405,16 @@ export default function CardShows() {
   const filteredShows = useMemo(() => {
     let result = [...showsSource];
 
+    // Status filter
+    if (statusFilter !== "all") {
+      const today = new Date().toISOString().split("T")[0];
+      if (statusFilter === "upcoming") {
+        result = result.filter(s => s.status === "upcoming" || s.endDate >= today);
+      } else {
+        result = result.filter(s => s.status === "past" || s.endDate < today);
+      }
+    }
+
     // Search filter
     if (search.trim()) {
       const q = search.toLowerCase();
@@ -414,7 +445,7 @@ export default function CardShows() {
     }
 
     return result;
-  }, [search, monthFilter, sortBy]);
+  }, [search, monthFilter, statusFilter, sortBy]);
 
   const stateGroups = useMemo(() => groupByState(filteredShows), [filteredShows]);
   const uniqueStates = useMemo(() => getUniqueStates(filteredShows), [filteredShows]);
@@ -555,6 +586,23 @@ export default function CardShows() {
       {/* ===== SEARCH & FILTERS ===== */}
       <div className="sticky top-[64px] z-30 bg-background/95 backdrop-blur-md border-b border-border py-3">
         <div className="container">
+          {/* Status filter tabs */}
+          <div className="flex gap-1 mb-3">
+            {(["upcoming", "past", "all"] as const).map(status => (
+              <button
+                key={status}
+                onClick={() => setStatusFilter(status)}
+                className={`px-4 py-1.5 rounded-full text-sm font-bold transition-all duration-200 ${
+                  statusFilter === status
+                    ? "bg-primary text-primary-foreground shadow-md"
+                    : "bg-card border border-border text-muted-foreground hover:text-foreground hover:border-primary/40"
+                }`}
+              >
+                {status === "upcoming" ? "Upcoming" : status === "past" ? "Past Shows" : "All Shows"}
+              </button>
+            ))}
+          </div>
+
           <div className="flex flex-col sm:flex-row gap-3 items-center">
             <div className="relative flex-1 w-full">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
@@ -598,7 +646,7 @@ export default function CardShows() {
           {/* Result count */}
           <div className="flex items-center justify-between mt-2">
             <p className="text-xs text-muted-foreground">
-              {filteredShows.length} show{filteredShows.length !== 1 ? "s" : ""} found
+              {filteredShows.length} {statusFilter === "past" ? "past" : statusFilter === "upcoming" ? "upcoming" : ""} show{filteredShows.length !== 1 ? "s" : ""} found
             </p>
             <div className="flex sm:hidden gap-2">
               <Button variant="outline" size="sm" onClick={expandAll} className="text-xs h-7 px-2">

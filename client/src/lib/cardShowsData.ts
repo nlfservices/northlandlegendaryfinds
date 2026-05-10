@@ -23,6 +23,7 @@ export interface CardShow {
   phone: string | null;
   website: string | null;
   featured: boolean | null;
+  status?: string;
 }
 
 export const CARD_SHOWS_STATS = {
