@@ -1,0 +1,35 @@
+{
+  "query": "SELECT mc.characterName, mc.imageUrl, ms.name as setName FROM marvel_cards mc JOIN marvel_sets ms ON mc.setId = ms.id WHERE (mc.characterName LIKE '%Deadpool%' OR mc.characterName LIKE '%Thing%') AND ms.name LIKE '%Comic Book%' LIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT mc.characterName, mc.imageUrl, ms.name as setName FROM marvel_cards mc JOIN marvel_sets ms ON mc.setId = ms.id WHERE (mc.characterName LIKE '%Deadpool%' OR mc.characterName LIKE '%Thing%') AND ms.name LIKE '%Comic Book%' LIMIT 5;",
+  "rows": [
+    {
+      "characterName": "The Thing",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/cbh_146_the_thing-6t8htTNrgkfVASuN33wuFw.webp",
+      "setName": "2025 Topps Comic Book Heroes"
+    },
+    {
+      "characterName": "Man-Thing",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-016_Man-Thing_afef1b1a.webp",
+      "setName": "2025 Topps Comic Book Heroes"
+    },
+    {
+      "characterName": "The Thing",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-024_The_Thing_b6ab8fe6.webp",
+      "setName": "2025 Topps Comic Book Heroes"
+    },
+    {
+      "characterName": "The Thing",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-052_The_Thing_bc754a2b.webp",
+      "setName": "2025 Topps Comic Book Heroes"
+    },
+    {
+      "characterName": "The Thing",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-096_The_Thing_956e3289.webp",
+      "setName": "2025 Topps Comic Book Heroes"
+    }
+  ],
+  "messages": [],
+  "stdout": "characterName\timageUrl\tsetName\nThe Thing\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/cbh_146_the_thing-6t8htTNrgkfVASuN33wuFw.webp\t2025 Topps Comic Book Heroes\nMan-Thing\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-016_Man-Thing_afef1b1a.webp\t2025 Topps Comic Book Heroes\nThe Thing\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-024_The_Thing_b6ab8fe6.webp\t2025 Topps Comic Book Heroes\nThe Thing\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-052_The_Thing_bc754a2b.webp\t2025 Topps Comic Book Heroes\nThe Thing\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-096_The_Thing_956e3289.webp\t2025 Topps Comic Book Heroes\n",
+  "stderr": "",
+  "execution_time_ms": 300
+}

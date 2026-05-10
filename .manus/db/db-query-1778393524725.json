@@ -1,0 +1,26 @@
+{
+  "query": "SELECT mc.characterName, mc.imageUrl FROM marvel_cards mc JOIN marvel_sets ms ON mc.setId = ms.id WHERE ms.name LIKE '%Comic Book Heroes%' AND mc.characterName IN ('Loki', 'Deadpool', 'Magneto', 'Professor X', 'Scarlet Witch', 'Storm', 'Black Panther', 'Shang-Chi', 'Thing', 'Sentry') LIMIT 15;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT mc.characterName, mc.imageUrl FROM marvel_cards mc JOIN marvel_sets ms ON mc.setId = ms.id WHERE ms.name LIKE '%Comic Book Heroes%' AND mc.characterName IN ('Loki', 'Deadpool', 'Magneto', 'Professor X', 'Scarlet Witch', 'Storm', 'Black Panther', 'Shang-Chi', 'Thing', 'Sentry') LIMIT 15;",
+  "rows": [
+    {
+      "characterName": "Storm",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/cbh_95_storm-HMuPzndB423pHbZcKhos6n.webp"
+    },
+    {
+      "characterName": "Loki",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-078_Loki_37e7f6a0.webp"
+    },
+    {
+      "characterName": "Black Panther",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/cbh_61_black_panther-NL5iwAy2nDzqfR36yqjm5g.webp"
+    },
+    {
+      "characterName": "Loki",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/cbh_47_loki-ikgJYPz5gfgJdTGdpG5HgG.webp"
+    }
+  ],
+  "messages": [],
+  "stdout": "characterName\timageUrl\nStorm\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/cbh_95_storm-HMuPzndB423pHbZcKhos6n.webp\nLoki\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-078_Loki_37e7f6a0.webp\nBlack Panther\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/cbh_61_black_panther-NL5iwAy2nDzqfR36yqjm5g.webp\nLoki\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/cbh_47_loki-ikgJYPz5gfgJdTGdpG5HgG.webp\n",
+  "stderr": "",
+  "execution_time_ms": 267
+}

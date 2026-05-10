@@ -1,0 +1,260 @@
+{
+  "query": "SELECT DISTINCT mc.characterName, mc.imageUrl, ms.name as setName FROM marvel_cards mc JOIN marvel_sets ms ON mc.setId = ms.id WHERE ms.name LIKE '%Comic Book Heroes%' OR ms.name LIKE '%Sapphire%' OR ms.name LIKE '%Chrome%' ORDER BY mc.characterName LIMIT 50;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT DISTINCT mc.characterName, mc.imageUrl, ms.name as setName FROM marvel_cards mc JOIN marvel_sets ms ON mc.setId = ms.id WHERE ms.name LIKE '%Comic Book Heroes%' OR ms.name LIKE '%Sapphire%' OR ms.name LIKE '%Chrome%' ORDER BY mc.characterName LIMIT 50;",
+  "rows": [
+    {
+      "characterName": "\"The Mandarin\" Trevor Slattery Iron Man 3 Phase Two",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/0_qlF6XHTXLHOGeQnCZlcZyN_1773128007536_na1fn_L2hvbWUvdWJ1bnR1L2Jlbl9raW5nc2xleV9hc190cmV2b3Jfc2xhdHRlcnk_236d62f3.png",
+      "setName": "2025 Topps Marvel Studios Sapphire"
+    },
+    {
+      "characterName": "60 Years Of S.H.I.E.L.D.",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/1_5dzU3ZjU0AnyTyBTt3erQz_1773127582940_na1fn_L2hvbWUvdWJ1bnR1LzYwX3llYXJzX29mX3NoaWVsZA_d5136c8c.png",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "characterName": "Abomination",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_132_abomination-Uwh34TFUxs3UC7uXJDUynT.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    },
+    {
+      "characterName": "Abomination",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-132_Abomination_a65fdabe.webp",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "characterName": "Adam Warlock",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_144_adam_warlock-WuqXYwCs3vgJseQEHxiqLv.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    },
+    {
+      "characterName": "Adam Warlock",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-027_Adam_Warlock_b19056af.webp",
+      "setName": "2025 Topps Comic Book Heroes"
+    },
+    {
+      "characterName": "Adam Warlock",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-144_Adam_Warlock_0147f0a3.webp",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "characterName": "Adam Warlock Guardians of the Galaxy Vol. 3 Phase Five",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-144_Adam_Warlock_0147f0a3.webp",
+      "setName": "2025 Topps Marvel Studios Sapphire"
+    },
+    {
+      "characterName": "Agatha Harkness",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-006_Agatha_Harkness_c6809028.webp",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "characterName": "Agatha Harkness",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_6_agatha-nGpbEqoXpYUykXqyc6T3pj.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    },
+    {
+      "characterName": "Agatha Harkness Agatha All Along Phase Five",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-006_Agatha_Harkness_c6809028.webp",
+      "setName": "2025 Topps Marvel Studios Sapphire"
+    },
+    {
+      "characterName": "Agent 13 Sharon Carter Captain America: The Winter Soldier Phase Two",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/2_ovIbLNnEX7TRmMNOMj6ezM_1773127604907_na1fn_L2hvbWUvdWJ1bnR1L2FnZW50XzEzX3NoYXJvbl9jYXJ0ZXI_bbd8439a.png",
+      "setName": "2025 Topps Marvel Studios Sapphire"
+    },
+    {
+      "characterName": "Agent Maria Hill Marvel's The Avengers Phase One",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/3_XiP3I47pCsbwB2rsmBYEtE_1773128009610_na1fn_L2hvbWUvdWJ1bnR1L2FnZW50X21hcmlhX2hpbGxfY2FyZA_28cd12c3.png",
+      "setName": "2025 Topps Marvel Studios Sapphire"
+    },
+    {
+      "characterName": "Agent Peggy Carter Captain America: The First Avenger Phase One",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/4_wUxp9UODzfQcbRXZmuRDlN_1773127593948_na1fn_L2hvbWUvdWJ1bnR1L2FnZW50X3BlZ2d5X2NhcnRlcg_6ab97c23.png",
+      "setName": "2025 Topps Marvel Studios Sapphire"
+    },
+    {
+      "characterName": "Agent Phil Coulson Marvel's The Avengers Phase One",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/5_FStzkREB8nvEaigYzUW1Au_1773127946315_na1fn_L2hvbWUvdWJ1bnR1L2FnZW50X2NhcmQ_37eb2d80.png",
+      "setName": "2025 Topps Marvel Studios Sapphire"
+    },
+    {
+      "characterName": "Ajak Eternals Phase Four",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/6_JAzT2Rbm0gkw124ZRyAzAv_1773127871047_na1fn_L2hvbWUvdWJ1bnR1L2FqYWtfZXRlcm5hbHNfcGhhc2VfZm91cg_93d27482.png",
+      "setName": "2025 Topps Marvel Studios Sapphire"
+    },
+    {
+      "characterName": "Aldrich Killian Iron Man 3 Phase Two",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/7_0DgNsUFJRhwKwfym2ywD44_1773127825481_na1fn_L2hvbWUvdWJ1bnR1L2FscmljaF9raWxsaWFuX2NhcmQ_04fbc3bc.png",
+      "setName": "2025 Topps Marvel Studios Sapphire"
+    },
+    {
+      "characterName": "Alice Wu-Gulliver Agatha All Along Phase Five DEBUT",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/8_W6LdmbZRdKdmPcry312SgS_1773127819588_na1fn_L2hvbWUvdWJ1bnR1L2FnYXRoYV9oYXJrbmVzc19jYXJk_f6060646.png",
+      "setName": "2025 Topps Marvel Studios Sapphire"
+    },
+    {
+      "characterName": "All-New Venom",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-101_All-New_Venom_92a4b5d6.webp",
+      "setName": "2025 Topps Comic Book Heroes"
+    },
+    {
+      "characterName": "Amaranth",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-099_Amaranth_bffcd255.webp",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "characterName": "Amaranth",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_FS-8_Amaranth_18e305e2.png",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "characterName": "Amaranth",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_99_amaranth-eksKZ7ZdjXbsEdysKSx7Dp.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    },
+    {
+      "characterName": "Amazing Fantasy #15",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/11_FFkcEiQWrPe7IIPyH7DHWq_1773127939328_na1fn_L2hvbWUvdWJ1bnR1L2FtYXppbmdfZmFudGFzeV8xNQ_11b3bee2.png",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "characterName": "America Chavez",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-102_America_Chavez_b4b2cabf.webp",
+      "setName": "2025 Topps Comic Book Heroes"
+    },
+    {
+      "characterName": "America Chavez",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-153_America_Chavez_3c09d5a3.webp",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "characterName": "America Chavez",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_153_america_chavez-V3CY6hv76dxsLXnASuYNMz.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    },
+    {
+      "characterName": "America Chavez Doctor Strange in the Multiverse of Phase Four",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/america-chavez_873b572b.png",
+      "setName": "2025 Topps Marvel Studios Sapphire"
+    },
+    {
+      "characterName": "Aneka Black Panther: Wakanda Forever Phase Four",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/14_SpZ2g8slxKPbJDd8pIKd7o_1773127997673_na1fn_L2hvbWUvdWJ1bnR1L2FuZWthX2NhcmQ_be733dc7.png",
+      "setName": "2025 Topps Marvel Studios Sapphire"
+    },
+    {
+      "characterName": "Angel",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-028_Angel_dea04ed0.webp",
+      "setName": "2025 Topps Comic Book Heroes"
+    },
+    {
+      "characterName": "Angel",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-058_Angel_7d189f28.webp",
+      "setName": "2025 Topps Comic Book Heroes"
+    },
+    {
+      "characterName": "Angel",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-186_Hawkeye_e24e3b2b.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    },
+    {
+      "characterName": "Angel",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/chrome_186_angel-hSnLgs7D4D282P9fFoQ4Cc.webp",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "characterName": "Angel",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/angel_598196c4.png",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "characterName": "Angel",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_XM-7_Angel_af09903e.png",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "characterName": "Annihilus",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-118_Annihilus_2ec9b01b.webp",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "characterName": "Annihilus",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_118_annihilus-AH32VWiGk6S4FNijfeBE5E.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    },
+    {
+      "characterName": "Ant-Man",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_141_ant_man-ZmSEYizFsN9DKrduzView7.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    },
+    {
+      "characterName": "Ant-Man",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_I-8_Ant-Man_6e42316d.png",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "characterName": "Ant-Man",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-141_Ant-Man_b6db983b.webp",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "characterName": "Ant-Man",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/ant-man_0abb7126.png",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "characterName": "Ant-Man Scott Lang Ant-Man Phase Two",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/17_xnBNgDEoPDUb5ZlITQZ9fT_1773128007493_na1fn_L2hvbWUvdWJ1bnR1L2FudF9tYW5fc2NvdHRfbGFuZw_3b787dde.png",
+      "setName": "2025 Topps Marvel Studios Sapphire"
+    },
+    {
+      "characterName": "Apocalypse",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_162_apocalypse-2f2FiWeQkVG3mcRuHLHiLj.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    },
+    {
+      "characterName": "Apocalypse",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-162_Apocalypse_e97bb0e6.webp",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "characterName": "Arana",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-059_Arana_bf73aab2.webp",
+      "setName": "2025 Topps Comic Book Heroes"
+    },
+    {
+      "characterName": "Arishem",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-075_Arishem_3fea0309.webp",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "characterName": "Arishem",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_75_arishem-BenpEezQcUfUu8jAt9zswL.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    },
+    {
+      "characterName": "Arishem Eternals Phase Four",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/18_s6xxE6TpmnuDpfokoE8UHF_1773127791701_na1fn_L2hvbWUvdWJ1bnR1L2FyaXNoZW1fY2FyZA_7b77a603.png",
+      "setName": "2025 Topps Marvel Studios Sapphire"
+    },
+    {
+      "characterName": "Attuma Black Panther: Wakanda Forever Phase Four",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/19_bdm5GnxPZnCmhK6HYi5coU_1773127800718_na1fn_L2hvbWUvdWJ1bnR1L2F0dHVtYV9jYXJk_dfa77f9c.png",
+      "setName": "2025 Topps Marvel Studios Sapphire"
+    },
+    {
+      "characterName": "B-15 Loki Phase Four",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sap_studios_107_b15-ZYKW3rYNRUrMHC6GZ4PiWv.webp",
+      "setName": "2025 Topps Marvel Studios Sapphire"
+    },
+    {
+      "characterName": "Baby Groot Guardians of the Galaxy Vol. 2 Phase Three",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/21_P4rmpfjZzIITrhNuag0gg3_1773128025773_na1fn_L2hvbWUvdWJ1bnR1L2dyb290X2NhcmQ_45b35b8a.png",
+      "setName": "2025 Topps Marvel Studios Sapphire"
+    }
+  ],
+  "messages": [],
+  "stdout": "characterName\timageUrl\tsetName\n\"The Mandarin\" Trevor Slattery Iron Man 3 Phase Two\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/0_qlF6XHTXLHOGeQnCZlcZyN_1773128007536_na1fn_L2hvbWUvdWJ1bnR1L2Jlbl9raW5nc2xleV9hc190cmV2b3Jfc2xhdHRlcnk_236d62f3.png\t2025 Topps Marvel Studios Sapphire\n60 Years Of S.H.I.E.L.D.\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/1_5dzU3ZjU0AnyTyBTt3erQz_1773127582940_na1fn_L2hvbWUvdWJ1bnR1LzYwX3llYXJzX29mX3NoaWVsZA_d5136c8c.png\t2025 Topps Chrome\nAbomination\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_132_abomination-Uwh34TFUxs3UC7uXJDUynT.webp\t2025 Topps Marvel Sapphire\nAbomination\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-132_Abomination_a65fdabe.webp\t2025 Topps Chrome\nAdam Warlock\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_144_adam_warlock-WuqXYwCs3vgJseQEHxiqLv.webp\t2025 Topps Marvel Sapphire\nAdam Warlock\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-027_Adam_Warlock_b19056af.webp\t2025 Topps Comic Book Heroes\nAdam Warlock\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-144_Adam_Warlock_0147f0a3.webp\t2025 Topps Chrome\nAdam Warlock Guardians of the Galaxy Vol. 3 Phase Five\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-144_Adam_Warlock_0147f0a3.webp\t2025 Topps Marvel Studios Sapphire\nAgatha Harkness\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-006_Agatha_Harkness_c6809028.webp\t2025 Topps Chrome\nAgatha Harkness\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_6_agatha-nGpbEqoXpYUykXqyc6T3pj.webp\t2025 Topps Marvel Sapphire\nAgatha Harkness Agatha All Along Phase Five\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-006_Agatha_Harkness_c6809028.webp\t2025 Topps Marvel Studios Sapphire\nAgent 13 Sharon Carter Captain America: The Winter Soldier Phase Two\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/2_ovIbLNnEX7TRmMNOMj6ezM_1773127604907_na1fn_L2hvbWUvdWJ1bnR1L2FnZW50XzEzX3NoYXJvbl9jYXJ0ZXI_bbd8439a.png\t2025 Topps Marvel Studios Sapphire\nAgent Maria Hill Marvel's The Avengers Phase One\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/3_XiP3I47pCsbwB2rsmBYEtE_1773128009610_na1fn_L2hvbWUvdWJ1bnR1L2FnZW50X21hcmlhX2hpbGxfY2FyZA_28cd12c3.png\t2025 Topps Marvel Studios Sapphire\nAgent Peggy Carter Captain America: The First Avenger Phase One\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/4_wUxp9UODzfQcbRXZmuRDlN_1773127593948_na1fn_L2hvbWUvdWJ1bnR1L2FnZW50X3BlZ2d5X2NhcnRlcg_6ab97c23.png\t2025 Topps Marvel Studios Sapphire\nAgent Phil Coulson Marvel's The Avengers Phase One\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/5_FStzkREB8nvEaigYzUW1Au_1773127946315_na1fn_L2hvbWUvdWJ1bnR1L2FnZW50X2NhcmQ_37eb2d80.png\t2025 Topps Marvel Studios Sapphire\nAjak Eternals Phase Four\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/6_JAzT2Rbm0gkw124ZRyAzAv_1773127871047_na1fn_L2hvbWUvdWJ1bnR1L2FqYWtfZXRlcm5hbHNfcGhhc2VfZm91cg_93d27482.png\t2025 Topps Marvel Studios Sapphire\nAldrich Killian Iron Man 3 Phase Two\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/7_0DgNsUFJRhwKwfym2ywD44_1773127825481_na1fn_L2hvbWUvdWJ1bnR1L2FscmljaF9raWxsaWFuX2NhcmQ_04fbc3bc.png\t2025 Topps Marvel Studios Sapphire\nAlice Wu-Gulliver Agatha All Along Phase Five DEBUT\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/8_W6LdmbZRdKdmPcry312SgS_1773127819588_na1fn_L2hvbWUvdWJ1bnR1L2FnYXRoYV9oYXJrbmVzc19jYXJk_f6060646.png\t2025 Topps Marvel Studios Sapphire\nAll-New Venom\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-101_All-New_Venom_92a4b5d6.webp\t2025 Topps Comic Book Heroes\nAmaranth\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-099_Amaranth_bffcd255.webp\t2025 Topps Chrome\nAmaranth\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_FS-8_Amaranth_18e305e2.png\t2025 Topps Chrome\nAmaranth\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_99_amaranth-eksKZ7ZdjXbsEdysKSx7Dp.webp\t2025 Topps Marvel Sapphire\nAmazing Fantasy #15\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/11_FFkcEiQWrPe7IIPyH7DHWq_1773127939328_na1fn_L2hvbWUvdWJ1bnR1L2FtYXppbmdfZmFudGFzeV8xNQ_11b3bee2.png\t2025 Topps Chrome\nAmerica Chavez\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-102_America_Chavez_b4b2cabf.webp\t2025 Topps Comic Book Heroes\nAmerica Chavez\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-153_America_Chavez_3c09d5a3.webp\t2025 Topps Chrome\nAmerica Chavez\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_153_america_chavez-V3CY6hv76dxsLXnASuYNMz.webp\t2025 Topps Marvel Sapphire\nAmerica Chavez Doctor Strange in the Multiverse of Phase Four\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/america-chavez_873b572b.png\t2025 Topps Marvel Studios Sapphire\nAneka Black Panther: Wakanda Forever Phase Four\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/14_SpZ2g8slxKPbJDd8pIKd7o_1773127997673_na1fn_L2hvbWUvdWJ1bnR1L2FuZWthX2NhcmQ_be733dc7.png\t2025 Topps Marvel Studios Sapphire\nAngel\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-028_Angel_dea04ed0.webp\t2025 Topps Comic Book Heroes\nAngel\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-058_Angel_7d189f28.webp\t2025 Topps Comic Book Heroes\nAngel\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-186_Hawkeye_e24e3b2b.webp\t2025 Topps Marvel Sapphire\nAngel\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/chrome_186_angel-hSnLgs7D4D282P9fFoQ4Cc.webp\t2025 Topps Chrome\nAngel\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/angel_598196c4.png\t2025 Topps Chrome\nAngel\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_XM-7_Angel_af09903e.png\t2025 Topps Chrome\nAnnihilus\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-118_Annihilus_2ec9b01b.webp\t2025 Topps Chrome\nAnnihilus\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_118_annihilus-AH32VWiGk6S4FNijfeBE5E.webp\t2025 Topps Marvel Sapphire\nAnt-Man\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_141_ant_man-ZmSEYizFsN9DKrduzView7.webp\t2025 Topps Marvel Sapphire\nAnt-Man\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_I-8_Ant-Man_6e42316d.png\t2025 Topps Chrome\nAnt-Man\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-141_Ant-Man_b6db983b.webp\t2025 Topps Chrome\nAnt-Man\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/ant-man_0abb7126.png\t2025 Topps Chrome\nAnt-Man Scott Lang Ant-Man Phase Two\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/17_xnBNgDEoPDUb5ZlITQZ9fT_1773128007493_na1fn_L2hvbWUvdWJ1bnR1L2FudF9tYW5fc2NvdHRfbGFuZw_3b787dde.png\t2025 Topps Marvel Studios Sapphire\nApocalypse\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_162_apocalypse-2f2FiWeQkVG3mcRuHLHiLj.webp\t2025 Topps Marvel Sapphire\nApocalypse\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-162_Apocalypse_e97bb0e6.webp\t2025 Topps Chrome\nArana\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-059_Arana_bf73aab2.webp\t2025 Topps Comic Book Heroes\nArishem\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-075_Arishem_3fea0309.webp\t2025 Topps Chrome\nArishem\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_75_arishem-BenpEezQcUfUu8jAt9zswL.webp\t2025 Topps Marvel Sapphire\nArishem Eternals Phase Four\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/18_s6xxE6TpmnuDpfokoE8UHF_1773127791701_na1fn_L2hvbWUvdWJ1bnR1L2FyaXNoZW1fY2FyZA_7b77a603.png\t2025 Topps Marvel Studios Sapphire\nAttuma Black Panther: Wakanda Forever Phase Four\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/19_bdm5GnxPZnCmhK6HYi5coU_1773127800718_na1fn_L2hvbWUvdWJ1bnR1L2F0dHVtYV9jYXJk_dfa77f9c.png\t2025 Topps Marvel Studios Sapphire\nB-15 Loki Phase Four\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sap_studios_107_b15-ZYKW3rYNRUrMHC6GZ4PiWv.webp\t2025 Topps Marvel Studios Sapphire\nBaby Groot Guardians of the Galaxy Vol. 2 Phase Three\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/21_P4rmpfjZzIITrhNuag0gg3_1773128025773_na1fn_L2hvbWUvdWJ1bnR1L2dyb290X2NhcmQ_45b35b8a.png\t2025 Topps Marvel Studios Sapphire\n",
+  "stderr": "",
+  "execution_time_ms": 280
+}

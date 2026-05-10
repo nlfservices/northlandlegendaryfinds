@@ -1,0 +1,110 @@
+{
+  "query": "SELECT mc.characterName, mc.imageUrl, ms.name as setName FROM marvel_cards mc JOIN marvel_sets ms ON mc.setId = ms.id WHERE mc.characterName IN ('Wolverine', 'Doctor Doom', 'Spider-Man', 'Thor', 'Captain America', 'Magneto', 'Cyclops', 'Gambit', 'Loki', 'Doctor Strange', 'Namor', 'Deadpool', 'Mister Fantastic', 'Invisible Woman', 'Human Torch', 'Thing', 'Professor X', 'Storm', 'Black Panther', 'Iron Man') AND (ms.name LIKE '%Comic Book Heroes%' OR ms.name LIKE '%Sapphire%') LIMIT 20;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT mc.characterName, mc.imageUrl, ms.name as setName FROM marvel_cards mc JOIN marvel_sets ms ON mc.setId = ms.id WHERE mc.characterName IN ('Wolverine', 'Doctor Doom', 'Spider-Man', 'Thor', 'Captain America', 'Magneto', 'Cyclops', 'Gambit', 'Loki', 'Doctor Strange', 'Namor', 'Deadpool', 'Mister Fantastic', 'Invisible Woman', 'Human Torch', 'Thing', 'Professor X', 'Storm', 'Black Panther', 'Iron Man') AND (ms.name LIKE '%Comic Book Heroes%' OR ms.name LIKE '%Sapphire%') LIMIT 20;",
+  "rows": [
+    {
+      "characterName": "Iron Man",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_1_iron_man-MZZKWHVWefKhuLsTmKpHZc.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    },
+    {
+      "characterName": "Spider-Man",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_101_spider_man-eaciWTbEQ9RmSJzctj8UiE.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    },
+    {
+      "characterName": "Wolverine",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_103_wolverine-9C92cNMXDHnB9aEbaeMM4L.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    },
+    {
+      "characterName": "Gambit",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_105_gambit-Ss93tdiBvZsCEunVzjA89W.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    },
+    {
+      "characterName": "Cyclops",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_107_cyclops-7tr2kS5TgFzPStixym6K7B.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    },
+    {
+      "characterName": "Thor",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_119_thor-EghPsSi8nwd9JoARa5CR6j.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    },
+    {
+      "characterName": "Namor",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_12_namor-62sqkeAfB5HcBVwkWKpahc.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    },
+    {
+      "characterName": "Black Panther",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_136_black_panther-dnCBBMM2E5mvtns3gajAe3.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    },
+    {
+      "characterName": "Doctor Doom",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_148_doctor_doom-KzMtduVi8Qg8mkvs7siYnb.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    },
+    {
+      "characterName": "Magneto",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-169_Red_Skull_df177169.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    },
+    {
+      "characterName": "Invisible Woman",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/fix-studios-invisible-woman-4SBShEanQnwnfxzxvKuSr5.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    },
+    {
+      "characterName": "Captain America",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-185_Thor_fcefb908.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    },
+    {
+      "characterName": "Human Torch",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_40_human_torch-6hgbPwC4MRVe8xjRc8zzik.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    },
+    {
+      "characterName": "Mister Fantastic",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_89_mister_fantastic-bBvqMadNyBBqKJEuQMLEP5.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    },
+    {
+      "characterName": "Storm",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_95_storm-bmPfmRN8VDUJS3L4HLg6P8.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    },
+    {
+      "characterName": "Spider-Man",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_is1_spider_man-YX4Xd9djGSiQyBZeiouNmg.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    },
+    {
+      "characterName": "Thor",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_is2_thor-mooFwwFQqfyUXaYe3LZUXw.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    },
+    {
+      "characterName": "Iron Man",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_is5_iron_man-7jnhkcf7L4RywBSqgz9dQK.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    },
+    {
+      "characterName": "Spider-Man",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_mm1_spider_man-GqwTqNd287hm5GysWWY6tx.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    },
+    {
+      "characterName": "Iron Man",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_mm10_iron_man-dcpSEKtWbC4s2hdDzj7dtJ.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    }
+  ],
+  "messages": [],
+  "stdout": "characterName\timageUrl\tsetName\nIron Man\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_1_iron_man-MZZKWHVWefKhuLsTmKpHZc.webp\t2025 Topps Marvel Sapphire\nSpider-Man\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_101_spider_man-eaciWTbEQ9RmSJzctj8UiE.webp\t2025 Topps Marvel Sapphire\nWolverine\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_103_wolverine-9C92cNMXDHnB9aEbaeMM4L.webp\t2025 Topps Marvel Sapphire\nGambit\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_105_gambit-Ss93tdiBvZsCEunVzjA89W.webp\t2025 Topps Marvel Sapphire\nCyclops\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_107_cyclops-7tr2kS5TgFzPStixym6K7B.webp\t2025 Topps Marvel Sapphire\nThor\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_119_thor-EghPsSi8nwd9JoARa5CR6j.webp\t2025 Topps Marvel Sapphire\nNamor\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_12_namor-62sqkeAfB5HcBVwkWKpahc.webp\t2025 Topps Marvel Sapphire\nBlack Panther\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_136_black_panther-dnCBBMM2E5mvtns3gajAe3.webp\t2025 Topps Marvel Sapphire\nDoctor Doom\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_148_doctor_doom-KzMtduVi8Qg8mkvs7siYnb.webp\t2025 Topps Marvel Sapphire\nMagneto\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-169_Red_Skull_df177169.webp\t2025 Topps Marvel Sapphire\nInvisible Woman\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/fix-studios-invisible-woman-4SBShEanQnwnfxzxvKuSr5.webp\t2025 Topps Marvel Sapphire\nCaptain America\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-185_Thor_fcefb908.webp\t2025 Topps Marvel Sapphire\nHuman Torch\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_40_human_torch-6hgbPwC4MRVe8xjRc8zzik.webp\t2025 Topps Marvel Sapphire\nMister Fantastic\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_89_mister_fantastic-bBvqMadNyBBqKJEuQMLEP5.webp\t2025 Topps Marvel Sapphire\nStorm\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_95_storm-bmPfmRN8VDUJS3L4HLg6P8.webp\t2025 Topps Marvel Sapphire\nSpider-Man\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_is1_spider_man-YX4Xd9djGSiQyBZeiouNmg.webp\t2025 Topps Marvel Sapphire\nThor\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_is2_thor-mooFwwFQqfyUXaYe3LZUXw.webp\t2025 Topps Marvel Sapphire\nIron Man\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_is5_iron_man-7jnhkcf7L4RywBSqgz9dQK.webp\t2025 Topps Marvel Sapphire\nSpider-Man\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_mm1_spider_man-GqwTqNd287hm5GysWWY6tx.webp\t2025 Topps Marvel Sapphire\nIron Man\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_mm10_iron_man-dcpSEKtWbC4s2hdDzj7dtJ.webp\t2025 Topps Marvel Sapphire\n",
+  "stderr": "",
+  "execution_time_ms": 266
+}

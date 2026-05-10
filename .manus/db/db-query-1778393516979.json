@@ -1,0 +1,90 @@
+{
+  "query": "SELECT mc.characterName, mc.imageUrl FROM marvel_cards mc JOIN marvel_sets ms ON mc.setId = ms.id WHERE ms.name LIKE '%Comic Book Heroes%' AND mc.characterName IN ('Wolverine', 'Doctor Doom', 'Spider-Man', 'Thor', 'Captain America', 'Magneto', 'Cyclops', 'Gambit', 'Loki', 'Doctor Strange', 'Namor', 'Deadpool', 'Mister Fantastic', 'Invisible Woman', 'Human Torch', 'Thing', 'Professor X', 'Storm', 'Black Panther', 'Iron Man', 'Hulk', 'Scarlet Witch', 'Sentry', 'Shang-Chi') LIMIT 20;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT mc.characterName, mc.imageUrl FROM marvel_cards mc JOIN marvel_sets ms ON mc.setId = ms.id WHERE ms.name LIKE '%Comic Book Heroes%' AND mc.characterName IN ('Wolverine', 'Doctor Doom', 'Spider-Man', 'Thor', 'Captain America', 'Magneto', 'Cyclops', 'Gambit', 'Loki', 'Doctor Strange', 'Namor', 'Deadpool', 'Mister Fantastic', 'Invisible Woman', 'Human Torch', 'Thing', 'Professor X', 'Storm', 'Black Panther', 'Iron Man', 'Hulk', 'Scarlet Witch', 'Sentry', 'Shang-Chi') LIMIT 20;",
+  "rows": [
+    {
+      "characterName": "Hulk",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-010_Hulk_5021737a.webp"
+    },
+    {
+      "characterName": "Captain America",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-108_Captain_America_b4e4ab53.webp"
+    },
+    {
+      "characterName": "Human Torch",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-011_Human_Torch_63626d10.webp"
+    },
+    {
+      "characterName": "Doctor Doom",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-115_Doctor_Doom_6edb9146.webp"
+    },
+    {
+      "characterName": "Gambit",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-117_Gambit_8bcc2f45.webp"
+    },
+    {
+      "characterName": "Hulk",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-121_Hulk_bb4e5834.webp"
+    },
+    {
+      "characterName": "Iron Man",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-122_Iron_Man_13a64afa.webp"
+    },
+    {
+      "characterName": "Iron Man",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-013_Iron_Man_185446b3.webp"
+    },
+    {
+      "characterName": "Spider-Man",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-142_Spider-Man_1b89e31c.webp"
+    },
+    {
+      "characterName": "Wolverine",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-148_Wolverine_6575e9cd.webp"
+    },
+    {
+      "characterName": "Mister Fantastic",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/cbh_19_mister_fantastic-nWTprwKtbTxDnRtn7BTNQL.webp"
+    },
+    {
+      "characterName": "Captain America",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-002_Captain_America_9fb636d3.webp"
+    },
+    {
+      "characterName": "Namor",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-021_Namor_083abd08.webp"
+    },
+    {
+      "characterName": "Spider-Man",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/cbh_22_spider_man-6ZVJ8yTfTTztKqUD5oq95C.webp"
+    },
+    {
+      "characterName": "Thor",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-025_Thor_e699fbe8.webp"
+    },
+    {
+      "characterName": "Captain America",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-031_Captain_America_6c733897.webp"
+    },
+    {
+      "characterName": "Cyclops",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/cbh_32_cyclops-md4DP4Qih9Dp4uBWDYsVvg.webp"
+    },
+    {
+      "characterName": "Doctor Doom",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-035_Doctor_Doom_8af516e3.webp"
+    },
+    {
+      "characterName": "Doctor Strange",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-036_Doctor_Strange_d7ffaca0.webp"
+    },
+    {
+      "characterName": "Doctor Doom",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-004_Doctor_Doom-ABjcxG8F2y8LSKoqXxdLY5.webp"
+    }
+  ],
+  "messages": [],
+  "stdout": "characterName\timageUrl\nHulk\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-010_Hulk_5021737a.webp\nCaptain America\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-108_Captain_America_b4e4ab53.webp\nHuman Torch\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-011_Human_Torch_63626d10.webp\nDoctor Doom\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-115_Doctor_Doom_6edb9146.webp\nGambit\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-117_Gambit_8bcc2f45.webp\nHulk\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-121_Hulk_bb4e5834.webp\nIron Man\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-122_Iron_Man_13a64afa.webp\nIron Man\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-013_Iron_Man_185446b3.webp\nSpider-Man\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-142_Spider-Man_1b89e31c.webp\nWolverine\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-148_Wolverine_6575e9cd.webp\nMister Fantastic\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/cbh_19_mister_fantastic-nWTprwKtbTxDnRtn7BTNQL.webp\nCaptain America\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-002_Captain_America_9fb636d3.webp\nNamor\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-021_Namor_083abd08.webp\nSpider-Man\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/cbh_22_spider_man-6ZVJ8yTfTTztKqUD5oq95C.webp\nThor\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-025_Thor_e699fbe8.webp\nCaptain America\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-031_Captain_America_6c733897.webp\nCyclops\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/cbh_32_cyclops-md4DP4Qih9Dp4uBWDYsVvg.webp\nDoctor Doom\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-035_Doctor_Doom_8af516e3.webp\nDoctor Strange\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-036_Doctor_Strange_d7ffaca0.webp\nDoctor Doom\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CBH-004_Doctor_Doom-ABjcxG8F2y8LSKoqXxdLY5.webp\n",
+  "stderr": "",
+  "execution_time_ms": 259
+}

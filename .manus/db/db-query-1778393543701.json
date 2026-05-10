@@ -1,0 +1,9 @@
+{
+  "query": "SELECT mc.characterName, mc.imageUrl, ms.name as setName FROM marvel_cards mc JOIN marvel_sets ms ON mc.setId = ms.id WHERE mc.characterName IN ('Deadpool', 'Thing') LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT mc.characterName, mc.imageUrl, ms.name as setName FROM marvel_cards mc JOIN marvel_sets ms ON mc.setId = ms.id WHERE mc.characterName IN ('Deadpool', 'Thing') LIMIT 10;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 264
+}

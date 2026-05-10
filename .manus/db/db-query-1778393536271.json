@@ -1,0 +1,85 @@
+{
+  "query": "SELECT mc.characterName, mc.imageUrl, ms.name as setName FROM marvel_cards mc JOIN marvel_sets ms ON mc.setId = ms.id WHERE mc.characterName IN ('Deadpool', 'Magneto', 'Professor X', 'Scarlet Witch', 'Shang-Chi', 'Thing', 'Sentry') AND (ms.name LIKE '%Sapphire%' OR ms.name LIKE '%Chrome%' OR ms.name LIKE '%Comic Book Heroes%') LIMIT 15;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT mc.characterName, mc.imageUrl, ms.name as setName FROM marvel_cards mc JOIN marvel_sets ms ON mc.setId = ms.id WHERE mc.characterName IN ('Deadpool', 'Magneto', 'Professor X', 'Scarlet Witch', 'Shang-Chi', 'Thing', 'Sentry') AND (ms.name LIKE '%Sapphire%' OR ms.name LIKE '%Chrome%' OR ms.name LIKE '%Comic Book Heroes%') LIMIT 15;",
+  "rows": [
+    {
+      "characterName": "Shang-Chi",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-159_Shang-Chi_40d93a82.webp",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "characterName": "Sentry",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/chrome_168_sentry-8SrWXzwLRmHBTnWBHh7kCH.webp",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "characterName": "Magneto",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/chrome_169_magneto-5NA8vtyhi9Bfkd6qG3pBzv.webp",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "characterName": "Scarlet Witch",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/chrome_170_scarlet_witch-Wpi5Qa4Bh9KzeuZaBKAUHD.webp",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "characterName": "Sentry",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sentry_9f233b53.png",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "characterName": "Scarlet Witch",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/scarlet-witch-8aF5aMzTcY2uXcJYgYoD3E.png",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "characterName": "Shang-Chi",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_MI-9_Shang-Chi_c2c83284.png",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "characterName": "Scarlet Witch",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/chrome_tp2_scarlet_witch-aQBzMMYnN24kkh7phps6cK.webp",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "characterName": "Professor X",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/professor-x_fa6a6e7a.png",
+      "setName": "2025 Topps Chrome"
+    },
+    {
+      "characterName": "Shang-Chi",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_159_shang_chi-MJLZ7tUHA9DsJUTwipsL7K.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    },
+    {
+      "characterName": "Sentry",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-168_Scarlet_Witch_b5fbcc4c.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    },
+    {
+      "characterName": "Magneto",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-169_Red_Skull_df177169.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    },
+    {
+      "characterName": "Scarlet Witch",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-170_Punisher_f05f01bf.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    },
+    {
+      "characterName": "Scarlet Witch",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_mm5_scarlet_witch-g3YcAczWCLp2diwAfdr2kD.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    },
+    {
+      "characterName": "Scarlet Witch",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_ss5_scarlet_witch-jmAYQHL6ntgYkeYcf5Zwfc.webp",
+      "setName": "2025 Topps Marvel Sapphire"
+    }
+  ],
+  "messages": [],
+  "stdout": "characterName\timageUrl\tsetName\nShang-Chi\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-159_Shang-Chi_40d93a82.webp\t2025 Topps Chrome\nSentry\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/chrome_168_sentry-8SrWXzwLRmHBTnWBHh7kCH.webp\t2025 Topps Chrome\nMagneto\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/chrome_169_magneto-5NA8vtyhi9Bfkd6qG3pBzv.webp\t2025 Topps Chrome\nScarlet Witch\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/chrome_170_scarlet_witch-Wpi5Qa4Bh9KzeuZaBKAUHD.webp\t2025 Topps Chrome\nSentry\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sentry_9f233b53.png\t2025 Topps Chrome\nScarlet Witch\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/scarlet-witch-8aF5aMzTcY2uXcJYgYoD3E.png\t2025 Topps Chrome\nShang-Chi\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME_MI-9_Shang-Chi_c2c83284.png\t2025 Topps Chrome\nScarlet Witch\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/chrome_tp2_scarlet_witch-aQBzMMYnN24kkh7phps6cK.webp\t2025 Topps Chrome\nProfessor X\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/professor-x_fa6a6e7a.png\t2025 Topps Chrome\nShang-Chi\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_159_shang_chi-MJLZ7tUHA9DsJUTwipsL7K.webp\t2025 Topps Marvel Sapphire\nSentry\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-168_Scarlet_Witch_b5fbcc4c.webp\t2025 Topps Marvel Sapphire\nMagneto\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-169_Red_Skull_df177169.webp\t2025 Topps Marvel Sapphire\nScarlet Witch\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-170_Punisher_f05f01bf.webp\t2025 Topps Marvel Sapphire\nScarlet Witch\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_mm5_scarlet_witch-g3YcAczWCLp2diwAfdr2kD.webp\t2025 Topps Marvel Sapphire\nScarlet Witch\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_ss5_scarlet_witch-jmAYQHL6ntgYkeYcf5Zwfc.webp\t2025 Topps Marvel Sapphire\n",
+  "stderr": "",
+  "execution_time_ms": 265
+}
