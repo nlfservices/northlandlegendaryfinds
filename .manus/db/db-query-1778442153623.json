@@ -1,0 +1,40 @@
+{
+  "query": "SELECT id, title, publishedAt, isFeatured FROM articles ORDER BY publishedAt DESC LIMIT 5",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, title, publishedAt, isFeatured FROM articles ORDER BY publishedAt DESC LIMIT 5",
+  "rows": [
+    {
+      "id": "840001",
+      "title": "Jack Kirby: The King Who Built Marvel's Visual Universe",
+      "publishedAt": "1778393849102",
+      "isFeatured": "0"
+    },
+    {
+      "id": "840002",
+      "title": "From Sticker Packs to Sapphire: The Complete History of Marvel Trading Cards",
+      "publishedAt": "1778390249102",
+      "isFeatured": "0"
+    },
+    {
+      "id": "840003",
+      "title": "Stan Lee: The Storyteller Who Made Marvel Matter",
+      "publishedAt": "1778386649102",
+      "isFeatured": "0"
+    },
+    {
+      "id": "840004",
+      "title": "Avengers: Doomsday — The Avengers Roster Breakdown and Cards to Collect",
+      "publishedAt": "1778307754520",
+      "isFeatured": "0"
+    },
+    {
+      "id": "840005",
+      "title": "Avengers: Doomsday — The X-Men Roster Breakdown and Cards to Collect",
+      "publishedAt": "1778304154520",
+      "isFeatured": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tpublishedAt\tisFeatured\n840001\tJack Kirby: The King Who Built Marvel's Visual Universe\t1778393849102\t0\n840002\tFrom Sticker Packs to Sapphire: The Complete History of Marvel Trading Cards\t1778390249102\t0\n840003\tStan Lee: The Storyteller Who Made Marvel Matter\t1778386649102\t0\n840004\tAvengers: Doomsday — The Avengers Roster Breakdown and Cards to Collect\t1778307754520\t0\n840005\tAvengers: Doomsday — The X-Men Roster Breakdown and Cards to Collect\t1778304154520\t0\n",
+  "stderr": "",
+  "execution_time_ms": 255
+}

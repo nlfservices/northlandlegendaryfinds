@@ -2007,3 +2007,13 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 ## Extract All Facebook Posts
 - [x] Extract Facebook posts from all 16+ articles into one document
 - [ ] Save checkpoint
+
+## Doctor Doom Origin Story Article — Cynthia Von Doom & Mephisto (Mother's Day 2-Part Series)
+- [x] Research: Doctor Doom's mother Cynthia, Mephisto deal, Triumph and Torment
+- [x] Research: Screen Rant MCU theory for Doomsday connection
+- [x] Write Part 1: Mother's Day — Cynthia's sacrifice (published today, featured)
+- [x] Write Part 2: Triumph and Torment twist (auto-publishes tomorrow 9am CDT, featured)
+- [x] Include card images from CBH/Sapphire (Doom, Strange)
+- [x] Include Whatnot CTA and Facebook posts for both parts
+- [x] Publish both to database
+- [ ] Save checkpoint
