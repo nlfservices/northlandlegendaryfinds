@@ -1967,12 +1967,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Research: Avengers Doomsday confirmed teams and rosters
 - [x] Research: Jack Kirby biography and Marvel legacy
 - [x] Research: Stan Lee biography and Marvel legacy
-- [ ] Research: Jonathan Hickman and his Marvel runs (Secret Wars, FF, X-Men)
+- [x] Research: Jonathan Hickman and his Marvel runs (Secret Wars, FF, X-Men)
 - [x] Research: 1975 Topps Marvel stickers/cards history
 - [x] Generate featured images for all articles
 - [x] Write & publish: Jack Kirby creator spotlight
 - [x] Write & publish: Stan Lee creator spotlight
-- [ ] Write & publish: Jonathan Hickman creator spotlight
+- [x] Write & publish: Jonathan Hickman creator spotlight
 - [x] Write & publish: History of Marvel Trading Cards (1975 Topps origin)
 - [x] Write & publish: Avengers team breakdown (Doomsday)
 - [x] Write & publish: X-Men team breakdown (Doomsday)
@@ -1980,4 +1980,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Write & publish: Full Doomsday roster "All Together" article
 - [x] Each article has: Whatnot CTA, subtle collecting angle, Facebook post at end
 - [x] Stagger publish dates (2-3 per day)
-- [ ] Save checkpoint
+- [x] Write & publish: Wolverine character spotlight
+- [x] Write & publish: Doctor Doom character spotlight
+- [x] Write & publish: Spider-Man character spotlight
+- [x] Write & publish: Thor character spotlight
+- [x] Write & publish: Captain America (Sam Wilson) character spotlight
+- [x] Write & publish: Doctor Strange character spotlight
+- [x] Write & publish: Magneto character spotlight
+- [x] Write & publish: Loki character spotlight
+- [x] Save checkpoint

@@ -1,0 +1,18 @@
+{
+  "query": "SHOW COLUMNS FROM articles WHERE Field = 'category';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SHOW COLUMNS FROM articles WHERE Field = 'category';",
+  "rows": [
+    {
+      "Field": "category",
+      "Type": "enum('movie_news','show_news','casting','card_market','release_dates','rumors','analysis','interactive_social')",
+      "Null": "NO",
+      "Key": "",
+      "Default": "movie_news",
+      "Extra": ""
+    }
+  ],
+  "messages": [],
+  "stdout": "Field\tType\tNull\tKey\tDefault\tExtra\ncategory\tenum('movie_news','show_news','casting','card_market','release_dates','rumors','analysis','interactive_social')\tNO\t\tmovie_news\t\n",
+  "stderr": "",
+  "execution_time_ms": 260
+}
