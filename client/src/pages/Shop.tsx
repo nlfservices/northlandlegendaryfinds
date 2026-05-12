@@ -9,7 +9,7 @@ import ProductCard from "@/components/ProductCard";
 import { Zap, Clock, Eye, Sparkles, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import SEO, { breadcrumbJsonLd } from "@/components/SEO";
+import SEO, { breadcrumbJsonLd, organizationJsonLd } from "@/components/SEO";
 
 type Filter = "all" | "repacks" | "sealed" | "gambit-deck" | "variant-series" | "snap-collection" | "multiverse-vault";
 
@@ -53,7 +53,10 @@ export default function Shop() {
         title="Shop Premium Marvel Trading Card Repacks"
         description="Browse our collection of premium Marvel trading card repacks. Strong floor, loaded middle, healthy ceiling. Featuring Topps Chrome, Comic Book Heroes, and Marvel Mint."
         path="/shop"
-        jsonLd={breadcrumbJsonLd([{ name: "Home", url: "/" }, { name: "Shop", url: "/shop" }])}
+        jsonLd={[
+          breadcrumbJsonLd([{ name: "Home", url: "/" }, { name: "Shop", url: "/shop" }]),
+          organizationJsonLd(),
+        ]}
       />
       {/* Header */}
       <section className="py-12 border-b border-border">

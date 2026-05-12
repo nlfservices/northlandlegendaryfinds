@@ -1,6 +1,26 @@
 # Northland Legendary Finds - robots.txt
+# The #1 Marvel Trading Card Collector Hub
+
 User-agent: *
 Allow: /
+Allow: /mcu-news/
+Allow: /nerd-gossip/
+Allow: /the-collector/
+Allow: /cards/
+Allow: /characters/
+Allow: /card-shows/
+Allow: /shop/
+Allow: /about
+Allow: /faq
+Allow: /whatnot
+Allow: /trending-cards
+Allow: /market-intel
+Allow: /rewards
+Allow: /our-process
+Allow: /transparency
+Allow: /subscribe
+Allow: /giveaway
+Allow: /gambit-deck
 
 # Disallow admin and internal routes
 Disallow: /admin
@@ -8,6 +28,36 @@ Disallow: /admin/
 Disallow: /order-success
 Disallow: /card-display
 Disallow: /api/
+Disallow: /subscriber-hub
 
-# Sitemap
+# Crawl-delay for polite crawling
+# Crawl-delay: 1
+
+# Bing-specific
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Google-specific
+User-agent: Googlebot
+Allow: /
+
+# AI Crawlers (allow for visibility in AI search)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Sitemaps
 Sitemap: https://northlandlegendaryfinds.com/sitemap.xml
+Sitemap: https://northlandlegendaryfinds.com/api/sitemap.xml

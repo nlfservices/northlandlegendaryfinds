@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
-import SEO, { breadcrumbJsonLd } from "@/components/SEO";
+import SEO, { breadcrumbJsonLd, collectionPageJsonLd, organizationJsonLd } from "@/components/SEO";
 
 const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mcu-intel-hero-VcDNx3cvdPSwJjVGxWMfTo.webp";
 const CARD_MARKET_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mcu-intel-card-market-Lt56dsta4y7Hzfj6pzAysR.webp";
@@ -155,10 +155,19 @@ export default function MCUNews() {
         path="/mcu-news"
         image={HERO_IMG}
         type="website"
-        jsonLd={breadcrumbJsonLd([
-          { name: "Home", url: "/" },
-          { name: "MCU News", url: "/mcu-news" },
-        ])}
+        jsonLd={[
+          breadcrumbJsonLd([
+            { name: "Home", url: "/" },
+            { name: "MCU News", url: "/mcu-news" },
+          ]),
+          collectionPageJsonLd({
+            name: "MCU News — Marvel News, Rumors & Card Market Impact",
+            description: "Your command center for MCU news, casting updates, release dates, and how they impact the Marvel trading card market.",
+            url: "/mcu-news",
+            itemCount: allArticles?.length,
+          }),
+          organizationJsonLd(),
+        ]}
       />
 
       {/* ===== HERO SECTION ===== */}

@@ -2017,3 +2017,17 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Include Whatnot CTA and Facebook posts for both parts
 - [x] Publish both to database
 - [ ] Save checkpoint
+
+## SEO Upgrades (Video Strategy Implementation)
+- [x] Add Organization JSON-LD schema to site-wide layout (brand, logo, social links)
+- [x] Add Article JSON-LD schema to individual article pages (author, datePublished, image)
+- [x] Add FAQ JSON-LD schema to article pages (Collector's Corner sections)
+- [x] Add BreadcrumbList JSON-LD schema to all pages
+- [x] Improve robots.txt for search engine crawling
+- [x] Generate dynamic XML sitemap including all articles, character pages, card shows
+- [x] Run PageSpeed Insights audit and fix flagged issues (DNS prefetch, preconnect, meta robots)
+- [x] Audit meta descriptions across all pages for uniqueness and keyword targeting
+- [x] Verify heading hierarchy (single H1, proper H2/H3 nesting) across pages
+- [x] Add Bing meta verification tag for Bing Webmaster Tools
+- [x] Add Google Search Console verification meta tag
+- [ ] Prep instructions for user to verify domains in GSC and Bing

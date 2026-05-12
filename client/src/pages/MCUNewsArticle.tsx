@@ -11,7 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
 import { Streamdown } from "streamdown";
-import SEO, { breadcrumbJsonLd } from "@/components/SEO";
+import SEO, { breadcrumbJsonLd, articleJsonLd, organizationJsonLd, faqJsonLd } from "@/components/SEO";
 import { toast } from "sonner";
 
 const CARD_MARKET_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mcu-intel-card-market-Lt56dsta4y7Hzfj6pzAysR.webp";
@@ -197,18 +197,22 @@ export default function MCUNewsArticle() {
         jsonLd={[
           breadcrumbJsonLd([
             { name: "Home", url: "/" },
-           { name: "MCU News", url: "/mcu-news" },
+            { name: "MCU News", url: "/mcu-news" },
             { name: article.title, url: `/mcu-news/${article.slug}` },
           ]),
-          {
-            "@context": "https://schema.org",
-            "@type": "NewsArticle",
-            headline: article.title,
-            description: article.metaDescription || article.excerpt,
-            image: article.featuredImageUrl,
+          articleJsonLd({
+            title: article.title,
+            description: article.metaDescription || article.excerpt || "",
+            image: article.featuredImageUrl || undefined,
             datePublished: article.publishedAt ? new Date(article.publishedAt).toISOString() : undefined,
-            author: { "@type": "Organization", name: article.authorName || "NLF Team" },
-          },
+            dateModified: article.updatedAt ? new Date(article.updatedAt).toISOString() : undefined,
+            authorName: article.authorName || "NLF Team",
+            slug: article.slug,
+            category: article.category,
+            tags: tags,
+            wordCount: article.contentMarkdown ? article.contentMarkdown.split(/\s+/).length : undefined,
+          }),
+          organizationJsonLd(),
         ]}
       />
 

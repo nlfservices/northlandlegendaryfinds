@@ -43,6 +43,9 @@ const STATIC_PAGES: { path: string; priority: string; changefreq: string }[] = [
   { path: "/marvel-card-hub", priority: "0.7", changefreq: "weekly" },
   { path: "/submit-show", priority: "0.4", changefreq: "monthly" },
   { path: "/whatnot", priority: "0.7", changefreq: "daily" },
+  { path: "/nerd-gossip", priority: "0.7", changefreq: "daily" },
+  { path: "/gambit-deck", priority: "0.6", changefreq: "monthly" },
+  { path: "/mcu-spotlight", priority: "0.7", changefreq: "weekly" },
 ];
 
 // Product slugs (static, from products.ts)
@@ -87,7 +90,8 @@ function buildUrlEntry(
 }
 
 export function registerSitemapRoute(app: Express) {
-  app.get("/sitemap.xml", async (_req, res) => {
+  // Serve sitemap at both /sitemap.xml and /api/sitemap.xml
+  app.get(["/sitemap.xml", "/api/sitemap.xml"], async (_req, res) => {
     try {
       const today = new Date().toISOString().split("T")[0];
 
@@ -178,7 +182,8 @@ ${entries.join("\n")}
 </urlset>`;
 
       res.set("Content-Type", "application/xml");
-      res.set("Cache-Control", "public, max-age=3600"); // Cache for 1 hour
+      res.set("Cache-Control", "public, max-age=3600, s-maxage=3600"); // Cache for 1 hour
+      res.set("X-Robots-Tag", "noindex"); // Sitemaps shouldn't be indexed themselves
       res.send(xml);
     } catch (error) {
       console.error("[Sitemap] Error generating sitemap:", error);

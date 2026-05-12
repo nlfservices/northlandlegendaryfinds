@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
-import SEO, { breadcrumbJsonLd } from "@/components/SEO";
+import SEO, { breadcrumbJsonLd, collectionPageJsonLd, organizationJsonLd } from "@/components/SEO";
 
 const CATEGORIES = [
   { key: "all", label: "All Gossip", icon: Newspaper },
@@ -136,10 +136,18 @@ export default function NerdGossip() {
         description="The hottest MCU rumors, leaked plot details, casting gossip, and insider speculation. Every rumor analyzed with card market impact for collectors."
         path="/nerd-gossip"
         type="website"
-        jsonLd={breadcrumbJsonLd([
-          { name: "Home", url: "/" },
-          { name: "Nerd Gossip", url: "/nerd-gossip" },
-        ])}
+        jsonLd={[
+          breadcrumbJsonLd([
+            { name: "Home", url: "/" },
+            { name: "Nerd Gossip", url: "/nerd-gossip" },
+          ]),
+          collectionPageJsonLd({
+            name: "Rumors & Nerd Gossip — MCU Leaks, Speculation & Insider Buzz",
+            description: "The hottest MCU rumors, leaked plot details, casting gossip, and insider speculation for Marvel card collectors.",
+            url: "/nerd-gossip",
+          }),
+          organizationJsonLd(),
+        ]}
       />
 
       {/* ===== HERO SECTION — Purple-themed ===== */}

@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { useLocation } from "wouter";
 import { CARD_TYPE_TO_THEME } from "./CardDisplay";
-import SEO, { breadcrumbJsonLd } from "@/components/SEO";
+import SEO, { breadcrumbJsonLd, collectionPageJsonLd } from "@/components/SEO";
 
 // Default placeholder for cards without images
 const PLACEHOLDER_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hulk_9ebdacfa.png";
@@ -165,7 +165,15 @@ function LazyImage({ src, alt, className }: { src: string; alt: string; classNam
         title="Marvel Card Database"
         description="Browse the complete Marvel trading card database. Search by character, set, or parallel across 2025 Topps Chrome, Comic Book Heroes, Marvel Mint, and more."
         path="/cards"
-        jsonLd={breadcrumbJsonLd([{ name: "Home", url: "/" }, { name: "Card Database", url: "/cards" }])}
+        jsonLd={[
+          breadcrumbJsonLd([{ name: "Home", url: "/" }, { name: "Card Database", url: "/cards" }]),
+          collectionPageJsonLd({
+            name: "Marvel Card Database — 1,709+ Cards Across 6 Topps Sets",
+            description: "Browse the complete Marvel trading card database. Search by character, set, or parallel across 2025 Topps Chrome, Comic Book Heroes, Marvel Mint, and more.",
+            url: "/cards",
+            itemCount: 1709,
+          }),
+        ]}
       />
       {!loaded && !error && (
         <div className="absolute inset-0 bg-muted/30 animate-pulse rounded-lg" />

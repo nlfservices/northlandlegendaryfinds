@@ -15,7 +15,7 @@ import {
   Search, Users, ChevronRight, Layers, ArrowLeft, ArrowRight,
   Crown, Star, Shield, Swords, Zap, Flame, Skull
 } from "lucide-react";
-import SEO, { breadcrumbJsonLd } from "@/components/SEO";
+import SEO, { breadcrumbJsonLd, collectionPageJsonLd, organizationJsonLd } from "@/components/SEO";
 
 const ALPHABET = "#ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 const PAGE_SIZE = 60;
@@ -331,10 +331,19 @@ export default function Characters() {
         title="Marvel Characters - Complete Trading Card Character Database"
         description="Browse 880+ Marvel characters with detailed histories, powers, and trading card appearances. Featuring Doctor Doom, the Top 10 MCU characters, Avengers, X-Men, Guardians of the Galaxy, and more."
         path="/characters"
-        jsonLd={breadcrumbJsonLd([
-          { name: "Home", url: "/" },
-          { name: "Characters", url: "/characters" },
-        ])}
+        jsonLd={[
+          breadcrumbJsonLd([
+            { name: "Home", url: "/" },
+            { name: "Characters", url: "/characters" },
+          ]),
+          collectionPageJsonLd({
+            name: "Marvel Characters - Complete Trading Card Character Database",
+            description: "Browse 880+ Marvel characters with detailed histories, powers, and trading card appearances.",
+            url: "/characters",
+            itemCount: 880,
+          }),
+          organizationJsonLd(),
+        ]}
       />
 
       {/* ═══════════════════════════════════════════════════════════════════
