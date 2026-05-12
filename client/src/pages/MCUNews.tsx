@@ -27,6 +27,7 @@ const CATEGORIES = [
   { key: "rumors", label: "Rumors", icon: MessageSquare },
   { key: "analysis", label: "Analysis", icon: Sparkles },
   { key: "nerd_gossip", label: "Nerd Gossip", icon: Eye },
+  { key: "card_collectors", label: "Card Collectors", icon: Tag },
 ];
 
 const CATEGORY_COLORS: Record<string, string> = {
@@ -38,6 +39,7 @@ const CATEGORY_COLORS: Record<string, string> = {
   rumors: "bg-red-500/20 text-red-400 border-red-500/30",
   analysis: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
   nerd_gossip: "bg-purple-500/20 text-purple-400 border-purple-500/30",
+  card_collectors: "bg-amber-500/20 text-amber-300 border-amber-500/30",
 };
 
 // Character-themed color accents for article cards

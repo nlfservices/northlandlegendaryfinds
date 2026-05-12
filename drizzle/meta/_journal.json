@@ -176,6 +176,13 @@
       "when": 1778614509680,
       "tag": "0024_yielding_christian_walker",
       "breakpoints": true
+    },
+    {
+      "idx": 25,
+      "version": "5",
+      "when": 1778615858821,
+      "tag": "0025_naive_squadron_supreme",
+      "breakpoints": true
     }
   ]
 }

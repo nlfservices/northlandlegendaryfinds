@@ -1,0 +1,1 @@
+ALTER TABLE `articles` MODIFY COLUMN `category` enum('movie_news','show_news','casting','card_market','release_dates','rumors','analysis','interactive_social','nerd_gossip','card_collectors') NOT NULL DEFAULT 'movie_news';

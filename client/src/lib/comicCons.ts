@@ -1211,11 +1211,11 @@ export function searchComicCons(query: string): ComicConEvent[] {
 }
 
 export function getUniqueStates(): string[] {
-  return [...new Set(comicConEvents.map(e => e.stateAbbr))].sort();
+  return Array.from(new Set(comicConEvents.map(e => e.stateAbbr))).sort();
 }
 
 export function getUniqueTypes(): ComicConEvent["type"][] {
-  return [...new Set(comicConEvents.map(e => e.type))];
+  return Array.from(new Set(comicConEvents.map(e => e.type)));
 }
 
 export const TIER_LABELS: Record<number, { label: string; emoji: string; color: string }> = {

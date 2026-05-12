@@ -520,7 +520,7 @@ export const articles = mysqlTable("articles", {
   /** Featured image URL */
   featuredImageUrl: text("featuredImageUrl"),
   /** Article category */
-  category: mysqlEnum("category", ["movie_news", "show_news", "casting", "card_market", "release_dates", "rumors", "analysis", "interactive_social", "nerd_gossip"]).notNull().default("movie_news"),
+  category: mysqlEnum("category", ["movie_news", "show_news", "casting", "card_market", "release_dates", "rumors", "analysis", "interactive_social", "nerd_gossip", "card_collectors"]).notNull().default("movie_news"),
   /** Tags as JSON array (e.g., ["Avengers", "Doomsday", "Doctor Doom"]) */
   tags: json("tags"),
   /** Card market impact note (e.g., "Doctor Doom cards up 40% since casting news") */
