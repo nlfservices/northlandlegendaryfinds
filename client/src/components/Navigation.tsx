@@ -28,6 +28,7 @@ export default function Navigation() {
   const navItems = [
     { path: "/mcu-news", label: "MCU News", highlight: "red" as const },
     { path: "/characters", label: "Marvel Characters" },
+    { path: "/nerd-gossip", label: "Nerd Gossip", highlight: "purple" as const },
     { path: "/checklists", label: "Cosmic Hits" },
     // { path: "/shop", label: "Shop Now" }, // Hidden until launch
     { path: "/card-shows", label: "Events" },
@@ -95,12 +96,24 @@ export default function Navigation() {
               {navItems.map((item) => {
                 const isActive = location === item.path ||
                   (item.path === "/checklists" && location.startsWith("/checklists"));
-                // Special styling for MCU News tab — red highlight
+                // Special styling for MCU News tab — green border, red text
                 if (item.path === "/mcu-news") {
                   return (
                     <Link key={item.path} href={item.path}>
                       <button
-                        className="px-4 py-2 text-sm font-extrabold tracking-wide rounded-lg transition-all whitespace-nowrap text-red-500 hover:text-red-400 hover:bg-red-500/10 animate-pulse"
+                        className="px-4 py-2 text-sm font-extrabold tracking-wide rounded-lg transition-all whitespace-nowrap border-2 border-green-500 text-red-500 hover:bg-green-500/10 hover:text-red-400 hover:border-green-400"
+                      >
+                        {item.label}
+                      </button>
+                    </Link>
+                  );
+                }
+                // Special styling for Nerd Gossip tab — green border, purple text
+                if (item.path === "/nerd-gossip") {
+                  return (
+                    <Link key={item.path} href={item.path}>
+                      <button
+                        className="px-4 py-2 text-sm font-extrabold tracking-wide rounded-lg transition-all whitespace-nowrap border-2 border-green-500 text-purple-400 hover:bg-green-500/10 hover:text-purple-300 hover:border-green-400"
                       >
                         {item.label}
                       </button>
@@ -196,7 +209,7 @@ export default function Navigation() {
             <div className="container py-4 space-y-1">
               {navItems.map((item) => {
                 const isActive = location === item.path;
-                // Special styling for MCU News tab in mobile — red highlight
+                // Special styling for MCU News tab in mobile — green border, red text
                 if (item.path === "/mcu-news") {
                   return (
                     <Link
@@ -205,7 +218,23 @@ export default function Navigation() {
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       <div
-                        className="px-4 py-3 rounded-lg font-extrabold tracking-wide transition-colors text-red-500 hover:bg-red-500/10 hover:text-red-400 animate-pulse"
+                        className="px-4 py-3 rounded-lg font-extrabold tracking-wide transition-colors border-2 border-green-500 text-red-500 hover:bg-green-500/10 hover:text-red-400"
+                      >
+                        {item.label}
+                      </div>
+                    </Link>
+                  );
+                }
+                // Special styling for Nerd Gossip tab in mobile — green border, purple text
+                if (item.path === "/nerd-gossip") {
+                  return (
+                    <Link
+                      key={item.path}
+                      href={item.path}
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <div
+                        className="px-4 py-3 rounded-lg font-extrabold tracking-wide transition-colors border-2 border-green-500 text-purple-400 hover:bg-green-500/10 hover:text-purple-300"
                       >
                         {item.label}
                       </div>

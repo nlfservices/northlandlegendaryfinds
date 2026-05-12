@@ -1,0 +1,9 @@
+{
+  "query": "UPDATE articles SET title = 'The Fantastic Four Meet Doctor Doom: Every FF Card in Marvel Mint and Comic Book Heroes' WHERE slug = 'fantastic-four-meet-doctor-doom-marvel-mint-comic-book-heroes';\nUPDATE articles SET title = 'Secret Wars Explained: The Comic Storyline Behind Doomsday and Why Collectors Need to Know It' WHERE slug = 'secret-wars-lore-avengers-doomsday-card-market-guide';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute UPDATE articles SET title = 'The Fantastic Four Meet Doctor Doom: Every FF Card in Marvel Mint and Comic Book Heroes' WHERE slug = 'fantastic-four-meet-doctor-doom-marvel-mint-comic-book-heroes';\nUPDATE articles SET title = 'Secret Wars Explained: The Comic Storyline Behind Doomsday and Why Collectors Need to Know It' WHERE slug = 'secret-wars-lore-avengers-doomsday-card-market-guide';",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 332
+}

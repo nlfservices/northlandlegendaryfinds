@@ -8,7 +8,7 @@ import { Link } from "wouter";
 import {
   Newspaper, TrendingUp, Calendar, Users, Film, Tv, MessageSquare,
   Search, ChevronRight, Clock, Tag, ExternalLink, Sparkles, Zap,
-  ArrowRight, Filter,
+  ArrowRight, Filter, Eye,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
@@ -26,6 +26,7 @@ const CATEGORIES = [
   { key: "release_dates", label: "Releases", icon: Calendar },
   { key: "rumors", label: "Rumors", icon: MessageSquare },
   { key: "analysis", label: "Analysis", icon: Sparkles },
+  { key: "nerd_gossip", label: "Nerd Gossip", icon: Eye },
 ];
 
 const CATEGORY_COLORS: Record<string, string> = {
@@ -36,6 +37,7 @@ const CATEGORY_COLORS: Record<string, string> = {
   release_dates: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30",
   rumors: "bg-red-500/20 text-red-400 border-red-500/30",
   analysis: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
+  nerd_gossip: "bg-purple-500/20 text-purple-400 border-purple-500/30",
 };
 
 // Character-themed color accents for article cards

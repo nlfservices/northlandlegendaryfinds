@@ -169,6 +169,13 @@
       "when": 1778367913759,
       "tag": "0023_easy_bloodscream",
       "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "5",
+      "when": 1778614509680,
+      "tag": "0024_yielding_christian_walker",
+      "breakpoints": true
     }
   ]
 }

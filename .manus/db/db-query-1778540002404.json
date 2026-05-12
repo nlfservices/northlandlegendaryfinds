@@ -1,0 +1,130 @@
+{
+  "query": "SELECT id, title, slug, category FROM articles WHERE id >= 990001 ORDER BY id ASC LIMIT 20;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, title, slug, category FROM articles WHERE id >= 990001 ORDER BY id ASC LIMIT 20;",
+  "rows": [
+    {
+      "id": "990001",
+      "title": "Rogue in Avengers: Doomsday — The Power-Absorbing Mutant and Her Platinum Tier Card",
+      "slug": "rogue-avengers-doomsday-platinum-tier-card",
+      "category": "movie_news"
+    },
+    {
+      "id": "990002",
+      "title": "Storm Commands the Screen: Why Card #112 Is a Must-Have Before Doomsday",
+      "slug": "storm-commands-the-screen-card-112-must-have-before-doomsday",
+      "category": "analysis"
+    },
+    {
+      "id": "990003",
+      "title": "The Fantastic Four Meet Doctor Doom: Every FF Card in Marvel Mint and Comic Book Heroes",
+      "slug": "fantastic-four-meet-doctor-doom-marvel-mint-comic-book-heroes",
+      "category": "movie_news"
+    },
+    {
+      "id": "990004",
+      "title": "Doctor Strange and the Incursions: Card #110's Role in the Doomsday Storyline",
+      "slug": "doctor-strange-incursions-doomsday-marvel-mint-card-110",
+      "category": "analysis"
+    },
+    {
+      "id": "990005",
+      "title": "Blade, Ghost Rider, and the Wildcards: Platinum Characters Who Could Steal Doomsday",
+      "slug": "blade-ghost-rider-wildcards-platinum-characters-doomsday",
+      "category": "rumors"
+    },
+    {
+      "id": "990006",
+      "title": "The Bronze Tier Sleepers: 50 Characters at /100 Encased That Could Explode After Doomsday",
+      "slug": "bronze-tier-sleepers-marvel-mint-doomsday",
+      "category": "card_market"
+    },
+    {
+      "id": "990007",
+      "title": "Silver Tier Value Plays: Beast, Nightcrawler, and Colossus Before Their MCU Debut",
+      "slug": "silver-tier-value-plays-beast-nightcrawler-colossus-mcu-debut",
+      "category": "card_market"
+    },
+    {
+      "id": "990008",
+      "title": "Gold Tier Goldmine: Cyclops, Jean Grey, and the X-Men Leaders at /50 Encased",
+      "slug": "gold-tier-goldmine-cyclops-jean-grey-x-men-leaders-50-encased",
+      "category": "card_market"
+    },
+    {
+      "id": "990009",
+      "title": "Printing Plates Explained: 480 True 1/1s Hiding in Marvel Mint",
+      "slug": "printing-plates-explained-480-true-1-of-1s-hiding-in-marvel-mint",
+      "category": "analysis"
+    },
+    {
+      "id": "990010",
+      "title": "Chrome Parallels Deep Dive: Black /10, Red /5, and Superfractor /1 Across All 120 Cards",
+      "slug": "chrome-parallels-deep-dive-marvel-mint-doomsday",
+      "category": "analysis"
+    },
+    {
+      "id": "990011",
+      "title": "The $50 and Under Doomsday Collection: Budget Picks From Marvel Mint and Comic Book Heroes",
+      "slug": "budget-picks-marvel-mint-comic-book-heroes-doomsday",
+      "category": "card_market"
+    },
+    {
+      "id": "990012",
+      "title": "PSA 10 vs Raw: When to Grade Your Marvel Mint Pulls for Maximum Doomsday ROI",
+      "slug": "psa-10-vs-raw-grading-marvel-mint-doomsday-roi",
+      "category": "analysis"
+    },
+    {
+      "id": "990013",
+      "title": "Whatnot Hunting Guide: How to Find Marvel Mint Deals on Live Auctions",
+      "slug": "whatnot-hunting-guide-marvel-mint-deals-live-auctions",
+      "category": "card_market"
+    },
+    {
+      "id": "990014",
+      "title": "The 30-Day Countdown Strategy: Timing Your Buys Before Each MCU Trailer Drop",
+      "slug": "30-day-countdown-strategy-timing-buys-mcu-trailer-drop",
+      "category": "analysis"
+    },
+    {
+      "id": "990015",
+      "title": "Secret Wars Explained: The Comic Storyline Behind Doomsday and Why Collectors Need to Know It",
+      "slug": "secret-wars-lore-avengers-doomsday-card-market-guide",
+      "category": "analysis"
+    },
+    {
+      "id": "990016",
+      "title": "Incursions, Battleworld, and the Beyonders: The Lore That Makes Doom Cards Essential",
+      "slug": "incursions-battleworld-beyonders-lore-doom-cards-essential",
+      "category": "analysis"
+    },
+    {
+      "id": "990017",
+      "title": "Every Time Doom Has Beaten the Avengers in Comics — And the Cards That Capture Those Moments",
+      "slug": "doom-victories-avengers-marvel-mint-comic-book-heroes-cards",
+      "category": "analysis"
+    },
+    {
+      "id": "990018",
+      "title": "The Latverian Army: Doombots and Supporting Villain Cards to Watch",
+      "slug": "latverian-army-doombots-supporting-villain-cards-to-watch",
+      "category": "card_market"
+    },
+    {
+      "id": "990019",
+      "title": "NLF Whatnot Stream Schedule: Where to Win Marvel Mint Cards Live This Month",
+      "slug": "nlf-whatnot-stream-schedule-marvel-mint-cards-live",
+      "category": "card_market"
+    },
+    {
+      "id": "990020",
+      "title": "First Look: What We Expect From the Avengers: Doomsday Public Trailer and Its Card Market Impact",
+      "slug": "avengers-doomsday-trailer-prediction-card-market-impact",
+      "category": "rumors"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tslug\tcategory\n990001\tRogue in Avengers: Doomsday — The Power-Absorbing Mutant and Her Platinum Tier Card\trogue-avengers-doomsday-platinum-tier-card\tmovie_news\n990002\tStorm Commands the Screen: Why Card #112 Is a Must-Have Before Doomsday\tstorm-commands-the-screen-card-112-must-have-before-doomsday\tanalysis\n990003\tThe Fantastic Four Meet Doctor Doom: Every FF Card in Marvel Mint and Comic Book Heroes\tfantastic-four-meet-doctor-doom-marvel-mint-comic-book-heroes\tmovie_news\n990004\tDoctor Strange and the Incursions: Card #110's Role in the Doomsday Storyline\tdoctor-strange-incursions-doomsday-marvel-mint-card-110\tanalysis\n990005\tBlade, Ghost Rider, and the Wildcards: Platinum Characters Who Could Steal Doomsday\tblade-ghost-rider-wildcards-platinum-characters-doomsday\trumors\n990006\tThe Bronze Tier Sleepers: 50 Characters at /100 Encased That Could Explode After Doomsday\tbronze-tier-sleepers-marvel-mint-doomsday\tcard_market\n990007\tSilver Tier Value Plays: Beast, Nightcrawler, and Colossus Before Their MCU Debut\tsilver-tier-value-plays-beast-nightcrawler-colossus-mcu-debut\tcard_market\n990008\tGold Tier Goldmine: Cyclops, Jean Grey, and the X-Men Leaders at /50 Encased\tgold-tier-goldmine-cyclops-jean-grey-x-men-leaders-50-encased\tcard_market\n990009\tPrinting Plates Explained: 480 True 1/1s Hiding in Marvel Mint\tprinting-plates-explained-480-true-1-of-1s-hiding-in-marvel-mint\tanalysis\n990010\tChrome Parallels Deep Dive: Black /10, Red /5, and Superfractor /1 Across All 120 Cards\tchrome-parallels-deep-dive-marvel-mint-doomsday\tanalysis\n990011\tThe $50 and Under Doomsday Collection: Budget Picks From Marvel Mint and Comic Book Heroes\tbudget-picks-marvel-mint-comic-book-heroes-doomsday\tcard_market\n990012\tPSA 10 vs Raw: When to Grade Your Marvel Mint Pulls for Maximum Doomsday ROI\tpsa-10-vs-raw-grading-marvel-mint-doomsday-roi\tanalysis\n990013\tWhatnot Hunting Guide: How to Find Marvel Mint Deals on Live Auctions\twhatnot-hunting-guide-marvel-mint-deals-live-auctions\tcard_market\n990014\tThe 30-Day Countdown Strategy: Timing Your Buys Before Each MCU Trailer Drop\t30-day-countdown-strategy-timing-buys-mcu-trailer-drop\tanalysis\n990015\tSecret Wars Explained: The Comic Storyline Behind Doomsday and Why Collectors Need to Know It\tsecret-wars-lore-avengers-doomsday-card-market-guide\tanalysis\n990016\tIncursions, Battleworld, and the Beyonders: The Lore That Makes Doom Cards Essential\tincursions-battleworld-beyonders-lore-doom-cards-essential\tanalysis\n990017\tEvery Time Doom Has Beaten the Avengers in Comics — And the Cards That Capture Those Moments\tdoom-victories-avengers-marvel-mint-comic-book-heroes-cards\tanalysis\n990018\tThe Latverian Army: Doombots and Supporting Villain Cards to Watch\tlatverian-army-doombots-supporting-villain-cards-to-watch\tcard_market\n990019\tNLF Whatnot Stream Schedule: Where to Win Marvel Mint Cards Live This Month\tnlf-whatnot-stream-schedule-marvel-mint-cards-live\tcard_market\n990020\tFirst Look: What We Expect From the Avengers: Doomsday Public Trailer and Its Card Market Impact\tavengers-doomsday-trailer-prediction-card-market-impact\trumors\n",
+  "stderr": "",
+  "execution_time_ms": 261
+}

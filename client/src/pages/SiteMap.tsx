@@ -67,6 +67,7 @@ const SITE_SECTIONS: SiteSection[] = [
     pages: [
       { path: "/the-collector", label: "The Collector Blog", description: "Articles, guides, and insights for Marvel card collectors" },
       { path: "/mcu-news", label: "MCU News", description: "Marvel Cinematic Universe news and card market impact analysis" },
+      { path: "/nerd-gossip", label: "Rumors & Nerd Gossip", description: "MCU leaks, insider speculation, and unverified intel with card market impact" },
       { path: "/mcu-spotlight", label: "MCU Spotlight", description: "Daily actor and character spotlights with trading card cross-references and chase cards" },
       { path: "/card-shows", label: "Card Shows & Events", description: "Find upcoming card shows, conventions, and collector events" },
       { path: "/submit-show", label: "Submit a Card Show", description: "Know about an upcoming show? Submit it to our directory" },

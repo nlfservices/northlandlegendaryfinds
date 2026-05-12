@@ -42,6 +42,7 @@ import CardDetailPage from "./pages/CardDetailPage";
 import JarvisProtocol from "./pages/JarvisProtocol";
 import MatrixPortal from "./pages/MatrixPortal";
 import MCUNews from "./pages/MCUNews";
+import NerdGossip from "./pages/NerdGossip";
 import MCUNewsArticle from "./pages/MCUNewsArticle";
 import SubscriberHub from "./pages/SubscriberHub";
 import CardShows from "./pages/CardShows";
@@ -120,6 +121,7 @@ function AppRouter() {
           <Route path="/admin/ebay-comps" component={EbayComps} />
           <Route path="/transparency" component={Transparency} />
           <Route path="/mcu-news" component={MCUNews} />
+          <Route path="/nerd-gossip" component={NerdGossip} />
           <Route path="/mcu-news/:slug" component={MCUNewsArticle} />
           {/* Redirects from old /mcu-intel URLs */}
           <Route path="/mcu-intel">{() => { window.location.replace("/mcu-news"); return null; }}</Route>
