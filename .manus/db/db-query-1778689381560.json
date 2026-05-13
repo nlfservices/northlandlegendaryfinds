@@ -1,0 +1,25 @@
+{
+  "query": "SELECT id, slug, title FROM blog_posts WHERE title LIKE '%Dream%' OR title LIKE '%Help Us%' OR title LIKE '%Hear From%' ORDER BY createdAt DESC LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, slug, title FROM blog_posts WHERE title LIKE '%Dream%' OR title LIKE '%Help Us%' OR title LIKE '%Hear From%' ORDER BY createdAt DESC LIMIT 10;",
+  "rows": [
+    {
+      "id": "1470001",
+      "slug": "topps-marvel-ages-chase-cards-collectors-dream-mp1vbakk",
+      "title": "Topps Marvel Ages: Unearthing the Chase Cards That Define a Collector's Dream Set"
+    },
+    {
+      "id": "690001",
+      "slug": "topps-marvel-ages-chase-cards-collectors-dream-mop0bujj",
+      "title": "Topps Marvel Ages: Unpacking the Chase Cards of a Collector's Dream Set"
+    },
+    {
+      "id": "210027",
+      "slug": "topps-marvel-ages-chase-cards-collectors-dream-mo232676",
+      "title": "Topps Marvel Ages: Unearthing the Chase Cards That Define a Collector's Dream"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tslug\ttitle\n1470001\ttopps-marvel-ages-chase-cards-collectors-dream-mp1vbakk\tTopps Marvel Ages: Unearthing the Chase Cards That Define a Collector's Dream Set\n690001\ttopps-marvel-ages-chase-cards-collectors-dream-mop0bujj\tTopps Marvel Ages: Unpacking the Chase Cards of a Collector's Dream Set\n210027\ttopps-marvel-ages-chase-cards-collectors-dream-mo232676\tTopps Marvel Ages: Unearthing the Chase Cards That Define a Collector's Dream\n",
+  "stderr": "",
+  "execution_time_ms": 307
+}

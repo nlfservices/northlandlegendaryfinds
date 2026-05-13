@@ -1,0 +1,15 @@
+{
+  "query": "SELECT id, slug, title FROM articles WHERE slug LIKE '%repack%community%' OR slug LIKE '%dream%repack%' OR title LIKE '%Dream Marvel Repack%' ORDER BY id DESC LIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, slug, title FROM articles WHERE slug LIKE '%repack%community%' OR slug LIKE '%dream%repack%' OR title LIKE '%Dream Marvel Repack%' ORDER BY id DESC LIMIT 5;",
+  "rows": [
+    {
+      "id": "1140008",
+      "slug": "help-us-build-your-dream-marvel-repack-community",
+      "title": "Help Us Build Your Dream Marvel Repack: We Want to Hear From YOU"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tslug\ttitle\n1140008\thelp-us-build-your-dream-marvel-repack-community\tHelp Us Build Your Dream Marvel Repack: We Want to Hear From YOU\n",
+  "stderr": "",
+  "execution_time_ms": 261
+}

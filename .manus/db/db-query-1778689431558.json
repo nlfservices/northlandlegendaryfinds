@@ -1,0 +1,364 @@
+{
+  "query": "SELECT contentMarkdown FROM articles WHERE id = 1140008;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT contentMarkdown FROM articles WHERE id = 1140008;",
+  "rows": [
+    {
+      "contentMarkdown": "We started Northland Legendary Finds with one goal: build something collectors actually want. Not what some corporate boardroom thinks you want. Not what looks good on a spreadsheet. What real collectors — people who rip packs, chase parallels, and protect their slabs like family — actually get excited about."
+    },
+    {
+      "contentMarkdown": "So here we are, asking the most important question we can ask: **What do YOU want in a Marvel repack?**"
+    },
+    {
+      "contentMarkdown": "We have ideas. A lot of them. But before we lock anything in, we want to hear from the community that makes this whole thing worth doing. Every single idea below came from conversations with collectors, Whatnot chat, and late-night brainstorming sessions. Some of these might be incredible. Some might be terrible. That's why we need you."
+    },
+    {
+      "contentMarkdown": "## The Big Question: How Many Cards?"
+    },
+    {
+      "contentMarkdown": "<img src=\"https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/community-repack-budget-premium-ESvGaQSdyiTGT6HdDyjXhe.webp\" alt=\"Budget friendly cards alongside premium graded slabs showing the range of collecting tiers\" style=\"width:100%;max-width:600px;border-radius:12px;margin:12px 0;\" />"
+    },
+    {
+      "contentMarkdown": "Right now, our flagship NLF Variant repack runs at a solid card count with graded hits mixed in. But we're thinking bigger — and smaller."
+    },
+    {
+      "contentMarkdown": "**100-Card Starter Packs** — Perfect for new collectors or someone who wants to dip their toes into Marvel cards without breaking the bank. A curated mix of base cards, a few inserts, maybe a guaranteed parallel. The kind of pack you'd grab for your kid or for yourself when you just want that rip-and-sort feeling on a Tuesday night."
+    },
+    {
+      "contentMarkdown": "**500-Card Monster Boxes** — Our current sweet spot. Enough volume to build toward set completion, guaranteed graded cards, and enough variety across sets that you're always finding something new. This is where the serious fun happens."
+    },
+    {
+      "contentMarkdown": "**1,000-Card Mega Boxes** — For the collector who wants it all. Imagine cracking open a box and spending an entire weekend sorting, organizing, and discovering. Multiple graded cards, insert sets, parallels across every Topps Marvel release. This is the \"clear the dining room table\" experience."
+    },
+    {
+      "contentMarkdown": "Here's what we want to know: **Which size gets you most excited?** Would you rather have more smaller packs or fewer massive ones? Is there a sweet spot we're missing — maybe 250 cards?"
+    },
+    {
+      "contentMarkdown": "## Complete Sets: Why Not?"
+    },
+    {
+      "contentMarkdown": "<img src=\"https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/community-repack-complete-sets-7xVNPW9Bp2QFS5ppuSCvYg.webp\" alt=\"Complete Marvel trading card set displayed in a premium binder with protective sleeves\" style=\"width:100%;max-width:600px;border-radius:12px;margin:12px 0;\" />"
+    },
+    {
+      "contentMarkdown": "This is the idea that keeps us up at night. What if instead of just random cards, we offered **complete encased sets**?"
+    },
+    {
+      "contentMarkdown": "Picture this: **A complete Topps Comic Book Heroes base set — all 120 cards — sleeved, organized, and encased in a premium display.** No hunting. No trading. No \"I'm missing card #47 and it's driving me insane.\" Just the complete set, ready to display or store."
+    },
+    {
+      "contentMarkdown": "We could do this across multiple sets:"
+    },
+    {
+      "contentMarkdown": "**Topps Comic Book Heroes (2024)** — 120 cards of classic comic art. The set that started the modern Marvel card renaissance. Every card sleeved and numbered in order, encased in a premium holder. Imagine having this on your shelf."
+    },
+    {
+      "contentMarkdown": "**Topps Marvel Mint (2025)** — The coin and medallion insert set that's been turning heads. A complete base run would be something special."
+    },
+    {
+      "contentMarkdown": "**Topps Chrome Marvel (2024)** — The flagship chrome set with that iconic refractor finish. A complete base set of these is genuinely beautiful."
+    },
+    {
+      "contentMarkdown": "The question is: **Would you pay a premium for a guaranteed complete set?** Or do you prefer the hunt — buying packs and trading your way to completion? There's no wrong answer here. Some collectors live for the chase. Others just want the set done and done right."
+    },
+    {
+      "contentMarkdown": "## Exclusive Insert Sets: The NLF Originals"
+    },
+    {
+      "contentMarkdown": "Now here's where it gets really interesting. What if we created **exclusive insert sets** that you can only get through NLF repacks?"
+    },
+    {
+      "contentMarkdown": "**The Doctor Doom Collection** — With Avengers: Doomsday dropping May 1, 2027, Doom is the hottest character in Marvel right now. What if we built an exclusive 10-card Doctor Doom insert set? Every card featuring a different iconic Doom moment — from his first appearance in Fantastic Four #5 to Secret Wars to the MCU. Numbered, limited, and only available in NLF packs."
+    },
+    {
+      "contentMarkdown": "**The Gambit Deck** — Gambit is one of the most beloved X-Men of all time, and with Channing Tatum's version finally getting screen time, the demand is real. A playing-card-themed insert set where each card mirrors a card from a standard deck — Gambit as the King of Hearts, Rogue as the Queen, and so on. Tell us that wouldn't be incredible."
+    },
+    {
+      "contentMarkdown": "**Villain Spotlight Series** — Thanos. Magneto. Green Goblin. Kingpin. Galactus. A rotating villain insert set that changes with each repack release. Collect them all across multiple purchases."
+    },
+    {
+      "contentMarkdown": "**What exclusive sets would YOU want to see?** We're completely open here. If you've got a character, a theme, or a concept that would make you immediately add to cart — we want to hear it."
+    },
+    {
+      "contentMarkdown": "## Team Packs: Assemble Your Favorites"
+    },
+    {
+      "contentMarkdown": "Another idea we keep coming back to: **team-based packs.** Instead of random cards from random sets, what if you could buy a pack built around your favorite Marvel team?"
+    },
+    {
+      "contentMarkdown": "**Avengers Pack** — Cards featuring Iron Man, Captain America, Thor, Black Widow, Hulk, Hawkeye, and the full roster across multiple sets. Base cards, inserts, and parallels — all Avengers, all the time."
+    },
+    {
+      "contentMarkdown": "**X-Men Pack** — Wolverine, Cyclops, Jean Grey, Storm, Gambit, Rogue, Beast, Nightcrawler. With X-Men finally joining the MCU, this could be massive. Every card in the pack tied to mutant-kind."
+    },
+    {
+      "contentMarkdown": "**Spider-Verse Pack** — Peter Parker, Miles Morales, Spider-Gwen, Venom, Green Goblin, Doc Ock. The web-slinger universe in one pack."
+    },
+    {
+      "contentMarkdown": "**Fantastic Four Pack** — Reed Richards, Sue Storm, Johnny Storm, Ben Grimm — plus Doctor Doom, Silver Surfer, and Galactus. Perfect timing with the Fantastic Four: First Steps movie fresh in everyone's minds."
+    },
+    {
+      "contentMarkdown": "**Villains Only Pack** — No heroes allowed. Just the baddest of the bad across every set. Doctor Doom, Thanos, Magneto, Loki, Kingpin, Ultron, Kang. Pure evil, pure value."
+    },
+    {
+      "contentMarkdown": "Would team packs interest you? **Which teams would you want first?** Maybe there's a team we haven't thought of — Thunderbolts? Midnight Sons? Young Avengers?"
+    },
+    {
+      "contentMarkdown": "## Budget Friendly to High-End: Something for Everyone"
+    },
+    {
+      "contentMarkdown": "This is important to us. We don't want NLF to be a place where only big spenders feel welcome. We want **every collector** to find something they can afford and get excited about."
+    },
+    {
+      "contentMarkdown": "**Budget Tier ($15-$30)** — Starter packs, team lots, base card bundles. Great for kids, new collectors, or anyone who just wants to add some Marvel to their collection without overthinking it. No graded cards at this level, but solid card counts and guaranteed inserts."
+    },
+    {
+      "contentMarkdown": "**Mid Tier ($50-$100)** — Our bread and butter. This is where you get graded cards, parallel hits, and enough volume to make it feel like Christmas morning. The NLF Variant repack lives here, and we think this is where most collectors want to be."
+    },
+    {
+      "contentMarkdown": "**Premium Tier ($150-$300)** — Multiple graded cards, guaranteed numbered parallels, and the kind of hits that make you post on social media. Complete insert sets included. This is for the collector who wants the best and is willing to invest."
+    },
+    {
+      "contentMarkdown": "**Ultra Premium ($500+)** — The whale tier. High-grade slabs (CGC 9.5+), rare parallels (/25, /10, /5, /1), and exclusive NLF insert sets. Limited quantities. The kind of box that makes your hands shake when you open it."
+    },
+    {
+      "contentMarkdown": "**Which price tier fits your collecting style?** Do you want us to focus on making the budget options amazing, or go all-in on premium experiences? Maybe both?"
+    },
+    {
+      "contentMarkdown": "## Rainbow Chases: The Ultimate Parallel Hunt"
+    },
+    {
+      "contentMarkdown": "Okay, this one might be our most exciting idea yet. Forget pulling a single numbered card and calling it a day. What if we built **rainbow chases** into our repacks?"
+    },
+    {
+      "contentMarkdown": "Here's the concept: Take a single character — let's say Doctor Doom. Now imagine pulling the /50 version from one repack. Cool card, nice pull. But then you see that the /25 exists in another series. And the /10. And the /5. And somewhere out there... the /1."
+    },
+    {
+      "contentMarkdown": "**That's a rainbow chase.** One character, every numbered parallel, building toward the ultimate collection."
+    },
+    {
+      "contentMarkdown": "Think about what this does to the collecting experience:"
+    },
+    {
+      "contentMarkdown": "You pull a Wolverine /50 from Series 1 and suddenly you're hooked. You NEED the /25. You're watching every stream, checking every drop, because that next piece of the rainbow could show up at any time. And when you finally land the /10? The adrenaline is unreal. You're three cards deep into a rainbow that only gets rarer from here."
+    },
+    {
+      "contentMarkdown": "**How it could work in NLF repacks:**"
+    },
+    {
+      "contentMarkdown": "The **/50** — Your entry point. These show up more frequently across series. Affordable, accessible, and the card that starts the addiction. You pull this and think \"okay, I could chase this rainbow.\""
+    },
+    {
+      "contentMarkdown": "The **/25** — Now it gets interesting. These appear less often, maybe every 2-3 series. You might have to compete for it on a live stream. The hunt is real."
+    },
+    {
+      "contentMarkdown": "The **/10** — Rare territory. Remember our scarcity system? A /10 might only appear once every few series. When it drops on stream, the chat is going to explode."
+    },
+    {
+      "contentMarkdown": "The **/5** — Ultra rare. These are the cards that make your hands shake. Five copies in existence, and NLF might only have one or two. When this hits the auction block, bring your wallet."
+    },
+    {
+      "contentMarkdown": "The **/1** — The holy grail. One of one. The card that completes the rainbow and makes you a legend in the NLF community. If we have it, it's going to be an EVENT when it drops. The kind of moment people talk about for months."
+    },
+    {
+      "contentMarkdown": "**Why rainbow chases change everything:**"
+    },
+    {
+      "contentMarkdown": "It creates long-term engagement. You're not just buying one repack — you're investing in a chase that spans multiple series and multiple streams. Every drop becomes \"is MY card in this one?\" It turns passive buyers into dedicated community members."
+    },
+    {
+      "contentMarkdown": "It also creates natural trading opportunities. Maybe you pulled the Doom /25 but someone else has the /10. Now you're talking, negotiating, building relationships in the community. That's what collecting is supposed to be about."
+    },
+    {
+      "contentMarkdown": "**Characters we could build rainbow chases around:**"
+    },
+    {
+      "contentMarkdown": "- **Doctor Doom** — The obvious choice with Doomsday hype. A Doom rainbow would be the crown jewel of any collection"
+    },
+    {
+      "contentMarkdown": "- **Wolverine** — Fan favorite with massive demand across every set"
+    },
+    {
+      "contentMarkdown": "- **Spider-Man** — The most iconic Marvel character, period"
+    },
+    {
+      "contentMarkdown": "- **Gambit** — Beloved X-Men with surging MCU interest"
+    },
+    {
+      "contentMarkdown": "- **Iron Man** — The card that started the MCU, the rainbow that ends collections"
+    },
+    {
+      "contentMarkdown": "**Would you chase a rainbow?** Which character would you want to build a complete /50 through /1 rainbow for? Would you prefer we focus on a few characters with deep rainbow options, or spread it across many characters? This is YOUR collection — tell us what gets you excited."
+    },
+    {
+      "contentMarkdown": "## The Scarcity System: Keeping Your Cards Valuable"
+    },
+    {
+      "contentMarkdown": "Here's something we've been thinking about a lot, and we want to be transparent about it: **how do we keep the cards in our repacks valuable after you buy them?**"
+    },
+    {
+      "contentMarkdown": "The answer is controlled allocation."
+    },
+    {
+      "contentMarkdown": "Let's say we have a Wolverine Chrome Refractor numbered /10 — meaning only 10 exist in the world. And let's say NLF owns 3 of those 10. We're NOT going to dump all 3 into the same repack series. That would flood the market and tank the value for everyone who pulls one."
+    },
+    {
+      "contentMarkdown": "Instead, here's our approach: **limited cards get spread across series.** If we have 3 copies of a /10 card, we might put one in Series 1, skip Series 2 entirely, and put the next one in Series 3. Every other series. Maybe even every third series depending on the card."
+    },
+    {
+      "contentMarkdown": "**Why does this matter to you?**"
+    },
+    {
+      "contentMarkdown": "- The card you pull maintains its value because the market isn't flooded"
+    },
+    {
+      "contentMarkdown": "- Each series feels genuinely scarce — you know that /10 parallel might not appear again for months"
+    },
+    {
+      "contentMarkdown": "- Collectors who buy early don't get burned by the same card showing up in every single release"
+    },
+    {
+      "contentMarkdown": "- It creates real urgency: if a /10 Doom card is in THIS series, it might not come back for 2-3 drops"
+    },
+    {
+      "contentMarkdown": "This isn't about being stingy. It's about respecting the cards and respecting the collectors who invest in them. We want you to pull a numbered parallel and KNOW it's going to hold value — because we're not about to undercut you by releasing the same card next week."
+    },
+    {
+      "contentMarkdown": "**What do you think about this approach?** Would you rather we load up each series with every rare card we have, or do you prefer the controlled scarcity model where each drop feels special?"
+    },
+    {
+      "contentMarkdown": "## Live Stream Exclusive: You Have to Show Up"
+    },
+    {
+      "contentMarkdown": "Here's the big one: **our custom sets and premium repacks will ONLY be available through live streams.**"
+    },
+    {
+      "contentMarkdown": "No website \"Add to Cart\" button. No pre-orders sitting in a queue. No bots scooping up inventory at 3am. If you want the exclusive NLF sets — the Doctor Doom Collection, the Gambit Deck, the team packs — you have to be in the Whatnot stream when they drop."
+    },
+    {
+      "contentMarkdown": "**Why live-only?**"
+    },
+    {
+      "contentMarkdown": "- It rewards the community members who actually show up and engage"
+    },
+    {
+      "contentMarkdown": "- It creates a real event atmosphere — everyone's watching, chatting, and competing for the same cards"
+    },
+    {
+      "contentMarkdown": "- It eliminates reseller bots and automated purchasing"
+    },
+    {
+      "contentMarkdown": "- It makes every stream feel like something you don't want to miss"
+    },
+    {
+      "contentMarkdown": "- The energy of a live audience when a /10 parallel gets pulled? You can't replicate that with a checkout page"
+    },
+    {
+      "contentMarkdown": "**Pre-Auction Access** — For collectors who join the stream early, we're considering pre-auction sales. Before the main auction starts, early birds get first crack at select items at set prices. Think of it like a VIP early access window. Show up 15 minutes before the stream officially kicks off, and you might snag something before it ever hits the auction block."
+    },
+    {
+      "contentMarkdown": "This could include:"
+    },
+    {
+      "contentMarkdown": "- **Fixed-price graded slabs** — First come, first served for stream regulars"
+    },
+    {
+      "contentMarkdown": "- **Bundle deals** — Complete insert sets or team lots at a set price before individual cards go to auction"
+    },
+    {
+      "contentMarkdown": "- **Loyalty rewards** — Returning stream viewers get priority access to limited items"
+    },
+    {
+      "contentMarkdown": "The live-only model means our community IS the market. No outside interference. No algorithms deciding who sees what. Just collectors, cards, and the thrill of the chase — live and in real time."
+    },
+    {
+      "contentMarkdown": "**Would you show up for live-exclusive drops?** Does the pre-auction concept excite you, or would you prefer everything goes straight to auction? Let us know."
+    },
+    {
+      "contentMarkdown": "## What This Means for the NLF Community"
+    },
+    {
+      "contentMarkdown": "Here's the thing — we're not a massive corporation with focus groups and market research departments. We're a family operation that started because we love Marvel cards and wanted to share that with other collectors. Patrick's been building this with his son, embarrassing his wife at card shows, and staying up way too late sorting cards."
+    },
+    {
+      "contentMarkdown": "That means when you tell us what you want, **we actually listen.** We don't have shareholders to answer to. We don't have a board of directors overriding community feedback. If the community says \"we want 250-card team packs with a guaranteed graded card for under $50,\" then that's what we're going to figure out how to build."
+    },
+    {
+      "contentMarkdown": "Browse our [Card Database](https://northlandlegendaryfinds.com/cards) to see the 1,709+ cards we're already tracking across every major Topps Marvel set. Check out our current [NLF Variant repack](https://northlandlegendaryfinds.com/shop) to see where we're starting. And if you want to see cards ripped live, join us on [Whatnot](https://northlandlegendaryfinds.com/whatnot) where we break packs every week."
+    },
+    {
+      "contentMarkdown": "## How to Tell Us What You Want"
+    },
+    {
+      "contentMarkdown": "We want to make this as easy as possible. Here's how you can share your ideas:"
+    },
+    {
+      "contentMarkdown": "**Drop a comment on our Facebook page** — Tell us which ideas above excite you, or pitch something completely new. Tag a collecting buddy who needs to weigh in."
+    },
+    {
+      "contentMarkdown": "**Email us directly** — Reach out through our [About page](https://northlandlegendaryfinds.com/about) contact info. We read every single message."
+    },
+    {
+      "contentMarkdown": "**Join a Whatnot stream** — Our live streams aren't just about ripping packs. They're about talking cards, hearing what collectors want, and building this thing together. Hit us up in the chat."
+    },
+    {
+      "contentMarkdown": "**Share this article** — The more collectors who see this, the better our repacks will be. Simple as that."
+    },
+    {
+      "contentMarkdown": "## Collector's Corner"
+    },
+    {
+      "contentMarkdown": "The Marvel card market is evolving fast, and repack builders who listen to their community are the ones who survive. With Avengers: Doomsday on the horizon and X-Men integration ramping up, the demand for curated Marvel card products has never been higher."
+    },
+    {
+      "contentMarkdown": "**Hot Cards to Watch:**"
+    },
+    {
+      "contentMarkdown": "- **Doctor Doom Topps Chrome Marvel Refractor** — Doom cards are climbing steadily as Doomsday hype builds through 2026"
+    },
+    {
+      "contentMarkdown": "- **Gambit Topps Finest X-Men '97 Base** — Channing Tatum's Gambit appearance has collectors hunting every Gambit card"
+    },
+    {
+      "contentMarkdown": "- **Spider-Man Topps Comic Book Heroes #1** — The flagship card of the CBH set, always in demand"
+    },
+    {
+      "contentMarkdown": "- **Wolverine Topps Marvel Mint Coin Card** — Unique format cards are holding value as collectors seek variety"
+    },
+    {
+      "contentMarkdown": "Track real-time prices on **[Card Ladder](https://www.cardladder.com/)** to see which characters are trending. Build your want list on **[COMC](https://www.comc.com/)** for singles you need. And check **[MySlabs](https://www.myslabs.com/)** to manage your graded collection portfolio."
+    },
+    {
+      "contentMarkdown": "*This is YOUR community. YOUR repacks. Help us build something legendary.*"
+    },
+    {
+      "contentMarkdown": "---"
+    },
+    {
+      "contentMarkdown": "**Facebook Post:**"
+    },
+    {
+      "contentMarkdown": "We need your help, Marvel collectors."
+    },
+    {
+      "contentMarkdown": "We're building the next generation of NLF repacks and we want to know: what do YOU actually want? 100-card starter packs? 500-card monster boxes? Complete encased sets? Exclusive Doctor Doom inserts? Team packs? Budget-friendly options?"
+    },
+    {
+      "contentMarkdown": "We laid out every idea we've been brainstorming and we want the community to tell us what to build first."
+    },
+    {
+      "contentMarkdown": "Read the full breakdown and tell us what gets you excited:"
+    },
+    {
+      "contentMarkdown": "https://northlandlegendaryfinds.com/mcu-news/help-us-build-your-dream-marvel-repack-community"
+    },
+    {
+      "contentMarkdown": "Drop your ideas in the comments. Tag a collecting buddy. Let's build this together."
+    },
+    {
+      "contentMarkdown": "#Marvel #MarvelCards #TradingCards #Repacks #NorthlandLegendaryFinds #NLF #DoctorDoom #Gambit #SpiderMan #Wolverine #Avengers #XMen #CardCollecting #CommunityFirst"
+    }
+  ],
+  "messages": [],
+  "stdout": "contentMarkdown\nWe started Northland Legendary Finds with one goal: build something collectors actually want. Not what some corporate boardroom thinks you want. Not what looks good on a spreadsheet. What real collectors — people who rip packs, chase parallels, and protect their slabs like family — actually get excited about.\n\nSo here we are, asking the most important question we can ask: **What do YOU want in a Marvel repack?**\n\nWe have ideas. A lot of them. But before we lock anything in, we want to hear from the community that makes this whole thing worth doing. Every single idea below came from conversations with collectors, Whatnot chat, and late-night brainstorming sessions. Some of these might be incredible. Some might be terrible. That's why we need you.\n\n## The Big Question: How Many Cards?\n\n<img src=\"https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/community-repack-budget-premium-ESvGaQSdyiTGT6HdDyjXhe.webp\" alt=\"Budget friendly cards alongside premium graded slabs showing the range of collecting tiers\" style=\"width:100%;max-width:600px;border-radius:12px;margin:12px 0;\" />\n\nRight now, our flagship NLF Variant repack runs at a solid card count with graded hits mixed in. But we're thinking bigger — and smaller.\n\n**100-Card Starter Packs** — Perfect for new collectors or someone who wants to dip their toes into Marvel cards without breaking the bank. A curated mix of base cards, a few inserts, maybe a guaranteed parallel. The kind of pack you'd grab for your kid or for yourself when you just want that rip-and-sort feeling on a Tuesday night.\n\n**500-Card Monster Boxes** — Our current sweet spot. Enough volume to build toward set completion, guaranteed graded cards, and enough variety across sets that you're always finding something new. This is where the serious fun happens.\n\n**1,000-Card Mega Boxes** — For the collector who wants it all. Imagine cracking open a box and spending an entire weekend sorting, organizing, and discovering. Multiple graded cards, insert sets, parallels across every Topps Marvel release. This is the \"clear the dining room table\" experience.\n\nHere's what we want to know: **Which size gets you most excited?** Would you rather have more smaller packs or fewer massive ones? Is there a sweet spot we're missing — maybe 250 cards?\n\n## Complete Sets: Why Not?\n\n<img src=\"https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/community-repack-complete-sets-7xVNPW9Bp2QFS5ppuSCvYg.webp\" alt=\"Complete Marvel trading card set displayed in a premium binder with protective sleeves\" style=\"width:100%;max-width:600px;border-radius:12px;margin:12px 0;\" />\n\nThis is the idea that keeps us up at night. What if instead of just random cards, we offered **complete encased sets**?\n\nPicture this: **A complete Topps Comic Book Heroes base set — all 120 cards — sleeved, organized, and encased in a premium display.** No hunting. No trading. No \"I'm missing card #47 and it's driving me insane.\" Just the complete set, ready to display or store.\n\nWe could do this across multiple sets:\n\n**Topps Comic Book Heroes (2024)** — 120 cards of classic comic art. The set that started the modern Marvel card renaissance. Every card sleeved and numbered in order, encased in a premium holder. Imagine having this on your shelf.\n\n**Topps Marvel Mint (2025)** — The coin and medallion insert set that's been turning heads. A complete base run would be something special.\n\n**Topps Chrome Marvel (2024)** — The flagship chrome set with that iconic refractor finish. A complete base set of these is genuinely beautiful.\n\nThe question is: **Would you pay a premium for a guaranteed complete set?** Or do you prefer the hunt — buying packs and trading your way to completion? There's no wrong answer here. Some collectors live for the chase. Others just want the set done and done right.\n\n## Exclusive Insert Sets: The NLF Originals\n\nNow here's where it gets really interesting. What if we created **exclusive insert sets** that you can only get through NLF repacks?\n\n**The Doctor Doom Collection** — With Avengers: Doomsday dropping May 1, 2027, Doom is the hottest character in Marvel right now. What if we built an exclusive 10-card Doctor Doom insert set? Every card featuring a different iconic Doom moment — from his first appearance in Fantastic Four #5 to Secret Wars to the MCU. Numbered, limited, and only available in NLF packs.\n\n**The Gambit Deck** — Gambit is one of the most beloved X-Men of all time, and with Channing Tatum's version finally getting screen time, the demand is real. A playing-card-themed insert set where each card mirrors a card from a standard deck — Gambit as the King of Hearts, Rogue as the Queen, and so on. Tell us that wouldn't be incredible.\n\n**Villain Spotlight Series** — Thanos. Magneto. Green Goblin. Kingpin. Galactus. A rotating villain insert set that changes with each repack release. Collect them all across multiple purchases.\n\n**What exclusive sets would YOU want to see?** We're completely open here. If you've got a character, a theme, or a concept that would make you immediately add to cart — we want to hear it.\n\n## Team Packs: Assemble Your Favorites\n\nAnother idea we keep coming back to: **team-based packs.** Instead of random cards from random sets, what if you could buy a pack built around your favorite Marvel team?\n\n**Avengers Pack** — Cards featuring Iron Man, Captain America, Thor, Black Widow, Hulk, Hawkeye, and the full roster across multiple sets. Base cards, inserts, and parallels — all Avengers, all the time.\n\n**X-Men Pack** — Wolverine, Cyclops, Jean Grey, Storm, Gambit, Rogue, Beast, Nightcrawler. With X-Men finally joining the MCU, this could be massive. Every card in the pack tied to mutant-kind.\n\n**Spider-Verse Pack** — Peter Parker, Miles Morales, Spider-Gwen, Venom, Green Goblin, Doc Ock. The web-slinger universe in one pack.\n\n**Fantastic Four Pack** — Reed Richards, Sue Storm, Johnny Storm, Ben Grimm — plus Doctor Doom, Silver Surfer, and Galactus. Perfect timing with the Fantastic Four: First Steps movie fresh in everyone's minds.\n\n**Villains Only Pack** — No heroes allowed. Just the baddest of the bad across every set. Doctor Doom, Thanos, Magneto, Loki, Kingpin, Ultron, Kang. Pure evil, pure value.\n\nWould team packs interest you? **Which teams would you want first?** Maybe there's a team we haven't thought of — Thunderbolts? Midnight Sons? Young Avengers?\n\n## Budget Friendly to High-End: Something for Everyone\n\nThis is important to us. We don't want NLF to be a place where only big spenders feel welcome. We want **every collector** to find something they can afford and get excited about.\n\n**Budget Tier ($15-$30)** — Starter packs, team lots, base card bundles. Great for kids, new collectors, or anyone who just wants to add some Marvel to their collection without overthinking it. No graded cards at this level, but solid card counts and guaranteed inserts.\n\n**Mid Tier ($50-$100)** — Our bread and butter. This is where you get graded cards, parallel hits, and enough volume to make it feel like Christmas morning. The NLF Variant repack lives here, and we think this is where most collectors want to be.\n\n**Premium Tier ($150-$300)** — Multiple graded cards, guaranteed numbered parallels, and the kind of hits that make you post on social media. Complete insert sets included. This is for the collector who wants the best and is willing to invest.\n\n**Ultra Premium ($500+)** — The whale tier. High-grade slabs (CGC 9.5+), rare parallels (/25, /10, /5, /1), and exclusive NLF insert sets. Limited quantities. The kind of box that makes your hands shake when you open it.\n\n**Which price tier fits your collecting style?** Do you want us to focus on making the budget options amazing, or go all-in on premium experiences? Maybe both?\n\n## Rainbow Chases: The Ultimate Parallel Hunt\n\nOkay, this one might be our most exciting idea yet. Forget pulling a single numbered card and calling it a day. What if we built **rainbow chases** into our repacks?\n\nHere's the concept: Take a single character — let's say Doctor Doom. Now imagine pulling the /50 version from one repack. Cool card, nice pull. But then you see that the /25 exists in another series. And the /10. And the /5. And somewhere out there... the /1.\n\n**That's a rainbow chase.** One character, every numbered parallel, building toward the ultimate collection.\n\nThink about what this does to the collecting experience:\n\nYou pull a Wolverine /50 from Series 1 and suddenly you're hooked. You NEED the /25. You're watching every stream, checking every drop, because that next piece of the rainbow could show up at any time. And when you finally land the /10? The adrenaline is unreal. You're three cards deep into a rainbow that only gets rarer from here.\n\n**How it could work in NLF repacks:**\n\nThe **/50** — Your entry point. These show up more frequently across series. Affordable, accessible, and the card that starts the addiction. You pull this and think \"okay, I could chase this rainbow.\"\n\nThe **/25** — Now it gets interesting. These appear less often, maybe every 2-3 series. You might have to compete for it on a live stream. The hunt is real.\n\nThe **/10** — Rare territory. Remember our scarcity system? A /10 might only appear once every few series. When it drops on stream, the chat is going to explode.\n\nThe **/5** — Ultra rare. These are the cards that make your hands shake. Five copies in existence, and NLF might only have one or two. When this hits the auction block, bring your wallet.\n\nThe **/1** — The holy grail. One of one. The card that completes the rainbow and makes you a legend in the NLF community. If we have it, it's going to be an EVENT when it drops. The kind of moment people talk about for months.\n\n**Why rainbow chases change everything:**\n\nIt creates long-term engagement. You're not just buying one repack — you're investing in a chase that spans multiple series and multiple streams. Every drop becomes \"is MY card in this one?\" It turns passive buyers into dedicated community members.\n\nIt also creates natural trading opportunities. Maybe you pulled the Doom /25 but someone else has the /10. Now you're talking, negotiating, building relationships in the community. That's what collecting is supposed to be about.\n\n**Characters we could build rainbow chases around:**\n- **Doctor Doom** — The obvious choice with Doomsday hype. A Doom rainbow would be the crown jewel of any collection\n- **Wolverine** — Fan favorite with massive demand across every set\n- **Spider-Man** — The most iconic Marvel character, period\n- **Gambit** — Beloved X-Men with surging MCU interest\n- **Iron Man** — The card that started the MCU, the rainbow that ends collections\n\n**Would you chase a rainbow?** Which character would you want to build a complete /50 through /1 rainbow for? Would you prefer we focus on a few characters with deep rainbow options, or spread it across many characters? This is YOUR collection — tell us what gets you excited.\n\n## The Scarcity System: Keeping Your Cards Valuable\n\nHere's something we've been thinking about a lot, and we want to be transparent about it: **how do we keep the cards in our repacks valuable after you buy them?**\n\nThe answer is controlled allocation.\n\nLet's say we have a Wolverine Chrome Refractor numbered /10 — meaning only 10 exist in the world. And let's say NLF owns 3 of those 10. We're NOT going to dump all 3 into the same repack series. That would flood the market and tank the value for everyone who pulls one.\n\nInstead, here's our approach: **limited cards get spread across series.** If we have 3 copies of a /10 card, we might put one in Series 1, skip Series 2 entirely, and put the next one in Series 3. Every other series. Maybe even every third series depending on the card.\n\n**Why does this matter to you?**\n- The card you pull maintains its value because the market isn't flooded\n- Each series feels genuinely scarce — you know that /10 parallel might not appear again for months\n- Collectors who buy early don't get burned by the same card showing up in every single release\n- It creates real urgency: if a /10 Doom card is in THIS series, it might not come back for 2-3 drops\n\nThis isn't about being stingy. It's about respecting the cards and respecting the collectors who invest in them. We want you to pull a numbered parallel and KNOW it's going to hold value — because we're not about to undercut you by releasing the same card next week.\n\n**What do you think about this approach?** Would you rather we load up each series with every rare card we have, or do you prefer the controlled scarcity model where each drop feels special?\n\n## Live Stream Exclusive: You Have to Show Up\n\nHere's the big one: **our custom sets and premium repacks will ONLY be available through live streams.**\n\nNo website \"Add to Cart\" button. No pre-orders sitting in a queue. No bots scooping up inventory at 3am. If you want the exclusive NLF sets — the Doctor Doom Collection, the Gambit Deck, the team packs — you have to be in the Whatnot stream when they drop.\n\n**Why live-only?**\n- It rewards the community members who actually show up and engage\n- It creates a real event atmosphere — everyone's watching, chatting, and competing for the same cards\n- It eliminates reseller bots and automated purchasing\n- It makes every stream feel like something you don't want to miss\n- The energy of a live audience when a /10 parallel gets pulled? You can't replicate that with a checkout page\n\n**Pre-Auction Access** — For collectors who join the stream early, we're considering pre-auction sales. Before the main auction starts, early birds get first crack at select items at set prices. Think of it like a VIP early access window. Show up 15 minutes before the stream officially kicks off, and you might snag something before it ever hits the auction block.\n\nThis could include:\n- **Fixed-price graded slabs** — First come, first served for stream regulars\n- **Bundle deals** — Complete insert sets or team lots at a set price before individual cards go to auction\n- **Loyalty rewards** — Returning stream viewers get priority access to limited items\n\nThe live-only model means our community IS the market. No outside interference. No algorithms deciding who sees what. Just collectors, cards, and the thrill of the chase — live and in real time.\n\n**Would you show up for live-exclusive drops?** Does the pre-auction concept excite you, or would you prefer everything goes straight to auction? Let us know.\n\n## What This Means for the NLF Community\n\nHere's the thing — we're not a massive corporation with focus groups and market research departments. We're a family operation that started because we love Marvel cards and wanted to share that with other collectors. Patrick's been building this with his son, embarrassing his wife at card shows, and staying up way too late sorting cards.\n\nThat means when you tell us what you want, **we actually listen.** We don't have shareholders to answer to. We don't have a board of directors overriding community feedback. If the community says \"we want 250-card team packs with a guaranteed graded card for under $50,\" then that's what we're going to figure out how to build.\n\nBrowse our [Card Database](https://northlandlegendaryfinds.com/cards) to see the 1,709+ cards we're already tracking across every major Topps Marvel set. Check out our current [NLF Variant repack](https://northlandlegendaryfinds.com/shop) to see where we're starting. And if you want to see cards ripped live, join us on [Whatnot](https://northlandlegendaryfinds.com/whatnot) where we break packs every week.\n\n## How to Tell Us What You Want\n\nWe want to make this as easy as possible. Here's how you can share your ideas:\n\n**Drop a comment on our Facebook page** — Tell us which ideas above excite you, or pitch something completely new. Tag a collecting buddy who needs to weigh in.\n\n**Email us directly** — Reach out through our [About page](https://northlandlegendaryfinds.com/about) contact info. We read every single message.\n\n**Join a Whatnot stream** — Our live streams aren't just about ripping packs. They're about talking cards, hearing what collectors want, and building this thing together. Hit us up in the chat.\n\n**Share this article** — The more collectors who see this, the better our repacks will be. Simple as that.\n\n## Collector's Corner\n\nThe Marvel card market is evolving fast, and repack builders who listen to their community are the ones who survive. With Avengers: Doomsday on the horizon and X-Men integration ramping up, the demand for curated Marvel card products has never been higher.\n\n**Hot Cards to Watch:**\n- **Doctor Doom Topps Chrome Marvel Refractor** — Doom cards are climbing steadily as Doomsday hype builds through 2026\n- **Gambit Topps Finest X-Men '97 Base** — Channing Tatum's Gambit appearance has collectors hunting every Gambit card\n- **Spider-Man Topps Comic Book Heroes #1** — The flagship card of the CBH set, always in demand\n- **Wolverine Topps Marvel Mint Coin Card** — Unique format cards are holding value as collectors seek variety\n\nTrack real-time prices on **[Card Ladder](https://www.cardladder.com/)** to see which characters are trending. Build your want list on **[COMC](https://www.comc.com/)** for singles you need. And check **[MySlabs](https://www.myslabs.com/)** to manage your graded collection portfolio.\n\n*This is YOUR community. YOUR repacks. Help us build something legendary.*\n\n---\n\n**Facebook Post:**\n\nWe need your help, Marvel collectors.\n\nWe're building the next generation of NLF repacks and we want to know: what do YOU actually want? 100-card starter packs? 500-card monster boxes? Complete encased sets? Exclusive Doctor Doom inserts? Team packs? Budget-friendly options?\n\nWe laid out every idea we've been brainstorming and we want the community to tell us what to build first.\n\nRead the full breakdown and tell us what gets you excited:\nhttps://northlandlegendaryfinds.com/mcu-news/help-us-build-your-dream-marvel-repack-community\n\nDrop your ideas in the comments. Tag a collecting buddy. Let's build this together.\n\n#Marvel #MarvelCards #TradingCards #Repacks #NorthlandLegendaryFinds #NLF #DoctorDoom #Gambit #SpiderMan #Wolverine #Avengers #XMen #CardCollecting #CommunityFirst\n",
+  "stderr": "",
+  "execution_time_ms": 257
+}

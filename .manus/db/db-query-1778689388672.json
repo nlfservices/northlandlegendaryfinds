@@ -1,0 +1,15 @@
+{
+  "query": "SELECT id, slug, title FROM blog_posts WHERE slug LIKE '%community%' OR slug LIKE '%nlf-first-1000%' ORDER BY createdAt DESC LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, slug, title FROM blog_posts WHERE slug LIKE '%community%' OR slug LIKE '%nlf-first-1000%' ORDER BY createdAt DESC LIMIT 10;",
+  "rows": [
+    {
+      "id": "150006",
+      "slug": "nlf-first-1000-repacks-report-mnlznuay",
+      "title": "After-Action Report: What We Learned from NLF's First 1000 Repack Sales"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tslug\ttitle\n150006\tnlf-first-1000-repacks-report-mnlznuay\tAfter-Action Report: What We Learned from NLF's First 1000 Repack Sales\n",
+  "stderr": "",
+  "execution_time_ms": 262
+}

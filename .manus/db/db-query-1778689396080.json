@@ -1,0 +1,100 @@
+{
+  "query": "SELECT id, slug, title, createdAt FROM blog_posts ORDER BY id DESC LIMIT 15;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, slug, title, createdAt FROM blog_posts ORDER BY id DESC LIMIT 15;",
+  "rows": [
+    {
+      "id": "1590001",
+      "slug": "wonder-man-series-cards-disney-plus-hype-mp3yeghv",
+      "title": "Wonder Man Series Hype: Which Cards to Watch as Disney+ Expands the Marvel Universe",
+      "createdAt": "2026-05-13 11:05:48"
+    },
+    {
+      "id": "1560001",
+      "slug": "marvel-sports-card-crossover-comparison-mp3anzxu",
+      "title": "From Diamond to Dimension: The Crossover Appeal of Marvel Cards for Sports Collectors",
+      "createdAt": "2026-05-13 00:01:22"
+    },
+    {
+      "id": "1530001",
+      "slug": "marvel-card-grading-guide-when-to-slab-mp2vov3y",
+      "title": "The Grading Game: When to Slab Your Marvel Cards for Maximum Impact",
+      "createdAt": "2026-05-12 17:02:09"
+    },
+    {
+      "id": "1500001",
+      "slug": "spider-man-brand-new-day-card-values-mp2iu72o",
+      "title": "Operation: Web-Slinger — Decoding the 'Brand New Day' Effect on Spider-Man Card Values",
+      "createdAt": "2026-05-12 11:02:22"
+    },
+    {
+      "id": "1470001",
+      "slug": "topps-marvel-ages-chase-cards-collectors-dream-mp1vbakk",
+      "title": "Topps Marvel Ages: Unearthing the Chase Cards That Define a Collector's Dream Set",
+      "createdAt": "2026-05-12 00:03:49"
+    },
+    {
+      "id": "1440002",
+      "slug": "marvel-sketch-cards-one-of-one-art-form-mp1g9uzy",
+      "title": "Marvel Sketch Cards: The One-of-One Art Form That Changed Collecting Forever",
+      "createdAt": "2026-05-11 17:02:49"
+    },
+    {
+      "id": "1440001",
+      "slug": "spider-man-topps-card-dominance-mp1g9cmo",
+      "title": "Spider-Man: Why the Web-Slinger Dominates Every Topps Marvel Set Ever Made",
+      "createdAt": "2026-05-11 17:02:24"
+    },
+    {
+      "id": "1410001",
+      "slug": "sports-cards-to-marvel-cards-guide-mp13ecfb",
+      "title": "From the Diamond to the Multiverse: Your Guide to Marvel Card Collecting for Sports Card Enthusiasts",
+      "createdAt": "2026-05-11 11:02:23"
+    },
+    {
+      "id": "1380001",
+      "slug": "spider-man-brand-new-day-trailer-card-values-mp0ftj8t",
+      "title": "Spider-Man: Brand New Day Trailer Breaks Records, Igniting a New Era for Spider-Man Card Values",
+      "createdAt": "2026-05-11 00:02:21"
+    },
+    {
+      "id": "1350001",
+      "slug": "marvel-card-grading-submission-guide-mp00vbqw",
+      "title": "Mastering Your Marvel Card Grading Submission: A Pro's Field Guide",
+      "createdAt": "2026-05-10 17:03:51"
+    },
+    {
+      "id": "1320001",
+      "slug": "pokemon-to-marvel-cards-smart-move-mozo4mds",
+      "title": "From Pallet Town to the Multiverse: Why Marvel Cards Are the Smart Move for Pokémon Collectors",
+      "createdAt": "2026-05-10 11:07:09"
+    },
+    {
+      "id": "1290001",
+      "slug": "marvel-cards-outperforming-migration-comics-pokemon-moz0cs6m",
+      "title": "The Great Migration: Why Marvel Cards Are Dominating the Collector Market",
+      "createdAt": "2026-05-10 00:01:38"
+    },
+    {
+      "id": "1260001",
+      "slug": "nlf-multi-grader-strategy-cgc-ags-psa-moylexo3",
+      "title": "Beyond the Slab: Why NLF's Multi-Grader Strategy Sets a New Standard for Marvel Card Collectors",
+      "createdAt": "2026-05-09 17:03:25"
+    },
+    {
+      "id": "1230001",
+      "slug": "spider-man-michael-jordan-marvel-cards-goat-moy8ow8q",
+      "title": "Is Spider-Man the Michael Jordan of Marvel Cards? Decoding the GOAT's Reign",
+      "createdAt": "2026-05-09 11:07:14"
+    },
+    {
+      "id": "1200001",
+      "slug": "nlf-transparency-promise-full-checklists-moxkwnbx",
+      "title": "The NLF Transparency Promise: Why Full Checklists Are Non-Negotiable for Collectors",
+      "createdAt": "2026-05-09 00:01:25"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tslug\ttitle\tcreatedAt\n1590001\twonder-man-series-cards-disney-plus-hype-mp3yeghv\tWonder Man Series Hype: Which Cards to Watch as Disney+ Expands the Marvel Universe\t2026-05-13 11:05:48\n1560001\tmarvel-sports-card-crossover-comparison-mp3anzxu\tFrom Diamond to Dimension: The Crossover Appeal of Marvel Cards for Sports Collectors\t2026-05-13 00:01:22\n1530001\tmarvel-card-grading-guide-when-to-slab-mp2vov3y\tThe Grading Game: When to Slab Your Marvel Cards for Maximum Impact\t2026-05-12 17:02:09\n1500001\tspider-man-brand-new-day-card-values-mp2iu72o\tOperation: Web-Slinger — Decoding the 'Brand New Day' Effect on Spider-Man Card Values\t2026-05-12 11:02:22\n1470001\ttopps-marvel-ages-chase-cards-collectors-dream-mp1vbakk\tTopps Marvel Ages: Unearthing the Chase Cards That Define a Collector's Dream Set\t2026-05-12 00:03:49\n1440002\tmarvel-sketch-cards-one-of-one-art-form-mp1g9uzy\tMarvel Sketch Cards: The One-of-One Art Form That Changed Collecting Forever\t2026-05-11 17:02:49\n1440001\tspider-man-topps-card-dominance-mp1g9cmo\tSpider-Man: Why the Web-Slinger Dominates Every Topps Marvel Set Ever Made\t2026-05-11 17:02:24\n1410001\tsports-cards-to-marvel-cards-guide-mp13ecfb\tFrom the Diamond to the Multiverse: Your Guide to Marvel Card Collecting for Sports Card Enthusiasts\t2026-05-11 11:02:23\n1380001\tspider-man-brand-new-day-trailer-card-values-mp0ftj8t\tSpider-Man: Brand New Day Trailer Breaks Records, Igniting a New Era for Spider-Man Card Values\t2026-05-11 00:02:21\n1350001\tmarvel-card-grading-submission-guide-mp00vbqw\tMastering Your Marvel Card Grading Submission: A Pro's Field Guide\t2026-05-10 17:03:51\n1320001\tpokemon-to-marvel-cards-smart-move-mozo4mds\tFrom Pallet Town to the Multiverse: Why Marvel Cards Are the Smart Move for Pokémon Collectors\t2026-05-10 11:07:09\n1290001\tmarvel-cards-outperforming-migration-comics-pokemon-moz0cs6m\tThe Great Migration: Why Marvel Cards Are Dominating the Collector Market\t2026-05-10 00:01:38\n1260001\tnlf-multi-grader-strategy-cgc-ags-psa-moylexo3\tBeyond the Slab: Why NLF's Multi-Grader Strategy Sets a New Standard for Marvel Card Collectors\t2026-05-09 17:03:25\n1230001\tspider-man-michael-jordan-marvel-cards-goat-moy8ow8q\tIs Spider-Man the Michael Jordan of Marvel Cards? Decoding the GOAT's Reign\t2026-05-09 11:07:14\n1200001\tnlf-transparency-promise-full-checklists-moxkwnbx\tThe NLF Transparency Promise: Why Full Checklists Are Non-Negotiable for Collectors\t2026-05-09 00:01:25\n",
+  "stderr": "",
+  "execution_time_ms": 262
+}

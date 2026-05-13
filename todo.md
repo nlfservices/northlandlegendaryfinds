@@ -2081,15 +2081,15 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Generate image of Doom on Battleworld throne with Sue Storm
 
 ## Community Engagement Article — "Help Us Build Your Dream Repack"
-- [ ] Generate hero image (community/repack brainstorm theme)
-- [ ] Write article covering: pack sizes (100/500/1000), complete sets, exclusive inserts, team lots, budget to high-end
-- [ ] Include all product ideas: encased Topps Marvel set 1-120, Gambit Deck cards, Doctor Doom insert sets, team packs
-- [ ] Add community call-to-action (comment, email, social media feedback)
-- [ ] Include Facebook post for sharing
-- [ ] Publish to database
-- [ ] Verify article displays correctly
-- [ ] Run integrity checks
-- [ ] Save checkpoint with direct links
+- [x] Generate hero image (community/repack brainstorm theme)
+- [x] Write article covering: pack sizes (100/500/1000), complete sets, exclusive inserts, team lots, budget to high-end
+- [x] Include all product ideas: encased Topps Marvel set 1-120, Gambit Deck cards, Doctor Doom insert sets, team packs
+- [x] Add community call-to-action (comment, email, social media feedback)
+- [x] Include Facebook post for sharing
+- [x] Publish to database
+- [x] Verify article displays correctly
+- [x] Run integrity checks
+- [x] Save checkpoint with direct links
 - [x] Update community repack article with scarcity system (limited card allocation per series)
 - [x] Add live stream exclusivity detail (sets only available through Whatnot streams)
 - [x] Add pre-auction sales concept
@@ -2109,3 +2109,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add env vars for META_CAPI_ACCESS_TOKEN, META_PIXEL_ID, FB_PAGE_ID, FB_PAGE_ACCESS_TOKEN
 - [x] Write vitest tests for CAPI and Facebook API modules (11 tests passing)
 - [x] Run integrity checks (81/81 passing) and save checkpoint
+
+## Fix Community Repack Article - Wrong Information
+- [x] Fix "Complete Sets" section — removed all base card/refractor references
+- [x] Rewrote to focus on NUMBERED parallel sets only (/99, /50, /25, /10, /5, /1)
+- [x] Fixed budget tier "base card bundles" → "curated character bundles"
+- [x] Updated excerpt to reflect numbered-only focus
+- [x] Removed "Chrome Refractor" phrasing from scarcity example
+- [x] Verified: no "base set", "base run", "refractor finish", or "base card bundles" remain
+- [x] Save checkpoint
