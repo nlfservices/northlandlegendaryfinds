@@ -2079,3 +2079,18 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Include Doctor Doom/Sue Storm alternate reality marriage (Secret Wars 2015) in Richards deep dive
 - [x] Tie Doom's obsession with Reed's family into Avengers Doomsday angle
 - [x] Generate image of Doom on Battleworld throne with Sue Storm
+
+## Community Engagement Article — "Help Us Build Your Dream Repack"
+- [ ] Generate hero image (community/repack brainstorm theme)
+- [ ] Write article covering: pack sizes (100/500/1000), complete sets, exclusive inserts, team lots, budget to high-end
+- [ ] Include all product ideas: encased Topps Marvel set 1-120, Gambit Deck cards, Doctor Doom insert sets, team packs
+- [ ] Add community call-to-action (comment, email, social media feedback)
+- [ ] Include Facebook post for sharing
+- [ ] Publish to database
+- [ ] Verify article displays correctly
+- [ ] Run integrity checks
+- [ ] Save checkpoint with direct links
+- [x] Update community repack article with scarcity system (limited card allocation per series)
+- [x] Add live stream exclusivity detail (sets only available through Whatnot streams)
+- [x] Add pre-auction sales concept
+- [x] Save checkpoint
