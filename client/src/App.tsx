@@ -65,6 +65,7 @@ import TrendingCards from "./pages/TrendingCards";
 import TrendingCharacterPage from "./pages/TrendingCharacterPage";
 import MCUSpotlight from "./pages/MCUSpotlight";
 import GambitDeck from "./pages/GambitDeck";
+import TheLittleThings from "./pages/TheLittleThings";
 
 // Routes that render as full-screen standalone experiences (no nav/footer)
 const STANDALONE_ROUTES = ["/card-display", "/matrix", "/free-credit"];
@@ -146,6 +147,7 @@ function AppRouter() {
           <Route path="/trending" component={TrendingCards} />
           <Route path="/trending/:slug" component={TrendingCharacterPage} />
           <Route path="/gambit-deck" component={GambitDeck} />
+          <Route path="/the-little-things" component={TheLittleThings} />
           <Route path="/mcu-spotlight" component={MCUSpotlight} />
           <Route path="/login" component={JarvisProtocol} />
           <Route path="/404" component={NotFound} />

@@ -46,6 +46,7 @@ const STATIC_PAGES: { path: string; priority: string; changefreq: string }[] = [
   { path: "/nerd-gossip", priority: "0.7", changefreq: "daily" },
   { path: "/gambit-deck", priority: "0.6", changefreq: "monthly" },
   { path: "/mcu-spotlight", priority: "0.7", changefreq: "weekly" },
+  { path: "/the-little-things", priority: "0.7", changefreq: "weekly" },
 ];
 
 // Product slugs (static, from products.ts)

@@ -21,7 +21,7 @@ import { getLoginUrl } from "@/const";
 import {
   Package, ListChecks, Zap, Radio, Plus, Trash2, Edit, Eye,
   CheckCircle2, Circle, ArrowLeft, Loader2, Calendar, ExternalLink,
-  ShoppingBag, Truck, CreditCard, Boxes, Hammer, Download, BarChart3, FileSpreadsheet, Flame, Sparkles, Settings, Clock
+  ShoppingBag, Truck, CreditCard, Boxes, Hammer, Download, BarChart3, FileSpreadsheet, Flame, Sparkles, Settings, Clock, Facebook
 } from "lucide-react";
 import { useState, useMemo, useEffect } from "react";
 import { Link } from "wouter";
@@ -34,6 +34,7 @@ import ArticleManager from "@/components/ArticleManager";
 import Top5Manager from "@/components/Top5Manager";
 import BlogManager from "@/components/BlogManager";
 import PageContentManager from "@/components/PageContentManager";
+import SocialPostGenerator from "@/components/admin/SocialPostGenerator";
 
 // ==================== SITE SETTINGS (COUNTDOWN TIMER) ====================
 
@@ -1611,6 +1612,9 @@ export default function AdminDashboard() {
             <TabsTrigger value="pages" className="flex items-center gap-2">
               <FileSpreadsheet className="w-4 h-4" /> Pages
             </TabsTrigger>
+            <TabsTrigger value="social" className="flex items-center gap-2">
+              <Facebook className="w-4 h-4" /> Social Posts
+            </TabsTrigger>
             <TabsTrigger value="settings" className="flex items-center gap-2">
               <Settings className="w-4 h-4" /> Settings
             </TabsTrigger>
@@ -1654,6 +1658,9 @@ export default function AdminDashboard() {
           </TabsContent>
           <TabsContent value="pages">
             <PageContentManager />
+          </TabsContent>
+          <TabsContent value="social">
+            <SocialPostGenerator />
           </TabsContent>
           <TabsContent value="settings">
             <SiteSettingsManager />

@@ -14,6 +14,7 @@ import { youtubeRouter } from "./routers/youtube";
 import { blogPublicRouter, blogAdminRouter } from "./routers/blog";
 import { loyaltyPublicRouter, loyaltyProtectedRouter, loyaltyAdminRouter } from "./routers/loyalty";
 import { cardShowsPublicRouter, cardShowsAdminRouter } from "./routers/cardShows";
+import { socialPostRouter } from "./routers/socialPosts";
 
 export const appRouter = router({
   system: systemRouter,
@@ -81,6 +82,9 @@ export const appRouter = router({
 
   // Card Shows directory (admin)
   adminCardShows: cardShowsAdminRouter,
+
+  // Social Post Generator (admin)
+  socialPosts: socialPostRouter,
 });
 
 export type AppRouter = typeof appRouter;

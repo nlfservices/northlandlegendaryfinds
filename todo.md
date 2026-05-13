@@ -2031,3 +2031,18 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add Bing meta verification tag for Bing Webmaster Tools
 - [x] Add Google Search Console verification meta tag
 - [ ] Prep instructions for user to verify domains in GSC and Bing
+
+## Automated Marketing System
+- [x] Redesign website popup with better offer, design, and dynamic content
+- [ ] Build weekly newsletter email template in GHL (draft/paused - not sending)
+- [ ] Set up GHL newsletter workflow automation (paused state)
+- [x] Build auto-social post generator (article → Facebook post draft)
+- [ ] Create card market alert system concept (future phase)
+
+## The Little Things - Community/Journey/Giveaway Page
+- [x] Build "The Little Things" page with personal story, giveaways, and community vibe
+- [x] Add giveaway entry section (email signup for giveaway access)
+- [x] Add personal journey narrative (hanging with son, embarrassing wife, the hobby)
+- [x] Add community highlights section
+- [x] Add page to navigation
+- [x] Add page to sitemap
