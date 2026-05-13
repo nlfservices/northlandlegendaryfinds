@@ -183,18 +183,18 @@ export default function EmailCapturePopup() {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed bottom-4 left-4 z-50 animate-in slide-in-from-bottom-5 fade-in duration-500">
-      <div className="relative w-80 sm:w-96 bg-gradient-to-br from-green-600 via-green-700 to-emerald-800 border-2 border-green-400/30 rounded-xl shadow-2xl shadow-black/60 overflow-hidden">
+    <div className="fixed bottom-3 left-3 right-3 sm:right-auto sm:left-4 sm:bottom-4 z-50 animate-in slide-in-from-bottom-5 fade-in duration-500">
+      <div className="relative w-full sm:w-96 max-h-[85vh] overflow-y-auto bg-gradient-to-br from-green-600 via-green-700 to-emerald-800 border-2 border-green-400/30 rounded-xl shadow-2xl shadow-black/60">
         {/* Decorative glow */}
         <div className="absolute top-0 right-0 w-32 h-32 bg-green-400/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2" />
         
-        {/* Close button */}
+        {/* Close button — large tap target for mobile */}
         <button
           onClick={handleClose}
-          className="absolute top-3 right-3 text-white/60 hover:text-white transition-colors z-10"
+          className="absolute top-2 right-2 w-10 h-10 flex items-center justify-center rounded-full bg-black/30 text-white/80 hover:text-white hover:bg-black/50 active:bg-black/60 transition-colors z-10"
           aria-label="Close popup"
         >
-          <X className="w-5 h-5" />
+          <X className="w-6 h-6" />
         </button>
 
         {/* Content */}

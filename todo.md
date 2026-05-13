@@ -2137,3 +2137,9 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Multiverse Avengers: May 14 12pm CDT
 - [x] Verified on MCU News page — articles showing with correct dates
 - [x] Save checkpoint
+
+## Fix: Email Capture Popup X Button on Mobile
+- [x] Make close/X button easily accessible on mobile (not blocked or off-screen)
+- [x] Ensure popup doesn't block content on mobile
+- [x] Test on mobile viewport
+- [x] Save checkpoint
