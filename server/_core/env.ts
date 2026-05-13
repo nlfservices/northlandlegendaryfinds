@@ -21,4 +21,11 @@ export const ENV = {
   adminNotificationEmail: process.env.ADMIN_NOTIFICATION_EMAIL ?? "",
   // Admin access code for Matrix portal gate
   adminAccessCode: process.env.ADMIN_ACCESS_CODE ?? "",
+  // Meta Conversions API
+  metaPixelId: process.env.META_PIXEL_ID ?? "839598775754379",
+  metaCapiAccessToken: process.env.META_CAPI_ACCESS_TOKEN ?? "",
+  metaTestEventCode: process.env.META_TEST_EVENT_CODE ?? "",
+  // Facebook Page auto-posting
+  fbPageId: process.env.FB_PAGE_ID ?? "",
+  fbPageAccessToken: process.env.FB_PAGE_ACCESS_TOKEN ?? "",
 };

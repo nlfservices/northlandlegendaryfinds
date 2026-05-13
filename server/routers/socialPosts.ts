@@ -2,13 +2,25 @@ import { z } from "zod";
 import { adminProcedure, router } from "../_core/trpc";
 import { invokeLLM } from "../_core/llm";
 import { getArticleById } from "../db";
+import { isFacebookConfigured, publishPost, publishPhotoPost, getRecentPosts } from "../facebook-api";
 
 /**
  * Social Post Generator Router
  * Generates ready-to-copy Facebook posts from published articles using AI
+ * + Direct Facebook publishing when Page Access Token is configured
  */
 
 export const socialPostRouter = router({
+  /**
+   * Check if Facebook auto-posting is configured
+   */
+  facebookStatus: adminProcedure.query(() => {
+    return {
+      configured: isFacebookConfigured(),
+      pageId: process.env.FB_PAGE_ID || null,
+    };
+  }),
+
   /**
    * Generate a Facebook post from an article
    */
@@ -53,7 +65,7 @@ RULES:
 4. ${input.includeEmoji ? "Use emojis strategically (not every line, but for emphasis)" : "Do NOT use emojis"}
 5. ${input.includeLink ? `End with the article link: https://northlandlegendaryfinds.com/mcu-news/${article.slug}` : "Do NOT include a link"}
 6. ${input.includeHashtags ? "Include 15-20 relevant hashtags at the very end (after a line break)" : "Do NOT include hashtags"}
-7. Include a call-to-action or engagement prompt (question, poll, "drop a 🔥 if...")
+7. Include a call-to-action or engagement prompt (question, poll, "drop a fire emoji if...")
 8. Reference specific details from the article to add credibility
 9. If there's a card market angle, mention it — that's our unique value prop
 10. Sign off with "Follow Northland Legendary Finds for daily MCU intel and Marvel card market updates."
@@ -79,7 +91,62 @@ Generate ONLY the Facebook post text. No explanations, no "here's your post" int
         articleTitle: article.title,
         articleSlug: article.slug,
         articleUrl: `https://northlandlegendaryfinds.com/mcu-news/${article.slug}`,
+        articleImage: article.featuredImageUrl || null,
         tone: input.tone,
+        facebookConfigured: isFacebookConfigured(),
+      };
+    }),
+
+  /**
+   * Publish a post directly to Facebook Page
+   */
+  publishToFacebook: adminProcedure
+    .input(z.object({
+      message: z.string().min(1),
+      link: z.string().url().optional(),
+      photoUrl: z.string().url().optional(),
+      scheduledTime: z.number().optional(), // Unix timestamp
+    }))
+    .mutation(async ({ input }) => {
+      if (!isFacebookConfigured()) {
+        return {
+          success: false,
+          error: "Facebook not configured. Add FB_PAGE_ID and FB_PAGE_ACCESS_TOKEN in Settings → Secrets.",
+        };
+      }
+
+      // If photo URL provided, publish as photo post
+      if (input.photoUrl) {
+        const result = await publishPhotoPost({
+          message: input.message,
+          photoUrl: input.photoUrl,
+        });
+        return result;
+      }
+
+      // Otherwise publish as text/link post
+      const result = await publishPost({
+        message: input.message,
+        link: input.link,
+        scheduledTime: input.scheduledTime,
+      });
+      return result;
+    }),
+
+  /**
+   * Get recent Facebook posts (for preview/history)
+   */
+  getRecentFacebookPosts: adminProcedure
+    .input(z.object({ limit: z.number().min(1).max(25).default(10) }))
+    .query(async ({ input }) => {
+      if (!isFacebookConfigured()) {
+        return { configured: false, posts: [] };
+      }
+      const result = await getRecentPosts(input.limit);
+      return {
+        configured: true,
+        posts: result.posts || [],
+        error: result.error,
       };
     }),
 
@@ -143,6 +210,7 @@ Return ONLY the JSON array. No markdown code blocks, no explanations.`;
         articleTitle: article.title,
         articleUrl: `https://northlandlegendaryfinds.com/mcu-news/${article.slug}`,
         variations,
+        facebookConfigured: isFacebookConfigured(),
       };
     }),
 });

@@ -2096,3 +2096,16 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Save checkpoint
 - [x] Add Rainbow Chase section to community repack article (/50, /25, /10, /5, /1 parallels)
 - [x] Save checkpoint
+
+## Meta Integration
+- [x] Build Meta Conversions API (CAPI) server-side tracking
+- [x] Add CAPI events: PageView, ViewContent, Lead, AddToCart, Purchase, Search, custom
+- [x] Deduplicate with browser Pixel via event_id
+- [x] Create frontend hook (useMetaTracking) for dual-firing browser + server events
+- [x] Build Facebook Graph API posting module (text, link, photo, scheduled posts)
+- [x] Build Facebook auto-posting infrastructure in Social Post Generator
+- [x] Add "Publish to Facebook" button (requires Page Access Token from user)
+- [x] Add Facebook connection status indicator in admin
+- [x] Add env vars for META_CAPI_ACCESS_TOKEN, META_PIXEL_ID, FB_PAGE_ID, FB_PAGE_ACCESS_TOKEN
+- [x] Write vitest tests for CAPI and Facebook API modules (11 tests passing)
+- [x] Run integrity checks (81/81 passing) and save checkpoint

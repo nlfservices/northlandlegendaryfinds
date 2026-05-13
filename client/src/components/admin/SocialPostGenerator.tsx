@@ -3,7 +3,7 @@ import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Loader2, Copy, CheckCircle, Facebook, Sparkles, RefreshCw } from "lucide-react";
+import { Loader2, Copy, CheckCircle, Facebook, Sparkles, RefreshCw, Send, AlertCircle, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
 
 type Tone = "hype" | "mystery" | "casual" | "educational" | "funny";
@@ -20,16 +20,23 @@ export default function SocialPostGenerator() {
   const [selectedArticleId, setSelectedArticleId] = useState<number | null>(null);
   const [selectedTone, setSelectedTone] = useState<Tone>("hype");
   const [generatedPost, setGeneratedPost] = useState<string>("");
+  const [articleUrl, setArticleUrl] = useState<string>("");
+  const [articleImage, setArticleImage] = useState<string | null>(null);
   const [variations, setVariations] = useState<{ tone: string; post: string }[]>([]);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
   // Fetch all articles for the dropdown
   const { data: articles, isLoading: articlesLoading } = trpc.adminArticles.list.useQuery();
 
+  // Check Facebook configuration status
+  const { data: fbStatus } = trpc.socialPosts.facebookStatus.useQuery();
+
   // Single post generation
   const generateMutation = trpc.socialPosts.generateFromArticle.useMutation({
     onSuccess: (data) => {
       setGeneratedPost(data.post);
+      setArticleUrl(data.articleUrl);
+      setArticleImage(data.articleImage);
       setVariations([]);
       toast.success("Facebook post generated!");
     },
@@ -42,11 +49,28 @@ export default function SocialPostGenerator() {
   const variationsMutation = trpc.socialPosts.generateVariations.useMutation({
     onSuccess: (data) => {
       setVariations(data.variations);
+      setArticleUrl(data.articleUrl);
       setGeneratedPost("");
       toast.success(`${data.variations.length} variations generated!`);
     },
     onError: (error) => {
       toast.error(error.message || "Failed to generate variations");
+    },
+  });
+
+  // Publish to Facebook
+  const publishMutation = trpc.socialPosts.publishToFacebook.useMutation({
+    onSuccess: (data) => {
+      if (data.success) {
+        toast.success("Published to Facebook!", {
+          description: `Post ID: ${data.postId}`,
+        });
+      } else {
+        toast.error(data.error || "Failed to publish");
+      }
+    },
+    onError: (error) => {
+      toast.error(error.message || "Failed to publish to Facebook");
     },
   });
 
@@ -75,6 +99,14 @@ export default function SocialPostGenerator() {
     });
   };
 
+  const handlePublishToFacebook = (postText: string) => {
+    publishMutation.mutate({
+      message: postText,
+      link: articleUrl || undefined,
+      photoUrl: articleImage || undefined,
+    });
+  };
+
   const copyToClipboard = async (text: string, index: number) => {
     try {
       await navigator.clipboard.writeText(text);
@@ -97,9 +129,36 @@ export default function SocialPostGenerator() {
         </div>
         <div>
           <h2 className="text-lg font-bold text-foreground">Social Post Generator</h2>
-          <p className="text-sm text-muted-foreground">Generate ready-to-copy Facebook posts from your articles</p>
+          <p className="text-sm text-muted-foreground">Generate and publish Facebook posts from your articles</p>
         </div>
       </div>
+
+      {/* Facebook Connection Status */}
+      <Card className={`border ${fbStatus?.configured ? "border-green-500/30 bg-green-500/5" : "border-yellow-500/30 bg-yellow-500/5"}`}>
+        <CardContent className="py-3 px-4">
+          <div className="flex items-center gap-3">
+            {fbStatus?.configured ? (
+              <>
+                <CheckCircle className="w-4 h-4 text-green-500 shrink-0" />
+                <div className="flex-1">
+                  <span className="text-sm font-medium text-green-400">Facebook Connected</span>
+                  <span className="text-xs text-muted-foreground ml-2">Auto-publish enabled</span>
+                </div>
+              </>
+            ) : (
+              <>
+                <AlertCircle className="w-4 h-4 text-yellow-500 shrink-0" />
+                <div className="flex-1">
+                  <span className="text-sm font-medium text-yellow-400">Facebook Not Connected</span>
+                  <span className="text-xs text-muted-foreground ml-2">
+                    Add FB_PAGE_ID and FB_PAGE_ACCESS_TOKEN in Settings to enable auto-publish
+                  </span>
+                </div>
+              </>
+            )}
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Controls */}
       <Card className="bg-card border-border">
@@ -172,33 +231,15 @@ export default function SocialPostGenerator() {
 
       {/* Single Generated Post */}
       {generatedPost && (
-        <Card className="bg-card border-border">
-          <CardHeader className="pb-3">
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-base flex items-center gap-2">
-                <Facebook className="w-4 h-4 text-blue-400" />
-                Generated Post ({selectedTone})
-              </CardTitle>
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() => copyToClipboard(generatedPost, -1)}
-                className="gap-2"
-              >
-                {copiedIndex === -1 ? (
-                  <><CheckCircle className="w-3.5 h-3.5 text-green-500" /> Copied!</>
-                ) : (
-                  <><Copy className="w-3.5 h-3.5" /> Copy</>
-                )}
-              </Button>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="bg-muted/50 border border-border rounded-lg p-4 whitespace-pre-wrap text-sm leading-relaxed font-normal">
-              {generatedPost}
-            </div>
-          </CardContent>
-        </Card>
+        <PostCard
+          title={`Generated Post (${selectedTone})`}
+          post={generatedPost}
+          index={-1}
+          copiedIndex={copiedIndex}
+          onCopy={copyToClipboard}
+          onPublish={fbStatus?.configured ? handlePublishToFacebook : undefined}
+          isPublishing={publishMutation.isPending}
+        />
       )}
 
       {/* Multiple Variations */}
@@ -206,35 +247,17 @@ export default function SocialPostGenerator() {
         <div className="space-y-4">
           <h3 className="text-base font-semibold text-foreground">Post Variations (pick your favorite)</h3>
           {variations.map((variation, index) => (
-            <Card key={index} className="bg-card border-border">
-              <CardHeader className="pb-3">
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-sm flex items-center gap-2">
-                    <span className="px-2 py-0.5 bg-primary/20 text-primary rounded text-xs font-medium uppercase">
-                      {variation.tone}
-                    </span>
-                    Variation {index + 1}
-                  </CardTitle>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => copyToClipboard(variation.post, index)}
-                    className="gap-2"
-                  >
-                    {copiedIndex === index ? (
-                      <><CheckCircle className="w-3.5 h-3.5 text-green-500" /> Copied!</>
-                    ) : (
-                      <><Copy className="w-3.5 h-3.5" /> Copy</>
-                    )}
-                  </Button>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="bg-muted/50 border border-border rounded-lg p-4 whitespace-pre-wrap text-sm leading-relaxed font-normal">
-                  {variation.post}
-                </div>
-              </CardContent>
-            </Card>
+            <PostCard
+              key={index}
+              title={`Variation ${index + 1}`}
+              tone={variation.tone}
+              post={variation.post}
+              index={index}
+              copiedIndex={copiedIndex}
+              onCopy={copyToClipboard}
+              onPublish={fbStatus?.configured ? handlePublishToFacebook : undefined}
+              isPublishing={publishMutation.isPending}
+            />
           ))}
         </div>
       )}
@@ -248,11 +271,94 @@ export default function SocialPostGenerator() {
               Select an article and generate a Facebook post to get started
             </p>
             <p className="text-muted-foreground/70 text-xs mt-1">
-              Posts are generated with AI and ready to copy-paste to Facebook
+              {fbStatus?.configured
+                ? "Posts can be published directly to your Facebook Page or copied to clipboard"
+                : "Posts are generated with AI and ready to copy-paste to Facebook"}
             </p>
           </CardContent>
         </Card>
       )}
     </div>
+  );
+}
+
+/** Reusable card for displaying a generated post with Copy + Publish actions */
+function PostCard({
+  title,
+  tone,
+  post,
+  index,
+  copiedIndex,
+  onCopy,
+  onPublish,
+  isPublishing,
+}: {
+  title: string;
+  tone?: string;
+  post: string;
+  index: number;
+  copiedIndex: number | null;
+  onCopy: (text: string, index: number) => void;
+  onPublish?: (text: string) => void;
+  isPublishing?: boolean;
+}) {
+  return (
+    <Card className="bg-card border-border">
+      <CardHeader className="pb-3">
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-sm flex items-center gap-2">
+            <Facebook className="w-4 h-4 text-blue-400" />
+            {tone && (
+              <span className="px-2 py-0.5 bg-primary/20 text-primary rounded text-xs font-medium uppercase">
+                {tone}
+              </span>
+            )}
+            {title}
+          </CardTitle>
+          <div className="flex items-center gap-2">
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => onCopy(post, index)}
+              className="gap-1.5"
+            >
+              {copiedIndex === index ? (
+                <><CheckCircle className="w-3.5 h-3.5 text-green-500" /> Copied!</>
+              ) : (
+                <><Copy className="w-3.5 h-3.5" /> Copy</>
+              )}
+            </Button>
+            {onPublish ? (
+              <Button
+                size="sm"
+                onClick={() => onPublish(post)}
+                disabled={isPublishing}
+                className="gap-1.5 bg-blue-600 hover:bg-blue-700 text-white"
+              >
+                {isPublishing ? (
+                  <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Publishing...</>
+                ) : (
+                  <><Send className="w-3.5 h-3.5" /> Publish to FB</>
+                )}
+              </Button>
+            ) : (
+              <a
+                href="https://www.facebook.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md border border-blue-500/30 text-blue-400 hover:bg-blue-500/10 transition-colors"
+              >
+                <ExternalLink className="w-3.5 h-3.5" /> Open Facebook
+              </a>
+            )}
+          </div>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <div className="bg-muted/50 border border-border rounded-lg p-4 whitespace-pre-wrap text-sm leading-relaxed font-normal">
+          {post}
+        </div>
+      </CardContent>
+    </Card>
   );
 }

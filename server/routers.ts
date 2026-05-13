@@ -15,6 +15,7 @@ import { blogPublicRouter, blogAdminRouter } from "./routers/blog";
 import { loyaltyPublicRouter, loyaltyProtectedRouter, loyaltyAdminRouter } from "./routers/loyalty";
 import { cardShowsPublicRouter, cardShowsAdminRouter } from "./routers/cardShows";
 import { socialPostRouter } from "./routers/socialPosts";
+import { metaCapiRouter } from "./routers/metaCapi";
 
 export const appRouter = router({
   system: systemRouter,
@@ -85,6 +86,9 @@ export const appRouter = router({
 
   // Social Post Generator (admin)
   socialPosts: socialPostRouter,
+
+  // Meta Conversions API (server-side tracking)
+  metaCapi: metaCapiRouter,
 });
 
 export type AppRouter = typeof appRouter;
