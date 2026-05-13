@@ -2094,3 +2094,5 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add live stream exclusivity detail (sets only available through Whatnot streams)
 - [x] Add pre-auction sales concept
 - [x] Save checkpoint
+- [x] Add Rainbow Chase section to community repack article (/50, /25, /10, /5, /1 parallels)
+- [x] Save checkpoint
