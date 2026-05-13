@@ -1,0 +1,52 @@
+{
+  "query": "SELECT id, title, publishedAt, FROM_UNIXTIME(publishedAt/1000) as publishDate FROM articles WHERE id IN (690001, 690003, 690005, 690007, 690009, 690011, 690013) ORDER BY publishedAt;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, title, publishedAt, FROM_UNIXTIME(publishedAt/1000) as publishDate FROM articles WHERE id IN (690001, 690003, 690005, 690007, 690009, 690011, 690013) ORDER BY publishedAt;",
+  "rows": [
+    {
+      "id": "690001",
+      "title": "The Original Six — Who Returns for Avengers: Doomsday?",
+      "publishedAt": "1778583600000",
+      "publishDate": "2026-05-12 11:00:00.0000"
+    },
+    {
+      "id": "690003",
+      "title": "The Thunderbolts — From Villains to Heroes in the MCU",
+      "publishedAt": "1778605200000",
+      "publishDate": "2026-05-12 17:00:00.0000"
+    },
+    {
+      "id": "690005",
+      "title": "The Fantastic Four — Doom's Greatest Enemies in the MCU",
+      "publishedAt": "1778626800000",
+      "publishDate": "2026-05-12 23:00:00.0000"
+    },
+    {
+      "id": "690007",
+      "title": "The Young Avengers — Next Generation Assembled for Doomsday",
+      "publishedAt": "1778670000000",
+      "publishDate": "2026-05-13 11:00:00.0000"
+    },
+    {
+      "id": "690009",
+      "title": "The X-Men — Mutants Finally Enter the MCU in Doomsday",
+      "publishedAt": "1778691600000",
+      "publishDate": "2026-05-13 17:00:00.0000"
+    },
+    {
+      "id": "690011",
+      "title": "Doom's Army — The Cabal Assembles in the MCU",
+      "publishedAt": "1778756400000",
+      "publishDate": "2026-05-14 11:00:00.0000"
+    },
+    {
+      "id": "690013",
+      "title": "The Multiverse Avengers — Every Variant Assembled for Secret Wars",
+      "publishedAt": "1778778000000",
+      "publishDate": "2026-05-14 17:00:00.0000"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tpublishedAt\tpublishDate\n690001\tThe Original Six — Who Returns for Avengers: Doomsday?\t1778583600000\t2026-05-12 11:00:00.0000\n690003\tThe Thunderbolts — From Villains to Heroes in the MCU\t1778605200000\t2026-05-12 17:00:00.0000\n690005\tThe Fantastic Four — Doom's Greatest Enemies in the MCU\t1778626800000\t2026-05-12 23:00:00.0000\n690007\tThe Young Avengers — Next Generation Assembled for Doomsday\t1778670000000\t2026-05-13 11:00:00.0000\n690009\tThe X-Men — Mutants Finally Enter the MCU in Doomsday\t1778691600000\t2026-05-13 17:00:00.0000\n690011\tDoom's Army — The Cabal Assembles in the MCU\t1778756400000\t2026-05-14 11:00:00.0000\n690013\tThe Multiverse Avengers — Every Variant Assembled for Secret Wars\t1778778000000\t2026-05-14 17:00:00.0000\n",
+  "stderr": "",
+  "execution_time_ms": 259
+}

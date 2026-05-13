@@ -1,0 +1,9 @@
+{
+  "query": "\nUPDATE articles SET publishedAt = 1778583600000 WHERE id = 690001;\nUPDATE articles SET publishedAt = 1778605200000 WHERE id = 690003;\nUPDATE articles SET publishedAt = 1778626800000 WHERE id = 690005;\nUPDATE articles SET publishedAt = 1778670000000 WHERE id = 690007;\nUPDATE articles SET publishedAt = 1778691600000 WHERE id = 690009;\nUPDATE articles SET publishedAt = 1778756400000 WHERE id = 690011;\nUPDATE articles SET publishedAt = 1778778000000 WHERE id = 690013;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute \nUPDATE articles SET publishedAt = 1778583600000 WHERE id = 690001;\nUPDATE articles SET publishedAt = 1778605200000 WHERE id = 690003;\nUPDATE articles SET publishedAt = 1778626800000 WHERE id = 690005;\nUPDATE articles SET publishedAt = 1778670000000 WHERE id = 690007;\nUPDATE articles SET publishedAt = 1778691600000 WHERE id = 690009;\nUPDATE articles SET publishedAt = 1778756400000 WHERE id = 690011;\nUPDATE articles SET publishedAt = 1778778000000 WHERE id = 690013;\n",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 335
+}

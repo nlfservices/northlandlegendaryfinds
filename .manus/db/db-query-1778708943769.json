@@ -1,0 +1,59 @@
+{
+  "query": "SELECT id, title, slug, isPublished, publishedAt FROM articles WHERE title LIKE '%Original Six%' OR title LIKE '%Thunderbolts — From Villains%' OR title LIKE '%Fantastic Four — Doom%' OR title LIKE '%Young Avengers — Next%' OR title LIKE '%X-Men — Mutants%' OR title LIKE '%Cabal Assembles%' OR title LIKE '%Multiverse Avengers%' ORDER BY publishedAt;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, title, slug, isPublished, publishedAt FROM articles WHERE title LIKE '%Original Six%' OR title LIKE '%Thunderbolts — From Villains%' OR title LIKE '%Fantastic Four — Doom%' OR title LIKE '%Young Avengers — Next%' OR title LIKE '%X-Men — Mutants%' OR title LIKE '%Cabal Assembles%' OR title LIKE '%Multiverse Avengers%' ORDER BY publishedAt;",
+  "rows": [
+    {
+      "id": "690001",
+      "title": "The Original Six — Who Returns for Avengers: Doomsday?",
+      "slug": "original-six-avengers-doomsday-who-returns",
+      "isPublished": "1",
+      "publishedAt": "1777111200000"
+    },
+    {
+      "id": "690003",
+      "title": "The Thunderbolts — From Villains to Heroes in the MCU",
+      "slug": "thunderbolts-villains-to-heroes-mcu-doomsday",
+      "isPublished": "1",
+      "publishedAt": "1777284000000"
+    },
+    {
+      "id": "690005",
+      "title": "The Fantastic Four — Doom's Greatest Enemies in the MCU",
+      "slug": "fantastic-four-dooms-greatest-enemies-mcu",
+      "isPublished": "1",
+      "publishedAt": "1777456800000"
+    },
+    {
+      "id": "690007",
+      "title": "The Young Avengers — Next Generation Assembled for Doomsday",
+      "slug": "young-avengers-next-generation-assembled-doomsday",
+      "isPublished": "1",
+      "publishedAt": "1777629600000"
+    },
+    {
+      "id": "690009",
+      "title": "The X-Men — Mutants Finally Enter the MCU in Doomsday",
+      "slug": "x-men-mutants-enter-mcu-doomsday",
+      "isPublished": "1",
+      "publishedAt": "1777802400000"
+    },
+    {
+      "id": "690011",
+      "title": "Doom's Army — The Cabal Assembles in the MCU",
+      "slug": "dooms-army-cabal-assembles-mcu",
+      "isPublished": "1",
+      "publishedAt": "1777975200000"
+    },
+    {
+      "id": "690013",
+      "title": "The Multiverse Avengers — Every Variant Assembled for Secret Wars",
+      "slug": "multiverse-avengers-every-variant-assembled-secret-wars",
+      "isPublished": "1",
+      "publishedAt": "1778148000000"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tslug\tisPublished\tpublishedAt\n690001\tThe Original Six — Who Returns for Avengers: Doomsday?\toriginal-six-avengers-doomsday-who-returns\t1\t1777111200000\n690003\tThe Thunderbolts — From Villains to Heroes in the MCU\tthunderbolts-villains-to-heroes-mcu-doomsday\t1\t1777284000000\n690005\tThe Fantastic Four — Doom's Greatest Enemies in the MCU\tfantastic-four-dooms-greatest-enemies-mcu\t1\t1777456800000\n690007\tThe Young Avengers — Next Generation Assembled for Doomsday\tyoung-avengers-next-generation-assembled-doomsday\t1\t1777629600000\n690009\tThe X-Men — Mutants Finally Enter the MCU in Doomsday\tx-men-mutants-enter-mcu-doomsday\t1\t1777802400000\n690011\tDoom's Army — The Cabal Assembles in the MCU\tdooms-army-cabal-assembles-mcu\t1\t1777975200000\n690013\tThe Multiverse Avengers — Every Variant Assembled for Secret Wars\tmultiverse-avengers-every-variant-assembled-secret-wars\t1\t1778148000000\n",
+  "stderr": "",
+  "execution_time_ms": 282
+}

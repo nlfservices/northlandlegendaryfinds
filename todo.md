@@ -1846,19 +1846,19 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [ ] Rotate links to comicbookcard.com, riseofdoom.com, mintcomiccards.com
 
 ## Avengers Doomsday 14-Article Series — PUBLISHED
-- [x] Article 1: The Original Six — Who Returns for Doomsday? (published May 7)
+- [x] Article 1: The Original Six — Who Returns for Doomsday? (republished May 12 6am)
 - [x] Article 2: Top 5 Cards to Buy Before Thunderbolts Drops (published May 8)
-- [x] Article 3: The Thunderbolts — From Villains to Heroes (published May 9)
+- [x] Article 3: The Thunderbolts — From Villains to Heroes (republished May 12 12pm)
 - [x] Article 4: Secret Wars 1984 vs 2015 — A Collector's Guide (published May 10)
-- [x] Article 5: The Fantastic Four — Doom's Greatest Enemies (published May 11)
+- [x] Article 5: The Fantastic Four — Doom's Greatest Enemies (republished May 12 6pm)
 - [x] Article 6: MCU Phase 6 Rumor Roundup (published May 12)
-- [x] Article 7: The Young Avengers — Next Generation Assembled (published May 13)
+- [x] Article 7: The Young Avengers — Next Generation Assembled (republished May 13 6am)
 - [x] Article 8: Grading Guide: When to Send Cards to PSA vs CGC (published May 14)
-- [x] Article 9: The X-Men — Mutants Enter the MCU (published May 15)
+- [x] Article 9: The X-Men — Mutants Enter the MCU (republished May 13 12pm)
 - [x] Article 10: 5 Undervalued Doom Cards Right Now (published May 16)
-- [x] Article 11: Doom's Army — The Cabal Assembles (published May 17)
+- [x] Article 11: Doom's Army — The Cabal Assembles (republished May 14 6am)
 - [x] Article 12: Multiverse of Madness Card Market 1 Year Later (published May 18)
-- [x] Article 13: The Multiverse Avengers — Every Variant Assembled (published May 19)
+- [x] Article 13: The Multiverse Avengers — Every Variant Assembled (republished May 14 12pm)
 - [x] Article 14: Weekly Card Market Movers (published May 20)
 - [x] All 14 articles have Whatnot links (northlandlegendaryfinds.com/whatnot)
 - [x] All 14 articles have rotating partner links (comicbookcard.com, riseofdoom.com, mintcomiccards.com)
@@ -2117,4 +2117,23 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Updated excerpt to reflect numbered-only focus
 - [x] Removed "Chrome Refractor" phrasing from scarcity example
 - [x] Verified: no "base set", "base run", "refractor finish", or "base card bundles" remain
+- [x] Save checkpoint
+
+## Community Repack Article — Alternating Image/Text Layout
+- [ ] Check if article renderer supports HTML for side-by-side layouts
+- [ ] Generate character-specific images (Doom, Gambit, team shots, etc.)
+- [ ] Rebuild article with alternating layout (img left/text right, then text left/img right)
+- [ ] Verify layout renders correctly on desktop and mobile
+- [ ] Save checkpoint
+
+## Team Articles — Republish Dates Updated (May 12-14)
+- [x] Update 7 team articles to publish across May 12 (yesterday), May 13 (today), May 14 (tomorrow)
+- [x] Original Six: May 12 6am CDT
+- [x] Thunderbolts: May 12 12pm CDT
+- [x] Fantastic Four: May 12 6pm CDT
+- [x] Young Avengers: May 13 6am CDT
+- [x] X-Men: May 13 12pm CDT
+- [x] Doom's Army (Cabal): May 14 6am CDT
+- [x] Multiverse Avengers: May 14 12pm CDT
+- [x] Verified on MCU News page — articles showing with correct dates
 - [x] Save checkpoint
