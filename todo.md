@@ -2046,3 +2046,36 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add community highlights section
 - [x] Add page to navigation
 - [x] Add page to sitemap
+
+## Bug Fix: The Little Things Page Not Working
+- [x] Diagnose why /the-little-things page isn't loading (works on dev, needs publish)
+- [x] Fix the issue (page works, just needs publish to go live)
+- [x] Verify page works on live site (verified on dev server)
+- [x] Save checkpoint
+
+## Marvel Families Article Series
+- [x] Research Marvel families (Richards, Summers/Grey, Magneto, T'Challa/Storm, etc.)
+- [x] Plan article series with card market tie-ins (Topps Marvel Mint, CBH, Chrome, Sapphire)
+- [x] Generate hero images for each family article
+- [x] Write and publish all family articles to database
+- [x] Include Facebook posts for each article
+- [x] Interlink all family articles
+- [x] Run integrity checks and save checkpoint
+
+## Marvel Families Article Series (Expanded)
+- [x] Generate hero images for all 7 articles (1 overview + 6 deep dives)
+- [x] Generate inline images (2-3 per article, ~15 total)
+- [x] Write overview article "Marvel's Greatest Families" with all 6 families, comic citations, Doomsday ties
+- [x] Write deep dive: The Richards Family
+- [x] Write deep dive: The Summers-Grey Dynasty
+- [x] Write deep dive: The House of Magnus
+- [x] Write deep dive: The Parker Family
+- [x] Write deep dive: The Royal Family of Wakanda
+- [x] Write deep dive: The Wolverine Family
+- [x] Interlink overview to all 6 deep dives and vice versa
+- [x] Add all articles to sitemap (auto-included via dynamic sitemap)
+- [x] Run integrity checks
+- [x] Save checkpoint
+- [x] Include Doctor Doom/Sue Storm alternate reality marriage (Secret Wars 2015) in Richards deep dive
+- [x] Tie Doom's obsession with Reed's family into Avengers Doomsday angle
+- [x] Generate image of Doom on Battleworld throne with Sue Storm
