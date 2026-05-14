@@ -6,6 +6,7 @@ import {
   createArticle, updateArticle, deleteArticle,
   toggleArticleFeatured, toggleArticlePublished,
   castArticleVote, getArticleVoteCounts, getVisitorArticleVote,
+  getAllArticleVoteSummaries,
 } from "../db";
 
 const articleInput = z.object({
@@ -117,5 +118,10 @@ export const articlePublicRouter = router({
   })).mutation(async ({ input }) => {
     await castArticleVote(input.articleId, input.reaction, input.visitorId);
     return { success: true };
+  }),
+
+  /** Get vote summaries for all articles (Voting Grounds) */
+  allVoteSummaries: publicProcedure.query(async () => {
+    return getAllArticleVoteSummaries();
   }),
 });

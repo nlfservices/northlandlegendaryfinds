@@ -24,9 +24,11 @@ function getVisitorId(): string {
 interface FanVotingProps {
   articleId: number;
   articleTitle?: string;
+  /** Compact mode for use in listing cards (Voting Grounds) */
+  compact?: boolean;
 }
 
-export default function FanVoting({ articleId, articleTitle }: FanVotingProps) {
+export default function FanVoting({ articleId, articleTitle, compact = false }: FanVotingProps) {
   const [visitorId] = useState(() => getVisitorId());
   const [selectedReaction, setSelectedReaction] = useState<ReactionKey | null>(null);
   const [hasVoted, setHasVoted] = useState(false);
@@ -85,92 +87,148 @@ export default function FanVoting({ articleId, articleTitle }: FanVotingProps) {
     return voteCounts?.[key] || 0;
   };
 
-  return (
-    <div className="my-8 rounded-xl border border-primary/20 bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-sm overflow-hidden">
-      {/* Header */}
-      <div className="px-5 py-4 border-b border-primary/10 bg-primary/5">
-        <div className="flex items-center gap-2">
-          <span className="text-xl">🗳️</span>
-          <h3 className="text-lg font-bold text-foreground tracking-wide uppercase" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
-            Fan Vote
-          </h3>
-        </div>
-        <p className="text-sm text-muted-foreground mt-1">
-          {hasVoted ? "Thanks for voting! Here's what everyone thinks:" : "How did you feel about this one? Cast your vote!"}
-        </p>
+  // Compact mode for Voting Grounds cards
+  if (compact) {
+    return (
+      <div className="grid grid-cols-4 gap-2">
+        {REACTIONS.map((r) => {
+          const isSelected = selectedReaction === r.key;
+          const pct = getPercentage(r.key);
+          const count = getCount(r.key);
+
+          return (
+            <button
+              key={r.key}
+              onClick={() => handleVote(r.key)}
+              disabled={voteMutation.isPending}
+              className={`
+                relative flex flex-col items-center gap-1 p-2 rounded-lg border transition-all duration-200
+                ${isSelected
+                  ? "border-white bg-white/20 scale-[1.05]"
+                  : "border-white/20 bg-white/5 hover:bg-white/10 hover:border-white/40"
+                }
+                disabled:opacity-50 disabled:cursor-not-allowed
+              `}
+            >
+              <span className="text-xl">{r.emoji}</span>
+              <span className="text-[10px] font-semibold text-white/80 text-center leading-tight">{r.label}</span>
+              {(hasVoted || totalVotes > 0) && (
+                <span className="text-[10px] text-white/60 font-medium">{pct}%</span>
+              )}
+              {isSelected && (
+                <div className="absolute -top-1 -right-1 w-4 h-4 bg-white rounded-full flex items-center justify-center">
+                  <svg className="w-2.5 h-2.5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+              )}
+            </button>
+          );
+        })}
       </div>
+    );
+  }
 
-      {/* Voting Buttons */}
-      <div className="p-5">
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          {REACTIONS.map((r) => {
-            const isSelected = selectedReaction === r.key;
-            const pct = getPercentage(r.key);
-            const count = getCount(r.key);
-            const isAnimating = animating === r.key;
+  // Full mode for article pages
+  return (
+    <div className="my-8 rounded-xl overflow-hidden shadow-2xl shadow-red-900/30">
+      {/* Red gradient background */}
+      <div className="bg-gradient-to-br from-red-700 via-red-600 to-red-800 relative">
+        {/* Subtle pattern overlay */}
+        <div className="absolute inset-0 opacity-10" style={{
+          backgroundImage: "radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 20%, white 1px, transparent 1px)",
+          backgroundSize: "60px 60px",
+        }} />
 
-            return (
-              <button
-                key={r.key}
-                onClick={() => handleVote(r.key)}
-                disabled={voteMutation.isPending}
-                className={`
-                  relative group flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all duration-300
-                  ${isSelected
-                    ? "border-primary bg-primary/15 shadow-lg shadow-primary/20 scale-[1.02]"
-                    : "border-border/50 bg-card/50 hover:border-primary/40 hover:bg-primary/5"
-                  }
-                  ${isAnimating ? "animate-bounce" : ""}
-                  disabled:opacity-50 disabled:cursor-not-allowed
-                `}
-              >
-                {/* Emoji */}
-                <span className={`text-3xl sm:text-4xl transition-transform duration-300 ${isSelected ? "scale-110" : "group-hover:scale-110"}`}>
-                  {r.emoji}
-                </span>
-
-                {/* Label */}
-                <span className={`text-xs sm:text-sm font-semibold text-center leading-tight ${isSelected ? "text-primary" : "text-muted-foreground"}`}>
-                  {r.label}
-                </span>
-
-                {/* Results bar (shows after voting or when votes exist) */}
-                {(hasVoted || totalVotes > 0) && (
-                  <div className="w-full mt-2">
-                    <div className="w-full h-2 rounded-full bg-muted/30 overflow-hidden">
-                      <div
-                        className="h-full rounded-full bg-primary transition-all duration-700 ease-out"
-                        style={{ width: `${pct}%` }}
-                      />
-                    </div>
-                    <div className="flex justify-between items-center mt-1">
-                      <span className="text-[10px] text-muted-foreground font-medium">{pct}%</span>
-                      <span className="text-[10px] text-muted-foreground">{count} vote{count !== 1 ? "s" : ""}</span>
-                    </div>
-                  </div>
-                )}
-
-                {/* Selected checkmark */}
-                {isSelected && (
-                  <div className="absolute -top-1 -right-1 w-5 h-5 bg-primary rounded-full flex items-center justify-center">
-                    <svg className="w-3 h-3 text-primary-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                )}
-              </button>
-            );
-          })}
+        {/* Header */}
+        <div className="relative px-5 sm:px-6 pt-5 pb-3">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-white/15 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/20">
+              <span className="text-xl">🗳️</span>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-white tracking-wide uppercase" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                Fan Vote
+              </h3>
+              <p className="text-sm text-white/75">
+                {hasVoted ? "Thanks for voting! Here's what everyone thinks:" : "How did you feel about this one? Cast your vote!"}
+              </p>
+            </div>
+          </div>
         </div>
 
-        {/* Total votes */}
-        {totalVotes > 0 && (
-          <div className="mt-4 text-center">
-            <span className="text-xs text-muted-foreground">
-              {totalVotes.toLocaleString()} total vote{totalVotes !== 1 ? "s" : ""}
-            </span>
+        {/* Voting Buttons */}
+        <div className="relative px-5 sm:px-6 pb-5 pt-2">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {REACTIONS.map((r) => {
+              const isSelected = selectedReaction === r.key;
+              const pct = getPercentage(r.key);
+              const count = getCount(r.key);
+              const isAnimating = animating === r.key;
+
+              return (
+                <button
+                  key={r.key}
+                  onClick={() => handleVote(r.key)}
+                  disabled={voteMutation.isPending}
+                  className={`
+                    relative group flex flex-col items-center gap-2 p-4 rounded-xl border-2 transition-all duration-300 backdrop-blur-sm
+                    ${isSelected
+                      ? "border-white bg-white/25 shadow-lg shadow-black/20 scale-[1.03]"
+                      : "border-white/20 bg-white/10 hover:border-white/50 hover:bg-white/20"
+                    }
+                    ${isAnimating ? "animate-bounce" : ""}
+                    disabled:opacity-50 disabled:cursor-not-allowed
+                  `}
+                >
+                  {/* Emoji */}
+                  <span className={`text-3xl sm:text-4xl transition-transform duration-300 ${isSelected ? "scale-110" : "group-hover:scale-110"}`}>
+                    {r.emoji}
+                  </span>
+
+                  {/* Label */}
+                  <span className={`text-xs sm:text-sm font-bold text-center leading-tight ${isSelected ? "text-white" : "text-white/80"}`}>
+                    {r.label}
+                  </span>
+
+                  {/* Results bar */}
+                  {(hasVoted || totalVotes > 0) && (
+                    <div className="w-full mt-1">
+                      <div className="w-full h-2.5 rounded-full bg-black/20 overflow-hidden">
+                        <div
+                          className="h-full rounded-full bg-white transition-all duration-700 ease-out"
+                          style={{ width: `${pct}%` }}
+                        />
+                      </div>
+                      <div className="flex justify-between items-center mt-1">
+                        <span className="text-[11px] text-white/90 font-bold">{pct}%</span>
+                        <span className="text-[10px] text-white/60">{count} vote{count !== 1 ? "s" : ""}</span>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Selected checkmark */}
+                  {isSelected && (
+                    <div className="absolute -top-1.5 -right-1.5 w-6 h-6 bg-white rounded-full flex items-center justify-center shadow-md">
+                      <svg className="w-3.5 h-3.5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                  )}
+                </button>
+              );
+            })}
           </div>
-        )}
+
+          {/* Total votes */}
+          {totalVotes > 0 && (
+            <div className="mt-4 text-center">
+              <span className="text-sm text-white/70 font-medium">
+                {totalVotes.toLocaleString()} total vote{totalVotes !== 1 ? "s" : ""}
+              </span>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

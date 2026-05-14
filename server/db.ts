@@ -1720,3 +1720,34 @@ export async function getVisitorArticleVote(articleId: number, visitorId: string
     .limit(1);
   return rows.length > 0 ? rows[0].reaction : null;
 }
+
+
+/** Get vote summaries for all articles that have votes (for Voting Grounds) */
+export async function getAllArticleVoteSummaries(): Promise<Array<{
+  articleId: number;
+  totalVotes: number;
+  topReaction: string;
+  counts: Record<string, number>;
+}>> {
+  const db = await getDb();
+  if (!db) return [];
+  const rows = await db.select({
+    articleId: articleVotes.articleId,
+    reaction: articleVotes.reaction,
+    count: sql<number>`COUNT(*)`,
+  }).from(articleVotes)
+    .groupBy(articleVotes.articleId, articleVotes.reaction);
+
+  // Aggregate by articleId
+  const byArticle: Record<number, Record<string, number>> = {};
+  for (const row of rows) {
+    if (!byArticle[row.articleId]) byArticle[row.articleId] = {};
+    byArticle[row.articleId][row.reaction] = Number(row.count);
+  }
+
+  return Object.entries(byArticle).map(([articleId, counts]) => {
+    const total = Object.values(counts).reduce((s, c) => s + c, 0);
+    const topReaction = Object.entries(counts).sort((a, b) => b[1] - a[1])[0]?.[0] || "loved";
+    return { articleId: Number(articleId), totalVotes: total, topReaction, counts };
+  }).sort((a, b) => b.totalVotes - a.totalVotes);
+}

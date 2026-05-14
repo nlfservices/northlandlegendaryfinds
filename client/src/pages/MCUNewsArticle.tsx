@@ -289,11 +289,11 @@ export default function MCUNewsArticle() {
           </div>
         )}
 
+        {/* Fan Voting — prominent position near top */}
+        <FanVoting articleId={article.id} articleTitle={article.title} />
+
         {/* Article Content with Mid-Article Whatnot Banner */}
         <ArticleContentWithBanner content={article.contentMarkdown} />
-
-        {/* Fan Voting */}
-        <FanVoting articleId={article.id} articleTitle={article.title} />
 
         {/* Whatnot Live Stream CTA */}
         <div className="bg-gradient-to-r from-yellow-500/10 via-yellow-400/5 to-yellow-500/10 border-2 border-yellow-500/40 rounded-xl p-6 sm:p-8 mb-8 text-center">

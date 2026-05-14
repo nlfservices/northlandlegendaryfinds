@@ -13,6 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
 import SEO, { breadcrumbJsonLd, collectionPageJsonLd, organizationJsonLd } from "@/components/SEO";
+import FanVoting from "@/components/FanVoting";
 
 const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mcu-intel-hero-VcDNx3cvdPSwJjVGxWMfTo.webp";
 const CARD_MARKET_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mcu-intel-card-market-Lt56dsta4y7Hzfj6pzAysR.webp";
@@ -116,6 +117,95 @@ function formatDate(timestamp: number | null): string {
 
 function getCategoryLabel(key: string): string {
   return CATEGORIES.find(c => c.key === key)?.label ?? key;
+}
+
+/** Voting Grounds — showcases all active article polls */
+function VotingGrounds() {
+  const { data: voteSummaries = [], isLoading } = trpc.articles.allVoteSummaries.useQuery(undefined, { staleTime: 30_000 });
+  const { data: allArticles = [] } = trpc.articles.list.useQuery();
+
+  // Only show articles that have votes
+  if (isLoading || voteSummaries.length === 0) return null;
+
+  // Map article data to vote summaries
+  const articlesWithVotes = voteSummaries.map(vs => {
+    const article = allArticles.find(a => a.id === vs.articleId);
+    if (!article) return null;
+    return { ...vs, article };
+  }).filter(Boolean) as Array<{
+    articleId: number;
+    totalVotes: number;
+    topReaction: string;
+    counts: Record<string, number>;
+    article: { id: number; title: string; slug: string; featuredImageUrl: string | null; excerpt: string | null };
+  }>;
+
+  if (articlesWithVotes.length === 0) return null;
+
+  const REACTION_EMOJIS: Record<string, string> = {
+    loved: "💀",
+    fire: "🔥",
+    meh: "😐",
+    thumbsdown: "👎",
+  };
+
+  return (
+    <section className="py-10 border-b border-border">
+      <div className="container">
+        {/* Section Header */}
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center shadow-md shadow-red-600/30">
+            <span className="text-xl">🗳️</span>
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>Voting Grounds</h2>
+            <p className="text-sm text-muted-foreground">Cast your vote on the latest MCU topics</p>
+          </div>
+        </div>
+
+        {/* Voting Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {articlesWithVotes.slice(0, 6).map(item => {
+            const topEmoji = REACTION_EMOJIS[item.topReaction] || "\u{1F480}";
+            return (
+              <div key={item.articleId} className="rounded-xl overflow-hidden bg-gradient-to-br from-red-700 via-red-600 to-red-800 shadow-lg shadow-red-900/20 border border-red-500/30">
+                {/* Article Header */}
+                <Link
+                  href={`/mcu-news/${item.article.slug}`}
+                  className="block p-4 pb-2 group"
+                >
+                  <div className="flex gap-3 items-start">
+                    {item.article.featuredImageUrl && (
+                      <img
+                        src={item.article.featuredImageUrl}
+                        alt={item.article.title}
+                        className="w-16 h-16 rounded-lg object-cover flex-shrink-0 group-hover:scale-105 transition-transform"
+                      />
+                    )}
+                    <div className="min-w-0">
+                      <h3 className="text-sm font-bold text-white line-clamp-2 group-hover:text-white/80 transition-colors">
+                        {item.article.title}
+                      </h3>
+                      <div className="flex items-center gap-2 mt-1">
+                        <span className="text-xs text-white/60">{item.totalVotes} vote{item.totalVotes !== 1 ? "s" : ""}</span>
+                        <span className="text-xs text-white/40">|</span>
+                        <span className="text-xs text-white/60">Top: {topEmoji}</span>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+
+                {/* Compact Voting */}
+                <div className="px-4 pb-4 pt-2">
+                  <FanVoting articleId={item.articleId} compact />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
 }
 
 export default function MCUNews() {
@@ -384,6 +474,9 @@ export default function MCUNews() {
           </div>
         </div>
       </section>
+
+      {/* ===== VOTING GROUNDS ===== */}
+      <VotingGrounds />
 
       {/* ===== CATEGORY FILTERS + SEARCH + ARTICLES ===== */}
       <section className="py-12">

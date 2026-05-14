@@ -2160,3 +2160,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Integrate voting component into MCUNewsArticle page
 - [x] Test voting end-to-end
 - [x] Save checkpoint
+
+## Fan Vote Improvements
+- [x] Move Fan Vote to top of article (right after header/featured image)
+- [x] Restyle Fan Vote with bold red background to stand out
+- [x] Build "Voting Grounds" section on MCU News page showing all active polls
+- [x] Add backend route for fetching all article vote summaries
+- [x] Test visually and save checkpoint
