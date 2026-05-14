@@ -2143,3 +2143,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Ensure popup doesn't block content on mobile
 - [x] Test on mobile viewport
 - [x] Save checkpoint
+
+## Punisher: One Last Kill Article + Facebook Post
+- [x] Research show details, reviews, fan reactions, MCU connections
+- [x] Generate featured image for article
+- [x] Write article covering the show and what people are saying
+- [x] Publish article to database
+- [x] Write Facebook engagement post asking fans how they liked it
+- [x] Verify article on site
+- [ ] Save checkpoint
