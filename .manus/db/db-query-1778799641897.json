@@ -1,0 +1,17 @@
+{
+  "query": "SELECT \n  (SELECT COUNT(*) FROM marvel_cards WHERE setId = 3 AND imageUrl IS NOT NULL AND imageUrl != '') as mint_with_images,\n  (SELECT COUNT(*) FROM marvel_cards WHERE setId = 3) as mint_total,\n  (SELECT COUNT(*) FROM marvel_cards WHERE setId = 2 AND imageUrl IS NOT NULL AND imageUrl != '') as cbh_front_images,\n  (SELECT COUNT(*) FROM marvel_cards WHERE setId = 2 AND back_image_url IS NOT NULL AND back_image_url != '') as cbh_back_images,\n  (SELECT COUNT(*) FROM marvel_cards WHERE setId = 2) as cbh_total;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT \n  (SELECT COUNT(*) FROM marvel_cards WHERE setId = 3 AND imageUrl IS NOT NULL AND imageUrl != '') as mint_with_images,\n  (SELECT COUNT(*) FROM marvel_cards WHERE setId = 3) as mint_total,\n  (SELECT COUNT(*) FROM marvel_cards WHERE setId = 2 AND imageUrl IS NOT NULL AND imageUrl != '') as cbh_front_images,\n  (SELECT COUNT(*) FROM marvel_cards WHERE setId = 2 AND back_image_url IS NOT NULL AND back_image_url != '') as cbh_back_images,\n  (SELECT COUNT(*) FROM marvel_cards WHERE setId = 2) as cbh_total;",
+  "rows": [
+    {
+      "mint_with_images": "239",
+      "mint_total": "239",
+      "cbh_front_images": "150",
+      "cbh_back_images": "150",
+      "cbh_total": "150"
+    }
+  ],
+  "messages": [],
+  "stdout": "mint_with_images\tmint_total\tcbh_front_images\tcbh_back_images\tcbh_total\n239\t239\t150\t150\t150\n",
+  "stderr": "",
+  "execution_time_ms": 278
+}

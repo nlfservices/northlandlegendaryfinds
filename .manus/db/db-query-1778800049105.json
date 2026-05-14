@@ -1,0 +1,15 @@
+{
+  "query": "SELECT cardNumber, imageUrl, back_image_url FROM marvel_cards WHERE setId = 2 AND cardNumber = '1';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT cardNumber, imageUrl, back_image_url FROM marvel_cards WHERE setId = 2 AND cardNumber = '1';",
+  "rows": [
+    {
+      "cardNumber": "1",
+      "imageUrl": "/manus-storage/cbh-001-front_52a84d4a.webp",
+      "back_image_url": "/manus-storage/cbh-001-back_58bddc84.webp"
+    }
+  ],
+  "messages": [],
+  "stdout": "cardNumber\timageUrl\tback_image_url\n1\t/manus-storage/cbh-001-front_52a84d4a.webp\t/manus-storage/cbh-001-back_58bddc84.webp\n",
+  "stderr": "",
+  "execution_time_ms": 268
+}

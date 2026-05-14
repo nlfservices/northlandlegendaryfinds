@@ -1,0 +1,19 @@
+{
+  "query": "SELECT COUNT(*) as cnt FROM marvel_cards WHERE setId = 3 AND CAST(cardNumber AS UNSIGNED) BETWEEN 1 AND 100;\nSELECT COUNT(*) as cnt FROM marvel_cards WHERE setId = 2 AND CAST(cardNumber AS UNSIGNED) BETWEEN 1 AND 150;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT COUNT(*) as cnt FROM marvel_cards WHERE setId = 3 AND CAST(cardNumber AS UNSIGNED) BETWEEN 1 AND 100;\nSELECT COUNT(*) as cnt FROM marvel_cards WHERE setId = 2 AND CAST(cardNumber AS UNSIGNED) BETWEEN 1 AND 150;",
+  "rows": [
+    {
+      "cnt": "100"
+    },
+    {
+      "cnt": "cnt"
+    },
+    {
+      "cnt": "150"
+    }
+  ],
+  "messages": [],
+  "stdout": "cnt\n100\ncnt\n150\n",
+  "stderr": "",
+  "execution_time_ms": 284
+}

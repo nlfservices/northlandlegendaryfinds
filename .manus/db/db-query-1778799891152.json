@@ -1,0 +1,14 @@
+{
+  "query": "SELECT cardNumber, imageUrl FROM marvel_cards WHERE setId = 3 AND cardNumber = '1';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT cardNumber, imageUrl FROM marvel_cards WHERE setId = 3 AND cardNumber = '1';",
+  "rows": [
+    {
+      "cardNumber": "1",
+      "imageUrl": "/manus-storage/mint-001_8477595b.webp"
+    }
+  ],
+  "messages": [],
+  "stdout": "cardNumber\timageUrl\n1\t/manus-storage/mint-001_8477595b.webp\n",
+  "stderr": "",
+  "execution_time_ms": 274
+}

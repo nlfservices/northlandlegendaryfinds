@@ -2267,4 +2267,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Publish Iron Man (2008) as first entry with embedded trailer
 - [x] Verify on site
 - [x] Add Movies & Series to sitemap
+- [x] Save checkpoint (3175f321)
+
+## Card Base Set Image Upload (User-Provided Photos)
+- [ ] Compress Marvel Mint 100 card images to WebP and upload to CDN
+- [ ] Compress CBH 155 card images (front + back) to WebP and upload to CDN
+- [ ] Update database imageUrl for Marvel Mint cards (setId matching)
+- [ ] Update database imageUrl for CBH cards (setId matching)
+- [ ] Verify images display on Card Database pages
 - [ ] Save checkpoint

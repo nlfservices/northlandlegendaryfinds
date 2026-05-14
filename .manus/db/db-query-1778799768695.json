@@ -1,0 +1,70 @@
+{
+  "query": "SELECT id, cardNumber, characterName, imageUrl FROM marvel_cards WHERE setId = 3 ORDER BY CAST(cardNumber AS UNSIGNED) LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, cardNumber, characterName, imageUrl FROM marvel_cards WHERE setId = 3 ORDER BY CAST(cardNumber AS UNSIGNED) LIMIT 10;",
+  "rows": [
+    {
+      "id": "1488",
+      "cardNumber": "GD-5",
+      "characterName": "3 of Clubs",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/3Clubs-Front_1f30ca2d.jpg"
+    },
+    {
+      "id": "1489",
+      "cardNumber": "GD-9",
+      "characterName": "4 of Clubs",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/4Clubs-Front_831c7f3e.jpg"
+    },
+    {
+      "id": "1490",
+      "cardNumber": "GD-13",
+      "characterName": "5 of Clubs",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/5Clubs-Front_f7056312.jpg"
+    },
+    {
+      "id": "1491",
+      "cardNumber": "GD-17",
+      "characterName": "6 of Clubs",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/6Clubs-Front_9cb08892.jpg"
+    },
+    {
+      "id": "1492",
+      "cardNumber": "GD-21",
+      "characterName": "7 of Clubs",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/7Clubs-Front_f546733b.jpg"
+    },
+    {
+      "id": "1493",
+      "cardNumber": "GD-25",
+      "characterName": "8 of Clubs",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/8Clubs-Front_f0678522.jpg"
+    },
+    {
+      "id": "1494",
+      "cardNumber": "GD-29",
+      "characterName": "9 of Clubs",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/9Clubs-Front_c3c8d92a.jpg"
+    },
+    {
+      "id": "1495",
+      "cardNumber": "GD-33",
+      "characterName": "10 of Clubs",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/10Clubs-Front_1dfe9b33.jpg"
+    },
+    {
+      "id": "1496",
+      "cardNumber": "GD-37",
+      "characterName": "Jack of Clubs",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/JackClubs-Front_86bd22f6.jpg"
+    },
+    {
+      "id": "1487",
+      "cardNumber": "GD-1",
+      "characterName": "2 of Clubs",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/2Clubs-Front_0f812b92.jpg"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcardNumber\tcharacterName\timageUrl\n1488\tGD-5\t3 of Clubs\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/3Clubs-Front_1f30ca2d.jpg\n1489\tGD-9\t4 of Clubs\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/4Clubs-Front_831c7f3e.jpg\n1490\tGD-13\t5 of Clubs\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/5Clubs-Front_f7056312.jpg\n1491\tGD-17\t6 of Clubs\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/6Clubs-Front_9cb08892.jpg\n1492\tGD-21\t7 of Clubs\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/7Clubs-Front_f546733b.jpg\n1493\tGD-25\t8 of Clubs\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/8Clubs-Front_f0678522.jpg\n1494\tGD-29\t9 of Clubs\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/9Clubs-Front_c3c8d92a.jpg\n1495\tGD-33\t10 of Clubs\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/10Clubs-Front_1dfe9b33.jpg\n1496\tGD-37\tJack of Clubs\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/JackClubs-Front_86bd22f6.jpg\n1487\tGD-1\t2 of Clubs\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/2Clubs-Front_0f812b92.jpg\n",
+  "stderr": "",
+  "execution_time_ms": 274
+}

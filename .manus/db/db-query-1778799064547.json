@@ -1,0 +1,45 @@
+{
+  "query": "SELECT id, name, slug FROM marvel_sets;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, name, slug FROM marvel_sets;",
+  "rows": [
+    {
+      "id": "1",
+      "name": "2025 Topps Chrome",
+      "slug": "2025-topps-chrome"
+    },
+    {
+      "id": "2",
+      "name": "2025 Topps Comic Book Heroes",
+      "slug": "2025-topps-comic-book-heroes"
+    },
+    {
+      "id": "3",
+      "name": "2025 Topps Marvel Mint",
+      "slug": "2025-topps-marvel-mint"
+    },
+    {
+      "id": "4",
+      "name": "2025 Topps Marvel Sapphire",
+      "slug": "2025-topps-marvel-sapphire"
+    },
+    {
+      "id": "5",
+      "name": "2025 Topps Marvel Studios",
+      "slug": "2025-topps-marvel-studios"
+    },
+    {
+      "id": "6",
+      "name": "2025 Topps Marvel Studios Sapphire",
+      "slug": "2025-topps-marvel-studios-sapphire"
+    },
+    {
+      "id": "30001",
+      "name": "2025 Topps Marvel Studios: The Collector",
+      "slug": "2025-marvel-the-collector"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tslug\n1\t2025 Topps Chrome\t2025-topps-chrome\n2\t2025 Topps Comic Book Heroes\t2025-topps-comic-book-heroes\n3\t2025 Topps Marvel Mint\t2025-topps-marvel-mint\n4\t2025 Topps Marvel Sapphire\t2025-topps-marvel-sapphire\n5\t2025 Topps Marvel Studios\t2025-topps-marvel-studios\n6\t2025 Topps Marvel Studios Sapphire\t2025-topps-marvel-studios-sapphire\n30001\t2025 Topps Marvel Studios: The Collector\t2025-marvel-the-collector\n",
+  "stderr": "",
+  "execution_time_ms": 315
+}
