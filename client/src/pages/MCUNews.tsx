@@ -475,12 +475,12 @@ export default function MCUNews() {
         </div>
       </section>
 
-      {/* ===== VOTING GROUNDS ===== */}
-      <VotingGrounds />
-
       {/* ===== CATEGORY FILTERS + SEARCH + ARTICLES ===== */}
       <section className="py-12">
         <div className="container">
+          {/* ===== VOTING GROUNDS (at top) ===== */}
+          <VotingGrounds />
+
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Main Content */}
             <div className="flex-1">

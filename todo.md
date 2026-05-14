@@ -2192,3 +2192,20 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Clicking tab scrolls to or filters to Voting Grounds section
 - [x] Restyle: black background with red border (not solid red bg)
 - [x] Test and save checkpoint
+
+## Top Women of the MCU Article
+- [ ] Research top MCU women in upcoming films (Doomsday, F4, Thunderbolts, Spider-Man)
+- [ ] Research their comic history and card market values
+- [ ] Generate featured image for article
+- [ ] Write article with Collector's Corner and card site rotation
+- [ ] Publish to database
+- [ ] Create Facebook engagement post
+- [ ] Verify article on site
+- [ ] Save checkpoint
+
+## Dedicated Voting Grounds Page + Nav Changes
+- [x] Create standalone /voting-grounds page with all active polls
+- [x] Add "Voting Grounds" to nav bar between Cosmic Hits and Events (green border, red text)
+- [x] Change MCU News nav text to blue lettering
+- [x] Add route in App.tsx
+- [x] Test visually and save checkpoint
