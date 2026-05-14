@@ -2176,3 +2176,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Upload icons and update FanVoting component
 - [x] Update reaction labels and keys
 - [x] Test and save checkpoint
+
+## Voting Grounds Position & Style Fix
+- [x] Move Voting Grounds to top of MCU News page (above search/filters)
+- [x] Give Voting Grounds a red gradient background matching Fan Vote style
+- [x] Test and save checkpoint
+
+## Hide The Little Things Page
+- [x] Remove The Little Things from navigation until content is built out
+- [x] Keep the page/route intact but hidden from nav

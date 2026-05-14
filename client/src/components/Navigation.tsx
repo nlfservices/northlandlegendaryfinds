@@ -32,7 +32,7 @@ export default function Navigation() {
     { path: "/checklists", label: "Cosmic Hits" },
     // { path: "/shop", label: "Shop Now" }, // Hidden until launch
     { path: "/card-shows", label: "Events" },
-    { path: "/the-little-things", label: "The Little Things", highlight: "green" as const },
+    // { path: "/the-little-things", label: "The Little Things", highlight: "green" as const }, // Hidden until content is built out
     { path: "/about", label: "About" },
     { path: "/faq", label: "FAQ" },
     { path: "/cards", label: "Card Database" },

@@ -150,16 +150,16 @@ function VotingGrounds() {
   };
 
   return (
-    <section className="py-10 border-b border-border">
+    <section className="py-10 bg-gradient-to-br from-red-700 via-red-600 to-red-800 border-b border-red-500/30 shadow-lg shadow-red-900/30">
       <div className="container">
         {/* Section Header */}
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center shadow-md shadow-red-600/30">
+          <div className="w-10 h-10 bg-white/15 backdrop-blur rounded-lg flex items-center justify-center shadow-md">
             <span className="text-xl">🗳️</span>
           </div>
           <div>
-            <h2 className="text-2xl font-bold" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>Voting Grounds</h2>
-            <p className="text-sm text-muted-foreground">Cast your vote on the latest MCU topics</p>
+            <h2 className="text-2xl font-bold text-white" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>Voting Grounds</h2>
+            <p className="text-sm text-white/70">Cast your vote on the latest MCU topics</p>
           </div>
         </div>
 
@@ -168,7 +168,7 @@ function VotingGrounds() {
           {articlesWithVotes.slice(0, 6).map(item => {
             const topEmoji = REACTION_EMOJIS[item.topReaction] || "\u{1F480}";
             return (
-              <div key={item.articleId} className="rounded-xl overflow-hidden bg-gradient-to-br from-red-700 via-red-600 to-red-800 shadow-lg shadow-red-900/20 border border-red-500/30">
+              <div key={item.articleId} className="rounded-xl overflow-hidden bg-black/30 backdrop-blur-sm shadow-lg border border-white/15 hover:border-white/30 transition-all">
                 {/* Article Header */}
                 <Link
                   href={`/mcu-news/${item.article.slug}`}
@@ -282,6 +282,9 @@ export default function MCUNews() {
           </div>
         </div>
       </section>
+
+      {/* ===== VOTING GROUNDS ===== */}
+      <VotingGrounds />
 
       {/* ===== FEATURED ARTICLES ===== */}
       {featuredArticles.length > 0 && (
@@ -475,8 +478,7 @@ export default function MCUNews() {
         </div>
       </section>
 
-      {/* ===== VOTING GROUNDS ===== */}
-      <VotingGrounds />
+      {/* Voting Grounds moved to top */}
 
       {/* ===== CATEGORY FILTERS + SEARCH + ARTICLES ===== */}
       <section className="py-12">
