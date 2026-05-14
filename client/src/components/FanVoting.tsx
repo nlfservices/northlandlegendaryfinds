@@ -2,11 +2,16 @@ import { useState, useEffect, useMemo } from "react";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 
+const ICON_HULK = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/vote-hulk-smash-LvEJ9sdaX8HXtgsRE9jHda.webp";
+const ICON_MJOLNIR = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/vote-mjolnir-nhKZ9cfYJagRVeLScRQRBp.webp";
+const ICON_TIME_STONE = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/vote-time-stone-c7shjpNVbQjS4Zo2R98WeE.webp";
+const ICON_GAUNTLET = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/vote-thanos-gauntlet-gurG2wRKw3f4Woc6YqquUp.webp";
+
 const REACTIONS = [
-  { key: "loved", emoji: "💀", label: "Loved It" },
-  { key: "fire", emoji: "🔥", label: "Action Was Insane" },
-  { key: "meh", emoji: "😐", label: "Too Short" },
-  { key: "thumbsdown", emoji: "👎", label: "Not For Me" },
+  { key: "loved", icon: ICON_HULK, label: "Hulk Smash" },
+  { key: "fire", icon: ICON_MJOLNIR, label: "Worthy" },
+  { key: "meh", icon: ICON_TIME_STONE, label: "Needed More Time" },
+  { key: "thumbsdown", icon: ICON_GAUNTLET, label: "Not For Me" },
 ] as const;
 
 type ReactionKey = (typeof REACTIONS)[number]["key"];
@@ -94,7 +99,6 @@ export default function FanVoting({ articleId, articleTitle, compact = false }: 
         {REACTIONS.map((r) => {
           const isSelected = selectedReaction === r.key;
           const pct = getPercentage(r.key);
-          const count = getCount(r.key);
 
           return (
             <button
@@ -110,7 +114,7 @@ export default function FanVoting({ articleId, articleTitle, compact = false }: 
                 disabled:opacity-50 disabled:cursor-not-allowed
               `}
             >
-              <span className="text-xl">{r.emoji}</span>
+              <img src={r.icon} alt={r.label} className="w-7 h-7 object-contain" />
               <span className="text-[10px] font-semibold text-white/80 text-center leading-tight">{r.label}</span>
               {(hasVoted || totalVotes > 0) && (
                 <span className="text-[10px] text-white/60 font-medium">{pct}%</span>
@@ -181,10 +185,12 @@ export default function FanVoting({ articleId, articleTitle, compact = false }: 
                     disabled:opacity-50 disabled:cursor-not-allowed
                   `}
                 >
-                  {/* Emoji */}
-                  <span className={`text-3xl sm:text-4xl transition-transform duration-300 ${isSelected ? "scale-110" : "group-hover:scale-110"}`}>
-                    {r.emoji}
-                  </span>
+                  {/* Icon */}
+                  <img
+                    src={r.icon}
+                    alt={r.label}
+                    className={`w-12 h-12 sm:w-14 sm:h-14 object-contain transition-transform duration-300 ${isSelected ? "scale-110" : "group-hover:scale-110"}`}
+                  />
 
                   {/* Label */}
                   <span className={`text-xs sm:text-sm font-bold text-center leading-tight ${isSelected ? "text-white" : "text-white/80"}`}>

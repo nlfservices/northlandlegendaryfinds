@@ -2167,3 +2167,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Build "Voting Grounds" section on MCU News page showing all active polls
 - [x] Add backend route for fetching all article vote summaries
 - [x] Test visually and save checkpoint
+
+## Custom Marvel Voting Icons
+- [x] Generate Hulk Smash icon for "Loved It"
+- [x] Generate Mjolnir icon for "Worthy"
+- [x] Generate Doctor Strange Time Stone icon for "Needed More Time"
+- [x] Generate Thanos Infinity Gauntlet thumbs down icon for "Not For Me"
+- [x] Upload icons and update FanVoting component
+- [x] Update reaction labels and keys
+- [x] Test and save checkpoint
