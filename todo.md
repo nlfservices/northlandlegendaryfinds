@@ -2185,3 +2185,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 ## Hide The Little Things Page
 - [x] Remove The Little Things from navigation until content is built out
 - [x] Keep the page/route intact but hidden from nav
+
+## Voting Grounds Tab Fix
+- [x] Add red "Voting Grounds" pill/tab to category filter bar on MCU News
+- [x] Move Voting Grounds section back below timeline (not at very top)
+- [x] Clicking tab scrolls to or filters to Voting Grounds section
+- [x] Restyle: black background with red border (not solid red bg)
+- [x] Test and save checkpoint

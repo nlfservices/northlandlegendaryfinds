@@ -150,16 +150,16 @@ function VotingGrounds() {
   };
 
   return (
-    <section className="py-10 bg-gradient-to-br from-red-700 via-red-600 to-red-800 border-b border-red-500/30 shadow-lg shadow-red-900/30">
+    <section id="voting-grounds" className="py-10 bg-background border-2 border-red-600 rounded-xl mx-4 lg:mx-auto max-w-7xl my-8 shadow-lg shadow-red-900/20">
       <div className="container">
         {/* Section Header */}
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-10 h-10 bg-white/15 backdrop-blur rounded-lg flex items-center justify-center shadow-md">
+          <div className="w-10 h-10 bg-red-600/20 rounded-lg flex items-center justify-center shadow-md border border-red-600/40">
             <span className="text-xl">🗳️</span>
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-white" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>Voting Grounds</h2>
-            <p className="text-sm text-white/70">Cast your vote on the latest MCU topics</p>
+            <h2 className="text-2xl font-bold text-red-500" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>Voting Grounds</h2>
+            <p className="text-sm text-muted-foreground">Cast your vote on the latest MCU topics</p>
           </div>
         </div>
 
@@ -168,7 +168,7 @@ function VotingGrounds() {
           {articlesWithVotes.slice(0, 6).map(item => {
             const topEmoji = REACTION_EMOJIS[item.topReaction] || "\u{1F480}";
             return (
-              <div key={item.articleId} className="rounded-xl overflow-hidden bg-black/30 backdrop-blur-sm shadow-lg border border-white/15 hover:border-white/30 transition-all">
+              <div key={item.articleId} className="rounded-xl overflow-hidden bg-card shadow-lg border border-red-600/30 hover:border-red-500/60 transition-all">
                 {/* Article Header */}
                 <Link
                   href={`/mcu-news/${item.article.slug}`}
@@ -282,9 +282,6 @@ export default function MCUNews() {
           </div>
         </div>
       </section>
-
-      {/* ===== VOTING GROUNDS ===== */}
-      <VotingGrounds />
 
       {/* ===== FEATURED ARTICLES ===== */}
       {featuredArticles.length > 0 && (
@@ -478,7 +475,8 @@ export default function MCUNews() {
         </div>
       </section>
 
-      {/* Voting Grounds moved to top */}
+      {/* ===== VOTING GROUNDS ===== */}
+      <VotingGrounds />
 
       {/* ===== CATEGORY FILTERS + SEARCH + ARTICLES ===== */}
       <section className="py-12">
@@ -524,6 +522,16 @@ export default function MCUNews() {
                     </button>
                   );
                 })}
+                {/* Voting Grounds Tab — red highlight */}
+                <button
+                  onClick={() => {
+                    const el = document.getElementById('voting-grounds');
+                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-bold border-2 border-red-600 text-red-500 bg-red-600/10 hover:bg-red-600/20 hover:text-red-400 transition-all"
+                >
+                  🗳️ Voting Grounds
+                </button>
               </div>
 
               {/* Article List */}
