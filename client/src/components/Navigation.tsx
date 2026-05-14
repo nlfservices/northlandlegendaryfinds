@@ -31,6 +31,7 @@ export default function Navigation() {
     { path: "/nerd-gossip", label: "Nerd Gossip", highlight: "purple" as const },
     { path: "/checklists", label: "Cosmic Hits" },
     { path: "/voting-grounds", label: "Voting Grounds", highlight: "voting" as const },
+    { path: "/movies-series", label: "Movies & Series", highlight: "orange" as const },
     // { path: "/shop", label: "Shop Now" }, // Hidden until launch
     { path: "/card-shows", label: "Events" },
     // { path: "/the-little-things", label: "The Little Things", highlight: "green" as const }, // Hidden until content is built out
@@ -128,6 +129,18 @@ export default function Navigation() {
                     <Link key={item.path} href={item.path}>
                       <button
                         className="px-4 py-2 text-sm font-extrabold tracking-wide rounded-lg transition-all whitespace-nowrap border-2 border-green-500 text-purple-400 hover:bg-green-500/10 hover:text-purple-300 hover:border-green-400"
+                      >
+                        {item.label}
+                      </button>
+                    </Link>
+                  );
+                }
+                // Special styling for Movies & Series tab — green border, orange text
+                if (item.path === "/movies-series") {
+                  return (
+                    <Link key={item.path} href={item.path}>
+                      <button
+                        className="px-4 py-2 text-sm font-extrabold tracking-wide rounded-lg transition-all whitespace-nowrap border-2 border-green-500 text-orange-400 hover:bg-green-500/10 hover:text-orange-300 hover:border-green-400"
                       >
                         {item.label}
                       </button>
@@ -265,6 +278,22 @@ export default function Navigation() {
                     >
                       <div
                         className="px-4 py-3 rounded-lg font-extrabold tracking-wide transition-colors border-2 border-green-500 text-purple-400 hover:bg-green-500/10 hover:text-purple-300"
+                      >
+                        {item.label}
+                      </div>
+                    </Link>
+                  );
+                }
+                // Special styling for Movies & Series tab in mobile — green border, orange text
+                if (item.path === "/movies-series") {
+                  return (
+                    <Link
+                      key={item.path}
+                      href={item.path}
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <div
+                        className="px-4 py-3 rounded-lg font-extrabold tracking-wide transition-colors border-2 border-green-500 text-orange-400 hover:bg-green-500/10 hover:text-orange-300"
                       >
                         {item.label}
                       </div>

@@ -2255,4 +2255,16 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Publish to database
 - [x] Verify article on site (YouTube embed working, Spotlight template rendering)
 - [ ] Write Facebook post
+- [x] Save checkpoint
+
+## Movies & Series Section (Orange Branding)
+- [x] Research Iron Man (2008) — box office, budget, reception, trailer, card market
+- [x] Design database schema for movies/series entries
+- [x] Build Movies & Series listing page with orange branding
+- [x] Build Movie detail template (box office, budget, profit, legacy)
+- [x] Build Series detail template (episodes, streaming data, renewal status)
+- [x] Add Movies & Series to main navigation with orange letters
+- [x] Publish Iron Man (2008) as first entry with embedded trailer
+- [x] Verify on site
+- [x] Add Movies & Series to sitemap
 - [ ] Save checkpoint

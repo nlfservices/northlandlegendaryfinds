@@ -1,5 +1,8 @@
 import type { Express } from "express";
 import { getAllMarvelSets, getAllCharacterSlugs, getAllCardDetailSlugs, getPublishedBlogPosts, getPublishedArticles } from "./db";
+import { getDb } from "./db";
+import { mcuMedia } from "../drizzle/schema";
+import { eq } from "drizzle-orm";
 
 const SITE_URL = "https://northlandlegendaryfinds.com";
 
@@ -47,6 +50,7 @@ const STATIC_PAGES: { path: string; priority: string; changefreq: string }[] = [
   { path: "/gambit-deck", priority: "0.6", changefreq: "monthly" },
   { path: "/mcu-spotlight", priority: "0.7", changefreq: "weekly" },
   { path: "/the-little-things", priority: "0.7", changefreq: "weekly" },
+  { path: "/movies-series", priority: "0.8", changefreq: "weekly" },
 ];
 
 // Product slugs (static, from products.ts)
@@ -161,6 +165,20 @@ export function registerSitemapRoute(app: Express) {
         console.log(`[Sitemap] Added ${mcuArticles.length} MCU News article URLs`);
       } catch {
         console.warn("[Sitemap] Failed to fetch MCU News articles from database");
+      }
+
+      // Dynamic MCU Movies & Series pages
+      try {
+        const db = await getDb();
+        if (db) {
+          const mediaItems = await db.select({ slug: mcuMedia.slug }).from(mcuMedia).where(eq(mcuMedia.status, "published"));
+          for (const item of mediaItems) {
+            entries.push(buildUrlEntry(`/movies-series/${escapeXml(item.slug)}`, "0.7", "monthly", today));
+          }
+          console.log(`[Sitemap] Added ${mediaItems.length} Movies & Series URLs`);
+        }
+      } catch {
+        console.warn("[Sitemap] Failed to fetch MCU Movies & Series from database");
       }
 
       // Dynamic blog post pages (The Collector)

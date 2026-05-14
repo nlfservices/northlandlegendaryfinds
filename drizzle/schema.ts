@@ -972,3 +972,79 @@ export const affiliateLinks = mysqlTable("affiliate_links", {
 
 export type AffiliateLink = typeof affiliateLinks.$inferSelect;
 export type InsertAffiliateLink = typeof affiliateLinks.$inferInsert;
+
+
+/**
+ * MCU Movies & Series - each entry represents a movie or Disney+ series
+ * with box office/streaming stats, trailer embed, and card market data
+ */
+export const mcuMedia = mysqlTable("mcu_media", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Movie or Series title */
+  title: varchar("title", { length: 255 }).notNull(),
+  /** URL-friendly slug */
+  slug: varchar("slug", { length: 255 }).notNull().unique(),
+  /** Type: movie or series */
+  mediaType: mysqlEnum("mediaType", ["movie", "series"]).notNull(),
+  /** MCU Phase (1-6) */
+  phase: int("phase"),
+  /** Release order number in MCU */
+  releaseOrder: int("releaseOrder"),
+  /** Release date */
+  releaseDate: varchar("releaseDate", { length: 50 }),
+  /** Director(s) */
+  director: varchar("director", { length: 255 }),
+  /** Main cast (comma-separated) */
+  cast: text("cast"),
+  /** Short tagline/subtitle */
+  tagline: varchar("tagline", { length: 500 }),
+  /** Full description/overview */
+  description: text("description"),
+  /** Featured image URL */
+  imageUrl: text("imageUrl"),
+  /** YouTube trailer video ID */
+  youtubeTrailerId: varchar("youtubeTrailerId", { length: 20 }),
+  /** === MOVIE FIELDS === */
+  /** Production budget in millions */
+  budgetMillions: int("budgetMillions"),
+  /** Worldwide box office gross in millions */
+  worldwideGrossMillions: int("worldwideGrossMillions"),
+  /** Domestic box office gross in millions */
+  domesticGrossMillions: int("domesticGrossMillions"),
+  /** Opening weekend domestic in millions */
+  openingWeekendMillions: int("openingWeekendMillions"),
+  /** === SERIES FIELDS === */
+  /** Number of episodes */
+  episodeCount: int("episodeCount"),
+  /** Number of seasons */
+  seasonCount: int("seasonCount"),
+  /** Streaming platform */
+  platform: varchar("platform", { length: 100 }),
+  /** === SHARED FIELDS === */
+  /** Rotten Tomatoes critics score (0-100) */
+  rtCriticsScore: int("rtCriticsScore"),
+  /** Rotten Tomatoes audience score (0-100) */
+  rtAudienceScore: int("rtAudienceScore"),
+  /** Verdict: hit, miss, mixed */
+  verdict: mysqlEnum("verdict", ["hit", "miss", "mixed"]).default("hit"),
+  /** Card market analysis content (markdown) */
+  cardMarketContent: text("cardMarketContent"),
+  /** Key cards to collect (markdown) */
+  keyCards: text("keyCards"),
+  /** Full article content (markdown) */
+  content: text("content"),
+  /** SEO meta description */
+  metaDescription: varchar("metaDescription", { length: 320 }),
+  /** SEO keywords */
+  keywords: text("keywords"),
+  /** Related character slugs (JSON array) */
+  relatedCharacters: json("relatedCharacters").$type<string[]>(),
+  /** Published status */
+  status: mysqlEnum("status", ["draft", "published"]).notNull().default("draft"),
+  /** Featured on listing page */
+  isFeatured: boolean("isFeatured").notNull().default(false),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+export type McuMedia = typeof mcuMedia.$inferSelect;
+export type InsertMcuMedia = typeof mcuMedia.$inferInsert;

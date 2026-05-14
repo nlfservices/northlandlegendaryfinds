@@ -204,6 +204,13 @@
       "when": 1778741169768,
       "tag": "0028_wild_the_renegades",
       "breakpoints": true
+    },
+    {
+      "idx": 29,
+      "version": "5",
+      "when": 1778769108503,
+      "tag": "0029_late_richard_fisk",
+      "breakpoints": true
     }
   ]
 }

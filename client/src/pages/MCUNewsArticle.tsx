@@ -292,8 +292,8 @@ export default function MCUNewsArticle() {
           </div>
         )}
 
-        {/* Featured Image */}
-        {article.featuredImageUrl && (
+        {/* Featured Image — only for Classic template; other templates render their own hero */}
+        {article.featuredImageUrl && getArticleTemplate(article.templateLayout as ArticleTemplate | null) === 'classic' && (
           <div className="rounded-xl overflow-hidden mb-8 border border-border">
             <img
               src={article.featuredImageUrl}

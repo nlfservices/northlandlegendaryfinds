@@ -17,6 +17,7 @@ import { cardShowsPublicRouter, cardShowsAdminRouter } from "./routers/cardShows
 import { socialPostRouter } from "./routers/socialPosts";
 import { metaCapiRouter } from "./routers/metaCapi";
 import { affiliateAdminRouter, affiliatePublicRouter } from "./routers/affiliateLinks";
+import { mcuMediaPublicRouter, mcuMediaAdminRouter } from "./routers/mcuMedia";
 
 export const appRouter = router({
   system: systemRouter,
@@ -96,6 +97,12 @@ export const appRouter = router({
 
   // Affiliate Links (admin management)
   adminAffiliateLinks: affiliateAdminRouter,
+
+  // MCU Movies & Series (public)
+  mcuMedia: mcuMediaPublicRouter,
+
+  // MCU Movies & Series (admin)
+  adminMcuMedia: mcuMediaAdminRouter,
 });
 
 export type AppRouter = typeof appRouter;

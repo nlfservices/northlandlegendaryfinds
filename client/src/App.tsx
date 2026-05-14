@@ -69,6 +69,8 @@ import TheLittleThings from "./pages/TheLittleThings";
 import VotingGrounds from "./pages/VotingGrounds";
 import TemplateShowcase from "./pages/TemplateShowcase";
 import AdminAffiliateLinks from "./pages/AdminAffiliateLinks";
+import MCUMediaHub from "./pages/MCUMediaHub";
+import MCUMediaDetail from "./pages/MCUMediaDetail";
 
 // Routes that render as full-screen standalone experiences (no nav/footer)
 const STANDALONE_ROUTES = ["/card-display", "/matrix", "/free-credit"];
@@ -153,6 +155,8 @@ function AppRouter() {
           <Route path="/trending/:slug" component={TrendingCharacterPage} />
           <Route path="/gambit-deck" component={GambitDeck} />
           <Route path="/the-little-things" component={TheLittleThings} />
+          <Route path="/movies-series" component={MCUMediaHub} />
+          <Route path="/movies-series/:slug" component={MCUMediaDetail} />
           <Route path="/voting-grounds" component={VotingGrounds} />
           <Route path="/mcu-spotlight" component={MCUSpotlight} />
           <Route path="/login" component={JarvisProtocol} />
