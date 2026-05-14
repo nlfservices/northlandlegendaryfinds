@@ -1,0 +1,34 @@
+{
+  "query": "SELECT SUBSTRING(contentMarkdown, 2000, 2000) as content_mid FROM articles WHERE id = 690009 AND slug = 'x-men-mutants-enter-mcu-doomsday';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT SUBSTRING(contentMarkdown, 2000, 2000) as content_mid FROM articles WHERE id = 690009 AND slug = 'x-men-mutants-enter-mcu-doomsday';",
+  "rows": [
+    {
+      "content_mid": "r Von Doom's? These interactions are going to be cinematic gold."
+    },
+    {
+      "content_mid": "For more on how the multiverse is shaping up, check out our breakdown of [Every Variant Assembled](https://northlandlegendaryfinds.com/mcu-news/multiverse-avengers-every-variant-assembled)."
+    },
+    {
+      "content_mid": "The inclusion of these specific mutants also hints at the scale of the threat. Doctor Doom isn't just a physical adversary; he's a master of magic, science, and manipulation. The combined intellect of Professor X and Beast will be essential in unraveling Doom's master plan. Meanwhile, the raw power of Magneto and Cyclops will be needed on the front lines. The dynamic between these legacy characters and the current MCU roster is going to be fascinating to watch unfold."
+    },
+    {
+      "content_mid": "Imagine the strategic conversations between Reed Richards and Professor X, or the clash of egos between Doctor Strange and Magneto. These are the moments comic fans have been waiting decades to see on the big screen. The fact that Marvel is using the established Fox universe actors adds a layer of emotional weight and history that a fresh reboot simply couldn't achieve."
+    },
+    {
+      "content_mid": "This also raises interesting questions about the future of mutants in the MCU post-*Secret Wars*. Are these legacy characters here to stay, or are they passing the torch to a new generation? Whatever the outcome, their presence in *Doomsday* guarantees that the mutant agenda will be front and center in the Multiverse Saga's climax."
+    },
+    {
+      "content_mid": "### What This Means for Collectors"
+    },
+    {
+      "content_mid": "The X-Men card market is experiencing an absolute explosion right now. For years, MCU collectors focused heavily on the Avengers, while X-Men cards were largely driven by comic art and nostalgia. Now, those two worlds are merging, and the demand for premium X-Men cards is skyrocketing."
+    },
+    {
+      "content_mid": "We are seeing massive movement on early Marvel Universe cards, particularly the 1990 and 1992 Impel sets. But the real heat is in modern premium releases. Sets like **2024 SkyBox Masterpieces '92 Platinum** and the upcoming **Topps Fine"
+    }
+  ],
+  "messages": [],
+  "stdout": "content_mid\nr Von Doom's? These interactions are going to be cinematic gold.\n\nFor more on how the multiverse is shaping up, check out our breakdown of [Every Variant Assembled](https://northlandlegendaryfinds.com/mcu-news/multiverse-avengers-every-variant-assembled).\n\nThe inclusion of these specific mutants also hints at the scale of the threat. Doctor Doom isn't just a physical adversary; he's a master of magic, science, and manipulation. The combined intellect of Professor X and Beast will be essential in unraveling Doom's master plan. Meanwhile, the raw power of Magneto and Cyclops will be needed on the front lines. The dynamic between these legacy characters and the current MCU roster is going to be fascinating to watch unfold.\n\nImagine the strategic conversations between Reed Richards and Professor X, or the clash of egos between Doctor Strange and Magneto. These are the moments comic fans have been waiting decades to see on the big screen. The fact that Marvel is using the established Fox universe actors adds a layer of emotional weight and history that a fresh reboot simply couldn't achieve.\n\nThis also raises interesting questions about the future of mutants in the MCU post-*Secret Wars*. Are these legacy characters here to stay, or are they passing the torch to a new generation? Whatever the outcome, their presence in *Doomsday* guarantees that the mutant agenda will be front and center in the Multiverse Saga's climax.\n\n### What This Means for Collectors\n\nThe X-Men card market is experiencing an absolute explosion right now. For years, MCU collectors focused heavily on the Avengers, while X-Men cards were largely driven by comic art and nostalgia. Now, those two worlds are merging, and the demand for premium X-Men cards is skyrocketing.\n\nWe are seeing massive movement on early Marvel Universe cards, particularly the 1990 and 1992 Impel sets. But the real heat is in modern premium releases. Sets like **2024 SkyBox Masterpieces '92 Platinum** and the upcoming **Topps Fine\n",
+  "stderr": "",
+  "execution_time_ms": 260
+}

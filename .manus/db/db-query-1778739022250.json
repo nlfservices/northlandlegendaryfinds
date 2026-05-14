@@ -1,0 +1,14 @@
+{
+  "query": "SELECT title, slug FROM articles WHERE slug LIKE '%punisher%' LIMIT 1",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT title, slug FROM articles WHERE slug LIKE '%punisher%' LIMIT 1",
+  "rows": [
+    {
+      "title": "The Punisher: One Last Kill Marks a New Era for Marvel's Defenders on Disney+",
+      "slug": "punisher-one-last-kill-new-era-defenders-disney-plus"
+    }
+  ],
+  "messages": [],
+  "stdout": "title\tslug\nThe Punisher: One Last Kill Marks a New Era for Marvel's Defenders on Disney+\tpunisher-one-last-kill-new-era-defenders-disney-plus\n",
+  "stderr": "",
+  "execution_time_ms": 270
+}

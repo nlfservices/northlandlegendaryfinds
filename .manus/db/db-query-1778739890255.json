@@ -1,0 +1,16 @@
+{
+  "query": "SELECT LEFT(contentMarkdown, 500) as content_start FROM articles WHERE id = 690009;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT LEFT(contentMarkdown, 500) as content_start FROM articles WHERE id = 690009;",
+  "rows": [
+    {
+      "content_start": "The wait is finally over. After years of speculation, cameos, and multiverse teasing, the X-Men are officially entering the Marvel Cinematic Universe in *Avengers: Doomsday*. But this isn't just a reboot or a passing nod to the past. Marvel is bringing back the heavy hitters from the legacy Fox universe, and the implications for both the MCU and the trading card market are absolutely massive."
+    },
+    {
+      "content_start": "When the cast list for *Doomsday* dropped, fans were stunned to see the return of **Patrick Stewart** a"
+    }
+  ],
+  "messages": [],
+  "stdout": "content_start\nThe wait is finally over. After years of speculation, cameos, and multiverse teasing, the X-Men are officially entering the Marvel Cinematic Universe in *Avengers: Doomsday*. But this isn't just a reboot or a passing nod to the past. Marvel is bringing back the heavy hitters from the legacy Fox universe, and the implications for both the MCU and the trading card market are absolutely massive.\n\nWhen the cast list for *Doomsday* dropped, fans were stunned to see the return of **Patrick Stewart** a\n",
+  "stderr": "",
+  "execution_time_ms": 279
+}

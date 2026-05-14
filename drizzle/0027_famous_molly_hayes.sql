@@ -1,0 +1,1 @@
+ALTER TABLE `articles` ADD `templateLayout` enum('classic','magazine','spotlight','timeline','listicle') DEFAULT 'classic';

@@ -58,7 +58,16 @@ interface ArticleForm {
   authorName: string;
   metaDescription: string;
   scheduledAt: string; // ISO date string for the date picker
+  templateLayout: string;
 }
+
+const TEMPLATE_LAYOUTS = [
+  { value: "classic", label: "Classic — Standard linear layout" },
+  { value: "magazine", label: "Magazine — Pull quotes, alternating sections" },
+  { value: "spotlight", label: "Spotlight — Sidebar with stats & navigation" },
+  { value: "timeline", label: "Timeline — Visual timeline with markers" },
+  { value: "listicle", label: "Listicle — Numbered cards with color coding" },
+];
 
 const emptyForm: ArticleForm = {
   title: "",
@@ -76,6 +85,7 @@ const emptyForm: ArticleForm = {
   authorName: "NLF Team",
   metaDescription: "",
   scheduledAt: "",
+  templateLayout: "classic",
 };
 
 function slugify(text: string): string {
@@ -133,6 +143,7 @@ export default function ArticleManager() {
       authorName: article.authorName || "NLF Team",
       metaDescription: article.metaDescription || "",
       scheduledAt: article.scheduledAt ? new Date(article.scheduledAt).toISOString().slice(0, 16) : "",
+      templateLayout: article.templateLayout || "classic",
     });
     setShowEditor(true);
   };
@@ -168,6 +179,7 @@ export default function ArticleManager() {
       authorName: form.authorName,
       metaDescription: form.metaDescription || undefined,
       scheduledAt: form.scheduledAt ? new Date(form.scheduledAt).getTime() : undefined,
+      templateLayout: form.templateLayout as any,
     };
 
     try {
@@ -385,6 +397,19 @@ export default function ArticleManager() {
                     </p>
                   </div>
                 )}
+                <Separator />
+                <div>
+                  <Label>Template Layout</Label>
+                  <Select value={form.templateLayout} onValueChange={(v) => setForm((f) => ({ ...f, templateLayout: v }))}>
+                    <SelectTrigger><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      {TEMPLATE_LAYOUTS.map((t) => (
+                        <SelectItem key={t.value} value={t.value}>{t.label}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <p className="text-xs text-muted-foreground mt-1">Controls the visual layout of the article page</p>
+                </div>
                 <Separator />
                 <div>
                   <Label>Category</Label>

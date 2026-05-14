@@ -1,0 +1,85 @@
+{
+  "query": "SELECT contentMarkdown FROM articles WHERE slug = 'punisher-one-last-kill-new-era-defenders-disney-plus' LIMIT 1",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT contentMarkdown FROM articles WHERE slug = 'punisher-one-last-kill-new-era-defenders-disney-plus' LIMIT 1",
+  "rows": [
+    {
+      "contentMarkdown": "The Punisher is back — and this time, it's official MCU canon from day one."
+    },
+    {
+      "contentMarkdown": "**The Punisher: One Last Kill** drops on Disney+ on **May 12, 2026**, and it represents something much bigger than just another Marvel show. This is the moment the Defenders Saga fully transitions from its Netflix origins into the heart of the Marvel Cinematic Universe."
+    },
+    {
+      "contentMarkdown": "## A New Era for the Defenders"
+    },
+    {
+      "contentMarkdown": "When Daredevil: Born Again premiered earlier this year, it proved that Marvel Studios could successfully bring the grittier, street-level tone of the Netflix shows into the Disney+ era. Now, The Punisher: One Last Kill takes that one step further."
+    },
+    {
+      "contentMarkdown": "This isn't a continuation of the Netflix Punisher series — it's a **fresh chapter** that acknowledges Frank Castle's history while pushing him into new territory within the connected MCU. Jon Bernthal returns as the iconic antihero, bringing the same raw intensity that made him a fan favorite since his first appearance in Daredevil Season 2."
+    },
+    {
+      "contentMarkdown": "## What Makes This Release Significant"
+    },
+    {
+      "contentMarkdown": "The timing is crucial. May 2026 is stacked with Marvel content on Disney+:"
+    },
+    {
+      "contentMarkdown": "- **Daredevil: Born Again Season 2** (currently airing)"
+    },
+    {
+      "contentMarkdown": "- **The Punisher: One Last Kill** (May 12)"
+    },
+    {
+      "contentMarkdown": "- **Ironheart** (later in 2026)"
+    },
+    {
+      "contentMarkdown": "This marks the first time Marvel has run **multiple Defenders-adjacent shows** simultaneously, signaling that the street-level corner of the MCU is here to stay. The days of wondering whether the Netflix shows \"count\" are officially over."
+    },
+    {
+      "contentMarkdown": "## Frank Castle's MCU Future"
+    },
+    {
+      "contentMarkdown": "With Daredevil: Born Again establishing Kingpin as a major MCU power player and the Defenders characters weaving into the broader narrative, The Punisher's return opens up massive possibilities:"
+    },
+    {
+      "contentMarkdown": "- **Thunderbolts connections** — Frank Castle's military background makes him a natural fit"
+    },
+    {
+      "contentMarkdown": "- **Avengers: Doomsday** — Street-level heroes may play a role in the multiverse conflict"
+    },
+    {
+      "contentMarkdown": "- **Potential crossovers** with other MCU properties that deal with the criminal underworld"
+    },
+    {
+      "contentMarkdown": "## Collector's Corner"
+    },
+    {
+      "contentMarkdown": "The Defenders Saga's full integration into the MCU is a **major catalyst** for card values. Characters that were once considered \"non-canon adjacent\" are now undeniably part of the main timeline."
+    },
+    {
+      "contentMarkdown": "**Hot Cards to Watch:**"
+    },
+    {
+      "contentMarkdown": "- **Jon Bernthal Punisher Autograph Cards** — Any signed Bernthal card is trending up 30-40% since Born Again premiered. His screen presence drives collector demand."
+    },
+    {
+      "contentMarkdown": "- **2018 Upper Deck Daredevil Season 1 & 2 Base Set** — These sets feature early Bernthal-as-Punisher cards that are now considered his MCU debut cards."
+    },
+    {
+      "contentMarkdown": "- **Topps Chrome Marvel Defenders Insert Cards** — Low print run inserts featuring Punisher, Daredevil, Luke Cage, and Jessica Jones are undervalued relative to their MCU significance."
+    },
+    {
+      "contentMarkdown": "- **Kingpin (Vincent D'Onofrio) Autograph Cards** — With Kingpin's expanded MCU role, these are climbing steadily."
+    },
+    {
+      "contentMarkdown": "Check the latest prices on **[Card Ladder](https://www.cardladder.com)** for real-time market data on Defenders cards, and browse **[eBay sold listings](https://www.ebay.com)** for recent comps."
+    },
+    {
+      "contentMarkdown": "*The Punisher: One Last Kill premieres May 12, 2026 exclusively on Disney+. The Defenders era has officially begun.*"
+    }
+  ],
+  "messages": [],
+  "stdout": "contentMarkdown\nThe Punisher is back — and this time, it's official MCU canon from day one.\n\n**The Punisher: One Last Kill** drops on Disney+ on **May 12, 2026**, and it represents something much bigger than just another Marvel show. This is the moment the Defenders Saga fully transitions from its Netflix origins into the heart of the Marvel Cinematic Universe.\n\n## A New Era for the Defenders\n\nWhen Daredevil: Born Again premiered earlier this year, it proved that Marvel Studios could successfully bring the grittier, street-level tone of the Netflix shows into the Disney+ era. Now, The Punisher: One Last Kill takes that one step further.\n\nThis isn't a continuation of the Netflix Punisher series — it's a **fresh chapter** that acknowledges Frank Castle's history while pushing him into new territory within the connected MCU. Jon Bernthal returns as the iconic antihero, bringing the same raw intensity that made him a fan favorite since his first appearance in Daredevil Season 2.\n\n## What Makes This Release Significant\n\nThe timing is crucial. May 2026 is stacked with Marvel content on Disney+:\n\n- **Daredevil: Born Again Season 2** (currently airing)\n- **The Punisher: One Last Kill** (May 12)\n- **Ironheart** (later in 2026)\n\nThis marks the first time Marvel has run **multiple Defenders-adjacent shows** simultaneously, signaling that the street-level corner of the MCU is here to stay. The days of wondering whether the Netflix shows \"count\" are officially over.\n\n## Frank Castle's MCU Future\n\nWith Daredevil: Born Again establishing Kingpin as a major MCU power player and the Defenders characters weaving into the broader narrative, The Punisher's return opens up massive possibilities:\n\n- **Thunderbolts connections** — Frank Castle's military background makes him a natural fit\n- **Avengers: Doomsday** — Street-level heroes may play a role in the multiverse conflict\n- **Potential crossovers** with other MCU properties that deal with the criminal underworld\n\n## Collector's Corner\n\nThe Defenders Saga's full integration into the MCU is a **major catalyst** for card values. Characters that were once considered \"non-canon adjacent\" are now undeniably part of the main timeline.\n\n**Hot Cards to Watch:**\n\n- **Jon Bernthal Punisher Autograph Cards** — Any signed Bernthal card is trending up 30-40% since Born Again premiered. His screen presence drives collector demand.\n- **2018 Upper Deck Daredevil Season 1 & 2 Base Set** — These sets feature early Bernthal-as-Punisher cards that are now considered his MCU debut cards.\n- **Topps Chrome Marvel Defenders Insert Cards** — Low print run inserts featuring Punisher, Daredevil, Luke Cage, and Jessica Jones are undervalued relative to their MCU significance.\n- **Kingpin (Vincent D'Onofrio) Autograph Cards** — With Kingpin's expanded MCU role, these are climbing steadily.\n\nCheck the latest prices on **[Card Ladder](https://www.cardladder.com)** for real-time market data on Defenders cards, and browse **[eBay sold listings](https://www.ebay.com)** for recent comps.\n\n*The Punisher: One Last Kill premieres May 12, 2026 exclusively on Disney+. The Defenders era has officially begun.*\n",
+  "stderr": "",
+  "execution_time_ms": 276
+}

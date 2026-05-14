@@ -1,0 +1,20 @@
+{
+  "query": "SELECT id, slug, templateLayout FROM articles WHERE id IN (690009, 690011);",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, slug, templateLayout FROM articles WHERE id IN (690009, 690011);",
+  "rows": [
+    {
+      "id": "690009",
+      "slug": "x-men-mutants-enter-mcu-doomsday",
+      "templateLayout": "timeline"
+    },
+    {
+      "id": "690011",
+      "slug": "dooms-army-cabal-assembles-mcu",
+      "templateLayout": "listicle"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tslug\ttemplateLayout\n690009\tx-men-mutants-enter-mcu-doomsday\ttimeline\n690011\tdooms-army-cabal-assembles-mcu\tlisticle\n",
+  "stderr": "",
+  "execution_time_ms": 259
+}

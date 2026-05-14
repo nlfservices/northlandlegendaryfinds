@@ -541,6 +541,8 @@ export const articles = mysqlTable("articles", {
   scheduledAt: bigint("scheduledAt", { mode: "number" }),
   /** SEO meta description */
   metaDescription: varchar("metaDescription", { length: 320 }),
+  /** Article template layout style (classic, magazine, spotlight, timeline, listicle) */
+  templateLayout: mysqlEnum("templateLayout", ["classic", "magazine", "spotlight", "timeline", "listicle"]).default("classic"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });

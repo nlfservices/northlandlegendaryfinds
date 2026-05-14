@@ -1,0 +1,13 @@
+{
+  "query": "SELECT contentMarkdown LIKE '%## %' as has_h2 FROM articles WHERE id = 690009 AND slug = 'x-men-mutants-enter-mcu-doomsday';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT contentMarkdown LIKE '%## %' as has_h2 FROM articles WHERE id = 690009 AND slug = 'x-men-mutants-enter-mcu-doomsday';",
+  "rows": [
+    {
+      "has_h2": "1"
+    }
+  ],
+  "messages": [],
+  "stdout": "has_h2\n1\n",
+  "stderr": "",
+  "execution_time_ms": 262
+}

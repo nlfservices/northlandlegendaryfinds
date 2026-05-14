@@ -14,6 +14,7 @@ import { Streamdown } from "streamdown";
 import SEO, { breadcrumbJsonLd, articleJsonLd, organizationJsonLd, faqJsonLd } from "@/components/SEO";
 import { toast } from "sonner";
 import FanVoting from "@/components/FanVoting";
+import { ArticleTemplateRenderer, getArticleTemplate, type ArticleTemplate } from "@/components/ArticleTemplates";
 
 const CARD_MARKET_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mcu-intel-card-market-Lt56dsta4y7Hzfj6pzAysR.webp";
 
@@ -292,8 +293,28 @@ export default function MCUNewsArticle() {
         {/* Fan Voting — prominent position near top */}
         <FanVoting articleId={article.id} articleTitle={article.title} />
 
-        {/* Article Content with Mid-Article Whatnot Banner */}
-        <ArticleContentWithBanner content={article.contentMarkdown} />
+        {/* Article Content — Template-based rendering */}
+        {(() => {
+          const template = getArticleTemplate(article.templateLayout as ArticleTemplate | null);
+          if (template === 'classic') {
+            // Classic uses the existing banner-split layout
+            return <ArticleContentWithBanner content={article.contentMarkdown} />;
+          }
+          return (
+            <div className="mb-12">
+              <ArticleTemplateRenderer
+                template={template}
+                content={article.contentMarkdown}
+                title={article.title}
+                featuredImageUrl={article.featuredImageUrl}
+                category={article.category}
+                cardMarketImpact={article.cardMarketImpact}
+                tags={tags}
+                excerpt={article.excerpt}
+              />
+            </div>
+          );
+        })()}
 
         {/* Whatnot Live Stream CTA */}
         <div className="bg-gradient-to-r from-yellow-500/10 via-yellow-400/5 to-yellow-500/10 border-2 border-yellow-500/40 rounded-xl p-6 sm:p-8 mb-8 text-center">

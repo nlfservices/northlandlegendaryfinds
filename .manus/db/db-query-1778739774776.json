@@ -1,0 +1,60 @@
+{
+  "query": "SELECT id, slug, templateLayout FROM articles ORDER BY id DESC LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, slug, templateLayout FROM articles ORDER BY id DESC LIMIT 10;",
+  "rows": [
+    {
+      "id": "1230001",
+      "slug": "top-women-mcu-comics-avengers-doomsday-2026",
+      "templateLayout": "magazine"
+    },
+    {
+      "id": "1170001",
+      "slug": "punisher-one-last-kill-review-fan-reactions-2026",
+      "templateLayout": "spotlight"
+    },
+    {
+      "id": "1140008",
+      "slug": "help-us-build-your-dream-marvel-repack-community",
+      "templateLayout": "classic"
+    },
+    {
+      "id": "1140007",
+      "slug": "wolverine-family-claws-clones-chosen-family",
+      "templateLayout": "classic"
+    },
+    {
+      "id": "1140006",
+      "slug": "wakanda-royal-family-tchalla-legacy-doom",
+      "templateLayout": "classic"
+    },
+    {
+      "id": "1140005",
+      "slug": "parker-family-great-power-great-responsibility",
+      "templateLayout": "classic"
+    },
+    {
+      "id": "1140004",
+      "slug": "house-of-magnus-magneto-family-legacy",
+      "templateLayout": "classic"
+    },
+    {
+      "id": "1140003",
+      "slug": "summers-grey-dynasty-most-powerful-mutant-family",
+      "templateLayout": "classic"
+    },
+    {
+      "id": "1140002",
+      "slug": "richards-family-marvels-first-family-doom-secret-wars",
+      "templateLayout": "classic"
+    },
+    {
+      "id": "1140001",
+      "slug": "marvels-greatest-families-bloodlines-shape-universe-doomsday",
+      "templateLayout": "classic"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tslug\ttemplateLayout\n1230001\ttop-women-mcu-comics-avengers-doomsday-2026\tmagazine\n1170001\tpunisher-one-last-kill-review-fan-reactions-2026\tspotlight\n1140008\thelp-us-build-your-dream-marvel-repack-community\tclassic\n1140007\twolverine-family-claws-clones-chosen-family\tclassic\n1140006\twakanda-royal-family-tchalla-legacy-doom\tclassic\n1140005\tparker-family-great-power-great-responsibility\tclassic\n1140004\thouse-of-magnus-magneto-family-legacy\tclassic\n1140003\tsummers-grey-dynasty-most-powerful-mutant-family\tclassic\n1140002\trichards-family-marvels-first-family-doom-secret-wars\tclassic\n1140001\tmarvels-greatest-families-bloodlines-shape-universe-doomsday\tclassic\n",
+  "stderr": "",
+  "execution_time_ms": 268
+}

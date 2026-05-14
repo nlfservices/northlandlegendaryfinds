@@ -1,0 +1,9 @@
+{
+  "query": "UPDATE articles SET templateLayout = 'magazine' WHERE id = 1230001;\nUPDATE articles SET templateLayout = 'spotlight' WHERE id = 1170001;\nUPDATE articles SET templateLayout = 'timeline' WHERE id = 690009;\nUPDATE articles SET templateLayout = 'listicle' WHERE id = 690011;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute UPDATE articles SET templateLayout = 'magazine' WHERE id = 1230001;\nUPDATE articles SET templateLayout = 'spotlight' WHERE id = 1170001;\nUPDATE articles SET templateLayout = 'timeline' WHERE id = 690009;\nUPDATE articles SET templateLayout = 'listicle' WHERE id = 690011;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 338
+}

@@ -2194,13 +2194,13 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Test and save checkpoint
 
 ## Top Women of the MCU Article
-- [ ] Research top MCU women in upcoming films (Doomsday, F4, Thunderbolts, Spider-Man)
-- [ ] Research their comic history and card market values
-- [ ] Generate featured image for article
-- [ ] Write article with Collector's Corner and card site rotation
-- [ ] Publish to database
+- [x] Research top MCU women in upcoming films (Doomsday, F4, Thunderbolts, Spider-Man)
+- [x] Research their comic history and card market values
+- [x] Generate featured image for article
+- [x] Write article with Collector's Corner and card site rotation
+- [x] Publish to database
 - [ ] Create Facebook engagement post
-- [ ] Verify article on site
+- [x] Verify article on site
 - [ ] Save checkpoint
 
 ## Dedicated Voting Grounds Page + Nav Changes
@@ -2209,3 +2209,14 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Change MCU News nav text to blue lettering
 - [x] Add route in App.tsx
 - [x] Test visually and save checkpoint
+
+## Article Template Layout Variations (Keep Content Fresh)
+- [x] Design 4-5 different article layout templates for visual variety
+- [x] Template 1: Classic (current layout — hero image top, content below)
+- [x] Template 2: Magazine-style (large pull quote, side images, multi-column sections)
+- [x] Template 3: Spotlight/Profile (character focus with stats sidebar, card gallery)
+- [x] Template 4: Timeline/Event (visual timeline, event-based with milestones)
+- [x] Template 5: Listicle/Ranking (numbered entries with card thumbnails, comparison table)
+- [x] Implement template selection logic (auto-assign or manual per article category)
+- [x] Test all templates render correctly
+- [x] Save checkpoint
