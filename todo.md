@@ -2220,3 +2220,28 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Implement template selection logic (auto-assign or manual per article category)
 - [x] Test all templates render correctly
 - [x] Save checkpoint
+
+## SEO Schema Markup (JSON-LD Structured Data)
+- [ ] Audit current meta tags and schema implementation
+- [ ] Add Organization schema (site-wide)
+- [ ] Add WebSite schema with SearchAction (site-wide)
+- [ ] Add Article/NewsArticle schema on MCU News articles
+- [ ] Add BreadcrumbList schema on all pages
+- [ ] Add Product schema on shop/product pages
+- [ ] Add FAQPage schema on FAQ page
+- [ ] Add CollectionPage schema on card database pages
+- [ ] Add ItemList schema on listicle articles
+- [ ] Verify Open Graph and Twitter Card meta tags
+- [ ] Test with Google Rich Results standards
+- [ ] Save checkpoint
+
+## Collector's Corner + Affiliate Link System
+- [x] Design affiliateLinks database table (name, url, imageUrl, category, characterTags, active, position)
+- [x] Push database migration
+- [x] Build tRPC routes for affiliate link CRUD (admin only)
+- [x] Build admin Affiliate Links manager page
+- [x] Build Collector's Corner component (auto-matches links by article tags/characters)
+- [x] Integrate Collector's Corner into MCUNewsArticle page (all templates)
+- [x] Add card site rotation defaults (COMC, MySlabs, eBay, Whatnot) as seed data (built into component)
+- [x] Test component renders correctly with and without affiliate links
+- [x] Save checkpoint

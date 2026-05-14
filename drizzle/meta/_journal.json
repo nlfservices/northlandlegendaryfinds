@@ -197,6 +197,13 @@
       "when": 1778739410694,
       "tag": "0027_famous_molly_hayes",
       "breakpoints": true
+    },
+    {
+      "idx": 28,
+      "version": "5",
+      "when": 1778741169768,
+      "tag": "0028_wild_the_renegades",
+      "breakpoints": true
     }
   ]
 }

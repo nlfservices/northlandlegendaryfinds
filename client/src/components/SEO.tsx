@@ -140,6 +140,14 @@ export function websiteJsonLd() {
       "@type": "Organization",
       name: SITE_NAME,
     },
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${SITE_URL}/cards?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
   };
 }
 
@@ -363,6 +371,52 @@ export function eventJsonLd({
       "@type": "Organization",
       name: "Northland Legendary Finds",
       url: SITE_URL,
+    },
+  };
+}
+
+export function itemListJsonLd({
+  name,
+  description,
+  url,
+  items,
+}: {
+  name: string;
+  description: string;
+  url: string;
+  items: { name: string; position: number; url?: string; image?: string }[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name,
+    description,
+    url: `${SITE_URL}${url}`,
+    numberOfItems: items.length,
+    itemListElement: items.map((item) => ({
+      "@type": "ListItem",
+      position: item.position,
+      name: item.name,
+      ...(item.url && { url: `${SITE_URL}${item.url}` }),
+      ...(item.image && { image: item.image }),
+    })),
+  };
+}
+
+export function speakableJsonLd({
+  url,
+  cssSelectors = ["h1", ".article-intro", ".article-summary"],
+}: {
+  url: string;
+  cssSelectors?: string[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    url: `${SITE_URL}${url}`,
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: cssSelectors,
     },
   };
 }

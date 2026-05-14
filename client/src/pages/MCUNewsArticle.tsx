@@ -11,9 +11,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
 import { Streamdown } from "streamdown";
-import SEO, { breadcrumbJsonLd, articleJsonLd, organizationJsonLd, faqJsonLd } from "@/components/SEO";
+import SEO, { breadcrumbJsonLd, articleJsonLd, organizationJsonLd, faqJsonLd, itemListJsonLd, speakableJsonLd } from "@/components/SEO";
 import { toast } from "sonner";
 import FanVoting from "@/components/FanVoting";
+import CollectorsCorner from "@/components/CollectorsCorner";
 import { ArticleTemplateRenderer, getArticleTemplate, type ArticleTemplate } from "@/components/ArticleTemplates";
 
 const CARD_MARKET_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mcu-intel-card-market-Lt56dsta4y7Hzfj6pzAysR.webp";
@@ -188,6 +189,12 @@ export default function MCUNewsArticle() {
   const sources = (article.sources as Array<{ title: string; url: string }> | null) || [];
   const relatedCharacters = (article.relatedCharacters as string[] | null) || [];
 
+  // Extract H2 headings for ItemList schema (great for listicle/ranking articles)
+  const h2Headings = (article.contentMarkdown || "").match(/^## (.+)$/gm)?.map((h, i) => ({
+    name: h.replace(/^## /, ""),
+    position: i + 1,
+  })) || [];
+
   return (
     <div className="min-h-screen">
       <SEO
@@ -215,6 +222,15 @@ export default function MCUNewsArticle() {
             wordCount: article.contentMarkdown ? article.contentMarkdown.split(/\s+/).length : undefined,
           }),
           organizationJsonLd(),
+          // ItemList for articles with multiple H2 sections (listicle/ranking rich results)
+          ...(h2Headings.length >= 3 ? [itemListJsonLd({
+            name: article.title,
+            description: article.metaDescription || article.excerpt || "",
+            url: `/mcu-news/${article.slug}`,
+            items: h2Headings,
+          })] : []),
+          // Speakable for voice search optimization
+          speakableJsonLd({ url: `/mcu-news/${article.slug}` }),
         ]}
       />
 
@@ -315,6 +331,13 @@ export default function MCUNewsArticle() {
             </div>
           );
         })()}
+
+        {/* Collector's Corner — affiliate-ready product recommendations */}
+        <CollectorsCorner
+          articleId={article.id}
+          tags={tags}
+          relatedCharacters={relatedCharacters}
+        />
 
         {/* Whatnot Live Stream CTA */}
         <div className="bg-gradient-to-r from-yellow-500/10 via-yellow-400/5 to-yellow-500/10 border-2 border-yellow-500/40 rounded-xl p-6 sm:p-8 mb-8 text-center">

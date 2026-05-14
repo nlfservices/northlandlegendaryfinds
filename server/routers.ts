@@ -16,6 +16,7 @@ import { loyaltyPublicRouter, loyaltyProtectedRouter, loyaltyAdminRouter } from 
 import { cardShowsPublicRouter, cardShowsAdminRouter } from "./routers/cardShows";
 import { socialPostRouter } from "./routers/socialPosts";
 import { metaCapiRouter } from "./routers/metaCapi";
+import { affiliateAdminRouter, affiliatePublicRouter } from "./routers/affiliateLinks";
 
 export const appRouter = router({
   system: systemRouter,
@@ -89,6 +90,12 @@ export const appRouter = router({
 
   // Meta Conversions API (server-side tracking)
   metaCapi: metaCapiRouter,
+
+  // Affiliate Links (public - for Collector's Corner)
+  affiliateLinks: affiliatePublicRouter,
+
+  // Affiliate Links (admin management)
+  adminAffiliateLinks: affiliateAdminRouter,
 });
 
 export type AppRouter = typeof appRouter;

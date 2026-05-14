@@ -1,0 +1,9 @@
+{
+  "query": "CREATE TABLE IF NOT EXISTS `affiliate_links` (\n  `id` int AUTO_INCREMENT NOT NULL,\n  `name` varchar(255) NOT NULL,\n  `url` text NOT NULL,\n  `imageUrl` text,\n  `category` enum('cards','toys','clothing','collectibles','comics','other') NOT NULL DEFAULT 'cards',\n  `characterTags` json,\n  `pinnedArticleIds` json,\n  `active` boolean NOT NULL DEFAULT true,\n  `position` int NOT NULL DEFAULT 0,\n  `priceDisplay` varchar(50),\n  `retailer` varchar(100),\n  `isAffiliate` boolean NOT NULL DEFAULT false,\n  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  `updatedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n  CONSTRAINT `affiliate_links_id` PRIMARY KEY(`id`)\n);",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute CREATE TABLE IF NOT EXISTS `affiliate_links` (\n  `id` int AUTO_INCREMENT NOT NULL,\n  `name` varchar(255) NOT NULL,\n  `url` text NOT NULL,\n  `imageUrl` text,\n  `category` enum('cards','toys','clothing','collectibles','comics','other') NOT NULL DEFAULT 'cards',\n  `characterTags` json,\n  `pinnedArticleIds` json,\n  `active` boolean NOT NULL DEFAULT true,\n  `position` int NOT NULL DEFAULT 0,\n  `priceDisplay` varchar(50),\n  `retailer` varchar(100),\n  `isAffiliate` boolean NOT NULL DEFAULT false,\n  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  `updatedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n  CONSTRAINT `affiliate_links_id` PRIMARY KEY(`id`)\n);",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 355
+}

@@ -936,3 +936,39 @@ export const articleVotes = mysqlTable("article_votes", {
 
 export type ArticleVote = typeof articleVotes.$inferSelect;
 export type InsertArticleVote = typeof articleVotes.$inferInsert;
+
+/**
+ * Affiliate links / product recommendations for Collector's Corner
+ * These appear on articles matched by character tags or pinned to specific articles
+ * When no affiliate links exist, the section shows card site rotation (COMC, MySlabs, etc.)
+ */
+export const affiliateLinks = mysqlTable("affiliate_links", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Display name (e.g., "Spider-Man Action Figure") */
+  name: varchar("name", { length: 255 }).notNull(),
+  /** Affiliate URL (Amazon, eBay Partner, Entertainment Earth, etc.) */
+  url: text("url").notNull(),
+  /** Product image URL */
+  imageUrl: text("imageUrl"),
+  /** Product category for filtering */
+  category: mysqlEnum("category", ["cards", "toys", "clothing", "collectibles", "comics", "other"]).notNull().default("cards"),
+  /** Character tags for auto-matching to articles (JSON array of strings) */
+  characterTags: json("characterTags").$type<string[]>(),
+  /** Pin to specific article IDs (JSON array of numbers) — overrides tag matching */
+  pinnedArticleIds: json("pinnedArticleIds").$type<number[]>(),
+  /** Whether this link is active */
+  active: boolean("active").notNull().default(true),
+  /** Display position/priority (lower = higher priority) */
+  position: int("position").notNull().default(0),
+  /** Optional price display (e.g., "$29.99") */
+  priceDisplay: varchar("priceDisplay", { length: 50 }),
+  /** Optional retailer name (e.g., "Amazon", "eBay", "COMC") */
+  retailer: varchar("retailer", { length: 100 }),
+  /** FTC disclosure required (true for affiliate links, false for regular links) */
+  isAffiliate: boolean("isAffiliate").notNull().default(false),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type AffiliateLink = typeof affiliateLinks.$inferSelect;
+export type InsertAffiliateLink = typeof affiliateLinks.$inferInsert;

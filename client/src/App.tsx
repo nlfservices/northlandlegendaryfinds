@@ -68,6 +68,7 @@ import GambitDeck from "./pages/GambitDeck";
 import TheLittleThings from "./pages/TheLittleThings";
 import VotingGrounds from "./pages/VotingGrounds";
 import TemplateShowcase from "./pages/TemplateShowcase";
+import AdminAffiliateLinks from "./pages/AdminAffiliateLinks";
 
 // Routes that render as full-screen standalone experiences (no nav/footer)
 const STANDALONE_ROUTES = ["/card-display", "/matrix", "/free-credit"];
@@ -123,6 +124,7 @@ function AppRouter() {
           <Route path="/admin" component={AdminDashboard} />
           <Route path="/admin/templates" component={TemplateShowcase} />
           <Route path="/admin/ebay-comps" component={EbayComps} />
+          <Route path="/admin/affiliate-links" component={AdminAffiliateLinks} />
           <Route path="/transparency" component={Transparency} />
           <Route path="/mcu-news" component={MCUNews} />
           <Route path="/nerd-gossip" component={NerdGossip} />
