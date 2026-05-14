@@ -45,11 +45,11 @@ const VARIANT_CONFIG: Record<PopupVariant, {
     icon: Gift,
     title: "Win Free Cards Every Month",
     exitTitle: "Wait — Free Cards!",
-    subtitle: "Join 75+ collectors in our monthly giveaway. Graded slabs, sealed packs, and more. Email = automatic entry.",
+    subtitle: "Enter our monthly giveaway for graded slabs, sealed packs, gift cards, and more. Email = automatic entry.",
     exitSubtitle: "Don't miss this month's giveaway — graded slabs and sealed packs up for grabs!",
     buttonText: "Enter Giveaway",
     successMessage: "You're entered! Good luck this month. 🎉",
-    socialProof: "75+ collectors already entered",
+    socialProof: "Join to win free cards, gift cards & more",
   },
   insider: {
     icon: Sparkles,
