@@ -2282,4 +2282,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Identify and remove non-Topps Gambit cards from database (52 "GAMBIT'S DECK" GD-* entries deleted)
 - [x] Reorder Gambit's Deck: 2 through Ace, Clubs → Diamonds → Hearts → Spades
 - [x] Verify on live site — 4-column layout shows correct order
+- [x] Save checkpoint (ddaf66ef)
+
+## Marvel Mint Image Fixes (Platinum + Autograph)
+- [x] Identify cards needing replacement: 6 Platinum + 15 Autograph = 21 total
+- [x] Regenerate 6 Platinum cards (Thor #105, Hulk #109, Dr Strange #110, Prof X #117, Invisible Woman #118, Gambit #119)
+- [x] Regenerate 15 Autograph cards (A-1 through A-15) as full-bleed character art
+- [x] Upload and update database
+- [x] Verify on live site
 - [ ] Save checkpoint

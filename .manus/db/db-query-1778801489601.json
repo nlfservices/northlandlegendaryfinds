@@ -1,0 +1,115 @@
+{
+  "query": "SELECT id, cardNumber, characterName, cardType, imageUrl FROM marvel_cards WHERE setId = 3 AND (cardType LIKE '%Autograph%' OR cardType LIKE '%Artist%') ORDER BY cardNumber;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, cardNumber, characterName, cardType, imageUrl FROM marvel_cards WHERE setId = 3 AND (cardType LIKE '%Autograph%' OR cardType LIKE '%Artist%') ORDER BY cardNumber;",
+  "rows": [
+    {
+      "id": "1659",
+      "cardNumber": "A-1",
+      "characterName": "Adam Kubert",
+      "cardType": "Autograph",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_212001_e4ae1949.jpg"
+    },
+    {
+      "id": "1660",
+      "cardNumber": "A-10",
+      "characterName": "Mark Bagley",
+      "cardType": "Autograph",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_211950_55011bd6.jpg"
+    },
+    {
+      "id": "1661",
+      "cardNumber": "A-11",
+      "characterName": "Mark Brooks",
+      "cardType": "Autograph",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_212029_9758aec4.jpg"
+    },
+    {
+      "id": "1662",
+      "cardNumber": "A-12",
+      "characterName": "Ryan Ottley",
+      "cardType": "Autograph",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_212010_6c508c20.jpg"
+    },
+    {
+      "id": "1663",
+      "cardNumber": "A-13",
+      "characterName": "Ryan Stegman",
+      "cardType": "Autograph",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_212050_fde04e61.jpg"
+    },
+    {
+      "id": "1664",
+      "cardNumber": "A-14",
+      "characterName": "Steve McNiven",
+      "cardType": "Autograph",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_212155_157d6607.jpg"
+    },
+    {
+      "id": "1665",
+      "cardNumber": "A-15",
+      "characterName": "Zeb Wells",
+      "cardType": "Autograph",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_212135_aa0994e6.jpg"
+    },
+    {
+      "id": "1666",
+      "cardNumber": "A-2",
+      "characterName": "Andy Kubert",
+      "cardType": "Autograph",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_212039_eae17b7f.jpg"
+    },
+    {
+      "id": "1667",
+      "cardNumber": "A-3",
+      "characterName": "Chris Yost",
+      "cardType": "Autograph",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_212205_872e7958.jpg"
+    },
+    {
+      "id": "1668",
+      "cardNumber": "A-4",
+      "characterName": "Craig Kyle",
+      "cardType": "Autograph",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_212110_1ad1e748.jpg"
+    },
+    {
+      "id": "1669",
+      "cardNumber": "A-5",
+      "characterName": "Donny Cates",
+      "cardType": "Autograph",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_212145_154107d3.jpg"
+    },
+    {
+      "id": "1670",
+      "cardNumber": "A-6",
+      "characterName": "Frank Miller",
+      "cardType": "Autograph",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_211939_89961b50.jpg"
+    },
+    {
+      "id": "1671",
+      "cardNumber": "A-7",
+      "characterName": "Jason Aaron",
+      "cardType": "Autograph",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_211916_d9300482.jpg"
+    },
+    {
+      "id": "1672",
+      "cardNumber": "A-8",
+      "characterName": "Jonathan Hickman",
+      "cardType": "Autograph",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_211927_0af28b4e.jpg"
+    },
+    {
+      "id": "1673",
+      "cardNumber": "A-9",
+      "characterName": "Joshua Cassara",
+      "cardType": "Autograph",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_212100_94f33573.jpg"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcardNumber\tcharacterName\tcardType\timageUrl\n1659\tA-1\tAdam Kubert\tAutograph\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_212001_e4ae1949.jpg\n1660\tA-10\tMark Bagley\tAutograph\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_211950_55011bd6.jpg\n1661\tA-11\tMark Brooks\tAutograph\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_212029_9758aec4.jpg\n1662\tA-12\tRyan Ottley\tAutograph\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_212010_6c508c20.jpg\n1663\tA-13\tRyan Stegman\tAutograph\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_212050_fde04e61.jpg\n1664\tA-14\tSteve McNiven\tAutograph\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_212155_157d6607.jpg\n1665\tA-15\tZeb Wells\tAutograph\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_212135_aa0994e6.jpg\n1666\tA-2\tAndy Kubert\tAutograph\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_212039_eae17b7f.jpg\n1667\tA-3\tChris Yost\tAutograph\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_212205_872e7958.jpg\n1668\tA-4\tCraig Kyle\tAutograph\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_212110_1ad1e748.jpg\n1669\tA-5\tDonny Cates\tAutograph\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_212145_154107d3.jpg\n1670\tA-6\tFrank Miller\tAutograph\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_211939_89961b50.jpg\n1671\tA-7\tJason Aaron\tAutograph\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_211916_d9300482.jpg\n1672\tA-8\tJonathan Hickman\tAutograph\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_211927_0af28b4e.jpg\n1673\tA-9\tJoshua Cassara\tAutograph\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/20260104_212100_94f33573.jpg\n",
+  "stderr": "",
+  "execution_time_ms": 270
+}

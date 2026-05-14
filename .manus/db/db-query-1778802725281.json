@@ -1,0 +1,136 @@
+{
+  "query": "SELECT cardNumber, characterName, cardType, imageUrl FROM marvel_cards WHERE setId = 3 AND (cardNumber IN ('105','109','110','117','118','119') OR cardNumber LIKE 'A-%') ORDER BY cardNumber;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT cardNumber, characterName, cardType, imageUrl FROM marvel_cards WHERE setId = 3 AND (cardNumber IN ('105','109','110','117','118','119') OR cardNumber LIKE 'A-%') ORDER BY cardNumber;",
+  "rows": [
+    {
+      "cardNumber": "105",
+      "characterName": "Thor",
+      "cardType": "BASE CARDS – PLATINUM",
+      "imageUrl": "/manus-storage/plat_105_thor_13acaef4.png"
+    },
+    {
+      "cardNumber": "109",
+      "characterName": "Hulk",
+      "cardType": "BASE CARDS – PLATINUM",
+      "imageUrl": "/manus-storage/plat_109_hulk_9cf6850d.png"
+    },
+    {
+      "cardNumber": "110",
+      "characterName": "Doctor Strange",
+      "cardType": "BASE CARDS – PLATINUM",
+      "imageUrl": "/manus-storage/plat_110_doctor_strange_aceb771d.png"
+    },
+    {
+      "cardNumber": "117",
+      "characterName": "Professor X",
+      "cardType": "BASE CARDS – PLATINUM",
+      "imageUrl": "/manus-storage/plat_117_professor_x_21a405f4.png"
+    },
+    {
+      "cardNumber": "118",
+      "characterName": "Invisible Woman",
+      "cardType": "BASE CARDS – PLATINUM",
+      "imageUrl": "/manus-storage/plat_118_invisible_woman_a3c7b3f9.png"
+    },
+    {
+      "cardNumber": "119",
+      "characterName": "Gambit",
+      "cardType": "BASE CARDS – PLATINUM",
+      "imageUrl": "/manus-storage/plat_119_gambit_d3b985c3.png"
+    },
+    {
+      "cardNumber": "A-1",
+      "characterName": "Adam Kubert",
+      "cardType": "Autograph",
+      "imageUrl": "/manus-storage/auto_a1_adam_kubert_ba1b021d.png"
+    },
+    {
+      "cardNumber": "A-10",
+      "characterName": "Mark Bagley",
+      "cardType": "Autograph",
+      "imageUrl": "/manus-storage/auto_a10_mark_bagley_786160a2.png"
+    },
+    {
+      "cardNumber": "A-11",
+      "characterName": "Mark Brooks",
+      "cardType": "Autograph",
+      "imageUrl": "/manus-storage/auto_a11_mark_brooks_d8bd2950.png"
+    },
+    {
+      "cardNumber": "A-12",
+      "characterName": "Ryan Ottley",
+      "cardType": "Autograph",
+      "imageUrl": "/manus-storage/auto_a12_ryan_ottley_f044ad29.png"
+    },
+    {
+      "cardNumber": "A-13",
+      "characterName": "Ryan Stegman",
+      "cardType": "Autograph",
+      "imageUrl": "/manus-storage/auto_a13_ryan_stegman_6681b99c.png"
+    },
+    {
+      "cardNumber": "A-14",
+      "characterName": "Steve McNiven",
+      "cardType": "Autograph",
+      "imageUrl": "/manus-storage/auto_a14_steve_mcniven_61be9523.png"
+    },
+    {
+      "cardNumber": "A-15",
+      "characterName": "Zeb Wells",
+      "cardType": "Autograph",
+      "imageUrl": "/manus-storage/auto_a15_todd_mcfarlane_6105220d.png"
+    },
+    {
+      "cardNumber": "A-2",
+      "characterName": "Andy Kubert",
+      "cardType": "Autograph",
+      "imageUrl": "/manus-storage/auto_a2_alex_ross_f5666262.png"
+    },
+    {
+      "cardNumber": "A-3",
+      "characterName": "Chris Yost",
+      "cardType": "Autograph",
+      "imageUrl": "/manus-storage/auto_a3_artgerm_640d82dc.png"
+    },
+    {
+      "cardNumber": "A-4",
+      "characterName": "Craig Kyle",
+      "cardType": "Autograph",
+      "imageUrl": "/manus-storage/auto_a4_david_nakayama_08340881.png"
+    },
+    {
+      "cardNumber": "A-5",
+      "characterName": "Donny Cates",
+      "cardType": "Autograph",
+      "imageUrl": "/manus-storage/auto_a5_greg_land_982cd25d.png"
+    },
+    {
+      "cardNumber": "A-6",
+      "characterName": "Frank Miller",
+      "cardType": "Autograph",
+      "imageUrl": "/manus-storage/auto_a6_humberto_ramos_3538281a.png"
+    },
+    {
+      "cardNumber": "A-7",
+      "characterName": "Jason Aaron",
+      "cardType": "Autograph",
+      "imageUrl": "/manus-storage/auto_a7_jscott_campbell_21c6f90d.png"
+    },
+    {
+      "cardNumber": "A-8",
+      "characterName": "Jonathan Hickman",
+      "cardType": "Autograph",
+      "imageUrl": "/manus-storage/auto_a8_jim_lee_de4bf69b.png"
+    },
+    {
+      "cardNumber": "A-9",
+      "characterName": "Joshua Cassara",
+      "cardType": "Autograph",
+      "imageUrl": "/manus-storage/auto_a9_john_romita_jr_67a61b7d.png"
+    }
+  ],
+  "messages": [],
+  "stdout": "cardNumber\tcharacterName\tcardType\timageUrl\n105\tThor\tBASE CARDS – PLATINUM\t/manus-storage/plat_105_thor_13acaef4.png\n109\tHulk\tBASE CARDS – PLATINUM\t/manus-storage/plat_109_hulk_9cf6850d.png\n110\tDoctor Strange\tBASE CARDS – PLATINUM\t/manus-storage/plat_110_doctor_strange_aceb771d.png\n117\tProfessor X\tBASE CARDS – PLATINUM\t/manus-storage/plat_117_professor_x_21a405f4.png\n118\tInvisible Woman\tBASE CARDS – PLATINUM\t/manus-storage/plat_118_invisible_woman_a3c7b3f9.png\n119\tGambit\tBASE CARDS – PLATINUM\t/manus-storage/plat_119_gambit_d3b985c3.png\nA-1\tAdam Kubert\tAutograph\t/manus-storage/auto_a1_adam_kubert_ba1b021d.png\nA-10\tMark Bagley\tAutograph\t/manus-storage/auto_a10_mark_bagley_786160a2.png\nA-11\tMark Brooks\tAutograph\t/manus-storage/auto_a11_mark_brooks_d8bd2950.png\nA-12\tRyan Ottley\tAutograph\t/manus-storage/auto_a12_ryan_ottley_f044ad29.png\nA-13\tRyan Stegman\tAutograph\t/manus-storage/auto_a13_ryan_stegman_6681b99c.png\nA-14\tSteve McNiven\tAutograph\t/manus-storage/auto_a14_steve_mcniven_61be9523.png\nA-15\tZeb Wells\tAutograph\t/manus-storage/auto_a15_todd_mcfarlane_6105220d.png\nA-2\tAndy Kubert\tAutograph\t/manus-storage/auto_a2_alex_ross_f5666262.png\nA-3\tChris Yost\tAutograph\t/manus-storage/auto_a3_artgerm_640d82dc.png\nA-4\tCraig Kyle\tAutograph\t/manus-storage/auto_a4_david_nakayama_08340881.png\nA-5\tDonny Cates\tAutograph\t/manus-storage/auto_a5_greg_land_982cd25d.png\nA-6\tFrank Miller\tAutograph\t/manus-storage/auto_a6_humberto_ramos_3538281a.png\nA-7\tJason Aaron\tAutograph\t/manus-storage/auto_a7_jscott_campbell_21c6f90d.png\nA-8\tJonathan Hickman\tAutograph\t/manus-storage/auto_a8_jim_lee_de4bf69b.png\nA-9\tJoshua Cassara\tAutograph\t/manus-storage/auto_a9_john_romita_jr_67a61b7d.png\n",
+  "stderr": "",
+  "execution_time_ms": 265
+}
