@@ -2245,3 +2245,14 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add card site rotation defaults (COMC, MySlabs, eBay, Whatnot) as seed data (built into component)
 - [x] Test component renders correctly with and without affiliate links
 - [x] Save checkpoint
+
+## Vision Quest Article
+- [x] Research Vision Quest show (cast, plot, release date, trailer)
+- [x] Research card market relevance for Vision, White Vision, Wanda
+- [x] Add YouTube embed support to article content rendering
+- [x] Generate featured image
+- [x] Write full SEO article with embedded trailer
+- [x] Publish to database
+- [x] Verify article on site (YouTube embed working, Spotlight template rendering)
+- [ ] Write Facebook post
+- [ ] Save checkpoint

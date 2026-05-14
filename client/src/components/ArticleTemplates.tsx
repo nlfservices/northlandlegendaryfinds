@@ -12,7 +12,7 @@
  */
 
 import { useMemo } from "react";
-import { Streamdown } from "streamdown";
+import RichContent from "@/components/RichContent";
 import { TrendingUp, Star, Calendar, Hash, Zap, Award, Target, Flame, BookOpen, Quote } from "lucide-react";
 
 type TemplateProps = {
@@ -87,9 +87,7 @@ function extractPullQuote(content: string): string {
 // ============================================================
 export function ClassicTemplate({ content }: TemplateProps) {
   return (
-    <div className={proseClasses}>
-      <Streamdown>{content}</Streamdown>
-    </div>
+    <RichContent className={proseClasses}>{content}</RichContent>
   );
 }
 
@@ -105,9 +103,7 @@ export function MagazineTemplate({ content, title, featuredImageUrl, cardMarketI
       {/* Magazine-style intro with large drop cap feel */}
       <div className="relative mb-12">
         <div className="absolute -left-4 top-0 w-1 h-full bg-gradient-to-b from-primary via-primary/50 to-transparent rounded-full hidden lg:block" />
-        <div className={`${proseClasses} text-xl leading-relaxed`}>
-          <Streamdown>{intro}</Streamdown>
-        </div>
+        <RichContent className={`${proseClasses} text-xl leading-relaxed`}>{intro}</RichContent>
       </div>
 
       {/* Pull Quote — Magazine style */}
@@ -142,9 +138,7 @@ export function MagazineTemplate({ content, title, featuredImageUrl, cardMarketI
           </div>
 
           {/* Content with side accent */}
-          <div className={`${proseClasses} pl-4 border-l-2 border-border/50`}>
-            <Streamdown>{section.body}</Streamdown>
-          </div>
+          <RichContent className={`${proseClasses} pl-4 border-l-2 border-border/50`}>{section.body}</RichContent>
 
           {/* Inline market callout for every 3rd section */}
           {i === 2 && cardMarketImpact && (
@@ -175,16 +169,11 @@ export function SpotlightTemplate({ content, title, featuredImageUrl, tags, card
 
   return (
     <div className="space-y-8">
-      {/* Spotlight Hero — Full-width with overlay text */}
+      {/* Spotlight Hero — Full-width image */}
       {featuredImageUrl && (
         <div className="relative -mx-4 sm:-mx-8 rounded-2xl overflow-hidden mb-10">
           <img src={featuredImageUrl} alt={title} className="w-full h-64 sm:h-80 object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
-            <div className={`${proseClasses} text-lg`}>
-              <Streamdown>{intro.slice(0, 500)}</Streamdown>
-            </div>
-          </div>
         </div>
       )}
 
@@ -192,10 +181,8 @@ export function SpotlightTemplate({ content, title, featuredImageUrl, tags, card
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-8">
         {/* Main content column */}
         <div className="space-y-10">
-          {!featuredImageUrl && (
-            <div className={`${proseClasses} text-lg`}>
-              <Streamdown>{intro}</Streamdown>
-            </div>
+          {intro && (
+            <RichContent className={`${proseClasses} text-lg`}>{intro}</RichContent>
           )}
 
           {sections.map((section, i) => (
@@ -207,9 +194,7 @@ export function SpotlightTemplate({ content, title, featuredImageUrl, tags, card
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">{section.heading}</h2>
               </div>
-              <div className={`${proseClasses} ml-12`}>
-                <Streamdown>{section.body}</Streamdown>
-              </div>
+              <RichContent className={`${proseClasses} ml-12`}>{section.body}</RichContent>
             </div>
           ))}
         </div>
@@ -286,9 +271,7 @@ export function TimelineTemplate({ content, title, cardMarketImpact }: TemplateP
     <div className="space-y-8">
       {/* Intro with large text */}
       <div className="relative pb-8 border-b border-border/50">
-        <div className={`${proseClasses} text-lg`}>
-          <Streamdown>{intro}</Streamdown>
-        </div>
+        <RichContent className={`${proseClasses} text-lg`}>{intro}</RichContent>
       </div>
 
       {/* Timeline Layout */}
@@ -319,9 +302,7 @@ export function TimelineTemplate({ content, title, cardMarketImpact }: TemplateP
                     <div className={`w-2 h-2 rounded-full ${colorClass.split(' ')[1]}`} />
                     {section.heading}
                   </h2>
-                  <div className={proseClasses}>
-                    <Streamdown>{section.body}</Streamdown>
-                  </div>
+                  <RichContent className={proseClasses}>{section.body}</RichContent>
                 </div>
 
                 {/* Connector line for mobile */}
@@ -399,9 +380,7 @@ export function ListicleTemplate({ content, title, tags, cardMarketImpact }: Tem
             </div>
           )}
         </div>
-        <div className={`${proseClasses} text-lg border-b border-border/50 pb-8`}>
-          <Streamdown>{intro}</Streamdown>
-        </div>
+        <RichContent className={`${proseClasses} text-lg border-b border-border/50 pb-8`}>{intro}</RichContent>
       </div>
 
       {/* Listicle entries as visual cards */}
@@ -425,9 +404,7 @@ export function ListicleTemplate({ content, title, tags, cardMarketImpact }: Tem
                 </h2>
 
                 {/* Content */}
-                <div className={proseClasses}>
-                  <Streamdown>{section.body}</Streamdown>
-                </div>
+                <RichContent className={proseClasses}>{section.body}</RichContent>
               </div>
 
               {/* Bottom accent line */}

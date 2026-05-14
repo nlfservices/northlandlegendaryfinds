@@ -1,0 +1,37 @@
+{
+  "query": "SELECT id, title, slug, SUBSTRING(contentMarkdown, LOCATE('Collector''s Corner', contentMarkdown), 500) as collectors_section FROM articles ORDER BY publishedAt DESC LIMIT 3;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, title, slug, SUBSTRING(contentMarkdown, LOCATE('Collector''s Corner', contentMarkdown), 500) as collectors_section FROM articles ORDER BY publishedAt DESC LIMIT 3;",
+  "rows": [
+    {
+      "id": "1230001",
+      "title": "Top Women of the MCU & Comics: The Powerhouses Shaping Avengers Doomsday and Beyond",
+      "slug": "top-women-mcu-comics-avengers-doomsday-2026",
+      "collectors_section": "Collector's Corner"
+    },
+    {
+      "id": "690013",
+      "title": "The Multiverse Avengers — Every Variant Assembled for Secret Wars",
+      "slug": "multiverse-avengers-every-variant-assembled-secret-wars",
+      "collectors_section": "Collector's Corner: 4 Hot Cards to Watch"
+    },
+    {
+      "id": "690011",
+      "title": "Doom's Army — The Cabal Assembles in the MCU",
+      "slug": "dooms-army-cabal-assembles-mcu",
+      "collectors_section": "Collector's Corner: 4 Hot Cards to Watch"
+    }
+  ],
+  "messages": [
+    "The women of the MCU are not just dominating the screen. They are dominating the card market. Here are four essential cards to watch as we approach *Avengers: Doomsday*.",
+    "**Hot Cards to Watch:**",
+    "- **2025 Topps Finest Fantastic Four Sue Storm Refractor /50** — Vanessa Kirby's portrayal has made Sue Storm a top-tier collectible. This low-numbered parallel from the dedicated F4 set is the definitive modern Sue Storm card. Prices have climbed 45% since her Doomsday confirmation.",
+    "1. **2024 SkyBox Masterpieces '92 Platinum Wolverine Base**: With Hugh Jackman's return, any premium Wolverine card is a solid play. This set captures the iconic 90s aesthetic perfectly, making it a favorite among nostalgic collectors.",
+    "2. **2025 Topps Chrome Marvel Professor X Refractor**: Patrick Stewart's confirmed involvement makes this a must-have. Look for the lower numbered parallels for maximum upside, as these will be the most sought after by hig",
+    "For those looking to capitalize on the Cabal's arrival, here are four essential cards to monitor across the major platforms.",
+    "**1. 2024 Topps Chrome Marvel Namor Black Wave /10**",
+    "Namor is the most likely candidate to serve as Doom's right hand. This low-numbered parallel from the flagship Chrome set is a stunning piece that captures his regal intensity. Keep an eye on [eBay](https://www.ebay.com/b/Marvel-Trading-Cards/183456/bn_16566768) for raw copies t"
+  ],
+  "stdout": "id\ttitle\tslug\tcollectors_section\n1230001\tTop Women of the MCU & Comics: The Powerhouses Shaping Avengers Doomsday and Beyond\ttop-women-mcu-comics-avengers-doomsday-2026\tCollector's Corner\n\nThe women of the MCU are not just dominating the screen. They are dominating the card market. Here are four essential cards to watch as we approach *Avengers: Doomsday*.\n\n**Hot Cards to Watch:**\n- **2025 Topps Finest Fantastic Four Sue Storm Refractor /50** — Vanessa Kirby's portrayal has made Sue Storm a top-tier collectible. This low-numbered parallel from the dedicated F4 set is the definitive modern Sue Storm card. Prices have climbed 45% since her Doomsday confirmation.\n\n690013\tThe Multiverse Avengers — Every Variant Assembled for Secret Wars\tmultiverse-avengers-every-variant-assembled-secret-wars\tCollector's Corner: 4 Hot Cards to Watch\n\n1. **2024 SkyBox Masterpieces '92 Platinum Wolverine Base**: With Hugh Jackman's return, any premium Wolverine card is a solid play. This set captures the iconic 90s aesthetic perfectly, making it a favorite among nostalgic collectors.\n2. **2025 Topps Chrome Marvel Professor X Refractor**: Patrick Stewart's confirmed involvement makes this a must-have. Look for the lower numbered parallels for maximum upside, as these will be the most sought after by hig\n690011\tDoom's Army — The Cabal Assembles in the MCU\tdooms-army-cabal-assembles-mcu\tCollector's Corner: 4 Hot Cards to Watch\n\nFor those looking to capitalize on the Cabal's arrival, here are four essential cards to monitor across the major platforms.\n\n**1. 2024 Topps Chrome Marvel Namor Black Wave /10**\nNamor is the most likely candidate to serve as Doom's right hand. This low-numbered parallel from the flagship Chrome set is a stunning piece that captures his regal intensity. Keep an eye on [eBay](https://www.ebay.com/b/Marvel-Trading-Cards/183456/bn_16566768) for raw copies t\n",
+  "stderr": "",
+  "execution_time_ms": 370
+}

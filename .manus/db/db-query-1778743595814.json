@@ -1,0 +1,16 @@
+{
+  "query": "SELECT title, excerpt, slug, tags FROM articles WHERE id = 1230001;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT title, excerpt, slug, tags FROM articles WHERE id = 1230001;",
+  "rows": [
+    {
+      "title": "Top Women of the MCU & Comics: The Powerhouses Shaping Avengers Doomsday and Beyond",
+      "excerpt": "From Sue Storm to Yelena Belova, the women of the MCU are taking center stage in Avengers: Doomsday. Here's who to watch, which cards are surging, and why female heroes are dominating the market.",
+      "slug": "top-women-mcu-comics-avengers-doomsday-2026",
+      "tags": "[\"Women of Marvel\", \"Sue Storm\", \"Yelena Belova\", \"Scarlet Witch\", \"Shuri\", \"Captain Marvel\", \"Invisible Woman\", \"Avengers Doomsday\", \"Cassie Lang\", \"Mystique\", \"Ghost\", \"Captain Carter\", \"Clea\"]"
+    }
+  ],
+  "messages": [],
+  "stdout": "title\texcerpt\tslug\ttags\nTop Women of the MCU & Comics: The Powerhouses Shaping Avengers Doomsday and Beyond\tFrom Sue Storm to Yelena Belova, the women of the MCU are taking center stage in Avengers: Doomsday. Here's who to watch, which cards are surging, and why female heroes are dominating the market.\ttop-women-mcu-comics-avengers-doomsday-2026\t[\"Women of Marvel\", \"Sue Storm\", \"Yelena Belova\", \"Scarlet Witch\", \"Shuri\", \"Captain Marvel\", \"Invisible Woman\", \"Avengers Doomsday\", \"Cassie Lang\", \"Mystique\", \"Ghost\", \"Captain Carter\", \"Clea\"]\n",
+  "stderr": "",
+  "execution_time_ms": 339
+}

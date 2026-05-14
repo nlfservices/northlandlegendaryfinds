@@ -11,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
 import { Streamdown } from "streamdown";
+import RichContent from "@/components/RichContent";
 import SEO, { breadcrumbJsonLd, articleJsonLd, organizationJsonLd, faqJsonLd, itemListJsonLd, speakableJsonLd } from "@/components/SEO";
 import { toast } from "sonner";
 import FanVoting from "@/components/FanVoting";
@@ -87,9 +88,7 @@ function ArticleContentWithBanner({ content }: { content: string }) {
   return (
     <div className="mb-12">
       {/* First half of article */}
-      <div className={proseClasses}>
-        <Streamdown>{firstHalf}</Streamdown>
-      </div>
+      <RichContent className={proseClasses}>{firstHalf}</RichContent>
 
       {/* Mid-Article Whatnot Banner */}
       <div className="my-8 relative">
@@ -121,9 +120,7 @@ function ArticleContentWithBanner({ content }: { content: string }) {
       </div>
 
       {/* Second half of article */}
-      <div className={proseClasses}>
-        <Streamdown>{secondHalf}</Streamdown>
-      </div>
+      <RichContent className={proseClasses}>{secondHalf}</RichContent>
     </div>
   );
 }
