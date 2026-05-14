@@ -5,6 +5,7 @@ import {
   getFeaturedArticles, getPublishedArticleBySlug, getArticleById,
   createArticle, updateArticle, deleteArticle,
   toggleArticleFeatured, toggleArticlePublished,
+  castArticleVote, getArticleVoteCounts, getVisitorArticleVote,
 } from "../db";
 
 const articleInput = z.object({
@@ -96,5 +97,25 @@ export const articlePublicRouter = router({
 
   getBySlug: publicProcedure.input(z.object({ slug: z.string() })).query(async ({ input }) => {
     return getPublishedArticleBySlug(input.slug);
+  }),
+
+  /** Get vote counts for an article */
+  getVotes: publicProcedure.input(z.object({ articleId: z.number() })).query(async ({ input }) => {
+    return getArticleVoteCounts(input.articleId);
+  }),
+
+  /** Get a visitor's existing vote */
+  getMyVote: publicProcedure.input(z.object({ articleId: z.number(), visitorId: z.string() })).query(async ({ input }) => {
+    return getVisitorArticleVote(input.articleId, input.visitorId);
+  }),
+
+  /** Cast or update a vote */
+  vote: publicProcedure.input(z.object({
+    articleId: z.number(),
+    reaction: z.enum(["loved", "fire", "meh", "thumbsdown"]),
+    visitorId: z.string(),
+  })).mutation(async ({ input }) => {
+    await castArticleVote(input.articleId, input.reaction, input.visitorId);
+    return { success: true };
   }),
 });

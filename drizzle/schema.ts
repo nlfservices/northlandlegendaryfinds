@@ -916,3 +916,21 @@ export const cardShows = mysqlTable("card_shows", {
 
 export type CardShowEntry = typeof cardShows.$inferSelect;
 export type InsertCardShowEntry = typeof cardShows.$inferInsert;
+
+
+/**
+ * Article fan votes — allows visitors to react to articles with emoji reactions.
+ * Uses visitorId (fingerprint/cookie) to prevent duplicate votes per article.
+ */
+export const articleVotes = mysqlTable("article_votes", {
+  id: int("id").autoincrement().primaryKey(),
+  articleId: int("articleId").notNull(),
+  /** Reaction type: loved, fire, meh, thumbsdown */
+  reaction: varchar("reaction", { length: 32 }).notNull(),
+  /** Anonymous visitor identifier (cookie-based) */
+  visitorId: varchar("visitorId", { length: 128 }).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type ArticleVote = typeof articleVotes.$inferSelect;
+export type InsertArticleVote = typeof articleVotes.$inferInsert;

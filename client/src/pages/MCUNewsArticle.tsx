@@ -13,6 +13,7 @@ import { trpc } from "@/lib/trpc";
 import { Streamdown } from "streamdown";
 import SEO, { breadcrumbJsonLd, articleJsonLd, organizationJsonLd, faqJsonLd } from "@/components/SEO";
 import { toast } from "sonner";
+import FanVoting from "@/components/FanVoting";
 
 const CARD_MARKET_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mcu-intel-card-market-Lt56dsta4y7Hzfj6pzAysR.webp";
 
@@ -290,6 +291,9 @@ export default function MCUNewsArticle() {
 
         {/* Article Content with Mid-Article Whatnot Banner */}
         <ArticleContentWithBanner content={article.contentMarkdown} />
+
+        {/* Fan Voting */}
+        <FanVoting articleId={article.id} articleTitle={article.title} />
 
         {/* Whatnot Live Stream CTA */}
         <div className="bg-gradient-to-r from-yellow-500/10 via-yellow-400/5 to-yellow-500/10 border-2 border-yellow-500/40 rounded-xl p-6 sm:p-8 mb-8 text-center">

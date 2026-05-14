@@ -2151,4 +2151,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Publish article to database
 - [x] Write Facebook engagement post asking fans how they liked it
 - [x] Verify article on site
-- [ ] Save checkpoint
+- [x] Save checkpoint
+
+## Article Fan Voting Feature
+- [x] Create articleVotes database table (articleId, reaction, visitorId, createdAt)
+- [x] Add tRPC procedures for casting votes and getting vote counts
+- [x] Build FanVoting UI component with emoji reactions and live results bar
+- [x] Integrate voting component into MCUNewsArticle page
+- [x] Test voting end-to-end
+- [x] Save checkpoint

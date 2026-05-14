@@ -183,6 +183,13 @@
       "when": 1778615858821,
       "tag": "0025_naive_squadron_supreme",
       "breakpoints": true
+    },
+    {
+      "idx": 26,
+      "version": "5",
+      "when": 1778727170643,
+      "tag": "0026_true_grey_gargoyle",
+      "breakpoints": true
     }
   ]
 }

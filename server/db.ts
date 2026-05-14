@@ -16,6 +16,7 @@ import {
   blogPosts, BlogPost, InsertBlogPost,
   siteSettings, SiteSetting, InsertSiteSetting,
   pageContent, PageContent, InsertPageContent,
+  articleVotes, ArticleVote, InsertArticleVote,
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -1667,4 +1668,55 @@ export async function getAllEditablePages(): Promise<string[]> {
   if (!db) return [];
   const rows = await db.selectDistinct({ page: pageContent.page }).from(pageContent);
   return rows.map(r => r.page);
+}
+
+
+// ─── Article Votes ───────────────────────────────────────────────
+
+/** Cast a vote on an article. Returns true if new vote, false if already voted. */
+export async function castArticleVote(articleId: number, reaction: string, visitorId: string): Promise<boolean> {
+  const db = await getDb();
+  if (!db) return false;
+  // Check if visitor already voted on this article
+  const existing = await db.select().from(articleVotes)
+    .where(and(eq(articleVotes.articleId, articleId), eq(articleVotes.visitorId, visitorId)))
+    .limit(1);
+  if (existing.length > 0) {
+    // Update their vote if they changed reaction
+    if (existing[0].reaction !== reaction) {
+      await db.update(articleVotes)
+        .set({ reaction })
+        .where(eq(articleVotes.id, existing[0].id));
+    }
+    return true;
+  }
+  await db.insert(articleVotes).values({ articleId, reaction, visitorId });
+  return true;
+}
+
+/** Get vote counts for an article, grouped by reaction */
+export async function getArticleVoteCounts(articleId: number): Promise<Record<string, number>> {
+  const db = await getDb();
+  if (!db) return {};
+  const rows = await db.select({
+    reaction: articleVotes.reaction,
+    count: sql<number>`COUNT(*)`,
+  }).from(articleVotes)
+    .where(eq(articleVotes.articleId, articleId))
+    .groupBy(articleVotes.reaction);
+  const counts: Record<string, number> = {};
+  for (const row of rows) {
+    counts[row.reaction] = Number(row.count);
+  }
+  return counts;
+}
+
+/** Get a visitor's existing vote for an article */
+export async function getVisitorArticleVote(articleId: number, visitorId: string): Promise<string | null> {
+  const db = await getDb();
+  if (!db) return null;
+  const rows = await db.select({ reaction: articleVotes.reaction }).from(articleVotes)
+    .where(and(eq(articleVotes.articleId, articleId), eq(articleVotes.visitorId, visitorId)))
+    .limit(1);
+  return rows.length > 0 ? rows[0].reaction : null;
 }
