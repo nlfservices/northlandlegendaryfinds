@@ -1,0 +1,635 @@
+{
+  "query": "SELECT id, title, category FROM articles WHERE id > 330017 ORDER BY id;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, title, category FROM articles WHERE id > 330017 ORDER BY id;",
+  "rows": [
+    {
+      "id": "360001",
+      "title": "Avengers: Endgame Turns 7 — And It's Coming Back to Theaters with New Footage",
+      "category": "movie_news"
+    },
+    {
+      "id": "390001",
+      "title": "Topps Takes Over the NFL Draft 2026: Marvel Cards Meet 205,000 Football Fans",
+      "category": "card_market"
+    },
+    {
+      "id": "390002",
+      "title": "2025 Topps Marvel Mint: From $450 Retail to $600+ Aftermarket — Why Boxes Keep Climbing",
+      "category": "card_market"
+    },
+    {
+      "id": "390003",
+      "title": "SDCC 2026 Collector's Preview: What Topps Marvel Exclusives Could Drop This July",
+      "category": "card_market"
+    },
+    {
+      "id": "390004",
+      "title": "2026 Topps Finest Fantastic Four: Complete Collector's Guide to Marvel's Newest Set",
+      "category": "card_market"
+    },
+    {
+      "id": "390005",
+      "title": "The Topps Marvel Timeline: Every 2025-2026 Release Ranked for Collectors",
+      "category": "analysis"
+    },
+    {
+      "id": "390006",
+      "title": "Why SDCC Exclusive Marvel Cards Are the Hottest Investment in the Hobby Right Now",
+      "category": "analysis"
+    },
+    {
+      "id": "390007",
+      "title": "Iron Man to Doctor Doom: The Complete Robert Downey Jr. Card Collecting Guide",
+      "category": "analysis"
+    },
+    {
+      "id": "390008",
+      "title": "5 Topps Marvel Cards Under $50 That Could 10x Before Avengers: Doomsday",
+      "category": "card_market"
+    },
+    {
+      "id": "390009",
+      "title": "Topps Collector Destination: How the Trading Card Hobby Is Going Mainstream",
+      "category": "analysis"
+    },
+    {
+      "id": "390010",
+      "title": "SDCC 2026 Hall H Preview: Every Marvel Announcement That Could Move the Card Market",
+      "category": "analysis"
+    },
+    {
+      "id": "420001",
+      "title": "2025 Topps Comic Book Heroes: The Hidden Gem Set That Has It All",
+      "category": "card_market"
+    },
+    {
+      "id": "420002",
+      "title": "Avengers: Doomsday Card Collecting Guide — Every Character to Target Before May 2026",
+      "category": "card_market"
+    },
+    {
+      "id": "420003",
+      "title": "Secret Wars Card Collecting Guide — Battleworld Characters, Multiverse Variants, and the Cards to Buy Now",
+      "category": "card_market"
+    },
+    {
+      "id": "450001",
+      "title": "2025 Topps Marvel Mint: The SDCC Exclusive That Started a New Era",
+      "category": "card_market"
+    },
+    {
+      "id": "450002",
+      "title": "Doctor Doom Comic Cuts: 200 One-of-One Pieces of Marvel History",
+      "category": "card_market"
+    },
+    {
+      "id": "450003",
+      "title": "Gambit's Chrome Deck: The 52-Card Marvel Playing Card Set You Need to Complete",
+      "category": "card_market"
+    },
+    {
+      "id": "450004",
+      "title": "AGS Grading: Can an AI-Driven Grader Compete with PSA, CGC, and TAG?",
+      "category": "analysis"
+    },
+    {
+      "id": "480001",
+      "title": "Comics Explained: Why Rob Jefferson Is the Most Knowledgeable Voice in the Comic Book Space",
+      "category": "analysis"
+    },
+    {
+      "id": "510001",
+      "title": "Tom Hiddleston Confirmed to Return as Loki in Avengers: Secret Wars",
+      "category": "movie_news"
+    },
+    {
+      "id": "540001",
+      "title": "Who's Your Favorite? The Top 10 Most Popular MCU Characters of All Time",
+      "category": "analysis"
+    },
+    {
+      "id": "570001",
+      "title": "THE TOP 10 MOST POPULAR MCU VILLAINS OF ALL TIME — ALL ROADS END WITH DOOM",
+      "category": "analysis"
+    },
+    {
+      "id": "600001",
+      "title": "The Punisher: One Last Kill Marks a New Era for Marvel's Defenders on Disney+",
+      "category": "show_news"
+    },
+    {
+      "id": "600002",
+      "title": "Avengers: Doomsday Still Filming Reshoots 6 Months Before Release",
+      "category": "movie_news"
+    },
+    {
+      "id": "630001",
+      "title": "Same Face, Different Fate: Why Robert Downey Jr. Playing Both Tony Stark and Doctor Doom Is Marvel's Greatest Storytelling Gamble",
+      "category": "analysis"
+    },
+    {
+      "id": "690001",
+      "title": "The Original Six — Who Returns for Avengers: Doomsday?",
+      "category": "movie_news"
+    },
+    {
+      "id": "690002",
+      "title": "Top 5 Cards to Buy Before Thunderbolts Drops",
+      "category": "card_market"
+    },
+    {
+      "id": "690003",
+      "title": "The Thunderbolts — From Villains to Heroes in the MCU",
+      "category": "movie_news"
+    },
+    {
+      "id": "690004",
+      "title": "Secret Wars 1984 vs 2015 — A Collector's Guide",
+      "category": "analysis"
+    },
+    {
+      "id": "690005",
+      "title": "The Fantastic Four — Doom's Greatest Enemies in the MCU",
+      "category": "movie_news"
+    },
+    {
+      "id": "690006",
+      "title": "MCU Phase 6 Rumor Roundup — What's Coming After Doomsday",
+      "category": "rumors"
+    },
+    {
+      "id": "690007",
+      "title": "The Young Avengers — Next Generation Assembled for Doomsday",
+      "category": "movie_news"
+    },
+    {
+      "id": "690008",
+      "title": "Grading Guide: When to Send Cards to PSA vs CGC",
+      "category": "card_market"
+    },
+    {
+      "id": "690009",
+      "title": "The X-Men — Mutants Finally Enter the MCU in Doomsday",
+      "category": "movie_news"
+    },
+    {
+      "id": "690010",
+      "title": "5 Undervalued Doom Cards You Should Buy Right Now",
+      "category": "card_market"
+    },
+    {
+      "id": "690011",
+      "title": "Doom's Army — The Cabal Assembles in the MCU",
+      "category": "movie_news"
+    },
+    {
+      "id": "690012",
+      "title": "Multiverse of Madness Card Market — One Year Later",
+      "category": "card_market"
+    },
+    {
+      "id": "690013",
+      "title": "The Multiverse Avengers — Every Variant Assembled for Secret Wars",
+      "category": "analysis"
+    },
+    {
+      "id": "690014",
+      "title": "Weekly Card Market Movers — May 2026",
+      "category": "card_market"
+    },
+    {
+      "id": "840001",
+      "title": "Jack Kirby: The King Who Built Marvel's Visual Universe",
+      "category": "analysis"
+    },
+    {
+      "id": "840002",
+      "title": "From Sticker Packs to Sapphire: The Complete History of Marvel Trading Cards",
+      "category": "card_market"
+    },
+    {
+      "id": "840003",
+      "title": "Stan Lee: The Storyteller Who Made Marvel Matter",
+      "category": "analysis"
+    },
+    {
+      "id": "840004",
+      "title": "Avengers: Doomsday — The Avengers Roster Breakdown and Cards to Collect",
+      "category": "movie_news"
+    },
+    {
+      "id": "840005",
+      "title": "Avengers: Doomsday — The X-Men Roster Breakdown and Cards to Collect",
+      "category": "movie_news"
+    },
+    {
+      "id": "840006",
+      "title": "Avengers: Doomsday — The Fantastic Four Roster Breakdown and Cards to Collect",
+      "category": "movie_news"
+    },
+    {
+      "id": "840007",
+      "title": "Avengers: Doomsday — Every Hero Confirmed for the Full Roster",
+      "category": "movie_news"
+    },
+    {
+      "id": "840009",
+      "title": "Jonathan Hickman: The Architect Behind Avengers Doomsday and Secret Wars",
+      "category": "analysis"
+    },
+    {
+      "id": "840010",
+      "title": "Wolverine in Avengers: Doomsday — The Mutant Who Changed Everything and His Most Valuable Cards",
+      "category": "movie_news"
+    },
+    {
+      "id": "840011",
+      "title": "Doctor Doom: Marvel's Greatest Villain and the Cards Every Collector Needs",
+      "category": "movie_news"
+    },
+    {
+      "id": "840012",
+      "title": "Spider-Man in Avengers: Doomsday — Your Friendly Neighborhood Wall-Crawler and His Hottest Cards",
+      "category": "movie_news"
+    },
+    {
+      "id": "840013",
+      "title": "Thor in Avengers: Doomsday — The God of Thunder Returns and His Best Trading Cards",
+      "category": "movie_news"
+    },
+    {
+      "id": "840014",
+      "title": "Captain America (Sam Wilson) in Avengers: Doomsday — The New Shield-Bearer and Cards to Collect",
+      "category": "movie_news"
+    },
+    {
+      "id": "870001",
+      "title": "Doctor Strange in Avengers: Doomsday — The Sorcerer Supreme and His Most Sought-After Cards",
+      "category": "movie_news"
+    },
+    {
+      "id": "870002",
+      "title": "Magneto in Avengers: Doomsday — The Master of Magnetism Joins the MCU and Cards to Watch",
+      "category": "movie_news"
+    },
+    {
+      "id": "870003",
+      "title": "Loki in Avengers: Doomsday — The God of Mischief, the TVA, and His Best Trading Cards",
+      "category": "movie_news"
+    },
+    {
+      "id": "900001",
+      "title": "Cyclops in Avengers: Doomsday — The X-Men Leader Returns and His Best Trading Cards",
+      "category": "movie_news"
+    },
+    {
+      "id": "900002",
+      "title": "Gambit in Avengers: Doomsday — The Ragin' Cajun Finally Gets His Moment and Cards to Watch",
+      "category": "movie_news"
+    },
+    {
+      "id": "900003",
+      "title": "Storm: Marvel's Weather Goddess and Why Her Trading Cards Are a Must-Have",
+      "category": "analysis"
+    },
+    {
+      "id": "900004",
+      "title": "Scarlet Witch in Avengers: Doomsday — Will Wanda Return and Which Cards to Collect",
+      "category": "movie_news"
+    },
+    {
+      "id": "900005",
+      "title": "Black Panther in Avengers: Doomsday — Wakanda's Legacy and the Cards Every Collector Needs",
+      "category": "movie_news"
+    },
+    {
+      "id": "900006",
+      "title": "Shang-Chi in Avengers: Doomsday — The Master of Martial Arts and His Rising Card Market",
+      "category": "movie_news"
+    },
+    {
+      "id": "930001",
+      "title": "This Mother's Day, Remember Cynthia Von Doom: The Sacrifice That Created Marvel's Greatest Villain",
+      "category": "analysis"
+    },
+    {
+      "id": "930002",
+      "title": "Triumph and Torment: Doctor Doom's Betrayal, His Mother's Rejection, and Marvel's Most Heartbreaking Rescue",
+      "category": "analysis"
+    },
+    {
+      "id": "960001",
+      "title": "Wolverine vs Tobey's Spider-Man: The Doomsday Opening Scene That Changes Everything for Collectors",
+      "category": "rumors"
+    },
+    {
+      "id": "960002",
+      "title": "Doctor Doom Killed Thanos in the Comics — Now He's Coming to the MCU",
+      "category": "analysis"
+    },
+    {
+      "id": "960003",
+      "title": "Gambit is Back: Channing Tatum's Doomsday Confirmation and What It Means for Marvel Mint Collectors",
+      "category": "casting"
+    },
+    {
+      "id": "960004",
+      "title": "The X-Men Are Assembling for Doomsday — Every Confirmed Mutant and Their Marvel Mint Card Numbers",
+      "category": "movie_news"
+    },
+    {
+      "id": "960005",
+      "title": "Deadpool and Wolverine's Doomsday Mission: Why Hugh Jackman Cards Are the Hottest Pull in Marvel Mint",
+      "category": "rumors"
+    },
+    {
+      "id": "960006",
+      "title": "Tom Holland Meets Tobey Maguire: Every Spider-Man in Doomsday and Their Card Values",
+      "category": "movie_news"
+    },
+    {
+      "id": "960007",
+      "title": "Professor X and Magneto Return: Patrick Stewart and Ian McKellen's Cards to Watch Before Doomsday",
+      "category": "casting"
+    },
+    {
+      "id": "960008",
+      "title": "Only 20,100 Foil Cards Exist in All of 2025 Topps Marvel Mint — Here's Why That Matters",
+      "category": "card_market"
+    },
+    {
+      "id": "960009",
+      "title": "The Platinum Tier Explained: Why Cards 101-120 Are the Most Exclusive in 2025 Topps Marvel Mint",
+      "category": "card_market"
+    },
+    {
+      "id": "960010",
+      "title": "8,625 Total Encased Cards: Understanding the Scarcity of 2025 Topps Marvel Mint",
+      "category": "card_market"
+    },
+    {
+      "id": "960011",
+      "title": "Superfractors, Foilfractors and 1/1s: The Rarest Cards in 2025 Topps Marvel Mint",
+      "category": "card_market"
+    },
+    {
+      "id": "960012",
+      "title": "CinemaCon Trailer Breakdown: Every Doomsday Character Spotted and Their Marvel Mint Card",
+      "category": "movie_news"
+    },
+    {
+      "id": "960013",
+      "title": "San Diego Comic-Con 2026 Preview: Marvel Returns to Hall H and What It Means for SDCC Exclusive Cards",
+      "category": "release_dates"
+    },
+    {
+      "id": "960014",
+      "title": "The Multiverse Saga's Final Act: Building Your Marvel Mint Collection Before Doomsday Drops",
+      "category": "analysis"
+    },
+    {
+      "id": "960015",
+      "title": "The Russo Brothers Are Back — Why Their Track Record Makes Doomsday Cards a Smart Investment",
+      "category": "analysis"
+    },
+    {
+      "id": "960016",
+      "title": "Topps Marvel Comic Book Heroes: The Other Set Collectors Should Be Watching for Doomsday Characters",
+      "category": "card_market"
+    },
+    {
+      "id": "960017",
+      "title": "Topps Marvel Comic Book Heroes vs Marvel Mint: Which Set Has Better Long-Term Value for MCU Collectors?",
+      "category": "analysis"
+    },
+    {
+      "id": "960018",
+      "title": "Buy Before the Trailer Drops: Doomsday Characters Most Likely to Spike After the First Public Trailer",
+      "category": "card_market"
+    },
+    {
+      "id": "960019",
+      "title": "The Doomsday Effect: How Avengers Films Have Historically Impacted Marvel Card Prices",
+      "category": "analysis"
+    },
+    {
+      "id": "960020",
+      "title": "Building a Doomsday Portfolio: The 10 Characters You Need From Marvel Mint and Comic Book Heroes",
+      "category": "analysis"
+    },
+    {
+      "id": "990001",
+      "title": "Rogue in Avengers: Doomsday — The Power-Absorbing Mutant and Her Platinum Tier Card",
+      "category": "movie_news"
+    },
+    {
+      "id": "990002",
+      "title": "Storm Commands the Screen: Why Card #112 Is a Must-Have Before Doomsday",
+      "category": "analysis"
+    },
+    {
+      "id": "990003",
+      "title": "The Fantastic Four Meet Doctor Doom: Every FF Card in Marvel Mint and Comic Book Heroes",
+      "category": "movie_news"
+    },
+    {
+      "id": "990004",
+      "title": "Doctor Strange and the Incursions: Card #110's Role in the Doomsday Storyline",
+      "category": "analysis"
+    },
+    {
+      "id": "990005",
+      "title": "Blade, Ghost Rider, and the Wildcards: Platinum Characters Who Could Steal Doomsday",
+      "category": "rumors"
+    },
+    {
+      "id": "990006",
+      "title": "The Bronze Tier Sleepers: 50 Characters at /100 Encased That Could Explode After Doomsday",
+      "category": "card_market"
+    },
+    {
+      "id": "990007",
+      "title": "Silver Tier Value Plays: Beast, Nightcrawler, and Colossus Before Their MCU Debut",
+      "category": "card_market"
+    },
+    {
+      "id": "990008",
+      "title": "Gold Tier Goldmine: Cyclops, Jean Grey, and the X-Men Leaders at /50 Encased",
+      "category": "card_market"
+    },
+    {
+      "id": "990009",
+      "title": "Printing Plates Explained: 480 True 1/1s Hiding in Marvel Mint",
+      "category": "analysis"
+    },
+    {
+      "id": "990010",
+      "title": "Chrome Parallels Deep Dive: Black /10, Red /5, and Superfractor /1 Across All 120 Cards",
+      "category": "analysis"
+    },
+    {
+      "id": "990011",
+      "title": "The $50 and Under Doomsday Collection: Budget Picks From Marvel Mint and Comic Book Heroes",
+      "category": "card_market"
+    },
+    {
+      "id": "990012",
+      "title": "PSA 10 vs Raw: When to Grade Your Marvel Mint Pulls for Maximum Doomsday ROI",
+      "category": "analysis"
+    },
+    {
+      "id": "990013",
+      "title": "Whatnot Hunting Guide: How to Find Marvel Mint Deals on Live Auctions",
+      "category": "card_market"
+    },
+    {
+      "id": "990014",
+      "title": "The 30-Day Countdown Strategy: Timing Your Buys Before Each MCU Trailer Drop",
+      "category": "analysis"
+    },
+    {
+      "id": "990015",
+      "title": "Secret Wars Explained: The Comic Storyline Behind Doomsday and Why Collectors Need to Know It",
+      "category": "analysis"
+    },
+    {
+      "id": "990016",
+      "title": "Incursions, Battleworld, and the Beyonders: The Lore That Makes Doom Cards Essential",
+      "category": "analysis"
+    },
+    {
+      "id": "990017",
+      "title": "Every Time Doom Has Beaten the Avengers in Comics — And the Cards That Capture Those Moments",
+      "category": "analysis"
+    },
+    {
+      "id": "990018",
+      "title": "The Latverian Army: Doombots and Supporting Villain Cards to Watch",
+      "category": "card_market"
+    },
+    {
+      "id": "990019",
+      "title": "NLF Whatnot Stream Schedule: Where to Win Marvel Mint Cards Live This Month",
+      "category": "card_market"
+    },
+    {
+      "id": "990020",
+      "title": "First Look: What We Expect From the Avengers: Doomsday Public Trailer and Its Card Market Impact",
+      "category": "rumors"
+    },
+    {
+      "id": "990021",
+      "title": "How Doctor Doom Accidentally Destroyed the Multiverse — The Secret Wars Lore Behind Avengers: Doomsday",
+      "category": "analysis"
+    },
+    {
+      "id": "1020001",
+      "title": "Every Rumored Cameo in Avengers: Doomsday — The Complete Nerd Gossip Breakdown",
+      "category": "nerd_gossip"
+    },
+    {
+      "id": "1080001",
+      "title": "Every Avengers: Doomsday Teaser Trailer Decoded — The Complete Breakdown",
+      "category": "rumors"
+    },
+    {
+      "id": "1080002",
+      "title": "Steve Rogers Is Back: Avengers Doomsday Teaser Reveals Chris Evans' Return",
+      "category": "rumors"
+    },
+    {
+      "id": "1080003",
+      "title": "Thor's Last Stand: The Odinforce Prayer That Changes Everything in Avengers Doomsday",
+      "category": "rumors"
+    },
+    {
+      "id": "1080004",
+      "title": "The X-Men Are Finally Here: Professor X, Cyclops, and the Abandoned Mansion Explained",
+      "category": "rumors"
+    },
+    {
+      "id": "1080005",
+      "title": "Wakanda Meets the Fantastic Four: M'Baku, The Thing, and the Desert Alliance",
+      "category": "rumors"
+    },
+    {
+      "id": "1080006",
+      "title": "The Hidden Spider-Man Connection to Avengers Doomsday: Why Brand New Day Changes Everything",
+      "category": "rumors"
+    },
+    {
+      "id": "1110001",
+      "title": "The X-Men's Last Stand: Every Mutant Confirmed for Avengers: Doomsday and the Jean Grey Mystery",
+      "category": "rumors"
+    },
+    {
+      "id": "1110002",
+      "title": "Thunder and Vibranium: Thor and Captain America's Reunion in Avengers: Doomsday",
+      "category": "rumors"
+    },
+    {
+      "id": "1110003",
+      "title": "Vibranium Wars: Why Doctor Doom Needs Wakanda, Namor, and the Fantastic Four",
+      "category": "rumors"
+    },
+    {
+      "id": "1110004",
+      "title": "How to Trick Your Wife Into Seeing Avengers: Doomsday (Thanks to The Traitors' Alan Cumming)",
+      "category": "rumors"
+    },
+    {
+      "id": "1140001",
+      "title": "Marvel's Greatest Families: The Bloodlines That Shape the Universe (And Why They Matter for Doomsday)",
+      "category": "analysis"
+    },
+    {
+      "id": "1140002",
+      "title": "The Richards Family: Marvel's First Family, Doom's Greatest Obsession, and the Secret Wars That Tore Them Apart",
+      "category": "analysis"
+    },
+    {
+      "id": "1140003",
+      "title": "The Summers-Grey Dynasty: Marvel's Most Powerful Mutant Family Across Time, Space, and the Phoenix",
+      "category": "analysis"
+    },
+    {
+      "id": "1140004",
+      "title": "The House of Magnus: Magneto's Fractured Family, Scarlet Witch's Reality-Breaking Power, and the Road to Doomsday",
+      "category": "analysis"
+    },
+    {
+      "id": "1140005",
+      "title": "The Parker Family: With Great Power Comes Great Responsibility — How Loss Built Spider-Man's Legacy",
+      "category": "analysis"
+    },
+    {
+      "id": "1140006",
+      "title": "The Royal Family of Wakanda: T'Challa's Legacy, Vibranium Bloodlines, and the Coming War with Doom",
+      "category": "analysis"
+    },
+    {
+      "id": "1140007",
+      "title": "The Wolverine Family: Claws, Clones, and Chosen Family — How Logan Built a Dynasty He Never Wanted",
+      "category": "analysis"
+    },
+    {
+      "id": "1140008",
+      "title": "Help Us Build Your Dream Marvel Repack: We Want to Hear From YOU",
+      "category": "card_market"
+    },
+    {
+      "id": "1170001",
+      "title": "The Punisher: One Last Kill — Marvel's Most Brutal Project Yet and What Fans Are Saying",
+      "category": "show_news"
+    },
+    {
+      "id": "1230001",
+      "title": "Top Women of the MCU & Comics: The Powerhouses Shaping Avengers Doomsday and Beyond",
+      "category": "analysis"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tcategory\n360001\tAvengers: Endgame Turns 7 — And It's Coming Back to Theaters with New Footage\tmovie_news\n390001\tTopps Takes Over the NFL Draft 2026: Marvel Cards Meet 205,000 Football Fans\tcard_market\n390002\t2025 Topps Marvel Mint: From $450 Retail to $600+ Aftermarket — Why Boxes Keep Climbing\tcard_market\n390003\tSDCC 2026 Collector's Preview: What Topps Marvel Exclusives Could Drop This July\tcard_market\n390004\t2026 Topps Finest Fantastic Four: Complete Collector's Guide to Marvel's Newest Set\tcard_market\n390005\tThe Topps Marvel Timeline: Every 2025-2026 Release Ranked for Collectors\tanalysis\n390006\tWhy SDCC Exclusive Marvel Cards Are the Hottest Investment in the Hobby Right Now\tanalysis\n390007\tIron Man to Doctor Doom: The Complete Robert Downey Jr. Card Collecting Guide\tanalysis\n390008\t5 Topps Marvel Cards Under $50 That Could 10x Before Avengers: Doomsday\tcard_market\n390009\tTopps Collector Destination: How the Trading Card Hobby Is Going Mainstream\tanalysis\n390010\tSDCC 2026 Hall H Preview: Every Marvel Announcement That Could Move the Card Market\tanalysis\n420001\t2025 Topps Comic Book Heroes: The Hidden Gem Set That Has It All\tcard_market\n420002\tAvengers: Doomsday Card Collecting Guide — Every Character to Target Before May 2026\tcard_market\n420003\tSecret Wars Card Collecting Guide — Battleworld Characters, Multiverse Variants, and the Cards to Buy Now\tcard_market\n450001\t2025 Topps Marvel Mint: The SDCC Exclusive That Started a New Era\tcard_market\n450002\tDoctor Doom Comic Cuts: 200 One-of-One Pieces of Marvel History\tcard_market\n450003\tGambit's Chrome Deck: The 52-Card Marvel Playing Card Set You Need to Complete\tcard_market\n450004\tAGS Grading: Can an AI-Driven Grader Compete with PSA, CGC, and TAG?\tanalysis\n480001\tComics Explained: Why Rob Jefferson Is the Most Knowledgeable Voice in the Comic Book Space\tanalysis\n510001\tTom Hiddleston Confirmed to Return as Loki in Avengers: Secret Wars\tmovie_news\n540001\tWho's Your Favorite? The Top 10 Most Popular MCU Characters of All Time\tanalysis\n570001\tTHE TOP 10 MOST POPULAR MCU VILLAINS OF ALL TIME — ALL ROADS END WITH DOOM\tanalysis\n600001\tThe Punisher: One Last Kill Marks a New Era for Marvel's Defenders on Disney+\tshow_news\n600002\tAvengers: Doomsday Still Filming Reshoots 6 Months Before Release\tmovie_news\n630001\tSame Face, Different Fate: Why Robert Downey Jr. Playing Both Tony Stark and Doctor Doom Is Marvel's Greatest Storytelling Gamble\tanalysis\n690001\tThe Original Six — Who Returns for Avengers: Doomsday?\tmovie_news\n690002\tTop 5 Cards to Buy Before Thunderbolts Drops\tcard_market\n690003\tThe Thunderbolts — From Villains to Heroes in the MCU\tmovie_news\n690004\tSecret Wars 1984 vs 2015 — A Collector's Guide\tanalysis\n690005\tThe Fantastic Four — Doom's Greatest Enemies in the MCU\tmovie_news\n690006\tMCU Phase 6 Rumor Roundup — What's Coming After Doomsday\trumors\n690007\tThe Young Avengers — Next Generation Assembled for Doomsday\tmovie_news\n690008\tGrading Guide: When to Send Cards to PSA vs CGC\tcard_market\n690009\tThe X-Men — Mutants Finally Enter the MCU in Doomsday\tmovie_news\n690010\t5 Undervalued Doom Cards You Should Buy Right Now\tcard_market\n690011\tDoom's Army — The Cabal Assembles in the MCU\tmovie_news\n690012\tMultiverse of Madness Card Market — One Year Later\tcard_market\n690013\tThe Multiverse Avengers — Every Variant Assembled for Secret Wars\tanalysis\n690014\tWeekly Card Market Movers — May 2026\tcard_market\n840001\tJack Kirby: The King Who Built Marvel's Visual Universe\tanalysis\n840002\tFrom Sticker Packs to Sapphire: The Complete History of Marvel Trading Cards\tcard_market\n840003\tStan Lee: The Storyteller Who Made Marvel Matter\tanalysis\n840004\tAvengers: Doomsday — The Avengers Roster Breakdown and Cards to Collect\tmovie_news\n840005\tAvengers: Doomsday — The X-Men Roster Breakdown and Cards to Collect\tmovie_news\n840006\tAvengers: Doomsday — The Fantastic Four Roster Breakdown and Cards to Collect\tmovie_news\n840007\tAvengers: Doomsday — Every Hero Confirmed for the Full Roster\tmovie_news\n840009\tJonathan Hickman: The Architect Behind Avengers Doomsday and Secret Wars\tanalysis\n840010\tWolverine in Avengers: Doomsday — The Mutant Who Changed Everything and His Most Valuable Cards\tmovie_news\n840011\tDoctor Doom: Marvel's Greatest Villain and the Cards Every Collector Needs\tmovie_news\n840012\tSpider-Man in Avengers: Doomsday — Your Friendly Neighborhood Wall-Crawler and His Hottest Cards\tmovie_news\n840013\tThor in Avengers: Doomsday — The God of Thunder Returns and His Best Trading Cards\tmovie_news\n840014\tCaptain America (Sam Wilson) in Avengers: Doomsday — The New Shield-Bearer and Cards to Collect\tmovie_news\n870001\tDoctor Strange in Avengers: Doomsday — The Sorcerer Supreme and His Most Sought-After Cards\tmovie_news\n870002\tMagneto in Avengers: Doomsday — The Master of Magnetism Joins the MCU and Cards to Watch\tmovie_news\n870003\tLoki in Avengers: Doomsday — The God of Mischief, the TVA, and His Best Trading Cards\tmovie_news\n900001\tCyclops in Avengers: Doomsday — The X-Men Leader Returns and His Best Trading Cards\tmovie_news\n900002\tGambit in Avengers: Doomsday — The Ragin' Cajun Finally Gets His Moment and Cards to Watch\tmovie_news\n900003\tStorm: Marvel's Weather Goddess and Why Her Trading Cards Are a Must-Have\tanalysis\n900004\tScarlet Witch in Avengers: Doomsday — Will Wanda Return and Which Cards to Collect\tmovie_news\n900005\tBlack Panther in Avengers: Doomsday — Wakanda's Legacy and the Cards Every Collector Needs\tmovie_news\n900006\tShang-Chi in Avengers: Doomsday — The Master of Martial Arts and His Rising Card Market\tmovie_news\n930001\tThis Mother's Day, Remember Cynthia Von Doom: The Sacrifice That Created Marvel's Greatest Villain\tanalysis\n930002\tTriumph and Torment: Doctor Doom's Betrayal, His Mother's Rejection, and Marvel's Most Heartbreaking Rescue\tanalysis\n960001\tWolverine vs Tobey's Spider-Man: The Doomsday Opening Scene That Changes Everything for Collectors\trumors\n960002\tDoctor Doom Killed Thanos in the Comics — Now He's Coming to the MCU\tanalysis\n960003\tGambit is Back: Channing Tatum's Doomsday Confirmation and What It Means for Marvel Mint Collectors\tcasting\n960004\tThe X-Men Are Assembling for Doomsday — Every Confirmed Mutant and Their Marvel Mint Card Numbers\tmovie_news\n960005\tDeadpool and Wolverine's Doomsday Mission: Why Hugh Jackman Cards Are the Hottest Pull in Marvel Mint\trumors\n960006\tTom Holland Meets Tobey Maguire: Every Spider-Man in Doomsday and Their Card Values\tmovie_news\n960007\tProfessor X and Magneto Return: Patrick Stewart and Ian McKellen's Cards to Watch Before Doomsday\tcasting\n960008\tOnly 20,100 Foil Cards Exist in All of 2025 Topps Marvel Mint — Here's Why That Matters\tcard_market\n960009\tThe Platinum Tier Explained: Why Cards 101-120 Are the Most Exclusive in 2025 Topps Marvel Mint\tcard_market\n960010\t8,625 Total Encased Cards: Understanding the Scarcity of 2025 Topps Marvel Mint\tcard_market\n960011\tSuperfractors, Foilfractors and 1/1s: The Rarest Cards in 2025 Topps Marvel Mint\tcard_market\n960012\tCinemaCon Trailer Breakdown: Every Doomsday Character Spotted and Their Marvel Mint Card\tmovie_news\n960013\tSan Diego Comic-Con 2026 Preview: Marvel Returns to Hall H and What It Means for SDCC Exclusive Cards\trelease_dates\n960014\tThe Multiverse Saga's Final Act: Building Your Marvel Mint Collection Before Doomsday Drops\tanalysis\n960015\tThe Russo Brothers Are Back — Why Their Track Record Makes Doomsday Cards a Smart Investment\tanalysis\n960016\tTopps Marvel Comic Book Heroes: The Other Set Collectors Should Be Watching for Doomsday Characters\tcard_market\n960017\tTopps Marvel Comic Book Heroes vs Marvel Mint: Which Set Has Better Long-Term Value for MCU Collectors?\tanalysis\n960018\tBuy Before the Trailer Drops: Doomsday Characters Most Likely to Spike After the First Public Trailer\tcard_market\n960019\tThe Doomsday Effect: How Avengers Films Have Historically Impacted Marvel Card Prices\tanalysis\n960020\tBuilding a Doomsday Portfolio: The 10 Characters You Need From Marvel Mint and Comic Book Heroes\tanalysis\n990001\tRogue in Avengers: Doomsday — The Power-Absorbing Mutant and Her Platinum Tier Card\tmovie_news\n990002\tStorm Commands the Screen: Why Card #112 Is a Must-Have Before Doomsday\tanalysis\n990003\tThe Fantastic Four Meet Doctor Doom: Every FF Card in Marvel Mint and Comic Book Heroes\tmovie_news\n990004\tDoctor Strange and the Incursions: Card #110's Role in the Doomsday Storyline\tanalysis\n990005\tBlade, Ghost Rider, and the Wildcards: Platinum Characters Who Could Steal Doomsday\trumors\n990006\tThe Bronze Tier Sleepers: 50 Characters at /100 Encased That Could Explode After Doomsday\tcard_market\n990007\tSilver Tier Value Plays: Beast, Nightcrawler, and Colossus Before Their MCU Debut\tcard_market\n990008\tGold Tier Goldmine: Cyclops, Jean Grey, and the X-Men Leaders at /50 Encased\tcard_market\n990009\tPrinting Plates Explained: 480 True 1/1s Hiding in Marvel Mint\tanalysis\n990010\tChrome Parallels Deep Dive: Black /10, Red /5, and Superfractor /1 Across All 120 Cards\tanalysis\n990011\tThe $50 and Under Doomsday Collection: Budget Picks From Marvel Mint and Comic Book Heroes\tcard_market\n990012\tPSA 10 vs Raw: When to Grade Your Marvel Mint Pulls for Maximum Doomsday ROI\tanalysis\n990013\tWhatnot Hunting Guide: How to Find Marvel Mint Deals on Live Auctions\tcard_market\n990014\tThe 30-Day Countdown Strategy: Timing Your Buys Before Each MCU Trailer Drop\tanalysis\n990015\tSecret Wars Explained: The Comic Storyline Behind Doomsday and Why Collectors Need to Know It\tanalysis\n990016\tIncursions, Battleworld, and the Beyonders: The Lore That Makes Doom Cards Essential\tanalysis\n990017\tEvery Time Doom Has Beaten the Avengers in Comics — And the Cards That Capture Those Moments\tanalysis\n990018\tThe Latverian Army: Doombots and Supporting Villain Cards to Watch\tcard_market\n990019\tNLF Whatnot Stream Schedule: Where to Win Marvel Mint Cards Live This Month\tcard_market\n990020\tFirst Look: What We Expect From the Avengers: Doomsday Public Trailer and Its Card Market Impact\trumors\n990021\tHow Doctor Doom Accidentally Destroyed the Multiverse — The Secret Wars Lore Behind Avengers: Doomsday\tanalysis\n1020001\tEvery Rumored Cameo in Avengers: Doomsday — The Complete Nerd Gossip Breakdown\tnerd_gossip\n1080001\tEvery Avengers: Doomsday Teaser Trailer Decoded — The Complete Breakdown\trumors\n1080002\tSteve Rogers Is Back: Avengers Doomsday Teaser Reveals Chris Evans' Return\trumors\n1080003\tThor's Last Stand: The Odinforce Prayer That Changes Everything in Avengers Doomsday\trumors\n1080004\tThe X-Men Are Finally Here: Professor X, Cyclops, and the Abandoned Mansion Explained\trumors\n1080005\tWakanda Meets the Fantastic Four: M'Baku, The Thing, and the Desert Alliance\trumors\n1080006\tThe Hidden Spider-Man Connection to Avengers Doomsday: Why Brand New Day Changes Everything\trumors\n1110001\tThe X-Men's Last Stand: Every Mutant Confirmed for Avengers: Doomsday and the Jean Grey Mystery\trumors\n1110002\tThunder and Vibranium: Thor and Captain America's Reunion in Avengers: Doomsday\trumors\n1110003\tVibranium Wars: Why Doctor Doom Needs Wakanda, Namor, and the Fantastic Four\trumors\n1110004\tHow to Trick Your Wife Into Seeing Avengers: Doomsday (Thanks to The Traitors' Alan Cumming)\trumors\n1140001\tMarvel's Greatest Families: The Bloodlines That Shape the Universe (And Why They Matter for Doomsday)\tanalysis\n1140002\tThe Richards Family: Marvel's First Family, Doom's Greatest Obsession, and the Secret Wars That Tore Them Apart\tanalysis\n1140003\tThe Summers-Grey Dynasty: Marvel's Most Powerful Mutant Family Across Time, Space, and the Phoenix\tanalysis\n1140004\tThe House of Magnus: Magneto's Fractured Family, Scarlet Witch's Reality-Breaking Power, and the Road to Doomsday\tanalysis\n1140005\tThe Parker Family: With Great Power Comes Great Responsibility — How Loss Built Spider-Man's Legacy\tanalysis\n1140006\tThe Royal Family of Wakanda: T'Challa's Legacy, Vibranium Bloodlines, and the Coming War with Doom\tanalysis\n1140007\tThe Wolverine Family: Claws, Clones, and Chosen Family — How Logan Built a Dynasty He Never Wanted\tanalysis\n1140008\tHelp Us Build Your Dream Marvel Repack: We Want to Hear From YOU\tcard_market\n1170001\tThe Punisher: One Last Kill — Marvel's Most Brutal Project Yet and What Fans Are Saying\tshow_news\n1230001\tTop Women of the MCU & Comics: The Powerhouses Shaping Avengers Doomsday and Beyond\tanalysis\n",
+  "stderr": "",
+  "execution_time_ms": 262
+}

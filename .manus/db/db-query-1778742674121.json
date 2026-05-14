@@ -1,0 +1,9 @@
+{
+  "query": "UPDATE articles SET templateLayout = 'spotlight' WHERE id IN (\n  840010, 840011, 840012, 840013, 840014, 870001, 870002, 870003,\n  900001, 900002, 900003, 900004, 900005, 900006,\n  990001, 990002, 990003, 990004, 990005,\n  840001, 840003, 840009, 480001, 630001,\n  300040, 300047, 510001\n);",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute UPDATE articles SET templateLayout = 'spotlight' WHERE id IN (\n  840010, 840011, 840012, 840013, 840014, 870001, 870002, 870003,\n  900001, 900002, 900003, 900004, 900005, 900006,\n  990001, 990002, 990003, 990004, 990005,\n  840001, 840003, 840009, 480001, 630001,\n  300040, 300047, 510001\n);",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 274
+}

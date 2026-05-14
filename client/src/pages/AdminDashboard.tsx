@@ -35,6 +35,7 @@ import Top5Manager from "@/components/Top5Manager";
 import BlogManager from "@/components/BlogManager";
 import PageContentManager from "@/components/PageContentManager";
 import SocialPostGenerator from "@/components/admin/SocialPostGenerator";
+import AdminAffiliateLinks from "@/pages/AdminAffiliateLinks";
 
 // ==================== SITE SETTINGS (COUNTDOWN TIMER) ====================
 
@@ -1615,6 +1616,9 @@ export default function AdminDashboard() {
             <TabsTrigger value="social" className="flex items-center gap-2">
               <Facebook className="w-4 h-4" /> Social Posts
             </TabsTrigger>
+            <TabsTrigger value="affiliates" className="flex items-center gap-2">
+              <ShoppingBag className="w-4 h-4" /> Affiliates
+            </TabsTrigger>
             <TabsTrigger value="settings" className="flex items-center gap-2">
               <Settings className="w-4 h-4" /> Settings
             </TabsTrigger>
@@ -1661,6 +1665,9 @@ export default function AdminDashboard() {
           </TabsContent>
           <TabsContent value="social">
             <SocialPostGenerator />
+          </TabsContent>
+          <TabsContent value="affiliates">
+            <AdminAffiliateLinks />
           </TabsContent>
           <TabsContent value="settings">
             <SiteSettingsManager />

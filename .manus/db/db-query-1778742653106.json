@@ -1,0 +1,135 @@
+{
+  "query": "SELECT id, title, category FROM articles WHERE id > 990017 ORDER BY id;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, title, category FROM articles WHERE id > 990017 ORDER BY id;",
+  "rows": [
+    {
+      "id": "990018",
+      "title": "The Latverian Army: Doombots and Supporting Villain Cards to Watch",
+      "category": "card_market"
+    },
+    {
+      "id": "990019",
+      "title": "NLF Whatnot Stream Schedule: Where to Win Marvel Mint Cards Live This Month",
+      "category": "card_market"
+    },
+    {
+      "id": "990020",
+      "title": "First Look: What We Expect From the Avengers: Doomsday Public Trailer and Its Card Market Impact",
+      "category": "rumors"
+    },
+    {
+      "id": "990021",
+      "title": "How Doctor Doom Accidentally Destroyed the Multiverse — The Secret Wars Lore Behind Avengers: Doomsday",
+      "category": "analysis"
+    },
+    {
+      "id": "1020001",
+      "title": "Every Rumored Cameo in Avengers: Doomsday — The Complete Nerd Gossip Breakdown",
+      "category": "nerd_gossip"
+    },
+    {
+      "id": "1080001",
+      "title": "Every Avengers: Doomsday Teaser Trailer Decoded — The Complete Breakdown",
+      "category": "rumors"
+    },
+    {
+      "id": "1080002",
+      "title": "Steve Rogers Is Back: Avengers Doomsday Teaser Reveals Chris Evans' Return",
+      "category": "rumors"
+    },
+    {
+      "id": "1080003",
+      "title": "Thor's Last Stand: The Odinforce Prayer That Changes Everything in Avengers Doomsday",
+      "category": "rumors"
+    },
+    {
+      "id": "1080004",
+      "title": "The X-Men Are Finally Here: Professor X, Cyclops, and the Abandoned Mansion Explained",
+      "category": "rumors"
+    },
+    {
+      "id": "1080005",
+      "title": "Wakanda Meets the Fantastic Four: M'Baku, The Thing, and the Desert Alliance",
+      "category": "rumors"
+    },
+    {
+      "id": "1080006",
+      "title": "The Hidden Spider-Man Connection to Avengers Doomsday: Why Brand New Day Changes Everything",
+      "category": "rumors"
+    },
+    {
+      "id": "1110001",
+      "title": "The X-Men's Last Stand: Every Mutant Confirmed for Avengers: Doomsday and the Jean Grey Mystery",
+      "category": "rumors"
+    },
+    {
+      "id": "1110002",
+      "title": "Thunder and Vibranium: Thor and Captain America's Reunion in Avengers: Doomsday",
+      "category": "rumors"
+    },
+    {
+      "id": "1110003",
+      "title": "Vibranium Wars: Why Doctor Doom Needs Wakanda, Namor, and the Fantastic Four",
+      "category": "rumors"
+    },
+    {
+      "id": "1110004",
+      "title": "How to Trick Your Wife Into Seeing Avengers: Doomsday (Thanks to The Traitors' Alan Cumming)",
+      "category": "rumors"
+    },
+    {
+      "id": "1140001",
+      "title": "Marvel's Greatest Families: The Bloodlines That Shape the Universe (And Why They Matter for Doomsday)",
+      "category": "analysis"
+    },
+    {
+      "id": "1140002",
+      "title": "The Richards Family: Marvel's First Family, Doom's Greatest Obsession, and the Secret Wars That Tore Them Apart",
+      "category": "analysis"
+    },
+    {
+      "id": "1140003",
+      "title": "The Summers-Grey Dynasty: Marvel's Most Powerful Mutant Family Across Time, Space, and the Phoenix",
+      "category": "analysis"
+    },
+    {
+      "id": "1140004",
+      "title": "The House of Magnus: Magneto's Fractured Family, Scarlet Witch's Reality-Breaking Power, and the Road to Doomsday",
+      "category": "analysis"
+    },
+    {
+      "id": "1140005",
+      "title": "The Parker Family: With Great Power Comes Great Responsibility — How Loss Built Spider-Man's Legacy",
+      "category": "analysis"
+    },
+    {
+      "id": "1140006",
+      "title": "The Royal Family of Wakanda: T'Challa's Legacy, Vibranium Bloodlines, and the Coming War with Doom",
+      "category": "analysis"
+    },
+    {
+      "id": "1140007",
+      "title": "The Wolverine Family: Claws, Clones, and Chosen Family — How Logan Built a Dynasty He Never Wanted",
+      "category": "analysis"
+    },
+    {
+      "id": "1140008",
+      "title": "Help Us Build Your Dream Marvel Repack: We Want to Hear From YOU",
+      "category": "card_market"
+    },
+    {
+      "id": "1170001",
+      "title": "The Punisher: One Last Kill — Marvel's Most Brutal Project Yet and What Fans Are Saying",
+      "category": "show_news"
+    },
+    {
+      "id": "1230001",
+      "title": "Top Women of the MCU & Comics: The Powerhouses Shaping Avengers Doomsday and Beyond",
+      "category": "analysis"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tcategory\n990018\tThe Latverian Army: Doombots and Supporting Villain Cards to Watch\tcard_market\n990019\tNLF Whatnot Stream Schedule: Where to Win Marvel Mint Cards Live This Month\tcard_market\n990020\tFirst Look: What We Expect From the Avengers: Doomsday Public Trailer and Its Card Market Impact\trumors\n990021\tHow Doctor Doom Accidentally Destroyed the Multiverse — The Secret Wars Lore Behind Avengers: Doomsday\tanalysis\n1020001\tEvery Rumored Cameo in Avengers: Doomsday — The Complete Nerd Gossip Breakdown\tnerd_gossip\n1080001\tEvery Avengers: Doomsday Teaser Trailer Decoded — The Complete Breakdown\trumors\n1080002\tSteve Rogers Is Back: Avengers Doomsday Teaser Reveals Chris Evans' Return\trumors\n1080003\tThor's Last Stand: The Odinforce Prayer That Changes Everything in Avengers Doomsday\trumors\n1080004\tThe X-Men Are Finally Here: Professor X, Cyclops, and the Abandoned Mansion Explained\trumors\n1080005\tWakanda Meets the Fantastic Four: M'Baku, The Thing, and the Desert Alliance\trumors\n1080006\tThe Hidden Spider-Man Connection to Avengers Doomsday: Why Brand New Day Changes Everything\trumors\n1110001\tThe X-Men's Last Stand: Every Mutant Confirmed for Avengers: Doomsday and the Jean Grey Mystery\trumors\n1110002\tThunder and Vibranium: Thor and Captain America's Reunion in Avengers: Doomsday\trumors\n1110003\tVibranium Wars: Why Doctor Doom Needs Wakanda, Namor, and the Fantastic Four\trumors\n1110004\tHow to Trick Your Wife Into Seeing Avengers: Doomsday (Thanks to The Traitors' Alan Cumming)\trumors\n1140001\tMarvel's Greatest Families: The Bloodlines That Shape the Universe (And Why They Matter for Doomsday)\tanalysis\n1140002\tThe Richards Family: Marvel's First Family, Doom's Greatest Obsession, and the Secret Wars That Tore Them Apart\tanalysis\n1140003\tThe Summers-Grey Dynasty: Marvel's Most Powerful Mutant Family Across Time, Space, and the Phoenix\tanalysis\n1140004\tThe House of Magnus: Magneto's Fractured Family, Scarlet Witch's Reality-Breaking Power, and the Road to Doomsday\tanalysis\n1140005\tThe Parker Family: With Great Power Comes Great Responsibility — How Loss Built Spider-Man's Legacy\tanalysis\n1140006\tThe Royal Family of Wakanda: T'Challa's Legacy, Vibranium Bloodlines, and the Coming War with Doom\tanalysis\n1140007\tThe Wolverine Family: Claws, Clones, and Chosen Family — How Logan Built a Dynasty He Never Wanted\tanalysis\n1140008\tHelp Us Build Your Dream Marvel Repack: We Want to Hear From YOU\tcard_market\n1170001\tThe Punisher: One Last Kill — Marvel's Most Brutal Project Yet and What Fans Are Saying\tshow_news\n1230001\tTop Women of the MCU & Comics: The Powerhouses Shaping Avengers Doomsday and Beyond\tanalysis\n",
+  "stderr": "",
+  "execution_time_ms": 272
+}

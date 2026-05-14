@@ -1,0 +1,30 @@
+{
+  "query": "SELECT templateLayout, COUNT(*) as count FROM articles GROUP BY templateLayout;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT templateLayout, COUNT(*) as count FROM articles GROUP BY templateLayout;",
+  "rows": [
+    {
+      "templateLayout": "listicle",
+      "count": "19"
+    },
+    {
+      "templateLayout": "classic",
+      "count": "57"
+    },
+    {
+      "templateLayout": "timeline",
+      "count": "15"
+    },
+    {
+      "templateLayout": "spotlight",
+      "count": "28"
+    },
+    {
+      "templateLayout": "magazine",
+      "count": "46"
+    }
+  ],
+  "messages": [],
+  "stdout": "templateLayout\tcount\nlisticle\t19\nclassic\t57\ntimeline\t15\nspotlight\t28\nmagazine\t46\n",
+  "stderr": "",
+  "execution_time_ms": 275
+}

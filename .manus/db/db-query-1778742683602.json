@@ -1,0 +1,9 @@
+{
+  "query": "UPDATE articles SET templateLayout = 'listicle' WHERE id IN (\n  330007, 330017, 540001, 570001, 690002, 690010, 390008,\n  960008, 960009, 960010, 960011, 990006, 990007, 990008, 990011,\n  330004, 960020, 1230001\n);",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute UPDATE articles SET templateLayout = 'listicle' WHERE id IN (\n  330007, 330017, 540001, 570001, 690002, 690010, 390008,\n  960008, 960009, 960010, 960011, 990006, 990007, 990008, 990011,\n  330004, 960020, 1230001\n);",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 272
+}

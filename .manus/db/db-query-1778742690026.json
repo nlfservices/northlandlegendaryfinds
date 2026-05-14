@@ -1,0 +1,9 @@
+{
+  "query": "UPDATE articles SET templateLayout = 'timeline' WHERE id IN (\n  6, 330008, 840002, 390005, 960013,\n  690004, 690008, 990009, 990010, 990012, 990014,\n  960019, 300054, 330009\n);",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute UPDATE articles SET templateLayout = 'timeline' WHERE id IN (\n  6, 330008, 840002, 390005, 960013,\n  690004, 690008, 990009, 990010, 990012, 990014,\n  960019, 300054, 330009\n);",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 272
+}

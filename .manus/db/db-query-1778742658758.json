@@ -1,0 +1,35 @@
+{
+  "query": "SELECT id, title, category FROM articles WHERE id > 1140005 ORDER BY id;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, title, category FROM articles WHERE id > 1140005 ORDER BY id;",
+  "rows": [
+    {
+      "id": "1140006",
+      "title": "The Royal Family of Wakanda: T'Challa's Legacy, Vibranium Bloodlines, and the Coming War with Doom",
+      "category": "analysis"
+    },
+    {
+      "id": "1140007",
+      "title": "The Wolverine Family: Claws, Clones, and Chosen Family — How Logan Built a Dynasty He Never Wanted",
+      "category": "analysis"
+    },
+    {
+      "id": "1140008",
+      "title": "Help Us Build Your Dream Marvel Repack: We Want to Hear From YOU",
+      "category": "card_market"
+    },
+    {
+      "id": "1170001",
+      "title": "The Punisher: One Last Kill — Marvel's Most Brutal Project Yet and What Fans Are Saying",
+      "category": "show_news"
+    },
+    {
+      "id": "1230001",
+      "title": "Top Women of the MCU & Comics: The Powerhouses Shaping Avengers Doomsday and Beyond",
+      "category": "analysis"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tcategory\n1140006\tThe Royal Family of Wakanda: T'Challa's Legacy, Vibranium Bloodlines, and the Coming War with Doom\tanalysis\n1140007\tThe Wolverine Family: Claws, Clones, and Chosen Family — How Logan Built a Dynasty He Never Wanted\tanalysis\n1140008\tHelp Us Build Your Dream Marvel Repack: We Want to Hear From YOU\tcard_market\n1170001\tThe Punisher: One Last Kill — Marvel's Most Brutal Project Yet and What Fans Are Saying\tshow_news\n1230001\tTop Women of the MCU & Comics: The Powerhouses Shaping Avengers Doomsday and Beyond\tanalysis\n",
+  "stderr": "",
+  "execution_time_ms": 261
+}
