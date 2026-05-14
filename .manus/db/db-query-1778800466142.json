@@ -1,0 +1,426 @@
+{
+  "query": "SELECT id, cardNumber, characterName, cardType, imageUrl, sortOrder FROM marvel_cards WHERE setId = 3 AND cardNumber LIKE 'GD-%' ORDER BY cardNumber;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, cardNumber, characterName, cardType, imageUrl, sortOrder FROM marvel_cards WHERE setId = 3 AND cardNumber LIKE 'GD-%' ORDER BY cardNumber;",
+  "rows": [
+    {
+      "id": "1487",
+      "cardNumber": "GD-1",
+      "characterName": "2 of Clubs",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/2Clubs-Front_0f812b92.jpg",
+      "sortOrder": "0"
+    },
+    {
+      "id": "1502",
+      "cardNumber": "GD-10",
+      "characterName": "4 of Diamonds",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/4Diamond-Front_286aa15f.jpg",
+      "sortOrder": "15"
+    },
+    {
+      "id": "1515",
+      "cardNumber": "GD-11",
+      "characterName": "4 of Hearts",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/4Heart-Front_731b62ea.jpg",
+      "sortOrder": "28"
+    },
+    {
+      "id": "1528",
+      "cardNumber": "GD-12",
+      "characterName": "4 of Spades",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/4Spade-Front_afdb599b.jpg",
+      "sortOrder": "41"
+    },
+    {
+      "id": "1490",
+      "cardNumber": "GD-13",
+      "characterName": "5 of Clubs",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/5Clubs-Front_f7056312.jpg",
+      "sortOrder": "3"
+    },
+    {
+      "id": "1503",
+      "cardNumber": "GD-14",
+      "characterName": "5 of Diamonds",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/5Diamond-Front_16c7a233.jpg",
+      "sortOrder": "16"
+    },
+    {
+      "id": "1516",
+      "cardNumber": "GD-15",
+      "characterName": "5 of Hearts",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/5Heart-Front_b659183d.jpg",
+      "sortOrder": "29"
+    },
+    {
+      "id": "1529",
+      "cardNumber": "GD-16",
+      "characterName": "5 of Spades",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/5Spade-Front_d7587292.jpg",
+      "sortOrder": "42"
+    },
+    {
+      "id": "1491",
+      "cardNumber": "GD-17",
+      "characterName": "6 of Clubs",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/6Clubs-Front_9cb08892.jpg",
+      "sortOrder": "4"
+    },
+    {
+      "id": "1504",
+      "cardNumber": "GD-18",
+      "characterName": "6 of Diamonds",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/6Diamond-Front_1aef2a89.jpg",
+      "sortOrder": "17"
+    },
+    {
+      "id": "1517",
+      "cardNumber": "GD-19",
+      "characterName": "6 of Hearts",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/6Heart-Front_771ae956.jpg",
+      "sortOrder": "30"
+    },
+    {
+      "id": "1500",
+      "cardNumber": "GD-2",
+      "characterName": "2 of Diamonds",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/2Diamond-Front_7dc3e3c6.jpg",
+      "sortOrder": "13"
+    },
+    {
+      "id": "1530",
+      "cardNumber": "GD-20",
+      "characterName": "6 of Spades",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/6Spade-Front_e4e9ccda.jpg",
+      "sortOrder": "43"
+    },
+    {
+      "id": "1492",
+      "cardNumber": "GD-21",
+      "characterName": "7 of Clubs",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/7Clubs-Front_f546733b.jpg",
+      "sortOrder": "5"
+    },
+    {
+      "id": "1505",
+      "cardNumber": "GD-22",
+      "characterName": "7 of Diamonds",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/7Diamond-Front_e276b177.jpg",
+      "sortOrder": "18"
+    },
+    {
+      "id": "1518",
+      "cardNumber": "GD-23",
+      "characterName": "7 of Hearts",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/7Heart-Front_85d0ba80.jpg",
+      "sortOrder": "31"
+    },
+    {
+      "id": "1531",
+      "cardNumber": "GD-24",
+      "characterName": "7 of Spades",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/7Spade-Front_22ea6bbd.jpg",
+      "sortOrder": "44"
+    },
+    {
+      "id": "1493",
+      "cardNumber": "GD-25",
+      "characterName": "8 of Clubs",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/8Clubs-Front_f0678522.jpg",
+      "sortOrder": "6"
+    },
+    {
+      "id": "1506",
+      "cardNumber": "GD-26",
+      "characterName": "8 of Diamonds",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/8Diamond-Front_ea9a0dcd.jpg",
+      "sortOrder": "19"
+    },
+    {
+      "id": "1519",
+      "cardNumber": "GD-27",
+      "characterName": "8 of Hearts",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/8Heart-Front_75064471.jpg",
+      "sortOrder": "32"
+    },
+    {
+      "id": "1532",
+      "cardNumber": "GD-28",
+      "characterName": "8 of Spades",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/8Spade-Front_37ff3e97.jpg",
+      "sortOrder": "45"
+    },
+    {
+      "id": "1494",
+      "cardNumber": "GD-29",
+      "characterName": "9 of Clubs",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/9Clubs-Front_c3c8d92a.jpg",
+      "sortOrder": "7"
+    },
+    {
+      "id": "1513",
+      "cardNumber": "GD-3",
+      "characterName": "2 of Hearts",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/2Heart-Front_a962bf70.jpg",
+      "sortOrder": "26"
+    },
+    {
+      "id": "1507",
+      "cardNumber": "GD-30",
+      "characterName": "9 of Diamonds",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/9Diamond-Front_c51bf065.jpg",
+      "sortOrder": "20"
+    },
+    {
+      "id": "1520",
+      "cardNumber": "GD-31",
+      "characterName": "9 of Hearts",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/9Heart-Front_0b13e44a.jpg",
+      "sortOrder": "33"
+    },
+    {
+      "id": "1533",
+      "cardNumber": "GD-32",
+      "characterName": "9 of Spades",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/9Spade-Front_9eb8a4cc.jpg",
+      "sortOrder": "46"
+    },
+    {
+      "id": "1495",
+      "cardNumber": "GD-33",
+      "characterName": "10 of Clubs",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/10Clubs-Front_1dfe9b33.jpg",
+      "sortOrder": "8"
+    },
+    {
+      "id": "1508",
+      "cardNumber": "GD-34",
+      "characterName": "10 of Diamonds",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/10Diamond-Front_0f2a8144.jpg",
+      "sortOrder": "21"
+    },
+    {
+      "id": "1521",
+      "cardNumber": "GD-35",
+      "characterName": "10 of Hearts",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/10Heart-Front_cd1afdff.jpg",
+      "sortOrder": "34"
+    },
+    {
+      "id": "1534",
+      "cardNumber": "GD-36",
+      "characterName": "10 of Spades",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/10Spade-Front_a2257d27.jpg",
+      "sortOrder": "47"
+    },
+    {
+      "id": "1496",
+      "cardNumber": "GD-37",
+      "characterName": "Jack of Clubs",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/JackClubs-Front_86bd22f6.jpg",
+      "sortOrder": "9"
+    },
+    {
+      "id": "1509",
+      "cardNumber": "GD-38",
+      "characterName": "Jack of Diamonds",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/JackDiamond-Front_17d9d39c.jpg",
+      "sortOrder": "22"
+    },
+    {
+      "id": "1522",
+      "cardNumber": "GD-39",
+      "characterName": "Jack of Hearts",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/JackHeart-Front_4db8c5f8.jpg",
+      "sortOrder": "35"
+    },
+    {
+      "id": "1526",
+      "cardNumber": "GD-4",
+      "characterName": "2 of Spades",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/2Spade-Front_3d249578.jpg",
+      "sortOrder": "39"
+    },
+    {
+      "id": "1535",
+      "cardNumber": "GD-40",
+      "characterName": "Jack of Spades",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/JackSpade-Front_714fee0d.jpg",
+      "sortOrder": "48"
+    },
+    {
+      "id": "1497",
+      "cardNumber": "GD-41",
+      "characterName": "Queen of Clubs",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/QueenClubs-Front_7187b5be.jpg",
+      "sortOrder": "10"
+    },
+    {
+      "id": "1510",
+      "cardNumber": "GD-42",
+      "characterName": "Queen of Diamonds",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/QueenDiamond-Front_9fd59925.jpg",
+      "sortOrder": "23"
+    },
+    {
+      "id": "1523",
+      "cardNumber": "GD-43",
+      "characterName": "Queen of Hearts",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/QueenHeart-Front_f487adb4.jpg",
+      "sortOrder": "36"
+    },
+    {
+      "id": "1536",
+      "cardNumber": "GD-44",
+      "characterName": "Queen of Spades",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/QueenSpade-Front_39b0d5fe.jpg",
+      "sortOrder": "49"
+    },
+    {
+      "id": "1498",
+      "cardNumber": "GD-45",
+      "characterName": "King of Clubs",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/KingClubs-Front_c8db0298.jpg",
+      "sortOrder": "11"
+    },
+    {
+      "id": "1511",
+      "cardNumber": "GD-46",
+      "characterName": "King of Diamonds",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/KingDiamond-Front_68e5c5ea.jpg",
+      "sortOrder": "24"
+    },
+    {
+      "id": "1524",
+      "cardNumber": "GD-47",
+      "characterName": "King of Hearts",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/KingHeart-Front_b1cda563.jpg",
+      "sortOrder": "37"
+    },
+    {
+      "id": "1537",
+      "cardNumber": "GD-48",
+      "characterName": "King of Spades",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/KingSpade-Front_45b4a0e8.jpg",
+      "sortOrder": "50"
+    },
+    {
+      "id": "1499",
+      "cardNumber": "GD-49",
+      "characterName": "Ace of Clubs",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/AceClubs-Front_62e89e8b.jpg",
+      "sortOrder": "12"
+    },
+    {
+      "id": "1488",
+      "cardNumber": "GD-5",
+      "characterName": "3 of Clubs",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/3Clubs-Front_1f30ca2d.jpg",
+      "sortOrder": "1"
+    },
+    {
+      "id": "1512",
+      "cardNumber": "GD-50",
+      "characterName": "Ace of Diamonds",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/AceDiamond-Front_baf733c9.jpg",
+      "sortOrder": "25"
+    },
+    {
+      "id": "1525",
+      "cardNumber": "GD-51",
+      "characterName": "Ace of Hearts",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/AceHeart-Front_1db88310.jpg",
+      "sortOrder": "38"
+    },
+    {
+      "id": "1538",
+      "cardNumber": "GD-52",
+      "characterName": "Ace of Spades",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/AceSpade-Front_e499a742.jpg",
+      "sortOrder": "51"
+    },
+    {
+      "id": "1501",
+      "cardNumber": "GD-6",
+      "characterName": "3 of Diamonds",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/3Diamond-Front_5a80f674.jpg",
+      "sortOrder": "14"
+    },
+    {
+      "id": "1514",
+      "cardNumber": "GD-7",
+      "characterName": "3 of Hearts",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/3Heart-Front_d9ce85c9.jpg",
+      "sortOrder": "27"
+    },
+    {
+      "id": "1527",
+      "cardNumber": "GD-8",
+      "characterName": "3 of Spades",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/3Spade-Front_0b6695c7.jpg",
+      "sortOrder": "40"
+    },
+    {
+      "id": "1489",
+      "cardNumber": "GD-9",
+      "characterName": "4 of Clubs",
+      "cardType": "GAMBIT'S DECK",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/4Clubs-Front_831c7f3e.jpg",
+      "sortOrder": "2"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcardNumber\tcharacterName\tcardType\timageUrl\tsortOrder\n1487\tGD-1\t2 of Clubs\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/2Clubs-Front_0f812b92.jpg\t0\n1502\tGD-10\t4 of Diamonds\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/4Diamond-Front_286aa15f.jpg\t15\n1515\tGD-11\t4 of Hearts\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/4Heart-Front_731b62ea.jpg\t28\n1528\tGD-12\t4 of Spades\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/4Spade-Front_afdb599b.jpg\t41\n1490\tGD-13\t5 of Clubs\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/5Clubs-Front_f7056312.jpg\t3\n1503\tGD-14\t5 of Diamonds\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/5Diamond-Front_16c7a233.jpg\t16\n1516\tGD-15\t5 of Hearts\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/5Heart-Front_b659183d.jpg\t29\n1529\tGD-16\t5 of Spades\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/5Spade-Front_d7587292.jpg\t42\n1491\tGD-17\t6 of Clubs\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/6Clubs-Front_9cb08892.jpg\t4\n1504\tGD-18\t6 of Diamonds\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/6Diamond-Front_1aef2a89.jpg\t17\n1517\tGD-19\t6 of Hearts\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/6Heart-Front_771ae956.jpg\t30\n1500\tGD-2\t2 of Diamonds\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/2Diamond-Front_7dc3e3c6.jpg\t13\n1530\tGD-20\t6 of Spades\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/6Spade-Front_e4e9ccda.jpg\t43\n1492\tGD-21\t7 of Clubs\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/7Clubs-Front_f546733b.jpg\t5\n1505\tGD-22\t7 of Diamonds\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/7Diamond-Front_e276b177.jpg\t18\n1518\tGD-23\t7 of Hearts\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/7Heart-Front_85d0ba80.jpg\t31\n1531\tGD-24\t7 of Spades\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/7Spade-Front_22ea6bbd.jpg\t44\n1493\tGD-25\t8 of Clubs\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/8Clubs-Front_f0678522.jpg\t6\n1506\tGD-26\t8 of Diamonds\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/8Diamond-Front_ea9a0dcd.jpg\t19\n1519\tGD-27\t8 of Hearts\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/8Heart-Front_75064471.jpg\t32\n1532\tGD-28\t8 of Spades\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/8Spade-Front_37ff3e97.jpg\t45\n1494\tGD-29\t9 of Clubs\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/9Clubs-Front_c3c8d92a.jpg\t7\n1513\tGD-3\t2 of Hearts\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/2Heart-Front_a962bf70.jpg\t26\n1507\tGD-30\t9 of Diamonds\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/9Diamond-Front_c51bf065.jpg\t20\n1520\tGD-31\t9 of Hearts\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/9Heart-Front_0b13e44a.jpg\t33\n1533\tGD-32\t9 of Spades\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/9Spade-Front_9eb8a4cc.jpg\t46\n1495\tGD-33\t10 of Clubs\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/10Clubs-Front_1dfe9b33.jpg\t8\n1508\tGD-34\t10 of Diamonds\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/10Diamond-Front_0f2a8144.jpg\t21\n1521\tGD-35\t10 of Hearts\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/10Heart-Front_cd1afdff.jpg\t34\n1534\tGD-36\t10 of Spades\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/10Spade-Front_a2257d27.jpg\t47\n1496\tGD-37\tJack of Clubs\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/JackClubs-Front_86bd22f6.jpg\t9\n1509\tGD-38\tJack of Diamonds\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/JackDiamond-Front_17d9d39c.jpg\t22\n1522\tGD-39\tJack of Hearts\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/JackHeart-Front_4db8c5f8.jpg\t35\n1526\tGD-4\t2 of Spades\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/2Spade-Front_3d249578.jpg\t39\n1535\tGD-40\tJack of Spades\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/JackSpade-Front_714fee0d.jpg\t48\n1497\tGD-41\tQueen of Clubs\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/QueenClubs-Front_7187b5be.jpg\t10\n1510\tGD-42\tQueen of Diamonds\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/QueenDiamond-Front_9fd59925.jpg\t23\n1523\tGD-43\tQueen of Hearts\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/QueenHeart-Front_f487adb4.jpg\t36\n1536\tGD-44\tQueen of Spades\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/QueenSpade-Front_39b0d5fe.jpg\t49\n1498\tGD-45\tKing of Clubs\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/KingClubs-Front_c8db0298.jpg\t11\n1511\tGD-46\tKing of Diamonds\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/KingDiamond-Front_68e5c5ea.jpg\t24\n1524\tGD-47\tKing of Hearts\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/KingHeart-Front_b1cda563.jpg\t37\n1537\tGD-48\tKing of Spades\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/KingSpade-Front_45b4a0e8.jpg\t50\n1499\tGD-49\tAce of Clubs\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/AceClubs-Front_62e89e8b.jpg\t12\n1488\tGD-5\t3 of Clubs\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/3Clubs-Front_1f30ca2d.jpg\t1\n1512\tGD-50\tAce of Diamonds\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/AceDiamond-Front_baf733c9.jpg\t25\n1525\tGD-51\tAce of Hearts\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/AceHeart-Front_1db88310.jpg\t38\n1538\tGD-52\tAce of Spades\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/AceSpade-Front_e499a742.jpg\t51\n1501\tGD-6\t3 of Diamonds\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/3Diamond-Front_5a80f674.jpg\t14\n1514\tGD-7\t3 of Hearts\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/3Heart-Front_d9ce85c9.jpg\t27\n1527\tGD-8\t3 of Spades\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/3Spade-Front_0b6695c7.jpg\t40\n1489\tGD-9\t4 of Clubs\tGAMBIT'S DECK\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/4Clubs-Front_831c7f3e.jpg\t2\n",
+  "stderr": "",
+  "execution_time_ms": 263
+}

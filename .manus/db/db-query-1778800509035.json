@@ -1,0 +1,34 @@
+{
+  "query": "SELECT cardType, COUNT(*) as cnt FROM marvel_cards WHERE setId = 3 GROUP BY cardType ORDER BY cardType;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT cardType, COUNT(*) as cnt FROM marvel_cards WHERE setId = 3 GROUP BY cardType ORDER BY cardType;",
+  "rows": [
+    {
+      "cardType": "Autograph",
+      "cnt": "15"
+    },
+    {
+      "cardType": "BASE CARDS – BRONZE",
+      "cnt": "50"
+    },
+    {
+      "cardType": "BASE CARDS – GOLD",
+      "cnt": "25"
+    },
+    {
+      "cardType": "BASE CARDS – PLATINUM",
+      "cnt": "20"
+    },
+    {
+      "cardType": "BASE CARDS – SILVER",
+      "cnt": "25"
+    },
+    {
+      "cardType": "GAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS",
+      "cnt": "52"
+    }
+  ],
+  "messages": [],
+  "stdout": "cardType\tcnt\nAutograph\t15\nBASE CARDS – BRONZE\t50\nBASE CARDS – GOLD\t25\nBASE CARDS – PLATINUM\t20\nBASE CARDS – SILVER\t25\nGAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS\t52\n",
+  "stderr": "",
+  "execution_time_ms": 289
+}

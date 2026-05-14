@@ -2270,9 +2270,16 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Save checkpoint (3175f321)
 
 ## Card Base Set Image Upload (User-Provided Photos)
-- [ ] Compress Marvel Mint 100 card images to WebP and upload to CDN
-- [ ] Compress CBH 155 card images (front + back) to WebP and upload to CDN
-- [ ] Update database imageUrl for Marvel Mint cards (setId matching)
-- [ ] Update database imageUrl for CBH cards (setId matching)
-- [ ] Verify images display on Card Database pages
+- [x] Compress Marvel Mint 100 card images to WebP and upload to CDN
+- [x] Compress CBH 149 front + 149 back card images to WebP and upload to CDN
+- [x] Update database imageUrl for Marvel Mint cards (100 base cards)
+- [x] Update database imageUrl and backImageUrl for CBH cards (149 cards)
+- [x] Fix CDN URLs to use /manus-storage/ relative paths
+- [x] Verify images display on Card Database pages
+- [x] Save checkpoint (353c781a)
+
+## Gambit's Deck Cleanup (Marvel Mint)
+- [x] Identify and remove non-Topps Gambit cards from database (52 "GAMBIT'S DECK" GD-* entries deleted)
+- [x] Reorder Gambit's Deck: 2 through Ace, Clubs → Diamonds → Hearts → Spades
+- [x] Verify on live site — 4-column layout shows correct order
 - [ ] Save checkpoint

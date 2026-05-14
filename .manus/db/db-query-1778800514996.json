@@ -1,0 +1,270 @@
+{
+  "query": "SELECT id, cardNumber, characterName FROM marvel_cards WHERE setId = 3 AND cardType = 'GAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS' ORDER BY cardNumber;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, cardNumber, characterName FROM marvel_cards WHERE setId = 3 AND cardType = 'GAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS' ORDER BY cardNumber;",
+  "rows": [
+    {
+      "id": "1674",
+      "cardNumber": "C-10",
+      "characterName": "Thor Clubs 10"
+    },
+    {
+      "id": "1675",
+      "cardNumber": "C-2",
+      "characterName": "Sabretooth Clubs 2"
+    },
+    {
+      "id": "1676",
+      "cardNumber": "C-3",
+      "characterName": "Quicksilver Clubs 3"
+    },
+    {
+      "id": "1677",
+      "cardNumber": "C-4",
+      "characterName": "Invisible Woman Clubs 4"
+    },
+    {
+      "id": "1678",
+      "cardNumber": "C-5",
+      "characterName": "Kitty Pryde Clubs 5"
+    },
+    {
+      "id": "1679",
+      "cardNumber": "C-6",
+      "characterName": "War Machine Clubs 6"
+    },
+    {
+      "id": "1680",
+      "cardNumber": "C-7",
+      "characterName": "Venom Clubs 7"
+    },
+    {
+      "id": "1681",
+      "cardNumber": "C-8",
+      "characterName": "Loki Clubs 8"
+    },
+    {
+      "id": "1682",
+      "cardNumber": "C-9",
+      "characterName": "Hulk Clubs 9"
+    },
+    {
+      "id": "30001",
+      "cardNumber": "C-A",
+      "characterName": "Wolverine Clubs Ace"
+    },
+    {
+      "id": "30002",
+      "cardNumber": "C-J",
+      "characterName": "Beast Clubs Jack"
+    },
+    {
+      "id": "30004",
+      "cardNumber": "C-K",
+      "characterName": "Doctor Doom Clubs King"
+    },
+    {
+      "id": "30003",
+      "cardNumber": "C-Q",
+      "characterName": "Storm Clubs Queen"
+    },
+    {
+      "id": "1683",
+      "cardNumber": "D-10",
+      "characterName": "Black Widow Diamonds 10"
+    },
+    {
+      "id": "1684",
+      "cardNumber": "D-2",
+      "characterName": "Captain Marvel Diamonds 2"
+    },
+    {
+      "id": "1685",
+      "cardNumber": "D-3",
+      "characterName": "Legion Diamonds 3"
+    },
+    {
+      "id": "1686",
+      "cardNumber": "D-4",
+      "characterName": "The Thing Diamonds 4"
+    },
+    {
+      "id": "1687",
+      "cardNumber": "D-5",
+      "characterName": "Iceman Diamonds 5"
+    },
+    {
+      "id": "1688",
+      "cardNumber": "D-6",
+      "characterName": "Psylocke Diamonds 6"
+    },
+    {
+      "id": "1689",
+      "cardNumber": "D-7",
+      "characterName": "Vision Diamonds 7"
+    },
+    {
+      "id": "1690",
+      "cardNumber": "D-8",
+      "characterName": "Scarlet Witch Diamonds 8"
+    },
+    {
+      "id": "1691",
+      "cardNumber": "D-9",
+      "characterName": "Blade Diamonds 9"
+    },
+    {
+      "id": "30005",
+      "cardNumber": "D-A",
+      "characterName": "Magneto Diamonds Ace"
+    },
+    {
+      "id": "30006",
+      "cardNumber": "D-J",
+      "characterName": "Cable Diamonds Jack"
+    },
+    {
+      "id": "30008",
+      "cardNumber": "D-K",
+      "characterName": "Cyclops Diamonds King"
+    },
+    {
+      "id": "30007",
+      "cardNumber": "D-Q",
+      "characterName": "Emma Frost Diamonds Queen"
+    },
+    {
+      "id": "1692",
+      "cardNumber": "H-10",
+      "characterName": "Iron Man Hearts 10"
+    },
+    {
+      "id": "1693",
+      "cardNumber": "H-2",
+      "characterName": "Jubilee Hearts 2"
+    },
+    {
+      "id": "1694",
+      "cardNumber": "H-3",
+      "characterName": "Ghost Rider Hearts 3"
+    },
+    {
+      "id": "1695",
+      "cardNumber": "H-4",
+      "characterName": "Human Torch Hearts 4"
+    },
+    {
+      "id": "1696",
+      "cardNumber": "H-5",
+      "characterName": "Angel Hearts 5"
+    },
+    {
+      "id": "1697",
+      "cardNumber": "H-6",
+      "characterName": "Phoenix Hearts 6"
+    },
+    {
+      "id": "1698",
+      "cardNumber": "H-7",
+      "characterName": "Ant-Man Hearts 7"
+    },
+    {
+      "id": "1699",
+      "cardNumber": "H-8",
+      "characterName": "Thanos Hearts 8"
+    },
+    {
+      "id": "1700",
+      "cardNumber": "H-9",
+      "characterName": "Doctor Strange Hearts 9"
+    },
+    {
+      "id": "30009",
+      "cardNumber": "H-A",
+      "characterName": "Spider-Man Hearts Ace"
+    },
+    {
+      "id": "30010",
+      "cardNumber": "H-J",
+      "characterName": "Bishop Hearts Jack"
+    },
+    {
+      "id": "30012",
+      "cardNumber": "H-K",
+      "characterName": "Professor X Hearts King"
+    },
+    {
+      "id": "30011",
+      "cardNumber": "H-Q",
+      "characterName": "Rogue Hearts Queen"
+    },
+    {
+      "id": "1701",
+      "cardNumber": "S-10",
+      "characterName": "Captain America Spades 10"
+    },
+    {
+      "id": "1702",
+      "cardNumber": "S-2",
+      "characterName": "X-23 Spades 2"
+    },
+    {
+      "id": "1703",
+      "cardNumber": "S-3",
+      "characterName": "Nightcrawler Spades 3"
+    },
+    {
+      "id": "1704",
+      "cardNumber": "S-4",
+      "characterName": "Mister Fantastic Spades 4"
+    },
+    {
+      "id": "1705",
+      "cardNumber": "S-5",
+      "characterName": "Colossus Spades 5"
+    },
+    {
+      "id": "1706",
+      "cardNumber": "S-6",
+      "characterName": "Juggernaut Spades 6"
+    },
+    {
+      "id": "1707",
+      "cardNumber": "S-7",
+      "characterName": "Apocalypse Spades 7"
+    },
+    {
+      "id": "1708",
+      "cardNumber": "S-8",
+      "characterName": "Daredevil Spades 8"
+    },
+    {
+      "id": "1709",
+      "cardNumber": "S-9",
+      "characterName": "Silver Surfer Spades 9"
+    },
+    {
+      "id": "30013",
+      "cardNumber": "S-A",
+      "characterName": "Gambit Spades Ace"
+    },
+    {
+      "id": "30014",
+      "cardNumber": "S-J",
+      "characterName": "Mystique Spades Jack"
+    },
+    {
+      "id": "30016",
+      "cardNumber": "S-K",
+      "characterName": "Black Panther Spades King"
+    },
+    {
+      "id": "30015",
+      "cardNumber": "S-Q",
+      "characterName": "Jean Grey Spades Queen"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcardNumber\tcharacterName\n1674\tC-10\tThor Clubs 10\n1675\tC-2\tSabretooth Clubs 2\n1676\tC-3\tQuicksilver Clubs 3\n1677\tC-4\tInvisible Woman Clubs 4\n1678\tC-5\tKitty Pryde Clubs 5\n1679\tC-6\tWar Machine Clubs 6\n1680\tC-7\tVenom Clubs 7\n1681\tC-8\tLoki Clubs 8\n1682\tC-9\tHulk Clubs 9\n30001\tC-A\tWolverine Clubs Ace\n30002\tC-J\tBeast Clubs Jack\n30004\tC-K\tDoctor Doom Clubs King\n30003\tC-Q\tStorm Clubs Queen\n1683\tD-10\tBlack Widow Diamonds 10\n1684\tD-2\tCaptain Marvel Diamonds 2\n1685\tD-3\tLegion Diamonds 3\n1686\tD-4\tThe Thing Diamonds 4\n1687\tD-5\tIceman Diamonds 5\n1688\tD-6\tPsylocke Diamonds 6\n1689\tD-7\tVision Diamonds 7\n1690\tD-8\tScarlet Witch Diamonds 8\n1691\tD-9\tBlade Diamonds 9\n30005\tD-A\tMagneto Diamonds Ace\n30006\tD-J\tCable Diamonds Jack\n30008\tD-K\tCyclops Diamonds King\n30007\tD-Q\tEmma Frost Diamonds Queen\n1692\tH-10\tIron Man Hearts 10\n1693\tH-2\tJubilee Hearts 2\n1694\tH-3\tGhost Rider Hearts 3\n1695\tH-4\tHuman Torch Hearts 4\n1696\tH-5\tAngel Hearts 5\n1697\tH-6\tPhoenix Hearts 6\n1698\tH-7\tAnt-Man Hearts 7\n1699\tH-8\tThanos Hearts 8\n1700\tH-9\tDoctor Strange Hearts 9\n30009\tH-A\tSpider-Man Hearts Ace\n30010\tH-J\tBishop Hearts Jack\n30012\tH-K\tProfessor X Hearts King\n30011\tH-Q\tRogue Hearts Queen\n1701\tS-10\tCaptain America Spades 10\n1702\tS-2\tX-23 Spades 2\n1703\tS-3\tNightcrawler Spades 3\n1704\tS-4\tMister Fantastic Spades 4\n1705\tS-5\tColossus Spades 5\n1706\tS-6\tJuggernaut Spades 6\n1707\tS-7\tApocalypse Spades 7\n1708\tS-8\tDaredevil Spades 8\n1709\tS-9\tSilver Surfer Spades 9\n30013\tS-A\tGambit Spades Ace\n30014\tS-J\tMystique Spades Jack\n30016\tS-K\tBlack Panther Spades King\n30015\tS-Q\tJean Grey Spades Queen\n",
+  "stderr": "",
+  "execution_time_ms": 266
+}

@@ -1,0 +1,150 @@
+{
+  "query": "SELECT id, cardNumber, characterName, cardType, imageUrl FROM marvel_cards WHERE setId = 3 AND cardType = 'GAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS' ORDER BY cardNumber LIMIT 20;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, cardNumber, characterName, cardType, imageUrl FROM marvel_cards WHERE setId = 3 AND cardType = 'GAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS' ORDER BY cardNumber LIMIT 20;",
+  "rows": [
+    {
+      "id": "1674",
+      "cardNumber": "C-10",
+      "characterName": "Thor Clubs 10",
+      "cardType": "GAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_c10_thor-XCzBNL68EhY4w6TZUwnEFV.webp"
+    },
+    {
+      "id": "1675",
+      "cardNumber": "C-2",
+      "characterName": "Sabretooth Clubs 2",
+      "cardType": "GAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_c2_sabretooth-dJowmSMFrtBhgWHkgFJPv5.webp"
+    },
+    {
+      "id": "1676",
+      "cardNumber": "C-3",
+      "characterName": "Quicksilver Clubs 3",
+      "cardType": "GAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_c3_quicksilver-WVx2SXr2ujt4NF5gXkzHyd.webp"
+    },
+    {
+      "id": "1677",
+      "cardNumber": "C-4",
+      "characterName": "Invisible Woman Clubs 4",
+      "cardType": "GAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_c4_invisible_woman-nTmcJ47QzfnmFYLUvGjaSg.webp"
+    },
+    {
+      "id": "1678",
+      "cardNumber": "C-5",
+      "characterName": "Kitty Pryde Clubs 5",
+      "cardType": "GAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_c5_kitty_pryde-3G5FvqTSVWaJ3esJf7hhfT.webp"
+    },
+    {
+      "id": "1679",
+      "cardNumber": "C-6",
+      "characterName": "War Machine Clubs 6",
+      "cardType": "GAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_c6_war_machine-NTB4LrNfenrW3uVXpXBobQ.webp"
+    },
+    {
+      "id": "1680",
+      "cardNumber": "C-7",
+      "characterName": "Venom Clubs 7",
+      "cardType": "GAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_c7_venom-ctnAc5RhmtKmgJMppp9Y5i.webp"
+    },
+    {
+      "id": "1681",
+      "cardNumber": "C-8",
+      "characterName": "Loki Clubs 8",
+      "cardType": "GAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_c8_loki-AFYbaFXzu5vqr76nJfJtKF.webp"
+    },
+    {
+      "id": "1682",
+      "cardNumber": "C-9",
+      "characterName": "Hulk Clubs 9",
+      "cardType": "GAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_c9_hulk-6BL8t8tUJG5KLKXtNffW3Z.webp"
+    },
+    {
+      "id": "30001",
+      "cardNumber": "C-A",
+      "characterName": "Wolverine Clubs Ace",
+      "cardType": "GAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_ca_wolverine-63zFVWBo4mmN7HrkKS3mJr.webp"
+    },
+    {
+      "id": "30002",
+      "cardNumber": "C-J",
+      "characterName": "Beast Clubs Jack",
+      "cardType": "GAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_cj_beast-6FDaYFEbwbRVKJrXdpqqWR.webp"
+    },
+    {
+      "id": "30004",
+      "cardNumber": "C-K",
+      "characterName": "Doctor Doom Clubs King",
+      "cardType": "GAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_ck_doctor_doom-FpbU2ZfjX2RtYzS3TYXzu6.webp"
+    },
+    {
+      "id": "30003",
+      "cardNumber": "C-Q",
+      "characterName": "Storm Clubs Queen",
+      "cardType": "GAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_cq_storm-iF9KjN3uUZP3tGGrYd3LqQ.webp"
+    },
+    {
+      "id": "1683",
+      "cardNumber": "D-10",
+      "characterName": "Black Widow Diamonds 10",
+      "cardType": "GAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_d10_black_widow-ZsWwdhxgegcTPqscD7J2rC.webp"
+    },
+    {
+      "id": "1684",
+      "cardNumber": "D-2",
+      "characterName": "Captain Marvel Diamonds 2",
+      "cardType": "GAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_d2_captain_marvel-RBTxryLWJqCQM3iF2SqnPP.webp"
+    },
+    {
+      "id": "1685",
+      "cardNumber": "D-3",
+      "characterName": "Legion Diamonds 3",
+      "cardType": "GAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_d3_legion-SXuhYqPEnCRpSQP2NTvJde.webp"
+    },
+    {
+      "id": "1686",
+      "cardNumber": "D-4",
+      "characterName": "The Thing Diamonds 4",
+      "cardType": "GAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_d4_the_thing-XJHpdFnzzsaEPsBfRsTLYh.webp"
+    },
+    {
+      "id": "1687",
+      "cardNumber": "D-5",
+      "characterName": "Iceman Diamonds 5",
+      "cardType": "GAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_d5_iceman-FEFh9oc9JT6txAYY3stiGf.webp"
+    },
+    {
+      "id": "1688",
+      "cardNumber": "D-6",
+      "characterName": "Psylocke Diamonds 6",
+      "cardType": "GAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_d6_psylocke-cUzWiCo7Ydcv6sVriYsxzj.webp"
+    },
+    {
+      "id": "1689",
+      "cardNumber": "D-7",
+      "characterName": "Vision Diamonds 7",
+      "cardType": "GAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_d7_vision-KYr8AeiFT62Q4WxNatQuQX.webp"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcardNumber\tcharacterName\tcardType\timageUrl\n1674\tC-10\tThor Clubs 10\tGAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_c10_thor-XCzBNL68EhY4w6TZUwnEFV.webp\n1675\tC-2\tSabretooth Clubs 2\tGAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_c2_sabretooth-dJowmSMFrtBhgWHkgFJPv5.webp\n1676\tC-3\tQuicksilver Clubs 3\tGAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_c3_quicksilver-WVx2SXr2ujt4NF5gXkzHyd.webp\n1677\tC-4\tInvisible Woman Clubs 4\tGAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_c4_invisible_woman-nTmcJ47QzfnmFYLUvGjaSg.webp\n1678\tC-5\tKitty Pryde Clubs 5\tGAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_c5_kitty_pryde-3G5FvqTSVWaJ3esJf7hhfT.webp\n1679\tC-6\tWar Machine Clubs 6\tGAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_c6_war_machine-NTB4LrNfenrW3uVXpXBobQ.webp\n1680\tC-7\tVenom Clubs 7\tGAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_c7_venom-ctnAc5RhmtKmgJMppp9Y5i.webp\n1681\tC-8\tLoki Clubs 8\tGAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_c8_loki-AFYbaFXzu5vqr76nJfJtKF.webp\n1682\tC-9\tHulk Clubs 9\tGAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_c9_hulk-6BL8t8tUJG5KLKXtNffW3Z.webp\n30001\tC-A\tWolverine Clubs Ace\tGAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_ca_wolverine-63zFVWBo4mmN7HrkKS3mJr.webp\n30002\tC-J\tBeast Clubs Jack\tGAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_cj_beast-6FDaYFEbwbRVKJrXdpqqWR.webp\n30004\tC-K\tDoctor Doom Clubs King\tGAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_ck_doctor_doom-FpbU2ZfjX2RtYzS3TYXzu6.webp\n30003\tC-Q\tStorm Clubs Queen\tGAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_cq_storm-iF9KjN3uUZP3tGGrYd3LqQ.webp\n1683\tD-10\tBlack Widow Diamonds 10\tGAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_d10_black_widow-ZsWwdhxgegcTPqscD7J2rC.webp\n1684\tD-2\tCaptain Marvel Diamonds 2\tGAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_d2_captain_marvel-RBTxryLWJqCQM3iF2SqnPP.webp\n1685\tD-3\tLegion Diamonds 3\tGAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_d3_legion-SXuhYqPEnCRpSQP2NTvJde.webp\n1686\tD-4\tThe Thing Diamonds 4\tGAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_d4_the_thing-XJHpdFnzzsaEPsBfRsTLYh.webp\n1687\tD-5\tIceman Diamonds 5\tGAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_d5_iceman-FEFh9oc9JT6txAYY3stiGf.webp\n1688\tD-6\tPsylocke Diamonds 6\tGAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_d6_psylocke-cUzWiCo7Ydcv6sVriYsxzj.webp\n1689\tD-7\tVision Diamonds 7\tGAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit_d7_vision-KYr8AeiFT62Q4WxNatQuQX.webp\n",
+  "stderr": "",
+  "execution_time_ms": 288
+}
