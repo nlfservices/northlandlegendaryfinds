@@ -2295,4 +2295,13 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 ## Remove Quick Comp & Display Buttons
 - [x] Remove Quick Comp and Display buttons from card database card listings
 - [x] Verify on live site
+- [x] Save checkpoint (16449c2a)
+
+## Movies & Series Detail Page - Next Level Upgrades
+- [x] Animated box office counters (count-up effect on scroll into view)
+- [x] FAQ schema markup (structured data for Google rich results)
+- [x] "Cards from this movie in our repacks" eBay cross-links section (Active Listings + Sold Comps)
+- [x] MCU timeline position indicator with clickable dots
+- [x] Update Iron Man entry with FAQ data and eBay search term
+- [x] Verify all features on live site
 - [ ] Save checkpoint

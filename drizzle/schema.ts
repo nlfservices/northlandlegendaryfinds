@@ -1039,6 +1039,10 @@ export const mcuMedia = mysqlTable("mcu_media", {
   keywords: text("keywords"),
   /** Related character slugs (JSON array) */
   relatedCharacters: json("relatedCharacters").$type<string[]>(),
+  /** eBay search term for card cross-links (e.g., "Topps Marvel Iron Man cards") */
+  ebaySearchTerm: varchar("ebaySearchTerm", { length: 255 }),
+  /** FAQ data as JSON array of {question, answer} objects for schema markup */
+  faqData: json("faqData").$type<{question: string; answer: string}[]>(),
   /** Published status */
   status: mysqlEnum("status", ["draft", "published"]).notNull().default("draft"),
   /** Featured on listing page */
