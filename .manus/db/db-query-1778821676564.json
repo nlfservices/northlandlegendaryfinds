@@ -1,0 +1,30 @@
+{
+  "query": "SELECT slug, title, status FROM mcu_media WHERE mediaType = 'series' AND (status != 'published' OR content IS NULL) ORDER BY releaseOrder",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT slug, title, status FROM mcu_media WHERE mediaType = 'series' AND (status != 'published' OR content IS NULL) ORDER BY releaseOrder",
+  "rows": [
+    {
+      "slug": "she-hulk-2022",
+      "title": "She-Hulk: Attorney at Law",
+      "status": "draft"
+    },
+    {
+      "slug": "gotg-holiday-special-2022",
+      "title": "The Guardians of the Galaxy Holiday Special",
+      "status": "draft"
+    },
+    {
+      "slug": "friendly-neighborhood-spider-man-2025",
+      "title": "Your Friendly Neighborhood Spider-Man",
+      "status": "draft"
+    },
+    {
+      "slug": "marvel-zombies-2025",
+      "title": "Marvel Zombies",
+      "status": "draft"
+    }
+  ],
+  "messages": [],
+  "stdout": "slug\ttitle\tstatus\nshe-hulk-2022\tShe-Hulk: Attorney at Law\tdraft\ngotg-holiday-special-2022\tThe Guardians of the Galaxy Holiday Special\tdraft\nfriendly-neighborhood-spider-man-2025\tYour Friendly Neighborhood Spider-Man\tdraft\nmarvel-zombies-2025\tMarvel Zombies\tdraft\n",
+  "stderr": "",
+  "execution_time_ms": 261
+}
