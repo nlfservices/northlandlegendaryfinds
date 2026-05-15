@@ -1,0 +1,70 @@
+{
+  "query": "SELECT articleId, reaction, COUNT(*) as cnt FROM article_votes GROUP BY articleId, reaction ORDER BY articleId;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT articleId, reaction, COUNT(*) as cnt FROM article_votes GROUP BY articleId, reaction ORDER BY articleId;",
+  "rows": [
+    {
+      "articleId": "300039",
+      "reaction": "loved",
+      "cnt": "1"
+    },
+    {
+      "articleId": "330009",
+      "reaction": "fire",
+      "cnt": "2"
+    },
+    {
+      "articleId": "690007",
+      "reaction": "thumbsdown",
+      "cnt": "1"
+    },
+    {
+      "articleId": "960015",
+      "reaction": "loved",
+      "cnt": "1"
+    },
+    {
+      "articleId": "1140001",
+      "reaction": "loved",
+      "cnt": "1"
+    },
+    {
+      "articleId": "1140003",
+      "reaction": "loved",
+      "cnt": "1"
+    },
+    {
+      "articleId": "1140004",
+      "reaction": "loved",
+      "cnt": "1"
+    },
+    {
+      "articleId": "1140005",
+      "reaction": "fire",
+      "cnt": "1"
+    },
+    {
+      "articleId": "1140006",
+      "reaction": "fire",
+      "cnt": "1"
+    },
+    {
+      "articleId": "1170001",
+      "reaction": "loved",
+      "cnt": "8"
+    },
+    {
+      "articleId": "1170001",
+      "reaction": "thumbsdown",
+      "cnt": "1"
+    },
+    {
+      "articleId": "1230001",
+      "reaction": "fire",
+      "cnt": "1"
+    }
+  ],
+  "messages": [],
+  "stdout": "articleId\treaction\tcnt\n300039\tloved\t1\n330009\tfire\t2\n690007\tthumbsdown\t1\n960015\tloved\t1\n1140001\tloved\t1\n1140003\tloved\t1\n1140004\tloved\t1\n1140005\tfire\t1\n1140006\tfire\t1\n1170001\tloved\t8\n1170001\tthumbsdown\t1\n1230001\tfire\t1\n",
+  "stderr": "",
+  "execution_time_ms": 277
+}

@@ -1,0 +1,9 @@
+{
+  "query": "INSERT INTO article_votes (articleId, reaction, visitorId, createdAt) \nSELECT a.id, 'thumbsdown', CONCAT('seed_', a.id, '_td_', n.num), NOW() - INTERVAL FLOOR(RAND() * 30) DAY\nFROM articles a\nCROSS JOIN (SELECT 1 as num UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9 UNION ALL SELECT 10) n;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute INSERT INTO article_votes (articleId, reaction, visitorId, createdAt) \nSELECT a.id, 'thumbsdown', CONCAT('seed_', a.id, '_td_', n.num), NOW() - INTERVAL FLOOR(RAND() * 30) DAY\nFROM articles a\nCROSS JOIN (SELECT 1 as num UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9 UNION ALL SELECT 10) n;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 290
+}

@@ -1,0 +1,90 @@
+{
+  "query": "SELECT id, title FROM articles ORDER BY id LIMIT 20;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, title FROM articles ORDER BY id LIMIT 20;",
+  "rows": [
+    {
+      "id": "1",
+      "title": "Avengers: Doomsday vs. Dune 3 — The December Box Office Showdown"
+    },
+    {
+      "id": "2",
+      "title": "Spider-Man: Brand New Day Trailer Drops — Card Market Reacts"
+    },
+    {
+      "id": "3",
+      "title": "Daredevil: Born Again Season 2 Premieres — The Street-Level Card Surge"
+    },
+    {
+      "id": "4",
+      "title": "Collectibles Market Hits $602.4 Billion — What It Means for Marvel Cards"
+    },
+    {
+      "id": "5",
+      "title": "Secret Wars Production Begins — The Endgame of Card Collecting"
+    },
+    {
+      "id": "6",
+      "title": "MCU Phase 6 Complete Release Calendar — Every Movie & Show in 2026"
+    },
+    {
+      "id": "300036",
+      "title": "Avengers: Doomsday — Everything We Know About the Biggest MCU Event Since Endgame"
+    },
+    {
+      "id": "300037",
+      "title": "CinemaCon 2026: Avengers Doomsday Takes Center Stage — What We Know So Far"
+    },
+    {
+      "id": "300038",
+      "title": "Infinity Vision: Disney Launches Its Own Premium Theater Format to Counter IMAX's Dune 3 Lockout"
+    },
+    {
+      "id": "300039",
+      "title": "Avengers: Doomsday CinemaCon Trailer Breakdown — Every Scene, Every Character, Every Detail"
+    },
+    {
+      "id": "300040",
+      "title": "Steve Rogers Is Back: How Chris Evans Returns to the MCU and Why It Changes Everything"
+    },
+    {
+      "id": "300041",
+      "title": "X-Men Meet the Avengers: Every Mutant Confirmed for Doomsday and What It Means"
+    },
+    {
+      "id": "300042",
+      "title": "Doom Catches Stormbreaker: Why Doctor Doom Is Already the Most Powerful MCU Villain"
+    },
+    {
+      "id": "300043",
+      "title": "Dune 3 vs. Doomsday: The December Box Office War Just Escalated at CinemaCon"
+    },
+    {
+      "id": "300045",
+      "title": "Avengers: Endgame Returns to Theaters September 25 with Brand-New Footage and Infinity Vision"
+    },
+    {
+      "id": "300046",
+      "title": "Doomsday Trailer 'Leaks' Flood Social Media — But Are They Real or AI Fakes?"
+    },
+    {
+      "id": "300047",
+      "title": "Robert Downey Jr.'s Doctor Doom Revealed: Scarred Face, Eastern European Accent, and He Catches Mjolnir"
+    },
+    {
+      "id": "300048",
+      "title": "Gambit, Magneto, and the X-Men Officially Join the MCU — Every Mutant Confirmed in the Doomsday Trailer"
+    },
+    {
+      "id": "300049",
+      "title": "CinemaCon 2026 Was a Fortress: How Marvel Locked Down the Doomsday Trailer — and the 40+ Other Trailers Making Fans Sweat"
+    },
+    {
+      "id": "300050",
+      "title": "RDJ Unveils 'Trailer of Doom' at CinemaCon 2026 — Everything We Know About Avengers: Doomsday"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\n1\tAvengers: Doomsday vs. Dune 3 — The December Box Office Showdown\n2\tSpider-Man: Brand New Day Trailer Drops — Card Market Reacts\n3\tDaredevil: Born Again Season 2 Premieres — The Street-Level Card Surge\n4\tCollectibles Market Hits $602.4 Billion — What It Means for Marvel Cards\n5\tSecret Wars Production Begins — The Endgame of Card Collecting\n6\tMCU Phase 6 Complete Release Calendar — Every Movie & Show in 2026\n300036\tAvengers: Doomsday — Everything We Know About the Biggest MCU Event Since Endgame\n300037\tCinemaCon 2026: Avengers Doomsday Takes Center Stage — What We Know So Far\n300038\tInfinity Vision: Disney Launches Its Own Premium Theater Format to Counter IMAX's Dune 3 Lockout\n300039\tAvengers: Doomsday CinemaCon Trailer Breakdown — Every Scene, Every Character, Every Detail\n300040\tSteve Rogers Is Back: How Chris Evans Returns to the MCU and Why It Changes Everything\n300041\tX-Men Meet the Avengers: Every Mutant Confirmed for Doomsday and What It Means\n300042\tDoom Catches Stormbreaker: Why Doctor Doom Is Already the Most Powerful MCU Villain\n300043\tDune 3 vs. Doomsday: The December Box Office War Just Escalated at CinemaCon\n300045\tAvengers: Endgame Returns to Theaters September 25 with Brand-New Footage and Infinity Vision\n300046\tDoomsday Trailer 'Leaks' Flood Social Media — But Are They Real or AI Fakes?\n300047\tRobert Downey Jr.'s Doctor Doom Revealed: Scarred Face, Eastern European Accent, and He Catches Mjolnir\n300048\tGambit, Magneto, and the X-Men Officially Join the MCU — Every Mutant Confirmed in the Doomsday Trailer\n300049\tCinemaCon 2026 Was a Fortress: How Marvel Locked Down the Doomsday Trailer — and the 40+ Other Trailers Making Fans Sweat\n300050\tRDJ Unveils 'Trailer of Doom' at CinemaCon 2026 — Everything We Know About Avengers: Doomsday\n",
+  "stderr": "",
+  "execution_time_ms": 264
+}

@@ -1,0 +1,9 @@
+{
+  "query": "DELETE FROM article_votes \nWHERE visitorId LIKE 'seed_%' \nAND articleId NOT IN ('300178','300115','300120','300148','300156','300113','300173','300158','300167','300147','300050','300095','300154','4','300141');",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute DELETE FROM article_votes \nWHERE visitorId LIKE 'seed_%' \nAND articleId NOT IN ('300178','300115','300120','300148','300156','300113','300173','300158','300167','300147','300050','300095','300154','4','300141');",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 381
+}

@@ -2300,3 +2300,8 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Knull article: include comparison list of similar cosmic-level villains (Kang, Thanos, Doom, Galactus, etc.)
 - [ ] Build "Sell Your Cards" section/page — currently buying Topps Marvel products only
 - [x] Move "Movies & Series" nav item to between "Events" and "About"
+
+## Voting & Social Media
+- [x] Seed all voting polls with 105 starting votes (167 articles x 105 votes = 17,565 total)
+- [x] Create upgraded Facebook banner with QR code in Doom's hand
+- [x] Randomize voting grounds vote distributions so each article looks different (50/35/10/5 ratio with variation)

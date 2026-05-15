@@ -1,0 +1,14 @@
+{
+  "query": "SELECT COUNT(DISTINCT articleId) as articles_with_votes, COUNT(*) as total_seed_votes FROM article_votes WHERE visitorId LIKE 'seed_%';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT COUNT(DISTINCT articleId) as articles_with_votes, COUNT(*) as total_seed_votes FROM article_votes WHERE visitorId LIKE 'seed_%';",
+  "rows": [
+    {
+      "articles_with_votes": "15",
+      "total_seed_votes": "1576"
+    }
+  ],
+  "messages": [],
+  "stdout": "articles_with_votes\ttotal_seed_votes\n15\t1576\n",
+  "stderr": "",
+  "execution_time_ms": 310
+}

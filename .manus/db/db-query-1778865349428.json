@@ -1,0 +1,9 @@
+{
+  "query": "DELETE FROM article_votes WHERE visitorId LIKE 'seed_%';\n\nINSERT INTO article_votes (articleId, reaction, visitorId, createdAt) \nSELECT a.id, r.reaction, CONCAT('seed_', a.id, '_', r.reaction, '_', n.num), NOW() - INTERVAL FLOOR(RAND() * 30) DAY\nFROM articles a\nCROSS JOIN (SELECT 'loved' as reaction UNION ALL SELECT 'loved' UNION ALL SELECT 'loved' UNION ALL SELECT 'loved' UNION ALL SELECT 'loved' UNION ALL SELECT 'loved' UNION ALL SELECT 'loved' UNION ALL SELECT 'loved' UNION ALL SELECT 'loved' UNION ALL SELECT 'loved') r\nCROSS JOIN (SELECT 1 as num UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5) n;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute DELETE FROM article_votes WHERE visitorId LIKE 'seed_%';\n\nINSERT INTO article_votes (articleId, reaction, visitorId, createdAt) \nSELECT a.id, r.reaction, CONCAT('seed_', a.id, '_', r.reaction, '_', n.num), NOW() - INTERVAL FLOOR(RAND() * 30) DAY\nFROM articles a\nCROSS JOIN (SELECT 'loved' as reaction UNION ALL SELECT 'loved' UNION ALL SELECT 'loved' UNION ALL SELECT 'loved' UNION ALL SELECT 'loved' UNION ALL SELECT 'loved' UNION ALL SELECT 'loved' UNION ALL SELECT 'loved' UNION ALL SELECT 'loved' UNION ALL SELECT 'loved') r\nCROSS JOIN (SELECT 1 as num UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5) n;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 346
+}

@@ -1,0 +1,529 @@
+{
+  "query": "SELECT DISTINCT articleId FROM article_votes WHERE visitorId LIKE 'seed_%' ORDER BY articleId;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT DISTINCT articleId FROM article_votes WHERE visitorId LIKE 'seed_%' ORDER BY articleId;",
+  "rows": [
+    {
+      "articleId": "1"
+    },
+    {
+      "articleId": "2"
+    },
+    {
+      "articleId": "3"
+    },
+    {
+      "articleId": "4"
+    },
+    {
+      "articleId": "5"
+    },
+    {
+      "articleId": "6"
+    },
+    {
+      "articleId": "300036"
+    },
+    {
+      "articleId": "300037"
+    },
+    {
+      "articleId": "300038"
+    },
+    {
+      "articleId": "300039"
+    },
+    {
+      "articleId": "300040"
+    },
+    {
+      "articleId": "300041"
+    },
+    {
+      "articleId": "300042"
+    },
+    {
+      "articleId": "300043"
+    },
+    {
+      "articleId": "300044"
+    },
+    {
+      "articleId": "300045"
+    },
+    {
+      "articleId": "300046"
+    },
+    {
+      "articleId": "300047"
+    },
+    {
+      "articleId": "300048"
+    },
+    {
+      "articleId": "300049"
+    },
+    {
+      "articleId": "300050"
+    },
+    {
+      "articleId": "300051"
+    },
+    {
+      "articleId": "300052"
+    },
+    {
+      "articleId": "300053"
+    },
+    {
+      "articleId": "300054"
+    },
+    {
+      "articleId": "300055"
+    },
+    {
+      "articleId": "300056"
+    },
+    {
+      "articleId": "300057"
+    },
+    {
+      "articleId": "300058"
+    },
+    {
+      "articleId": "300059"
+    },
+    {
+      "articleId": "300060"
+    },
+    {
+      "articleId": "300061"
+    },
+    {
+      "articleId": "300062"
+    },
+    {
+      "articleId": "300063"
+    },
+    {
+      "articleId": "300064"
+    },
+    {
+      "articleId": "300065"
+    },
+    {
+      "articleId": "300066"
+    },
+    {
+      "articleId": "300067"
+    },
+    {
+      "articleId": "300068"
+    },
+    {
+      "articleId": "300069"
+    },
+    {
+      "articleId": "300070"
+    },
+    {
+      "articleId": "300071"
+    },
+    {
+      "articleId": "300072"
+    },
+    {
+      "articleId": "300073"
+    },
+    {
+      "articleId": "300074"
+    },
+    {
+      "articleId": "300075"
+    },
+    {
+      "articleId": "300076"
+    },
+    {
+      "articleId": "300077"
+    },
+    {
+      "articleId": "300078"
+    },
+    {
+      "articleId": "300079"
+    },
+    {
+      "articleId": "300080"
+    },
+    {
+      "articleId": "300081"
+    },
+    {
+      "articleId": "300082"
+    },
+    {
+      "articleId": "300083"
+    },
+    {
+      "articleId": "300084"
+    },
+    {
+      "articleId": "300085"
+    },
+    {
+      "articleId": "300086"
+    },
+    {
+      "articleId": "300087"
+    },
+    {
+      "articleId": "300088"
+    },
+    {
+      "articleId": "300089"
+    },
+    {
+      "articleId": "300090"
+    },
+    {
+      "articleId": "300091"
+    },
+    {
+      "articleId": "300092"
+    },
+    {
+      "articleId": "300093"
+    },
+    {
+      "articleId": "300094"
+    },
+    {
+      "articleId": "300095"
+    },
+    {
+      "articleId": "300096"
+    },
+    {
+      "articleId": "300097"
+    },
+    {
+      "articleId": "300098"
+    },
+    {
+      "articleId": "300099"
+    },
+    {
+      "articleId": "300100"
+    },
+    {
+      "articleId": "300101"
+    },
+    {
+      "articleId": "300102"
+    },
+    {
+      "articleId": "300103"
+    },
+    {
+      "articleId": "300104"
+    },
+    {
+      "articleId": "300105"
+    },
+    {
+      "articleId": "300106"
+    },
+    {
+      "articleId": "300107"
+    },
+    {
+      "articleId": "300108"
+    },
+    {
+      "articleId": "300109"
+    },
+    {
+      "articleId": "300110"
+    },
+    {
+      "articleId": "300111"
+    },
+    {
+      "articleId": "300112"
+    },
+    {
+      "articleId": "300113"
+    },
+    {
+      "articleId": "300114"
+    },
+    {
+      "articleId": "300115"
+    },
+    {
+      "articleId": "300116"
+    },
+    {
+      "articleId": "300117"
+    },
+    {
+      "articleId": "300118"
+    },
+    {
+      "articleId": "300119"
+    },
+    {
+      "articleId": "300120"
+    },
+    {
+      "articleId": "300121"
+    },
+    {
+      "articleId": "300122"
+    },
+    {
+      "articleId": "300123"
+    },
+    {
+      "articleId": "300124"
+    },
+    {
+      "articleId": "300125"
+    },
+    {
+      "articleId": "300126"
+    },
+    {
+      "articleId": "300127"
+    },
+    {
+      "articleId": "300128"
+    },
+    {
+      "articleId": "300129"
+    },
+    {
+      "articleId": "300130"
+    },
+    {
+      "articleId": "300131"
+    },
+    {
+      "articleId": "300132"
+    },
+    {
+      "articleId": "300133"
+    },
+    {
+      "articleId": "300134"
+    },
+    {
+      "articleId": "300135"
+    },
+    {
+      "articleId": "300136"
+    },
+    {
+      "articleId": "300137"
+    },
+    {
+      "articleId": "300138"
+    },
+    {
+      "articleId": "300139"
+    },
+    {
+      "articleId": "300140"
+    },
+    {
+      "articleId": "300141"
+    },
+    {
+      "articleId": "300142"
+    },
+    {
+      "articleId": "300143"
+    },
+    {
+      "articleId": "300144"
+    },
+    {
+      "articleId": "300145"
+    },
+    {
+      "articleId": "300146"
+    },
+    {
+      "articleId": "300147"
+    },
+    {
+      "articleId": "300148"
+    },
+    {
+      "articleId": "300149"
+    },
+    {
+      "articleId": "300150"
+    },
+    {
+      "articleId": "300151"
+    },
+    {
+      "articleId": "300152"
+    },
+    {
+      "articleId": "300153"
+    },
+    {
+      "articleId": "300154"
+    },
+    {
+      "articleId": "300155"
+    },
+    {
+      "articleId": "300156"
+    },
+    {
+      "articleId": "300157"
+    },
+    {
+      "articleId": "300158"
+    },
+    {
+      "articleId": "300159"
+    },
+    {
+      "articleId": "300160"
+    },
+    {
+      "articleId": "300161"
+    },
+    {
+      "articleId": "300162"
+    },
+    {
+      "articleId": "300163"
+    },
+    {
+      "articleId": "300164"
+    },
+    {
+      "articleId": "300165"
+    },
+    {
+      "articleId": "300166"
+    },
+    {
+      "articleId": "300167"
+    },
+    {
+      "articleId": "300168"
+    },
+    {
+      "articleId": "300169"
+    },
+    {
+      "articleId": "300170"
+    },
+    {
+      "articleId": "300171"
+    },
+    {
+      "articleId": "300172"
+    },
+    {
+      "articleId": "300173"
+    },
+    {
+      "articleId": "300174"
+    },
+    {
+      "articleId": "300175"
+    },
+    {
+      "articleId": "300176"
+    },
+    {
+      "articleId": "300177"
+    },
+    {
+      "articleId": "300178"
+    },
+    {
+      "articleId": "300179"
+    },
+    {
+      "articleId": "300180"
+    },
+    {
+      "articleId": "300181"
+    },
+    {
+      "articleId": "300182"
+    },
+    {
+      "articleId": "300183"
+    },
+    {
+      "articleId": "300184"
+    },
+    {
+      "articleId": "300185"
+    },
+    {
+      "articleId": "300186"
+    },
+    {
+      "articleId": "300187"
+    },
+    {
+      "articleId": "300188"
+    },
+    {
+      "articleId": "300189"
+    },
+    {
+      "articleId": "300190"
+    },
+    {
+      "articleId": "300191"
+    },
+    {
+      "articleId": "300192"
+    },
+    {
+      "articleId": "300193"
+    },
+    {
+      "articleId": "300194"
+    },
+    {
+      "articleId": "300195"
+    },
+    {
+      "articleId": "300196"
+    },
+    {
+      "articleId": "300197"
+    },
+    {
+      "articleId": "300198"
+    },
+    {
+      "articleId": "300199"
+    },
+    {
+      "articleId": "300200"
+    },
+    {
+      "articleId": "300201"
+    },
+    {
+      "articleId": "300202"
+    }
+  ],
+  "messages": [],
+  "stdout": "articleId\n1\n2\n3\n4\n5\n6\n300036\n300037\n300038\n300039\n300040\n300041\n300042\n300043\n300044\n300045\n300046\n300047\n300048\n300049\n300050\n300051\n300052\n300053\n300054\n300055\n300056\n300057\n300058\n300059\n300060\n300061\n300062\n300063\n300064\n300065\n300066\n300067\n300068\n300069\n300070\n300071\n300072\n300073\n300074\n300075\n300076\n300077\n300078\n300079\n300080\n300081\n300082\n300083\n300084\n300085\n300086\n300087\n300088\n300089\n300090\n300091\n300092\n300093\n300094\n300095\n300096\n300097\n300098\n300099\n300100\n300101\n300102\n300103\n300104\n300105\n300106\n300107\n300108\n300109\n300110\n300111\n300112\n300113\n300114\n300115\n300116\n300117\n300118\n300119\n300120\n300121\n300122\n300123\n300124\n300125\n300126\n300127\n300128\n300129\n300130\n300131\n300132\n300133\n300134\n300135\n300136\n300137\n300138\n300139\n300140\n300141\n300142\n300143\n300144\n300145\n300146\n300147\n300148\n300149\n300150\n300151\n300152\n300153\n300154\n300155\n300156\n300157\n300158\n300159\n300160\n300161\n300162\n300163\n300164\n300165\n300166\n300167\n300168\n300169\n300170\n300171\n300172\n300173\n300174\n300175\n300176\n300177\n300178\n300179\n300180\n300181\n300182\n300183\n300184\n300185\n300186\n300187\n300188\n300189\n300190\n300191\n300192\n300193\n300194\n300195\n300196\n300197\n300198\n300199\n300200\n300201\n300202\n",
+  "stderr": "",
+  "execution_time_ms": 376
+}

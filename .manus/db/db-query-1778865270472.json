@@ -1,0 +1,16 @@
+{
+  "query": "SHOW TABLES LIKE '%article%';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SHOW TABLES LIKE '%article%';",
+  "rows": [
+    {
+      "Tables_in_SGHqXeh8PZJcCDnFiAMuFi (%article%)": "article_votes"
+    },
+    {
+      "Tables_in_SGHqXeh8PZJcCDnFiAMuFi (%article%)": "articles"
+    }
+  ],
+  "messages": [],
+  "stdout": "Tables_in_SGHqXeh8PZJcCDnFiAMuFi (%article%)\narticle_votes\narticles\n",
+  "stderr": "",
+  "execution_time_ms": 268
+}

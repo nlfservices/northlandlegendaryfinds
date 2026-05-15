@@ -1,0 +1,90 @@
+{
+  "query": "SELECT articleId, COUNT(*) as total, \n  SUM(CASE WHEN reaction='loved' THEN 1 ELSE 0 END) as loved,\n  SUM(CASE WHEN reaction='fire' THEN 1 ELSE 0 END) as fire,\n  SUM(CASE WHEN reaction='meh' THEN 1 ELSE 0 END) as meh,\n  SUM(CASE WHEN reaction='thumbsdown' THEN 1 ELSE 0 END) as td\nFROM article_votes \nGROUP BY articleId \nORDER BY articleId \nLIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT articleId, COUNT(*) as total, \n  SUM(CASE WHEN reaction='loved' THEN 1 ELSE 0 END) as loved,\n  SUM(CASE WHEN reaction='fire' THEN 1 ELSE 0 END) as fire,\n  SUM(CASE WHEN reaction='meh' THEN 1 ELSE 0 END) as meh,\n  SUM(CASE WHEN reaction='thumbsdown' THEN 1 ELSE 0 END) as td\nFROM article_votes \nGROUP BY articleId \nORDER BY articleId \nLIMIT 10;",
+  "rows": [
+    {
+      "articleId": "1",
+      "total": "105",
+      "loved": "50",
+      "fire": "30",
+      "meh": "15",
+      "td": "10"
+    },
+    {
+      "articleId": "2",
+      "total": "105",
+      "loved": "50",
+      "fire": "30",
+      "meh": "15",
+      "td": "10"
+    },
+    {
+      "articleId": "3",
+      "total": "105",
+      "loved": "50",
+      "fire": "30",
+      "meh": "15",
+      "td": "10"
+    },
+    {
+      "articleId": "4",
+      "total": "105",
+      "loved": "50",
+      "fire": "30",
+      "meh": "15",
+      "td": "10"
+    },
+    {
+      "articleId": "5",
+      "total": "105",
+      "loved": "50",
+      "fire": "30",
+      "meh": "15",
+      "td": "10"
+    },
+    {
+      "articleId": "6",
+      "total": "105",
+      "loved": "50",
+      "fire": "30",
+      "meh": "15",
+      "td": "10"
+    },
+    {
+      "articleId": "300036",
+      "total": "105",
+      "loved": "50",
+      "fire": "30",
+      "meh": "15",
+      "td": "10"
+    },
+    {
+      "articleId": "300037",
+      "total": "105",
+      "loved": "50",
+      "fire": "30",
+      "meh": "15",
+      "td": "10"
+    },
+    {
+      "articleId": "300038",
+      "total": "105",
+      "loved": "50",
+      "fire": "30",
+      "meh": "15",
+      "td": "10"
+    },
+    {
+      "articleId": "300039",
+      "total": "106",
+      "loved": "51",
+      "fire": "30",
+      "meh": "15",
+      "td": "10"
+    }
+  ],
+  "messages": [],
+  "stdout": "articleId\ttotal\tloved\tfire\tmeh\ttd\n1\t105\t50\t30\t15\t10\n2\t105\t50\t30\t15\t10\n3\t105\t50\t30\t15\t10\n4\t105\t50\t30\t15\t10\n5\t105\t50\t30\t15\t10\n6\t105\t50\t30\t15\t10\n300036\t105\t50\t30\t15\t10\n300037\t105\t50\t30\t15\t10\n300038\t105\t50\t30\t15\t10\n300039\t106\t51\t30\t15\t10\n",
+  "stderr": "",
+  "execution_time_ms": 279
+}

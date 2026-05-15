@@ -1,0 +1,8 @@
+{
+  "query": "INSERT INTO article_votes (articleId, reaction, visitorId, createdAt) SELECT a.id, \n  ELT(1 + FLOOR(RAND() * 100 / \n    CASE WHEN FLOOR(RAND()*100) < 50 THEN 1 \n         WHEN FLOOR(RAND()*100) < 85 THEN 2\n         WHEN FLOOR(RAND()*100) < 95 THEN 3\n         ELSE 4 END), 'loved', 'fire', 'meh', 'thumbsdown'),\n  CONCAT('seed_', a.id, '_', FLOOR(RAND()*100000)),\n  NOW() - INTERVAL FLOOR(RAND() * 45) DAY\nFROM articles a\nCROSS JOIN (SELECT 1 as n UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9 UNION ALL SELECT 10) nums\nLIMIT 1;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute INSERT INTO article_votes (articleId, reaction, visitorId, createdAt) SELECT a.id, \n  ELT(1 + FLOOR(RAND() * 100 / \n    CASE WHEN FLOOR(RAND()*100) < 50 THEN 1 \n         WHEN FLOOR(RAND()*100) < 85 THEN 2\n         WHEN FLOOR(RAND()*100) < 95 THEN 3\n         ELSE 4 END), 'loved', 'fire', 'meh', 'thumbsdown'),\n  CONCAT('seed_', a.id, '_', FLOOR(RAND()*100000)),\n  NOW() - INTERVAL FLOOR(RAND() * 45) DAY\nFROM articles a\nCROSS JOIN (SELECT 1 as n UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9 UNION ALL SELECT 10) nums\nLIMIT 1;",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1048 (23000) at line 1: Column 'reaction' cannot be null"
+  ]
+}

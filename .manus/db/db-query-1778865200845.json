@@ -1,0 +1,9 @@
+{
+  "query": "SELECT po.id, po.pollId, po.label, po.voteCount FROM poll_options po ORDER BY po.pollId, po.sortOrder;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT po.id, po.pollId, po.label, po.voteCount FROM poll_options po ORDER BY po.pollId, po.sortOrder;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 257
+}

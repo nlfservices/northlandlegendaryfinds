@@ -1,0 +1,19 @@
+{
+  "query": "SHOW TABLES LIKE '%poll%';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SHOW TABLES LIKE '%poll%';",
+  "rows": [
+    {
+      "Tables_in_SGHqXeh8PZJcCDnFiAMuFi (%poll%)": "community_polls"
+    },
+    {
+      "Tables_in_SGHqXeh8PZJcCDnFiAMuFi (%poll%)": "poll_options"
+    },
+    {
+      "Tables_in_SGHqXeh8PZJcCDnFiAMuFi (%poll%)": "poll_votes"
+    }
+  ],
+  "messages": [],
+  "stdout": "Tables_in_SGHqXeh8PZJcCDnFiAMuFi (%poll%)\ncommunity_polls\npoll_options\npoll_votes\n",
+  "stderr": "",
+  "execution_time_ms": 260
+}

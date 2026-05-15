@@ -1,0 +1,14 @@
+{
+  "query": "SELECT COUNT(*) as total_votes, COUNT(DISTINCT articleId) as articles_with_votes FROM article_votes;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT COUNT(*) as total_votes, COUNT(DISTINCT articleId) as articles_with_votes FROM article_votes;",
+  "rows": [
+    {
+      "total_votes": "17565",
+      "articles_with_votes": "167"
+    }
+  ],
+  "messages": [],
+  "stdout": "total_votes\tarticles_with_votes\n17565\t167\n",
+  "stderr": "",
+  "execution_time_ms": 271
+}
