@@ -1,0 +1,40 @@
+{
+  "query": "SELECT phase, COUNT(*) as count, SUM(CASE WHEN status = 'published' AND content IS NOT NULL AND content != '' THEN 1 ELSE 0 END) as published_with_content FROM mcu_media WHERE mediaType = 'movie' GROUP BY phase ORDER BY phase",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT phase, COUNT(*) as count, SUM(CASE WHEN status = 'published' AND content IS NOT NULL AND content != '' THEN 1 ELSE 0 END) as published_with_content FROM mcu_media WHERE mediaType = 'movie' GROUP BY phase ORDER BY phase",
+  "rows": [
+    {
+      "phase": "1",
+      "count": "6",
+      "published_with_content": "6"
+    },
+    {
+      "phase": "2",
+      "count": "6",
+      "published_with_content": "6"
+    },
+    {
+      "phase": "3",
+      "count": "11",
+      "published_with_content": "11"
+    },
+    {
+      "phase": "4",
+      "count": "8",
+      "published_with_content": "0"
+    },
+    {
+      "phase": "5",
+      "count": "4",
+      "published_with_content": "0"
+    },
+    {
+      "phase": "6",
+      "count": "7",
+      "published_with_content": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "phase\tcount\tpublished_with_content\n1\t6\t6\n2\t6\t6\n3\t11\t11\n4\t8\t0\n5\t4\t0\n6\t7\t0\n",
+  "stderr": "",
+  "execution_time_ms": 263
+}

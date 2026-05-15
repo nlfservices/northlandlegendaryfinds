@@ -1,0 +1,76 @@
+{
+  "query": "SELECT slug, title, mediaType, status FROM mcu_media WHERE phase = 3 AND mediaType = 'movie' ORDER BY releaseOrder",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT slug, title, mediaType, status FROM mcu_media WHERE phase = 3 AND mediaType = 'movie' ORDER BY releaseOrder",
+  "rows": [
+    {
+      "slug": "captain-america-civil-war-2016",
+      "title": "Captain America: Civil War",
+      "mediaType": "movie",
+      "status": "draft"
+    },
+    {
+      "slug": "doctor-strange-2016",
+      "title": "Doctor Strange",
+      "mediaType": "movie",
+      "status": "draft"
+    },
+    {
+      "slug": "guardians-of-the-galaxy-vol-2-2017",
+      "title": "Guardians of the Galaxy Vol. 2",
+      "mediaType": "movie",
+      "status": "draft"
+    },
+    {
+      "slug": "spider-man-homecoming-2017",
+      "title": "Spider-Man: Homecoming",
+      "mediaType": "movie",
+      "status": "draft"
+    },
+    {
+      "slug": "thor-ragnarok-2017",
+      "title": "Thor: Ragnarok",
+      "mediaType": "movie",
+      "status": "draft"
+    },
+    {
+      "slug": "black-panther-2018",
+      "title": "Black Panther",
+      "mediaType": "movie",
+      "status": "draft"
+    },
+    {
+      "slug": "avengers-infinity-war-2018",
+      "title": "Avengers: Infinity War",
+      "mediaType": "movie",
+      "status": "draft"
+    },
+    {
+      "slug": "ant-man-and-the-wasp-2018",
+      "title": "Ant-Man and the Wasp",
+      "mediaType": "movie",
+      "status": "draft"
+    },
+    {
+      "slug": "captain-marvel-2019",
+      "title": "Captain Marvel",
+      "mediaType": "movie",
+      "status": "draft"
+    },
+    {
+      "slug": "avengers-endgame-2019",
+      "title": "Avengers: Endgame",
+      "mediaType": "movie",
+      "status": "draft"
+    },
+    {
+      "slug": "spider-man-far-from-home-2019",
+      "title": "Spider-Man: Far From Home",
+      "mediaType": "movie",
+      "status": "draft"
+    }
+  ],
+  "messages": [],
+  "stdout": "slug\ttitle\tmediaType\tstatus\ncaptain-america-civil-war-2016\tCaptain America: Civil War\tmovie\tdraft\ndoctor-strange-2016\tDoctor Strange\tmovie\tdraft\nguardians-of-the-galaxy-vol-2-2017\tGuardians of the Galaxy Vol. 2\tmovie\tdraft\nspider-man-homecoming-2017\tSpider-Man: Homecoming\tmovie\tdraft\nthor-ragnarok-2017\tThor: Ragnarok\tmovie\tdraft\nblack-panther-2018\tBlack Panther\tmovie\tdraft\navengers-infinity-war-2018\tAvengers: Infinity War\tmovie\tdraft\nant-man-and-the-wasp-2018\tAnt-Man and the Wasp\tmovie\tdraft\ncaptain-marvel-2019\tCaptain Marvel\tmovie\tdraft\navengers-endgame-2019\tAvengers: Endgame\tmovie\tdraft\nspider-man-far-from-home-2019\tSpider-Man: Far From Home\tmovie\tdraft\n",
+  "stderr": "",
+  "execution_time_ms": 266
+}

@@ -1,0 +1,35 @@
+{
+  "query": "SELECT slug, title, releaseOrder FROM mcu_media WHERE phase = 3 AND releaseOrder > 30 ORDER BY releaseOrder",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT slug, title, releaseOrder FROM mcu_media WHERE phase = 3 AND releaseOrder > 30 ORDER BY releaseOrder",
+  "rows": [
+    {
+      "slug": "the-punisher-season-2-2019",
+      "title": "The Punisher Season 2",
+      "releaseOrder": "31"
+    },
+    {
+      "slug": "captain-marvel-2019",
+      "title": "Captain Marvel",
+      "releaseOrder": "32"
+    },
+    {
+      "slug": "avengers-endgame-2019",
+      "title": "Avengers: Endgame",
+      "releaseOrder": "33"
+    },
+    {
+      "slug": "jessica-jones-season-3-2019",
+      "title": "Jessica Jones Season 3",
+      "releaseOrder": "34"
+    },
+    {
+      "slug": "spider-man-far-from-home-2019",
+      "title": "Spider-Man: Far From Home",
+      "releaseOrder": "35"
+    }
+  ],
+  "messages": [],
+  "stdout": "slug\ttitle\treleaseOrder\nthe-punisher-season-2-2019\tThe Punisher Season 2\t31\ncaptain-marvel-2019\tCaptain Marvel\t32\navengers-endgame-2019\tAvengers: Endgame\t33\njessica-jones-season-3-2019\tJessica Jones Season 3\t34\nspider-man-far-from-home-2019\tSpider-Man: Far From Home\t35\n",
+  "stderr": "",
+  "execution_time_ms": 265
+}
