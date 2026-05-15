@@ -1,0 +1,15 @@
+{
+  "query": "SELECT \n  COUNT(*) as total_movies,\n  SUM(CASE WHEN status = 'published' AND content IS NOT NULL AND content != '' THEN 1 ELSE 0 END) as published_with_content,\n  SUM(CASE WHEN status = 'draft' THEN 1 ELSE 0 END) as still_draft\nFROM mcu_media \nWHERE mediaType = 'movie'",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT \n  COUNT(*) as total_movies,\n  SUM(CASE WHEN status = 'published' AND content IS NOT NULL AND content != '' THEN 1 ELSE 0 END) as published_with_content,\n  SUM(CASE WHEN status = 'draft' THEN 1 ELSE 0 END) as still_draft\nFROM mcu_media \nWHERE mediaType = 'movie'",
+  "rows": [
+    {
+      "total_movies": "42",
+      "published_with_content": "42",
+      "still_draft": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "total_movies\tpublished_with_content\tstill_draft\n42\t42\t0\n",
+  "stderr": "",
+  "execution_time_ms": 258
+}
