@@ -1,0 +1,95 @@
+{
+  "query": "SELECT id, title, SUBSTRING(imageUrl, -60) as url_end FROM mcu_media WHERE id >= 30060 ORDER BY id;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, title, SUBSTRING(imageUrl, -60) as url_end FROM mcu_media WHERE id >= 30060 ORDER BY id;",
+  "rows": [
+    {
+      "id": "30060",
+      "title": "X-Men '97",
+      "url_end": "PZJcCDnFiAMuFi/x-men-97-featured-pHVhb9Vr3C5kJwQMB5aBQf.webp"
+    },
+    {
+      "id": "30061",
+      "title": "Deadpool & Wolverine",
+      "url_end": "deadpool-wolverine-2024-featured-cHvnVuPJCWjfFTdJKVUVMa.webp"
+    },
+    {
+      "id": "30062",
+      "title": "Agatha All Along",
+      "url_end": "iAMuFi/agatha-all-along-featured-6RUAhxPPXLEKmCJJUjGD8E.webp"
+    },
+    {
+      "id": "30063",
+      "title": "What If...? Season 3",
+      "url_end": "JcCDnFiAMuFi/what-if-s2-featured-jLN7Xd5LLqKbXCVqDjvJTy.webp"
+    },
+    {
+      "id": "30064",
+      "title": "Your Friendly Neighborhood Spider-Man",
+      "url_end": "uFi/friendly-spider-man-featured-3xUFGJDNqMQ3Fz2PoKCHvL.webp"
+    },
+    {
+      "id": "30065",
+      "title": "Captain America: Brave New World",
+      "url_end": "ca-brave-new-world-2025-featured-jCJxjXqfGJFJTWbr2Tn8Mf.webp"
+    },
+    {
+      "id": "30066",
+      "title": "Daredevil: Born Again",
+      "url_end": "Fi/daredevil-born-again-featured-2LXKXXmJQTXmzHdxQpvL5c.webp"
+    },
+    {
+      "id": "30067",
+      "title": "Thunderbolts*",
+      "url_end": "AMuFi/thunderbolts-2025-featured-6rTSm2WfNFjQiAjLuFPqJV.webp"
+    },
+    {
+      "id": "30068",
+      "title": "Ironheart",
+      "url_end": "ZJcCDnFiAMuFi/ironheart-featured-4Mz9Gy8z2hYXSCjFbvVJFo.webp"
+    },
+    {
+      "id": "30069",
+      "title": "Fantastic Four: First Steps",
+      "url_end": "c-four-first-steps-2025-featured-aCGHxqSrAVRJMKpxuGRjyJ.webp"
+    },
+    {
+      "id": "30070",
+      "title": "Marvel Zombies",
+      "url_end": "nFiAMuFi/marvel-zombies-featured-3LhbvYKnNqWFLBdTZpQnxR.webp"
+    },
+    {
+      "id": "30071",
+      "title": "Wonder Man",
+      "url_end": "JcCDnFiAMuFi/wonder-man-featured-3Rr9c7Nt3ixvUZNQqHyqFR.webp"
+    },
+    {
+      "id": "30072",
+      "title": "Daredevil: Born Again Season 2",
+      "url_end": "daredevil-born-again-s2-featured-HBwQbCmvLXVjjvqNfMFgVb.webp"
+    },
+    {
+      "id": "30073",
+      "title": "The Punisher: One Last Kill",
+      "url_end": "sher-one-last-kill-2026-featured-ckVHwZeWRmLTDCbqJJMkLi.webp"
+    },
+    {
+      "id": "30074",
+      "title": "Spider-Man: Brand New Day",
+      "url_end": "-man-brand-new-day-2026-featured-8Rrw8Lc8Ck2eDVCxNFbDWi.webp"
+    },
+    {
+      "id": "30075",
+      "title": "Avengers: Doomsday",
+      "url_end": "/avengers-doomsday-2026-featured-bWJqJmQYjnPfFqCKpvJJpP.webp"
+    },
+    {
+      "id": "30076",
+      "title": "Avengers: Secret Wars",
+      "url_end": "engers-secret-wars-2027-featured-kxPqJJPfRJjVJnLTDCbqJJ.webp"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\turl_end\n30060\tX-Men '97\tPZJcCDnFiAMuFi/x-men-97-featured-pHVhb9Vr3C5kJwQMB5aBQf.webp\n30061\tDeadpool & Wolverine\tdeadpool-wolverine-2024-featured-cHvnVuPJCWjfFTdJKVUVMa.webp\n30062\tAgatha All Along\tiAMuFi/agatha-all-along-featured-6RUAhxPPXLEKmCJJUjGD8E.webp\n30063\tWhat If...? Season 3\tJcCDnFiAMuFi/what-if-s2-featured-jLN7Xd5LLqKbXCVqDjvJTy.webp\n30064\tYour Friendly Neighborhood Spider-Man\tuFi/friendly-spider-man-featured-3xUFGJDNqMQ3Fz2PoKCHvL.webp\n30065\tCaptain America: Brave New World\tca-brave-new-world-2025-featured-jCJxjXqfGJFJTWbr2Tn8Mf.webp\n30066\tDaredevil: Born Again\tFi/daredevil-born-again-featured-2LXKXXmJQTXmzHdxQpvL5c.webp\n30067\tThunderbolts*\tAMuFi/thunderbolts-2025-featured-6rTSm2WfNFjQiAjLuFPqJV.webp\n30068\tIronheart\tZJcCDnFiAMuFi/ironheart-featured-4Mz9Gy8z2hYXSCjFbvVJFo.webp\n30069\tFantastic Four: First Steps\tc-four-first-steps-2025-featured-aCGHxqSrAVRJMKpxuGRjyJ.webp\n30070\tMarvel Zombies\tnFiAMuFi/marvel-zombies-featured-3LhbvYKnNqWFLBdTZpQnxR.webp\n30071\tWonder Man\tJcCDnFiAMuFi/wonder-man-featured-3Rr9c7Nt3ixvUZNQqHyqFR.webp\n30072\tDaredevil: Born Again Season 2\tdaredevil-born-again-s2-featured-HBwQbCmvLXVjjvqNfMFgVb.webp\n30073\tThe Punisher: One Last Kill\tsher-one-last-kill-2026-featured-ckVHwZeWRmLTDCbqJJMkLi.webp\n30074\tSpider-Man: Brand New Day\t-man-brand-new-day-2026-featured-8Rrw8Lc8Ck2eDVCxNFbDWi.webp\n30075\tAvengers: Doomsday\t/avengers-doomsday-2026-featured-bWJqJmQYjnPfFqCKpvJJpP.webp\n30076\tAvengers: Secret Wars\tengers-secret-wars-2027-featured-kxPqJJPfRJjVJnLTDCbqJJ.webp\n",
+  "stderr": "",
+  "execution_time_ms": 272
+}

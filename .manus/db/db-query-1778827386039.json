@@ -1,0 +1,30 @@
+{
+  "query": "SELECT id, title, slug FROM mcu_media WHERE title LIKE '%She-Hulk%' OR title LIKE '%Holiday%' OR title LIKE '%Quantumania%' OR title LIKE '%Friendly%' ORDER BY id;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, title, slug FROM mcu_media WHERE title LIKE '%She-Hulk%' OR title LIKE '%Holiday%' OR title LIKE '%Quantumania%' OR title LIKE '%Friendly%' ORDER BY id;",
+  "rows": [
+    {
+      "id": "30048",
+      "title": "She-Hulk: Attorney at Law",
+      "slug": "she-hulk-2022"
+    },
+    {
+      "id": "30051",
+      "title": "The Guardians of the Galaxy Holiday Special",
+      "slug": "gotg-holiday-special-2022"
+    },
+    {
+      "id": "30052",
+      "title": "Ant-Man and the Wasp: Quantumania",
+      "slug": "ant-man-quantumania-2023"
+    },
+    {
+      "id": "30064",
+      "title": "Your Friendly Neighborhood Spider-Man",
+      "slug": "friendly-neighborhood-spider-man-2025"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tslug\n30048\tShe-Hulk: Attorney at Law\tshe-hulk-2022\n30051\tThe Guardians of the Galaxy Holiday Special\tgotg-holiday-special-2022\n30052\tAnt-Man and the Wasp: Quantumania\tant-man-quantumania-2023\n30064\tYour Friendly Neighborhood Spider-Man\tfriendly-neighborhood-spider-man-2025\n",
+  "stderr": "",
+  "execution_time_ms": 260
+}

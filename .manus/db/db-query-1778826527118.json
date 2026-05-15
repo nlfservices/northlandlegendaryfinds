@@ -1,0 +1,166 @@
+{
+  "query": "SELECT id, title, slug, imageUrl FROM mcu_media WHERE id >= 30015 AND id <= 30040 ORDER BY id;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, title, slug, imageUrl FROM mcu_media WHERE id >= 30015 AND id <= 30040 ORDER BY id;",
+  "rows": [
+    {
+      "id": "30015",
+      "title": "Luke Cage Season 1",
+      "slug": "luke-cage-season-1-2016",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/luke-cage-s1-featured-G4VfFrMNbPszBp7PDtKYsL.webp"
+    },
+    {
+      "id": "30016",
+      "title": "Doctor Strange",
+      "slug": "doctor-strange-2016",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/doctor-strange-2016-featured-TpGtg2ZeZ7zJSxbJN5rXA4.webp"
+    },
+    {
+      "id": "30017",
+      "title": "Iron Fist Season 1",
+      "slug": "iron-fist-season-1-2017",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/iron-fist-s1-featured-4nmRJuFDiLzybfmeb39uoJ.webp"
+    },
+    {
+      "id": "30018",
+      "title": "Guardians of the Galaxy Vol. 2",
+      "slug": "guardians-of-the-galaxy-vol-2-2017",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/guardians-galaxy-vol2-2017-featured-dfP4gD9tsjpCPVQLkvQydE.webp"
+    },
+    {
+      "id": "30019",
+      "title": "Spider-Man: Homecoming",
+      "slug": "spider-man-homecoming-2017",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/spider-man-homecoming-2017-featured-WxwfZRvEqJMxbvQFgxZdB3.webp"
+    },
+    {
+      "id": "30020",
+      "title": "The Defenders",
+      "slug": "the-defenders-2017",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/defenders-featured-cnGQuJmNpwjJAYWTsCRPcn.webp"
+    },
+    {
+      "id": "30021",
+      "title": "Thor: Ragnarok",
+      "slug": "thor-ragnarok-2017",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/thor-ragnarok-2017-featured-FarAGKofzP5BmiHcG6sc68.webp"
+    },
+    {
+      "id": "30022",
+      "title": "The Punisher Season 1",
+      "slug": "the-punisher-season-1-2017",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/punisher-s1-featured-2Pa4Qt3KPfbdzBgzeJjamW.webp"
+    },
+    {
+      "id": "30023",
+      "title": "Black Panther",
+      "slug": "black-panther-2018",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/black-panther-2018-featured-Sj2Ygxw6fFqcpZbhVXKBRY.webp"
+    },
+    {
+      "id": "30024",
+      "title": "Jessica Jones Season 2",
+      "slug": "jessica-jones-season-2-2018",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/jessica-jones-s2-featured-LMGpWVekxFFAuBGM28cPMf.webp"
+    },
+    {
+      "id": "30025",
+      "title": "Avengers: Infinity War",
+      "slug": "avengers-infinity-war-2018",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/avengers-infinity-war-2018-featured-dKhvDJo9xf9JTQPnNo2H9y.webp"
+    },
+    {
+      "id": "30026",
+      "title": "Luke Cage Season 2",
+      "slug": "luke-cage-season-2-2018",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/luke-cage-s2-featured-PaZnfM8GCRuzr8C5kCMhKx.webp"
+    },
+    {
+      "id": "30027",
+      "title": "Ant-Man and the Wasp",
+      "slug": "ant-man-and-the-wasp-2018",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/ant-man-and-the-wasp-2018-featured-6Rvy8uBE9wZrxSUVqj8LJ3.webp"
+    },
+    {
+      "id": "30028",
+      "title": "Iron Fist Season 2",
+      "slug": "iron-fist-season-2-2018",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/iron-fist-s2-featured-UeL6miQnFNaKLnf3DozTsE.webp"
+    },
+    {
+      "id": "30029",
+      "title": "Daredevil Season 3",
+      "slug": "daredevil-season-3-2018",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/daredevil-s3-featured-LafffdNUUSbziMts7Ld38S.webp"
+    },
+    {
+      "id": "30030",
+      "title": "The Punisher Season 2",
+      "slug": "the-punisher-season-2-2019",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/punisher-s2-featured-C5FqE8DkMCaDq76d9cqA88.webp"
+    },
+    {
+      "id": "30031",
+      "title": "Captain Marvel",
+      "slug": "captain-marvel-2019",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/captain-marvel-2019-featured-NBigx7EqE4tr6K45feouCV.webp"
+    },
+    {
+      "id": "30032",
+      "title": "Avengers: Endgame",
+      "slug": "avengers-endgame-2019",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/avengers-endgame-2019-featured-nDMH44Zx5CVEtDxJrz6xBv.webp"
+    },
+    {
+      "id": "30033",
+      "title": "Jessica Jones Season 3",
+      "slug": "jessica-jones-season-3-2019",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/jessica-jones-s3-featured-cFAsF6gQVsdq9RcZDGiw3U.webp"
+    },
+    {
+      "id": "30034",
+      "title": "Spider-Man: Far From Home",
+      "slug": "spider-man-far-from-home-2019",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/spider-man-far-from-home-2019-featured-bmJfBYUWoDsMgdv4es4iuc.webp"
+    },
+    {
+      "id": "30035",
+      "title": "WandaVision",
+      "slug": "wandavision-2021",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/wandavision-featured-BbJPizxK7nH5mmhLTLZbQD.webp"
+    },
+    {
+      "id": "30036",
+      "title": "The Falcon and the Winter Soldier",
+      "slug": "the-falcon-and-the-winter-soldier-2021",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/falcon-winter-soldier-featured-YAVEVuhwj7yFrQMPSWpVzi.webp"
+    },
+    {
+      "id": "30037",
+      "title": "Loki Season 1",
+      "slug": "loki-season-1-2021",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/loki-s1-featured-oCQMvCXgfw9TxLJ9uuQcwc.webp"
+    },
+    {
+      "id": "30038",
+      "title": "Black Widow",
+      "slug": "black-widow-2021",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/black-widow-2021-featured-aVKiax27Z8PCpVaKGvQ87M.webp"
+    },
+    {
+      "id": "30039",
+      "title": "What If...? Season 1",
+      "slug": "what-if-season-1-2021",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/what-if-s1-featured-4HvmtwEdvVDyttQvLP8Acy.webp"
+    },
+    {
+      "id": "30040",
+      "title": "Shang-Chi and the Legend of the Ten Rings",
+      "slug": "shang-chi-2021",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/shang-chi-2021-featured-Lf83mzBtacTWt9Vy3MBGvg.webp"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tslug\timageUrl\n30015\tLuke Cage Season 1\tluke-cage-season-1-2016\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/luke-cage-s1-featured-G4VfFrMNbPszBp7PDtKYsL.webp\n30016\tDoctor Strange\tdoctor-strange-2016\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/doctor-strange-2016-featured-TpGtg2ZeZ7zJSxbJN5rXA4.webp\n30017\tIron Fist Season 1\tiron-fist-season-1-2017\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/iron-fist-s1-featured-4nmRJuFDiLzybfmeb39uoJ.webp\n30018\tGuardians of the Galaxy Vol. 2\tguardians-of-the-galaxy-vol-2-2017\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/guardians-galaxy-vol2-2017-featured-dfP4gD9tsjpCPVQLkvQydE.webp\n30019\tSpider-Man: Homecoming\tspider-man-homecoming-2017\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/spider-man-homecoming-2017-featured-WxwfZRvEqJMxbvQFgxZdB3.webp\n30020\tThe Defenders\tthe-defenders-2017\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/defenders-featured-cnGQuJmNpwjJAYWTsCRPcn.webp\n30021\tThor: Ragnarok\tthor-ragnarok-2017\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/thor-ragnarok-2017-featured-FarAGKofzP5BmiHcG6sc68.webp\n30022\tThe Punisher Season 1\tthe-punisher-season-1-2017\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/punisher-s1-featured-2Pa4Qt3KPfbdzBgzeJjamW.webp\n30023\tBlack Panther\tblack-panther-2018\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/black-panther-2018-featured-Sj2Ygxw6fFqcpZbhVXKBRY.webp\n30024\tJessica Jones Season 2\tjessica-jones-season-2-2018\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/jessica-jones-s2-featured-LMGpWVekxFFAuBGM28cPMf.webp\n30025\tAvengers: Infinity War\tavengers-infinity-war-2018\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/avengers-infinity-war-2018-featured-dKhvDJo9xf9JTQPnNo2H9y.webp\n30026\tLuke Cage Season 2\tluke-cage-season-2-2018\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/luke-cage-s2-featured-PaZnfM8GCRuzr8C5kCMhKx.webp\n30027\tAnt-Man and the Wasp\tant-man-and-the-wasp-2018\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/ant-man-and-the-wasp-2018-featured-6Rvy8uBE9wZrxSUVqj8LJ3.webp\n30028\tIron Fist Season 2\tiron-fist-season-2-2018\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/iron-fist-s2-featured-UeL6miQnFNaKLnf3DozTsE.webp\n30029\tDaredevil Season 3\tdaredevil-season-3-2018\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/daredevil-s3-featured-LafffdNUUSbziMts7Ld38S.webp\n30030\tThe Punisher Season 2\tthe-punisher-season-2-2019\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/punisher-s2-featured-C5FqE8DkMCaDq76d9cqA88.webp\n30031\tCaptain Marvel\tcaptain-marvel-2019\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/captain-marvel-2019-featured-NBigx7EqE4tr6K45feouCV.webp\n30032\tAvengers: Endgame\tavengers-endgame-2019\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/avengers-endgame-2019-featured-nDMH44Zx5CVEtDxJrz6xBv.webp\n30033\tJessica Jones Season 3\tjessica-jones-season-3-2019\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/jessica-jones-s3-featured-cFAsF6gQVsdq9RcZDGiw3U.webp\n30034\tSpider-Man: Far From Home\tspider-man-far-from-home-2019\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/spider-man-far-from-home-2019-featured-bmJfBYUWoDsMgdv4es4iuc.webp\n30035\tWandaVision\twandavision-2021\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/wandavision-featured-BbJPizxK7nH5mmhLTLZbQD.webp\n30036\tThe Falcon and the Winter Soldier\tthe-falcon-and-the-winter-soldier-2021\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/falcon-winter-soldier-featured-YAVEVuhwj7yFrQMPSWpVzi.webp\n30037\tLoki Season 1\tloki-season-1-2021\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/loki-s1-featured-oCQMvCXgfw9TxLJ9uuQcwc.webp\n30038\tBlack Widow\tblack-widow-2021\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/black-widow-2021-featured-aVKiax27Z8PCpVaKGvQ87M.webp\n30039\tWhat If...? Season 1\twhat-if-season-1-2021\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/what-if-s1-featured-4HvmtwEdvVDyttQvLP8Acy.webp\n30040\tShang-Chi and the Legend of the Ten Rings\tshang-chi-2021\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/shang-chi-2021-featured-Lf83mzBtacTWt9Vy3MBGvg.webp\n",
+  "stderr": "",
+  "execution_time_ms": 270
+}

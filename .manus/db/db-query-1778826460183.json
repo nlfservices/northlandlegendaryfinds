@@ -1,0 +1,40 @@
+{
+  "query": "SELECT id, title, slug, imageUrl FROM mcu_media WHERE title LIKE '%Black Panther%' OR title LIKE '%Iron Man%' LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, title, slug, imageUrl FROM mcu_media WHERE title LIKE '%Black Panther%' OR title LIKE '%Iron Man%' LIMIT 10;",
+  "rows": [
+    {
+      "id": "1",
+      "title": "Iron Man",
+      "slug": "iron-man-2008",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/iron-man-2008-featured-jYZnsLVTrJf5KymFh5sRSX.webp"
+    },
+    {
+      "id": "30002",
+      "title": "Iron Man 2",
+      "slug": "iron-man-2-2010",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/iron-man-2-2010-featured-a7iMVSYBgysWrFsdAudWVy.webp"
+    },
+    {
+      "id": "30006",
+      "title": "Iron Man 3",
+      "slug": "iron-man-3-2013",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/iron-man-3-2013-featured-QYjrQ5joFf9o44LDuvGf3P.webp"
+    },
+    {
+      "id": "30023",
+      "title": "Black Panther",
+      "slug": "black-panther-2018",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/black-panther-2018-featured-Sj2Ygxw6fFqcpZbhVXKBRY.webp"
+    },
+    {
+      "id": "30050",
+      "title": "Black Panther: Wakanda Forever",
+      "slug": "black-panther-wakanda-forever-2022",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/black-panther-wakanda-forever-2022-featured-Ecy4EbWDWQnkmwcdqb54MH.webp"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tslug\timageUrl\n1\tIron Man\tiron-man-2008\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/iron-man-2008-featured-jYZnsLVTrJf5KymFh5sRSX.webp\n30002\tIron Man 2\tiron-man-2-2010\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/iron-man-2-2010-featured-a7iMVSYBgysWrFsdAudWVy.webp\n30006\tIron Man 3\tiron-man-3-2013\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/iron-man-3-2013-featured-QYjrQ5joFf9o44LDuvGf3P.webp\n30023\tBlack Panther\tblack-panther-2018\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/black-panther-2018-featured-Sj2Ygxw6fFqcpZbhVXKBRY.webp\n30050\tBlack Panther: Wakanda Forever\tblack-panther-wakanda-forever-2022\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/black-panther-wakanda-forever-2022-featured-Ecy4EbWDWQnkmwcdqb54MH.webp\n",
+  "stderr": "",
+  "execution_time_ms": 265
+}

@@ -1,8 +1,0 @@
-{
-  "query": "SELECT title, slug, status, CASE WHEN content IS NOT NULL AND content != '' THEN 'YES' ELSE 'NO' END as hasContent, CASE WHEN imageUrl IS NOT NULL AND imageUrl != '' THEN 'YES' ELSE 'NO' END as hasImage FROM mcu_media WHERE mcuPhase = 3 AND mediaType = 'movie' ORDER BY releaseOrder",
-  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT title, slug, status, CASE WHEN content IS NOT NULL AND content != '' THEN 'YES' ELSE 'NO' END as hasContent, CASE WHEN imageUrl IS NOT NULL AND imageUrl != '' THEN 'YES' ELSE 'NO' END as hasImage FROM mcu_media WHERE mcuPhase = 3 AND mediaType = 'movie' ORDER BY releaseOrder",
-  "returncode": 1,
-  "logs": [
-    "ERROR 1054 (42S22) at line 1: Unknown column 'mcuphase' in 'where clause'"
-  ]
-}

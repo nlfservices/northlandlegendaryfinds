@@ -1,0 +1,55 @@
+{
+  "query": "SELECT id, title, LEFT(imageUrl, 80) as imageUrlPrefix FROM mcu_media WHERE id IN (30068, 30069, 30070, 30071, 30072, 30073, 30074, 30075, 30076) ORDER BY id;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, title, LEFT(imageUrl, 80) as imageUrlPrefix FROM mcu_media WHERE id IN (30068, 30069, 30070, 30071, 30072, 30073, 30074, 30075, 30076) ORDER BY id;",
+  "rows": [
+    {
+      "id": "30068",
+      "title": "Ironheart",
+      "imageUrlPrefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/"
+    },
+    {
+      "id": "30069",
+      "title": "Fantastic Four: First Steps",
+      "imageUrlPrefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/"
+    },
+    {
+      "id": "30070",
+      "title": "Marvel Zombies",
+      "imageUrlPrefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/"
+    },
+    {
+      "id": "30071",
+      "title": "Wonder Man",
+      "imageUrlPrefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/"
+    },
+    {
+      "id": "30072",
+      "title": "Daredevil: Born Again Season 2",
+      "imageUrlPrefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/"
+    },
+    {
+      "id": "30073",
+      "title": "The Punisher: One Last Kill",
+      "imageUrlPrefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/"
+    },
+    {
+      "id": "30074",
+      "title": "Spider-Man: Brand New Day",
+      "imageUrlPrefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/"
+    },
+    {
+      "id": "30075",
+      "title": "Avengers: Doomsday",
+      "imageUrlPrefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/"
+    },
+    {
+      "id": "30076",
+      "title": "Avengers: Secret Wars",
+      "imageUrlPrefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\timageUrlPrefix\n30068\tIronheart\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\n30069\tFantastic Four: First Steps\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\n30070\tMarvel Zombies\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\n30071\tWonder Man\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\n30072\tDaredevil: Born Again Season 2\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\n30073\tThe Punisher: One Last Kill\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\n30074\tSpider-Man: Brand New Day\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\n30075\tAvengers: Doomsday\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\n30076\tAvengers: Secret Wars\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\n",
+  "stderr": "",
+  "execution_time_ms": 271
+}

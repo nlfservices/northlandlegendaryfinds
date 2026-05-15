@@ -1,0 +1,195 @@
+{
+  "query": "SELECT id, title, SUBSTRING(imageUrl, -60) as url_end FROM mcu_media WHERE id >= 30040 ORDER BY id;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, title, SUBSTRING(imageUrl, -60) as url_end FROM mcu_media WHERE id >= 30040 ORDER BY id;",
+  "rows": [
+    {
+      "id": "30040",
+      "title": "Shang-Chi and the Legend of the Ten Rings",
+      "url_end": "nFiAMuFi/shang-chi-2021-featured-Lf83mzBtacTWt9Vy3MBGvg.webp"
+    },
+    {
+      "id": "30041",
+      "title": "Eternals",
+      "url_end": "DnFiAMuFi/eternals-2021-featured-NLd7kwhV9w3D3oXcYWvFZx.webp"
+    },
+    {
+      "id": "30042",
+      "title": "Hawkeye",
+      "url_end": "8PZJcCDnFiAMuFi/hawkeye-featured-Bn5CtgdphNS6eXSoyZH4BG.webp"
+    },
+    {
+      "id": "30043",
+      "title": "Spider-Man: No Way Home",
+      "url_end": "er-man-no-way-home-2021-featured-CKq89ht3fERDEXs4WHPSx4.webp"
+    },
+    {
+      "id": "30044",
+      "title": "Moon Knight",
+      "url_end": "cCDnFiAMuFi/moon-knight-featured-QhNmL5zxCAFCg2upsojXPZ.webp"
+    },
+    {
+      "id": "30045",
+      "title": "Doctor Strange in the Multiverse of Madness",
+      "url_end": "strange-multiverse-2022-featured-KCquLyBR9eeyoV6SE5hUmK.webp"
+    },
+    {
+      "id": "30046",
+      "title": "Ms. Marvel",
+      "url_end": "ZJcCDnFiAMuFi/ms-marvel-featured-LdxN5a9bVNkjhNWNhxPwkJ.webp"
+    },
+    {
+      "id": "30047",
+      "title": "Thor: Love and Thunder",
+      "url_end": "r-love-and-thunder-2022-featured-QbwtEagZtEpmQ82zTZkgou.webp"
+    },
+    {
+      "id": "30048",
+      "title": "She-Hulk: Attorney at Law",
+      "url_end": "PZJcCDnFiAMuFi/she-hulk-featured-8BqLmYXKdRxTxYKB7mWnXZ.webp"
+    },
+    {
+      "id": "30049",
+      "title": "Werewolf by Night",
+      "url_end": "/werewolf-by-night-2022-featured-bLV2sqd5bdqScxkPV542yS.webp"
+    },
+    {
+      "id": "30050",
+      "title": "Black Panther: Wakanda Forever",
+      "url_end": "er-wakanda-forever-2022-featured-Ecy4EbWDWQnkmwcdqb54MH.webp"
+    },
+    {
+      "id": "30051",
+      "title": "The Guardians of the Galaxy Holiday Special",
+      "url_end": "Fi/gotg-holiday-special-featured-Dn3L2VjpjfVBxoHCxBTVqN.webp"
+    },
+    {
+      "id": "30052",
+      "title": "Ant-Man and the Wasp: Quantumania",
+      "url_end": "nt-man-quantumania-2023-featured-hLJfqXrNPNYJCGhxWWMFTK.webp"
+    },
+    {
+      "id": "30053",
+      "title": "Guardians of the Galaxy Vol. 3",
+      "url_end": "rdians-galaxy-vol3-2023-featured-5sxDfYJfQVQnKjJEp3NqWF.webp"
+    },
+    {
+      "id": "30054",
+      "title": "Secret Invasion",
+      "url_end": "FiAMuFi/secret-invasion-featured-jHqkWTrPSiXqfXnhPzPfWx.webp"
+    },
+    {
+      "id": "30055",
+      "title": "I Am Groot Season 2",
+      "url_end": "DnFiAMuFi/i-am-groot-s2-featured-Qy9DXKMqJVHxFVNMYjhRQq.webp"
+    },
+    {
+      "id": "30056",
+      "title": "Loki Season 2",
+      "url_end": "8PZJcCDnFiAMuFi/loki-s2-featured-DQmFqCcnxJ8iJnBULrYnrR.webp"
+    },
+    {
+      "id": "30057",
+      "title": "The Marvels",
+      "url_end": "iAMuFi/the-marvels-2023-featured-bnJPjVfLkGJpKgPxhHmHDR.webp"
+    },
+    {
+      "id": "30058",
+      "title": "What If...? Season 2",
+      "url_end": "JcCDnFiAMuFi/what-if-s2-featured-jLN7Xd5LLqKbXCVqDjvJTy.webp"
+    },
+    {
+      "id": "30059",
+      "title": "Echo",
+      "url_end": "Xeh8PZJcCDnFiAMuFi/echo-featured-jJTGdqJqNQxTvPLxjjNSKt.webp"
+    },
+    {
+      "id": "30060",
+      "title": "X-Men '97",
+      "url_end": "PZJcCDnFiAMuFi/x-men-97-featured-pHVhb9Vr3C5kJwQMB5aBQf.webp"
+    },
+    {
+      "id": "30061",
+      "title": "Deadpool & Wolverine",
+      "url_end": "deadpool-wolverine-2024-featured-cHvnVuPJCWjfFTdJKVUVMa.webp"
+    },
+    {
+      "id": "30062",
+      "title": "Agatha All Along",
+      "url_end": "iAMuFi/agatha-all-along-featured-6RUAhxPPXLEKmCJJUjGD8E.webp"
+    },
+    {
+      "id": "30063",
+      "title": "What If...? Season 3",
+      "url_end": "JcCDnFiAMuFi/what-if-s2-featured-jLN7Xd5LLqKbXCVqDjvJTy.webp"
+    },
+    {
+      "id": "30064",
+      "title": "Your Friendly Neighborhood Spider-Man",
+      "url_end": "uFi/friendly-spider-man-featured-3xUFGJDNqMQ3Fz2PoKCHvL.webp"
+    },
+    {
+      "id": "30065",
+      "title": "Captain America: Brave New World",
+      "url_end": "ca-brave-new-world-2025-featured-jCJxjXqfGJFJTWbr2Tn8Mf.webp"
+    },
+    {
+      "id": "30066",
+      "title": "Daredevil: Born Again",
+      "url_end": "Fi/daredevil-born-again-featured-2LXKXXmJQTXmzHdxQpvL5c.webp"
+    },
+    {
+      "id": "30067",
+      "title": "Thunderbolts*",
+      "url_end": "AMuFi/thunderbolts-2025-featured-6rTSm2WfNFjQiAjLuFPqJV.webp"
+    },
+    {
+      "id": "30068",
+      "title": "Ironheart",
+      "url_end": "ZJcCDnFiAMuFi/ironheart-featured-4Mz9Gy8z2hYXSCjFbvVJFo.webp"
+    },
+    {
+      "id": "30069",
+      "title": "Fantastic Four: First Steps",
+      "url_end": "c-four-first-steps-2025-featured-aCGHxqSrAVRJMKpxuGRjyJ.webp"
+    },
+    {
+      "id": "30070",
+      "title": "Marvel Zombies",
+      "url_end": "nFiAMuFi/marvel-zombies-featured-3LhbvYKnNqWFLBdTZpQnxR.webp"
+    },
+    {
+      "id": "30071",
+      "title": "Wonder Man",
+      "url_end": "JcCDnFiAMuFi/wonder-man-featured-3Rr9c7Nt3ixvUZNQqHyqFR.webp"
+    },
+    {
+      "id": "30072",
+      "title": "Daredevil: Born Again Season 2",
+      "url_end": "daredevil-born-again-s2-featured-HBwQbCmvLXVjjvqNfMFgVb.webp"
+    },
+    {
+      "id": "30073",
+      "title": "The Punisher: One Last Kill",
+      "url_end": "sher-one-last-kill-2026-featured-ckVHwZeWRmLTDCbqJJMkLi.webp"
+    },
+    {
+      "id": "30074",
+      "title": "Spider-Man: Brand New Day",
+      "url_end": "-man-brand-new-day-2026-featured-8Rrw8Lc8Ck2eDVCxNFbDWi.webp"
+    },
+    {
+      "id": "30075",
+      "title": "Avengers: Doomsday",
+      "url_end": "/avengers-doomsday-2026-featured-bWJqJmQYjnPfFqCKpvJJpP.webp"
+    },
+    {
+      "id": "30076",
+      "title": "Avengers: Secret Wars",
+      "url_end": "engers-secret-wars-2027-featured-kxPqJJPfRJjVJnLTDCbqJJ.webp"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\turl_end\n30040\tShang-Chi and the Legend of the Ten Rings\tnFiAMuFi/shang-chi-2021-featured-Lf83mzBtacTWt9Vy3MBGvg.webp\n30041\tEternals\tDnFiAMuFi/eternals-2021-featured-NLd7kwhV9w3D3oXcYWvFZx.webp\n30042\tHawkeye\t8PZJcCDnFiAMuFi/hawkeye-featured-Bn5CtgdphNS6eXSoyZH4BG.webp\n30043\tSpider-Man: No Way Home\ter-man-no-way-home-2021-featured-CKq89ht3fERDEXs4WHPSx4.webp\n30044\tMoon Knight\tcCDnFiAMuFi/moon-knight-featured-QhNmL5zxCAFCg2upsojXPZ.webp\n30045\tDoctor Strange in the Multiverse of Madness\tstrange-multiverse-2022-featured-KCquLyBR9eeyoV6SE5hUmK.webp\n30046\tMs. Marvel\tZJcCDnFiAMuFi/ms-marvel-featured-LdxN5a9bVNkjhNWNhxPwkJ.webp\n30047\tThor: Love and Thunder\tr-love-and-thunder-2022-featured-QbwtEagZtEpmQ82zTZkgou.webp\n30048\tShe-Hulk: Attorney at Law\tPZJcCDnFiAMuFi/she-hulk-featured-8BqLmYXKdRxTxYKB7mWnXZ.webp\n30049\tWerewolf by Night\t/werewolf-by-night-2022-featured-bLV2sqd5bdqScxkPV542yS.webp\n30050\tBlack Panther: Wakanda Forever\ter-wakanda-forever-2022-featured-Ecy4EbWDWQnkmwcdqb54MH.webp\n30051\tThe Guardians of the Galaxy Holiday Special\tFi/gotg-holiday-special-featured-Dn3L2VjpjfVBxoHCxBTVqN.webp\n30052\tAnt-Man and the Wasp: Quantumania\tnt-man-quantumania-2023-featured-hLJfqXrNPNYJCGhxWWMFTK.webp\n30053\tGuardians of the Galaxy Vol. 3\trdians-galaxy-vol3-2023-featured-5sxDfYJfQVQnKjJEp3NqWF.webp\n30054\tSecret Invasion\tFiAMuFi/secret-invasion-featured-jHqkWTrPSiXqfXnhPzPfWx.webp\n30055\tI Am Groot Season 2\tDnFiAMuFi/i-am-groot-s2-featured-Qy9DXKMqJVHxFVNMYjhRQq.webp\n30056\tLoki Season 2\t8PZJcCDnFiAMuFi/loki-s2-featured-DQmFqCcnxJ8iJnBULrYnrR.webp\n30057\tThe Marvels\tiAMuFi/the-marvels-2023-featured-bnJPjVfLkGJpKgPxhHmHDR.webp\n30058\tWhat If...? Season 2\tJcCDnFiAMuFi/what-if-s2-featured-jLN7Xd5LLqKbXCVqDjvJTy.webp\n30059\tEcho\tXeh8PZJcCDnFiAMuFi/echo-featured-jJTGdqJqNQxTvPLxjjNSKt.webp\n30060\tX-Men '97\tPZJcCDnFiAMuFi/x-men-97-featured-pHVhb9Vr3C5kJwQMB5aBQf.webp\n30061\tDeadpool & Wolverine\tdeadpool-wolverine-2024-featured-cHvnVuPJCWjfFTdJKVUVMa.webp\n30062\tAgatha All Along\tiAMuFi/agatha-all-along-featured-6RUAhxPPXLEKmCJJUjGD8E.webp\n30063\tWhat If...? Season 3\tJcCDnFiAMuFi/what-if-s2-featured-jLN7Xd5LLqKbXCVqDjvJTy.webp\n30064\tYour Friendly Neighborhood Spider-Man\tuFi/friendly-spider-man-featured-3xUFGJDNqMQ3Fz2PoKCHvL.webp\n30065\tCaptain America: Brave New World\tca-brave-new-world-2025-featured-jCJxjXqfGJFJTWbr2Tn8Mf.webp\n30066\tDaredevil: Born Again\tFi/daredevil-born-again-featured-2LXKXXmJQTXmzHdxQpvL5c.webp\n30067\tThunderbolts*\tAMuFi/thunderbolts-2025-featured-6rTSm2WfNFjQiAjLuFPqJV.webp\n30068\tIronheart\tZJcCDnFiAMuFi/ironheart-featured-4Mz9Gy8z2hYXSCjFbvVJFo.webp\n30069\tFantastic Four: First Steps\tc-four-first-steps-2025-featured-aCGHxqSrAVRJMKpxuGRjyJ.webp\n30070\tMarvel Zombies\tnFiAMuFi/marvel-zombies-featured-3LhbvYKnNqWFLBdTZpQnxR.webp\n30071\tWonder Man\tJcCDnFiAMuFi/wonder-man-featured-3Rr9c7Nt3ixvUZNQqHyqFR.webp\n30072\tDaredevil: Born Again Season 2\tdaredevil-born-again-s2-featured-HBwQbCmvLXVjjvqNfMFgVb.webp\n30073\tThe Punisher: One Last Kill\tsher-one-last-kill-2026-featured-ckVHwZeWRmLTDCbqJJMkLi.webp\n30074\tSpider-Man: Brand New Day\t-man-brand-new-day-2026-featured-8Rrw8Lc8Ck2eDVCxNFbDWi.webp\n30075\tAvengers: Doomsday\t/avengers-doomsday-2026-featured-bWJqJmQYjnPfFqCKpvJJpP.webp\n30076\tAvengers: Secret Wars\tengers-secret-wars-2027-featured-kxPqJJPfRJjVJnLTDCbqJJ.webp\n",
+  "stderr": "",
+  "execution_time_ms": 270
+}

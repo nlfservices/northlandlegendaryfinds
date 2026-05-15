@@ -1,0 +1,9 @@
+{
+  "query": "SELECT title, slug, imageUrl FROM mcu_media WHERE imageUrl IS NULL OR imageUrl = '' OR imageUrl NOT LIKE 'https://d2xsxph8kpxj0f.cloudfront.net%' ORDER BY id;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT title, slug, imageUrl FROM mcu_media WHERE imageUrl IS NULL OR imageUrl = '' OR imageUrl NOT LIKE 'https://d2xsxph8kpxj0f.cloudfront.net%' ORDER BY id;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 263
+}

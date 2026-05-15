@@ -1,0 +1,35 @@
+{
+  "query": "SELECT id, title, slug FROM mcu_media WHERE slug IN ('daredevil-born-again-season-2-2026', 'the-punisher-one-last-kill-2026', 'spider-man-brand-new-day-2026', 'avengers-doomsday-2026', 'avengers-secret-wars-2027', 'your-friendly-neighborhood-spider-man-2025', 'she-hulk-attorney-at-law-2022', 'guardians-of-the-galaxy-holiday-special-2022', 'ant-man-and-the-wasp-quantumania-2023') ORDER BY id;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, title, slug FROM mcu_media WHERE slug IN ('daredevil-born-again-season-2-2026', 'the-punisher-one-last-kill-2026', 'spider-man-brand-new-day-2026', 'avengers-doomsday-2026', 'avengers-secret-wars-2027', 'your-friendly-neighborhood-spider-man-2025', 'she-hulk-attorney-at-law-2022', 'guardians-of-the-galaxy-holiday-special-2022', 'ant-man-and-the-wasp-quantumania-2023') ORDER BY id;",
+  "rows": [
+    {
+      "id": "30072",
+      "title": "Daredevil: Born Again Season 2",
+      "slug": "daredevil-born-again-season-2-2026"
+    },
+    {
+      "id": "30073",
+      "title": "The Punisher: One Last Kill",
+      "slug": "the-punisher-one-last-kill-2026"
+    },
+    {
+      "id": "30074",
+      "title": "Spider-Man: Brand New Day",
+      "slug": "spider-man-brand-new-day-2026"
+    },
+    {
+      "id": "30075",
+      "title": "Avengers: Doomsday",
+      "slug": "avengers-doomsday-2026"
+    },
+    {
+      "id": "30076",
+      "title": "Avengers: Secret Wars",
+      "slug": "avengers-secret-wars-2027"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tslug\n30072\tDaredevil: Born Again Season 2\tdaredevil-born-again-season-2-2026\n30073\tThe Punisher: One Last Kill\tthe-punisher-one-last-kill-2026\n30074\tSpider-Man: Brand New Day\tspider-man-brand-new-day-2026\n30075\tAvengers: Doomsday\tavengers-doomsday-2026\n30076\tAvengers: Secret Wars\tavengers-secret-wars-2027\n",
+  "stderr": "",
+  "execution_time_ms": 276
+}

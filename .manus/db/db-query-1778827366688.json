@@ -1,0 +1,135 @@
+{
+  "query": "SELECT id, title, slug FROM mcu_media WHERE slug IN ('black-panther-2018', 'ms-marvel-2022', 'guardians-of-the-galaxy-holiday-special-2022', 'ant-man-and-the-wasp-quantumania-2023', 'guardians-of-the-galaxy-vol-3-2023', 'secret-invasion-2023', 'i-am-groot-season-2-2023', 'loki-season-2-2023', 'the-marvels-2023', 'she-hulk-attorney-at-law-2022', 'what-if-season-2-2023', 'echo-2024', 'x-men-97-2024', 'deadpool-wolverine-2024', 'agatha-all-along-2024', 'what-if-season-3-2024', 'your-friendly-neighborhood-spider-man-2025', 'captain-america-brave-new-world-2025', 'daredevil-born-again-2025', 'thunderbolts-2025', 'ironheart-2025', 'fantastic-four-first-steps-2025', 'marvel-zombies-2025', 'wonder-man-2026', 'daredevil-born-again-season-2-2026', 'the-punisher-one-last-kill-2026', 'spider-man-brand-new-day-2026', 'avengers-doomsday-2026', 'avengers-secret-wars-2027') ORDER BY id;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, title, slug FROM mcu_media WHERE slug IN ('black-panther-2018', 'ms-marvel-2022', 'guardians-of-the-galaxy-holiday-special-2022', 'ant-man-and-the-wasp-quantumania-2023', 'guardians-of-the-galaxy-vol-3-2023', 'secret-invasion-2023', 'i-am-groot-season-2-2023', 'loki-season-2-2023', 'the-marvels-2023', 'she-hulk-attorney-at-law-2022', 'what-if-season-2-2023', 'echo-2024', 'x-men-97-2024', 'deadpool-wolverine-2024', 'agatha-all-along-2024', 'what-if-season-3-2024', 'your-friendly-neighborhood-spider-man-2025', 'captain-america-brave-new-world-2025', 'daredevil-born-again-2025', 'thunderbolts-2025', 'ironheart-2025', 'fantastic-four-first-steps-2025', 'marvel-zombies-2025', 'wonder-man-2026', 'daredevil-born-again-season-2-2026', 'the-punisher-one-last-kill-2026', 'spider-man-brand-new-day-2026', 'avengers-doomsday-2026', 'avengers-secret-wars-2027') ORDER BY id;",
+  "rows": [
+    {
+      "id": "30023",
+      "title": "Black Panther",
+      "slug": "black-panther-2018"
+    },
+    {
+      "id": "30046",
+      "title": "Ms. Marvel",
+      "slug": "ms-marvel-2022"
+    },
+    {
+      "id": "30053",
+      "title": "Guardians of the Galaxy Vol. 3",
+      "slug": "guardians-of-the-galaxy-vol-3-2023"
+    },
+    {
+      "id": "30054",
+      "title": "Secret Invasion",
+      "slug": "secret-invasion-2023"
+    },
+    {
+      "id": "30055",
+      "title": "I Am Groot Season 2",
+      "slug": "i-am-groot-season-2-2023"
+    },
+    {
+      "id": "30056",
+      "title": "Loki Season 2",
+      "slug": "loki-season-2-2023"
+    },
+    {
+      "id": "30057",
+      "title": "The Marvels",
+      "slug": "the-marvels-2023"
+    },
+    {
+      "id": "30058",
+      "title": "What If...? Season 2",
+      "slug": "what-if-season-2-2023"
+    },
+    {
+      "id": "30059",
+      "title": "Echo",
+      "slug": "echo-2024"
+    },
+    {
+      "id": "30060",
+      "title": "X-Men '97",
+      "slug": "x-men-97-2024"
+    },
+    {
+      "id": "30061",
+      "title": "Deadpool & Wolverine",
+      "slug": "deadpool-wolverine-2024"
+    },
+    {
+      "id": "30062",
+      "title": "Agatha All Along",
+      "slug": "agatha-all-along-2024"
+    },
+    {
+      "id": "30063",
+      "title": "What If...? Season 3",
+      "slug": "what-if-season-3-2024"
+    },
+    {
+      "id": "30065",
+      "title": "Captain America: Brave New World",
+      "slug": "captain-america-brave-new-world-2025"
+    },
+    {
+      "id": "30066",
+      "title": "Daredevil: Born Again",
+      "slug": "daredevil-born-again-2025"
+    },
+    {
+      "id": "30067",
+      "title": "Thunderbolts*",
+      "slug": "thunderbolts-2025"
+    },
+    {
+      "id": "30068",
+      "title": "Ironheart",
+      "slug": "ironheart-2025"
+    },
+    {
+      "id": "30069",
+      "title": "Fantastic Four: First Steps",
+      "slug": "fantastic-four-first-steps-2025"
+    },
+    {
+      "id": "30070",
+      "title": "Marvel Zombies",
+      "slug": "marvel-zombies-2025"
+    },
+    {
+      "id": "30071",
+      "title": "Wonder Man",
+      "slug": "wonder-man-2026"
+    },
+    {
+      "id": "30072",
+      "title": "Daredevil: Born Again Season 2",
+      "slug": "daredevil-born-again-season-2-2026"
+    },
+    {
+      "id": "30073",
+      "title": "The Punisher: One Last Kill",
+      "slug": "the-punisher-one-last-kill-2026"
+    },
+    {
+      "id": "30074",
+      "title": "Spider-Man: Brand New Day",
+      "slug": "spider-man-brand-new-day-2026"
+    },
+    {
+      "id": "30075",
+      "title": "Avengers: Doomsday",
+      "slug": "avengers-doomsday-2026"
+    },
+    {
+      "id": "30076",
+      "title": "Avengers: Secret Wars",
+      "slug": "avengers-secret-wars-2027"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tslug\n30023\tBlack Panther\tblack-panther-2018\n30046\tMs. Marvel\tms-marvel-2022\n30053\tGuardians of the Galaxy Vol. 3\tguardians-of-the-galaxy-vol-3-2023\n30054\tSecret Invasion\tsecret-invasion-2023\n30055\tI Am Groot Season 2\ti-am-groot-season-2-2023\n30056\tLoki Season 2\tloki-season-2-2023\n30057\tThe Marvels\tthe-marvels-2023\n30058\tWhat If...? Season 2\twhat-if-season-2-2023\n30059\tEcho\techo-2024\n30060\tX-Men '97\tx-men-97-2024\n30061\tDeadpool & Wolverine\tdeadpool-wolverine-2024\n30062\tAgatha All Along\tagatha-all-along-2024\n30063\tWhat If...? Season 3\twhat-if-season-3-2024\n30065\tCaptain America: Brave New World\tcaptain-america-brave-new-world-2025\n30066\tDaredevil: Born Again\tdaredevil-born-again-2025\n30067\tThunderbolts*\tthunderbolts-2025\n30068\tIronheart\tironheart-2025\n30069\tFantastic Four: First Steps\tfantastic-four-first-steps-2025\n30070\tMarvel Zombies\tmarvel-zombies-2025\n30071\tWonder Man\twonder-man-2026\n30072\tDaredevil: Born Again Season 2\tdaredevil-born-again-season-2-2026\n30073\tThe Punisher: One Last Kill\tthe-punisher-one-last-kill-2026\n30074\tSpider-Man: Brand New Day\tspider-man-brand-new-day-2026\n30075\tAvengers: Doomsday\tavengers-doomsday-2026\n30076\tAvengers: Secret Wars\tavengers-secret-wars-2027\n",
+  "stderr": "",
+  "execution_time_ms": 274
+}

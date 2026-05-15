@@ -1,0 +1,110 @@
+{
+  "query": "SELECT id, title, LEFT(imageUrl, 80) as imageUrlPrefix FROM mcu_media WHERE id IN (30023, 30046, 30048, 30051, 30052, 30053, 30054, 30055, 30056, 30057, 30058, 30059, 30060, 30061, 30062, 30063, 30064, 30065, 30066, 30067) ORDER BY id;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, title, LEFT(imageUrl, 80) as imageUrlPrefix FROM mcu_media WHERE id IN (30023, 30046, 30048, 30051, 30052, 30053, 30054, 30055, 30056, 30057, 30058, 30059, 30060, 30061, 30062, 30063, 30064, 30065, 30066, 30067) ORDER BY id;",
+  "rows": [
+    {
+      "id": "30023",
+      "title": "Black Panther",
+      "imageUrlPrefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/"
+    },
+    {
+      "id": "30046",
+      "title": "Ms. Marvel",
+      "imageUrlPrefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/"
+    },
+    {
+      "id": "30048",
+      "title": "She-Hulk: Attorney at Law",
+      "imageUrlPrefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/"
+    },
+    {
+      "id": "30051",
+      "title": "The Guardians of the Galaxy Holiday Special",
+      "imageUrlPrefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/"
+    },
+    {
+      "id": "30052",
+      "title": "Ant-Man and the Wasp: Quantumania",
+      "imageUrlPrefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/"
+    },
+    {
+      "id": "30053",
+      "title": "Guardians of the Galaxy Vol. 3",
+      "imageUrlPrefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/"
+    },
+    {
+      "id": "30054",
+      "title": "Secret Invasion",
+      "imageUrlPrefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/"
+    },
+    {
+      "id": "30055",
+      "title": "I Am Groot Season 2",
+      "imageUrlPrefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/"
+    },
+    {
+      "id": "30056",
+      "title": "Loki Season 2",
+      "imageUrlPrefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/"
+    },
+    {
+      "id": "30057",
+      "title": "The Marvels",
+      "imageUrlPrefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/"
+    },
+    {
+      "id": "30058",
+      "title": "What If...? Season 2",
+      "imageUrlPrefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/"
+    },
+    {
+      "id": "30059",
+      "title": "Echo",
+      "imageUrlPrefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/"
+    },
+    {
+      "id": "30060",
+      "title": "X-Men '97",
+      "imageUrlPrefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/"
+    },
+    {
+      "id": "30061",
+      "title": "Deadpool & Wolverine",
+      "imageUrlPrefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/"
+    },
+    {
+      "id": "30062",
+      "title": "Agatha All Along",
+      "imageUrlPrefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/"
+    },
+    {
+      "id": "30063",
+      "title": "What If...? Season 3",
+      "imageUrlPrefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/"
+    },
+    {
+      "id": "30064",
+      "title": "Your Friendly Neighborhood Spider-Man",
+      "imageUrlPrefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/"
+    },
+    {
+      "id": "30065",
+      "title": "Captain America: Brave New World",
+      "imageUrlPrefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/"
+    },
+    {
+      "id": "30066",
+      "title": "Daredevil: Born Again",
+      "imageUrlPrefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/"
+    },
+    {
+      "id": "30067",
+      "title": "Thunderbolts*",
+      "imageUrlPrefix": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\timageUrlPrefix\n30023\tBlack Panther\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\n30046\tMs. Marvel\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\n30048\tShe-Hulk: Attorney at Law\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\n30051\tThe Guardians of the Galaxy Holiday Special\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\n30052\tAnt-Man and the Wasp: Quantumania\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\n30053\tGuardians of the Galaxy Vol. 3\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\n30054\tSecret Invasion\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\n30055\tI Am Groot Season 2\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\n30056\tLoki Season 2\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\n30057\tThe Marvels\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\n30058\tWhat If...? Season 2\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\n30059\tEcho\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\n30060\tX-Men '97\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\n30061\tDeadpool & Wolverine\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\n30062\tAgatha All Along\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\n30063\tWhat If...? Season 3\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\n30064\tYour Friendly Neighborhood Spider-Man\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\n30065\tCaptain America: Brave New World\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\n30066\tDaredevil: Born Again\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\n30067\tThunderbolts*\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/\n",
+  "stderr": "",
+  "execution_time_ms": 260
+}
