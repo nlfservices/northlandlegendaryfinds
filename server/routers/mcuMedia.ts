@@ -107,7 +107,7 @@ export const mcuMediaAdminRouter = router({
 // ==================== PUBLIC MCU MEDIA ROUTES ====================
 
 export const mcuMediaPublicRouter = router({
-  /** Get all published movies & series, ordered by release order */
+  /** Get all movies & series (published + draft for listing), ordered by release order */
   list: publicProcedure.input(z.object({
     type: z.enum(["movie", "series", "all"]).default("all"),
   }).optional()).query(async ({ input }) => {
@@ -116,11 +116,10 @@ export const mcuMediaPublicRouter = router({
     const type = input?.type ?? "all";
     if (type === "all") {
       return db.select().from(mcuMedia)
-        .where(eq(mcuMedia.status, "published"))
         .orderBy(asc(mcuMedia.releaseOrder));
     }
     return db.select().from(mcuMedia)
-      .where(and(eq(mcuMedia.status, "published"), eq(mcuMedia.mediaType, type)))
+      .where(eq(mcuMedia.mediaType, type))
       .orderBy(asc(mcuMedia.releaseOrder));
   }),
 

@@ -1,12 +1,12 @@
 /**
  * MCU Movies & Series Hub — Orange-branded listing page
- * Shows all MCU movies and series with filter tabs and phase grouping
+ * Shows all MCU movies and series organized by Phase with Coming Soon badges
  */
 
 import { useState, useMemo } from "react";
 import { trpc } from "@/lib/trpc";
 import { Link } from "wouter";
-import { Film, Tv, Star, TrendingUp, Calendar, ChevronRight, Play, Clapperboard } from "lucide-react";
+import { Film, Tv, Star, TrendingUp, Calendar, Play, Clapperboard, Clock, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
 
@@ -25,15 +25,16 @@ type MediaItem = {
   worldwideGrossMillions: number | null;
   episodeCount: number | null;
   seasonCount: number | null;
+  status: string;
 };
 
-const PHASE_LABELS: Record<number, string> = {
-  1: "Phase One: Avengers Assembled",
-  2: "Phase Two: New World Order",
-  3: "Phase Three: Infinity Saga",
-  4: "Phase Four: Multiverse Saga",
-  5: "Phase Five: Multiverse Saga",
-  6: "Phase Six: Multiverse Saga",
+const PHASE_LABELS: Record<number, { title: string; subtitle: string }> = {
+  1: { title: "Phase One", subtitle: "Avengers Assembled (2008–2012)" },
+  2: { title: "Phase Two", subtitle: "New World Order (2013–2015)" },
+  3: { title: "Phase Three", subtitle: "Infinity Saga (2015–2019)" },
+  4: { title: "Phase Four", subtitle: "Multiverse Saga (2021–2022)" },
+  5: { title: "Phase Five", subtitle: "Multiverse Saga (2023–2024)" },
+  6: { title: "Phase Six", subtitle: "Multiverse Saga (2025–2027)" },
 };
 
 function VerdictBadge({ verdict }: { verdict: "hit" | "miss" | "mixed" | null }) {
@@ -52,84 +53,109 @@ function VerdictBadge({ verdict }: { verdict: "hit" | "miss" | "mixed" | null })
 }
 
 function MediaCard({ item }: { item: MediaItem }) {
-  return (
-    <Link href={`/movies-series/${item.slug}`}>
-      <div className="group relative bg-card border border-border rounded-xl overflow-hidden hover:border-orange-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/10 cursor-pointer">
-        {/* Image */}
-        <div className="relative aspect-[16/9] overflow-hidden bg-muted">
-          {item.imageUrl ? (
-            <img
-              src={item.imageUrl}
-              alt={item.title}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-orange-900/30 to-black">
-              {item.mediaType === "movie" ? (
-                <Film className="w-12 h-12 text-orange-500/50" />
-              ) : (
-                <Tv className="w-12 h-12 text-orange-500/50" />
-              )}
-            </div>
-          )}
-          {/* Overlay gradient */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-          {/* Play button overlay */}
+  const isPublished = item.status === "published";
+  
+  const cardContent = (
+    <div className={`group relative bg-card border border-border rounded-xl overflow-hidden transition-all duration-300 ${
+      isPublished 
+        ? "hover:border-orange-500/50 hover:shadow-lg hover:shadow-orange-500/10 cursor-pointer" 
+        : "opacity-70 cursor-default"
+    }`}>
+      {/* Image */}
+      <div className="relative aspect-[16/9] overflow-hidden bg-muted">
+        {item.imageUrl ? (
+          <img
+            src={item.imageUrl}
+            alt={item.title}
+            className={`w-full h-full object-cover transition-transform duration-500 ${isPublished ? "group-hover:scale-105" : "grayscale-[30%]"}`}
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-orange-900/30 to-black">
+            {item.mediaType === "movie" ? (
+              <Film className="w-12 h-12 text-orange-500/50" />
+            ) : (
+              <Tv className="w-12 h-12 text-orange-500/50" />
+            )}
+          </div>
+        )}
+        {/* Overlay gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+        
+        {/* Play button overlay - only for published */}
+        {isPublished && (
           <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
             <div className="w-14 h-14 rounded-full bg-orange-500/90 flex items-center justify-center">
               <Play className="w-6 h-6 text-white ml-1" fill="white" />
             </div>
           </div>
-          {/* Type badge */}
-          <div className="absolute top-3 left-3">
-            <span className="px-2 py-1 text-xs font-bold rounded bg-orange-500/90 text-white uppercase tracking-wider">
-              {item.mediaType}
-            </span>
+        )}
+        
+        {/* Coming Soon overlay for drafts */}
+        {!isPublished && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="px-4 py-2 rounded-lg bg-black/70 border border-orange-500/30 flex items-center gap-2">
+              <Clock className="w-4 h-4 text-orange-400" />
+              <span className="text-sm font-bold text-orange-400 tracking-wide">COMING SOON</span>
+            </div>
           </div>
-          {/* Verdict badge */}
+        )}
+        
+        {/* Type badge */}
+        <div className="absolute top-3 left-3">
+          <span className="px-2 py-1 text-xs font-bold rounded bg-orange-500/90 text-white uppercase tracking-wider">
+            {item.mediaType}
+          </span>
+        </div>
+        {/* Verdict badge */}
+        {isPublished && (
           <div className="absolute top-3 right-3">
             <VerdictBadge verdict={item.verdict} />
           </div>
-          {/* Bottom info overlay */}
-          <div className="absolute bottom-0 left-0 right-0 p-4">
-            <h3 className="text-lg font-bold text-white leading-tight">{item.title}</h3>
-            {item.tagline && (
-              <p className="text-sm text-gray-300 mt-1 line-clamp-1">{item.tagline}</p>
-            )}
-          </div>
-        </div>
-        {/* Stats bar */}
-        <div className="px-4 py-3 flex items-center justify-between text-sm">
-          <div className="flex items-center gap-3">
-            {item.releaseDate && (
-              <span className="text-muted-foreground flex items-center gap-1">
-                <Calendar className="w-3.5 h-3.5" />
-                {item.releaseDate}
-              </span>
-            )}
-            {item.rtCriticsScore && (
-              <span className="text-orange-400 flex items-center gap-1 font-semibold">
-                <Star className="w-3.5 h-3.5" fill="currentColor" />
-                {item.rtCriticsScore}%
-              </span>
-            )}
-          </div>
-          {item.mediaType === "movie" && item.worldwideGrossMillions && (
-            <span className="text-green-400 flex items-center gap-1 font-semibold">
-              <TrendingUp className="w-3.5 h-3.5" />
-              ${item.worldwideGrossMillions}M
-            </span>
-          )}
-          {item.mediaType === "series" && item.episodeCount && (
-            <span className="text-muted-foreground">
-              {item.seasonCount && item.seasonCount > 1 ? `${item.seasonCount} Seasons · ` : ""}
-              {item.episodeCount} Episodes
-            </span>
+        )}
+        {/* Bottom info overlay */}
+        <div className="absolute bottom-0 left-0 right-0 p-4">
+          <h3 className="text-lg font-bold text-white leading-tight">{item.title}</h3>
+          {item.tagline && isPublished && (
+            <p className="text-sm text-gray-300 mt-1 line-clamp-1">{item.tagline}</p>
           )}
         </div>
       </div>
-    </Link>
+      {/* Stats bar */}
+      <div className="px-4 py-3 flex items-center justify-between text-sm">
+        <div className="flex items-center gap-3">
+          {item.releaseDate && (
+            <span className="text-muted-foreground flex items-center gap-1">
+              <Calendar className="w-3.5 h-3.5" />
+              {item.releaseDate}
+            </span>
+          )}
+          {isPublished && item.rtCriticsScore && (
+            <span className="text-orange-400 flex items-center gap-1 font-semibold">
+              <Star className="w-3.5 h-3.5" fill="currentColor" />
+              {item.rtCriticsScore}%
+            </span>
+          )}
+        </div>
+        {isPublished && item.mediaType === "movie" && item.worldwideGrossMillions && (
+          <span className="text-green-400 flex items-center gap-1 font-semibold">
+            <TrendingUp className="w-3.5 h-3.5" />
+            ${item.worldwideGrossMillions}M
+          </span>
+        )}
+        {isPublished && item.mediaType === "series" && item.episodeCount && (
+          <span className="text-muted-foreground">
+            {item.seasonCount && item.seasonCount > 1 ? `${item.seasonCount} Seasons · ` : ""}
+            {item.episodeCount} Episodes
+          </span>
+        )}
+      </div>
+    </div>
   );
+
+  if (isPublished) {
+    return <Link href={`/movies-series/${item.slug}`}>{cardContent}</Link>;
+  }
+  return cardContent;
 }
 
 export default function MCUMediaHub() {
@@ -149,11 +175,17 @@ export default function MCUMediaHub() {
       .map(([phase, items]) => ({ phase: Number(phase), items }));
   }, [items]);
 
+  // Stats
+  const totalCount = items.length;
+  const publishedCount = items.filter((i: MediaItem) => i.status === "published").length;
+  const movieCount = items.filter((i: MediaItem) => i.mediaType === "movie").length;
+  const seriesCount = items.filter((i: MediaItem) => i.mediaType === "series").length;
+
   return (
     <>
       <SEO
-        title="MCU Movies & Series | Trailers, Box Office & Card Market"
-        description="Every MCU movie and Disney+ series — trailers, box office numbers, cast spotlights, and trading card market analysis. Your complete Marvel Cinematic Universe guide."
+        title="MCU Movies & Series Timeline | Every Marvel Movie & Show by Phase"
+        description="Complete MCU timeline organized by Phase — 77 movies and Disney+ series with trailers, box office numbers, cast spotlights, and trading card market analysis."
       />
 
       <div className="min-h-screen">
@@ -172,14 +204,30 @@ export default function MCUMediaHub() {
               </div>
               <div>
                 <h1 className="text-4xl md:text-5xl font-bold">
-                  <span className="text-orange-400">Movies</span> & <span className="text-orange-400">Series</span>
+                  <span className="text-orange-400">MCU</span> Movies & Series
                 </h1>
               </div>
             </div>
             <p className="text-lg text-muted-foreground max-w-2xl mt-2">
-              Every MCU movie and Disney+ series — trailers, box office breakdowns, cast spotlights, 
-              and the cards that matter to collectors. Your complete Marvel Cinematic Universe guide.
+              The complete Marvel Cinematic Universe timeline — {totalCount} movies and series organized by Phase. 
+              Trailers, box office breakdowns, cast spotlights, and trading card market analysis.
             </p>
+
+            {/* Stats Row */}
+            <div className="flex flex-wrap gap-6 mt-6 text-sm">
+              <div className="flex items-center gap-2">
+                <Film className="w-4 h-4 text-orange-400" />
+                <span className="text-muted-foreground">{movieCount} Movies</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Tv className="w-4 h-4 text-orange-400" />
+                <span className="text-muted-foreground">{seriesCount} Series</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Star className="w-4 h-4 text-green-400" />
+                <span className="text-muted-foreground">{publishedCount} Full Guides Published</span>
+              </div>
+            </div>
 
             {/* Filter Tabs */}
             <div className="flex gap-2 mt-8">
@@ -228,28 +276,60 @@ export default function MCUMediaHub() {
             </div>
           ) : (
             <div className="space-y-16">
-              {groupedByPhase.map(({ phase, items }) => (
-                <div key={phase}>
-                  {/* Phase Header */}
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="h-px flex-1 bg-gradient-to-r from-orange-500/50 to-transparent" />
-                    <h2 className="text-xl font-bold text-orange-400 whitespace-nowrap">
-                      {PHASE_LABELS[phase] ?? `Phase ${phase}`}
-                    </h2>
-                    <div className="h-px flex-1 bg-gradient-to-l from-orange-500/50 to-transparent" />
-                  </div>
+              {groupedByPhase.map(({ phase, items }) => {
+                const phaseInfo = PHASE_LABELS[phase];
+                const publishedInPhase = items.filter((i: MediaItem) => i.status === "published").length;
+                return (
+                  <div key={phase} id={`phase-${phase}`}>
+                    {/* Phase Header */}
+                    <div className="mb-8">
+                      <div className="flex items-center gap-4 mb-2">
+                        <div className="w-10 h-10 rounded-lg bg-orange-500/20 border border-orange-500/40 flex items-center justify-center font-bold text-orange-400">
+                          {phase}
+                        </div>
+                        <div>
+                          <h2 className="text-2xl font-bold text-white">
+                            {phaseInfo?.title ?? `Phase ${phase}`}
+                          </h2>
+                          <p className="text-sm text-muted-foreground">
+                            {phaseInfo?.subtitle ?? ""} · {items.length} titles
+                            {publishedInPhase > 0 && (
+                              <span className="text-green-400 ml-2">· {publishedInPhase} guide{publishedInPhase > 1 ? "s" : ""} live</span>
+                            )}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="h-px bg-gradient-to-r from-orange-500/50 via-orange-500/20 to-transparent" />
+                    </div>
 
-                  {/* Grid */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {items.map((item: MediaItem) => (
-                      <MediaCard key={item.id} item={item} />
-                    ))}
+                    {/* Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {items.map((item: MediaItem) => (
+                        <MediaCard key={item.id} item={item} />
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </section>
+
+        {/* Phase Quick Nav (sticky bottom) */}
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
+          <div className="flex gap-1 px-4 py-2 rounded-full bg-card/90 backdrop-blur-md border border-orange-500/30 shadow-xl shadow-black/30">
+            {[1, 2, 3, 4, 5, 6].map((phase) => (
+              <a
+                key={phase}
+                href={`#phase-${phase}`}
+                className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-orange-400 hover:bg-orange-500/20 transition-colors"
+                title={PHASE_LABELS[phase]?.title}
+              >
+                {phase}
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
     </>
   );

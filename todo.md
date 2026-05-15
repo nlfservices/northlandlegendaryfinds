@@ -2304,4 +2304,11 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] MCU timeline position indicator with clickable dots
 - [x] Update Iron Man entry with FAQ data and eBay search term
 - [x] Verify all features on live site
+- [x] Save checkpoint (9287af56)
+
+## Full MCU Timeline Population
+- [x] Insert all 77 MCU entries into database with Phase assignments (1-6) and release dates
+- [x] Redesign Movies & Series listing page with Phase sections and Coming Soon badges
+- [x] MCU Timeline sidebar auto-populates with all 77 entries (uses trpc.mcuMedia.list)
+- [x] Verify listing page and timeline render correctly (77 entries, 6 phases)
 - [ ] Save checkpoint

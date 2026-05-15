@@ -1,0 +1,18 @@
+{
+  "query": "SELECT id, title, slug, phase, releaseDate, mediaType FROM mcu_media ORDER BY releaseDate ASC LIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, title, slug, phase, releaseDate, mediaType FROM mcu_media ORDER BY releaseDate ASC LIMIT 5;",
+  "rows": [
+    {
+      "id": "1",
+      "title": "Iron Man",
+      "slug": "iron-man-2008",
+      "phase": "1",
+      "releaseDate": "May 2, 2008",
+      "mediaType": "movie"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tslug\tphase\treleaseDate\tmediaType\n1\tIron Man\tiron-man-2008\t1\tMay 2, 2008\tmovie\n",
+  "stderr": "",
+  "execution_time_ms": 483
+}
