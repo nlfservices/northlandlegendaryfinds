@@ -1,0 +1,60 @@
+{
+  "query": "SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'mcu_media' AND CHARACTER_MAXIMUM_LENGTH IS NOT NULL AND CHARACTER_MAXIMUM_LENGTH < 300;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'mcu_media' AND CHARACTER_MAXIMUM_LENGTH IS NOT NULL AND CHARACTER_MAXIMUM_LENGTH < 300;",
+  "rows": [
+    {
+      "COLUMN_NAME": "title",
+      "DATA_TYPE": "varchar",
+      "CHARACTER_MAXIMUM_LENGTH": "255"
+    },
+    {
+      "COLUMN_NAME": "slug",
+      "DATA_TYPE": "varchar",
+      "CHARACTER_MAXIMUM_LENGTH": "255"
+    },
+    {
+      "COLUMN_NAME": "mediaType",
+      "DATA_TYPE": "enum",
+      "CHARACTER_MAXIMUM_LENGTH": "6"
+    },
+    {
+      "COLUMN_NAME": "releaseDate",
+      "DATA_TYPE": "varchar",
+      "CHARACTER_MAXIMUM_LENGTH": "50"
+    },
+    {
+      "COLUMN_NAME": "director",
+      "DATA_TYPE": "varchar",
+      "CHARACTER_MAXIMUM_LENGTH": "255"
+    },
+    {
+      "COLUMN_NAME": "youtubeTrailerId",
+      "DATA_TYPE": "varchar",
+      "CHARACTER_MAXIMUM_LENGTH": "20"
+    },
+    {
+      "COLUMN_NAME": "platform",
+      "DATA_TYPE": "varchar",
+      "CHARACTER_MAXIMUM_LENGTH": "100"
+    },
+    {
+      "COLUMN_NAME": "verdict",
+      "DATA_TYPE": "enum",
+      "CHARACTER_MAXIMUM_LENGTH": "5"
+    },
+    {
+      "COLUMN_NAME": "status",
+      "DATA_TYPE": "enum",
+      "CHARACTER_MAXIMUM_LENGTH": "9"
+    },
+    {
+      "COLUMN_NAME": "ebaySearchTerm",
+      "DATA_TYPE": "varchar",
+      "CHARACTER_MAXIMUM_LENGTH": "255"
+    }
+  ],
+  "messages": [],
+  "stdout": "COLUMN_NAME\tDATA_TYPE\tCHARACTER_MAXIMUM_LENGTH\ntitle\tvarchar\t255\nslug\tvarchar\t255\nmediaType\tenum\t6\nreleaseDate\tvarchar\t50\ndirector\tvarchar\t255\nyoutubeTrailerId\tvarchar\t20\nplatform\tvarchar\t100\nverdict\tenum\t5\nstatus\tenum\t9\nebaySearchTerm\tvarchar\t255\n",
+  "stderr": "",
+  "execution_time_ms": 264
+}

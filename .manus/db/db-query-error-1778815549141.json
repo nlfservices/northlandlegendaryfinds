@@ -1,0 +1,8 @@
+{
+  "query": "SELECT title, slug, mediaType, phase, releaseDate, releaseOrder, director, budget, boxOffice, openingWeekend, criticsScore, audienceScore, status, ebaySearchTerm, LEFT(content, 500) as content_preview, LEFT(castData, 500) as cast_preview, LEFT(faqData, 500) as faq_preview, LEFT(cardMarketContent, 500) as card_preview, LEFT(kidsContent, 500) as kids_preview, LEFT(keyCards, 500) as keys_preview FROM mcu_media WHERE slug = 'iron-man-2008';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT title, slug, mediaType, phase, releaseDate, releaseOrder, director, budget, boxOffice, openingWeekend, criticsScore, audienceScore, status, ebaySearchTerm, LEFT(content, 500) as content_preview, LEFT(castData, 500) as cast_preview, LEFT(faqData, 500) as faq_preview, LEFT(cardMarketContent, 500) as card_preview, LEFT(kidsContent, 500) as kids_preview, LEFT(keyCards, 500) as keys_preview FROM mcu_media WHERE slug = 'iron-man-2008';",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1054 (42S22) at line 1: Unknown column 'budget' in 'field list'"
+  ]
+}
