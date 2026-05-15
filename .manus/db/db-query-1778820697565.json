@@ -1,0 +1,55 @@
+{
+  "query": "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'mcu_media' AND ORDINAL_POSITION > 20 ORDER BY ORDINAL_POSITION",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'mcu_media' AND ORDINAL_POSITION > 20 ORDER BY ORDINAL_POSITION",
+  "rows": [
+    {
+      "COLUMN_NAME": "rtCriticsScore"
+    },
+    {
+      "COLUMN_NAME": "rtAudienceScore"
+    },
+    {
+      "COLUMN_NAME": "verdict"
+    },
+    {
+      "COLUMN_NAME": "cardMarketContent"
+    },
+    {
+      "COLUMN_NAME": "keyCards"
+    },
+    {
+      "COLUMN_NAME": "content"
+    },
+    {
+      "COLUMN_NAME": "metaDescription"
+    },
+    {
+      "COLUMN_NAME": "keywords"
+    },
+    {
+      "COLUMN_NAME": "relatedCharacters"
+    },
+    {
+      "COLUMN_NAME": "status"
+    },
+    {
+      "COLUMN_NAME": "isFeatured"
+    },
+    {
+      "COLUMN_NAME": "createdAt"
+    },
+    {
+      "COLUMN_NAME": "updatedAt"
+    },
+    {
+      "COLUMN_NAME": "ebaySearchTerm"
+    },
+    {
+      "COLUMN_NAME": "faqData"
+    }
+  ],
+  "messages": [],
+  "stdout": "COLUMN_NAME\nrtCriticsScore\nrtAudienceScore\nverdict\ncardMarketContent\nkeyCards\ncontent\nmetaDescription\nkeywords\nrelatedCharacters\nstatus\nisFeatured\ncreatedAt\nupdatedAt\nebaySearchTerm\nfaqData\n",
+  "stderr": "",
+  "execution_time_ms": 259
+}

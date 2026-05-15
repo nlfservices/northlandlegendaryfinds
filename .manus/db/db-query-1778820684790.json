@@ -1,0 +1,50 @@
+{
+  "query": "SHOW COLUMNS FROM mcu_media WHERE Field IN ('rtScore', 'verdict', 'content', 'cardMarketContent', 'keyCards', 'faq', 'seoTitle', 'seoDescription', 'seoKeywords', 'ebaySearchTerms', 'status', 'viewingContext')",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SHOW COLUMNS FROM mcu_media WHERE Field IN ('rtScore', 'verdict', 'content', 'cardMarketContent', 'keyCards', 'faq', 'seoTitle', 'seoDescription', 'seoKeywords', 'ebaySearchTerms', 'status', 'viewingContext')",
+  "rows": [
+    {
+      "Field": "verdict",
+      "Type": "enum('hit','miss','mixed')",
+      "Null": "YES",
+      "Key": "",
+      "Default": "hit",
+      "Extra": ""
+    },
+    {
+      "Field": "cardMarketContent",
+      "Type": "text",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "keyCards",
+      "Type": "text",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "content",
+      "Type": "text",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "status",
+      "Type": "enum('draft','published')",
+      "Null": "NO",
+      "Key": "",
+      "Default": "draft",
+      "Extra": ""
+    }
+  ],
+  "messages": [],
+  "stdout": "Field\tType\tNull\tKey\tDefault\tExtra\nverdict\tenum('hit','miss','mixed')\tYES\t\thit\t\ncardMarketContent\ttext\tYES\t\tNULL\t\nkeyCards\ttext\tYES\t\tNULL\t\ncontent\ttext\tYES\t\tNULL\t\nstatus\tenum('draft','published')\tNO\t\tdraft\t\n",
+  "stderr": "",
+  "execution_time_ms": 263
+}
