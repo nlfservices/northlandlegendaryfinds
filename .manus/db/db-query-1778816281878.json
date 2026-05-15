@@ -1,0 +1,58 @@
+{
+  "query": "SELECT slug, title, status, budgetMillions, worldwideGrossMillions, verdict FROM mcu_media WHERE phase = 1 AND status = 'published' ORDER BY releaseOrder",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT slug, title, status, budgetMillions, worldwideGrossMillions, verdict FROM mcu_media WHERE phase = 1 AND status = 'published' ORDER BY releaseOrder",
+  "rows": [
+    {
+      "slug": "iron-man-2008",
+      "title": "Iron Man",
+      "status": "published",
+      "budgetMillions": "140",
+      "worldwideGrossMillions": "585",
+      "verdict": "hit"
+    },
+    {
+      "slug": "the-incredible-hulk-2008",
+      "title": "The Incredible Hulk",
+      "status": "published",
+      "budgetMillions": "150",
+      "worldwideGrossMillions": "265",
+      "verdict": "mixed"
+    },
+    {
+      "slug": "iron-man-2-2010",
+      "title": "Iron Man 2",
+      "status": "published",
+      "budgetMillions": "200",
+      "worldwideGrossMillions": "624",
+      "verdict": "hit"
+    },
+    {
+      "slug": "thor-2011",
+      "title": "Thor",
+      "status": "published",
+      "budgetMillions": "150",
+      "worldwideGrossMillions": "449",
+      "verdict": "hit"
+    },
+    {
+      "slug": "captain-america-the-first-avenger-2011",
+      "title": "Captain America: The First Avenger",
+      "status": "published",
+      "budgetMillions": "140",
+      "worldwideGrossMillions": "371",
+      "verdict": "hit"
+    },
+    {
+      "slug": "the-avengers-2012",
+      "title": "The Avengers",
+      "status": "published",
+      "budgetMillions": "220",
+      "worldwideGrossMillions": "1519",
+      "verdict": "hit"
+    }
+  ],
+  "messages": [],
+  "stdout": "slug\ttitle\tstatus\tbudgetMillions\tworldwideGrossMillions\tverdict\niron-man-2008\tIron Man\tpublished\t140\t585\thit\nthe-incredible-hulk-2008\tThe Incredible Hulk\tpublished\t150\t265\tmixed\niron-man-2-2010\tIron Man 2\tpublished\t200\t624\thit\nthor-2011\tThor\tpublished\t150\t449\thit\ncaptain-america-the-first-avenger-2011\tCaptain America: The First Avenger\tpublished\t140\t371\thit\nthe-avengers-2012\tThe Avengers\tpublished\t220\t1519\thit\n",
+  "stderr": "",
+  "execution_time_ms": 266
+}
