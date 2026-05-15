@@ -1,0 +1,143 @@
+{
+  "query": "SELECT title, slug, phase, releaseOrder, status FROM mcu_media WHERE mediaType = 'movie' AND phase IN (4, 5, 6) ORDER BY phase, releaseOrder",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT title, slug, phase, releaseOrder, status FROM mcu_media WHERE mediaType = 'movie' AND phase IN (4, 5, 6) ORDER BY phase, releaseOrder",
+  "rows": [
+    {
+      "title": "Black Widow",
+      "slug": "black-widow-2021",
+      "phase": "4",
+      "releaseOrder": "39",
+      "status": "draft"
+    },
+    {
+      "title": "Shang-Chi and the Legend of the Ten Rings",
+      "slug": "shang-chi-2021",
+      "phase": "4",
+      "releaseOrder": "41",
+      "status": "draft"
+    },
+    {
+      "title": "Eternals",
+      "slug": "eternals-2021",
+      "phase": "4",
+      "releaseOrder": "42",
+      "status": "draft"
+    },
+    {
+      "title": "Spider-Man: No Way Home",
+      "slug": "spider-man-no-way-home-2021",
+      "phase": "4",
+      "releaseOrder": "44",
+      "status": "draft"
+    },
+    {
+      "title": "Doctor Strange in the Multiverse of Madness",
+      "slug": "doctor-strange-multiverse-of-madness-2022",
+      "phase": "4",
+      "releaseOrder": "46",
+      "status": "draft"
+    },
+    {
+      "title": "Thor: Love and Thunder",
+      "slug": "thor-love-and-thunder-2022",
+      "phase": "4",
+      "releaseOrder": "48",
+      "status": "draft"
+    },
+    {
+      "title": "Werewolf by Night",
+      "slug": "werewolf-by-night-2022",
+      "phase": "4",
+      "releaseOrder": "50",
+      "status": "draft"
+    },
+    {
+      "title": "Black Panther: Wakanda Forever",
+      "slug": "black-panther-wakanda-forever-2022",
+      "phase": "4",
+      "releaseOrder": "51",
+      "status": "draft"
+    },
+    {
+      "title": "Ant-Man and the Wasp: Quantumania",
+      "slug": "ant-man-quantumania-2023",
+      "phase": "5",
+      "releaseOrder": "53",
+      "status": "draft"
+    },
+    {
+      "title": "Guardians of the Galaxy Vol. 3",
+      "slug": "guardians-of-the-galaxy-vol-3-2023",
+      "phase": "5",
+      "releaseOrder": "54",
+      "status": "draft"
+    },
+    {
+      "title": "The Marvels",
+      "slug": "the-marvels-2023",
+      "phase": "5",
+      "releaseOrder": "58",
+      "status": "draft"
+    },
+    {
+      "title": "Deadpool & Wolverine",
+      "slug": "deadpool-wolverine-2024",
+      "phase": "5",
+      "releaseOrder": "62",
+      "status": "draft"
+    },
+    {
+      "title": "Captain America: Brave New World",
+      "slug": "captain-america-brave-new-world-2025",
+      "phase": "6",
+      "releaseOrder": "66",
+      "status": "draft"
+    },
+    {
+      "title": "Thunderbolts*",
+      "slug": "thunderbolts-2025",
+      "phase": "6",
+      "releaseOrder": "68",
+      "status": "draft"
+    },
+    {
+      "title": "Fantastic Four: First Steps",
+      "slug": "fantastic-four-first-steps-2025",
+      "phase": "6",
+      "releaseOrder": "70",
+      "status": "draft"
+    },
+    {
+      "title": "The Punisher: One Last Kill",
+      "slug": "the-punisher-one-last-kill-2026",
+      "phase": "6",
+      "releaseOrder": "74",
+      "status": "draft"
+    },
+    {
+      "title": "Spider-Man: Brand New Day",
+      "slug": "spider-man-brand-new-day-2026",
+      "phase": "6",
+      "releaseOrder": "75",
+      "status": "draft"
+    },
+    {
+      "title": "Avengers: Doomsday",
+      "slug": "avengers-doomsday-2026",
+      "phase": "6",
+      "releaseOrder": "76",
+      "status": "draft"
+    },
+    {
+      "title": "Avengers: Secret Wars",
+      "slug": "avengers-secret-wars-2027",
+      "phase": "6",
+      "releaseOrder": "77",
+      "status": "draft"
+    }
+  ],
+  "messages": [],
+  "stdout": "title\tslug\tphase\treleaseOrder\tstatus\nBlack Widow\tblack-widow-2021\t4\t39\tdraft\nShang-Chi and the Legend of the Ten Rings\tshang-chi-2021\t4\t41\tdraft\nEternals\teternals-2021\t4\t42\tdraft\nSpider-Man: No Way Home\tspider-man-no-way-home-2021\t4\t44\tdraft\nDoctor Strange in the Multiverse of Madness\tdoctor-strange-multiverse-of-madness-2022\t4\t46\tdraft\nThor: Love and Thunder\tthor-love-and-thunder-2022\t4\t48\tdraft\nWerewolf by Night\twerewolf-by-night-2022\t4\t50\tdraft\nBlack Panther: Wakanda Forever\tblack-panther-wakanda-forever-2022\t4\t51\tdraft\nAnt-Man and the Wasp: Quantumania\tant-man-quantumania-2023\t5\t53\tdraft\nGuardians of the Galaxy Vol. 3\tguardians-of-the-galaxy-vol-3-2023\t5\t54\tdraft\nThe Marvels\tthe-marvels-2023\t5\t58\tdraft\nDeadpool & Wolverine\tdeadpool-wolverine-2024\t5\t62\tdraft\nCaptain America: Brave New World\tcaptain-america-brave-new-world-2025\t6\t66\tdraft\nThunderbolts*\tthunderbolts-2025\t6\t68\tdraft\nFantastic Four: First Steps\tfantastic-four-first-steps-2025\t6\t70\tdraft\nThe Punisher: One Last Kill\tthe-punisher-one-last-kill-2026\t6\t74\tdraft\nSpider-Man: Brand New Day\tspider-man-brand-new-day-2026\t6\t75\tdraft\nAvengers: Doomsday\tavengers-doomsday-2026\t6\t76\tdraft\nAvengers: Secret Wars\tavengers-secret-wars-2027\t6\t77\tdraft\n",
+  "stderr": "",
+  "execution_time_ms": 272
+}

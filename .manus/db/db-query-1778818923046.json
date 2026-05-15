@@ -1,0 +1,50 @@
+{
+  "query": "SELECT title, slug, status FROM mcu_media WHERE phase = 4 AND mediaType = 'movie' ORDER BY releaseOrder",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT title, slug, status FROM mcu_media WHERE phase = 4 AND mediaType = 'movie' ORDER BY releaseOrder",
+  "rows": [
+    {
+      "title": "Black Widow",
+      "slug": "black-widow-2021",
+      "status": "published"
+    },
+    {
+      "title": "Shang-Chi and the Legend of the Ten Rings",
+      "slug": "shang-chi-2021",
+      "status": "published"
+    },
+    {
+      "title": "Eternals",
+      "slug": "eternals-2021",
+      "status": "published"
+    },
+    {
+      "title": "Spider-Man: No Way Home",
+      "slug": "spider-man-no-way-home-2021",
+      "status": "published"
+    },
+    {
+      "title": "Doctor Strange in the Multiverse of Madness",
+      "slug": "doctor-strange-multiverse-of-madness-2022",
+      "status": "published"
+    },
+    {
+      "title": "Thor: Love and Thunder",
+      "slug": "thor-love-and-thunder-2022",
+      "status": "published"
+    },
+    {
+      "title": "Werewolf by Night",
+      "slug": "werewolf-by-night-2022",
+      "status": "published"
+    },
+    {
+      "title": "Black Panther: Wakanda Forever",
+      "slug": "black-panther-wakanda-forever-2022",
+      "status": "published"
+    }
+  ],
+  "messages": [],
+  "stdout": "title\tslug\tstatus\nBlack Widow\tblack-widow-2021\tpublished\nShang-Chi and the Legend of the Ten Rings\tshang-chi-2021\tpublished\nEternals\teternals-2021\tpublished\nSpider-Man: No Way Home\tspider-man-no-way-home-2021\tpublished\nDoctor Strange in the Multiverse of Madness\tdoctor-strange-multiverse-of-madness-2022\tpublished\nThor: Love and Thunder\tthor-love-and-thunder-2022\tpublished\nWerewolf by Night\twerewolf-by-night-2022\tpublished\nBlack Panther: Wakanda Forever\tblack-panther-wakanda-forever-2022\tpublished\n",
+  "stderr": "",
+  "execution_time_ms": 264
+}
