@@ -31,9 +31,9 @@ export default function Navigation() {
     { path: "/nerd-gossip", label: "Nerd Gossip", highlight: "purple" as const },
     { path: "/checklists", label: "Cosmic Hits" },
     { path: "/voting-grounds", label: "Voting Grounds", highlight: "voting" as const },
-    { path: "/movies-series", label: "Movies & Series", highlight: "orange" as const },
     // { path: "/shop", label: "Shop Now" }, // Hidden until launch
     { path: "/card-shows", label: "Events" },
+    { path: "/movies-series", label: "Movies & Series", highlight: "orange" as const },
     // { path: "/the-little-things", label: "The Little Things", highlight: "green" as const }, // Hidden until content is built out
     { path: "/about", label: "About" },
     { path: "/faq", label: "FAQ" },
