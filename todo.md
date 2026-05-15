@@ -2290,4 +2290,9 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Regenerate 15 Autograph cards (A-1 through A-15) as full-bleed character art
 - [x] Upload and update database
 - [x] Verify on live site
+- [x] Save checkpoint (f0384b1b)
+
+## Remove Quick Comp & Display Buttons
+- [x] Remove Quick Comp and Display buttons from card database card listings
+- [x] Verify on live site
 - [ ] Save checkpoint
