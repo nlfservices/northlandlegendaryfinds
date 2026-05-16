@@ -2307,3 +2307,4 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Randomize voting grounds vote distributions so each article looks different (50/35/10/5 ratio with variation)
 - [x] Improve email capture popup readability — better contrast, larger text, cleaner layout
 - [x] Remove Quick Comp and Display buttons from all card database set views
+- [x] Publish Secret Wars cast speculation article with 3 generated images (article #174)
