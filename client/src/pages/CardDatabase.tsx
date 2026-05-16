@@ -12,10 +12,9 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import {
   Search, ChevronRight, BookOpen, Layers, Hash, ArrowLeft,
-  Star, X, Grid3X3, List, DollarSign, Sparkles
+  Star, X, Grid3X3, List
 } from "lucide-react";
-import { useLocation } from "wouter";
-import { CARD_TYPE_TO_THEME } from "./CardDisplay";
+
 import SEO, { breadcrumbJsonLd, collectionPageJsonLd } from "@/components/SEO";
 
 // Default placeholder for cards without images
@@ -260,41 +259,7 @@ function CardImage({ frontImg, name, cardNumber, cosmicBg, borderColor, glowColo
   );
 }
 
-// ==================== QUICK COMP BUTTON ====================
-function QuickCompButton({ cardName, setName, compact }: { cardName: string; setName: string; compact?: boolean }) {
-  const [, navigate] = useLocation();
-  
-  const handleComp = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    e.preventDefault();
-    const query = encodeURIComponent(`${cardName} ${setName}`);
-    navigate(`/admin/ebay-comps?q=${query}`);
-  };
 
-  if (compact) {
-    return (
-      <button
-        onClick={handleComp}
-        className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs bg-primary/10 text-primary hover:bg-primary/20 transition-colors border border-primary/20"
-        title={`Check eBay price for ${cardName}`}
-      >
-        <DollarSign className="w-3 h-3" />
-        Comp
-      </button>
-    );
-  }
-
-  return (
-    <button
-      onClick={handleComp}
-      className="w-full flex items-center justify-center gap-1 px-2 py-1.5 rounded-md text-[11px] font-medium bg-primary/10 text-primary hover:bg-primary/20 transition-colors border border-primary/20"
-      title={`Check eBay price for ${cardName}`}
-    >
-      <DollarSign className="w-3 h-3" />
-      Quick Comp
-    </button>
-  );
-}
 
 // ==================== SET BROWSER ====================
 
@@ -804,9 +769,7 @@ function SetDetail({ slug }: { slug: string }) {
                   const isGambit = isPlayingCardType(card.cardType || '');
                   const cosmicBgUrl = isGambit ? undefined : COSMIC_BG[card.cardType || ''];
                   const hasCosmic = !!cosmicBgUrl;
-                  // Build display URL for the card display tool
-                  const themeId = CARD_TYPE_TO_THEME[card.cardType || ''];
-                  const displayUrl = `/card-display?img=${encodeURIComponent(card.imageUrl || PLACEHOLDER_IMG)}&theme=${themeId || 'gold-amber'}&name=${encodeURIComponent(card.characterName)}&from=database`;
+
                   return (
                     <div className={`rounded-lg overflow-hidden transition-all ${hasCosmic ? 'border-0 bg-transparent' : `border border-border ${theme.border} hover:shadow-lg ${theme.glow} ${theme.bg}`}`}>
                       {/* Cosmic card with nebula background */}
@@ -839,25 +802,7 @@ function SetDetail({ slug }: { slug: string }) {
                             {card.parallels}
                           </p>
                         )}
-                        <div className="flex gap-1.5 mt-2">
-                          <QuickCompButton cardName={card.characterName} setName={set.name} />
-                          {!isGambit && card.imageUrl && (
-                            <Link href={displayUrl}>
-                              <button
-                                className="w-full flex items-center justify-center gap-1 px-2 py-1.5 rounded-md text-[11px] font-medium transition-colors border"
-                                style={{
-                                  background: `${theme.borderColor?.replace('0.7', '0.1') || 'rgba(132,204,22,0.1)'}`,
-                                  color: theme.borderColor?.replace('0.7', '1') || theme.accent?.replace('text-', '') || '#a3e635',
-                                  borderColor: theme.borderColor?.replace('0.7', '0.3') || 'rgba(132,204,22,0.3)',
-                                }}
-                                title={`Display ${card.characterName} in cosmic viewer`}
-                              >
-                                <Sparkles className="w-3 h-3" />
-                                Display
-                              </button>
-                            </Link>
-                          )}
-                        </div>
+
                       </div>
                     </div>
                   );
@@ -878,8 +823,7 @@ function SetDetail({ slug }: { slug: string }) {
                     <th className="text-left p-3 text-sm font-semibold text-muted-foreground">Character</th>
                     <th className="text-left p-3 text-sm font-semibold text-muted-foreground">Type</th>
                     <th className="text-left p-3 text-sm font-semibold text-muted-foreground">Parallels</th>
-                    <th className="text-left p-3 text-sm font-semibold text-muted-foreground w-24">Comp</th>
-                    <th className="text-left p-3 text-sm font-semibold text-muted-foreground w-24">Display</th>
+
                   </tr>
                 </thead>
                 <tbody>
@@ -920,23 +864,7 @@ function SetDetail({ slug }: { slug: string }) {
                           <span className="text-muted-foreground/50">&mdash;</span>
                         )}
                       </td>
-                      <td className="p-3">
-                        <QuickCompButton cardName={card.characterName} setName={set.name} compact />
-                      </td>
-                      <td className="p-3">
-                        {!isPlayingCardType(card.cardType || '') && card.imageUrl && (() => {
-                          const themeId = CARD_TYPE_TO_THEME[card.cardType || ''];
-                          const displayUrl = `/card-display?img=${encodeURIComponent(card.imageUrl || PLACEHOLDER_IMG)}&theme=${themeId || 'gold-amber'}&name=${encodeURIComponent(card.characterName)}&from=database`;
-                          return (
-                            <Link href={displayUrl}>
-                              <button className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs bg-purple-500/10 text-purple-400 hover:bg-purple-500/20 transition-colors border border-purple-500/20">
-                                <Sparkles className="w-3 h-3" />
-                                Display
-                              </button>
-                            </Link>
-                          );
-                        })()}
-                      </td>
+
                     </tr>
                   ))}
                 </tbody>

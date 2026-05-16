@@ -183,32 +183,32 @@ export default function EmailCapturePopup() {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed bottom-3 left-3 right-3 sm:right-auto sm:left-4 sm:bottom-4 z-50 animate-in slide-in-from-bottom-5 fade-in duration-500">
-      <div className="relative w-full sm:w-96 max-h-[85vh] overflow-y-auto bg-gradient-to-br from-green-600 via-green-700 to-emerald-800 border-2 border-green-400/30 rounded-xl shadow-2xl shadow-black/60">
-        {/* Decorative glow */}
-        <div className="absolute top-0 right-0 w-32 h-32 bg-green-400/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2" />
-        
+    <div className="fixed bottom-4 left-4 right-4 sm:right-auto sm:left-5 sm:bottom-5 z-50 animate-in slide-in-from-bottom-5 fade-in duration-500">
+      <div className="relative w-full sm:w-[420px] max-h-[90vh] overflow-y-auto bg-black/95 border border-green-500/40 rounded-2xl shadow-[0_0_40px_rgba(0,0,0,0.8),0_0_15px_rgba(34,197,94,0.15)]" style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif' }}>
+        {/* Subtle green glow accent at top */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-green-500 via-emerald-400 to-green-500 rounded-t-2xl" />
+
         {/* Close button — large tap target for mobile */}
         <button
           onClick={handleClose}
-          className="absolute top-2 right-2 w-10 h-10 flex items-center justify-center rounded-full bg-black/30 text-white/80 hover:text-white hover:bg-black/50 active:bg-black/60 transition-colors z-10"
+          className="absolute top-3 right-3 w-9 h-9 flex items-center justify-center rounded-full bg-white/10 text-white/70 hover:text-white hover:bg-white/20 active:bg-white/30 transition-colors z-10"
           aria-label="Close popup"
         >
-          <X className="w-6 h-6" />
+          <X className="w-5 h-5" />
         </button>
 
         {/* Content */}
-        <div className="relative p-5">
+        <div className="relative p-6 pt-7">
           {submitted ? (
             /* Success state */
-            <div className="py-3 text-center">
-              <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
-                <CheckCircle className="w-8 h-8 text-white" />
+            <div className="py-4 text-center">
+              <div className="w-16 h-16 bg-green-500/20 border border-green-500/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                <CheckCircle className="w-9 h-9 text-green-400" />
               </div>
-              <h3 className="text-lg font-bold text-white mb-1">
+              <h3 className="text-xl font-bold text-white mb-2" style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif' }}>
                 You're In!
               </h3>
-              <p className="text-white/90 text-sm">
+              <p className="text-white/80 text-base">
                 {config.successMessage}
               </p>
             </div>
@@ -216,41 +216,41 @@ export default function EmailCapturePopup() {
             /* Form state */
             <>
               {/* Header with icon */}
-              <div className="flex items-start gap-3 mb-4">
-                <div className="flex-shrink-0 w-11 h-11 bg-white/15 border border-white/20 rounded-xl flex items-center justify-center">
-                  <IconComponent className="w-6 h-6 text-white" />
+              <div className="flex items-start gap-4 mb-5">
+                <div className="flex-shrink-0 w-12 h-12 bg-green-500/15 border border-green-500/30 rounded-xl flex items-center justify-center">
+                  <IconComponent className="w-6 h-6 text-green-400" />
                 </div>
-                <div className="flex-1">
-                  <h3 className="text-base font-bold text-white leading-tight">
+                <div className="flex-1 pr-6">
+                  <h3 className="text-xl font-bold text-white leading-tight" style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif', letterSpacing: '-0.01em' }}>
                     {isExitIntent ? config.exitTitle : config.title}
                   </h3>
-                  <p className="text-sm text-white/85 mt-1 leading-snug">
+                  <p className="text-[15px] text-white/75 mt-1.5 leading-relaxed">
                     {isExitIntent ? config.exitSubtitle : config.subtitle}
                   </p>
                 </div>
               </div>
 
               {/* Social proof badge */}
-              <div className="flex items-center gap-2 mb-3 px-3 py-1.5 bg-white/10 border border-white/15 rounded-lg w-fit">
+              <div className="flex items-center gap-2.5 mb-5 px-3.5 py-2 bg-green-500/10 border border-green-500/20 rounded-lg w-fit">
                 <div className="flex -space-x-1.5">
-                  <div className="w-5 h-5 rounded-full bg-green-400 border border-white/30" />
-                  <div className="w-5 h-5 rounded-full bg-emerald-400 border border-white/30" />
-                  <div className="w-5 h-5 rounded-full bg-teal-400 border border-white/30" />
+                  <div className="w-5 h-5 rounded-full bg-green-500 border-2 border-black" />
+                  <div className="w-5 h-5 rounded-full bg-emerald-400 border-2 border-black" />
+                  <div className="w-5 h-5 rounded-full bg-teal-400 border-2 border-black" />
                 </div>
-                <span className="text-[11px] text-white/80 font-medium">
+                <span className="text-xs text-green-300/90 font-medium">
                   {config.socialProof}
                 </span>
               </div>
 
               {/* Form */}
-              <form onSubmit={handleSubmit} className="space-y-2.5">
+              <form onSubmit={handleSubmit} className="space-y-3">
                 <input
                   type="text"
                   placeholder="First name (optional)"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   disabled={subscribeMutation.isPending}
-                  className="w-full px-3 py-2.5 bg-white/95 border border-white/30 rounded-lg text-black text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/40 transition-all disabled:opacity-50"
+                  className="w-full px-4 py-3 bg-white/10 border border-white/15 rounded-xl text-white text-[15px] placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 transition-all disabled:opacity-50"
                 />
                 <input
                   type="email"
@@ -259,22 +259,22 @@ export default function EmailCapturePopup() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={subscribeMutation.isPending}
-                  className="w-full px-3 py-2.5 bg-white/95 border border-white/30 rounded-lg text-black text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/40 transition-all disabled:opacity-50"
+                  className="w-full px-4 py-3 bg-white/10 border border-white/15 rounded-xl text-white text-[15px] placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 transition-all disabled:opacity-50"
                 />
                 
                 <Button
                   type="submit"
                   disabled={subscribeMutation.isPending || !email.trim()}
-                  className="w-full bg-black hover:bg-gray-900 text-white font-bold py-3 rounded-lg transition-all disabled:opacity-50 text-sm"
+                  className="w-full bg-green-500 hover:bg-green-400 text-black font-bold py-3.5 rounded-xl transition-all disabled:opacity-50 text-[15px] shadow-lg shadow-green-500/20"
                 >
                   {subscribeMutation.isPending ? (
                     <span className="flex items-center justify-center gap-2">
-                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <Loader2 className="w-5 h-5 animate-spin" />
                       Joining...
                     </span>
                   ) : (
                     <span className="flex items-center justify-center gap-2">
-                      <IconComponent className="w-4 h-4" />
+                      <IconComponent className="w-5 h-5" />
                       {config.buttonText}
                     </span>
                   )}
@@ -282,7 +282,7 @@ export default function EmailCapturePopup() {
               </form>
 
               {/* Fine print */}
-              <p className="text-[11px] text-white/60 mt-3 text-center">
+              <p className="text-xs text-white/40 mt-4 text-center">
                 No spam. Unsubscribe anytime. We respect your inbox.
               </p>
             </>

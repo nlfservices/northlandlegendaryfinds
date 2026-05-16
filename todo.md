@@ -2305,3 +2305,5 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Seed all voting polls with 105 starting votes (167 articles x 105 votes = 17,565 total)
 - [x] Create upgraded Facebook banner with QR code in Doom's hand
 - [x] Randomize voting grounds vote distributions so each article looks different (50/35/10/5 ratio with variation)
+- [x] Improve email capture popup readability — better contrast, larger text, cleaner layout
+- [x] Remove Quick Comp and Display buttons from all card database set views
