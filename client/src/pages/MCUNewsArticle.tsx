@@ -20,6 +20,84 @@ import { ArticleTemplateRenderer, getArticleTemplate, type ArticleTemplate } fro
 
 const CARD_MARKET_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mcu-intel-card-market-Lt56dsta4y7Hzfj6pzAysR.webp";
 
+// Character-themed color schemes for "Who Would Win?" articles
+const WHO_WOULD_WIN_THEMES: Record<string, { accent: string; accentBg: string; accentBorder: string; gradient: string; headingColor: string }> = {
+  "who-would-win-wolverine-vs-captain-america": {
+    accent: "text-yellow-400",
+    accentBg: "bg-yellow-500/10",
+    accentBorder: "border-yellow-500/30",
+    gradient: "from-yellow-500/20 via-blue-600/10 to-red-500/20",
+    headingColor: "text-yellow-400",
+  },
+  "who-would-win-storm-vs-thor": {
+    accent: "text-sky-300",
+    accentBg: "bg-sky-500/10",
+    accentBorder: "border-sky-500/30",
+    gradient: "from-white/10 via-sky-500/20 to-blue-600/10",
+    headingColor: "text-sky-300",
+  },
+  "who-would-win-magneto-vs-iron-man": {
+    accent: "text-red-400",
+    accentBg: "bg-red-500/10",
+    accentBorder: "border-red-500/30",
+    gradient: "from-red-500/20 via-gray-400/10 to-red-700/20",
+    headingColor: "text-red-400",
+  },
+  "who-would-win-phoenix-vs-scarlet-witch": {
+    accent: "text-orange-400",
+    accentBg: "bg-orange-500/10",
+    accentBorder: "border-orange-500/30",
+    gradient: "from-orange-500/20 via-red-500/10 to-purple-500/20",
+    headingColor: "text-orange-400",
+  },
+  "who-would-win-hulk-vs-colossus": {
+    accent: "text-green-400",
+    accentBg: "bg-green-500/10",
+    accentBorder: "border-green-500/30",
+    gradient: "from-green-500/20 via-green-700/10 to-gray-400/10",
+    headingColor: "text-green-400",
+  },
+  "who-would-win-cyclops-vs-captain-america": {
+    accent: "text-blue-400",
+    accentBg: "bg-blue-500/10",
+    accentBorder: "border-blue-500/30",
+    gradient: "from-blue-500/20 via-yellow-500/10 to-red-500/10",
+    headingColor: "text-blue-400",
+  },
+  "who-would-win-deadpool-vs-spider-man": {
+    accent: "text-red-500",
+    accentBg: "bg-red-500/10",
+    accentBorder: "border-red-500/30",
+    gradient: "from-red-600/20 via-red-500/10 to-blue-500/10",
+    headingColor: "text-red-500",
+  },
+  "who-would-win-doctor-doom-vs-magneto": {
+    accent: "text-emerald-400",
+    accentBg: "bg-emerald-500/10",
+    accentBorder: "border-emerald-500/30",
+    gradient: "from-emerald-500/20 via-gray-500/10 to-purple-500/20",
+    headingColor: "text-emerald-400",
+  },
+  "who-would-win-black-panther-vs-wolverine": {
+    accent: "text-purple-400",
+    accentBg: "bg-purple-500/10",
+    accentBorder: "border-purple-500/30",
+    gradient: "from-purple-500/20 via-black/10 to-yellow-500/10",
+    headingColor: "text-purple-400",
+  },
+  "who-would-win-thor-vs-hulk-rematch": {
+    accent: "text-blue-400",
+    accentBg: "bg-blue-500/10",
+    accentBorder: "border-blue-500/30",
+    gradient: "from-blue-500/20 via-yellow-500/10 to-green-500/20",
+    headingColor: "text-blue-400",
+  },
+};
+
+function getWhoWouldWinTheme(slug: string) {
+  return WHO_WOULD_WIN_THEMES[slug] || null;
+}
+
 const CATEGORY_LABELS: Record<string, string> = {
   movie_news: "Movie News",
   show_news: "Show News",
@@ -192,8 +270,14 @@ export default function MCUNewsArticle() {
     position: i + 1,
   })) || [];
 
+  const wwwTheme = getWhoWouldWinTheme(slug || "");
+
   return (
     <div className="min-h-screen">
+      {/* Who Would Win? themed gradient banner */}
+      {wwwTheme && (
+        <div className={`w-full h-2 bg-gradient-to-r ${wwwTheme.gradient}`} />
+      )}
       <SEO
         title={article.title}
         description={article.metaDescription || article.excerpt || ""}
@@ -253,7 +337,7 @@ export default function MCUNewsArticle() {
             ))}
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-4">
+          <h1 className={`text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-4 ${wwwTheme ? wwwTheme.headingColor : ''}`}>
             {article.title}
           </h1>
 
@@ -283,10 +367,10 @@ export default function MCUNewsArticle() {
 
         {/* Card Market Impact Banner */}
         {article.cardMarketImpact && (
-          <div className="bg-primary/10 border border-primary/30 rounded-lg p-4 mb-8 flex items-start gap-3">
-            <TrendingUp className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+          <div className={`${wwwTheme ? wwwTheme.accentBg : 'bg-primary/10'} border ${wwwTheme ? wwwTheme.accentBorder : 'border-primary/30'} rounded-lg p-4 mb-8 flex items-start gap-3`}>
+            <TrendingUp className={`w-5 h-5 ${wwwTheme ? wwwTheme.accent : 'text-primary'} mt-0.5 flex-shrink-0`} />
             <div>
-              <h4 className="font-bold text-sm text-primary mb-1">Card Market Impact</h4>
+              <h4 className={`font-bold text-sm ${wwwTheme ? wwwTheme.accent : 'text-primary'} mb-1`}>Card Market Impact</h4>
               <p className="text-sm text-foreground">{article.cardMarketImpact}</p>
             </div>
           </div>

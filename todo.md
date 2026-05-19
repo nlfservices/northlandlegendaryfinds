@@ -2309,3 +2309,16 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Remove Quick Comp and Display buttons from all card database set views
 - [x] Publish Secret Wars cast speculation article with 3 generated images (article #174)
 - [x] Publish PSA grading news article (PSA $200M investment, #NoPSAMay boycott, GemRate.com) with Marvel-specific images
+- [x] Create 10 "Who Would Win?" articles with character-themed colors and 3 images each
+- [x] Article 1: Wolverine vs Captain America (Yellow/Blue vs Red/White/Blue)
+- [x] Article 2: Storm vs Thor (White/Silver vs Blue/Gold)
+- [x] Article 3: Magneto vs Iron Man (Red/Silver vs Red/Gold)
+- [x] Article 4: Jean Grey (Phoenix) vs Scarlet Witch (Orange/Gold vs Red/Purple)
+- [x] Article 5: Hulk vs Colossus (Green vs Silver/Red)
+- [x] Article 6: Cyclops vs Captain America (Blue/Gold vs Red/White/Blue)
+- [x] Article 7: Deadpool vs Spider-Man (Red/Black vs Red/Blue)
+- [x] Article 8: Doctor Doom vs Magneto (Green/Silver vs Red/Purple)
+- [x] Article 9: Black Panther vs Wolverine (Purple/Black vs Yellow/Blue)
+- [x] Article 10: Thor vs Hulk Rematch (Blue/Gold vs Green)
+- [x] Create 10 "Who Would Win?" articles with character-themed colors, 3 images each, backdated 5/10-5/19
+- [x] Build Who Would Win page template with character-specific color theming

@@ -1,0 +1,50 @@
+{
+  "query": "SELECT slug, featuredImageUrl FROM articles WHERE slug LIKE 'who-would-win%' LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT slug, featuredImageUrl FROM articles WHERE slug LIKE 'who-would-win%' LIMIT 10;",
+  "rows": [
+    {
+      "slug": "who-would-win-wolverine-vs-captain-america",
+      "featuredImageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/www-wolverine-vs-cap-featured-fGbQDkBvVcFJLhJqRxzTMR.webp"
+    },
+    {
+      "slug": "who-would-win-storm-vs-thor",
+      "featuredImageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/www-storm-vs-thor-featured-5kF9LEe79Ek9tai6CUauDY.png"
+    },
+    {
+      "slug": "who-would-win-magneto-vs-iron-man",
+      "featuredImageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/www-magneto-vs-ironman-featured-XKTwgdJPJaBKMmyX8yaiZt.png"
+    },
+    {
+      "slug": "who-would-win-phoenix-vs-scarlet-witch",
+      "featuredImageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/www-phoenix-vs-scarletwitch-featured-4SyZGooKDp9Xd7iXezrk9f.png"
+    },
+    {
+      "slug": "who-would-win-hulk-vs-colossus",
+      "featuredImageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/www-hulk-vs-colossus-featured-PGeLEqoEYPoM2siyrR26M5.png"
+    },
+    {
+      "slug": "who-would-win-cyclops-vs-captain-america",
+      "featuredImageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/www-cyclops-vs-cap-featured-kLy5E5d6p43sywgxgqHLNU.png"
+    },
+    {
+      "slug": "who-would-win-deadpool-vs-spider-man",
+      "featuredImageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/www-deadpool-vs-spiderman-featured-KmidzRDYdfKwpnXc2G2dvr.png"
+    },
+    {
+      "slug": "who-would-win-doctor-doom-vs-magneto",
+      "featuredImageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/www-doom-vs-magneto-featured-Cr8UUFFRJVA4SaNw4RdjYb.png"
+    },
+    {
+      "slug": "who-would-win-black-panther-vs-wolverine",
+      "featuredImageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/www-panther-vs-wolverine-featured-BKWJuusBjBQReTsmSzXu3M.png"
+    },
+    {
+      "slug": "who-would-win-thor-vs-hulk-rematch",
+      "featuredImageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/www-thor-vs-hulk-featured-XoSDkehi5ZJmDZ4DjYhmwv.png"
+    }
+  ],
+  "messages": [],
+  "stdout": "slug\tfeaturedImageUrl\nwho-would-win-wolverine-vs-captain-america\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/www-wolverine-vs-cap-featured-fGbQDkBvVcFJLhJqRxzTMR.webp\nwho-would-win-storm-vs-thor\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/www-storm-vs-thor-featured-5kF9LEe79Ek9tai6CUauDY.png\nwho-would-win-magneto-vs-iron-man\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/www-magneto-vs-ironman-featured-XKTwgdJPJaBKMmyX8yaiZt.png\nwho-would-win-phoenix-vs-scarlet-witch\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/www-phoenix-vs-scarletwitch-featured-4SyZGooKDp9Xd7iXezrk9f.png\nwho-would-win-hulk-vs-colossus\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/www-hulk-vs-colossus-featured-PGeLEqoEYPoM2siyrR26M5.png\nwho-would-win-cyclops-vs-captain-america\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/www-cyclops-vs-cap-featured-kLy5E5d6p43sywgxgqHLNU.png\nwho-would-win-deadpool-vs-spider-man\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/www-deadpool-vs-spiderman-featured-KmidzRDYdfKwpnXc2G2dvr.png\nwho-would-win-doctor-doom-vs-magneto\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/www-doom-vs-magneto-featured-Cr8UUFFRJVA4SaNw4RdjYb.png\nwho-would-win-black-panther-vs-wolverine\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/www-panther-vs-wolverine-featured-BKWJuusBjBQReTsmSzXu3M.png\nwho-would-win-thor-vs-hulk-rematch\thttps://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/www-thor-vs-hulk-featured-XoSDkehi5ZJmDZ4DjYhmwv.png\n",
+  "stderr": "",
+  "execution_time_ms": 263
+}
