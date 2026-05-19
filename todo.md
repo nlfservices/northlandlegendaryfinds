@@ -2308,3 +2308,4 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Improve email capture popup readability — better contrast, larger text, cleaner layout
 - [x] Remove Quick Comp and Display buttons from all card database set views
 - [x] Publish Secret Wars cast speculation article with 3 generated images (article #174)
+- [x] Publish PSA grading news article (PSA $200M investment, #NoPSAMay boycott, GemRate.com) with Marvel-specific images
