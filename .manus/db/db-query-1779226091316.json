@@ -1,0 +1,50 @@
+{
+  "query": "SELECT articleId, COUNT(*) as voteCount FROM article_votes WHERE articleId IN (1410001, 1410002, 1410003, 1410004, 1410005, 1410006, 1410007, 1410008, 1410009, 1410010) GROUP BY articleId ORDER BY articleId;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT articleId, COUNT(*) as voteCount FROM article_votes WHERE articleId IN (1410001, 1410002, 1410003, 1410004, 1410005, 1410006, 1410007, 1410008, 1410009, 1410010) GROUP BY articleId ORDER BY articleId;",
+  "rows": [
+    {
+      "articleId": "1410001",
+      "voteCount": "118"
+    },
+    {
+      "articleId": "1410002",
+      "voteCount": "125"
+    },
+    {
+      "articleId": "1410003",
+      "voteCount": "115"
+    },
+    {
+      "articleId": "1410004",
+      "voteCount": "111"
+    },
+    {
+      "articleId": "1410005",
+      "voteCount": "122"
+    },
+    {
+      "articleId": "1410006",
+      "voteCount": "116"
+    },
+    {
+      "articleId": "1410007",
+      "voteCount": "125"
+    },
+    {
+      "articleId": "1410008",
+      "voteCount": "112"
+    },
+    {
+      "articleId": "1410009",
+      "voteCount": "122"
+    },
+    {
+      "articleId": "1410010",
+      "voteCount": "129"
+    }
+  ],
+  "messages": [],
+  "stdout": "articleId\tvoteCount\n1410001\t118\n1410002\t125\n1410003\t115\n1410004\t111\n1410005\t122\n1410006\t116\n1410007\t125\n1410008\t112\n1410009\t122\n1410010\t129\n",
+  "stderr": "",
+  "execution_time_ms": 280
+}

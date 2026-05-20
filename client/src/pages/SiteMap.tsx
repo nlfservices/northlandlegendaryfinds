@@ -38,6 +38,7 @@ const SITE_SECTIONS: SiteSection[] = [
     color: "text-primary",
     pages: [
       { path: "/checklists", label: "NLF Cosmic Hits", description: "Full transparency — see every card in each series. Updated after every stream." },
+      { path: "/nlf-series-1", label: "NLF Marvel Mint Series 1", description: "83-card checklist for NLF Marvel Mint Series 1 repack — Bronze, Silver, Gold, Refractors, Printing Plates, and Gambit's Deck inserts." },
       { path: "/whatnot", label: "Whatnot Live Shows", description: "Watch our live card breaks and exclusive Whatnot drops" },
       { path: "/free-credit", label: "Get $15 Free on Whatnot", description: "Sign up through our referral link and get $15 to shop live shows" },
     ],

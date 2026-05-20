@@ -1,0 +1,22 @@
+{
+  "query": "SELECT DISTINCT reaction FROM article_votes LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT DISTINCT reaction FROM article_votes LIMIT 10;",
+  "rows": [
+    {
+      "reaction": "meh"
+    },
+    {
+      "reaction": "fire"
+    },
+    {
+      "reaction": "thumbsdown"
+    },
+    {
+      "reaction": "loved"
+    }
+  ],
+  "messages": [],
+  "stdout": "reaction\nmeh\nfire\nthumbsdown\nloved\n",
+  "stderr": "",
+  "execution_time_ms": 270
+}

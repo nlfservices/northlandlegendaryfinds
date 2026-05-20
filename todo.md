@@ -2322,3 +2322,13 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Article 10: Thor vs Hulk Rematch (Blue/Gold vs Green)
 - [x] Create 10 "Who Would Win?" articles with character-themed colors, 3 images each, backdated 5/10-5/19
 - [x] Build Who Would Win page template with character-specific color theming
+
+## NLF Marvel Mint Series 1 Repack Checklist Page
+- [x] Build NLF Series 1 Checklist page (SlabMethod-style format)
+- [x] Add route /nlf-series-1 to App.tsx
+- [x] Add page to sitemap
+- [x] Style with dark theme matching existing site
+- [x] Group cards by parallel type with section headers
+- [x] Show all 84 cards with year/brand/set/parallel/card#/character/serial#/grade
+- [x] Add summary stats section
+- [x] Run integrity check and save checkpoint

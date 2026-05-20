@@ -1,0 +1,50 @@
+{
+  "query": "SELECT id, slug FROM articles WHERE slug LIKE 'who-would-win%';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2ApLA9jJxWZTtjv.be469c40c650 --database SGHqXeh8PZJcCDnFiAMuFi --execute SELECT id, slug FROM articles WHERE slug LIKE 'who-would-win%';",
+  "rows": [
+    {
+      "id": "1410009",
+      "slug": "who-would-win-black-panther-vs-wolverine"
+    },
+    {
+      "id": "1410006",
+      "slug": "who-would-win-cyclops-vs-captain-america"
+    },
+    {
+      "id": "1410007",
+      "slug": "who-would-win-deadpool-vs-spider-man"
+    },
+    {
+      "id": "1410008",
+      "slug": "who-would-win-doctor-doom-vs-magneto"
+    },
+    {
+      "id": "1410005",
+      "slug": "who-would-win-hulk-vs-colossus"
+    },
+    {
+      "id": "1410003",
+      "slug": "who-would-win-magneto-vs-iron-man"
+    },
+    {
+      "id": "1410004",
+      "slug": "who-would-win-phoenix-vs-scarlet-witch"
+    },
+    {
+      "id": "1410002",
+      "slug": "who-would-win-storm-vs-thor"
+    },
+    {
+      "id": "1410010",
+      "slug": "who-would-win-thor-vs-hulk-rematch"
+    },
+    {
+      "id": "1410001",
+      "slug": "who-would-win-wolverine-vs-captain-america"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tslug\n1410009\twho-would-win-black-panther-vs-wolverine\n1410006\twho-would-win-cyclops-vs-captain-america\n1410007\twho-would-win-deadpool-vs-spider-man\n1410008\twho-would-win-doctor-doom-vs-magneto\n1410005\twho-would-win-hulk-vs-colossus\n1410003\twho-would-win-magneto-vs-iron-man\n1410004\twho-would-win-phoenix-vs-scarlet-witch\n1410002\twho-would-win-storm-vs-thor\n1410010\twho-would-win-thor-vs-hulk-rematch\n1410001\twho-would-win-wolverine-vs-captain-america\n",
+  "stderr": "",
+  "execution_time_ms": 263
+}
