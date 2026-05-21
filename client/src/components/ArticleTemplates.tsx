@@ -452,10 +452,46 @@ export function PatrioticTemplate({ content, title, featuredImageUrl, excerpt, t
         </div>
       )}
 
-      {/* White content area — clean, editorial, patriotic */}
-      <div className="bg-white px-6 sm:px-12 lg:px-20 py-12">
+      {/* American Flag content area — stars & stripes background with watermark */}
+      <div className="relative px-6 sm:px-12 lg:px-20 py-12 overflow-hidden" style={{ background: 'linear-gradient(180deg, #ffffff 0%, #fff8f8 100%)' }}>
+        {/* American flag stripes background */}
+        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+          {Array.from({ length: 13 }).map((_, i) => (
+            <div
+              key={i}
+              className={`w-full ${i % 2 === 0 ? 'bg-[#B22234]/[0.12]' : 'bg-transparent'}`}
+              style={{ height: `${100 / 13}%` }}
+            />
+          ))}
+        </div>
+        {/* Blue canton (stars field) in top-left corner */}
+        <div className="absolute top-0 left-0 w-[35%] sm:w-[28%] pointer-events-none" style={{ height: `${(7/13) * 100}%` }} aria-hidden="true">
+          <div className="w-full h-full bg-[#3C3B6E]/[0.08]" />
+          {/* Subtle star pattern */}
+          <div className="absolute inset-0 flex flex-wrap items-center justify-center gap-3 p-4 opacity-[0.12]">
+            {Array.from({ length: 15 }).map((_, i) => (
+              <Star key={i} className="w-4 h-4 text-[#3C3B6E] fill-[#3C3B6E]" />
+            ))}
+          </div>
+        </div>
+        {/* Memorial Day Weekend 2026 watermark text */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden" aria-hidden="true">
+          <div className="absolute rotate-[-15deg] whitespace-nowrap">
+            <span className="text-[6rem] sm:text-[8rem] lg:text-[10rem] font-black uppercase tracking-wider text-[#3C3B6E]/[0.07] leading-none select-none" style={{ fontFamily: 'Oswald, Impact, sans-serif' }}>
+              Memorial Day Weekend 2026
+            </span>
+          </div>
+        </div>
+        {/* Second watermark line offset */}
+        <div className="absolute inset-0 flex items-end justify-center pointer-events-none overflow-hidden pb-[20%]" aria-hidden="true">
+          <div className="absolute rotate-[-15deg] whitespace-nowrap">
+            <span className="text-[5rem] sm:text-[7rem] lg:text-[9rem] font-black uppercase tracking-wider text-[#B22234]/[0.06] leading-none select-none" style={{ fontFamily: 'Oswald, Impact, sans-serif' }}>
+              Memorial Day Weekend 2026
+            </span>
+          </div>
+        </div>
         {/* Intro — dark text on white, serious editorial */}
-        <div className="max-w-4xl mx-auto mb-14 pb-10 border-b-4 border-[#3C3B6E]">
+        <div className="relative z-10 max-w-4xl mx-auto mb-14 pb-10 border-b-4 border-[#3C3B6E]">
           <RichContent className="prose prose-lg max-w-none prose-headings:text-[#1a1a2e] prose-p:text-gray-800 prose-p:leading-relaxed prose-p:text-xl prose-a:text-[#3C3B6E] prose-strong:text-[#1a1a2e] prose-blockquote:border-[#B22234] prose-blockquote:text-gray-700 prose-img:rounded-lg">{intro}</RichContent>
         </div>
 
@@ -469,7 +505,7 @@ export function PatrioticTemplate({ content, title, featuredImageUrl, excerpt, t
             : section.body;
           
           return (
-            <div key={i} className="max-w-5xl mx-auto mb-16">
+            <div key={i} className="relative z-10 max-w-5xl mx-auto mb-16">
               {/* Section header — bold with red left accent */}
               <div className="flex items-center gap-4 mb-8">
                 <div className="w-2 h-12 bg-[#B22234] rounded-full" />
