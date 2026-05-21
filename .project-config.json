@@ -1,0 +1,55 @@
+{
+  "build_command": "pnpm run build",
+  "capabilities": [
+    "db",
+    "server",
+    "user"
+  ],
+  "dev_command": "pnpm run dev",
+  "env_vars": {
+    "DATABASE_URL": "mysql://2ApLA9jJxWZTtjv.be469c40c650:f3QM2v00eOb6vMu1nuYY@gateway02.us-east-1.prod.aws.tidbcloud.com:4000/SGHqXeh8PZJcCDnFiAMuFi?ssl={\"rejectUnauthorized\":true}"
+  },
+  "experiments": null,
+  "git_remote": {
+    "repo_url": "s3://vida-prod-gitrepo/webdev-git/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi",
+    "access_key_id": "ASIAZV3A2ECZOHB7TBF4",
+    "secret_access_key": "2Gpk7Vxihmso3zn9/UKbBg2XGeAJqrvztfnqMxYW",
+    "session_token": "IQoJb3JpZ2luX2VjECwaCXVzLWVhc3QtMSJGMEQCIHh5wzVZPgSnUdugQ4GiD7urYz5/1XUiHTog0+v6x7wDAiADfXsFeX4jO4QUmf4pORCcs7/O3bQmxJ3wUR7qpE/CBSr/Awj1//////////8BEAQaDDY2NTM4NjA5ODg2NiIM/Y5XH/olrODPxKmRKtMDMv8ybhGQPanxEhEdj+wXQq48OJgazLdN+Ow80secmsyzBXn5iCeW0Eti/SdgX+nxs64JfEiOjEQus8LXu441XQW+yl4n1lPDuhDu1iP3A5lzuCB3hwchcN5d00iFDG14EBGMNcMJwakHz10FLii0tbN6CCHYwM6oo7Ik4w209BBMDkcEwBjDct7bjd93mKdn7tmMAiXgNJ9ZmDFUz5e4su27KbQEarZfC2eGIybL7JJ5qx+nOUDfkakG+rYElbVD9P444q/kRhqE26urBc8Bcq38q5jywkc063TTsusYRsVXosFBmWcUT9mUcY6ka+L+m0qfTEAb+x9NZTx6QluZfai336gRGpa293+OICoubEjVTST3JTPAyi77PXbwbFVa/27hiI8puv/jX52o6YWuUQlEbZ0Vw6lWtUoNgzdC24lR5mh5WHl40tVnXkNB12varGls9V8L7hPmOt13MVSYk2loeIVuEYqds0LegFOnh1N+jlzitq3fIHgmxwsBi+4liXj6eOov0e7h+PYkBv8ijVvy41A1+MMwDfI38aQTtyLtz+LVYjTcpPGkXoBGkO12k88iMsCjXznmBmFULm2gaY/OMyTSuqpS0Ub4q3ifYUEj0rEw3aK40AY6ngG+NDfpJFt6AAQhhDPUZMmcNT/XULmk/9F/V67D9m/HnCYqTT2GkDzM9zEt1Wb49+oOKIzZdZ/nm/HZku/PV3j/lOTux8qHA6MSL+AwfCOcaCPSpHe1juSveOuJo1THns6KCxG0T5LM3SyN2/MPwbmUF+3CfaUkCO254e8JJcRuNhlvHXnH2AyYkyDIw86+jSmKSOXYjTfJXytplnxcUg==",
+    "expiration": "2026-05-21T07:54:05.000Z"
+  },
+  "name": "northland-legendary-finds",
+  "path": "/home/ubuntu/northland-legendary-finds",
+  "port": 3000,
+  "secrets": {
+    "ADMIN_ACCESS_CODE": "557469",
+    "ADMIN_NOTIFICATION_EMAIL": "admin@nlfservices.com",
+    "BUILT_IN_FORGE_API_KEY": "4CAnk3y9Gxn9DCJ5Tj9MGR",
+    "BUILT_IN_FORGE_API_URL": "https://forge.manus.ai",
+    "EBAY_CLIENT_ID": "Northlan-MarvelTr-PRD-47053b0a1-88414b07",
+    "EBAY_CLIENT_SECRET": "PENDING_PRODUCTION_UNLOCK",
+    "EBAY_DELETION_ENDPOINT_URL": "https://northlandlegendaryfinds.com/api/ebay/account-deletion",
+    "EBAY_SANDBOX_CLIENT_ID": "Northlan-MarvelTr-SBX-972dab605-c6af0d47",
+    "EBAY_SANDBOX_CLIENT_SECRET": "SBX-72dab605cb0e-4ee6-4fbf-8ca2-0c1d",
+    "EBAY_VERIFICATION_TOKEN": "nlf_ebay_667733fd245afbbcda4944fb6bbfb1a6e2f2da78b418bfbd",
+    "GHL_API_KEY": "pit-aaba84e3-5c86-4325-b55e-03e54c4457dd",
+    "GHL_LOCATION_ID": "KFJlOhDocOFLVA5rLqVh",
+    "JWT_SECRET": "H46EUbE89shCcKcJNbwtMW",
+    "OAUTH_SERVER_URL": "https://api.manus.im",
+    "OWNER_NAME": "PDQ",
+    "OWNER_OPEN_ID": "QViET5PQ335kt46Q6PF4pK",
+    "SITE_URL": "https://northlandlegendaryfinds.com",
+    "STRIPE_SECRET_KEY": "sk_test_51T6Mpx7tIPzCZL9phjiP82qffyEL1JHbxHzONIliQPHWtQGfan3LMdhHP3Jj1pgYQyQ1HskrJ1zFcROyWCS6rlYH00HnNiBIr7",
+    "STRIPE_WEBHOOK_SECRET": "whsec_cihCC9fq8QkJL3loS6XNvluc5Y6ARorD",
+    "VITE_ANALYTICS_ENDPOINT": "https://manus-analytics.com",
+    "VITE_ANALYTICS_WEBSITE_ID": "bdc048ff-6f68-4caa-a99d-81e7c25d10b5",
+    "VITE_APP_ID": "SGHqXeh8PZJcCDnFiAMuFi",
+    "VITE_APP_LOGO": "https://files.manuscdn.com/user_upload_by_module/web_dev_logo/310419663027009739/IJQStwkJRcJXKYDO.png",
+    "VITE_APP_TITLE": "Northland Legendary Finds | Marvel Trading Cards",
+    "VITE_FRONTEND_FORGE_API_KEY": "hQkQuTHAqQoURgdwkzFZkB",
+    "VITE_FRONTEND_FORGE_API_URL": "https://forge.manus.ai",
+    "VITE_OAUTH_PORTAL_URL": "https://manus.im",
+    "VITE_STRIPE_PUBLISHABLE_KEY": "pk_test_51T6Mpx7tIPzCZL9pWPdDjuUKjA7ci7L1ayUrnrF5ZzQ7zPxYOpO7HooBBvJtSySCWUaF3FXhzCO3a05GITgej4Gw00h0sD1kNG"
+  },
+  "template_id": "web-db-user",
+  "test_command": "pnpm test"
+}
