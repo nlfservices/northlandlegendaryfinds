@@ -2,7 +2,16 @@ import { z } from "zod";
 import { adminProcedure, router } from "../_core/trpc";
 import { invokeLLM } from "../_core/llm";
 import { getArticleById } from "../db";
-import { isFacebookConfigured, publishPost, publishPhotoPost, getRecentPosts } from "../facebook-api";
+import {
+  isFacebookConfigured,
+  isInstagramConfigured,
+  publishPost,
+  publishPhotoPost,
+  publishInstagramPost,
+  getRecentPosts,
+  getRecentInstagramPosts,
+  checkTokenHealth,
+} from "../facebook-api";
 
 /**
  * Social Post Generator Router
@@ -20,6 +29,59 @@ export const socialPostRouter = router({
       pageId: process.env.FB_PAGE_ID || null,
     };
   }),
+
+  /**
+   * Check if Instagram posting is configured
+   */
+  instagramStatus: adminProcedure.query(() => {
+    return {
+      configured: isInstagramConfigured(),
+      accountId: process.env.IG_BUSINESS_ACCOUNT_ID || null,
+    };
+  }),
+
+  /**
+   * Check token health - expiration, validity, scopes
+   * Used by the admin dashboard to show persistent alerts
+   */
+  tokenHealth: adminProcedure.query(async () => {
+    return await checkTokenHealth();
+  }),
+
+  /**
+   * Publish a post to Instagram
+   */
+  publishToInstagram: adminProcedure
+    .input(z.object({
+      caption: z.string().min(1),
+      imageUrl: z.string().url(),
+    }))
+    .mutation(async ({ input }) => {
+      if (!isInstagramConfigured()) {
+        return {
+          success: false,
+          error: "Instagram not configured. Add IG_BUSINESS_ACCOUNT_ID and FB_PAGE_ACCESS_TOKEN in Settings → Secrets.",
+        };
+      }
+      return await publishInstagramPost(input);
+    }),
+
+  /**
+   * Get recent Instagram posts
+   */
+  getRecentInstagramPosts: adminProcedure
+    .input(z.object({ limit: z.number().min(1).max(25).default(10) }))
+    .query(async ({ input }) => {
+      if (!isInstagramConfigured()) {
+        return { configured: false, posts: [] };
+      }
+      const result = await getRecentInstagramPosts(input.limit);
+      return {
+        configured: true,
+        posts: result.posts || [],
+        error: result.error,
+      };
+    }),
 
   /**
    * Generate a Facebook post from an article

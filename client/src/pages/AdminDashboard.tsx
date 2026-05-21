@@ -35,6 +35,7 @@ import Top5Manager from "@/components/Top5Manager";
 import BlogManager from "@/components/BlogManager";
 import PageContentManager from "@/components/PageContentManager";
 import SocialPostGenerator from "@/components/admin/SocialPostGenerator";
+import TokenExpirationAlert from "@/components/admin/TokenExpirationAlert";
 import AdminAffiliateLinks from "@/pages/AdminAffiliateLinks";
 
 // ==================== SITE SETTINGS (COUNTDOWN TIMER) ====================
@@ -1569,6 +1570,11 @@ export default function AdminDashboard() {
           </div>
         </div>
       </header>
+
+      {/* Token Expiration Alert - Persistent, cannot be dismissed when critical */}
+      <div className="container pt-4">
+        <TokenExpirationAlert />
+      </div>
 
       {/* Main Content */}
       <div className="container py-6">

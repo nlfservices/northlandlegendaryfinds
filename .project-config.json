@@ -7,15 +7,16 @@
   ],
   "dev_command": "pnpm run dev",
   "env_vars": {
-    "DATABASE_URL": "mysql://2ApLA9jJxWZTtjv.be469c40c650:f3QM2v00eOb6vMu1nuYY@gateway02.us-east-1.prod.aws.tidbcloud.com:4000/SGHqXeh8PZJcCDnFiAMuFi?ssl={\"rejectUnauthorized\":true}"
+    "DATABASE_URL": "mysql://2ApLA9jJxWZTtjv.be469c40c650:f3QM2v00eOb6vMu1nuYY@gateway02.us-east-1.prod.aws.tidbcloud.com:4000/SGHqXeh8PZJcCDnFiAMuFi?ssl={\"rejectUnauthorized\":true}",
+    "DRIZZLE_DATABASE_URL": "mysql://2ApLA9jJxWZTtjv.be469c40c650:f3QM2v00eOb6vMu1nuYY@gateway02.us-east-1.prod.aws.tidbcloud.com:4000/SGHqXeh8PZJcCDnFiAMuFi?ssl={\"rejectUnauthorized\":true}"
   },
   "experiments": null,
   "git_remote": {
     "repo_url": "s3://vida-prod-gitrepo/webdev-git/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi",
-    "access_key_id": "ASIAZV3A2ECZOHB7TBF4",
-    "secret_access_key": "2Gpk7Vxihmso3zn9/UKbBg2XGeAJqrvztfnqMxYW",
-    "session_token": "IQoJb3JpZ2luX2VjECwaCXVzLWVhc3QtMSJGMEQCIHh5wzVZPgSnUdugQ4GiD7urYz5/1XUiHTog0+v6x7wDAiADfXsFeX4jO4QUmf4pORCcs7/O3bQmxJ3wUR7qpE/CBSr/Awj1//////////8BEAQaDDY2NTM4NjA5ODg2NiIM/Y5XH/olrODPxKmRKtMDMv8ybhGQPanxEhEdj+wXQq48OJgazLdN+Ow80secmsyzBXn5iCeW0Eti/SdgX+nxs64JfEiOjEQus8LXu441XQW+yl4n1lPDuhDu1iP3A5lzuCB3hwchcN5d00iFDG14EBGMNcMJwakHz10FLii0tbN6CCHYwM6oo7Ik4w209BBMDkcEwBjDct7bjd93mKdn7tmMAiXgNJ9ZmDFUz5e4su27KbQEarZfC2eGIybL7JJ5qx+nOUDfkakG+rYElbVD9P444q/kRhqE26urBc8Bcq38q5jywkc063TTsusYRsVXosFBmWcUT9mUcY6ka+L+m0qfTEAb+x9NZTx6QluZfai336gRGpa293+OICoubEjVTST3JTPAyi77PXbwbFVa/27hiI8puv/jX52o6YWuUQlEbZ0Vw6lWtUoNgzdC24lR5mh5WHl40tVnXkNB12varGls9V8L7hPmOt13MVSYk2loeIVuEYqds0LegFOnh1N+jlzitq3fIHgmxwsBi+4liXj6eOov0e7h+PYkBv8ijVvy41A1+MMwDfI38aQTtyLtz+LVYjTcpPGkXoBGkO12k88iMsCjXznmBmFULm2gaY/OMyTSuqpS0Ub4q3ifYUEj0rEw3aK40AY6ngG+NDfpJFt6AAQhhDPUZMmcNT/XULmk/9F/V67D9m/HnCYqTT2GkDzM9zEt1Wb49+oOKIzZdZ/nm/HZku/PV3j/lOTux8qHA6MSL+AwfCOcaCPSpHe1juSveOuJo1THns6KCxG0T5LM3SyN2/MPwbmUF+3CfaUkCO254e8JJcRuNhlvHXnH2AyYkyDIw86+jSmKSOXYjTfJXytplnxcUg==",
-    "expiration": "2026-05-21T07:54:05.000Z"
+    "access_key_id": "ASIAZV3A2ECZBOSNBRFY",
+    "secret_access_key": "LmAsjZBqPKxNT0WUqwUNngUBddk08hGhpuQyxmw0",
+    "session_token": "IQoJb3JpZ2luX2VjEEEaCXVzLWVhc3QtMSJHMEUCIQDYXg0R0ig4J7R2Aav2FtBbB6KDzDsYpUXRqrcvwpUbtgIgLt1nrpeCaPrmZWzfW7lEliQtB0lbmZmz7qNn/gGD6Ywq9gMIChAEGgw2NjUzODYwOTg4NjYiDIEqchtcRqMBTJLm8SrTAy1lHOQlsH7tzdn8wC2jZvtPiIxPDkA8C1w2TAGiyCdbrxe9eB1T6sosfmbuQfvCD0EFUyzzc7I39RUiyanM2ZXnt6eQNI6VfYdVLg58qmx9PhmgNGIytYxBmDpu4FAToSQPmMICZjORm99asyDEAKHiOt3NZQNwod47P8zG6AUBPlEHox26mJRjiv4tQLBi9ZFciMMQ7bytdl4Na6D9n0I0Y6VznDOlfBJkMhI/fnpW04JlO2ZqkexCLC462QcJ+PdFBRXL8vWx9I+uQ2qgZ7vJPtwxxQP+eDK5wZdxc9P4P934N8YGH6/oyBZRNTfDJXvondEtRkaprAAoipfSs47ygcJl7SzUZV8nkYEbNmiATkwa6+osGzSmbzVaSjV2f+axK7eQKmusmLgVanBGxo1Z5oQbi/IfEAAnp2Wabf9hVu/4uohXZIimZZchRrcCByKmmX17ZrW2llE8eZZZrxqeEPK3CkWN0H2VtH9z8Qd//090x2hp6tRyuKA/fz3NoW6FD/6RrLseAlT801WVUv4ZN5QRfS1Mt/b1JB6VrR337YUAgle+ovufBFyrKbYJaPIKRndoCvRj5HG6RZEHyQs2xRUkpN86ZQzzxOW+G0Nru/RyMLDjvNAGOp0BanJgyjnS05rU7+zIcDZ/fSqtoB64XSjlNy0owMnYAKFrcbiLW+ty9BU22Uk56VXznmrBMzZGHYXiKsoVKNIkiibL+j4U1yNMBY4QDOGGll+KLHamie3f/5EDB865BDdm/tBcm3YHkGap9AuhjWtXkY8uQK/DtlDQdx4Zgp2MOVeotBaQB9HazhmorxKNogplnMtDzEDHSMga3Zs4WA==",
+    "expiration": "2026-05-22T04:24:16.000Z"
   },
   "name": "northland-legendary-finds",
   "path": "/home/ubuntu/northland-legendary-finds",
@@ -31,8 +32,12 @@
     "EBAY_SANDBOX_CLIENT_ID": "Northlan-MarvelTr-SBX-972dab605-c6af0d47",
     "EBAY_SANDBOX_CLIENT_SECRET": "SBX-72dab605cb0e-4ee6-4fbf-8ca2-0c1d",
     "EBAY_VERIFICATION_TOKEN": "nlf_ebay_667733fd245afbbcda4944fb6bbfb1a6e2f2da78b418bfbd",
+    "FB_APP_ID": "341166519822108",
+    "FB_PAGE_ACCESS_TOKEN": "EAAE2SgU5JxwBRtclclDgRcWiD8KZCZA4ZCpU81tBaR4Eqryp57NnADOsIopsKKxXhUa1B48Cyc0tQJtVmO9DonrrR6g22ThSjHy99xvlsnwP0RtD6ZAhGAxcjd5tjdebnCEFZCwLtYvM8wDDHs6I6xs3bwPAyz9Hcb97lM0BdgNiCZApmiY3XxnrWACB9zGZAZAgpAZDZD",
+    "FB_PAGE_ID": "951323751392043",
     "GHL_API_KEY": "pit-aaba84e3-5c86-4325-b55e-03e54c4457dd",
     "GHL_LOCATION_ID": "KFJlOhDocOFLVA5rLqVh",
+    "IG_BUSINESS_ACCOUNT_ID": "17841447678496145",
     "JWT_SECRET": "H46EUbE89shCcKcJNbwtMW",
     "OAUTH_SERVER_URL": "https://api.manus.im",
     "OWNER_NAME": "PDQ",

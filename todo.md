@@ -2355,3 +2355,8 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Write long-form article covering the complete Fallen Son story (all 5 stages of grief)
 - [x] Generate multiple dramatic images for the article (one per issue/stage)
 - [x] Publish article to database with patriotic template, images, and Collector's Corner
+
+## Facebook/Instagram Social Posting & Token Monitoring
+- [x] Build token expiration monitoring (check daily, persistent admin alert when <14 days to expiry)
+- [x] Build social media posting backend (tRPC procedures for Facebook Page + Instagram posting)
+- [x] Build admin dashboard UI for social posting with token expiration alert banner

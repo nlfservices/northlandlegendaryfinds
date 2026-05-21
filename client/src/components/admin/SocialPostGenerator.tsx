@@ -3,7 +3,7 @@ import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Loader2, Copy, CheckCircle, Facebook, Sparkles, RefreshCw, Send, AlertCircle, ExternalLink } from "lucide-react";
+import { Loader2, Copy, CheckCircle, Facebook, Instagram, Sparkles, RefreshCw, Send, AlertCircle, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
 
 type Tone = "hype" | "mystery" | "casual" | "educational" | "funny";
@@ -30,6 +30,8 @@ export default function SocialPostGenerator() {
 
   // Check Facebook configuration status
   const { data: fbStatus } = trpc.socialPosts.facebookStatus.useQuery();
+  // Check Instagram configuration status
+  const { data: igStatus } = trpc.socialPosts.instagramStatus.useQuery();
 
   // Single post generation
   const generateMutation = trpc.socialPosts.generateFromArticle.useMutation({
@@ -74,6 +76,22 @@ export default function SocialPostGenerator() {
     },
   });
 
+  // Publish to Instagram
+  const publishIgMutation = trpc.socialPosts.publishToInstagram.useMutation({
+    onSuccess: (data) => {
+      if (data.success) {
+        toast.success("Published to Instagram!", {
+          description: `Media ID: ${data.mediaId}`,
+        });
+      } else {
+        toast.error(data.error || "Failed to publish to Instagram");
+      }
+    },
+    onError: (error) => {
+      toast.error(error.message || "Failed to publish to Instagram");
+    },
+  });
+
   const handleGenerate = () => {
     if (!selectedArticleId) {
       toast.error("Please select an article first");
@@ -107,6 +125,17 @@ export default function SocialPostGenerator() {
     });
   };
 
+  const handlePublishToInstagram = (postText: string) => {
+    if (!articleImage) {
+      toast.error("Instagram requires an image. Select an article with a featured image.");
+      return;
+    }
+    publishIgMutation.mutate({
+      caption: postText,
+      imageUrl: articleImage,
+    });
+  };
+
   const copyToClipboard = async (text: string, index: number) => {
     try {
       await navigator.clipboard.writeText(text);
@@ -133,32 +162,53 @@ export default function SocialPostGenerator() {
         </div>
       </div>
 
-      {/* Facebook Connection Status */}
-      <Card className={`border ${fbStatus?.configured ? "border-green-500/30 bg-green-500/5" : "border-yellow-500/30 bg-yellow-500/5"}`}>
-        <CardContent className="py-3 px-4">
-          <div className="flex items-center gap-3">
-            {fbStatus?.configured ? (
-              <>
-                <CheckCircle className="w-4 h-4 text-green-500 shrink-0" />
-                <div className="flex-1">
-                  <span className="text-sm font-medium text-green-400">Facebook Connected</span>
-                  <span className="text-xs text-muted-foreground ml-2">Auto-publish enabled</span>
-                </div>
-              </>
-            ) : (
-              <>
-                <AlertCircle className="w-4 h-4 text-yellow-500 shrink-0" />
-                <div className="flex-1">
-                  <span className="text-sm font-medium text-yellow-400">Facebook Not Connected</span>
-                  <span className="text-xs text-muted-foreground ml-2">
-                    Add FB_PAGE_ID and FB_PAGE_ACCESS_TOKEN in Settings to enable auto-publish
-                  </span>
-                </div>
-              </>
-            )}
-          </div>
-        </CardContent>
-      </Card>
+      {/* Connection Status */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <Card className={`border ${fbStatus?.configured ? "border-green-500/30 bg-green-500/5" : "border-yellow-500/30 bg-yellow-500/5"}`}>
+          <CardContent className="py-3 px-4">
+            <div className="flex items-center gap-3">
+              {fbStatus?.configured ? (
+                <>
+                  <CheckCircle className="w-4 h-4 text-green-500 shrink-0" />
+                  <div className="flex-1">
+                    <span className="text-sm font-medium text-green-400">Facebook Connected</span>
+                    <span className="text-xs text-muted-foreground ml-2">Auto-publish enabled</span>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <AlertCircle className="w-4 h-4 text-yellow-500 shrink-0" />
+                  <div className="flex-1">
+                    <span className="text-sm font-medium text-yellow-400">Facebook Not Connected</span>
+                  </div>
+                </>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+        <Card className={`border ${igStatus?.configured ? "border-green-500/30 bg-green-500/5" : "border-yellow-500/30 bg-yellow-500/5"}`}>
+          <CardContent className="py-3 px-4">
+            <div className="flex items-center gap-3">
+              {igStatus?.configured ? (
+                <>
+                  <CheckCircle className="w-4 h-4 text-green-500 shrink-0" />
+                  <div className="flex-1">
+                    <span className="text-sm font-medium text-green-400">Instagram Connected</span>
+                    <span className="text-xs text-muted-foreground ml-2">Auto-publish enabled</span>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <AlertCircle className="w-4 h-4 text-yellow-500 shrink-0" />
+                  <div className="flex-1">
+                    <span className="text-sm font-medium text-yellow-400">Instagram Not Connected</span>
+                  </div>
+                </>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
 
       {/* Controls */}
       <Card className="bg-card border-border">
@@ -237,8 +287,11 @@ export default function SocialPostGenerator() {
           index={-1}
           copiedIndex={copiedIndex}
           onCopy={copyToClipboard}
-          onPublish={fbStatus?.configured ? handlePublishToFacebook : undefined}
-          isPublishing={publishMutation.isPending}
+          onPublishFb={fbStatus?.configured ? handlePublishToFacebook : undefined}
+          onPublishIg={igStatus?.configured ? handlePublishToInstagram : undefined}
+          isPublishingFb={publishMutation.isPending}
+          isPublishingIg={publishIgMutation.isPending}
+          hasImage={!!articleImage}
         />
       )}
 
@@ -255,8 +308,11 @@ export default function SocialPostGenerator() {
               index={index}
               copiedIndex={copiedIndex}
               onCopy={copyToClipboard}
-              onPublish={fbStatus?.configured ? handlePublishToFacebook : undefined}
-              isPublishing={publishMutation.isPending}
+              onPublishFb={fbStatus?.configured ? handlePublishToFacebook : undefined}
+              onPublishIg={igStatus?.configured ? handlePublishToInstagram : undefined}
+              isPublishingFb={publishMutation.isPending}
+              isPublishingIg={publishIgMutation.isPending}
+              hasImage={!!articleImage}
             />
           ))}
         </div>
@@ -290,8 +346,11 @@ function PostCard({
   index,
   copiedIndex,
   onCopy,
-  onPublish,
-  isPublishing,
+  onPublishFb,
+  onPublishIg,
+  isPublishingFb,
+  isPublishingIg,
+  hasImage,
 }: {
   title: string;
   tone?: string;
@@ -299,13 +358,16 @@ function PostCard({
   index: number;
   copiedIndex: number | null;
   onCopy: (text: string, index: number) => void;
-  onPublish?: (text: string) => void;
-  isPublishing?: boolean;
+  onPublishFb?: (text: string) => void;
+  onPublishIg?: (text: string) => void;
+  isPublishingFb?: boolean;
+  isPublishingIg?: boolean;
+  hasImage?: boolean;
 }) {
   return (
     <Card className="bg-card border-border">
       <CardHeader className="pb-3">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between flex-wrap gap-2">
           <CardTitle className="text-sm flex items-center gap-2">
             <Facebook className="w-4 h-4 text-blue-400" />
             {tone && (
@@ -315,7 +377,7 @@ function PostCard({
             )}
             {title}
           </CardTitle>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <Button
               size="sm"
               variant="outline"
@@ -328,17 +390,17 @@ function PostCard({
                 <><Copy className="w-3.5 h-3.5" /> Copy</>
               )}
             </Button>
-            {onPublish ? (
+            {onPublishFb ? (
               <Button
                 size="sm"
-                onClick={() => onPublish(post)}
-                disabled={isPublishing}
+                onClick={() => onPublishFb(post)}
+                disabled={isPublishingFb}
                 className="gap-1.5 bg-blue-600 hover:bg-blue-700 text-white"
               >
-                {isPublishing ? (
+                {isPublishingFb ? (
                   <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Publishing...</>
                 ) : (
-                  <><Send className="w-3.5 h-3.5" /> Publish to FB</>
+                  <><Facebook className="w-3.5 h-3.5" /> Publish to FB</>
                 )}
               </Button>
             ) : (
@@ -351,6 +413,21 @@ function PostCard({
                 <ExternalLink className="w-3.5 h-3.5" /> Open Facebook
               </a>
             )}
+            {onPublishIg ? (
+              <Button
+                size="sm"
+                onClick={() => onPublishIg(post)}
+                disabled={isPublishingIg || !hasImage}
+                className="gap-1.5 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white"
+                title={!hasImage ? "Instagram requires an article with a featured image" : undefined}
+              >
+                {isPublishingIg ? (
+                  <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Publishing...</>
+                ) : (
+                  <><Instagram className="w-3.5 h-3.5" /> Publish to IG</>
+                )}
+              </Button>
+            ) : null}
           </div>
         </div>
       </CardHeader>
