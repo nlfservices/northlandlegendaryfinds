@@ -2332,3 +2332,17 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Show all 84 cards with year/brand/set/parallel/card#/character/serial#/grade
 - [x] Add summary stats section
 - [x] Run integrity check and save checkpoint
+
+## Memorial Day Article & Article Templates Overhaul
+- [ ] Rebuild Memorial Day article with unique Northland Fence-style layout (side-by-side image/text, bold headers, distinct from generic template)
+- [ ] Create 7 distinct article page templates so no two articles look the same
+- [ ] Integrate template selection into article publishing system
+- [x] Remove Fan Vote and Card Market Impact sections from article pages
+
+## Patriotic Article Template Fixes
+- [x] Remove blocked /manus-storage/ image references from Memorial Day article DB content
+- [x] Fix duplicate blockquote display in patriotic template (strip from section body when shown as pull quote)
+- [x] Override dark page wrapper for patriotic template (white background, hide default header/back nav)
+- [x] Add "Back to MCU News" link inside patriotic template's own white bar
+- [x] Add article title/excerpt to patriotic template hero overlay
+- [x] Wrap post-template CTAs in container for patriotic template layout

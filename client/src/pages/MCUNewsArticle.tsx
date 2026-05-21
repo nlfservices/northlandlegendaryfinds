@@ -5,7 +5,7 @@
 import { Link, useParams, useLocation } from "wouter";
 import { useMemo } from "react";
 import {
-  ArrowLeft, Clock, Tag, TrendingUp, ExternalLink, User, Share2,
+  ArrowLeft, Clock, Tag, ExternalLink, User, Share2,
   ChevronRight, Newspaper, Facebook, Tv,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -14,7 +14,7 @@ import { Streamdown } from "streamdown";
 import RichContent from "@/components/RichContent";
 import SEO, { breadcrumbJsonLd, articleJsonLd, organizationJsonLd, faqJsonLd, itemListJsonLd, speakableJsonLd } from "@/components/SEO";
 import { toast } from "sonner";
-import FanVoting from "@/components/FanVoting";
+// FanVoting removed per user request
 import CollectorsCorner from "@/components/CollectorsCorner";
 import { ArticleTemplateRenderer, getArticleTemplate, type ArticleTemplate } from "@/components/ArticleTemplates";
 
@@ -273,7 +273,7 @@ export default function MCUNewsArticle() {
   const wwwTheme = getWhoWouldWinTheme(slug || "");
 
   return (
-    <div className="min-h-screen">
+    <div className={`min-h-screen ${getArticleTemplate(article.templateLayout as ArticleTemplate | null) === 'patriotic' ? 'bg-white' : ''}`}>
       {/* Who Would Win? themed gradient banner */}
       {wwwTheme && (
         <div className={`w-full h-2 bg-gradient-to-r ${wwwTheme.gradient}`} />
@@ -315,16 +315,19 @@ export default function MCUNewsArticle() {
         ]}
       />
 
-      {/* Back nav */}
-      <div className="border-b border-border bg-card/30">
-        <div className="container max-w-4xl py-3">
-          <Link href="/mcu-news" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors">
-            <ArrowLeft className="w-4 h-4" />            Back to MCU News
-          </Link>        </div>
-      </div>
+      {/* Back nav — hidden for patriotic template (it has its own full-width layout) */}
+      {getArticleTemplate(article.templateLayout as ArticleTemplate | null) !== 'patriotic' && (
+        <div className="border-b border-border bg-card/30">
+          <div className="container max-w-4xl py-3">
+            <Link href="/mcu-news" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors">
+              <ArrowLeft className="w-4 h-4" />            Back to MCU News
+            </Link>          </div>
+        </div>
+      )}
 
-      <article className="container max-w-4xl py-8 lg:py-12">
-        {/* Header */}
+      <article className={getArticleTemplate(article.templateLayout as ArticleTemplate | null) === 'patriotic' ? 'py-0' : 'container max-w-4xl py-8 lg:py-12'}>
+        {/* Header — patriotic template renders its own header inside the template */}
+        {getArticleTemplate(article.templateLayout as ArticleTemplate | null) !== 'patriotic' && (
         <header className="mb-8">
           <div className="flex items-center gap-3 mb-4">
             <span className={`inline-block px-3 py-1 text-xs font-bold rounded-full border ${CATEGORY_COLORS[article.category] || CATEGORY_COLORS.movie_news}`}>
@@ -364,17 +367,8 @@ export default function MCUNewsArticle() {
             </Button>
           </div>
         </header>
-
-        {/* Card Market Impact Banner */}
-        {article.cardMarketImpact && (
-          <div className={`${wwwTheme ? wwwTheme.accentBg : 'bg-primary/10'} border ${wwwTheme ? wwwTheme.accentBorder : 'border-primary/30'} rounded-lg p-4 mb-8 flex items-start gap-3`}>
-            <TrendingUp className={`w-5 h-5 ${wwwTheme ? wwwTheme.accent : 'text-primary'} mt-0.5 flex-shrink-0`} />
-            <div>
-              <h4 className={`font-bold text-sm ${wwwTheme ? wwwTheme.accent : 'text-primary'} mb-1`}>Card Market Impact</h4>
-              <p className="text-sm text-foreground">{article.cardMarketImpact}</p>
-            </div>
-          </div>
         )}
+
 
         {/* Featured Image — only for Classic template; other templates render their own hero */}
         {article.featuredImageUrl && getArticleTemplate(article.templateLayout as ArticleTemplate | null) === 'classic' && (
@@ -387,8 +381,6 @@ export default function MCUNewsArticle() {
           </div>
         )}
 
-        {/* Fan Voting — prominent position near top */}
-        <FanVoting articleId={article.id} articleTitle={article.title} />
 
         {/* Article Content — Template-based rendering */}
         {(() => {
@@ -413,7 +405,8 @@ export default function MCUNewsArticle() {
           );
         })()}
 
-        {/* Collector's Corner — affiliate-ready product recommendations */}
+        {/* Collector's Corner and CTAs — wrapped in container for patriotic template */}
+        <div className={getArticleTemplate(article.templateLayout as ArticleTemplate | null) === 'patriotic' ? 'container max-w-4xl px-4 sm:px-6' : ''}>
         <CollectorsCorner
           articleId={article.id}
           tags={tags}
@@ -521,6 +514,7 @@ export default function MCUNewsArticle() {
               Like Our Page
             </a>
           </div>
+        </div>
         </div>
       </article>
     </div>

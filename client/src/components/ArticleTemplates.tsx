@@ -1,19 +1,23 @@
 /**
- * Article Template Layouts — 5 different visual styles for article rendering
- * Each template is designed for SEO (heavy word count, structured headings, internal links)
- * and visual variety (different image placements, text arrangements, sidebars)
+ * Article Template Layouts — 7 distinct visual styles for article rendering
+ * Each template creates a COMPLETELY different reading experience.
+ * No two articles should ever look the same unless published on the same day.
  * 
  * Templates:
- * 1. Classic — Current layout (hero image top, linear content flow)
- * 2. Magazine — Pull quotes, side images, multi-column feel
- * 3. Spotlight — Character/topic focus with stats sidebar, card gallery
- * 4. Timeline — Visual timeline with event markers and milestones
- * 5. Listicle — Numbered entries with card thumbnails, comparison sections
+ * 1. Classic — Linear content flow with mid-article banner (default)
+ * 2. Magazine — Pull quotes, alternating layouts, decorative accents
+ * 3. Spotlight — Two-column with sticky sidebar, numbered sections
+ * 4. Timeline — Visual timeline with event markers and milestone nodes
+ * 5. Listicle — Ranked cards with color-coded entries
+ * 6. Patriotic — Red/white/blue, side-by-side image/text blocks (Northland Fence style)
+ * 7. Cinematic — Full-bleed hero, dark moody sections, film-strip aesthetic
+ * 8. Dossier — Intel briefing style, classified look, data panels
  */
 
 import { useMemo } from "react";
+import { Link } from "wouter";
 import RichContent from "@/components/RichContent";
-import { TrendingUp, Star, Calendar, Hash, Zap, Award, Target, Flame, BookOpen, Quote } from "lucide-react";
+import { TrendingUp, Star, Calendar, Hash, Zap, Award, Target, Flame, BookOpen, Quote, Shield, Flag, FileText, Eye, ArrowLeft, Share2, Clock, User } from "lucide-react";
 
 type TemplateProps = {
   content: string;
@@ -73,13 +77,35 @@ function splitBySections(content: string): { intro: string; sections: { heading:
  * Extract a compelling pull quote from content (first bold sentence or strong statement)
  */
 function extractPullQuote(content: string): string {
-  const boldMatch = content.match(/\*\*([^*]{20,100})\*\*/);
-  if (boldMatch) return boldMatch[1];
+  // Priority 1: Look for actual blockquotes (> "...") — these are intentional pull quotes
+  const blockquoteMatch = content.match(/> "([^"]{20,200})"/);
+  if (blockquoteMatch) return blockquoteMatch[1];
   
-  // Fallback: find a short impactful sentence
+  // Priority 2: Look for blockquotes without quotes
+  const bqMatch = content.match(/^> (.{20,150})$/m);
+  if (bqMatch && !bqMatch[1].includes('Topps') && !bqMatch[1].includes('Chrome')) return bqMatch[1];
+  
+  // Priority 3: Bold text that isn't a card name or product
+  const boldMatch = content.match(/\*\*([^*]{20,100})\*\*/);
+  if (boldMatch && !boldMatch[1].includes('Topps') && !boldMatch[1].includes('Chrome') && !boldMatch[1].includes('Card')) return boldMatch[1];
+  
+  // Fallback: find a short impactful sentence (skip collector/card sections)
   const sentences = content.split(/\.\s+/);
-  const impactful = sentences.find(s => s.length > 40 && s.length < 120 && !s.includes('http'));
+  const impactful = sentences.find(s => s.length > 40 && s.length < 120 && !s.includes('http') && !s.includes('Topps') && !s.includes('eBay'));
   return impactful ? impactful + '.' : '';
+}
+
+/**
+ * Extract images from markdown content
+ */
+function extractImages(content: string): string[] {
+  const imgRegex = /!\[.*?\]\((.*?)\)/g;
+  const images: string[] = [];
+  let match;
+  while ((match = imgRegex.exec(content)) !== null) {
+    images.push(match[1]);
+  }
+  return images;
 }
 
 // ============================================================
@@ -139,19 +165,6 @@ export function MagazineTemplate({ content, title, featuredImageUrl, cardMarketI
 
           {/* Content with side accent */}
           <RichContent className={`${proseClasses} pl-4 border-l-2 border-border/50`}>{section.body}</RichContent>
-
-          {/* Inline market callout for every 3rd section */}
-          {i === 2 && cardMarketImpact && (
-            <div className="mt-8 p-5 bg-gradient-to-r from-emerald-500/10 to-emerald-500/5 border border-emerald-500/30 rounded-xl">
-              <div className="flex items-start gap-3">
-                <TrendingUp className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-0.5" />
-                <div>
-                  <h4 className="font-bold text-emerald-400 text-sm uppercase tracking-wider mb-1">Market Signal</h4>
-                  <p className="text-muted-foreground text-sm">{cardMarketImpact}</p>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       ))}
     </div>
@@ -219,17 +232,6 @@ export function SpotlightTemplate({ content, title, featuredImageUrl, tags, card
                 ))}
               </div>
             </div>
-
-            {/* Market Impact Card */}
-            {cardMarketImpact && (
-              <div className="bg-gradient-to-b from-primary/10 to-primary/5 border border-primary/30 rounded-xl p-5">
-                <h3 className="font-bold text-sm uppercase tracking-wider text-primary mb-3 flex items-center gap-2">
-                  <TrendingUp className="w-4 h-4" />
-                  Market Impact
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{cardMarketImpact}</p>
-              </div>
-            )}
 
             {/* Quick Navigation */}
             <div className="bg-card border border-border rounded-xl p-5">
@@ -314,22 +316,6 @@ export function TimelineTemplate({ content, title, cardMarketImpact }: TemplateP
           })}
         </div>
       </div>
-
-      {/* Market Impact — Timeline end marker */}
-      {cardMarketImpact && (
-        <div className="relative pl-0 sm:pl-16">
-          <div className="absolute left-3 top-2 w-7 h-7 rounded-full border-2 border-emerald-500 bg-emerald-500/20 flex items-center justify-center hidden sm:flex">
-            <TrendingUp className="w-3.5 h-3.5 text-emerald-400" />
-          </div>
-          <div className="bg-gradient-to-r from-emerald-500/10 to-emerald-500/5 border border-emerald-500/30 rounded-xl p-6">
-            <h3 className="font-bold text-emerald-400 mb-2 flex items-center gap-2">
-              <TrendingUp className="w-5 h-5" />
-              Collector's Market Outlook
-            </h3>
-            <p className="text-muted-foreground">{cardMarketImpact}</p>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
@@ -413,21 +399,302 @@ export function ListicleTemplate({ content, title, tags, cardMarketImpact }: Tem
           );
         })}
       </div>
+    </div>
+  );
+}
 
-      {/* Summary card at bottom */}
-      {cardMarketImpact && (
-        <div className="bg-card border-2 border-primary/30 rounded-xl p-6 sm:p-8">
-          <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center flex-shrink-0">
-              <Award className="w-6 h-6 text-primary" />
+// ============================================================
+// TEMPLATE 6: PATRIOTIC — Red, White & Blue, Northland Fence style
+// Side-by-side image/text blocks, bold section headers, serious editorial
+// ============================================================
+export function PatrioticTemplate({ content, title, featuredImageUrl, excerpt, tags, category }: TemplateProps) {
+  const { intro, sections } = useMemo(() => splitBySections(content), [content]);
+  const images = useMemo(() => extractImages(content), [content]);
+  const pullQuote = useMemo(() => extractPullQuote(content), [content]);
+
+  return (
+    <div className="relative">
+      {/* Back to MCU News link — white bg */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="container max-w-5xl py-3 px-6">
+          <Link href="/mcu-news" className="inline-flex items-center gap-1.5 text-sm text-[#3C3B6E] hover:text-[#B22234] transition-colors font-medium">
+            <ArrowLeft className="w-4 h-4" /> Back to MCU News
+          </Link>
+        </div>
+      </div>
+
+      {/* Top patriotic banner — thick stripe */}
+      <div className="flex h-3">
+        <div className="flex-1 bg-[#B22234]" />
+        <div className="flex-1 bg-white" />
+        <div className="flex-1 bg-[#3C3B6E]" />
+      </div>
+
+      {/* Hero section — full-width with dramatic overlay */}
+      {featuredImageUrl && (
+        <div className="relative">
+          <img src={featuredImageUrl} alt={title} className="w-full h-80 sm:h-[500px] object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a2e] via-[#1a1a2e]/60 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 p-8 sm:p-14">
+            <div className="flex items-center gap-3 mb-4">
+              <Shield className="w-6 h-6 text-[#B22234]" />
+              <span className="text-[#B22234] text-sm font-black uppercase tracking-[0.2em]">In Memoriam</span>
             </div>
-            <div>
-              <h3 className="font-bold text-lg text-foreground mb-2">The Bottom Line for Collectors</h3>
-              <p className="text-muted-foreground leading-relaxed">{cardMarketImpact}</p>
-            </div>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight mb-4 uppercase tracking-tight" style={{ fontFamily: 'Oswald, Impact, sans-serif' }}>
+              {title}
+            </h1>
+            {excerpt && (
+              <p className="text-white/90 text-lg sm:text-xl leading-relaxed max-w-3xl font-light">
+                {excerpt}
+              </p>
+            )}
           </div>
         </div>
       )}
+
+      {/* White content area — clean, editorial, patriotic */}
+      <div className="bg-white px-6 sm:px-12 lg:px-20 py-12">
+        {/* Intro — dark text on white, serious editorial */}
+        <div className="max-w-4xl mx-auto mb-14 pb-10 border-b-4 border-[#3C3B6E]">
+          <RichContent className="prose prose-lg max-w-none prose-headings:text-[#1a1a2e] prose-p:text-gray-800 prose-p:leading-relaxed prose-p:text-xl prose-a:text-[#3C3B6E] prose-strong:text-[#1a1a2e] prose-blockquote:border-[#B22234] prose-blockquote:text-gray-700 prose-img:rounded-lg">{intro}</RichContent>
+        </div>
+
+        {/* Sections — alternating side-by-side layout like Northland Fence */}
+        {sections.map((section, i) => {
+          const isEven = i % 2 === 0;
+          const sectionImage = images[i] || null;
+          // Strip the pull quote from the first section body to avoid duplicate display
+          const sectionBody = (i === 0 && pullQuote) 
+            ? section.body.replace(/> "[^"]{20,200}"\n?/g, '').trim()
+            : section.body;
+          
+          return (
+            <div key={i} className="max-w-5xl mx-auto mb-16">
+              {/* Section header — bold with red left accent */}
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-2 h-12 bg-[#B22234] rounded-full" />
+                <h2 className="text-3xl sm:text-4xl font-black text-[#1a1a2e] leading-tight uppercase tracking-tight">
+                  {section.heading}
+                </h2>
+              </div>
+
+              {/* Side-by-side layout (Northland Fence style) */}
+              {sectionImage ? (
+                <div className={`grid grid-cols-1 md:grid-cols-2 gap-10 items-center ${isEven ? '' : ''}`}>
+                  {isEven ? (
+                    <>
+                      <div className="rounded-2xl overflow-hidden shadow-2xl border-4 border-[#3C3B6E]/20">
+                        <img src={sectionImage} alt={section.heading} className="w-full h-auto object-cover" />
+                      </div>
+                      <RichContent className="prose prose-lg max-w-none prose-headings:text-[#1a1a2e] prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-[#3C3B6E] prose-strong:text-[#1a1a2e] prose-blockquote:border-[#B22234] prose-blockquote:text-gray-600 prose-img:rounded-lg">{sectionBody}</RichContent>
+                    </>
+                  ) : (
+                    <>
+                      <RichContent className="prose prose-lg max-w-none prose-headings:text-[#1a1a2e] prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-[#3C3B6E] prose-strong:text-[#1a1a2e] prose-blockquote:border-[#B22234] prose-blockquote:text-gray-600 prose-img:rounded-lg">{sectionBody}</RichContent>
+                      <div className="rounded-2xl overflow-hidden shadow-2xl border-4 border-[#B22234]/20">
+                        <img src={sectionImage} alt={section.heading} className="w-full h-auto object-cover" />
+                      </div>
+                    </>
+                  )}
+                </div>
+              ) : (
+                <RichContent className="prose prose-lg max-w-none prose-headings:text-[#1a1a2e] prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-[#3C3B6E] prose-strong:text-[#1a1a2e] prose-blockquote:border-[#B22234] prose-blockquote:text-gray-600 prose-img:rounded-lg">{sectionBody}</RichContent>
+              )}
+
+              {/* Pull quote after first section */}
+              {i === 0 && pullQuote && (
+                <div className="my-12 py-8 px-10 bg-[#3C3B6E] rounded-2xl shadow-xl">
+                  <blockquote className="text-xl sm:text-2xl font-semibold text-white italic leading-relaxed">
+                    "{pullQuote}"
+                  </blockquote>
+                  <div className="flex items-center gap-2 mt-5">
+                    <Flag className="w-5 h-5 text-[#B22234]" />
+                    <span className="text-sm text-white/80 font-medium uppercase tracking-wider">A moment of reflection</span>
+                  </div>
+                </div>
+              )}
+
+              {/* Section divider — stars and stripes inspired */}
+              {i < sections.length - 1 && (
+                <div className="flex items-center gap-4 mt-14">
+                  <div className="flex-1 h-0.5 bg-gradient-to-r from-transparent via-[#B22234] to-transparent" />
+                  <div className="flex gap-1">
+                    <Star className="w-4 h-4 text-[#3C3B6E] fill-[#3C3B6E]" />
+                    <Star className="w-4 h-4 text-[#B22234] fill-[#B22234]" />
+                    <Star className="w-4 h-4 text-[#3C3B6E] fill-[#3C3B6E]" />
+                  </div>
+                  <div className="flex-1 h-0.5 bg-gradient-to-r from-transparent via-[#3C3B6E] to-transparent" />
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Bottom patriotic stripe */}
+      <div className="flex h-3">
+        <div className="flex-1 bg-[#B22234]" />
+        <div className="flex-1 bg-white" />
+        <div className="flex-1 bg-[#3C3B6E]" />
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
+// TEMPLATE 7: CINEMATIC — Full-bleed hero, dark moody, film-strip feel
+// ============================================================
+export function CinematicTemplate({ content, title, featuredImageUrl, excerpt }: TemplateProps) {
+  const { intro, sections } = useMemo(() => splitBySections(content), [content]);
+  const pullQuote = useMemo(() => extractPullQuote(content), [content]);
+
+  return (
+    <div className="space-y-0 -mx-4 sm:-mx-8">
+      {/* Full-bleed hero with cinematic aspect ratio */}
+      {featuredImageUrl && (
+        <div className="relative w-full aspect-[21/9] mb-12 overflow-hidden">
+          <img src={featuredImageUrl} alt={title} className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-black/60" />
+          {/* Film grain overlay */}
+          <div className="absolute inset-0 opacity-[0.03] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc1IiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI2EpIi8+PC9zdmc+')]" />
+          {/* Film strip perforations */}
+          <div className="absolute top-0 left-0 right-0 h-6 flex items-center justify-between px-4 opacity-30">
+            {Array.from({ length: 20 }).map((_, i) => (
+              <div key={i} className="w-3 h-3 rounded-sm bg-black border border-white/20" />
+            ))}
+          </div>
+          <div className="absolute bottom-0 left-0 right-0 h-6 flex items-center justify-between px-4 opacity-30">
+            {Array.from({ length: 20 }).map((_, i) => (
+              <div key={i} className="w-3 h-3 rounded-sm bg-black border border-white/20" />
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div className="px-4 sm:px-8">
+        {/* Cinematic intro — centered, dramatic */}
+        <div className="max-w-3xl mx-auto text-center mb-16">
+          <RichContent className={`${proseClasses} text-xl leading-loose prose-p:text-foreground/80 text-center`}>{intro}</RichContent>
+        </div>
+
+        {/* Sections as cinematic "scenes" */}
+        {sections.map((section, i) => (
+          <div key={i} className="mb-16">
+            {/* Scene marker */}
+            <div className="flex items-center justify-center gap-4 mb-8">
+              <div className="h-px flex-1 max-w-[100px] bg-gradient-to-r from-transparent to-muted-foreground/30" />
+              <span className="text-xs font-mono uppercase tracking-[0.3em] text-muted-foreground/60">
+                Scene {String(i + 1).padStart(2, '0')}
+              </span>
+              <div className="h-px flex-1 max-w-[100px] bg-gradient-to-l from-transparent to-muted-foreground/30" />
+            </div>
+
+            {/* Section title — large, cinematic */}
+            <h2 className="text-3xl sm:text-4xl font-bold text-center mb-8 text-foreground leading-tight">
+              {section.heading}
+            </h2>
+
+            {/* Content with max-width for readability */}
+            <div className="max-w-3xl mx-auto">
+              <RichContent className={`${proseClasses} prose-p:text-lg`}>{section.body}</RichContent>
+            </div>
+
+            {/* Dramatic pull quote after first section */}
+            {i === 0 && pullQuote && (
+              <div className="max-w-2xl mx-auto my-12 text-center">
+                <div className="text-4xl text-muted-foreground/20 mb-2">"</div>
+                <blockquote className="text-2xl sm:text-3xl font-light italic text-foreground/80 leading-relaxed">
+                  {pullQuote}
+                </blockquote>
+                <div className="text-4xl text-muted-foreground/20 mt-2 rotate-180">"</div>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
+// TEMPLATE 8: DOSSIER — Intel briefing, classified look, data panels
+// ============================================================
+export function DossierTemplate({ content, title, featuredImageUrl, tags, excerpt }: TemplateProps) {
+  const { intro, sections } = useMemo(() => splitBySections(content), [content]);
+
+  return (
+    <div className="space-y-6 font-mono">
+      {/* Classified header bar */}
+      <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <FileText className="w-5 h-5 text-yellow-400" />
+          <span className="text-yellow-400 text-sm font-bold uppercase tracking-wider">Intelligence Briefing</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <Eye className="w-4 h-4 text-yellow-400/60" />
+          <span className="text-xs text-yellow-400/60">EYES ONLY</span>
+        </div>
+      </div>
+
+      {/* Subject line */}
+      <div className="bg-card border border-border rounded-lg p-5">
+        <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 text-sm">
+          <span className="text-muted-foreground uppercase tracking-wider">Subject:</span>
+          <span className="text-foreground font-bold">{title}</span>
+          {tags && tags.length > 0 && (
+            <>
+              <span className="text-muted-foreground uppercase tracking-wider">Tags:</span>
+              <span className="text-primary">{tags.join(' / ')}</span>
+            </>
+          )}
+          {excerpt && (
+            <>
+              <span className="text-muted-foreground uppercase tracking-wider">Summary:</span>
+              <span className="text-muted-foreground">{excerpt}</span>
+            </>
+          )}
+        </div>
+      </div>
+
+      {/* Featured image as "attached evidence" */}
+      {featuredImageUrl && (
+        <div className="border border-dashed border-border rounded-lg p-3">
+          <div className="text-xs text-muted-foreground mb-2 uppercase tracking-wider">Attached: Visual Reference</div>
+          <img src={featuredImageUrl} alt={title} className="w-full h-auto rounded-lg" />
+        </div>
+      )}
+
+      {/* Intro as "executive summary" */}
+      <div className="bg-card/50 border border-border rounded-lg p-6">
+        <h3 className="text-sm uppercase tracking-wider text-primary mb-4 font-bold">Executive Summary</h3>
+        <RichContent className={`${proseClasses} font-sans`}>{intro}</RichContent>
+      </div>
+
+      {/* Sections as "intelligence sections" */}
+      {sections.map((section, i) => (
+        <div key={i} className="border border-border rounded-lg overflow-hidden">
+          {/* Section header bar */}
+          <div className="bg-muted/50 px-5 py-3 border-b border-border flex items-center justify-between">
+            <h2 className="text-base font-bold text-foreground uppercase tracking-wide">
+              {section.heading}
+            </h2>
+            <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded">
+              Section {String(i + 1).padStart(2, '0')}
+            </span>
+          </div>
+          {/* Section content */}
+          <div className="p-5 sm:p-6">
+            <RichContent className={`${proseClasses} font-sans`}>{section.body}</RichContent>
+          </div>
+        </div>
+      ))}
+
+      {/* End of briefing */}
+      <div className="text-center py-4">
+        <div className="inline-flex items-center gap-2 px-4 py-2 border border-muted-foreground/20 rounded-full">
+          <span className="text-xs text-muted-foreground uppercase tracking-widest">End of Briefing</span>
+        </div>
+      </div>
     </div>
   );
 }
@@ -435,7 +702,7 @@ export function ListicleTemplate({ content, title, tags, cardMarketImpact }: Tem
 // ============================================================
 // TEMPLATE SELECTOR — Returns the correct template component
 // ============================================================
-export type ArticleTemplate = 'classic' | 'magazine' | 'spotlight' | 'timeline' | 'listicle';
+export type ArticleTemplate = 'classic' | 'magazine' | 'spotlight' | 'timeline' | 'listicle' | 'patriotic' | 'cinematic' | 'dossier';
 
 export function getArticleTemplate(templateLayout: ArticleTemplate | null | undefined): ArticleTemplate {
   return templateLayout || 'classic';
@@ -451,6 +718,12 @@ export function ArticleTemplateRenderer({ template, ...props }: TemplateProps & 
       return <TimelineTemplate {...props} />;
     case 'listicle':
       return <ListicleTemplate {...props} />;
+    case 'patriotic':
+      return <PatrioticTemplate {...props} />;
+    case 'cinematic':
+      return <CinematicTemplate {...props} />;
+    case 'dossier':
+      return <DossierTemplate {...props} />;
     case 'classic':
     default:
       return <ClassicTemplate {...props} />;
