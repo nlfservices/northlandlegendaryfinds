@@ -2351,3 +2351,7 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add social media sharing buttons component (Facebook, Instagram, copy link) for ALL articles
 - [x] Integrate sharing buttons at top and bottom of every MCU News article (standard layout)
 - [x] Revert patriotic article template to dark/black background matching other articles (remove white bg and flag background)
+- [x] Research Fallen Son: The Death of Captain America full 5-issue storyline
+- [x] Write long-form article covering the complete Fallen Son story (all 5 stages of grief)
+- [x] Generate multiple dramatic images for the article (one per issue/stage)
+- [x] Publish article to database with patriotic template, images, and Collector's Corner
