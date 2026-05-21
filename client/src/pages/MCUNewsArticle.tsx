@@ -265,7 +265,7 @@ export default function MCUNewsArticle() {
   const wwwTheme = getWhoWouldWinTheme(slug || "");
 
   return (
-    <div className={`min-h-screen ${getArticleTemplate(article.templateLayout as ArticleTemplate | null) === 'patriotic' ? 'bg-white' : ''}`}>
+    <div className="min-h-screen">
       {/* Who Would Win? themed gradient banner */}
       {wwwTheme && (
         <div className={`w-full h-2 bg-gradient-to-r ${wwwTheme.gradient}`} />

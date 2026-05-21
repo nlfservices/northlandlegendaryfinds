@@ -2350,3 +2350,4 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add "Memorial Day Weekend 2026" watermark text in background (diagonal, repeated)
 - [x] Add social media sharing buttons component (Facebook, Instagram, copy link) for ALL articles
 - [x] Integrate sharing buttons at top and bottom of every MCU News article (standard layout)
+- [x] Revert patriotic article template to dark/black background matching other articles (remove white bg and flag background)
