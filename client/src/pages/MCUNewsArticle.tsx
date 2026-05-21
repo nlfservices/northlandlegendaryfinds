@@ -5,7 +5,7 @@
 import { Link, useParams, useLocation } from "wouter";
 import { useMemo } from "react";
 import {
-  ArrowLeft, Clock, Tag, ExternalLink, User, Share2,
+  ArrowLeft, Clock, Tag, ExternalLink, User,
   ChevronRight, Newspaper, Facebook, Tv,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -13,10 +13,10 @@ import { trpc } from "@/lib/trpc";
 import { Streamdown } from "streamdown";
 import RichContent from "@/components/RichContent";
 import SEO, { breadcrumbJsonLd, articleJsonLd, organizationJsonLd, faqJsonLd, itemListJsonLd, speakableJsonLd } from "@/components/SEO";
-import { toast } from "sonner";
 // FanVoting removed per user request
 import CollectorsCorner from "@/components/CollectorsCorner";
 import { ArticleTemplateRenderer, getArticleTemplate, type ArticleTemplate } from "@/components/ArticleTemplates";
+import ShareButtons from "@/components/ShareButtons";
 
 const CARD_MARKET_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mcu-intel-card-market-Lt56dsta4y7Hzfj6pzAysR.webp";
 
@@ -212,15 +212,7 @@ export default function MCUNewsArticle() {
     { enabled: !!slug }
   );
 
-  const handleShare = () => {
-    const url = window.location.href;
-    if (navigator.share) {
-      navigator.share({ title: article?.title, url });
-    } else {
-      navigator.clipboard.writeText(url);
-      toast.success("Link copied to clipboard");
-    }
-  };
+
 
   if (isLoading) {
     return (
@@ -361,10 +353,12 @@ export default function MCUNewsArticle() {
                 {formatDate(article.publishedAt)}
               </span>
             </div>
-            <Button variant="outline" size="sm" onClick={handleShare}>
-              <Share2 className="w-4 h-4 mr-1.5" />
-              Share
-            </Button>
+            <ShareButtons
+              url={typeof window !== 'undefined' ? window.location.href : ''}
+              title={article.title}
+              variant="dark"
+              compact
+            />
           </div>
         </header>
         )}
@@ -381,6 +375,17 @@ export default function MCUNewsArticle() {
           </div>
         )}
 
+
+        {/* Top Share Buttons — below featured image, above article content */}
+        {getArticleTemplate(article.templateLayout as ArticleTemplate | null) === 'classic' && (
+          <div className="mb-6 border-b border-border pb-4">
+            <ShareButtons
+              url={typeof window !== 'undefined' ? window.location.href : ''}
+              title={article.title}
+              variant="dark"
+            />
+          </div>
+        )}
 
         {/* Article Content — Template-based rendering */}
         {(() => {
@@ -404,6 +409,18 @@ export default function MCUNewsArticle() {
             </div>
           );
         })()}
+
+        {/* Bottom Share Buttons — after article content, before Collector's Corner */}
+        {/* Patriotic template already has its own share buttons inside the template */}
+        {getArticleTemplate(article.templateLayout as ArticleTemplate | null) !== 'patriotic' && (
+          <div className="mb-6 border-t border-border pt-4">
+            <ShareButtons
+              url={typeof window !== 'undefined' ? window.location.href : ''}
+              title={article.title}
+              variant="dark"
+            />
+          </div>
+        )}
 
         {/* Collector's Corner and CTAs — wrapped in container for patriotic template */}
         <div className={getArticleTemplate(article.templateLayout as ArticleTemplate | null) === 'patriotic' ? 'container max-w-4xl px-4 sm:px-6' : ''}>

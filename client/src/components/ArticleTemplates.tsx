@@ -18,6 +18,7 @@ import { useMemo } from "react";
 import { Link } from "wouter";
 import RichContent from "@/components/RichContent";
 import { TrendingUp, Star, Calendar, Hash, Zap, Award, Target, Flame, BookOpen, Quote, Shield, Flag, FileText, Eye, ArrowLeft, Share2, Clock, User } from "lucide-react";
+import ShareButtons from "@/components/ShareButtons";
 
 type TemplateProps = {
   content: string;
@@ -490,6 +491,15 @@ export function PatrioticTemplate({ content, title, featuredImageUrl, excerpt, t
             </span>
           </div>
         </div>
+        {/* Top Share Buttons for patriotic template */}
+        <div className="relative z-10 max-w-4xl mx-auto mb-6">
+          <ShareButtons
+            url={typeof window !== 'undefined' ? window.location.href : ''}
+            title={title}
+            variant="light"
+          />
+        </div>
+
         {/* Intro — dark text on white, serious editorial */}
         <div className="relative z-10 max-w-4xl mx-auto mb-14 pb-10 border-b-4 border-[#3C3B6E]">
           <RichContent className="prose prose-lg max-w-none prose-headings:text-[#1a1a2e] prose-p:text-gray-800 prose-p:leading-relaxed prose-p:text-xl prose-a:text-[#3C3B6E] prose-strong:text-[#1a1a2e] prose-blockquote:border-[#B22234] prose-blockquote:text-gray-700 prose-img:rounded-lg">{intro}</RichContent>
@@ -565,6 +575,14 @@ export function PatrioticTemplate({ content, title, featuredImageUrl, excerpt, t
             </div>
           );
         })}
+        {/* Bottom Share Buttons for patriotic template */}
+        <div className="relative z-10 max-w-4xl mx-auto mt-10 pt-6 border-t-2 border-[#B22234]/30">
+          <ShareButtons
+            url={typeof window !== 'undefined' ? window.location.href : ''}
+            title={title}
+            variant="light"
+          />
+        </div>
       </div>
 
       {/* Bottom patriotic stripe */}

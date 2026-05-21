@@ -2348,3 +2348,5 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Wrap post-template CTAs in container for patriotic template layout
 - [x] Add American flag background (13 red/white stripes, blue canton with stars) to patriotic template
 - [x] Add "Memorial Day Weekend 2026" watermark text in background (diagonal, repeated)
+- [x] Add social media sharing buttons component (Facebook, Instagram, copy link) for ALL articles
+- [x] Integrate sharing buttons at top and bottom of every MCU News article (standard layout)
