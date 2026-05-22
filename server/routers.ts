@@ -19,6 +19,7 @@ import { metaCapiRouter } from "./routers/metaCapi";
 import { affiliateAdminRouter, affiliatePublicRouter } from "./routers/affiliateLinks";
 import { mcuMediaPublicRouter, mcuMediaAdminRouter } from "./routers/mcuMedia";
 import { socialDraftsRouter } from "./routers/socialDrafts";
+import { ghlAdminRouter } from "./routers/ghlAdmin";
 
 export const appRouter = router({
   system: systemRouter,
@@ -107,6 +108,9 @@ export const appRouter = router({
 
   // Social Drafts (admin - AI content + image generation pipeline)
   socialDrafts: socialDraftsRouter,
+
+  // GHL CRM (admin - conversations & contacts from GoHighLevel)
+  ghl: ghlAdminRouter,
 
 });
 

@@ -2436,7 +2436,11 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Set up heartbeat schedule for periodic comment checking
 
 ## GHL Facebook Comment Automation (replacing custom system)
-- [ ] Remove custom comment reply system (schema, router, UI, scheduled endpoint)
-- [ ] Research GHL API for Facebook comment automation
-- [ ] Implement GHL-based comment automation integration
-- [ ] Test and checkpoint
+- [x] Remove custom comment reply system (router, UI, scheduled endpoint removed; schema table kept)
+- [x] Research GHL API for Facebook comment automation
+- [x] Implement GHL-based comment automation integration (conversations viewer, contacts viewer, setup guide)
+- [x] Create server/ghl-conversations.ts API module
+- [x] Create ghlAdmin router with search/get endpoints
+- [x] Build GHLCommentManager admin UI component with setup guide + live data tabs
+- [x] Write tests for GHL conversations module (10 tests passing)
+- [x] Test and checkpoint
