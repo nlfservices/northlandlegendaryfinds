@@ -103,6 +103,292 @@ export async function createGHLContact(
 }
 
 /**
+ * Get a contact by ID with full details
+ */
+export async function getGHLContact(
+  contactId: string
+): Promise<{ success: boolean; contact?: any; error?: string }> {
+  if (!ENV.ghlApiKey) {
+    return { success: false, error: "GHL credentials not configured" };
+  }
+
+  try {
+    const response = await fetch(`${GHL_API_BASE}/contacts/${contactId}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${ENV.ghlApiKey}`,
+        Version: GHL_API_VERSION,
+      },
+    });
+
+    if (!response.ok) {
+      return { success: false, error: `Get contact failed: ${response.status}` };
+    }
+
+    const data = await response.json();
+    return { success: true, contact: data.contact };
+  } catch (error) {
+    console.error("[GHL] Error getting contact:", error);
+    return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
+  }
+}
+
+/**
+ * Update a contact in GoHighLevel
+ */
+export async function updateGHLContact(
+  contactId: string,
+  updates: Partial<GHLContactInput> & { customFields?: Record<string, any> }
+): Promise<{ success: boolean; error?: string }> {
+  if (!ENV.ghlApiKey) {
+    return { success: false, error: "GHL credentials not configured" };
+  }
+
+  try {
+    const response = await fetch(`${GHL_API_BASE}/contacts/${contactId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${ENV.ghlApiKey}`,
+        Version: GHL_API_VERSION,
+      },
+      body: JSON.stringify(updates),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text().catch(() => "");
+      return { success: false, error: `Update failed: ${response.status} ${errorText}` };
+    }
+
+    return { success: true };
+  } catch (error) {
+    console.error("[GHL] Error updating contact:", error);
+    return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
+  }
+}
+
+/**
+ * Add tags to a contact
+ */
+export async function addGHLContactTags(
+  contactId: string,
+  tags: string[]
+): Promise<{ success: boolean; error?: string }> {
+  if (!ENV.ghlApiKey) {
+    return { success: false, error: "GHL credentials not configured" };
+  }
+
+  try {
+    const response = await fetch(`${GHL_API_BASE}/contacts/${contactId}/tags`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${ENV.ghlApiKey}`,
+        Version: GHL_API_VERSION,
+      },
+      body: JSON.stringify({ tags }),
+    });
+
+    if (!response.ok) {
+      return { success: false, error: `Add tags failed: ${response.status}` };
+    }
+
+    return { success: true };
+  } catch (error) {
+    console.error("[GHL] Error adding tags:", error);
+    return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
+  }
+}
+
+/**
+ * Remove tags from a contact
+ */
+export async function removeGHLContactTags(
+  contactId: string,
+  tags: string[]
+): Promise<{ success: boolean; error?: string }> {
+  if (!ENV.ghlApiKey) {
+    return { success: false, error: "GHL credentials not configured" };
+  }
+
+  try {
+    const response = await fetch(`${GHL_API_BASE}/contacts/${contactId}/tags`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${ENV.ghlApiKey}`,
+        Version: GHL_API_VERSION,
+      },
+      body: JSON.stringify({ tags }),
+    });
+
+    if (!response.ok) {
+      return { success: false, error: `Remove tags failed: ${response.status}` };
+    }
+
+    return { success: true };
+  } catch (error) {
+    console.error("[GHL] Error removing tags:", error);
+    return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
+  }
+}
+
+/**
+ * Add a note to a contact
+ */
+export async function addGHLContactNote(
+  contactId: string,
+  body: string
+): Promise<{ success: boolean; noteId?: string; error?: string }> {
+  if (!ENV.ghlApiKey) {
+    return { success: false, error: "GHL credentials not configured" };
+  }
+
+  try {
+    const response = await fetch(`${GHL_API_BASE}/contacts/${contactId}/notes`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${ENV.ghlApiKey}`,
+        Version: GHL_API_VERSION,
+      },
+      body: JSON.stringify({ body, userId: "system" }),
+    });
+
+    if (!response.ok) {
+      return { success: false, error: `Add note failed: ${response.status}` };
+    }
+
+    const data = await response.json();
+    return { success: true, noteId: data.note?.id };
+  } catch (error) {
+    console.error("[GHL] Error adding note:", error);
+    return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
+  }
+}
+
+/**
+ * Get notes for a contact
+ */
+export async function getGHLContactNotes(
+  contactId: string
+): Promise<{ success: boolean; notes?: any[]; error?: string }> {
+  if (!ENV.ghlApiKey) {
+    return { success: false, error: "GHL credentials not configured" };
+  }
+
+  try {
+    const response = await fetch(`${GHL_API_BASE}/contacts/${contactId}/notes`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${ENV.ghlApiKey}`,
+        Version: GHL_API_VERSION,
+      },
+    });
+
+    if (!response.ok) {
+      return { success: false, error: `Get notes failed: ${response.status}` };
+    }
+
+    const data = await response.json();
+    return { success: true, notes: data.notes || [] };
+  } catch (error) {
+    console.error("[GHL] Error getting notes:", error);
+    return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
+  }
+}
+
+/**
+ * List contacts with optional filters
+ */
+export async function listGHLContacts(opts?: {
+  limit?: number;
+  offset?: number;
+  query?: string;
+  tag?: string;
+}): Promise<{ success: boolean; contacts?: any[]; total?: number; error?: string }> {
+  if (!ENV.ghlApiKey || !ENV.ghlLocationId) {
+    return { success: false, error: "GHL credentials not configured" };
+  }
+
+  const params = new URLSearchParams({
+    locationId: ENV.ghlLocationId,
+  });
+  if (opts?.limit) params.set("limit", opts.limit.toString());
+  if (opts?.offset) params.set("skip", opts.offset.toString());
+  if (opts?.query) params.set("query", opts.query);
+
+  try {
+    const response = await fetch(`${GHL_API_BASE}/contacts/?${params.toString()}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${ENV.ghlApiKey}`,
+        Version: GHL_API_VERSION,
+      },
+    });
+
+    if (!response.ok) {
+      return { success: false, error: `List contacts failed: ${response.status}` };
+    }
+
+    const data = await response.json();
+    let contacts = data.contacts || [];
+
+    // Client-side tag filtering if needed
+    if (opts?.tag) {
+      contacts = contacts.filter((c: any) => c.tags?.includes(opts.tag));
+    }
+
+    return { success: true, contacts, total: data.meta?.total || contacts.length };
+  } catch (error) {
+    console.error("[GHL] Error listing contacts:", error);
+    return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
+  }
+}
+
+/**
+ * Trigger a GHL workflow for a contact
+ */
+export async function triggerGHLWorkflow(
+  workflowId: string,
+  contactId: string
+): Promise<{ success: boolean; error?: string }> {
+  if (!ENV.ghlApiKey) {
+    return { success: false, error: "GHL credentials not configured" };
+  }
+
+  try {
+    const response = await fetch(`${GHL_API_BASE}/contacts/${contactId}/workflow/${workflowId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${ENV.ghlApiKey}`,
+        Version: GHL_API_VERSION,
+      },
+      body: JSON.stringify({ eventStartTime: new Date().toISOString() }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text().catch(() => "");
+      return { success: false, error: `Trigger workflow failed: ${response.status} ${errorText}` };
+    }
+
+    return { success: true };
+  } catch (error) {
+    console.error("[GHL] Error triggering workflow:", error);
+    return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
+  }
+}
+
+/**
  * Search for an existing contact by email in GoHighLevel
  */
 export async function searchGHLContact(

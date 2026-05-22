@@ -2444,3 +2444,15 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Build GHLCommentManager admin UI component with setup guide + live data tabs
 - [x] Write tests for GHL conversations module (10 tests passing)
 - [x] Test and checkpoint
+
+## GHL Full Integration (Social Planner, Contacts, Workflows)
+- [ ] Build GHL Social Planner API module (get accounts, create/schedule posts)
+- [ ] Build Social Planner UI in admin (compose post, schedule, select FB/IG accounts)
+- [ ] Connect existing Social Drafts to publish via GHL Social Planner API
+- [ ] Enhance contact management (add/remove tags, add notes, view timeline)
+- [ ] Build contact segmentation view (filter by tags, source, activity)
+- [ ] Add workflow trigger API (trigger GHL workflows from NLF events)
+- [ ] Auto-trigger workflows on new subscriber, purchase, loyalty signup
+- [ ] Build unified GHL dashboard tab in admin panel
+- [ ] Write tests for GHL Social Planner and contact management
+- [ ] Checkpoint and deliver
