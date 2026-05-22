@@ -10,7 +10,6 @@ import { registerEbayDeletionEndpoint } from "../ebay-deletion";
 import { registerSitemapRoute } from "../sitemap";
 import { registerScheduledPublishRoute } from "../scheduled-publish";
 import { registerCardShowsScheduledRoute } from "../scheduled-card-shows";
-import { registerCommentCheckRoute } from "../scheduled-comment-check";
 import { appRouter } from "../routers";
 import { startBlogScheduler } from "../blog-scheduler";
 import { createContext } from "./context";
@@ -54,7 +53,6 @@ async function startServer() {
   // Scheduled task endpoints
   registerScheduledPublishRoute(app);
   registerCardShowsScheduledRoute(app);
-  registerCommentCheckRoute(app);
   // tRPC API
   app.use(
     "/api/trpc",

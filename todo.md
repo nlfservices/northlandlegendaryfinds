@@ -2434,3 +2434,9 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Create /api/scheduled/check-comments endpoint for heartbeat
 - [x] Write vitest tests for comment reply system (all 335 tests pass)
 - [x] Set up heartbeat schedule for periodic comment checking
+
+## GHL Facebook Comment Automation (replacing custom system)
+- [ ] Remove custom comment reply system (schema, router, UI, scheduled endpoint)
+- [ ] Research GHL API for Facebook comment automation
+- [ ] Implement GHL-based comment automation integration
+- [ ] Test and checkpoint

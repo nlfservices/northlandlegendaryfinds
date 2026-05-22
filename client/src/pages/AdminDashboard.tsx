@@ -36,7 +36,6 @@ import BlogManager from "@/components/BlogManager";
 import PageContentManager from "@/components/PageContentManager";
 import SocialPostGenerator from "@/components/admin/SocialPostGenerator";
 import SocialDraftsManager from "@/components/admin/SocialDraftsManager";
-import CommentRepliesManager from "@/components/admin/CommentRepliesManager";
 import TokenExpirationAlert from "@/components/admin/TokenExpirationAlert";
 import AdminAffiliateLinks from "@/pages/AdminAffiliateLinks";
 
@@ -1674,9 +1673,6 @@ export default function AdminDashboard() {
           <TabsContent value="social">
             <div className="space-y-8">
               <SocialDraftsManager />
-              <div className="border-t border-border pt-8">
-                <CommentRepliesManager />
-              </div>
               <div className="border-t border-border pt-8">
                 <h3 className="text-lg font-semibold mb-4 text-muted-foreground">Legacy Post Generator (Single Article)</h3>
                 <SocialPostGenerator />

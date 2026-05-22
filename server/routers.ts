@@ -19,7 +19,6 @@ import { metaCapiRouter } from "./routers/metaCapi";
 import { affiliateAdminRouter, affiliatePublicRouter } from "./routers/affiliateLinks";
 import { mcuMediaPublicRouter, mcuMediaAdminRouter } from "./routers/mcuMedia";
 import { socialDraftsRouter } from "./routers/socialDrafts";
-import { commentRepliesRouter } from "./routers/commentReplies";
 
 export const appRouter = router({
   system: systemRouter,
@@ -109,8 +108,6 @@ export const appRouter = router({
   // Social Drafts (admin - AI content + image generation pipeline)
   socialDrafts: socialDraftsRouter,
 
-  // Comment Replies (admin - automated Facebook comment reply system)
-  commentReplies: commentRepliesRouter,
 });
 
 export type AppRouter = typeof appRouter;
