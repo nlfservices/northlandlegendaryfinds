@@ -2399,3 +2399,15 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Post Fallen Son Part 1 to Facebook and Instagram
 - [x] Post all 10 VS battle articles to Facebook and Instagram (with first comments)
 - [x] Movies & Series page: show newest movies/series at top, reverse chronological order
+
+## Facebook Drafts Dashboard (Admin)
+- [x] Add social_posts tracking table (article_id, fb_post_id, ig_media_id, posted_at, post_content, image_url)
+- [x] Build tRPC routes for social post status tracking and publishing
+- [x] Build AI image generation for social media posts (custom graphics per article)
+- [x] Build AI post content generation (caption, hashtags, first comment)
+- [x] Build Facebook Drafts tab in admin dashboard (Social Media tab)
+- [x] Show articles not yet posted to FB/IG with generated image preview
+- [x] Add one-click publish to FB and IG from dashboard
+- [x] Add first comment field for each post
+- [x] Add regenerate image/content buttons
+- [x] Show post history (already posted articles with links)

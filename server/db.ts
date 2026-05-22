@@ -17,6 +17,7 @@ import {
   siteSettings, SiteSetting, InsertSiteSetting,
   pageContent, PageContent, InsertPageContent,
   articleVotes, ArticleVote, InsertArticleVote,
+  socialPostDrafts, SocialPostDraft, InsertSocialPostDraft,
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -1750,4 +1751,67 @@ export async function getAllArticleVoteSummaries(): Promise<Array<{
     const topReaction = Object.entries(counts).sort((a, b) => b[1] - a[1])[0]?.[0] || "loved";
     return { articleId: Number(articleId), totalVotes: total, topReaction, counts };
   }).sort((a, b) => b.totalVotes - a.totalVotes);
+}
+
+
+// ==================== SOCIAL POST DRAFTS ====================
+
+/** Get all social post drafts with article info */
+export async function getSocialPostDrafts(): Promise<SocialPostDraft[]> {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(socialPostDrafts).orderBy(desc(socialPostDrafts.createdAt));
+}
+
+/** Get social post draft by article ID */
+export async function getSocialPostDraftByArticleId(articleId: number): Promise<SocialPostDraft | null> {
+  const db = await getDb();
+  if (!db) return null;
+  const result = await db.select().from(socialPostDrafts).where(eq(socialPostDrafts.articleId, articleId)).limit(1);
+  return result[0] ?? null;
+}
+
+/** Get articles that don't have social post drafts yet */
+export async function getArticlesWithoutSocialPosts(): Promise<Article[]> {
+  const db = await getDb();
+  if (!db) return [];
+  const allPublished = await db.select().from(articles)
+    .where(eq(articles.isPublished, true))
+    .orderBy(desc(articles.publishedAt));
+  
+  const draftsWithArticleIds = await db.select({ articleId: socialPostDrafts.articleId }).from(socialPostDrafts);
+  const postedArticleIds = new Set(draftsWithArticleIds.map(d => d.articleId));
+  
+  return allPublished.filter(a => !postedArticleIds.has(a.id));
+}
+
+/** Create a social post draft */
+export async function createSocialPostDraft(data: InsertSocialPostDraft): Promise<number> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const result = await db.insert(socialPostDrafts).values(data);
+  return result[0].insertId;
+}
+
+/** Update a social post draft */
+export async function updateSocialPostDraft(id: number, data: Partial<InsertSocialPostDraft>): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  await db.update(socialPostDrafts).set(data).where(eq(socialPostDrafts.id, id));
+}
+
+/** Delete a social post draft */
+export async function deleteSocialPostDraft(id: number): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  await db.delete(socialPostDrafts).where(eq(socialPostDrafts.id, id));
+}
+
+/** Get published social posts (status = 'published') */
+export async function getPublishedSocialPosts(): Promise<SocialPostDraft[]> {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(socialPostDrafts)
+    .where(eq(socialPostDrafts.status, "published"))
+    .orderBy(desc(socialPostDrafts.publishedAt));
 }

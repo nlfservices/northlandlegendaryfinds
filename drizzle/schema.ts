@@ -1048,3 +1048,40 @@ export const mcuMedia = mysqlTable("mcu_media", {
 });
 export type McuMedia = typeof mcuMedia.$inferSelect;
 export type InsertMcuMedia = typeof mcuMedia.$inferInsert;
+
+
+/**
+ * Social media post drafts - tracks generated posts for articles
+ * Stores AI-generated content, images, and publishing status
+ */
+export const socialPostDrafts = mysqlTable("social_post_drafts", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Reference to the article this post is for */
+  articleId: int("articleId").notNull(),
+  /** Generated Facebook post content */
+  fbPostContent: text("fbPostContent"),
+  /** Generated Instagram caption */
+  igCaption: text("igCaption"),
+  /** First comment text for engagement */
+  firstComment: text("firstComment"),
+  /** AI-generated image URL for the post */
+  generatedImageUrl: text("generatedImageUrl"),
+  /** Image generation prompt used */
+  imagePrompt: text("imagePrompt"),
+  /** Tone used for generation */
+  tone: varchar("tone", { length: 50 }).default("hype"),
+  /** Publishing status */
+  status: mysqlEnum("socialPostStatus", ["draft", "ready", "published", "failed"]).notNull().default("draft"),
+  /** Facebook post ID after publishing */
+  fbPostId: varchar("fbPostId", { length: 255 }),
+  /** Instagram media ID after publishing */
+  igMediaId: varchar("igMediaId", { length: 255 }),
+  /** Facebook comment ID after posting first comment */
+  fbCommentId: varchar("fbCommentId", { length: 255 }),
+  /** When the post was published */
+  publishedAt: timestamp("publishedAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+export type SocialPostDraft = typeof socialPostDrafts.$inferSelect;
+export type InsertSocialPostDraft = typeof socialPostDrafts.$inferInsert;
