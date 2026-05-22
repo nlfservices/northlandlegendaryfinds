@@ -334,6 +334,84 @@ export async function getRecentPosts(limit: number = 10): Promise<{
 }
 
 /**
+ * Get comments on a specific Facebook post
+ * Returns comments with commenter info and timestamps
+ */
+export async function getPostComments(postId: string, limit: number = 100): Promise<{
+  success: boolean;
+  comments?: Array<{
+    id: string;
+    from: { name: string; id: string };
+    message: string;
+    created_time: string;
+  }>;
+  error?: string;
+}> {
+  const token = getPageToken();
+  if (!token) {
+    return { success: false, error: "No page token configured" };
+  }
+
+  try {
+    const response = await fetch(
+      `${GRAPH_URL}/${postId}/comments?fields=id,from,message,created_time&limit=${limit}&access_token=${token}`,
+      { method: "GET" }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      return { success: false, error: result.error?.message || `HTTP ${response.status}` };
+    }
+
+    return { success: true, comments: result.data || [] };
+  } catch (err: any) {
+    return { success: false, error: err.message };
+  }
+}
+
+/**
+ * Reply to a comment on a Facebook post (as the Page)
+ */
+export async function replyToComment(commentId: string, message: string): Promise<{
+  success: boolean;
+  replyId?: string;
+  error?: string;
+}> {
+  const token = getPageToken();
+  if (!token) {
+    return { success: false, error: "No page token configured" };
+  }
+
+  try {
+    const response = await fetch(
+      `${GRAPH_URL}/${commentId}/comments`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message,
+          access_token: token,
+        }),
+      }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      console.error("[Facebook API] Reply error:", JSON.stringify(result));
+      return { success: false, error: result.error?.message || `HTTP ${response.status}` };
+    }
+
+    console.log(`[Facebook API] Reply posted: ${result.id}`);
+    return { success: true, replyId: result.id };
+  } catch (err: any) {
+    console.error("[Facebook API] Reply network error:", err.message);
+    return { success: false, error: err.message };
+  }
+}
+
+/**
  * Get recent Instagram posts
  */
 export async function getRecentInstagramPosts(limit: number = 10): Promise<{

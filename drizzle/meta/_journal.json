@@ -232,6 +232,13 @@
       "when": 1779428569329,
       "tag": "0032_sudden_tigra",
       "breakpoints": true
+    },
+    {
+      "idx": 33,
+      "version": "5",
+      "when": 1779461470527,
+      "tag": "0033_steep_victor_mancha",
+      "breakpoints": true
     }
   ]
 }

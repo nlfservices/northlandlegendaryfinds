@@ -2411,3 +2411,17 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add first comment field for each post
 - [x] Add regenerate image/content buttons
 - [x] Show post history (already posted articles with links)
+
+## Automated Facebook Comment Reply System
+- [ ] Add facebook_comment_replies table to schema (postId, commentId, commenterName, commentText, generatedReply, status, repliedAt)
+- [ ] Add DB helper functions for comment replies CRUD
+- [ ] Add getPostComments and replyToComment to facebook-api.ts
+- [ ] Build commentReplies tRPC router (fetchNewComments, generateReply, approve, reject, sendReply)
+- [ ] Build AI reply generation (casual, community-focused, on-brand NLF voice)
+- [ ] Build CommentRepliesManager admin UI (Comments tab in Social section)
+- [ ] Show original comment + generated reply + approve/reject/edit buttons
+- [ ] Post approved replies via Facebook Graph API
+- [ ] Set up heartbeat job to check for new comments every 4 hours
+- [ ] Only engage with comments from last 7 days
+- [ ] Skip spam/emoji-only/single-word/page's own comments
+- [ ] Write vitest tests for comment replies

@@ -1085,3 +1085,35 @@ export const socialPostDrafts = mysqlTable("social_post_drafts", {
 });
 export type SocialPostDraft = typeof socialPostDrafts.$inferSelect;
 export type InsertSocialPostDraft = typeof socialPostDrafts.$inferInsert;
+
+/**
+ * Facebook comment replies — tracks comments seen on page posts,
+ * AI-generated reply drafts, and approval/sending status.
+ */
+export const facebookCommentReplies = mysqlTable("facebook_comment_replies", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Facebook post ID this comment belongs to */
+  postId: varchar("postId", { length: 255 }).notNull(),
+  /** Facebook comment ID */
+  commentId: varchar("commentId", { length: 255 }).notNull().unique(),
+  /** Name of the person who commented */
+  commenterName: varchar("commenterName", { length: 255 }).notNull(),
+  /** Original comment text */
+  commentText: text("commentText").notNull(),
+  /** When the comment was posted on Facebook */
+  commentedAt: timestamp("commentedAt"),
+  /** AI-generated reply text */
+  generatedReply: text("generatedReply"),
+  /** Approval status */
+  status: mysqlEnum("commentReplyStatus", ["pending", "approved", "rejected", "sent", "skipped"]).notNull().default("pending"),
+  /** When the reply was actually posted to Facebook */
+  repliedAt: timestamp("repliedAt"),
+  /** Facebook reply comment ID after posting */
+  replyCommentId: varchar("replyCommentId", { length: 255 }),
+  /** Optional note about why it was skipped/rejected */
+  note: text("note"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+export type FacebookCommentReply = typeof facebookCommentReplies.$inferSelect;
+export type InsertFacebookCommentReply = typeof facebookCommentReplies.$inferInsert;

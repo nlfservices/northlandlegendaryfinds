@@ -1,4 +1,4 @@
-import { eq, desc, asc, and, sql } from "drizzle-orm";
+import { eq, desc, asc, and, sql, inArray, gte } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import {
   InsertUser, users,
@@ -18,6 +18,7 @@ import {
   pageContent, PageContent, InsertPageContent,
   articleVotes, ArticleVote, InsertArticleVote,
   socialPostDrafts, SocialPostDraft, InsertSocialPostDraft,
+  facebookCommentReplies, FacebookCommentReply, InsertFacebookCommentReply,
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -1814,4 +1815,64 @@ export async function getPublishedSocialPosts(): Promise<SocialPostDraft[]> {
   return db.select().from(socialPostDrafts)
     .where(eq(socialPostDrafts.status, "published"))
     .orderBy(desc(socialPostDrafts.publishedAt));
+}
+
+// ==================== FACEBOOK COMMENT REPLIES ====================
+
+export async function getCommentReplies(status?: string): Promise<FacebookCommentReply[]> {
+  const db = await getDb();
+  if (!db) return [];
+  if (status && status !== "all") {
+    return db.select().from(facebookCommentReplies)
+      .where(eq(facebookCommentReplies.status, status as any))
+      .orderBy(desc(facebookCommentReplies.createdAt));
+  }
+  return db.select().from(facebookCommentReplies)
+    .orderBy(desc(facebookCommentReplies.createdAt));
+}
+
+export async function getCommentReplyByCommentId(commentId: string): Promise<FacebookCommentReply | null> {
+  const db = await getDb();
+  if (!db) return null;
+  const result = await db.select().from(facebookCommentReplies)
+    .where(eq(facebookCommentReplies.commentId, commentId)).limit(1);
+  return result[0] || null;
+}
+
+export async function createCommentReply(data: InsertFacebookCommentReply): Promise<number> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const result = await db.insert(facebookCommentReplies).values(data);
+  return result[0].insertId;
+}
+
+export async function updateCommentReply(id: number, data: Partial<InsertFacebookCommentReply>): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  await db.update(facebookCommentReplies).set(data).where(eq(facebookCommentReplies.id, id));
+}
+
+export async function getCommentRepliesByPostId(postId: string): Promise<FacebookCommentReply[]> {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(facebookCommentReplies)
+    .where(eq(facebookCommentReplies.postId, postId))
+    .orderBy(desc(facebookCommentReplies.createdAt));
+}
+
+export async function getPendingCommentReplies(): Promise<FacebookCommentReply[]> {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(facebookCommentReplies)
+    .where(inArray(facebookCommentReplies.status, ["pending", "approved"]))
+    .orderBy(desc(facebookCommentReplies.createdAt));
+}
+
+export async function getSentCommentReplies(limit = 50): Promise<FacebookCommentReply[]> {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(facebookCommentReplies)
+    .where(eq(facebookCommentReplies.status, "sent"))
+    .orderBy(desc(facebookCommentReplies.repliedAt))
+    .limit(limit);
 }
