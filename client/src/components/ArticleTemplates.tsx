@@ -738,7 +738,43 @@ export function DossierTemplate({ content, title, featuredImageUrl, tags, excerp
 // ============================================================
 export type ArticleTemplate = 'classic' | 'magazine' | 'spotlight' | 'timeline' | 'listicle' | 'patriotic' | 'cinematic' | 'dossier';
 
-export function getArticleTemplate(templateLayout: ArticleTemplate | null | undefined): ArticleTemplate {
+/**
+ * 7-template rotation order for MCU News articles.
+ * Cycles deterministically based on article ID so each article always gets the same template.
+ * Patriotic is excluded from rotation (reserved for special occasions like Memorial Day).
+ */
+const ROTATION_TEMPLATES: ArticleTemplate[] = [
+  'classic',    // position 0
+  'magazine',   // position 1
+  'spotlight',  // position 2
+  'timeline',   // position 3
+  'listicle',   // position 4
+  'cinematic',  // position 5
+  'dossier',    // position 6
+];
+
+/**
+ * Determines the article template to use.
+ * - If templateLayout is explicitly set to a non-default template (patriotic, cinematic, etc.), use it.
+ * - If articleId is provided, auto-rotate through 7 templates based on ID.
+ * - Patriotic is never auto-assigned (only manually set for special articles).
+ */
+export function getArticleTemplate(
+  templateLayout: ArticleTemplate | null | undefined,
+  articleId?: number
+): ArticleTemplate {
+  // If explicitly set to patriotic, always respect it (special occasion template)
+  if (templateLayout === 'patriotic') {
+    return 'patriotic';
+  }
+  
+  // If we have an article ID, auto-rotate through 7 templates
+  if (articleId) {
+    const index = (articleId - 1) % ROTATION_TEMPLATES.length;
+    return ROTATION_TEMPLATES[index];
+  }
+  
+  // Fallback for when no articleId is available
   return templateLayout || 'classic';
 }
 

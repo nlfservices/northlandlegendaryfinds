@@ -2360,3 +2360,42 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Build token expiration monitoring (check daily, persistent admin alert when <14 days to expiry)
 - [x] Build social media posting backend (tRPC procedures for Facebook Page + Instagram posting)
 - [x] Build admin dashboard UI for social posting with token expiration alert banner
+
+## Fallen Son 3-Part Article Series
+- [ ] Split long Fallen Son article into 3 parts (Denial/Anger, Bargaining/Depression, Acceptance/Funeral)
+- [ ] Add "Read the Comic" links on each part (Marvel Unlimited + eBay for specific issues)
+- [ ] Add next/prev part navigation between articles
+- [ ] Draft Facebook posts for each part (cliffhanger strategy to drive daily return visits)
+- [ ] Get user approval on Facebook post before publishing
+
+## Pedro Pascal Article (Mandalorian + Reed Richards)
+- [ ] Research Pedro Pascal, Mandalorian movie release, Reed Richards/Fantastic Four/Doctor Doom
+- [ ] Generate images (Fantastic Four ship, Razor Crest, Pedro Pascal themed)
+- [ ] Write full Pedro Pascal article with card market tie-ins and repack callout
+- [ ] Publish article to database
+- [ ] Add placeholder section for user's 1/1 Pedro Pascal Auto card photo
+- [ ] Draft Facebook post for user review
+
+## 7 Distinct Article Templates (May 22, 2026)
+- [ ] Read current article rendering code
+- [ ] Design Template 1: Full-width hero, pull quotes on side
+- [ ] Design Template 2: Side-by-side alternating image/text (Northland Fence style)
+- [ ] Design Template 3: Magazine-style with columns, drop caps, inset images
+- [ ] Design Template 4: Dark cinematic with full-bleed images and overlay text
+- [ ] Design Template 5: Card showcase focused — grid gallery with analysis blocks
+- [ ] Design Template 6: Timeline/story format — vertical progression with milestones
+- [ ] Design Template 7: Newsletter/editorial — clean, minimal, highlighted callout boxes
+- [ ] Implement template rotation logic (1-7 cycling based on article order)
+- [ ] Test with 10 VS battle articles
+- [ ] Verify each template looks distinct and professional
+- [ ] Save checkpoint
+
+## Template Rotation & Drafts Dashboard
+- [x] Implement 7-template auto-rotation for MCU News articles (classic→magazine→spotlight→timeline→listicle→cinematic→dossier)
+- [x] Update getArticleTemplate() to use article ID for deterministic rotation
+- [x] Update VS battle articles (1410001-1410010) to use rotating templates
+- [ ] Build Drafts dashboard page for article management
+- [ ] Add drafts route to admin navigation
+- [x] Post Fallen Son Part 1 to Facebook and Instagram
+- [x] Post all 10 VS battle articles to Facebook and Instagram (with first comments)
+- [x] Movies & Series page: show newest movies/series at top, reverse chronological order

@@ -145,8 +145,17 @@ export default function MCUMediaHub() {
       groups[phase].push(item);
     });
     return Object.entries(groups)
-      .sort(([a], [b]) => Number(a) - Number(b))
-      .map(([phase, items]) => ({ phase: Number(phase), items }));
+      .sort(([a], [b]) => Number(b) - Number(a))
+      .map(([phase, phaseItems]) => ({
+        phase: Number(phase),
+        items: phaseItems.sort((a, b) => {
+          // Within each phase, sort by releaseOrder descending (newest first)
+          if (a.releaseOrder && b.releaseOrder) return b.releaseOrder - a.releaseOrder;
+          // Fallback to release date descending
+          if (a.releaseDate && b.releaseDate) return b.releaseDate.localeCompare(a.releaseDate);
+          return 0;
+        }),
+      }));
   }, [items]);
 
   return (

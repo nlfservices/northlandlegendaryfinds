@@ -308,7 +308,7 @@ export default function MCUNewsArticle() {
       />
 
       {/* Back nav — hidden for patriotic template (it has its own full-width layout) */}
-      {getArticleTemplate(article.templateLayout as ArticleTemplate | null) !== 'patriotic' && (
+      {getArticleTemplate(article.templateLayout as ArticleTemplate | null, article.id) !== 'patriotic' && (
         <div className="border-b border-border bg-card/30">
           <div className="container max-w-4xl py-3">
             <Link href="/mcu-news" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors">
@@ -317,9 +317,9 @@ export default function MCUNewsArticle() {
         </div>
       )}
 
-      <article className={getArticleTemplate(article.templateLayout as ArticleTemplate | null) === 'patriotic' ? 'py-0' : 'container max-w-4xl py-8 lg:py-12'}>
+      <article className={getArticleTemplate(article.templateLayout as ArticleTemplate | null, article.id) === 'patriotic' ? 'py-0' : 'container max-w-4xl py-8 lg:py-12'}>
         {/* Header — patriotic template renders its own header inside the template */}
-        {getArticleTemplate(article.templateLayout as ArticleTemplate | null) !== 'patriotic' && (
+        {getArticleTemplate(article.templateLayout as ArticleTemplate | null, article.id) !== 'patriotic' && (
         <header className="mb-8">
           <div className="flex items-center gap-3 mb-4">
             <span className={`inline-block px-3 py-1 text-xs font-bold rounded-full border ${CATEGORY_COLORS[article.category] || CATEGORY_COLORS.movie_news}`}>
@@ -365,7 +365,7 @@ export default function MCUNewsArticle() {
 
 
         {/* Featured Image — only for Classic template; other templates render their own hero */}
-        {article.featuredImageUrl && getArticleTemplate(article.templateLayout as ArticleTemplate | null) === 'classic' && (
+        {article.featuredImageUrl && getArticleTemplate(article.templateLayout as ArticleTemplate | null, article.id) === 'classic' && (
           <div className="rounded-xl overflow-hidden mb-8 border border-border">
             <img
               src={article.featuredImageUrl}
@@ -377,7 +377,7 @@ export default function MCUNewsArticle() {
 
 
         {/* Top Share Buttons — below featured image, above article content */}
-        {getArticleTemplate(article.templateLayout as ArticleTemplate | null) === 'classic' && (
+        {getArticleTemplate(article.templateLayout as ArticleTemplate | null, article.id) === 'classic' && (
           <div className="mb-6 border-b border-border pb-4">
             <ShareButtons
               url={typeof window !== 'undefined' ? window.location.href : ''}
@@ -389,7 +389,7 @@ export default function MCUNewsArticle() {
 
         {/* Article Content — Template-based rendering */}
         {(() => {
-          const template = getArticleTemplate(article.templateLayout as ArticleTemplate | null);
+          const template = getArticleTemplate(article.templateLayout as ArticleTemplate | null, article.id);
           if (template === 'classic') {
             // Classic uses the existing banner-split layout
             return <ArticleContentWithBanner content={article.contentMarkdown} />;
@@ -412,7 +412,7 @@ export default function MCUNewsArticle() {
 
         {/* Bottom Share Buttons — after article content, before Collector's Corner */}
         {/* Patriotic template already has its own share buttons inside the template */}
-        {getArticleTemplate(article.templateLayout as ArticleTemplate | null) !== 'patriotic' && (
+        {getArticleTemplate(article.templateLayout as ArticleTemplate | null, article.id) !== 'patriotic' && (
           <div className="mb-6 border-t border-border pt-4">
             <ShareButtons
               url={typeof window !== 'undefined' ? window.location.href : ''}
@@ -423,7 +423,7 @@ export default function MCUNewsArticle() {
         )}
 
         {/* Collector's Corner and CTAs — wrapped in container for patriotic template */}
-        <div className={getArticleTemplate(article.templateLayout as ArticleTemplate | null) === 'patriotic' ? 'container max-w-4xl px-4 sm:px-6' : ''}>
+        <div className={getArticleTemplate(article.templateLayout as ArticleTemplate | null, article.id) === 'patriotic' ? 'container max-w-4xl px-4 sm:px-6' : ''}>
         <CollectorsCorner
           articleId={article.id}
           tags={tags}
