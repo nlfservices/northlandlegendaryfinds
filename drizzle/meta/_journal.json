@@ -225,6 +225,13 @@
       "when": 1779425219222,
       "tag": "0031_redundant_silver_fox",
       "breakpoints": true
+    },
+    {
+      "idx": 32,
+      "version": "5",
+      "when": 1779428569329,
+      "tag": "0032_sudden_tigra",
+      "breakpoints": true
     }
   ]
 }

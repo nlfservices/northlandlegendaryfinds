@@ -1070,8 +1070,8 @@ export const socialPostDrafts = mysqlTable("social_post_drafts", {
   imagePrompt: text("imagePrompt"),
   /** Tone used for generation */
   tone: varchar("tone", { length: 50 }).default("hype"),
-  /** Publishing status */
-  status: mysqlEnum("socialPostStatus", ["draft", "ready", "published", "failed"]).notNull().default("draft"),
+  /** Publishing status: draft -> ready -> approved -> published */
+  status: mysqlEnum("socialPostStatus", ["draft", "ready", "approved", "published", "failed"]).notNull().default("draft"),
   /** Facebook post ID after publishing */
   fbPostId: varchar("fbPostId", { length: 255 }),
   /** Instagram media ID after publishing */

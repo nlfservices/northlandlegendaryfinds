@@ -11,7 +11,6 @@ import {
   Instagram,
   ImagePlus,
   RefreshCw,
-  Send,
   Trash2,
   Sparkles,
   Loader2,
@@ -74,19 +73,8 @@ export default function SocialDraftsManager() {
     onError: (err) => toast.error(err.message),
   });
 
-  const publishDraft = trpc.socialDrafts.publishDraft.useMutation({
-    onSuccess: (data) => {
-      if (data.success) {
-        toast.success("Published to social media!");
-      } else {
-        toast.error(`Partial publish: ${data.errors?.join(", ")}`);
-      }
-      drafts.refetch();
-      publishedHistory.refetch();
-      unpostedArticles.refetch();
-    },
-    onError: (err) => toast.error(err.message),
-  });
+  // Publishing is done by the assistant (not from the dashboard directly)
+  // The dashboard is a staging/review area only
 
   const deleteDraft = trpc.socialDrafts.deleteDraft.useMutation({
     onSuccess: () => {
@@ -247,19 +235,22 @@ export default function SocialDraftsManager() {
             >
               <CardHeader className="pb-3">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <CardTitle className="text-sm">Article #{draft.articleId}</CardTitle>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <CardTitle className="text-sm">{draft.articleTitle || `Article #${draft.articleId}`}</CardTitle>
                     <Badge
                       variant="outline"
                       className={
-                        draft.status === "ready"
+                        draft.status === "approved"
                           ? "border-green-500/30 text-green-400"
+                          : draft.status === "ready"
+                          ? "border-blue-500/30 text-blue-400"
                           : draft.status === "failed"
                           ? "border-red-500/30 text-red-400"
                           : "border-amber-500/30 text-amber-400"
                       }
                     >
-                      {draft.status === "ready" && <CheckCircle2 className="w-3 h-3 mr-1" />}
+                      {draft.status === "approved" && <CheckCircle2 className="w-3 h-3 mr-1" />}
+                      {draft.status === "ready" && <Eye className="w-3 h-3 mr-1" />}
                       {draft.status === "failed" && <AlertCircle className="w-3 h-3 mr-1" />}
                       {draft.status}
                     </Badge>
@@ -444,25 +435,29 @@ export default function SocialDraftsManager() {
                         )}
                         Regen Content
                       </Button>
-                      <Button
-                        size="sm"
-                        onClick={() =>
-                          publishDraft.mutate({
-                            draftId: draft.id,
-                            publishFb: true,
-                            publishIg: true,
-                          })
-                        }
-                        disabled={publishDraft.isPending}
-                        className="gap-1.5 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
-                      >
-                        {publishDraft.isPending ? (
-                          <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                        ) : (
-                          <Send className="w-3.5 h-3.5" />
-                        )}
-                        Publish FB + IG
-                      </Button>
+                      {draft.status === "approved" ? (
+                        <Badge className="gap-1.5 bg-green-600/20 text-green-400 border-green-500/30">
+                          <CheckCircle2 className="w-3.5 h-3.5" />
+                          Approved — Ready to Publish
+                        </Badge>
+                      ) : (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => {
+                            updateDraft.mutate({
+                              draftId: draft.id,
+                              status: "approved",
+                            });
+                            toast.success("Draft approved! Tell your assistant to publish when ready.");
+                          }}
+                          disabled={updateDraft.isPending}
+                          className="gap-1.5 border-green-500/30 text-green-400 hover:bg-green-500/10"
+                        >
+                          <CheckCircle2 className="w-3.5 h-3.5" />
+                          Approve
+                        </Button>
+                      )}
                       <Button
                         size="sm"
                         variant="destructive"
@@ -504,7 +499,7 @@ export default function SocialDraftsManager() {
                     />
                   )}
                   <div className="flex-1 min-w-0">
-                    <h4 className="font-semibold text-sm">Article #{draft.articleId}</h4>
+                    <h4 className="font-semibold text-sm">{draft.articleTitle || `Article #${draft.articleId}`}</h4>
                     <div className="flex items-center gap-2 mt-1">
                       {draft.fbPostId && (
                         <Badge

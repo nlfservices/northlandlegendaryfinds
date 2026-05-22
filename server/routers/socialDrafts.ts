@@ -46,11 +46,23 @@ export const socialDraftsRouter = router({
    * Get all drafts (pending + published)
    */
   listDrafts: adminProcedure
-    .input(z.object({ status: z.enum(["all", "draft", "ready", "published", "failed"]).default("all") }))
+    .input(z.object({ status: z.enum(["all", "draft", "ready", "approved", "published", "failed"]).default("all") }))
     .query(async ({ input }) => {
       const drafts = await getSocialPostDrafts();
-      if (input.status === "all") return drafts;
-      return drafts.filter((d) => d.status === input.status);
+      // Enrich drafts with article titles
+      const enrichedDrafts = await Promise.all(
+        drafts.map(async (d) => {
+          const article = await getArticleById(d.articleId);
+          return {
+            ...d,
+            articleTitle: article?.title || `Article #${d.articleId}`,
+            articleSlug: article?.slug || "",
+            articleFeaturedImage: article?.featuredImageUrl || "",
+          };
+        })
+      );
+      if (input.status === "all") return enrichedDrafts;
+      return enrichedDrafts.filter((d) => d.status === input.status);
     }),
 
   /**
@@ -301,6 +313,7 @@ Return ONLY the JSON.`;
       fbPostContent: z.string().optional(),
       igCaption: z.string().optional(),
       firstComment: z.string().optional(),
+      status: z.enum(["draft", "ready", "approved", "published", "failed"]).optional(),
     }))
     .mutation(async ({ input }) => {
       const { draftId, ...data } = input;
@@ -419,6 +432,18 @@ Return ONLY the JSON.`;
    * Get published post history
    */
   publishedHistory: adminProcedure.query(async () => {
-    return await getPublishedSocialPosts();
+    const published = await getPublishedSocialPosts();
+    // Enrich with article titles
+    const enriched = await Promise.all(
+      published.map(async (d) => {
+        const article = await getArticleById(d.articleId);
+        return {
+          ...d,
+          articleTitle: article?.title || `Article #${d.articleId}`,
+          articleSlug: article?.slug || "",
+        };
+      })
+    );
+    return enriched;
   }),
 });
