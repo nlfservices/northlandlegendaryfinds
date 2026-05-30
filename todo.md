@@ -2456,3 +2456,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [ ] Build unified GHL dashboard tab in admin panel
 - [ ] Write tests for GHL Social Planner and contact management
 - [ ] Checkpoint and deliver
+
+- [ ] Redesign /shop page as Whatnot-exclusive repack showcase (no buy buttons)
+- [ ] Feature Infinity Series 1 with completed checklist link
+- [ ] Show Infinity Series 2 & 3 as "building now" / coming soon
+- [ ] Add June 7th Whatnot live show launch CTA
+- [ ] Remove all purchase/cart functionality from shop page
+- [ ] Add "All packs ripped live on Whatnot" messaging
