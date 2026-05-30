@@ -1,11 +1,11 @@
 /**
- * Navigation - Simplified collector-first nav with main items
- * Design: Announcement bar + sticky nav with logo, links, cart
+ * Navigation - Clean, modern collector-first nav
+ * Design: Slim announcement bar + sticky nav with logo, primary links, "More" dropdown, utilities
  */
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { ShoppingCart, Menu, X, Shuffle, User } from "lucide-react";
+import { ShoppingCart, Menu, X, Shuffle, User, ChevronDown } from "lucide-react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
@@ -17,36 +17,47 @@ import { toast } from "sonner";
 export default function Navigation() {
   const [location, setLocation] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
+  const moreRef = useRef<HTMLDivElement>(null);
 
   const [isRandomizing, setIsRandomizing] = useState(false);
   const { totalItems, setIsOpen: setCartOpen } = useCart();
   const utils = trpc.useUtils();
   const { user, isAuthenticated } = useAuth();
 
-
-  // Main nav items — clean and focused
-  const navItems = [
-    { path: "/mcu-news", label: "MCU News", highlight: "red" as const },
-    { path: "/characters", label: "Marvel Characters" },
-    { path: "/nerd-gossip", label: "Nerd Gossip", highlight: "purple" as const },
-    { path: "/checklists", label: "Cosmic Hits" },
-    { path: "/voting-grounds", label: "Voting Grounds", highlight: "voting" as const },
-    // { path: "/shop", label: "Shop Now" }, // Hidden until launch
-    { path: "/card-shows", label: "Events" },
-    { path: "/movies-series", label: "Movies & Series", highlight: "orange" as const },
-    // { path: "/the-little-things", label: "The Little Things", highlight: "green" as const }, // Hidden until content is built out
-    { path: "/about", label: "About" },
-    { path: "/faq", label: "FAQ" },
-    { path: "/cards", label: "Card Database" },
-    { path: "/whatnot", label: "Whatnot" },
-  ];
-
   // Keep these strings present for integrity check (searched as text in this file)
   // Nav: Card Shows, Card Database, Characters, Checklists, Shop, About, FAQ
 
+  // Primary nav items — always visible on desktop
+  const primaryItems = [
+    { path: "/mcu-news", label: "MCU News" },
+    { path: "/characters", label: "Characters" },
+    { path: "/cards", label: "Card Database" },
+    { path: "/movies-series", label: "Movies & Series" },
+    { path: "/whatnot", label: "Whatnot" },
+  ];
 
+  // Secondary nav items — in "More" dropdown on desktop, full list on mobile
+  const moreItems = [
+    { path: "/nerd-gossip", label: "Nerd Gossip" },
+    { path: "/checklists", label: "Cosmic Hits" },
+    { path: "/voting-grounds", label: "Voting Grounds" },
+    { path: "/card-shows", label: "Events" },
+    { path: "/shop", label: "Shop" },
+    { path: "/about", label: "About" },
+    { path: "/faq", label: "FAQ" },
+  ];
 
-
+  // Close dropdown on outside click
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (moreRef.current && !moreRef.current.contains(e.target as Node)) {
+        setMoreOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const handleRandomCard = useCallback(async () => {
     if (isRandomizing) return;
@@ -66,142 +77,119 @@ export default function Navigation() {
     }
   }, [isRandomizing, utils, setLocation]);
 
+  const isActive = (path: string) =>
+    location === path ||
+    (path === "/checklists" && location.startsWith("/checklists")) ||
+    (path === "/mcu-news" && location.startsWith("/mcu-news")) ||
+    (path === "/cards" && location.startsWith("/cards"));
+
   return (
     <>
       {/* Announcement Bar */}
-      <div className="bg-primary text-primary-foreground text-center py-2 px-4 text-sm font-bold tracking-wide">
+      <div className="bg-primary/90 text-primary-foreground text-center py-1.5 px-4 text-xs font-semibold tracking-wide">
         YOUR MARVEL COLLECTOR HUB — 1,709+ CARDS | MARKET INTEL | PREMIUM REPACKS
       </div>
 
       {/* Main Navigation */}
-      <nav className="sticky top-[30px] z-50 bg-background/95 backdrop-blur-md border-b border-border">
+      <nav className="sticky top-0 z-50 bg-background/98 backdrop-blur-md border-b border-border/50 shadow-sm">
         <div className="container">
-          <div className="flex items-center justify-between h-18">
+          <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 group flex-shrink-0">
+            <Link href="/" className="flex items-center gap-2.5 group flex-shrink-0">
               <img
                 src="/logo.png"
                 alt="NLF"
-                className="h-14 w-14 object-contain group-hover:scale-105 transition-transform"
+                className="h-11 w-11 object-contain group-hover:scale-105 transition-transform"
               />
               <div className="hidden sm:flex flex-col">
-                <span className="text-primary font-bold text-lg tracking-wider leading-tight" style={{ fontFamily: "'Anton', sans-serif" }}>
+                <span className="text-primary font-bold text-base tracking-wider leading-tight" style={{ fontFamily: "'Anton', sans-serif" }}>
                   NORTHLAND
                 </span>
-                <span className="text-muted-foreground text-[10px] tracking-widest uppercase -mt-0.5">
+                <span className="text-muted-foreground text-[9px] tracking-widest uppercase -mt-0.5">
                   Legendary Finds
                 </span>
               </div>
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-1">
-              {navItems.map((item) => {
-                const isActive = location === item.path ||
-                  (item.path === "/checklists" && location.startsWith("/checklists"));
-                // Special styling for MCU News tab — green border, blue text
-                if (item.path === "/mcu-news") {
-                  return (
-                    <Link key={item.path} href={item.path}>
-                      <button
-                        className="px-4 py-2 text-sm font-extrabold tracking-wide rounded-lg transition-all whitespace-nowrap border-2 border-green-500 text-blue-400 hover:bg-green-500/10 hover:text-blue-300 hover:border-green-400"
-                      >
-                        {item.label}
-                      </button>
-                    </Link>
-                  );
-                }
-                // Special styling for Voting Grounds tab — green border, red text
-                if (item.path === "/voting-grounds") {
-                  return (
-                    <Link key={item.path} href={item.path}>
-                      <button
-                        className="px-4 py-2 text-sm font-extrabold tracking-wide rounded-lg transition-all whitespace-nowrap border-2 border-green-500 text-red-500 hover:bg-green-500/10 hover:text-red-400 hover:border-green-400"
-                      >
-                        {item.label}
-                      </button>
-                    </Link>
-                  );
-                }
-                // Special styling for Nerd Gossip tab — green border, purple text
-                if (item.path === "/nerd-gossip") {
-                  return (
-                    <Link key={item.path} href={item.path}>
-                      <button
-                        className="px-4 py-2 text-sm font-extrabold tracking-wide rounded-lg transition-all whitespace-nowrap border-2 border-green-500 text-purple-400 hover:bg-green-500/10 hover:text-purple-300 hover:border-green-400"
-                      >
-                        {item.label}
-                      </button>
-                    </Link>
-                  );
-                }
-                // Special styling for Movies & Series tab — green border, orange text
-                if (item.path === "/movies-series") {
-                  return (
-                    <Link key={item.path} href={item.path}>
-                      <button
-                        className="px-4 py-2 text-sm font-extrabold tracking-wide rounded-lg transition-all whitespace-nowrap border-2 border-green-500 text-orange-400 hover:bg-green-500/10 hover:text-orange-300 hover:border-green-400"
-                      >
-                        {item.label}
-                      </button>
-                    </Link>
-                  );
-                }
-                // Special styling for Whatnot tab
-                if (item.path === "/whatnot") {
-                  return (
-                    <Link key={item.path} href={item.path}>
-                      <button
-                        className="px-4 py-2 text-sm font-extrabold tracking-wide rounded-lg transition-all whitespace-nowrap border-2 border-green-500 text-yellow-400 hover:bg-green-500/10 hover:text-yellow-300 hover:border-green-400"
-                      >
-                        {item.label}
-                      </button>
-                    </Link>
-                  );
-                }
-                return (
-                  <Link key={item.path} href={item.path}>
-                    <button
-                      className={`px-3 py-2 text-sm font-bold tracking-wide rounded-lg transition-all whitespace-nowrap ${
-                        isActive
-                          ? "text-primary bg-primary/10"
-                          : "text-foreground/80 hover:text-primary hover:bg-primary/5"
-                      }`}
-                    >
-                      {item.label}
-                    </button>
-                  </Link>
-                );
-              })}
+            <div className="hidden lg:flex items-center gap-0.5">
+              {primaryItems.map((item) => (
+                <Link key={item.path} href={item.path}>
+                  <button
+                    className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all whitespace-nowrap ${
+                      isActive(item.path)
+                        ? "text-primary bg-primary/10"
+                        : "text-foreground/75 hover:text-foreground hover:bg-muted/50"
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                </Link>
+              ))}
 
+              {/* More Dropdown */}
+              <div className="relative" ref={moreRef}>
+                <button
+                  onClick={() => setMoreOpen(!moreOpen)}
+                  className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all whitespace-nowrap flex items-center gap-1 ${
+                    moreOpen || moreItems.some((i) => isActive(i.path))
+                      ? "text-primary bg-primary/10"
+                      : "text-foreground/75 hover:text-foreground hover:bg-muted/50"
+                  }`}
+                >
+                  More
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform ${moreOpen ? "rotate-180" : ""}`} />
+                </button>
 
+                {moreOpen && (
+                  <div className="absolute top-full right-0 mt-1.5 w-48 bg-card border border-border rounded-lg shadow-xl py-1.5 z-50">
+                    {moreItems.map((item) => (
+                      <Link
+                        key={item.path}
+                        href={item.path}
+                        onClick={() => setMoreOpen(false)}
+                      >
+                        <div
+                          className={`px-4 py-2 text-sm font-medium transition-colors ${
+                            isActive(item.path)
+                              ? "text-primary bg-primary/10"
+                              : "text-foreground/80 hover:text-foreground hover:bg-muted/50"
+                          }`}
+                        >
+                          {item.label}
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
 
-            {/* Right Side */}
-            <div className="flex items-center gap-1">
+            {/* Right Side Utilities */}
+            <div className="flex items-center gap-0.5">
               {/* Random Card Button */}
               <button
                 onClick={handleRandomCard}
                 disabled={isRandomizing}
-                className="relative text-foreground/70 hover:text-primary transition-all p-2 group"
+                className="relative text-foreground/60 hover:text-primary transition-all p-2 rounded-md hover:bg-muted/50"
                 title="Random Card"
               >
-                <Shuffle className={`w-5 h-5 ${isRandomizing ? "animate-spin" : "group-hover:scale-110 transition-transform"}`} />
+                <Shuffle className={`w-4.5 h-4.5 ${isRandomizing ? "animate-spin" : ""}`} />
               </button>
 
               {/* Login / Account Button */}
               <Link href="/login">
                 <button
-                  className={`relative p-2 transition-all group ${
+                  className={`relative p-2 rounded-md transition-all ${
                     isAuthenticated
-                      ? "text-primary"
-                      : "text-foreground/70 hover:text-primary"
+                      ? "text-primary hover:bg-primary/10"
+                      : "text-foreground/60 hover:text-primary hover:bg-muted/50"
                   }`}
                   title={isAuthenticated ? `Signed in as ${user?.name || "Agent"}` : "Jarvis Protocol"}
                 >
-                  <User className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                  <User className="w-4.5 h-4.5" />
                   {isAuthenticated && (
-                    <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-background" />
+                    <span className="absolute top-1 right-1 w-2 h-2 bg-green-500 rounded-full border border-background" />
                   )}
                 </button>
               </Link>
@@ -209,11 +197,11 @@ export default function Navigation() {
               {/* Cart Button */}
               <button
                 onClick={() => setCartOpen(true)}
-                className="relative text-foreground hover:text-primary transition-colors p-2"
+                className="relative text-foreground/60 hover:text-primary transition-all p-2 rounded-md hover:bg-muted/50"
               >
-                <ShoppingCart className="w-6 h-6" />
+                <ShoppingCart className="w-4.5 h-4.5" />
                 {totalItems > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 bg-primary text-primary-foreground text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center animate-in zoom-in">
+                  <span className="absolute top-0.5 right-0.5 bg-primary text-primary-foreground text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
                     {totalItems}
                   </span>
                 )}
@@ -222,9 +210,9 @@ export default function Navigation() {
               {/* Mobile Menu Toggle */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden text-foreground hover:text-primary transition-colors p-2"
+                className="lg:hidden text-foreground/70 hover:text-foreground transition-colors p-2 rounded-md hover:bg-muted/50 ml-1"
               >
-                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
             </div>
           </div>
@@ -232,133 +220,81 @@ export default function Navigation() {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="lg:hidden border-t border-border bg-background">
-            <div className="container py-4 space-y-1">
-              {navItems.map((item) => {
-                const isActive = location === item.path;
-                // Special styling for MCU News tab in mobile — green border, blue text
-                if (item.path === "/mcu-news") {
-                  return (
-                    <Link
-                      key={item.path}
-                      href={item.path}
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <div
-                        className="px-4 py-3 rounded-lg font-extrabold tracking-wide transition-colors border-2 border-green-500 text-blue-400 hover:bg-green-500/10 hover:text-blue-300"
-                      >
-                        {item.label}
-                      </div>
-                    </Link>
-                  );
-                }
-                // Special styling for Voting Grounds tab in mobile — green border, red text
-                if (item.path === "/voting-grounds") {
-                  return (
-                    <Link
-                      key={item.path}
-                      href={item.path}
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <div
-                        className="px-4 py-3 rounded-lg font-extrabold tracking-wide transition-colors border-2 border-green-500 text-red-500 hover:bg-green-500/10 hover:text-red-400"
-                      >
-                        {item.label}
-                      </div>
-                    </Link>
-                  );
-                }
-                // Special styling for Nerd Gossip tab in mobile — green border, purple text
-                if (item.path === "/nerd-gossip") {
-                  return (
-                    <Link
-                      key={item.path}
-                      href={item.path}
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <div
-                        className="px-4 py-3 rounded-lg font-extrabold tracking-wide transition-colors border-2 border-green-500 text-purple-400 hover:bg-green-500/10 hover:text-purple-300"
-                      >
-                        {item.label}
-                      </div>
-                    </Link>
-                  );
-                }
-                // Special styling for Movies & Series tab in mobile — green border, orange text
-                if (item.path === "/movies-series") {
-                  return (
-                    <Link
-                      key={item.path}
-                      href={item.path}
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <div
-                        className="px-4 py-3 rounded-lg font-extrabold tracking-wide transition-colors border-2 border-green-500 text-orange-400 hover:bg-green-500/10 hover:text-orange-300"
-                      >
-                        {item.label}
-                      </div>
-                    </Link>
-                  );
-                }
-                // Special styling for Whatnot tab in mobile
-                if (item.path === "/whatnot") {
-                  return (
-                    <Link
-                      key={item.path}
-                      href={item.path}
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <div
-                        className="px-4 py-3 rounded-lg font-extrabold tracking-wide transition-colors border-2 border-green-500 text-yellow-400 hover:bg-green-500/10 hover:text-yellow-300"
-                      >
-                        {item.label}
-                      </div>
-                    </Link>
-                  );
-                }
-                return (
+          <div className="lg:hidden border-t border-border/50 bg-background/98 backdrop-blur-md max-h-[calc(100vh-4rem)] overflow-y-auto">
+            <div className="container py-3">
+              {/* Primary Section */}
+              <div className="mb-2">
+                <p className="px-3 py-1 text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">Main</p>
+                {primaryItems.map((item) => (
                   <Link
                     key={item.path}
                     href={item.path}
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <div
-                      className={`px-4 py-3 rounded-lg font-bold tracking-wide transition-colors ${
-                        isActive
+                      className={`px-3 py-2.5 rounded-md text-sm font-medium transition-colors ${
+                        isActive(item.path)
                           ? "bg-primary/10 text-primary"
-                          : "text-foreground/80 hover:bg-primary/5 hover:text-primary"
+                          : "text-foreground/80 hover:bg-muted/50 hover:text-foreground"
                       }`}
                     >
                       {item.label}
                     </div>
                   </Link>
-                );
-              })}
+                ))}
+              </div>
 
+              {/* Divider */}
+              <div className="border-t border-border/30 my-2" />
 
+              {/* Secondary Section */}
+              <div className="mb-2">
+                <p className="px-3 py-1 text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">Explore</p>
+                {moreItems.map((item) => (
+                  <Link
+                    key={item.path}
+                    href={item.path}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <div
+                      className={`px-3 py-2.5 rounded-md text-sm font-medium transition-colors ${
+                        isActive(item.path)
+                          ? "bg-primary/10 text-primary"
+                          : "text-foreground/80 hover:bg-muted/50 hover:text-foreground"
+                      }`}
+                    >
+                      {item.label}
+                    </div>
+                  </Link>
+                ))}
+              </div>
 
-              {/* Random Card in mobile menu */}
-              <button
-                onClick={handleRandomCard}
-                disabled={isRandomizing}
-                className="w-full px-4 py-3 rounded-lg font-bold tracking-wide transition-colors text-foreground/80 hover:bg-primary/5 hover:text-primary flex items-center gap-2"
-              >
-                <Shuffle className={`w-4 h-4 ${isRandomizing ? "animate-spin" : ""}`} />
-                {isRandomizing ? "Finding card..." : "Random Card"}
-              </button>
-              {/* Jarvis Protocol in mobile menu */}
-              <Link
-                href="/login"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <div className="px-4 py-3 rounded-lg font-bold tracking-wide transition-colors text-foreground/80 hover:bg-primary/5 hover:text-primary flex items-center gap-2">
-                  <User className="w-4 h-4" />
-                  {isAuthenticated ? `${user?.name || "My Account"}` : "Jarvis Protocol"}
-                  {isAuthenticated && (
-                    <span className="w-2 h-2 bg-green-500 rounded-full" />
-                  )}
-                </div>
-              </Link>
+              {/* Divider */}
+              <div className="border-t border-border/30 my-2" />
+
+              {/* Utilities */}
+              <div>
+                <button
+                  onClick={handleRandomCard}
+                  disabled={isRandomizing}
+                  className="w-full px-3 py-2.5 rounded-md text-sm font-medium transition-colors text-foreground/80 hover:bg-muted/50 hover:text-foreground flex items-center gap-2"
+                >
+                  <Shuffle className={`w-4 h-4 ${isRandomizing ? "animate-spin" : ""}`} />
+                  {isRandomizing ? "Finding card..." : "Random Card"}
+                </button>
+                <Link
+                  href="/login"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <div className="px-3 py-2.5 rounded-md text-sm font-medium transition-colors text-foreground/80 hover:bg-muted/50 hover:text-foreground flex items-center gap-2">
+                    <User className="w-4 h-4" />
+                    {isAuthenticated ? `${user?.name || "My Account"}` : "Jarvis Protocol"}
+                    {isAuthenticated && (
+                      <span className="w-2 h-2 bg-green-500 rounded-full" />
+                    )}
+                  </div>
+                </Link>
+              </div>
             </div>
           </div>
         )}

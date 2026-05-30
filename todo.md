@@ -2463,3 +2463,8 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add June 7th Whatnot live show launch CTA
 - [x] Remove all purchase/cart functionality from shop page
 - [x] Add "All packs ripped live on Whatnot" messaging
+
+- [x] Clean up navbar - remove inconsistent green borders on nav items
+- [x] Reduce nav clutter - group secondary items into "More" dropdown
+- [x] Improve mobile nav - better hamburger menu with grouped sections
+- [x] Make nav styling consistent across all items
