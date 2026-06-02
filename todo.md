@@ -2468,3 +2468,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Reduce nav clutter - group secondary items into "More" dropdown
 - [x] Improve mobile nav - better hamburger menu with grouped sections
 - [x] Make nav styling consistent across all items
+
+## SXSW London Article Update (June 2, 2026)
+- [x] Generate 5 comic-style images for SXSW London article
+- [x] Update article content with confirmed SXSW London news (Phase Zero, Dom Latveria Coffee, Incursions)
+- [x] Add images throughout article body (coffee shop, flag, Phase Zero, incursions, Topps Chrome)
+- [x] Update title, excerpt, tags, related characters, and sources
+- [x] Verify template rotation (spotlight - correct after magazine)
+- [x] Run NLF integrity check (81/81 passed)
+- [x] Enforce template rotation rule: every article MUST use different template from previous (requires user approval to break)
