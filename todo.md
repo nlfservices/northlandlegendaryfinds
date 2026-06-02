@@ -2477,3 +2477,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Verify template rotation (spotlight - correct after magazine)
 - [x] Run NLF integrity check (81/81 passed)
 - [x] Enforce template rotation rule: every article MUST use different template from previous (requires user approval to break)
+
+## New Article: Doomsday Trailer Prediction (June 2, 2026)
+- [x] Research IGN wrong predictions, Spider-Man Brand New Day timeline, Endgame re-release
+- [x] Determine next template in rotation (after spotlight) → timeline
+- [x] Generate 8 comic-style images for the article (hero, IGN wrong, July conflict, Endgame return, buzz machine, post-credits, biggest movie, card market)
+- [x] Write contrarian prediction article (no SDCC, no Spider-Man, Endgame re-release Sept 25, mystery builds hype)
+- [x] Publish article to database with timeline template
+- [x] Run NLF integrity check (81/81 passed)
+- [x] Provide direct link to published article
