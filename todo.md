@@ -2486,3 +2486,13 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Publish article to database with timeline template
 - [x] Run NLF integrity check (81/81 passed)
 - [x] Provide direct link to published article
+
+## Article Rewrite: Doomsday Trailer - Russo Legend Angle (June 2, 2026)
+- [x] Research movies that succeeded without traditional trailers (Blair Witch, Cloverfield, Paranormal Activity, Endgame)
+- [x] Found Joe Russo quote about considering zero marketing for Endgame (Empire Magazine 2019)
+- [x] Rewrite article with new angle: "What if there is no trailer? Russos could become a different kind of legend"
+- [x] Include comparison table (Blair Witch, Cloverfield, Paranormal Activity, Endgame)
+- [x] Include "Move over James Cameron" section
+- [x] Keep all 8 comic-style images
+- [x] Keep timeline template (correct rotation)
+- [x] Run NLF integrity check (81/81 passed)
