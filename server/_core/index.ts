@@ -11,6 +11,8 @@ import { registerSitemapRoute } from "../sitemap";
 import { registerScheduledPublishRoute } from "../scheduled-publish";
 import { registerCardShowsScheduledRoute } from "../scheduled-card-shows";
 import { registerScheduledBackupRoute } from "../scheduled-backup";
+import { registerFacebookWebhook } from "../facebook-webhook";
+import { registerBotReindexScheduledRoute } from "../scheduled-bot-reindex";
 import { appRouter } from "../routers";
 import { startBlogScheduler } from "../blog-scheduler";
 import { createContext } from "./context";
@@ -55,6 +57,9 @@ async function startServer() {
   registerScheduledPublishRoute(app);
   registerCardShowsScheduledRoute(app);
   registerScheduledBackupRoute(app);
+  registerBotReindexScheduledRoute(app);
+  // Facebook webhook (comment bot)
+  registerFacebookWebhook(app);
   // tRPC API
   app.use(
     "/api/trpc",

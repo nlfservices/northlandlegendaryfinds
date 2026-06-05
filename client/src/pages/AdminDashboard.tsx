@@ -38,6 +38,7 @@ import SocialPostGenerator from "@/components/admin/SocialPostGenerator";
 import SocialDraftsManager from "@/components/admin/SocialDraftsManager";
 import GHLCommentManager from "@/components/admin/GHLCommentManager";
 import TokenExpirationAlert from "@/components/admin/TokenExpirationAlert";
+import FacebookBotManager from "@/components/admin/FacebookBotManager";
 import AdminAffiliateLinks from "@/pages/AdminAffiliateLinks";
 
 // ==================== SITE SETTINGS (COUNTDOWN TIMER) ====================
@@ -1673,6 +1674,8 @@ export default function AdminDashboard() {
           </TabsContent>
           <TabsContent value="social">
             <div className="space-y-8">
+              <FacebookBotManager />
+              <Separator />
               <GHLCommentManager />
               <Separator />
               <SocialDraftsManager />

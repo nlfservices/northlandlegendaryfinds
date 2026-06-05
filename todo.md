@@ -2507,3 +2507,16 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Write and pass vitest tests for polls (6 tests, 337 total passing)
 - [x] Post first comment on Facebook linking to the poll
 - [ ] Save checkpoint
+
+## Facebook Smart Comment Bot (June 5, 2026)
+- [x] Read periodic-updates reference for heartbeat/webhook architecture
+- [x] Add site_content_index table to database schema (stores indexed article content for bot knowledge)
+- [x] Add bot_settings table (enabled toggle, reply delay, personality prompt)
+- [x] Add bot_reply_log table (tracks what the bot replied to and when)
+- [x] Build content indexer that syncs all published articles into knowledge base
+- [x] Build Facebook webhook endpoint (/api/facebook/webhook) to receive comment notifications
+- [x] Build AI reply generator using site knowledge base + NLF brand voice
+- [x] Build admin toggle UI in admin dashboard (Social tab)
+- [x] Set up heartbeat endpoint (/api/scheduled/bot-reindex) for periodic re-indexing
+- [x] Write and pass vitest tests for bot system (357 total passing)
+- [x] Save checkpoint

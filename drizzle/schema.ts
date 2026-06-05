@@ -1151,3 +1151,92 @@ export const articlePollVotes = mysqlTable("article_poll_votes", {
 });
 export type ArticlePollVote = typeof articlePollVotes.$inferSelect;
 export type InsertArticlePollVote = typeof articlePollVotes.$inferInsert;
+
+/**
+ * Site content index — stores a searchable knowledge base of all published articles.
+ * Used by the Facebook comment bot to generate contextually relevant replies.
+ */
+export const siteContentIndex = mysqlTable("site_content_index", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Article slug (unique identifier) */
+  articleSlug: varchar("articleSlug", { length: 255 }).notNull().unique(),
+  /** Article title */
+  title: varchar("title", { length: 512 }).notNull(),
+  /** Full article body text (stripped of HTML) */
+  bodyText: text("bodyText"),
+  /** Article summary / excerpt */
+  summary: text("summary"),
+  /** JSON array of tags */
+  tags: json("tags").$type<string[]>(),
+  /** JSON array of related character names */
+  relatedCharacters: json("relatedCharacters").$type<string[]>(),
+  /** Article category (e.g., "mcu-news", "card-market") */
+  category: varchar("category", { length: 100 }),
+  /** Article template used */
+  template: varchar("template", { length: 50 }),
+  /** When the article was published */
+  publishedAt: timestamp("publishedAt"),
+  /** When this index entry was last synced */
+  indexedAt: timestamp("indexedAt").defaultNow().notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+export type SiteContentIndex = typeof siteContentIndex.$inferSelect;
+export type InsertSiteContentIndex = typeof siteContentIndex.$inferInsert;
+
+/**
+ * Bot settings — global configuration for the Facebook comment bot.
+ * Single-row table (id=1 always).
+ */
+export const botSettings = mysqlTable("bot_settings", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Whether the bot is enabled */
+  enabled: boolean("enabled").notNull().default(false),
+  /** Auto-reply mode: 'auto' sends immediately, 'review' queues for admin approval */
+  replyMode: mysqlEnum("replyMode", ["auto", "review"]).notNull().default("review"),
+  /** Delay in ms before posting a reply (to seem more human) */
+  replyDelayMs: int("replyDelayMs").notNull().default(30000),
+  /** Custom personality/brand voice prompt appended to system prompt */
+  personalityPrompt: text("personalityPrompt"),
+  /** Max reply length in characters */
+  maxReplyLength: int("maxReplyLength").notNull().default(280),
+  /** Only reply to comments from the last N days */
+  replyWindowDays: int("replyWindowDays").notNull().default(7),
+  /** When the content index was last refreshed */
+  lastIndexedAt: timestamp("lastIndexedAt"),
+  /** Task UID for the heartbeat content re-indexer job */
+  indexerTaskUid: varchar("indexerTaskUid", { length: 65 }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+export type BotSettings = typeof botSettings.$inferSelect;
+export type InsertBotSettings = typeof botSettings.$inferInsert;
+
+/**
+ * Bot reply log — records every comment the bot has processed and replied to.
+ */
+export const botReplyLog = mysqlTable("bot_reply_log", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Facebook post ID the comment was on */
+  fbPostId: varchar("fbPostId", { length: 255 }).notNull(),
+  /** Facebook comment ID */
+  fbCommentId: varchar("fbCommentId", { length: 255 }).notNull().unique(),
+  /** Name of the commenter */
+  commenterName: varchar("commenterName", { length: 255 }),
+  /** Original comment text */
+  commentText: text("commentText").notNull(),
+  /** AI-generated reply */
+  botReply: text("botReply"),
+  /** Whether the reply was actually sent */
+  sent: boolean("sent").notNull().default(false),
+  /** Facebook reply comment ID (set after successful post) */
+  replyCommentId: varchar("replyCommentId", { length: 255 }),
+  /** Reason if skipped or failed */
+  skipReason: text("skipReason"),
+  /** When the reply was sent to Facebook */
+  repliedAt: timestamp("repliedAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+export type BotReplyLog = typeof botReplyLog.$inferSelect;
+export type InsertBotReplyLog = typeof botReplyLog.$inferInsert;
