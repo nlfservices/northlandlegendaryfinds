@@ -2505,5 +2505,5 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Embed ArticlePollWidget in MCUNewsArticle page (all non-patriotic templates)
 - [x] Seed Doomsday trailer prediction poll with 5 funny options including "I just want to see Doom make an espresso"
 - [x] Write and pass vitest tests for polls (6 tests, 337 total passing)
-- [ ] Post first comment on Facebook linking to the poll
+- [x] Post first comment on Facebook linking to the poll
 - [ ] Save checkpoint
