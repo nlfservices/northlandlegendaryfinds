@@ -1,13 +1,13 @@
 /**
  * ArticlePollWidget — community poll embedded in articles.
  * One vote per visitor (tracked by localStorage fingerprint).
- * Shows live results with animated progress bars after voting.
- * Includes share buttons so users can post their vote to Twitter/X and Facebook.
- * Features: Red background, horizontal scrolling options carousel, 2000+ votes display.
+ * All options visible at once — no scrolling required.
+ * Red background, grid layout, live results with animated bars.
+ * Share buttons after voting for Twitter/X and Facebook.
  */
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { trpc } from "@/lib/trpc";
-import { CheckCircle2, BarChart2, Share2, ChevronLeft, ChevronRight } from "lucide-react";
+import { CheckCircle2, BarChart2, Share2 } from "lucide-react";
 
 function getOrCreateVisitorId(): string {
   const key = "nlf_visitor_id";
@@ -19,7 +19,6 @@ function getOrCreateVisitorId(): string {
   return id;
 }
 
-/** Strip emoji from option text for cleaner share messages */
 function stripEmoji(text: string): string {
   return text
     .replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, "")
@@ -50,7 +49,6 @@ export default function ArticlePollWidget({ articleSlug }: ArticlePollWidgetProp
   const [articleUrl] = useState(() =>
     typeof window !== "undefined" ? window.location.href : ""
   );
-  const scrollRef = useRef<HTMLDivElement>(null);
 
   const { data: poll, isLoading } = trpc.polls.getByArticle.useQuery({ articleSlug });
 
@@ -82,7 +80,8 @@ export default function ArticlePollWidget({ articleSlug }: ArticlePollWidgetProp
 
   const counts = localCounts ?? poll.counts;
   const total = localTotal || poll.totalVotes;
-  const winnerIndex = hasVoted && total > 0 ? counts.indexOf(Math.max(...counts)) : -1;
+  const maxCount = total > 0 ? Math.max(...counts) : 0;
+  const winnerIndex = total > 0 ? counts.indexOf(maxCount) : -1;
 
   const handleVote = (index: number) => {
     if (hasVoted) return;
@@ -90,24 +89,15 @@ export default function ArticlePollWidget({ articleSlug }: ArticlePollWidgetProp
     voteMutation.mutate({ pollId: poll.id, optionIndex: index, visitorId });
   };
 
-  const scrollLeft = () => {
-    scrollRef.current?.scrollBy({ left: -200, behavior: "smooth" });
-  };
-  const scrollRight = () => {
-    scrollRef.current?.scrollBy({ left: 200, behavior: "smooth" });
-  };
-
   const chosenOptionText = selectedOption !== null ? poll.options[selectedOption] ?? "" : "";
   const { twitterUrl, facebookUrl } = buildShareUrls(poll.question, chosenOptionText, articleUrl);
 
   return (
     <div className="my-10 rounded-2xl overflow-hidden shadow-2xl shadow-red-900/40 border border-red-700/50">
-      {/* Red gradient header */}
+      {/* Red header */}
       <div className="bg-gradient-to-r from-red-900 via-red-700 to-red-900 px-5 py-4 flex items-center gap-3">
-        <div className="flex items-center gap-2">
-          <BarChart2 className="w-5 h-5 text-red-200" />
-          <span className="text-red-100 text-sm font-black tracking-widest uppercase">Community Poll</span>
-        </div>
+        <BarChart2 className="w-5 h-5 text-red-200" />
+        <span className="text-red-100 text-sm font-black tracking-widest uppercase">Community Poll</span>
         {total > 0 && (
           <div className="ml-auto flex items-center gap-1.5 bg-red-950/50 border border-red-600/40 rounded-full px-3 py-1">
             <div className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse" />
@@ -116,106 +106,94 @@ export default function ArticlePollWidget({ articleSlug }: ArticlePollWidgetProp
         )}
       </div>
 
-      {/* Main body — deep red background */}
-      <div className="bg-gradient-to-b from-red-950 to-zinc-950">
+      {/* Body */}
+      <div className="bg-gradient-to-b from-red-950 to-zinc-950 px-5 pt-5 pb-5">
         {/* Question */}
-        <div className="px-5 pt-5 pb-3">
-          <p className="text-white font-black text-lg leading-snug">{poll.question}</p>
-          {!hasVoted && (
-            <p className="text-red-300/70 text-xs mt-1">Scroll to see all options — tap to vote</p>
-          )}
-        </div>
+        <p className="text-white font-black text-lg leading-snug mb-4">{poll.question}</p>
 
-        {/* Scrolling options carousel */}
-        <div className="relative px-2 pb-4">
-          {/* Left arrow */}
-          <button
-            onClick={scrollLeft}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 flex items-center justify-center bg-red-950/90 border border-red-700/50 rounded-full text-red-300 hover:text-white hover:bg-red-800 transition-all shadow-lg"
-          >
-            <ChevronLeft className="w-4 h-4" />
-          </button>
+        {/* All options — vertical stack, all visible */}
+        <div className="space-y-3">
+          {poll.options.map((option, i) => {
+            const count = counts[i] ?? 0;
+            const pct = total > 0 ? Math.round((count / total) * 100) : 0;
+            const isSelected = selectedOption === i;
+            const isWinner = winnerIndex === i;
 
-          {/* Scrollable row */}
-          <div
-            ref={scrollRef}
-            className="flex gap-3 overflow-x-auto scroll-smooth px-8 pb-2"
-            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-          >
-            {poll.options.map((option, i) => {
-              const count = counts[i] ?? 0;
-              const pct = total > 0 ? Math.round((count / total) * 100) : 0;
-              const isSelected = selectedOption === i;
-              const isWinner = winnerIndex === i;
+            return (
+              <button
+                key={i}
+                onClick={() => handleVote(i)}
+                disabled={hasVoted || voteMutation.isPending}
+                className={`relative w-full text-left rounded-xl border-2 overflow-hidden transition-all duration-200 ${
+                  hasVoted
+                    ? isSelected
+                      ? "border-red-400 bg-red-800/40 shadow-md shadow-red-500/20"
+                      : isWinner
+                      ? "border-yellow-500/50 bg-yellow-900/10"
+                      : "border-red-900/50 bg-red-950/60"
+                    : "border-red-700/40 bg-red-900/30 hover:border-red-400 hover:bg-red-800/40 cursor-pointer hover:scale-[1.01] hover:shadow-md hover:shadow-red-500/20 active:scale-[0.99]"
+                }`}
+              >
+                {/* Animated progress bar fill */}
+                {hasVoted && (
+                  <div
+                    className={`absolute inset-y-0 left-0 transition-all duration-700 ease-out rounded-xl ${
+                      isWinner
+                        ? "bg-yellow-500/15"
+                        : isSelected
+                        ? "bg-red-500/20"
+                        : "bg-red-900/20"
+                    }`}
+                    style={{ width: `${pct}%` }}
+                  />
+                )}
 
-              return (
-                <button
-                  key={i}
-                  onClick={() => handleVote(i)}
-                  disabled={hasVoted || voteMutation.isPending}
-                  className={`relative flex-shrink-0 w-44 rounded-xl border-2 overflow-hidden transition-all duration-200 text-left ${
-                    hasVoted
-                      ? isSelected
-                        ? "border-red-400 bg-red-800/40 shadow-lg shadow-red-500/20"
-                        : isWinner
-                        ? "border-yellow-500/60 bg-yellow-900/20"
-                        : "border-red-800/40 bg-red-950/60"
-                      : "border-red-700/40 bg-red-900/30 hover:border-red-400 hover:bg-red-800/40 cursor-pointer hover:scale-105 hover:shadow-lg hover:shadow-red-500/20"
-                  }`}
-                  style={{ minHeight: "120px" }}
-                >
-                  {/* Progress fill */}
-                  {hasVoted && (
-                    <div
-                      className={`absolute inset-x-0 bottom-0 transition-all duration-700 ease-out ${
-                        isWinner ? "bg-yellow-500/20" : isSelected ? "bg-red-500/20" : "bg-red-900/30"
-                      }`}
-                      style={{ height: `${pct}%` }}
-                    />
-                  )}
-
-                  <div className="relative p-3 flex flex-col h-full" style={{ minHeight: "120px" }}>
-                    {/* Option text */}
-                    <p className={`text-sm font-bold leading-snug flex-1 ${
-                      isSelected ? "text-red-200" : hasVoted ? "text-zinc-300" : "text-white"
-                    }`}>
-                      {option}
-                    </p>
-
-                    {/* Vote result */}
-                    {hasVoted && (
-                      <div className="mt-2 flex items-center justify-between">
-                        <span className={`text-xl font-black ${
-                          isWinner ? "text-yellow-400" : isSelected ? "text-red-300" : "text-zinc-500"
-                        }`}>
-                          {pct}%
-                        </span>
-                        {isSelected && (
-                          <CheckCircle2 className="w-4 h-4 text-red-400" />
-                        )}
-                        {isWinner && !isSelected && (
-                          <span className="text-xs text-yellow-500 font-bold">LEADING</span>
+                <div className="relative flex items-center gap-3 px-4 py-3">
+                  {/* Radio / check indicator */}
+                  <div className="shrink-0">
+                    {hasVoted && isSelected ? (
+                      <CheckCircle2 className="w-5 h-5 text-red-400" />
+                    ) : (
+                      <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                        hasVoted
+                          ? isWinner ? "border-yellow-500/60" : "border-red-800/60"
+                          : "border-red-500/60"
+                      }`}>
+                        {isWinner && hasVoted && !isSelected && (
+                          <div className="w-2 h-2 rounded-full bg-yellow-500/60" />
                         )}
                       </div>
                     )}
                   </div>
-                </button>
-              );
-            })}
-          </div>
 
-          {/* Right arrow */}
-          <button
-            onClick={scrollRight}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 flex items-center justify-center bg-red-950/90 border border-red-700/50 rounded-full text-red-300 hover:text-white hover:bg-red-800 transition-all shadow-lg"
-          >
-            <ChevronRight className="w-4 h-4" />
-          </button>
+                  {/* Option label */}
+                  <span className={`flex-1 text-sm font-semibold leading-snug ${
+                    isSelected
+                      ? "text-red-200"
+                      : hasVoted
+                      ? isWinner ? "text-yellow-200" : "text-zinc-300"
+                      : "text-white"
+                  }`}>
+                    {option}
+                  </span>
+
+                  {/* Percentage */}
+                  {hasVoted && (
+                    <span className={`text-base font-black shrink-0 ${
+                      isWinner ? "text-yellow-400" : isSelected ? "text-red-300" : "text-zinc-500"
+                    }`}>
+                      {pct}%
+                    </span>
+                  )}
+                </div>
+              </button>
+            );
+          })}
         </div>
 
-        {/* Share section after voting */}
+        {/* Share buttons after voting */}
         {hasVoted && selectedOption !== null && (
-          <div className="px-5 pb-5 border-t border-red-800/30 pt-4">
+          <div className="mt-5 pt-4 border-t border-red-800/30">
             <div className="flex items-center gap-2 mb-3">
               <Share2 className="w-3.5 h-3.5 text-red-400" />
               <span className="text-xs text-red-300 font-bold uppercase tracking-wider">Share your vote</span>
@@ -244,16 +222,14 @@ export default function ArticlePollWidget({ articleSlug }: ArticlePollWidgetProp
                 Share on Facebook
               </a>
             </div>
-            <p className="text-xs text-red-900/80 mt-3 text-center">
-              Results update in real time 🎯
-            </p>
+            <p className="text-xs text-red-900/70 mt-3 text-center">Results update in real time 🎯</p>
           </div>
         )}
 
         {!hasVoted && (
-          <div className="px-5 pb-4 text-xs text-red-400/60 text-center">
+          <p className="text-xs text-red-400/50 text-center mt-4">
             Cast your vote — results revealed instantly
-          </div>
+          </p>
         )}
       </div>
     </div>
