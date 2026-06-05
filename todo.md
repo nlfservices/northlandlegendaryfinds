@@ -2496,3 +2496,14 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Keep all 8 comic-style images
 - [x] Keep timeline template (correct rotation)
 - [x] Run NLF integrity check (81/81 passed)
+
+## Article Poll Feature (June 4, 2026)
+- [x] Add article_polls and article_poll_votes tables to database schema
+- [x] Run db:push to migrate new tables
+- [x] Add tRPC procedures: polls.getByArticle, polls.vote, polls.hasVoted (one vote per visitor)
+- [x] Build ArticlePollWidget React component with funny options and live animated results
+- [x] Embed ArticlePollWidget in MCUNewsArticle page (all non-patriotic templates)
+- [x] Seed Doomsday trailer prediction poll with 5 funny options including "I just want to see Doom make an espresso"
+- [x] Write and pass vitest tests for polls (6 tests, 337 total passing)
+- [ ] Post first comment on Facebook linking to the poll
+- [ ] Save checkpoint

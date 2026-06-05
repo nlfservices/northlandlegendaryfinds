@@ -20,6 +20,7 @@ import { affiliateAdminRouter, affiliatePublicRouter } from "./routers/affiliate
 import { mcuMediaPublicRouter, mcuMediaAdminRouter } from "./routers/mcuMedia";
 import { socialDraftsRouter } from "./routers/socialDrafts";
 import { ghlAdminRouter } from "./routers/ghlAdmin";
+import { pollsRouter } from "./routers/polls";
 
 export const appRouter = router({
   system: systemRouter,
@@ -111,6 +112,9 @@ export const appRouter = router({
 
   // GHL CRM (admin - conversations & contacts from GoHighLevel)
   ghl: ghlAdminRouter,
+
+  // Article Polls (community voting)
+  polls: pollsRouter,
 
 });
 

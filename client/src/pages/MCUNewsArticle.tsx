@@ -17,6 +17,7 @@ import SEO, { breadcrumbJsonLd, articleJsonLd, organizationJsonLd, faqJsonLd, it
 import CollectorsCorner from "@/components/CollectorsCorner";
 import { ArticleTemplateRenderer, getArticleTemplate, type ArticleTemplate } from "@/components/ArticleTemplates";
 import ShareButtons from "@/components/ShareButtons";
+import ArticlePollWidget from "@/components/ArticlePollWidget";
 
 const CARD_MARKET_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mcu-intel-card-market-Lt56dsta4y7Hzfj6pzAysR.webp";
 
@@ -409,6 +410,11 @@ export default function MCUNewsArticle() {
             </div>
           );
         })()}
+
+        {/* Article Poll Widget — community voting, shown when a poll exists for this article */}
+        {getArticleTemplate(article.templateLayout as ArticleTemplate | null, article.id) !== 'patriotic' && (
+          <ArticlePollWidget articleSlug={slug || ""} />
+        )}
 
         {/* Bottom Share Buttons — after article content, before Collector's Corner */}
         {/* Patriotic template already has its own share buttons inside the template */}

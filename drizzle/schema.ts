@@ -1117,3 +1117,37 @@ export const facebookCommentReplies = mysqlTable("facebook_comment_replies", {
 });
 export type FacebookCommentReply = typeof facebookCommentReplies.$inferSelect;
 export type InsertFacebookCommentReply = typeof facebookCommentReplies.$inferInsert;
+
+/**
+ * Article polls — fun community polls embedded in articles.
+ * Each poll has a question and a JSON array of option labels.
+ */
+export const articlePolls = mysqlTable("article_polls", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Slug of the article this poll belongs to */
+  articleSlug: varchar("articleSlug", { length: 255 }).notNull(),
+  /** Poll question */
+  question: varchar("question", { length: 512 }).notNull(),
+  /** JSON array of option strings */
+  options: json("options").$type<string[]>().notNull(),
+  /** Whether the poll is active */
+  isActive: boolean("isActive").notNull().default(true),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+export type ArticlePoll = typeof articlePolls.$inferSelect;
+export type InsertArticlePoll = typeof articlePolls.$inferInsert;
+
+/**
+ * Article poll votes — one vote per visitor per poll.
+ */
+export const articlePollVotes = mysqlTable("article_poll_votes", {
+  id: int("id").autoincrement().primaryKey(),
+  pollId: int("pollId").notNull(),
+  /** Index of the chosen option in the options array */
+  optionIndex: int("optionIndex").notNull(),
+  /** Anonymous visitor fingerprint (cookie-based) */
+  visitorId: varchar("visitorId", { length: 128 }).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+export type ArticlePollVote = typeof articlePollVotes.$inferSelect;
+export type InsertArticlePollVote = typeof articlePollVotes.$inferInsert;
