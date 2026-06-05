@@ -18,6 +18,7 @@ import CollectorsCorner from "@/components/CollectorsCorner";
 import { ArticleTemplateRenderer, getArticleTemplate, type ArticleTemplate } from "@/components/ArticleTemplates";
 import ShareButtons from "@/components/ShareButtons";
 import ArticlePollWidget from "@/components/ArticlePollWidget";
+import ArticlePollWidgetMini from "@/components/ArticlePollWidgetMini";
 
 const CARD_MARKET_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mcu-intel-card-market-Lt56dsta4y7Hzfj6pzAysR.webp";
 
@@ -377,6 +378,11 @@ export default function MCUNewsArticle() {
         )}
 
 
+        {/* Mini Poll Widget — compact teaser near top of article */}
+        {getArticleTemplate(article.templateLayout as ArticleTemplate | null, article.id) !== 'patriotic' && (
+          <ArticlePollWidgetMini articleSlug={slug || ""} />
+        )}
+
         {/* Top Share Buttons — below featured image, above article content */}
         {getArticleTemplate(article.templateLayout as ArticleTemplate | null, article.id) === 'classic' && (
           <div className="mb-6 border-b border-border pb-4">
@@ -413,7 +419,9 @@ export default function MCUNewsArticle() {
 
         {/* Article Poll Widget — community voting, shown when a poll exists for this article */}
         {getArticleTemplate(article.templateLayout as ArticleTemplate | null, article.id) !== 'patriotic' && (
-          <ArticlePollWidget articleSlug={slug || ""} />
+          <div id="article-poll-full">
+            <ArticlePollWidget articleSlug={slug || ""} />
+          </div>
         )}
 
         {/* Bottom Share Buttons — after article content, before Collector's Corner */}
