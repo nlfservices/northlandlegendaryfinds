@@ -89,6 +89,10 @@ export default function FacebookBotManager() {
   const [replyWindowDays, setReplyWindowDays] = useState<number>(7);
   const [settingsInitialized, setSettingsInitialized] = useState(false);
 
+  // Kill switch
+  const [killPhrase, setKillPhrase] = useState("");
+  const [killPhraseError, setKillPhraseError] = useState("");
+
   // Initialize local state from fetched settings
   if (settings && !settingsInitialized) {
     setPersonalityPrompt(settings.personalityPrompt || "");
@@ -97,6 +101,20 @@ export default function FacebookBotManager() {
     setReplyWindowDays(settings.replyWindowDays);
     setSettingsInitialized(true);
   }
+
+  // Kill switch mutation
+  const killSwitch = trpc.socialBot.killSwitch.useMutation({
+    onSuccess: (result) => {
+      utils.socialBot.getSettings.invalidate();
+      setKillPhrase("");
+      setKillPhraseError("");
+      toast.success(result.message, { duration: 4000 });
+    },
+    onError: (err) => {
+      setKillPhraseError("Wrong passphrase. Try again.");
+      toast.error(err.message);
+    },
+  });
 
   // Mutations
   const updateSettings = trpc.socialBot.updateSettings.useMutation({
@@ -227,6 +245,46 @@ export default function FacebookBotManager() {
             disabled={updateSettings.isPending}
           />
         </div>
+      </div>
+
+      {/* Kill Switch */}
+      <div className="flex items-center gap-2 p-3 bg-muted/20 border border-border rounded-lg">
+        <div className="flex-1 flex items-center gap-2">
+          <Input
+            placeholder="Say the words…"
+            value={killPhrase}
+            onChange={(e) => {
+              setKillPhrase(e.target.value);
+              setKillPhraseError("");
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && killPhrase.trim()) {
+                killSwitch.mutate({ passphrase: killPhrase });
+              }
+            }}
+            className={`max-w-xs text-sm ${killPhraseError ? "border-red-500" : ""}`}
+          />
+          <Button
+            size="sm"
+            variant={isEnabled ? "destructive" : "default"}
+            onClick={() => killSwitch.mutate({ passphrase: killPhrase })}
+            disabled={!killPhrase.trim() || killSwitch.isPending}
+          >
+            {killSwitch.isPending ? (
+              <RefreshCw className="w-4 h-4 animate-spin" />
+            ) : isEnabled ? (
+              "Shut it down"
+            ) : (
+              "Bring it back"
+            )}
+          </Button>
+        </div>
+        {killPhraseError && (
+          <p className="text-xs text-red-400">{killPhraseError}</p>
+        )}
+        <p className="text-xs text-muted-foreground hidden sm:block">
+          You know the words.
+        </p>
       </div>
 
       {/* Warning if auto mode */}

@@ -2532,3 +2532,13 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Update admin UI: Monitored Posts tab with live post list, last polled time, comment/reply counts
 - [x] Write and pass 8 new automation tests (365 total passing)
 - [x] Save checkpoint
+
+## Bot Kill Switch Passphrase (June 5, 2026)
+- [ ] Add killSwitch tRPC procedure: "I am Iron Man" disables, "I am inevitable" re-enables
+- [ ] Add kill switch input to admin bot panel UI (prominent, always visible)
+- [ ] Save checkpoint
+
+## Bot Kill Switch Passphrase (June 5, 2026)
+- [x] Add killSwitch tRPC procedure: "I am Iron Man" or "I am inevitable" toggles bot on/off
+- [x] Add kill switch input to admin bot panel UI header (always visible)
+- [x] Save checkpoint

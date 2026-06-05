@@ -4,6 +4,7 @@
  * Procedures:
  *   getSettings         — Get current bot settings
  *   updateSettings      — Update bot settings (enable/disable, mode, prompt)
+ *   killSwitch          — Emergency disable via passphrase "I am Iron Man"
  *   indexContent        — Manually trigger content re-index
  *   getReplyLog         — Get paginated reply log
  *   approveReply        — Approve and send a queued reply (review mode)
@@ -317,4 +318,55 @@ export const socialBotRouter = router({
     const result = await pollAllMonitoredPosts();
     return result;
   }),
+
+  /**
+   * Kill switch — toggle the bot on or off using a secret passphrase.
+   * Accepted phrases (case-insensitive):
+   *   "I am Iron Man"    — toggles the bot
+   *   "I am inevitable"  — toggles the bot
+   */
+  killSwitch: adminProcedure
+    .input(z.object({ passphrase: z.string() }))
+    .mutation(async ({ input }) => {
+      const phrase = input.passphrase.trim().toLowerCase();
+      const validPhrases = ["i am iron man", "i am inevitable"];
+
+      if (!validPhrases.includes(phrase)) {
+        throw new TRPCError({
+          code: "FORBIDDEN",
+          message: "Invalid passphrase.",
+        });
+      }
+
+      const db = await getDb();
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "DB unavailable" });
+
+      const existing = await db.select().from(botSettings).limit(1);
+      const currentlyEnabled = existing.length > 0 ? existing[0].enabled : false;
+      const newEnabled = !currentlyEnabled;
+
+      if (existing.length === 0) {
+        await db.insert(botSettings).values({
+          enabled: newEnabled,
+          replyMode: "review",
+          replyDelayMs: 30000,
+          personalityPrompt: null,
+          maxReplyLength: 280,
+          replyWindowDays: 7,
+        });
+      } else {
+        await db
+          .update(botSettings)
+          .set({ enabled: newEnabled })
+          .where(eq(botSettings.id, existing[0].id));
+      }
+
+      return {
+        success: true,
+        enabled: newEnabled,
+        message: newEnabled
+          ? "Bot activated. Avengers, assemble."
+          : "Bot deactivated. And I am Iron Man.",
+      };
+    }),
 });
