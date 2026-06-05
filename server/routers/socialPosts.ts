@@ -12,6 +12,7 @@ import {
   getRecentInstagramPosts,
   checkTokenHealth,
 } from "../facebook-api";
+import { registerPostForMonitoring } from "../bot-post-monitor";
 
 /**
  * Social Post Generator Router
@@ -183,6 +184,13 @@ Generate ONLY the Facebook post text. No explanations, no "here's your post" int
           message: input.message,
           photoUrl: input.photoUrl,
         });
+        // Auto-register for comment bot monitoring
+        if (result.success && result.postId) {
+          registerPostForMonitoring({
+            fbPostId: result.postId,
+            postSummary: input.message.slice(0, 200),
+          }).catch((e: any) => console.error("[SocialPost] Monitor register failed:", e.message));
+        }
         return result;
       }
 
@@ -192,6 +200,13 @@ Generate ONLY the Facebook post text. No explanations, no "here's your post" int
         link: input.link,
         scheduledTime: input.scheduledTime,
       });
+      // Auto-register for comment bot monitoring
+      if (result.success && result.postId) {
+        registerPostForMonitoring({
+          fbPostId: result.postId,
+          postSummary: input.message.slice(0, 200),
+        }).catch((e: any) => console.error("[SocialPost] Monitor register failed:", e.message));
+      }
       return result;
     }),
 

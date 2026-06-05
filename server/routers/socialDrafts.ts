@@ -18,6 +18,7 @@ import {
   publishPhotoPost,
   publishInstagramPost,
 } from "../facebook-api";
+import { registerPostForMonitoring } from "../bot-post-monitor";
 
 /**
  * Social Drafts Router
@@ -353,7 +354,17 @@ Return ONLY the JSON.`;
           });
           if (fbResult.success) {
             fbPostId = fbResult.postId || null;
-            
+
+            // Auto-register post for comment bot monitoring
+            if (fbPostId) {
+              const article = await getArticleById(draft.articleId).catch(() => null);
+              registerPostForMonitoring({
+                fbPostId,
+                articleSlug: article?.slug || undefined,
+                postSummary: draft.fbPostContent?.slice(0, 200) || undefined,
+              }).catch((e: any) => console.error("[SocialDraft] Monitor register failed:", e.message));
+            }
+
             // Post first comment
             if (draft.firstComment && fbPostId) {
               try {

@@ -53,13 +53,17 @@ import {
   ChevronDown,
   ChevronUp,
   Database,
+  Eye,
+  EyeOff,
   MessageSquare,
+  Play,
   RefreshCw,
   Send,
   Settings,
   ThumbsDown,
   ThumbsUp,
   XCircle,
+  Zap,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -143,6 +147,29 @@ export default function FacebookBotManager() {
   // Content index
   const { data: contentIndex, isLoading: indexLoading } =
     trpc.socialBot.getContentIndex.useQuery({ limit: 50, offset: 0 });
+
+  // Monitored posts
+  const { data: monitoredPosts, isLoading: postsLoading } =
+    trpc.socialBot.getMonitoredPosts.useQuery({ limit: 50 });
+
+  const togglePostMonitoring = trpc.socialBot.togglePostMonitoring.useMutation({
+    onSuccess: () => {
+      utils.socialBot.getMonitoredPosts.invalidate();
+      toast.success("Post monitoring updated");
+    },
+    onError: (err) => toast.error(`Failed: ${err.message}`),
+  });
+
+  const pollNow = trpc.socialBot.pollNow.useMutation({
+    onSuccess: (result) => {
+      utils.socialBot.getMonitoredPosts.invalidate();
+      utils.socialBot.getReplyLog.invalidate();
+      toast.success(
+        `Poll complete: ${result.postsChecked} posts, ${result.repliesSent} replied, ${result.repliesQueued} queued`
+      );
+    },
+    onError: (err) => toast.error(`Poll failed: ${err.message}`),
+  });
 
   // Expanded comment rows
   const [expandedRows, setExpandedRows] = useState<Set<number>>(new Set());
@@ -230,8 +257,13 @@ export default function FacebookBotManager() {
           <TabsTrigger value="knowledge">
             <Database className="w-4 h-4 mr-2" /> Knowledge Base
           </TabsTrigger>
-          <TabsTrigger value="setup">
-            <AlertCircle className="w-4 h-4 mr-2" /> Webhook Setup
+          <TabsTrigger value="posts">
+            <Zap className="w-4 h-4 mr-2" /> Monitored Posts
+            {monitoredPosts && monitoredPosts.filter(p => p.active).length > 0 && (
+              <Badge className="ml-2 bg-green-600/20 text-green-400 border-green-600/30 text-xs">
+                {monitoredPosts.filter(p => p.active).length}
+              </Badge>
+            )}
           </TabsTrigger>
         </TabsList>
 
@@ -638,53 +670,123 @@ export default function FacebookBotManager() {
           )}
         </TabsContent>
 
-        {/* WEBHOOK SETUP TAB */}
-        <TabsContent value="setup" className="mt-4">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <AlertCircle className="w-5 h-5 text-amber-400" />
-                Webhook Setup Required
-              </CardTitle>
-              <CardDescription>
-                The bot needs to be connected to Facebook before it can receive comments.
-                This is a one-time setup that requires the site to be deployed first.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="bg-muted/30 rounded-lg p-4 space-y-3 text-sm">
-                <p className="font-semibold text-base">Setup Steps (after deploying the site):</p>
+        {/* MONITORED POSTS TAB */}
+        <TabsContent value="posts" className="mt-4">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h3 className="font-semibold">Monitored Facebook Posts</h3>
+              <p className="text-sm text-muted-foreground">
+                Every post published from this admin is automatically tracked here.
+                The bot polls each post for new comments every 5 minutes.
+              </p>
+            </div>
+            <div className="flex gap-2">
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => utils.socialBot.getMonitoredPosts.invalidate()}
+              >
+                <RefreshCw className="w-4 h-4 mr-2" /> Refresh
+              </Button>
+              <Button
+                size="sm"
+                onClick={() => pollNow.mutate()}
+                disabled={pollNow.isPending || !isEnabled}
+                title={!isEnabled ? "Enable the bot first" : "Poll all posts for new comments now"}
+              >
+                {pollNow.isPending ? (
+                  <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+                ) : (
+                  <Play className="w-4 h-4 mr-2" />
+                )}
+                Poll Now
+              </Button>
+            </div>
+          </div>
 
-                <div className="space-y-2">
-                  <p><span className="font-mono bg-muted px-1 rounded text-xs">Step 1</span> Go to <a href="https://developers.facebook.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 underline">Facebook Developer Console</a> → Your App → Webhooks</p>
-                  <p><span className="font-mono bg-muted px-1 rounded text-xs">Step 2</span> Click "Add Subscription" for the <strong>page</strong> object</p>
-                  <p><span className="font-mono bg-muted px-1 rounded text-xs">Step 3</span> Set Callback URL to:</p>
-                  <code className="block bg-black/30 p-2 rounded text-green-400 text-xs">
-                    https://northlandlegendaryfinds.com/api/facebook/webhook
-                  </code>
-                  <p><span className="font-mono bg-muted px-1 rounded text-xs">Step 4</span> Set Verify Token to:</p>
-                  <code className="block bg-black/30 p-2 rounded text-green-400 text-xs">
-                    nlf_webhook_verify_2026
-                  </code>
-                  <p className="text-amber-400 text-xs">⚠️ You can customize this token by setting the <code>FACEBOOK_WEBHOOK_VERIFY_TOKEN</code> environment variable in Secrets.</p>
-                  <p><span className="font-mono bg-muted px-1 rounded text-xs">Step 5</span> Under Subscription Fields, check: <strong>comments</strong> and <strong>feed</strong></p>
-                  <p><span className="font-mono bg-muted px-1 rounded text-xs">Step 6</span> Click "Verify and Save"</p>
-                  <p><span className="font-mono bg-muted px-1 rounded text-xs">Step 7</span> Subscribe your NLF Facebook Page to the webhook</p>
-                  <p><span className="font-mono bg-muted px-1 rounded text-xs">Step 8</span> Come back here and enable the bot using the toggle above</p>
-                </div>
-              </div>
+          {/* How it works banner */}
+          <div className="flex items-start gap-2 p-3 bg-green-500/10 border border-green-500/20 rounded-lg text-green-400 text-sm mb-4">
+            <Zap className="w-4 h-4 mt-0.5 shrink-0" />
+            <span>
+              <strong>Fully automated.</strong> When you publish a post to Facebook, it's instantly registered here.
+              The bot checks for new comments every 5 minutes and replies automatically (or queues for review).
+              No webhook setup needed.
+            </span>
+          </div>
 
-              <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4 text-sm">
-                <p className="font-semibold text-blue-400 mb-2">Content Re-indexer Heartbeat</p>
-                <p className="text-muted-foreground">
-                  After deploying, set up a Heartbeat cron job to keep the knowledge base fresh:
-                </p>
-                <code className="block bg-black/30 p-2 rounded text-green-400 text-xs mt-2">
-                  manus-heartbeat create --name bot-reindex --cron "0 0 */2 * * *" --path /api/scheduled/bot-reindex --description "Refresh FB bot knowledge base every 2 hours"
-                </code>
-              </div>
-            </CardContent>
-          </Card>
+          {postsLoading ? (
+            <div className="flex items-center gap-2 text-muted-foreground py-8">
+              <RefreshCw className="w-4 h-4 animate-spin" /> Loading…
+            </div>
+          ) : !monitoredPosts || monitoredPosts.length === 0 ? (
+            <div className="text-center py-12 text-muted-foreground">
+              <Zap className="w-8 h-8 mx-auto mb-3 opacity-30" />
+              <p className="font-medium">No posts monitored yet.</p>
+              <p className="text-sm mt-1">
+                Publish a post to Facebook from the Social tab — it will appear here automatically.
+              </p>
+            </div>
+          ) : (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Post</TableHead>
+                  <TableHead>Published</TableHead>
+                  <TableHead>Last Polled</TableHead>
+                  <TableHead className="text-center">Comments</TableHead>
+                  <TableHead className="text-center">Replies</TableHead>
+                  <TableHead className="text-center">Status</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {monitoredPosts.map((post) => (
+                  <TableRow key={post.id}>
+                    <TableCell>
+                      <div className="max-w-xs">
+                        <p className="text-sm font-medium truncate">
+                          {post.postSummary ? post.postSummary.slice(0, 80) + (post.postSummary.length > 80 ? "…" : "") : post.fbPostId}
+                        </p>
+                        {post.articleSlug && (
+                          <p className="text-xs text-muted-foreground">/{post.articleSlug}</p>
+                        )}
+                        <p className="text-xs text-muted-foreground font-mono mt-0.5">{post.fbPostId}</p>
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-xs text-muted-foreground">
+                      {formatDate(post.publishedAt)}
+                    </TableCell>
+                    <TableCell className="text-xs text-muted-foreground">
+                      {formatDate(post.lastPolledAt)}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      <Badge variant="outline" className="text-xs">{post.commentCount}</Badge>
+                    </TableCell>
+                    <TableCell className="text-center">
+                      <Badge variant="outline" className="text-xs text-green-400 border-green-600/30">{post.replyCount}</Badge>
+                    </TableCell>
+                    <TableCell className="text-center">
+                      <Button
+                        size="icon"
+                        variant="ghost"
+                        className="h-7 w-7"
+                        title={post.active ? "Monitoring active — click to pause" : "Monitoring paused — click to resume"}
+                        onClick={() =>
+                          togglePostMonitoring.mutate({ postId: post.id, active: !post.active })
+                        }
+                        disabled={togglePostMonitoring.isPending}
+                      >
+                        {post.active ? (
+                          <Eye className="w-4 h-4 text-green-400" />
+                        ) : (
+                          <EyeOff className="w-4 h-4 text-muted-foreground" />
+                        )}
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
         </TabsContent>
       </Tabs>
     </div>

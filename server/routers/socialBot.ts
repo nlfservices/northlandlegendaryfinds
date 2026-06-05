@@ -21,6 +21,7 @@ import {
   botSettings,
   botReplyLog,
   siteContentIndex,
+  fbMonitoredPosts,
 } from "../../drizzle/schema";
 import { indexAllArticles } from "../bot-content-indexer";
 import { replyToComment } from "../facebook-api";
@@ -270,4 +271,50 @@ export const socialBotRouter = router({
       await db.delete(botReplyLog).where(eq(botReplyLog.id, input.logId));
       return { success: true };
     }),
+
+  /**
+   * Get all monitored Facebook posts.
+   * These are auto-registered whenever a post is published from the admin.
+   */
+  getMonitoredPosts: adminProcedure
+    .input(z.object({ limit: z.number().min(1).max(100).default(50) }))
+    .query(async ({ input }) => {
+      const db = await getDb();
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "DB unavailable" });
+
+      const rows = await db
+        .select()
+        .from(fbMonitoredPosts)
+        .orderBy(desc(fbMonitoredPosts.publishedAt))
+        .limit(input.limit);
+
+      return rows;
+    }),
+
+  /**
+   * Toggle monitoring on/off for a specific post.
+   */
+  togglePostMonitoring: adminProcedure
+    .input(z.object({ postId: z.number(), active: z.boolean() }))
+    .mutation(async ({ input }) => {
+      const db = await getDb();
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "DB unavailable" });
+
+      await db
+        .update(fbMonitoredPosts)
+        .set({ active: input.active })
+        .where(eq(fbMonitoredPosts.id, input.postId));
+
+      return { success: true };
+    }),
+
+  /**
+   * Manually trigger a comment poll right now.
+   * Useful for testing or when you want immediate results.
+   */
+  pollNow: adminProcedure.mutation(async () => {
+    const { pollAllMonitoredPosts } = await import("../bot-post-monitor");
+    const result = await pollAllMonitoredPosts();
+    return result;
+  }),
 });

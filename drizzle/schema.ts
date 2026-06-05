@@ -1240,3 +1240,35 @@ export const botReplyLog = mysqlTable("bot_reply_log", {
 });
 export type BotReplyLog = typeof botReplyLog.$inferSelect;
 export type InsertBotReplyLog = typeof botReplyLog.$inferInsert;
+
+/**
+ * Facebook Monitored Posts — tracks every post published to the NLF Facebook page
+ * so the comment bot can poll each one for new fan comments automatically.
+ *
+ * A row is inserted here immediately after any post is published to Facebook
+ * (from Social Drafts or the Social Post Generator).
+ * The Heartbeat polling job reads this table every 5 minutes.
+ */
+export const fbMonitoredPosts = mysqlTable("fb_monitored_posts", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Facebook post ID (e.g., "123456789_987654321") */
+  fbPostId: varchar("fbPostId", { length: 255 }).notNull().unique(),
+  /** Optional: article slug this post was generated from */
+  articleSlug: varchar("articleSlug", { length: 500 }),
+  /** Short description of the post for display in admin UI */
+  postSummary: text("postSummary"),
+  /** Whether this post is actively being monitored */
+  active: boolean("active").notNull().default(true),
+  /** Last time comments were polled for this post */
+  lastPolledAt: timestamp("lastPolledAt"),
+  /** Total comments seen so far (for display) */
+  commentCount: int("commentCount").notNull().default(0),
+  /** Total replies sent by the bot on this post */
+  replyCount: int("replyCount").notNull().default(0),
+  /** When the post was published to Facebook */
+  publishedAt: timestamp("publishedAt").defaultNow().notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type FbMonitoredPost = typeof fbMonitoredPosts.$inferSelect;
+export type InsertFbMonitoredPost = typeof fbMonitoredPosts.$inferInsert;

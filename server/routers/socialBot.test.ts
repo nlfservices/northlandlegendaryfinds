@@ -251,3 +251,53 @@ describe("Comment age filtering", () => {
     expect(isCommentTooOld(boundaryComment, 7)).toBe(false);
   });
 });
+
+// ==================== FULL AUTOMATION TESTS ====================
+
+describe("Facebook Post Monitor — module exports", () => {
+  it("should export registerPostForMonitoring from bot-post-monitor", async () => {
+    const mod = await import("../bot-post-monitor");
+    expect(typeof mod.registerPostForMonitoring).toBe("function");
+  });
+
+  it("should export pollAllMonitoredPosts from bot-post-monitor", async () => {
+    const mod = await import("../bot-post-monitor");
+    expect(typeof mod.pollAllMonitoredPosts).toBe("function");
+  });
+});
+
+describe("socialBot router — automation procedures", () => {
+  it("exports getMonitoredPosts procedure", async () => {
+    const { socialBotRouter } = await import("./socialBot");
+    expect(socialBotRouter._def.procedures).toHaveProperty("getMonitoredPosts");
+  });
+
+  it("exports togglePostMonitoring procedure", async () => {
+    const { socialBotRouter } = await import("./socialBot");
+    expect(socialBotRouter._def.procedures).toHaveProperty("togglePostMonitoring");
+  });
+
+  it("exports pollNow procedure", async () => {
+    const { socialBotRouter } = await import("./socialBot");
+    expect(socialBotRouter._def.procedures).toHaveProperty("pollNow");
+  });
+});
+
+describe("Auto-registration wiring", () => {
+  it("socialDrafts router loads without error (registerPostForMonitoring wired)", async () => {
+    const mod = await import("./socialDrafts");
+    expect(mod.socialDraftsRouter).toBeDefined();
+  });
+
+  it("socialPosts router loads without error (registerPostForMonitoring wired)", async () => {
+    const mod = await import("./socialPosts");
+    expect(mod.socialPostRouter).toBeDefined();
+  });
+});
+
+describe("Heartbeat poll endpoint", () => {
+  it("registerBotPollScheduledRoute is exported from scheduled-bot-poll", async () => {
+    const mod = await import("../scheduled-bot-poll");
+    expect(typeof mod.registerBotPollScheduledRoute).toBe("function");
+  });
+});

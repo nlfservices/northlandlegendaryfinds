@@ -2520,3 +2520,15 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Set up heartbeat endpoint (/api/scheduled/bot-reindex) for periodic re-indexing
 - [x] Write and pass vitest tests for bot system (357 total passing)
 - [x] Save checkpoint
+
+## Facebook Bot — Full Automation (June 5, 2026)
+- [x] Audit Facebook post publishing flow (socialDrafts publishToFacebook, socialPosts publishToFacebook)
+- [x] Add fb_monitored_posts table to track every published FB post with its post ID
+- [x] Auto-register post in fb_monitored_posts whenever a post is published to Facebook
+- [x] Build /api/scheduled/bot-poll-comments Heartbeat endpoint (polls comments on all monitored posts)
+- [x] Wire comment polling into processComment() for auto-reply or review queue
+- [x] Heartbeat polls every 5 minutes via /api/scheduled/bot-poll-comments
+- [x] Remove manual webhook setup requirement — polling replaces real-time webhook
+- [x] Update admin UI: Monitored Posts tab with live post list, last polled time, comment/reply counts
+- [x] Write and pass 8 new automation tests (365 total passing)
+- [x] Save checkpoint
