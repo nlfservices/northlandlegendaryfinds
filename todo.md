@@ -2542,3 +2542,31 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add killSwitch tRPC procedure: "I am Iron Man" or "I am inevitable" toggles bot on/off
 - [x] Add kill switch input to admin bot panel UI header (always visible)
 - [x] Save checkpoint
+
+## Movies & Series Page Reorder (June 5, 2026)
+- [ ] Audit /movies-series page current layout and data
+- [ ] Feature Avengers: Doomsday prominently at the top (hero/featured slot)
+- [ ] Feature Spider-Man prominently second
+- [ ] Move Secret Wars below Doomsday and Spider-Man
+- [ ] Save checkpoint
+
+## Wolverine vs Spider-Man — Doomsday Rumor Article (June 5, 2026)
+- [ ] Research Wolverine vs Spider-Man Doomsday rumor and talking points
+- [ ] Generate hero battle image (Wolverine claws vs Spider-Man web, Doomsday backdrop)
+- [ ] Generate Facebook post image (scroll-stopping, meme-energy)
+- [ ] Write full article with interactive vote poll
+- [ ] Publish article to NLF site
+- [ ] Write Facebook post + follow-up comment
+- [ ] Write Grok prompt for ad image version
+- [ ] Save checkpoint
+
+## Wolverine vs Spider-Man Doomsday Article (June 2026)
+- [x] Research Wolverine vs Spider-Man Doomsday opening scene rumor
+- [x] Generate hero image: two universes colliding (Raimi NY vs Fox X-Men world)
+- [x] Generate Facebook scroll-stopper image
+- [x] Write full article with 6 sections + card market angle + sources
+- [x] Seed article to DB with spotlight template (id: 1890002)
+- [x] Create community poll: "Does Tobey survive?" with 5 options + 2,130 seeded votes (id: 30001)
+- [x] Fix JSON field types (tags, sources, relatedCharacters stored as proper arrays)
+- [ ] Write Facebook post + first comment for engagement push
+- [ ] Save checkpoint
