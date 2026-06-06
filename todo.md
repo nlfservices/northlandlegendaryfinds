@@ -2568,5 +2568,5 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Seed article to DB with spotlight template (id: 1890002)
 - [x] Create community poll: "Does Tobey survive?" with 5 options + 2,130 seeded votes (id: 30001)
 - [x] Fix JSON field types (tags, sources, relatedCharacters stored as proper arrays)
-- [ ] Write Facebook post + first comment for engagement push
-- [ ] Save checkpoint
+- [x] Write Facebook post + first comment for engagement push
+- [x] Save checkpoint
