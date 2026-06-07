@@ -42,13 +42,13 @@ const SERIES_DATA = [
     id: 1,
     name: "Infinity Series 1",
     status: "complete" as const,
-    cardCount: 85,
-    gradedCount: 43,
+    cardCount: 165,
+    gradedCount: 56,
     oneOfOneCount: 5,
-    parallels: ["Bronze /100", "Silver /75", "Gold /50", "Platinum Refractor /99", "Gold Refractors /50-75", "Orange Refractor /50", "Printing Plates 1/1", "Gambit's Deck Insert /99"],
-    graders: ["AGS", "CGC", "BGS"],
-    description: "Our flagship set — 85 premium Topps Marvel Mint cards across 13 parallel tiers. Raw numbered cards in magnetic holders, plus professionally graded slabs from AGS, CGC, and BGS. Includes 5 Printing Plate 1/1s and exclusive Gambit's Deck inserts.",
-    checklistUrl: "/nlf-series-1",
+    parallels: ["Encased /100", "Encased /75", "Encased /50", "Orange Foil /25", "Gold Foil /50", "Silver Foil /99", "Black Foil /10", "Black Refractor /10", "Red Foil /5", "Red Refractor /5", "Platinum Refractor /25", "Sketch Cards 1/1", "Printing Plates 1/1"],
+    graders: ["AGS", "CGC", "PSA"],
+    description: "Our flagship set — 165 premium cards across Topps Marvel Mint Encased, The Collector, and graded slabs. Includes 5 printing plate 1/1s, sketch cards, numbered parallels down to 1/1, and professionally graded slabs from AGS, CGC, and PSA. Finalized May 27, 2026.",
+    checklistUrl: "/nlf-infinity-series-1",
     color: "from-purple-600 to-indigo-600",
     glowColor: "purple",
     badge: "COMPLETE",
@@ -388,10 +388,10 @@ export default function Shop() {
                   Get $15 Free Credit + Follow
                 </Button>
               </a>
-              <Link href="/nlf-series-1">
+              <Link href="/nlf-infinity-series-1">
                 <Button size="lg" variant="outline" className="border-primary/30 text-primary hover:bg-primary/10 font-bold transition-all hover:scale-[1.02] w-full sm:w-auto">
                   <Eye className="w-5 h-5 mr-2" />
-                  Preview Series 1 Checklist
+                  View Full Checklist (165 Cards)
                 </Button>
               </Link>
             </div>
