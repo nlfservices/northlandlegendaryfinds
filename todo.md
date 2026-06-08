@@ -2570,3 +2570,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Fix JSON field types (tags, sources, relatedCharacters stored as proper arrays)
 - [x] Write Facebook post + first comment for engagement push
 - [x] Save checkpoint
+
+## Facebook Token Auto-Refresh Automation
+- [x] Build automated Facebook token refresh scheduled handler (POST /api/scheduled/fb-token-refresh)
+- [x] Register FB token refresh route in server/_core/index.ts
+- [x] Save FB_APP_SECRET and new never-expiring FB_PAGE_ACCESS_TOKEN as secrets
+- [x] Write vitest tests for the token refresh handler
+- [ ] Deploy site and register heartbeat cron job (every 50 days) via manus-heartbeat CLI
