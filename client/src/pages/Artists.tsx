@@ -1,9 +1,11 @@
 /**
  * Artists Directory — Tiered directory of Topps Marvel trading card artists
  * Design: Dark cosmic theme matching NLF site, tier-based cards with glow effects
+ * Comic Book Auto artists show portrait + short bio; Sketch Card artists show initials
  */
 
 import { useState, useMemo } from "react";
+import { Link } from "wouter";
 import { ARTISTS, TIERS, type TierName, type CategoryName } from "@/data/artists";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -16,6 +18,88 @@ const TIER_ORDER: TierName[] = [
   "Vibranium",
   "Adamantium",
 ];
+
+// Portrait CDN URLs for comic book auto artists (same as ArtistProfile.tsx)
+const ARTIST_PORTRAITS: Record<string, string> = {
+  "adam-kubert": "/manus-storage/Adam_Kubert_607d5cb7.jpg",
+  "adi-granov": "/manus-storage/Adi_Granov_83c8e824.png",
+  "ariel-diaz": "/manus-storage/Ariel_Diaz_3d5b8c24.jpg",
+  "arthur-adams": "/manus-storage/Arthur_Adams_eba1c546.jpg",
+  "bill-sienkiewicz": "/manus-storage/Bill_Sienkiewicz_3d8019d7.jpg",
+  "derrick-chew": "/manus-storage/Derrick_Chew_f8803e35.jpg",
+  "e-m-gist": "/manus-storage/EM_Gist_eb42aedb.jpg",
+  "ed-mcguinness": "/manus-storage/Ed_McGuinness_34d7e34c.jpg",
+  "esad-ribic": "/manus-storage/Esad_Ribic_1251c1e2.jpg",
+  "frank-miller": "/manus-storage/Frank_Miller_c0fd0a06.jpg",
+  "greg-capullo": "/manus-storage/Greg_Capullo_1546ec44.jpg",
+  "greg-horn": "/manus-storage/Greg_Horn_99abd35d.jpg",
+  "inhyuk-lee": "/manus-storage/InHyuk_Lee_b420a27e.jpg",
+  "jack-kirby": "/manus-storage/Jack_Kirby_031fb58d.jpg",
+  "jim-cheung": "/manus-storage/Jim_Cheung_7c1030e9.jpg",
+  "joshua-cassara": "/manus-storage/Joshua_Cassara_8f83fd81.jpg",
+  "lucio-parrillo": "/manus-storage/Lucio_Parrillo_3bfec929.jpg",
+  "marc-silvestri": "/manus-storage/Marc_Silvestri_aaa4d95e.jpg",
+  "mark-bagley": "/manus-storage/Mark_Bagley_eb05c78b.jpg",
+  "mark-brooks": "/manus-storage/Mark_Brooks_1f0e2187.jpg",
+  "mike-mayhew": "/manus-storage/Mike_Mayhew_a5bd6816.jpg",
+  "mike-mckone": "/manus-storage/Mike_McKone_151227f1.jpg",
+  "mike-zeck": "/manus-storage/Mike_Zeck_f04a2656.jpg",
+  "paul-pelletier": "/manus-storage/Paul_Pelletier_36b7b54f.jpg",
+  "ryan-stegman": "/manus-storage/Ryan_Stegman_38906a3d.jpg",
+  "scott-williams": "/manus-storage/Steve_Epting_1b6ba6d2.jpg",
+  "steve-epting": "/manus-storage/Steve_Epting_1b6ba6d2.jpg",
+  "steve-mcniven": "/manus-storage/Steve_McNiven_e2325a28.png",
+  "whilce-portacio": "/manus-storage/Mark_Brooks_1f0e2187.jpg",
+  "ryan-brown": "/manus-storage/Ryan_Stegman_38906a3d.jpg",
+};
+
+// Short bios for comic book auto artists
+const ARTIST_SHORT_BIOS: Record<string, string> = {
+  "frank-miller": "Legendary writer-artist who redefined Daredevil and created Sin City.",
+  "jack-kirby": "The King of Comics — co-creator of the Fantastic Four, X-Men, Captain America, and hundreds more.",
+  "bill-sienkiewicz": "Avant-garde painter who revolutionized comic art with New Mutants and Elektra: Assassin.",
+  "arthur-adams": "Fan-favorite artist celebrated for his ultra-detailed linework and iconic X-Men covers.",
+  "jim-cheung": "Elite Marvel artist known for Young Avengers and Infinity — a master of clean, dynamic superhero art.",
+  "adi-granov": "Photorealistic painter who defined the modern Iron Man look — his armor designs inspired the MCU films.",
+  "marc-silvestri": "Co-founder of Image Comics and legendary X-Men artist — one of the most influential creators of the 1990s.",
+  "greg-capullo": "Spawn and Batman artist — one of the most popular and recognizable styles in modern comics.",
+  "inhyuk-lee": "Korean cover artist whose hyper-detailed digital paintings are among the most collected in modern Marvel.",
+  "esad-ribic": "Painterly European master — his Thor: God of Thunder run is considered one of Marvel's greatest modern achievements.",
+  "adam-kubert": "Second-generation Marvel legend — his X-Men and Wolverine work defined the character for a generation.",
+  "steve-mcniven": "Civil War and Old Man Logan artist — his clean, cinematic style defines modern Marvel storytelling.",
+  "mark-brooks": "Acclaimed cover artist and interior penciler known for his elegant, detailed style across X-Men and Avengers.",
+  "lucio-parrillo": "Italian painter celebrated for his dramatic, painted covers — one of the most distinctive styles in modern comics.",
+  "ryan-stegman": "Superior Spider-Man and Venom artist — his kinetic, expressive style brings Marvel's most intense stories to life.",
+  "ed-mcguinness": "Hulk and Superman artist known for his bold, cartoonish style that makes every character look impossibly powerful.",
+  "greg-horn": "Photorealistic digital painter whose Marvel covers are among the most iconic of the 2000s.",
+  "mike-zeck": "Classic Marvel artist — his Secret Wars and Kraven's Last Hunt work are among the most beloved stories in Marvel history.",
+  "derrick-chew": "Rising star cover artist whose vibrant, detailed style has made him one of Marvel's most popular variant cover artists.",
+  "joshua-cassara": "X-Men and Wolverine artist whose gritty, detailed style brings Marvel's most intense stories to life.",
+  "mark-bagley": "Ultimate Spider-Man artist — his record-breaking run with Brian Michael Bendis defined a generation of Marvel readers.",
+  "mike-mayhew": "Painted cover artist known for his stunning, realistic portrayals of Marvel's most iconic characters.",
+  "steve-epting": "Captain America: The Winter Soldier artist — his cinematic, realistic style helped define the modern Marvel aesthetic.",
+  "ariel-diaz": "Contemporary artist known for dynamic, expressive work across Marvel's superhero catalog.",
+  "e-m-gist": "Acclaimed painter and illustrator known for hauntingly beautiful covers across Marvel and beyond.",
+  "mike-mckone": "Teen Titans and Amazing Spider-Man artist known for his clean, expressive superhero style.",
+  "paul-pelletier": "Veteran Marvel artist known for his work on Annihilation, Guardians of the Galaxy, and Fantastic Four.",
+  "ryan-brown": "Classic TMNT and Marvel artist known for his energetic, fun style across action and adventure titles.",
+  "scott-williams": "Master inker whose work over Jim Lee and other top pencilers defined the look of 1990s Marvel.",
+  "whilce-portacio": "X-Factor and Uncanny X-Men artist — one of the founders of Image Comics and a legend of 1990s Marvel.",
+};
+
+function nameToSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[éèêë]/g, "e")
+    .replace(/[áàâä]/g, "a")
+    .replace(/[íìîï]/g, "i")
+    .replace(/[óòôö]/g, "o")
+    .replace(/[úùûü]/g, "u")
+    .replace(/ć/g, "c")
+    .replace(/ñ/g, "n")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
 
 export default function Artists() {
   const [search, setSearch] = useState("");
@@ -183,55 +267,103 @@ export default function Artists() {
 
               {/* Artist Cards */}
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
-                {tierArtists.map((artist) => (
-                  <div
-                    key={artist.name}
-                    className="group relative rounded-xl border p-4 transition-all duration-200 cursor-default"
-                    style={{
-                      borderColor: tier.borderColor,
-                      backgroundColor: tier.bgColor,
-                    }}
-                    onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLDivElement).style.boxShadow = `0 0 16px ${tier.glowColor}`;
-                      (e.currentTarget as HTMLDivElement).style.transform = "translateY(-2px)";
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLDivElement).style.boxShadow = "none";
-                      (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)";
-                    }}
-                  >
-                    {/* Tier icon badge */}
-                    <div className="absolute top-2 right-2 text-sm opacity-60">{tier.icon}</div>
+                {tierArtists.map((artist) => {
+                  const slug = nameToSlug(artist.name);
+                  const isComicAuto = artist.category === "Comic Book Artist Autographs";
+                  const portrait = ARTIST_PORTRAITS[slug];
+                  const shortBio = ARTIST_SHORT_BIOS[slug];
+                  const hasProfile = isComicAuto;
 
-                    {/* Avatar placeholder */}
+                  const cardContent = (
                     <div
-                      className="w-10 h-10 rounded-full flex items-center justify-center text-lg font-black mb-3"
-                      style={{ backgroundColor: tier.bgColor, border: `2px solid ${tier.borderColor}`, color: tier.color }}
-                    >
-                      {artist.name.charAt(0).toUpperCase()}
-                    </div>
-
-                    <div className="font-bold text-white text-sm leading-tight mb-2">{artist.name}</div>
-
-                    <Badge
-                      className="text-xs px-2 py-0.5 border-0"
+                      className="group relative rounded-xl border p-4 transition-all duration-200 h-full"
                       style={{
-                        backgroundColor: artist.category === "Comic Book Artist Autographs"
-                          ? "rgba(199,125,255,0.15)"
-                          : "rgba(0,212,255,0.15)",
-                        color: artist.category === "Comic Book Artist Autographs" ? "#C77DFF" : "#00D4FF",
+                        borderColor: tier.borderColor,
+                        backgroundColor: tier.bgColor,
+                        cursor: hasProfile ? "pointer" : "default",
+                      }}
+                      onMouseEnter={(e) => {
+                        if (hasProfile) {
+                          (e.currentTarget as HTMLDivElement).style.boxShadow = `0 0 20px ${tier.glowColor}`;
+                          (e.currentTarget as HTMLDivElement).style.transform = "translateY(-3px)";
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        (e.currentTarget as HTMLDivElement).style.boxShadow = "none";
+                        (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)";
                       }}
                     >
-                      {artist.category === "Comic Book Artist Autographs" ? "Comic Auto" : "Sketch Card"}
-                    </Badge>
+                      {/* Tier icon badge */}
+                      <div className="absolute top-2 right-2 text-sm opacity-60">{tier.icon}</div>
 
-                    {artist.sets.length > 0 && (
-                      <div className="mt-2 text-white/30 text-xs truncate" title={artist.sets.join(", ")}>
-                        {artist.sets[0]}
-                      </div>
-                    )}
-                  </div>
-                ))}
+                      {/* Portrait or initials avatar */}
+                      {isComicAuto && portrait ? (
+                        <div
+                          className="w-16 h-16 rounded-full overflow-hidden mb-3 border-2"
+                          style={{ borderColor: tier.borderColor }}
+                        >
+                          <img
+                            src={portrait}
+                            alt={artist.name}
+                            className="w-full h-full object-cover object-top"
+                          />
+                        </div>
+                      ) : (
+                        <div
+                          className="w-10 h-10 rounded-full flex items-center justify-center text-lg font-black mb-3"
+                          style={{ backgroundColor: tier.bgColor, border: `2px solid ${tier.borderColor}`, color: tier.color }}
+                        >
+                          {artist.name.charAt(0).toUpperCase()}
+                        </div>
+                      )}
+
+                      <div className="font-bold text-white text-sm leading-tight mb-2">{artist.name}</div>
+
+                      {/* Short bio for comic auto artists */}
+                      {isComicAuto && shortBio && (
+                        <p className="text-white/50 text-xs leading-relaxed mb-2 line-clamp-3">{shortBio}</p>
+                      )}
+
+                      <Badge
+                        className="text-xs px-2 py-0.5 border-0"
+                        style={{
+                          backgroundColor: isComicAuto
+                            ? "rgba(199,125,255,0.15)"
+                            : "rgba(0,212,255,0.15)",
+                          color: isComicAuto ? "#C77DFF" : "#00D4FF",
+                        }}
+                      >
+                        {isComicAuto ? "Comic Auto" : "Sketch Card"}
+                      </Badge>
+
+                      {artist.sets.length > 0 && (
+                        <div className="mt-2 text-white/30 text-xs truncate" title={artist.sets.join(", ")}>
+                          {artist.sets[0]}
+                        </div>
+                      )}
+
+                      {/* "View Profile" hint for comic auto artists */}
+                      {hasProfile && (
+                        <div
+                          className="mt-3 text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity"
+                          style={{ color: tier.color }}
+                        >
+                          View Profile →
+                        </div>
+                      )}
+                    </div>
+                  );
+
+                  return hasProfile ? (
+                    <Link key={artist.name} href={`/artists/${slug}`} className="block">
+                      {cardContent}
+                    </Link>
+                  ) : (
+                    <div key={artist.name}>
+                      {cardContent}
+                    </div>
+                  );
+                })}
               </div>
             </section>
           );
