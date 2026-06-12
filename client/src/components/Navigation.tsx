@@ -40,6 +40,7 @@ export default function Navigation() {
   // Secondary nav items — in "More" dropdown on desktop, full list on mobile
   const moreItems = [
     { path: "/nerd-gossip", label: "Nerd Gossip" },
+    { path: "/artists", label: "Artist Directory" },
     { path: "/checklists", label: "Cosmic Hits" },
     { path: "/voting-grounds", label: "Voting Grounds" },
     { path: "/card-shows", label: "Events" },

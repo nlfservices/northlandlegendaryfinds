@@ -73,6 +73,7 @@ import MCUMediaHub from "./pages/MCUMediaHub";
 import MCUMediaDetail from "./pages/MCUMediaDetail";
 import NLFSeries1Checklist from "./pages/NLFSeries1Checklist";
 import NLFInfinitySeries1Checklist from "./pages/NLFInfinitySeries1Checklist";
+import Artists from "./pages/Artists";
 
 // Routes that render as full-screen standalone experiences (no nav/footer)
 const STANDALONE_ROUTES = ["/card-display", "/matrix", "/free-credit"];
@@ -163,6 +164,7 @@ function AppRouter() {
           <Route path="/nlf-infinity-series-1" component={NLFInfinitySeries1Checklist} />
           <Route path="/voting-grounds" component={VotingGrounds} />
           <Route path="/mcu-spotlight" component={MCUSpotlight} />
+          <Route path="/artists" component={Artists} />
           <Route path="/login" component={JarvisProtocol} />
           <Route path="/404" component={NotFound} />
           <Route component={NotFound} />
