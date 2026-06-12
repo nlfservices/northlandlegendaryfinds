@@ -2576,4 +2576,4 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Register FB token refresh route in server/_core/index.ts
 - [x] Save FB_APP_SECRET and new never-expiring FB_PAGE_ACCESS_TOKEN as secrets
 - [x] Write vitest tests for the token refresh handler
-- [ ] Deploy site and register heartbeat cron job (every 50 days) via manus-heartbeat CLI
+- [x] Deploy site and register heartbeat cron job (monthly, 1st of each month) via manus-heartbeat CLI
