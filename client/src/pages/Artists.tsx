@@ -51,6 +51,38 @@ const ARTIST_PORTRAITS: Record<string, string> = {
   "steve-mcniven": "/manus-storage/Steve_McNiven_e2325a28.png",
   "whilce-portacio": "/manus-storage/Mark_Brooks_1f0e2187.jpg",
   "ryan-brown": "/manus-storage/Ryan_Stegman_38906a3d.jpg",
+
+  // Sketch Card Artists with portraits
+  "emrah-cildir": "/manus-storage/Emrah_Cildir_2eb60a98.jpg",
+  "hector-barros": "/manus-storage/Hector_Barros_921672e7.jpg",
+  "fabio-ramacci": "/manus-storage/Fabio_Ramacci_26d70f7f.jpg",
+  "gary-shipman": "/manus-storage/Gary_Shipman_2dc4383d.jpg",
+  "rich-hennemann": "/manus-storage/Rich_Hennemann_83e0c92a.jpg",
+  "elvin-a-hernandez": "/manus-storage/Elvin_Hernandez_b2cf4b3c.jpg",
+  "stephane-leonardi": "/manus-storage/Stephane_Leonardi_ddb33320.png",
+  "matt-stewart": "/manus-storage/Matt_Stewart_3fe6bebb.jpg",
+  "darrin-pepe": "/manus-storage/Darrin_Pepe_ecca3397.jpg",
+  "jason-sobol": "/manus-storage/Jason_Sobol_451eb91b.jpg",
+  "george-vega": "/manus-storage/George_Vega_f8726b04.jpg",
+  "rustico-limosinero": "/manus-storage/Rustico_Limosinero_3a09f69c.jpg",
+  "adam-fields": "/manus-storage/Adam_Fields_6c2eefdd.png",
+  "bella-rachlin": "/manus-storage/Bella_Rachlin_36a5f44a.jpg",
+  "chris-foreman": "/manus-storage/Chris_Foreman_7f88d709.png",
+  "chris-meeks": "/manus-storage/Chris_Meeks_6a5a85a4.jpg",
+  "daniel-riveron": "/manus-storage/Daniel_Riveron_26018781.jpg",
+  "dove-mchargue": "/manus-storage/Dove_McHargue_94443885.jpg",
+  "eddie-rhodes-iii": "/manus-storage/Eddie_Rhodes_III_97925a96.jpg",
+  "eric-lehtonen": "/manus-storage/Eric_Lehtonen_2fb9f11c.jpg",
+  "greg-kirkpatrick": "/manus-storage/Greg_Kirkpatrick_4c398a80.jpg",
+  "jason-christner": "/manus-storage/Jason_Christner_26752b70.jpg",
+  "jason-rodriguez": "/manus-storage/Jason_Rodriguez_98aad7b8.jpg",
+  "jay-peteranetz": "/manus-storage/Jay_Peteranetz_7135dea3.jpg",
+  "loc-nguyen": "/manus-storage/Loc_Nguyen_3a154d5d.jpg",
+  "chenduz": "/manus-storage/Chenduz_d3cc74cd.jpg",
+  "nick-gribbon": "/manus-storage/Nick_Gribbon_a1c1acfb.jpg",
+  "peejay-catacutan": "/manus-storage/Peejay_Catacutan_93c09c7f.jpg",
+  "ryan-finley": "/manus-storage/Ryan_Finley_db8737cb.jpg",
+  "sherwin-santiago": "/manus-storage/Sherwin_Santiago_c3f03bc8.jpg",
 };
 
 // Short bios for comic book auto artists
@@ -273,6 +305,7 @@ export default function Artists() {
                   const portrait = ARTIST_PORTRAITS[slug];
                   const shortBio = ARTIST_SHORT_BIOS[slug];
                   const hasProfile = isComicAuto;
+                  const hasPortrait = !!portrait;
 
                   const cardContent = (
                     <div
@@ -297,9 +330,9 @@ export default function Artists() {
                       <div className="absolute top-2 right-2 text-sm opacity-60">{tier.icon}</div>
 
                       {/* Portrait or initials avatar */}
-                      {isComicAuto && portrait ? (
+                      {hasPortrait ? (
                         <div
-                          className="w-16 h-16 rounded-full overflow-hidden mb-3 border-2"
+                          className={`${isComicAuto ? 'w-16 h-16' : 'w-12 h-12'} rounded-full overflow-hidden mb-3 border-2`}
                           style={{ borderColor: tier.borderColor }}
                         >
                           <img

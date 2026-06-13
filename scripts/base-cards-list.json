@@ -1,0 +1,702 @@
+[
+  {
+    "id": 90001,
+    "cardNumber": "1",
+    "characterName": "Mister Fantastic",
+    "cardType": "Base - Common",
+    "imageUrl": "https://geektyrant.com/wp-content/uploads/2024/05/fantastic-four-first-steps-character-posters-1.jpg"
+  },
+  {
+    "id": 90002,
+    "cardNumber": "2",
+    "characterName": "Invisible Woman",
+    "cardType": "Base - Common",
+    "imageUrl": "https://static.wikia.nocookie.net/marveldatabase/images/5/5e/Susan_Storm_%28Earth-616%29_from_Thunderbolts_Vol_1_12_001.jpg"
+  },
+  {
+    "id": 90003,
+    "cardNumber": "3",
+    "characterName": "Human Torch",
+    "cardType": "Base - Common",
+    "imageUrl": "https://static.wikia.nocookie.net/marveldatabase/images/e/e0/Jonathan_Storm_%28Earth-616%29_from_Fantastic_Four_Vol_6_1_001.jpg/revision/latest?cb=20180808190740"
+  },
+  {
+    "id": 90004,
+    "cardNumber": "4",
+    "characterName": "The Thing",
+    "cardType": "Base - Common",
+    "imageUrl": "https://static.wikia.nocookie.net/marveldatabase/images/9/9a/Benjamin_Grimm_%28Earth-616%29_from_Thing_Vol_1_1_002.jpg"
+  },
+  {
+    "id": 90005,
+    "cardNumber": "5",
+    "characterName": "Air-Walker",
+    "cardType": "Base - Common",
+    "imageUrl": "https://static.wikia.nocookie.net/marveldatabase/images/a/a0/Gabriel_Lan_%28Earth-616%29_from_Thor_Vol_1_306_0001.jpg/revision/latest"
+  },
+  {
+    "id": 90006,
+    "cardNumber": "6",
+    "characterName": "Alicia Masters",
+    "cardType": "Base - Common",
+    "imageUrl": "https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/VVHQuGlqJfyGbZmJ.jpg"
+  },
+  {
+    "id": 90007,
+    "cardNumber": "7",
+    "characterName": "Artie Maddicks",
+    "cardType": "Base - Common",
+    "imageUrl": null
+  },
+  {
+    "id": 90008,
+    "cardNumber": "8",
+    "characterName": "Attuma",
+    "cardType": "Base - Common",
+    "imageUrl": "https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/ZygZiixrrNygJQPw.png"
+  },
+  {
+    "id": 90009,
+    "cardNumber": "9",
+    "characterName": "Awesome Android",
+    "cardType": "Base - Common",
+    "imageUrl": null
+  },
+  {
+    "id": 90010,
+    "cardNumber": "10",
+    "characterName": "Bentley-23",
+    "cardType": "Base - Common",
+    "imageUrl": null
+  },
+  {
+    "id": 90011,
+    "cardNumber": "11",
+    "characterName": "Beyonder",
+    "cardType": "Base - Common",
+    "imageUrl": "https://www.screenrant.com/wp-content/uploads/2022/06/beyonder-marvel-comic-artwork.jpg"
+  },
+  {
+    "id": 90012,
+    "cardNumber": "12",
+    "characterName": "Devil Dinosaur",
+    "cardType": "Base - Common",
+    "imageUrl": "https://m.media-amazon.com/images/I/7178+s6z+wL._AC_UF894,1000_QL80_.jpg"
+  },
+  {
+    "id": 90013,
+    "cardNumber": "13",
+    "characterName": "Diablo",
+    "cardType": "Base - Common",
+    "imageUrl": "https://static.wikia.nocookie.net/marveldatabase/images/6/60/Esteban_Coraz%C3%B3n_de_Ablo_%28Earth-616%29_posing_as_Mister_Olbaid_in_Fantastic_Four_Vol_1_232.jpg"
+  },
+  {
+    "id": 90014,
+    "cardNumber": "14",
+    "characterName": "Doctor Doom",
+    "cardType": "Base - Common",
+    "imageUrl": "https://nerdist.com/wp-content/uploads/2020/07/Doctor-Doom-Featured-Image.jpg"
+  },
+  {
+    "id": 90015,
+    "cardNumber": "15",
+    "characterName": "Dragon Man",
+    "cardType": "Base - Common",
+    "imageUrl": null
+  },
+  {
+    "id": 90016,
+    "cardNumber": "16",
+    "characterName": "Ego",
+    "cardType": "Base - Common",
+    "imageUrl": "https://static.wikia.nocookie.net/villains/images/9/9b/Ego_the_Living_Planet_Earth-616_Marvel_Comics.png"
+  },
+  {
+    "id": 90017,
+    "cardNumber": "17",
+    "characterName": "Fallen One",
+    "cardType": "Base - Common",
+    "imageUrl": null
+  },
+  {
+    "id": 90018,
+    "cardNumber": "18",
+    "characterName": "Firelord",
+    "cardType": "Base - Common",
+    "imageUrl": "https://static.wikia.nocookie.net/character-level/images/b/b5/Firelord_Marvel.png/revision/latest?cb=20190516132151"
+  },
+  {
+    "id": 90019,
+    "cardNumber": "19",
+    "characterName": "Flux",
+    "cardType": "Base - Common",
+    "imageUrl": "/manus-storage/cbh-067-front_b753c1d5.webp"
+  },
+  {
+    "id": 90020,
+    "cardNumber": "20",
+    "characterName": "Franklin Richards",
+    "cardType": "Base - Common",
+    "imageUrl": "https://static.wikia.nocookie.net/marveldatabase/images/f/f5/Franklin_Richards_%28Earth-616%29_from_Fantastic_Four_Vol_6_1_001.jpg/revision/latest"
+  },
+  {
+    "id": 90021,
+    "cardNumber": "21",
+    "characterName": "H.E.R.B.I.E.",
+    "cardType": "Base - Common",
+    "imageUrl": "https://static.wikia.nocookie.net/marveldatabase/images/h/h0/H.E.R.B.I.E._%28Earth-616%29_from_Fantastic_Four_Vol_1_209_0001.jpg/revision/latest"
+  },
+  {
+    "id": 90022,
+    "cardNumber": "22",
+    "characterName": "The High Evolutionary",
+    "cardType": "Base - Common",
+    "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_ss6_namor-PCRFQMvmgD3E5TfcDSojZc.webp"
+  },
+  {
+    "id": 90023,
+    "cardNumber": "23",
+    "characterName": "Immortus",
+    "cardType": "Base - Common",
+    "imageUrl": null
+  },
+  {
+    "id": 90024,
+    "cardNumber": "24",
+    "characterName": "Impossible Man",
+    "cardType": "Base - Common",
+    "imageUrl": null
+  },
+  {
+    "id": 90025,
+    "cardNumber": "25",
+    "characterName": "Klaw",
+    "cardType": "Base - Common",
+    "imageUrl": null
+  },
+  {
+    "id": 90026,
+    "cardNumber": "26",
+    "characterName": "Leech",
+    "cardType": "Base - Common",
+    "imageUrl": null
+  },
+  {
+    "id": 90027,
+    "cardNumber": "27",
+    "characterName": "Lyja",
+    "cardType": "Base - Common",
+    "imageUrl": null
+  },
+  {
+    "id": 90028,
+    "cardNumber": "28",
+    "characterName": "Mad Thinker",
+    "cardType": "Base - Common",
+    "imageUrl": "/manus-storage/mint-009_3a1d72f1.webp"
+  },
+  {
+    "id": 90029,
+    "cardNumber": "29",
+    "characterName": "Miss Thing",
+    "cardType": "Base - Common",
+    "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/STUDIOS_TVA-4_Miss_Minutes-7WQ8wcRUyuJpLs6dYEeXMW.webp"
+  },
+  {
+    "id": 90030,
+    "cardNumber": "30",
+    "characterName": "Mobius M. Mobius",
+    "cardType": "Base - Common",
+    "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/STUDIOS_Base_103_Mobius_Loki_Phase_Four_5421a80b.png"
+  },
+  {
+    "id": 90031,
+    "cardNumber": "31",
+    "characterName": "Molecule Man",
+    "cardType": "Base - Common",
+    "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-021_Molecule_Man_99ed979a.webp"
+  },
+  {
+    "id": 90032,
+    "cardNumber": "32",
+    "characterName": "Morg",
+    "cardType": "Base - Common",
+    "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/STUDIOS_Base_102_Karli_Morgenthau_The_Falcon_and_The_Winter_Soldier_Phase_Four_c7fb0275.png"
+  },
+  {
+    "id": 90033,
+    "cardNumber": "33",
+    "characterName": "Over-Mind",
+    "cardType": "Base - Common",
+    "imageUrl": null
+  },
+  {
+    "id": 90034,
+    "cardNumber": "34",
+    "characterName": "Power Skrull",
+    "cardType": "Base - Common",
+    "imageUrl": null
+  },
+  {
+    "id": 90035,
+    "cardNumber": "35",
+    "characterName": "Puppet Master",
+    "cardType": "Base - Common",
+    "imageUrl": null
+  },
+  {
+    "id": 90036,
+    "cardNumber": "36",
+    "characterName": "Psycho-Man",
+    "cardType": "Base - Common",
+    "imageUrl": null
+  },
+  {
+    "id": 90037,
+    "cardNumber": "37",
+    "characterName": "Rama-Tut",
+    "cardType": "Base - Common",
+    "imageUrl": null
+  },
+  {
+    "id": 90038,
+    "cardNumber": "38",
+    "characterName": "Red Ghost",
+    "cardType": "Base - Common",
+    "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-097_Daredevil_31eed32f.webp"
+  },
+  {
+    "id": 90039,
+    "cardNumber": "39",
+    "characterName": "Ronan",
+    "cardType": "Base - Common",
+    "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-157_Ronan_83fac64d.webp"
+  },
+  {
+    "id": 90040,
+    "cardNumber": "40",
+    "characterName": "Sandman",
+    "cardType": "Base - Common",
+    "imageUrl": "https://www.alexrossart.com/cdn/shop/products/Timeless_Sandman_Red_Goblin_3_600x911.jpg?v=1678820046"
+  },
+  {
+    "id": 90041,
+    "cardNumber": "41",
+    "characterName": "She-Thing",
+    "cardType": "Base - Common",
+    "imageUrl": null
+  },
+  {
+    "id": 90042,
+    "cardNumber": "42",
+    "characterName": "Spider-Man",
+    "cardType": "Base - Common",
+    "imageUrl": "https://static.wikia.nocookie.net/marveldatabase/images/4/45/Peter_Parker_%28Earth-616%29_from_Amazing_Fantasy_Vol_1_15_001.jpg"
+  },
+  {
+    "id": 90043,
+    "cardNumber": "43",
+    "characterName": "Super-Skrull",
+    "cardType": "Base - Common",
+    "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-011_Super-Skrull_93142741.webp"
+  },
+  {
+    "id": 90044,
+    "cardNumber": "44",
+    "characterName": "Terrax",
+    "cardType": "Base - Common",
+    "imageUrl": null
+  },
+  {
+    "id": 90045,
+    "cardNumber": "45",
+    "characterName": "Thundra",
+    "cardType": "Base - Common",
+    "imageUrl": null
+  },
+  {
+    "id": 90046,
+    "cardNumber": "46",
+    "characterName": "Titania",
+    "cardType": "Base - Common",
+    "imageUrl": "https://www.ricardodrumond.com/wp-content/uploads/2020/07/Titania-Marvel-SNAP-Painted-Art-by-Ricardo-Drumond.jpg"
+  },
+  {
+    "id": 90047,
+    "cardNumber": "47",
+    "characterName": "Trapster",
+    "cardType": "Base - Common",
+    "imageUrl": null
+  },
+  {
+    "id": 90048,
+    "cardNumber": "48",
+    "characterName": "Valeria Richards",
+    "cardType": "Base - Common",
+    "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-087_Valeria_Richards_85c9290e.webp"
+  },
+  {
+    "id": 90049,
+    "cardNumber": "49",
+    "characterName": "Victorious",
+    "cardType": "Base - Common",
+    "imageUrl": null
+  },
+  {
+    "id": 90050,
+    "cardNumber": "50",
+    "characterName": "Wizard",
+    "cardType": "Base - Common",
+    "imageUrl": null
+  },
+  {
+    "id": 90051,
+    "cardNumber": "51",
+    "characterName": "Adam Warlock",
+    "cardType": "Base - Uncommon",
+    "imageUrl": "https://static.wikia.nocookie.net/marveldatabase/images/f/f0/Adam_Warlock_%28Earth-616%29_from_Infinity_Wars_Infinity_Vol_1_1_001.jpg/revision/latest"
+  },
+  {
+    "id": 90052,
+    "cardNumber": "52",
+    "characterName": "Agatha Harkness",
+    "cardType": "Base - Uncommon",
+    "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-006_Agatha_Harkness_c6809028.webp"
+  },
+  {
+    "id": 90053,
+    "cardNumber": "53",
+    "characterName": "Alpha",
+    "cardType": "Base - Uncommon",
+    "imageUrl": null
+  },
+  {
+    "id": 90054,
+    "cardNumber": "54",
+    "characterName": "Black Bolt",
+    "cardType": "Base - Uncommon",
+    "imageUrl": "https://www.comicsbeat.com/wp-content/uploads/2015/10/Uncanny-Inhumans-0-Black-Bolt-e1445468766779.jpg"
+  },
+  {
+    "id": 90055,
+    "cardNumber": "55",
+    "characterName": "Blastaar",
+    "cardType": "Base - Uncommon",
+    "imageUrl": "https://static.wikia.nocookie.net/marveldatabase/images/b/b0/Blastaar_%28Earth-616%29_from_Fantastic_Four_Vol_1_62_0001.jpg/revision/latest"
+  },
+  {
+    "id": 90056,
+    "cardNumber": "56",
+    "characterName": "Captain America",
+    "cardType": "Base - Uncommon",
+    "imageUrl": "https://static.wikia.nocookie.net/marveldatabase/images/7/7b/Steven_Rogers_%28Earth-616%29_from_Captain_America_Vol_9_1_001.jpg/revision/latest"
+  },
+  {
+    "id": 90057,
+    "cardNumber": "57",
+    "characterName": "Dazzler",
+    "cardType": "Base - Uncommon",
+    "imageUrl": "https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/lIbkwWjwmStgzVuM.jpg"
+  },
+  {
+    "id": 90058,
+    "cardNumber": "58",
+    "characterName": "Doctor Strange",
+    "cardType": "Base - Uncommon",
+    "imageUrl": "https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/iWgAhzGhVIwjPpKs.jpg"
+  },
+  {
+    "id": 90059,
+    "cardNumber": "59",
+    "characterName": "Doom 2099",
+    "cardType": "Base - Uncommon",
+    "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-148_Doctor_Doom_52f7a61b.webp"
+  },
+  {
+    "id": 90060,
+    "cardNumber": "60",
+    "characterName": "Galactus",
+    "cardType": "Base - Uncommon",
+    "imageUrl": "https://comicvine.gamespot.com/a/uploads/original/11112/111124742/8667046-timelessgalactus.jpg"
+  },
+  {
+    "id": 90061,
+    "cardNumber": "61",
+    "characterName": "Gorgon",
+    "cardType": "Base - Uncommon",
+    "imageUrl": "https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/EhomExRBiPHoJzHO.jpg"
+  },
+  {
+    "id": 90062,
+    "cardNumber": "62",
+    "characterName": "Iceman",
+    "cardType": "Base - Uncommon",
+    "imageUrl": "https://static.wikia.nocookie.net/marveldatabase/images/i/i0/Robert_Drake_%28Earth-616%29_from_Iceman_Vol_4_1_001.jpg/revision/latest"
+  },
+  {
+    "id": 90063,
+    "cardNumber": "63",
+    "characterName": "Iron Man",
+    "cardType": "Base - Uncommon",
+    "imageUrl": "/manus-storage/mint-022_68538871.webp"
+  },
+  {
+    "id": 90064,
+    "cardNumber": "64",
+    "characterName": "Jack Of Hearts",
+    "cardType": "Base - Uncommon",
+    "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/collector-yellowjacket_069e4bb5.webp"
+  },
+  {
+    "id": 90065,
+    "cardNumber": "65",
+    "characterName": "Kang",
+    "cardType": "Base - Uncommon",
+    "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/chrome_181_kang_conqueror-BjwGsrZ9PiwMS8bSzW9qaF.webp"
+  },
+  {
+    "id": 90066,
+    "cardNumber": "66",
+    "characterName": "Karnak",
+    "cardType": "Base - Uncommon",
+    "imageUrl": "https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/jKCnuifsOZgdfvRE.jpg"
+  },
+  {
+    "id": 90067,
+    "cardNumber": "67",
+    "characterName": "Lockjaw",
+    "cardType": "Base - Uncommon",
+    "imageUrl": "https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/zVQnUViefukgOTVy.jpg"
+  },
+  {
+    "id": 90068,
+    "cardNumber": "68",
+    "characterName": "Luke Cage",
+    "cardType": "Base - Uncommon",
+    "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-111_Luke_Cage_8dc8b164.webp"
+  },
+  {
+    "id": 90069,
+    "cardNumber": "69",
+    "characterName": "Mole Man",
+    "cardType": "Base - Uncommon",
+    "imageUrl": "https://static.wikia.nocookie.net/marveldatabase/images/m/m0/Harvey_Rupert_Elder_%28Earth-616%29_from_Fantastic_Four_Vol_1_1_0001.jpg/revision/latest"
+  },
+  {
+    "id": 90070,
+    "cardNumber": "70",
+    "characterName": "Moon Girl",
+    "cardType": "Base - Uncommon",
+    "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/STUDIOS_619_Khonshu_2fb52a99.png"
+  },
+  {
+    "id": 90071,
+    "cardNumber": "71",
+    "characterName": "Namor",
+    "cardType": "Base - Uncommon",
+    "imageUrl": "https://static.wikia.nocookie.net/marveldatabase/images/f/f1/Namor_Conquered_Shores_Vol_1_1_Clarke_Variant_Textless.jpg"
+  },
+  {
+    "id": 90072,
+    "cardNumber": "72",
+    "characterName": "Namorita",
+    "cardType": "Base - Uncommon",
+    "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-012_Namor_c5dd48a5.webp"
+  },
+  {
+    "id": 90073,
+    "cardNumber": "73",
+    "characterName": "Nathaniel Richards",
+    "cardType": "Base - Uncommon",
+    "imageUrl": null
+  },
+  {
+    "id": 90074,
+    "cardNumber": "74",
+    "characterName": "Nick Fury",
+    "cardType": "Base - Uncommon",
+    "imageUrl": "https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/NsnshAMkmnBtbZfY.jpg"
+  },
+  {
+    "id": 90075,
+    "cardNumber": "75",
+    "characterName": "Nova",
+    "cardType": "Base - Uncommon",
+    "imageUrl": "https://static.wikia.nocookie.net/marveldatabase/images/3/3b/Richard_Rider_%28Earth-691%29_from_Guardians_of_the_Galaxy_Vol_1_50_0001.jpg"
+  },
+  {
+    "id": 90076,
+    "cardNumber": "76",
+    "characterName": "Scarlet Witch",
+    "cardType": "Base - Uncommon",
+    "imageUrl": "https://marvel.fandom.com/wiki/Wanda_Maximoff_(Earth-616)?file=Wanda_Maximoff_%28Earth-616%29_from_Scarlet_Witch_Vol_3_1_001.jpg"
+  },
+  {
+    "id": 90077,
+    "cardNumber": "77",
+    "characterName": "Silver Surfer",
+    "cardType": "Base - Uncommon",
+    "imageUrl": "https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/LBcGNeZcBKzDuiav.jpg"
+  },
+  {
+    "id": 90078,
+    "cardNumber": "78",
+    "characterName": "Sleepwalker",
+    "cardType": "Base - Uncommon",
+    "imageUrl": null
+  },
+  {
+    "id": 90079,
+    "cardNumber": "79",
+    "characterName": "Thanos",
+    "cardType": "Base - Uncommon",
+    "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/collector-thanos-wanda-AcH72PpDKYAoVFXgqTs5Ld.webp"
+  },
+  {
+    "id": 90080,
+    "cardNumber": "80",
+    "characterName": "Tigra",
+    "cardType": "Base - Uncommon",
+    "imageUrl": "https://ultimatecomics.com/wp-content/uploads/2021/09/TIGRA.jpg?fit=2063%2C3132&ssl=1"
+  },
+  {
+    "id": 90081,
+    "cardNumber": "81",
+    "characterName": "Triton",
+    "cardType": "Base - Uncommon",
+    "imageUrl": null
+  },
+  {
+    "id": 90082,
+    "cardNumber": "82",
+    "characterName": "Ultron",
+    "cardType": "Base - Uncommon",
+    "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-138_Ultron_a52cb3a4.webp"
+  },
+  {
+    "id": 90083,
+    "cardNumber": "83",
+    "characterName": "Vision",
+    "cardType": "Base - Uncommon",
+    "imageUrl": "https://www.alexrossart.com/cdn/shop/products/Avengers_43_Timeless_Vision_Alex_Ross_Art_1700x.jpg?v=1612470000"
+  },
+  {
+    "id": 90084,
+    "cardNumber": "84",
+    "characterName": "Wasp",
+    "cardType": "Base - Uncommon",
+    "imageUrl": "https://static.wikia.nocookie.net/marveldatabase/images/f/f7/Wasp_Vol_1_1_Nie_Variant_Textless.jpg"
+  },
+  {
+    "id": 90085,
+    "cardNumber": "85",
+    "characterName": "The Watcher",
+    "cardType": "Base - Uncommon",
+    "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_ss6_namor-PCRFQMvmgD3E5TfcDSojZc.webp"
+  },
+  {
+    "id": 90086,
+    "cardNumber": "86",
+    "characterName": "Ant-Man",
+    "cardType": "Base - Rare",
+    "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-141_Ant-Man_b6db983b.webp"
+  },
+  {
+    "id": 90087,
+    "cardNumber": "87",
+    "characterName": "Black Panther",
+    "cardType": "Base - Rare",
+    "imageUrl": "https://static.wikia.nocookie.net/marveldatabase/images/e/e7/T%27Challa_%28Earth-616%29_from_Black_Panther_Vol_7_1_001.jpg"
+  },
+  {
+    "id": 90088,
+    "cardNumber": "88",
+    "characterName": "The Bombastic Bagman",
+    "cardType": "Base - Rare",
+    "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/sapphire_ss6_namor-PCRFQMvmgD3E5TfcDSojZc.webp"
+  },
+  {
+    "id": 90089,
+    "cardNumber": "89",
+    "characterName": "Crystal",
+    "cardType": "Base - Rare",
+    "imageUrl": "https://static.wikia.nocookie.net/marveldatabase/images/c/c0/Crystalia_Amaquelin_%28Earth-616%29_from_Inhumans_Vol_2_1_0001.jpg/revision/latest"
+  },
+  {
+    "id": 90090,
+    "cardNumber": "90",
+    "characterName": "Doomasaur",
+    "cardType": "Base - Rare",
+    "imageUrl": null
+  },
+  {
+    "id": 90091,
+    "cardNumber": "91",
+    "characterName": "Ghost Rider",
+    "cardType": "Base - Rare",
+    "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-029_Ghost-Spider_ff0a79b9.webp"
+  },
+  {
+    "id": 90092,
+    "cardNumber": "92",
+    "characterName": "Hulk",
+    "cardType": "Base - Rare",
+    "imageUrl": "https://static.wikia.nocookie.net/marveldatabase/images/b/b3/Robert_Bruce_Banner_%28Earth-616%29_from_Incredible_Hulk_Vol_1_1_0001.jpg/revision/latest"
+  },
+  {
+    "id": 90093,
+    "cardNumber": "93",
+    "characterName": "Invisible Man",
+    "cardType": "Base - Rare",
+    "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/chrome_174_invisible_woman-hERLcKYLf5Y9rYL6D2sTUk.webp"
+  },
+  {
+    "id": 90094,
+    "cardNumber": "94",
+    "characterName": "Maker",
+    "cardType": "Base - Rare",
+    "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-074_The_Maker_75d03a9c.webp"
+  },
+  {
+    "id": 90095,
+    "cardNumber": "95",
+    "characterName": "Malice",
+    "cardType": "Base - Rare",
+    "imageUrl": null
+  },
+  {
+    "id": 90096,
+    "cardNumber": "96",
+    "characterName": "Medusa",
+    "cardType": "Base - Rare",
+    "imageUrl": "https://static.wikia.nocookie.net/marveldatabase/images/m/m0/Medusalith_Amaquelin_%28Earth-616%29_from_Inhumans_Vol_2_1_0001.jpg/revision/latest"
+  },
+  {
+    "id": 90097,
+    "cardNumber": "97",
+    "characterName": "She-Hulk",
+    "cardType": "Base - Rare",
+    "imageUrl": "https://static.wikia.nocookie.net/marveldatabase/images/7/7e/Robert_Bruce_Banner_%28Earth-616%29_from_Incredible_Hulk_Vol_2_1_001.jpg/revision/latest"
+  },
+  {
+    "id": 90098,
+    "cardNumber": "98",
+    "characterName": "Storm",
+    "cardType": "Base - Rare",
+    "imageUrl": "/manus-storage/cbh-126-front_d88628bc.webp"
+  },
+  {
+    "id": 90099,
+    "cardNumber": "99",
+    "characterName": "Thor",
+    "cardType": "Base - Rare",
+    "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/STUDIOS_Base_74_Makkari_Eternals_Phase_Four_855f4f2e.png"
+  },
+  {
+    "id": 90100,
+    "cardNumber": "100",
+    "characterName": "Wolverine",
+    "cardType": "Base - Rare",
+    "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/STUDIOS_REFLECTIONS_R-1_Captain_America_1e00a929.png"
+  }
+]
