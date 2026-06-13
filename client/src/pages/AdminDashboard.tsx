@@ -21,7 +21,7 @@ import { getLoginUrl } from "@/const";
 import {
   Package, ListChecks, Zap, Radio, Plus, Trash2, Edit, Eye,
   CheckCircle2, Circle, ArrowLeft, Loader2, Calendar, ExternalLink,
-  ShoppingBag, Truck, CreditCard, Boxes, Hammer, Download, BarChart3, FileSpreadsheet, Flame, Sparkles, Settings, Clock, Facebook, Key
+  ShoppingBag, Truck, CreditCard, Boxes, Hammer, Download, BarChart3, FileSpreadsheet, Flame, Sparkles, Settings, Clock, Facebook, Key, Users
 } from "lucide-react";
 import { useState, useMemo, useEffect } from "react";
 import { Link } from "wouter";
@@ -41,6 +41,7 @@ import TokenExpirationAlert from "@/components/admin/TokenExpirationAlert";
 import FacebookBotManager from "@/components/admin/FacebookBotManager";
 import AdminAffiliateLinks from "@/pages/AdminAffiliateLinks";
 import ApiKeysManager from "@/components/admin/ApiKeysManager";
+import UserPortal from "@/components/admin/UserPortal";
 
 // ==================== SITE SETTINGS (COUNTDOWN TIMER) ====================
 
@@ -1566,6 +1567,7 @@ const NAV_GROUPS = [
   {
     label: "System",
     items: [
+      { id: "users", label: "User Portal", icon: Users },
       { id: "affiliates", label: "Affiliates", icon: ExternalLink },
       { id: "api-keys", label: "API Keys", icon: Key },
       { id: "settings", label: "Settings", icon: Settings },
@@ -1873,6 +1875,7 @@ export default function AdminDashboard() {
             {activeSection === "affiliates" && <AdminAffiliateLinks />}
             {activeSection === "settings" && <SiteSettingsManager />}
             {activeSection === "api-keys" && <ApiKeysManager />}
+            {activeSection === "users" && <UserPortal />}
           </div>
         </main>
       </div>

@@ -23,6 +23,7 @@ import { ghlAdminRouter } from "./routers/ghlAdmin";
 import { pollsRouter } from "./routers/polls";
 import { socialBotRouter } from "./routers/socialBot";
 import { apiKeysRouter } from "./routers/apiKeys";
+import { userManagementRouter } from "./routers/userManagement";
 
 export const appRouter = router({
   system: systemRouter,
@@ -123,6 +124,9 @@ export const appRouter = router({
 
   // API Key management (admin only)
   apiKeys: apiKeysRouter,
+
+  // User management portal (admin+)
+  userManagement: userManagementRouter,
 
 });
 

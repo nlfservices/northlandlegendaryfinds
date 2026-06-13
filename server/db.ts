@@ -71,12 +71,15 @@ export async function upsertUser(user: InsertUser): Promise<void> {
       values.lastSignedIn = user.lastSignedIn;
       updateSet.lastSignedIn = user.lastSignedIn;
     }
-    if (user.role !== undefined) {
-      values.role = user.role;
-      updateSet.role = user.role;
-    } else if (user.openId === ENV.ownerOpenId) {
-      values.role = 'admin';
-      updateSet.role = 'admin';
+    // Owner always gets/keeps the 'owner' role — cannot be changed by anyone
+    if (user.openId === ENV.ownerOpenId) {
+      values.role = 'owner';
+      updateSet.role = 'owner';
+    } else if (user.role !== undefined) {
+      // Never allow setting 'owner' role via this path (only the ownerOpenId check above can)
+      const safeRole = user.role === 'owner' ? 'admin' : user.role;
+      values.role = safeRole;
+      updateSet.role = safeRole;
     }
 
     if (!values.lastSignedIn) {
