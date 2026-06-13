@@ -1521,15 +1521,143 @@ function OrderManager() {
   );
 }
 
-// ==================== MAIN ADMIN DASHBOARD ====================
+// ==================== SIDEBAR NAV CONFIG ====================
+const NAV_GROUPS = [
+  {
+    label: "Overview",
+    items: [
+      { id: "overview", label: "Dashboard", icon: BarChart3 },
+    ],
+  },
+  {
+    label: "Commerce",
+    items: [
+      { id: "products", label: "Products", icon: Package },
+      { id: "orders", label: "Orders", icon: ShoppingBag },
+      { id: "inventory", label: "Inventory", icon: Boxes },
+      { id: "repack-builder", label: "Repack Builder", icon: Hammer },
+    ],
+  },
+  {
+    label: "Events",
+    items: [
+      { id: "shows", label: "Shows", icon: Radio },
+      { id: "pulls", label: "Pull Logger", icon: Zap },
+      { id: "checklist-sheet", label: "Checklist Sheet", icon: FileSpreadsheet },
+      { id: "checklists", label: "Checklists", icon: ListChecks },
+    ],
+  },
+  {
+    label: "Content",
+    items: [
+      { id: "articles", label: "MCU News", icon: Sparkles },
+      { id: "blog", label: "The Collector", icon: Flame },
+      { id: "top5", label: "Top 5", icon: BarChart3 },
+      { id: "ebay-comps", label: "eBay Comps", icon: CreditCard },
+      { id: "pages", label: "Pages", icon: FileSpreadsheet },
+    ],
+  },
+  {
+    label: "Social",
+    items: [
+      { id: "social", label: "Social Posts", icon: Facebook },
+    ],
+  },
+  {
+    label: "System",
+    items: [
+      { id: "affiliates", label: "Affiliates", icon: ExternalLink },
+      { id: "api-keys", label: "API Keys", icon: Key },
+      { id: "settings", label: "Settings", icon: Settings },
+    ],
+  },
+];
 
+// ==================== OVERVIEW PANEL ====================
+function OverviewPanel({ user }: { user: { name?: string | null; email?: string | null } }) {
+  const now = new Date();
+  const hour = now.getHours();
+  const greeting = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
+
+  const quickLinks = [
+    { label: "View Site", href: "/", icon: ExternalLink, color: "text-primary" },
+    { label: "MCU News", href: "/mcu-news", icon: Sparkles, color: "text-yellow-400" },
+    { label: "Card Database", href: "/cards", icon: Package, color: "text-blue-400" },
+    { label: "API Docs", href: "/api-docs", icon: Key, color: "text-green-400" },
+  ];
+
+  return (
+    <div className="space-y-8">
+      {/* Welcome Banner */}
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/20 via-primary/10 to-transparent border border-primary/20 p-8">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent" />
+        <div className="relative">
+          <p className="text-muted-foreground text-sm font-medium mb-1">{greeting},</p>
+          <h2 className="text-3xl font-bold mb-2">{user.name || "Admin"} 👋</h2>
+          <p className="text-muted-foreground">Welcome to the NLF Command Center. Everything you need to run the site is in the sidebar.</p>
+        </div>
+        <div className="absolute bottom-0 right-0 w-48 h-48 opacity-5">
+          <svg viewBox="0 0 100 100" className="w-full h-full fill-primary">
+            <circle cx="50" cy="50" r="50" />
+          </svg>
+        </div>
+      </div>
+
+      {/* Quick Access Grid */}
+      <div>
+        <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4">Quick Access</h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          {quickLinks.map((link) => (
+            <Link key={link.href} href={link.href}>
+              <div className="group flex items-center gap-3 p-4 rounded-xl bg-card border border-border hover:border-primary/40 hover:bg-primary/5 transition-all cursor-pointer">
+                <link.icon className={`w-5 h-5 ${link.color} group-hover:scale-110 transition-transform`} />
+                <span className="text-sm font-medium">{link.label}</span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* Section Cards */}
+      <div>
+        <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4">All Sections</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {NAV_GROUPS.filter(g => g.label !== "Overview").map((group) => (
+            <div key={group.label} className="rounded-xl bg-card border border-border p-5">
+              <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-3">{group.label}</p>
+              <div className="space-y-1">
+                {group.items.map((item) => (
+                  <button
+                    key={item.id}
+                    className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm hover:bg-primary/10 hover:text-primary transition-colors text-left"
+                  >
+                    <item.icon className="w-4 h-4 flex-shrink-0" />
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ==================== MAIN ADMIN DASHBOARD ====================
 export default function AdminDashboard() {
   const { user, loading } = useAuth();
+  const [activeSection, setActiveSection] = useState("overview");
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+        <div className="text-center">
+          <Loader2 className="w-10 h-10 animate-spin text-primary mx-auto mb-4" />
+          <p className="text-muted-foreground text-sm">Loading command center...</p>
+        </div>
       </div>
     );
   }
@@ -1537,9 +1665,11 @@ export default function AdminDashboard() {
   if (!user || user.role !== 'admin') {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <Card className="max-w-md w-full mx-4">
+        <Card className="max-w-md w-full mx-4 border-border">
           <CardContent className="py-12 text-center">
-            <div className="text-4xl mb-4">🔒</div>
+            <div className="w-16 h-16 rounded-full bg-destructive/10 flex items-center justify-center mx-auto mb-4">
+              <Settings className="w-8 h-8 text-destructive" />
+            </div>
             <h2 className="text-xl font-bold mb-2">Admin Access Required</h2>
             <p className="text-muted-foreground mb-6">You need to be logged in as an admin to access this page.</p>
             <div className="flex gap-3 justify-center">
@@ -1556,149 +1686,195 @@ export default function AdminDashboard() {
     );
   }
 
+  const activeGroup = NAV_GROUPS.find(g => g.items.some(i => i.id === activeSection));
+  const activeItem = NAV_GROUPS.flatMap(g => g.items).find(i => i.id === activeSection);
+  const ActiveIcon = activeItem?.icon ?? BarChart3;
+
   return (
-    <div className="min-h-screen bg-background">
-      {/* Admin Header */}
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container flex items-center justify-between h-14">
-          <div className="flex items-center gap-3">
-            <Link href="/">
-              <Button variant="ghost" size="sm"><ArrowLeft className="w-4 h-4 mr-1" /> Site</Button>
-            </Link>
-            <Separator orientation="vertical" className="h-6" />
-            <h1 className="font-bold text-lg">NLF Admin</h1>
+    <div className="min-h-screen bg-[#0a0a0f] text-foreground flex flex-col">
+      {/* ===== TOP HEADER BAR ===== */}
+      <header className="h-14 border-b border-white/[0.06] bg-[#0d0d14]/80 backdrop-blur-xl sticky top-0 z-50 flex items-center px-4 gap-4">
+        {/* Left: Logo + collapse toggle */}
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setSidebarCollapsed(c => !c)}
+            className="hidden lg:flex w-8 h-8 items-center justify-center rounded-lg hover:bg-white/10 transition-colors text-muted-foreground hover:text-foreground"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+          {/* Mobile menu toggle */}
+          <button
+            onClick={() => setMobileMenuOpen(o => !o)}
+            className="lg:hidden w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/10 transition-colors"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-6 rounded bg-primary/20 flex items-center justify-center">
+              <span className="text-primary text-xs font-bold">N</span>
+            </div>
+            <span className="font-bold text-sm tracking-tight hidden sm:block">NLF Command Center</span>
           </div>
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <span>{user.name || user.email}</span>
-            <Badge variant="outline" className="border-primary/50 text-primary">Admin</Badge>
+        </div>
+
+        {/* Center: Breadcrumb */}
+        <div className="flex-1 flex items-center gap-2 text-sm">
+          <span className="text-muted-foreground hidden md:block">{activeGroup?.label}</span>
+          {activeGroup && <span className="text-muted-foreground hidden md:block">/</span>}
+          <span className="font-medium">{activeItem?.label ?? "Dashboard"}</span>
+        </div>
+
+        {/* Right: Token alert + user */}
+        <div className="flex items-center gap-3">
+          <div className="hidden md:block">
+            <TokenExpirationAlert />
           </div>
+          <div className="flex items-center gap-2 pl-3 border-l border-white/10">
+            <div className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xs font-bold">
+              {(user.name || user.email || "A")[0].toUpperCase()}
+            </div>
+            <div className="hidden sm:block">
+              <p className="text-xs font-medium leading-none">{user.name || user.email}</p>
+              <p className="text-[10px] text-primary mt-0.5">Admin</p>
+            </div>
+          </div>
+          <Link href="/">
+            <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground h-8 px-2.5">
+              <ExternalLink className="w-3.5 h-3.5 mr-1.5" />
+              <span className="hidden sm:inline text-xs">View Site</span>
+            </Button>
+          </Link>
         </div>
       </header>
 
-      {/* Token Expiration Alert - Persistent, cannot be dismissed when critical */}
-      <div className="container pt-4">
-        <TokenExpirationAlert />
-      </div>
+      <div className="flex flex-1 overflow-hidden">
+        {/* ===== SIDEBAR ===== */}
+        {/* Mobile overlay */}
+        {mobileMenuOpen && (
+          <div
+            className="fixed inset-0 bg-black/60 z-40 lg:hidden"
+            onClick={() => setMobileMenuOpen(false)}
+          />
+        )}
 
-      {/* Main Content */}
-      <div className="container py-6">
-        <Tabs defaultValue="products" className="space-y-6">
-          <TabsList className="bg-card border border-border">
-            <TabsTrigger value="products" className="flex items-center gap-2">
-              <Package className="w-4 h-4" /> Products
-            </TabsTrigger>
-            <TabsTrigger value="checklist-sheet" className="flex items-center gap-2">
-              <FileSpreadsheet className="w-4 h-4" /> Checklist Sheet
-            </TabsTrigger>
-            <TabsTrigger value="checklists" className="flex items-center gap-2">
-              <ListChecks className="w-4 h-4" /> Checklists
-            </TabsTrigger>
-            <TabsTrigger value="pulls" className="flex items-center gap-2">
-              <Zap className="w-4 h-4" /> Pull Logger
-            </TabsTrigger>
-            <TabsTrigger value="shows" className="flex items-center gap-2">
-              <Radio className="w-4 h-4" /> Shows
-            </TabsTrigger>
-            <TabsTrigger value="orders" className="flex items-center gap-2">
-              <ShoppingBag className="w-4 h-4" /> Orders
-            </TabsTrigger>
-            <TabsTrigger value="inventory" className="flex items-center gap-2">
-              <Boxes className="w-4 h-4" /> Inventory
-            </TabsTrigger>
-            <TabsTrigger value="repack-builder" className="flex items-center gap-2">
-              <Hammer className="w-4 h-4" /> Repack Builder
-            </TabsTrigger>
-            <TabsTrigger value="articles" className="flex items-center gap-2">
-              <FileSpreadsheet className="w-4 h-4" /> MCU News
-            </TabsTrigger>
-            <TabsTrigger value="top5" className="flex items-center gap-2">
-              <Flame className="w-4 h-4" /> Top 5
-            </TabsTrigger>
-            <TabsTrigger value="ebay-comps" className="flex items-center gap-2">
-              <BarChart3 className="w-4 h-4" /> eBay Comps
-            </TabsTrigger>
-            <TabsTrigger value="blog" className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4" /> The Collector
-            </TabsTrigger>
-            <TabsTrigger value="pages" className="flex items-center gap-2">
-              <FileSpreadsheet className="w-4 h-4" /> Pages
-            </TabsTrigger>
-            <TabsTrigger value="social" className="flex items-center gap-2">
-              <Facebook className="w-4 h-4" /> Social Posts
-            </TabsTrigger>
-            <TabsTrigger value="affiliates" className="flex items-center gap-2">
-              <ShoppingBag className="w-4 h-4" /> Affiliates
-            </TabsTrigger>
-            <TabsTrigger value="settings" className="flex items-center gap-2">
-              <Settings className="w-4 h-4" /> Settings
-            </TabsTrigger>
-            <TabsTrigger value="api-keys" className="flex items-center gap-2">
-              <Key className="w-4 h-4" /> API Keys
-            </TabsTrigger>
-          </TabsList>
+        <aside
+          className={[
+            "fixed lg:relative z-40 lg:z-auto inset-y-0 left-0 top-14 lg:top-0",
+            "bg-[#0d0d14] border-r border-white/[0.06]",
+            "flex flex-col transition-all duration-300 ease-in-out",
+            sidebarCollapsed ? "w-[60px]" : "w-[220px]",
+            mobileMenuOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
+          ].join(" ")}
+        >
+          <ScrollArea className="flex-1 py-4">
+            <nav className="px-2 space-y-6">
+              {NAV_GROUPS.map((group) => (
+                <div key={group.label}>
+                  {!sidebarCollapsed && (
+                    <p className="px-3 mb-1.5 text-[10px] font-bold text-muted-foreground/60 uppercase tracking-[0.1em]">
+                      {group.label}
+                    </p>
+                  )}
+                  <div className="space-y-0.5">
+                    {group.items.map((item) => {
+                      const isActive = activeSection === item.id;
+                      return (
+                        <button
+                          key={item.id}
+                          onClick={() => { setActiveSection(item.id); setMobileMenuOpen(false); }}
+                          title={sidebarCollapsed ? item.label : undefined}
+                          className={[
+                            "w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150",
+                            isActive
+                              ? "bg-primary/15 text-primary"
+                              : "text-muted-foreground hover:text-foreground hover:bg-white/5",
+                          ].join(" ")}
+                        >
+                          <item.icon className={`w-4 h-4 flex-shrink-0 ${isActive ? "text-primary" : ""}`} />
+                          {!sidebarCollapsed && (
+                            <span className="truncate">{item.label}</span>
+                          )}
+                          {!sidebarCollapsed && isActive && (
+                            <div className="ml-auto w-1.5 h-1.5 rounded-full bg-primary" />
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+            </nav>
+          </ScrollArea>
 
-          <TabsContent value="products">
-            <ProductManager />
-          </TabsContent>
-          <TabsContent value="checklist-sheet">
-            <ChecklistSheetWrapper />
-          </TabsContent>
-          <TabsContent value="checklists">
-            <ChecklistEditor />
-          </TabsContent>
-          <TabsContent value="pulls">
-            <PullLogger />
-          </TabsContent>
-          <TabsContent value="shows">
-            <ShowManager />
-          </TabsContent>
-          <TabsContent value="orders">
-            <OrderManager />
-          </TabsContent>
-          <TabsContent value="inventory">
-            <InventoryManager />
-          </TabsContent>
-          <TabsContent value="repack-builder">
-            <RepackBuilder />
-          </TabsContent>
-          <TabsContent value="ebay-comps">
-            <EbayCompsPanel />
-          </TabsContent>
-          <TabsContent value="articles">
-            <ArticleManager />
-          </TabsContent>
-          <TabsContent value="top5">
-            <Top5Manager />
-          </TabsContent>
-          <TabsContent value="blog">
-            <BlogManager />
-          </TabsContent>
-          <TabsContent value="pages">
-            <PageContentManager />
-          </TabsContent>
-          <TabsContent value="social">
-            <div className="space-y-8">
-              <FacebookBotManager />
-              <Separator />
-              <GHLCommentManager />
-              <Separator />
-              <SocialDraftsManager />
-              <div className="border-t border-border pt-8">
-                <h3 className="text-lg font-semibold mb-4 text-muted-foreground">Legacy Post Generator (Single Article)</h3>
-                <SocialPostGenerator />
+          {/* Sidebar footer */}
+          {!sidebarCollapsed && (
+            <div className="p-3 border-t border-white/[0.06]">
+              <div className="px-3 py-2 rounded-lg bg-primary/5 border border-primary/10">
+                <p className="text-[10px] text-primary font-bold mb-0.5">NLF Admin v2</p>
+                <p className="text-[10px] text-muted-foreground">Command Center</p>
               </div>
             </div>
-          </TabsContent>
-          <TabsContent value="affiliates">
-            <AdminAffiliateLinks />
-          </TabsContent>
-          <TabsContent value="settings">
-            <SiteSettingsManager />
-          </TabsContent>
-          <TabsContent value="api-keys">
-            <ApiKeysManager />
-          </TabsContent>
-        </Tabs>
+          )}
+        </aside>
+
+        {/* ===== MAIN CONTENT AREA ===== */}
+        <main className="flex-1 overflow-auto">
+          {/* Mobile token alert */}
+          <div className="md:hidden px-4 pt-3">
+            <TokenExpirationAlert />
+          </div>
+
+          <div className="p-4 md:p-6 lg:p-8 max-w-[1400px]">
+            {/* Section Header */}
+            {activeSection !== "overview" && (
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-9 h-9 rounded-xl bg-primary/15 flex items-center justify-center flex-shrink-0">
+                  <ActiveIcon className="w-4.5 h-4.5 text-primary" />
+                </div>
+                <div>
+                  <h1 className="text-xl font-bold leading-none">{activeItem?.label}</h1>
+                  <p className="text-xs text-muted-foreground mt-0.5">{activeGroup?.label}</p>
+                </div>
+              </div>
+            )}
+
+            {/* Section Content */}
+            {activeSection === "overview" && <OverviewPanel user={user} />}
+            {activeSection === "products" && <ProductManager />}
+            {activeSection === "checklist-sheet" && <ChecklistSheetWrapper />}
+            {activeSection === "checklists" && <ChecklistEditor />}
+            {activeSection === "pulls" && <PullLogger />}
+            {activeSection === "shows" && <ShowManager />}
+            {activeSection === "orders" && <OrderManager />}
+            {activeSection === "inventory" && <InventoryManager />}
+            {activeSection === "repack-builder" && <RepackBuilder />}
+            {activeSection === "ebay-comps" && <EbayCompsPanel />}
+            {activeSection === "articles" && <ArticleManager />}
+            {activeSection === "top5" && <Top5Manager />}
+            {activeSection === "blog" && <BlogManager />}
+            {activeSection === "pages" && <PageContentManager />}
+            {activeSection === "social" && (
+              <div className="space-y-8">
+                <FacebookBotManager />
+                <Separator />
+                <GHLCommentManager />
+                <Separator />
+                <SocialDraftsManager />
+                <div className="border-t border-border pt-8">
+                  <h3 className="text-lg font-semibold mb-4 text-muted-foreground">Legacy Post Generator (Single Article)</h3>
+                  <SocialPostGenerator />
+                </div>
+              </div>
+            )}
+            {activeSection === "affiliates" && <AdminAffiliateLinks />}
+            {activeSection === "settings" && <SiteSettingsManager />}
+            {activeSection === "api-keys" && <ApiKeysManager />}
+          </div>
+        </main>
       </div>
     </div>
   );
