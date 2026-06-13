@@ -1327,3 +1327,29 @@ export const apiUsageLogs = mysqlTable("api_usage_logs", {
 
 export type ApiUsageLog = typeof apiUsageLogs.$inferSelect;
 export type InsertApiUsageLog = typeof apiUsageLogs.$inferInsert;
+
+/**
+ * User invitations - pre-assigns a role to an email before they sign up
+ */
+export const userInvites = mysqlTable("user_invites", {
+  id: int("id").primaryKey().autoincrement(),
+  /** Email address the invite was sent to */
+  email: varchar("email", { length: 320 }).notNull(),
+  /** Role to assign when they sign up */
+  role: mysqlEnum("role", ["owner", "super_admin", "admin", "subscriber", "user"]).notNull().default("user"),
+  /** Unique token for the invite link */
+  token: varchar("token", { length: 64 }).notNull().unique(),
+  /** Who sent the invite */
+  invitedByUserId: int("invitedByUserId"),
+  /** Optional personal message */
+  message: text("message"),
+  /** Whether the invite has been accepted */
+  accepted: boolean("accepted").notNull().default(false),
+  /** When the invite was accepted */
+  acceptedAt: timestamp("acceptedAt"),
+  /** Invite expires after 7 days */
+  expiresAt: timestamp("expiresAt").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+export type UserInvite = typeof userInvites.$inferSelect;
+export type InsertUserInvite = typeof userInvites.$inferInsert;

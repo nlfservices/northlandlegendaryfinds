@@ -7,9 +7,11 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { toast } from "sonner";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Crown, Shield, ShieldCheck, User, Users, Search,
-  ChevronLeft, ChevronRight, AlertTriangle, Trash2, UserCog
+  ChevronLeft, ChevronRight, AlertTriangle, Trash2, UserCog,
+  UserPlus, Mail, Send, Clock, RotateCcw, X
 } from "lucide-react";
 
 // Role hierarchy config
@@ -93,6 +95,11 @@ export default function UserPortal() {
   const [roleDialogOpen, setRoleDialogOpen] = useState(false);
   const [removeDialogOpen, setRemoveDialogOpen] = useState(false);
   const [newRole, setNewRole] = useState<string>("");
+  const [inviteDialogOpen, setInviteDialogOpen] = useState(false);
+  const [inviteEmail, setInviteEmail] = useState("");
+  const [inviteRole, setInviteRole] = useState("admin");
+  const [inviteMessage, setInviteMessage] = useState("");
+  const [showInvites, setShowInvites] = useState(false);
 
   const utils = trpc.useUtils();
 
@@ -126,6 +133,29 @@ export default function UserPortal() {
     onError: (err) => toast.error(err.message),
   });
 
+  const { data: pendingInvites, refetch: refetchInvites } = trpc.invites.list.useQuery();
+
+  const sendInvite = trpc.invites.create.useMutation({
+    onSuccess: (res) => {
+      toast.success(res.message);
+      setInviteDialogOpen(false);
+      setInviteEmail("");
+      setInviteMessage("");
+      refetchInvites();
+    },
+    onError: (err) => toast.error(err.message),
+  });
+
+  const revokeInvite = trpc.invites.revoke.useMutation({
+    onSuccess: () => { toast.success("Invitation revoked"); refetchInvites(); },
+    onError: (err) => toast.error(err.message),
+  });
+
+  const resendInvite = trpc.invites.resend.useMutation({
+    onSuccess: (res) => { toast.success(res.message); refetchInvites(); },
+    onError: (err) => toast.error(err.message),
+  });
+
   const currentUserLevel = ROLE_CONFIG[currentUser?.role ?? "user"]?.level ?? 0;
 
   const canManage = (targetRole: string) => {
@@ -148,6 +178,29 @@ export default function UserPortal() {
             User Portal
           </h2>
           <p className="text-sm text-slate-400 mt-0.5">Manage user access and roles across the NLF platform</p>
+        </div>
+        <div className="flex gap-2">
+          <Button
+            size="sm"
+            variant="ghost"
+            className="h-8 px-3 text-slate-400 hover:text-white border border-white/10"
+            onClick={() => setShowInvites(v => !v)}
+          >
+            <Mail className="w-3.5 h-3.5 mr-1.5" />
+            Invites {pendingInvites && pendingInvites.filter(i => !i.accepted).length > 0 && (
+              <span className="ml-1.5 bg-primary/20 text-primary text-xs px-1.5 py-0.5 rounded-full">
+                {pendingInvites.filter(i => !i.accepted).length}
+              </span>
+            )}
+          </Button>
+          <Button
+            size="sm"
+            className="h-8 px-3 bg-primary hover:bg-primary/90 text-black font-semibold"
+            onClick={() => setInviteDialogOpen(true)}
+          >
+            <UserPlus className="w-3.5 h-3.5 mr-1.5" />
+            Invite User
+          </Button>
         </div>
       </div>
 
@@ -356,6 +409,129 @@ export default function UserPortal() {
               className="bg-primary hover:bg-primary/90"
             >
               {assignRole.isPending ? "Saving..." : "Save Role"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Pending invites panel */}
+      {showInvites && (
+        <div className="rounded-xl border border-white/8 bg-white/2 p-4 space-y-3">
+          <h3 className="text-sm font-semibold text-white flex items-center gap-2">
+            <Clock className="w-4 h-4 text-slate-400" />
+            Pending Invitations
+          </h3>
+          {!pendingInvites || pendingInvites.filter(i => !i.accepted).length === 0 ? (
+            <p className="text-sm text-slate-500">No pending invitations</p>
+          ) : (
+            <div className="space-y-2">
+              {pendingInvites.filter(i => !i.accepted).map(invite => (
+                <div key={invite.id} className="flex items-center justify-between rounded-lg border border-white/8 bg-white/3 px-3 py-2">
+                  <div>
+                    <div className="text-sm text-white font-medium">{invite.email}</div>
+                    <div className="flex items-center gap-2 mt-0.5">
+                      <RoleBadge role={invite.role} />
+                      <span className="text-xs text-slate-500">
+                        Expires {new Date(invite.expiresAt).toLocaleDateString()}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex gap-1.5">
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      className="h-7 px-2 text-slate-400 hover:text-white"
+                      onClick={() => resendInvite.mutate({ id: invite.id })}
+                      disabled={resendInvite.isPending}
+                      title="Resend invitation"
+                    >
+                      <RotateCcw className="w-3.5 h-3.5" />
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      className="h-7 px-2 text-slate-400 hover:text-red-400"
+                      onClick={() => revokeInvite.mutate({ id: invite.id })}
+                      disabled={revokeInvite.isPending}
+                      title="Revoke invitation"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Invite User dialog */}
+      <Dialog open={inviteDialogOpen} onOpenChange={setInviteDialogOpen}>
+        <DialogContent className="bg-[#0f0f1a] border-white/10 text-white">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <UserPlus className="w-5 h-5 text-primary" />
+              Invite a User
+            </DialogTitle>
+            <DialogDescription className="text-slate-400">
+              Send an email invitation with a pre-assigned role. The link expires in 7 days.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-2">
+            <div>
+              <label className="text-xs text-slate-400 mb-1.5 block">Email Address</label>
+              <Input
+                type="email"
+                value={inviteEmail}
+                onChange={e => setInviteEmail(e.target.value)}
+                placeholder="bobby@example.com"
+                className="bg-white/5 border-white/10 text-white placeholder:text-slate-500"
+              />
+            </div>
+            <div>
+              <label className="text-xs text-slate-400 mb-1.5 block">Role to Assign</label>
+              <Select value={inviteRole} onValueChange={setInviteRole}>
+                <SelectTrigger className="bg-white/5 border-white/10 text-white">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent className="bg-[#1a1a2e] border-white/10">
+                  {assignableRoles.map(role => (
+                    <SelectItem key={role} value={role}>
+                      <div className="flex items-center gap-2">
+                        {ROLE_CONFIG[role]?.icon}
+                        <span>{ROLE_CONFIG[role]?.label}</span>
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <label className="text-xs text-slate-400 mb-1.5 block">Personal Message (optional)</label>
+              <Textarea
+                value={inviteMessage}
+                onChange={e => setInviteMessage(e.target.value)}
+                placeholder="Hey Bobby, I'm giving you access to the NLF admin dashboard..."
+                className="bg-white/5 border-white/10 text-white placeholder:text-slate-500 resize-none"
+                rows={3}
+                maxLength={500}
+              />
+              <p className="text-xs text-slate-600 mt-1">{inviteMessage.length}/500</p>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="ghost" onClick={() => setInviteDialogOpen(false)} className="text-slate-400">Cancel</Button>
+            <Button
+              onClick={() => {
+                if (!inviteEmail) return toast.error("Please enter an email address");
+                sendInvite.mutate({ email: inviteEmail, role: inviteRole as any, message: inviteMessage || undefined });
+              }}
+              disabled={sendInvite.isPending || !inviteEmail}
+              className="bg-primary hover:bg-primary/90 text-black font-semibold"
+            >
+              {sendInvite.isPending ? "Sending..." : (
+                <><Send className="w-3.5 h-3.5 mr-1.5" />Send Invitation</>
+              )}
             </Button>
           </DialogFooter>
         </DialogContent>

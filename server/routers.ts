@@ -24,6 +24,7 @@ import { pollsRouter } from "./routers/polls";
 import { socialBotRouter } from "./routers/socialBot";
 import { apiKeysRouter } from "./routers/apiKeys";
 import { userManagementRouter } from "./routers/userManagement";
+import { invitesRouter } from "./routers/invites";
 
 export const appRouter = router({
   system: systemRouter,
@@ -127,6 +128,9 @@ export const appRouter = router({
 
   // User management portal (admin+)
   userManagement: userManagementRouter,
+
+  // User invitations (admin+)
+  invites: invitesRouter,
 
 });
 
