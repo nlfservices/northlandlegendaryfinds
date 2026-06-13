@@ -1,15 +1,15 @@
 /**
- * Matrix Portal - Hidden admin entry point with 3-layer security
- * Layer 1: Access code gate (this page) — 6-digit PIN with individual boxes
- * Layer 2: OAuth authentication (after code verified)
- * Layer 3: Admin role check (AdminDashboard component)
+ * Matrix Portal - Hidden admin entry point with 3-step security
+ * Step 1: 6-digit PIN with individual boxes and IP lockout
+ * Step 2: Username + Password form (standalone, no OAuth)
+ * Step 3: Redirect to /admin dashboard
  *
- * URL: /matrix (hidden from Google via robots.txt)
+ * URL: /matrix (hidden from Google via robots.txt, not linked on site)
  */
-import { useAuth } from "@/_core/hooks/useAuth";
-import { getLoginUrl } from "@/const";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { Link, useLocation, useSearch } from "wouter";
 import {
@@ -20,10 +20,13 @@ import {
   Loader2,
   Terminal,
   Send,
+  Eye,
+  EyeOff,
+  User,
 } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
 
-// localStorage key for PIN verification — survives OAuth redirect (unlike sessionStorage)
+// localStorage key for PIN verification — survives page navigation
 // Expires after 30 minutes via a timestamp check
 const MATRIX_VERIFIED_KEY = "matrix_gate_verified";
 const MATRIX_VERIFIED_EXPIRY_KEY = "matrix_gate_verified_expiry";
@@ -46,281 +49,164 @@ function getMatrixVerified(): boolean {
   return true;
 }
 
-// Roles that are allowed into the admin dashboard
-const ADMIN_ROLES = ["owner", "super_admin", "admin"] as const;
-type AdminRole = (typeof ADMIN_ROLES)[number];
-function isAdminRole(role: string | undefined | null): role is AdminRole {
-  return ADMIN_ROLES.includes(role as AdminRole);
+function clearMatrixVerified() {
+  localStorage.removeItem(MATRIX_VERIFIED_KEY);
+  localStorage.removeItem(MATRIX_VERIFIED_EXPIRY_KEY);
 }
 
-export default function MatrixPortal() {
-  const { user, loading: authLoading } = useAuth();
-  const [, setLocation] = useLocation();
-  const searchString = useSearch();
-  const searchParams = new URLSearchParams(searchString);
-  const bypassToken = searchParams.get("bypass");
+// ==================== STEP 2b: FORCE PASSWORD CHANGE ====================
 
-  // 6-digit PIN state — each digit stored separately
-  const [digits, setDigits] = useState<string[]>(["" ,"", "", "", "", ""]);
-  const [isVerifying, setIsVerifying] = useState(false);
-  const [isVerified, setIsVerified] = useState(false);
-  const [attemptsRemaining, setAttemptsRemaining] = useState(5);
-  const [isLockedOut, setIsLockedOut] = useState(false);
-  const [lockoutMinutes, setLockoutMinutes] = useState(0);
-  const [bypassRequested, setBypassRequested] = useState(false);
-  const [bypassLoading, setBypassLoading] = useState(false);
-  // Shake animation on wrong PIN
-  const [shake, setShake] = useState(false);
+function ChangePasswordForm({ displayName, onSuccess }: { displayName: string; onSuccess: () => void }) {
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showNew, setShowNew] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Refs for each digit input
-  const inputRefs = useRef<Array<HTMLInputElement | null>>([null, null, null, null, null, null]);
+  const changePassword = trpc.matrix.changeAdminPassword.useMutation();
 
-  const verifyCode = trpc.matrix.verifyCode.useMutation();
-  const verifyBypass = trpc.matrix.verifyBypass.useMutation();
-  const requestBypass = trpc.matrix.requestBypass.useMutation();
-  const { data: lockStatus } = trpc.matrix.checkStatus.useQuery();
-
-  // Check localStorage for previous PIN verification (survives OAuth redirect)
-  useEffect(() => {
-    if (getMatrixVerified()) {
-      setIsVerified(true);
-    }
-  }, []);
-
-  // Check lockout status on load
-  useEffect(() => {
-    if (lockStatus?.locked) {
-      setIsLockedOut(true);
-      setLockoutMinutes(lockStatus.minutesRemaining);
-    }
-  }, [lockStatus]);
-
-  // Handle bypass token in URL
-  useEffect(() => {
-    if (bypassToken && !isVerified) {
-      handleBypassVerification(bypassToken);
-    }
-  }, [bypassToken]);
-
-  // Auto-focus first digit on mount
-  useEffect(() => {
-    if (!isVerified && !isLockedOut) {
-      inputRefs.current[0]?.focus();
-    }
-  }, [isVerified, isLockedOut]);
-
-  async function handleBypassVerification(token: string) {
-    try {
-      const result = await verifyBypass.mutateAsync({ token });
-      if (result.success) {
-        setMatrixVerified();
-        setIsVerified(true);
-        setIsLockedOut(false);
-        toast.success("Bypass successful. Access granted.");
-        // Clean the URL
-        setLocation("/matrix", { replace: true });
-      } else {
-        toast.error(result.message);
-      }
-    } catch {
-      toast.error("Bypass verification failed.");
-    }
-  }
-
-  const submitCode = useCallback(async (fullCode: string) => {
-    if (isVerifying || isLockedOut) return;
-    setIsVerifying(true);
-    try {
-      const result = await verifyCode.mutateAsync({ code: fullCode });
-      if (result.success) {
-        setMatrixVerified();
-        setIsVerified(true);
-        toast.success("Access granted.");
-      } else {
-        // Wrong code — shake and clear
-        setShake(true);
-        setTimeout(() => {
-          setShake(false);
-          setDigits(["", "", "", "", "", ""]);
-          inputRefs.current[0]?.focus();
-        }, 500);
-        if (result.locked) {
-          setIsLockedOut(true);
-          setLockoutMinutes(result.minutesRemaining || 15);
-        } else {
-          setAttemptsRemaining(result.attemptsRemaining || 0);
-          toast.error(result.message);
-        }
-      }
-    } catch {
-      toast.error("Verification failed. Try again.");
-      setDigits(["", "", "", "", "", ""]);
-      inputRefs.current[0]?.focus();
-    } finally {
-      setIsVerifying(false);
-    }
-  }, [isVerifying, isLockedOut, verifyCode]);
-
-  function handleDigitChange(index: number, value: string) {
-    // Only accept digits
-    const digit = value.replace(/\D/g, "").slice(-1);
-    const newDigits = [...digits];
-    newDigits[index] = digit;
-    setDigits(newDigits);
-
-    if (digit) {
-      // Advance to next box
-      if (index < 5) {
-        inputRefs.current[index + 1]?.focus();
-      } else {
-        // Last digit entered — auto-submit
-        const fullCode = newDigits.join("");
-        if (fullCode.length === 6) {
-          submitCode(fullCode);
-        }
-      }
-    }
-  }
-
-  function handleDigitKeyDown(index: number, e: React.KeyboardEvent<HTMLInputElement>) {
-    if (e.key === "Backspace") {
-      if (digits[index]) {
-        // Clear current box
-        const newDigits = [...digits];
-        newDigits[index] = "";
-        setDigits(newDigits);
-      } else if (index > 0) {
-        // Move back and clear previous
-        const newDigits = [...digits];
-        newDigits[index - 1] = "";
-        setDigits(newDigits);
-        inputRefs.current[index - 1]?.focus();
-      }
-    } else if (e.key === "ArrowLeft" && index > 0) {
-      inputRefs.current[index - 1]?.focus();
-    } else if (e.key === "ArrowRight" && index < 5) {
-      inputRefs.current[index + 1]?.focus();
-    } else if (e.key === "Enter") {
-      const fullCode = digits.join("");
-      if (fullCode.length === 6) {
-        submitCode(fullCode);
-      }
-    }
-  }
-
-  function handleDigitPaste(e: React.ClipboardEvent<HTMLInputElement>) {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const pasted = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, 6);
-    if (!pasted) return;
-    const newDigits = ["", "", "", "", "", ""];
-    for (let i = 0; i < pasted.length; i++) {
-      newDigits[i] = pasted[i];
+    if (newPassword.length < 8) {
+      toast.error("Password must be at least 8 characters.");
+      return;
     }
-    setDigits(newDigits);
-    const nextEmpty = pasted.length < 6 ? pasted.length : 5;
-    inputRefs.current[nextEmpty]?.focus();
-    if (pasted.length === 6) {
-      submitCode(pasted);
+    if (newPassword !== confirmPassword) {
+      toast.error("Passwords do not match.");
+      return;
     }
-  }
-
-  async function handleRequestBypass() {
-    setBypassLoading(true);
+    setIsLoading(true);
     try {
-      const result = await requestBypass.mutateAsync();
+      const result = await changePassword.mutateAsync({ newPassword });
       if (result.success) {
-        setBypassRequested(true);
-        toast.success("Bypass link sent! Check your notifications.");
+        toast.success("Password updated. Welcome to the dashboard!");
+        onSuccess();
       } else {
-        toast.error(result.message);
+        toast.error(result.message || "Failed to change password.");
       }
-    } catch {
-      toast.error("Failed to send bypass link.");
+    } catch (err: any) {
+      toast.error(err.message || "Error changing password.");
     } finally {
-      setBypassLoading(false);
+      setIsLoading(false);
     }
-  }
+  };
 
-  // Loading state
-  if (authLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+  return (
+    <div className="min-h-screen bg-background relative overflow-hidden flex items-center justify-center">
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(34,197,94,0.05)_0%,_transparent_70%)]" />
+        <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: `linear-gradient(rgba(34, 197, 94, 0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(34, 197, 94, 0.5) 1px, transparent 1px)`, backgroundSize: "30px 30px" }} />
       </div>
-    );
-  }
-
-  // Layer 1 passed — now check Layer 2 (OAuth) and Layer 3 (admin role)
-  if (isVerified) {
-    // Not logged in — redirect to OAuth
-    if (!user) {
-      return (
-        <div className="min-h-screen bg-background flex items-center justify-center">
-          <div className="max-w-md w-full mx-4 text-center space-y-6">
-            <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center border-2 border-primary/30">
-              <Shield className="w-8 h-8 text-primary" />
+      <div className="relative z-10 max-w-md w-full mx-4">
+        <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-2xl shadow-primary/5">
+          <div className="flex items-center gap-2 px-4 py-3 bg-card border-b border-border">
+            <div className="flex gap-1.5">
+              <div className="w-3 h-3 rounded-full bg-red-500/60" />
+              <div className="w-3 h-3 rounded-full bg-yellow-500/60" />
+              <div className="w-3 h-3 rounded-full bg-green-500/60" />
             </div>
-            <div>
-              <h2 className="text-xl font-bold text-foreground mb-2">Layer 1: Passed</h2>
-              <p className="text-muted-foreground text-sm">Access code verified. Now authenticate to continue.</p>
+            <div className="flex-1 text-center">
+              <span className="text-xs text-muted-foreground font-mono">matrix://set-password</span>
             </div>
-            <div className="space-y-3">
-              <Button
-                size="lg"
-                className="w-full gap-2"
-                onClick={() => {
-                  // Store returnTo in localStorage so Home.tsx can redirect back after OAuth
-                  localStorage.setItem("nlf_post_login_redirect", "/matrix");
-                  window.location.href = getLoginUrl();
-                }}
-              >
-                <Lock className="w-4 h-4" />
-                Authenticate via Jarvis Protocol
+          </div>
+          <div className="p-8 space-y-6">
+            <div className="text-center space-y-3">
+              <div className="w-16 h-16 mx-auto bg-yellow-500/10 rounded-xl border border-yellow-500/20 flex items-center justify-center">
+                <Lock className="w-8 h-8 text-yellow-400" />
+              </div>
+              <div>
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-yellow-500/10 border border-yellow-500/20 rounded-full mb-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse" />
+                  <span className="text-[10px] font-mono text-yellow-400 uppercase tracking-wider">Action Required</span>
+                </div>
+                <h1 className="text-2xl font-bold text-foreground">Set New Password</h1>
+                <p className="text-muted-foreground text-sm mt-1">Hi {displayName} — please set a permanent password to continue.</p>
+              </div>
+            </div>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-1.5">
+                <Label htmlFor="new-password" className="text-sm font-medium text-foreground">New Password</Label>
+                <div className="relative">
+                  <Input id="new-password" type={showNew ? "text" : "password"} value={newPassword} onChange={(e) => setNewPassword(e.target.value)} placeholder="Min. 8 characters" autoFocus disabled={isLoading} className="bg-background border-border focus:border-primary pr-10" />
+                  <button type="button" onClick={() => setShowNew(!showNew)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors" tabIndex={-1}>
+                    {showNew ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
+                </div>
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="confirm-password" className="text-sm font-medium text-foreground">Confirm Password</Label>
+                <div className="relative">
+                  <Input id="confirm-password" type={showConfirm ? "text" : "password"} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Re-enter password" disabled={isLoading} className="bg-background border-border focus:border-primary pr-10" />
+                  <button type="button" onClick={() => setShowConfirm(!showConfirm)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors" tabIndex={-1}>
+                    {showConfirm ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
+                </div>
+              </div>
+              <Button type="submit" size="lg" className="w-full gap-2" disabled={isLoading || newPassword.length < 8 || newPassword !== confirmPassword}>
+                {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Shield className="w-4 h-4" />}
+                {isLoading ? "Saving..." : "Set Password & Enter Dashboard"}
               </Button>
-              <Link href="/">
-                <Button variant="ghost" size="sm" className="gap-2 mt-2">
-                  <ArrowLeft className="w-4 h-4" /> Back to Site
-                </Button>
-              </Link>
+            </form>
+            <div className="flex items-center justify-center gap-1.5">
+              <Shield className="w-3.5 h-3.5 text-muted-foreground" />
+              <span className="text-[10px] text-muted-foreground">Password is stored securely with bcrypt hashing</span>
             </div>
           </div>
         </div>
-      );
-    }
+      </div>
+    </div>
+  );
+}
 
-    // Logged in but not an admin-tier role
-    if (!isAdminRole(user.role)) {
-      return (
-        <div className="min-h-screen bg-background flex items-center justify-center">
-          <div className="max-w-md w-full mx-4 text-center space-y-6">
-            <div className="w-16 h-16 mx-auto bg-destructive/10 rounded-full flex items-center justify-center border-2 border-destructive/30">
-              <AlertTriangle className="w-8 h-8 text-destructive" />
-            </div>
-            <div>
-              <h2 className="text-xl font-bold text-foreground mb-2">Access Denied</h2>
-              <p className="text-muted-foreground text-sm">
-                Your account does not have admin privileges.
-              </p>
-              <p className="text-muted-foreground text-xs mt-1">
-                Current role: <span className="font-mono text-foreground">{user.role ?? "none"}</span>
-              </p>
-            </div>
-            <Link href="/">
-              <Button variant="outline" className="gap-2">
-                <ArrowLeft className="w-4 h-4" /> Back to Site
-              </Button>
-            </Link>
-          </div>
-        </div>
-      );
-    }
+// ==================== STEP 2: USERNAME/PASSWORD FORM ====================
 
-    // All 3 layers passed — redirect to admin dashboard
-    // Use useEffect to avoid calling setLocation during render
-    return <MatrixRedirect />;
+function CredentialsForm({
+  onSuccess,
+  onBack,
+}: {
+  onSuccess: () => void;
+  onBack: () => void;
+}) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [mustChangePassword, setMustChangePassword] = useState(false);
+  const [displayName, setDisplayName] = useState("");
+
+  const adminLogin = trpc.matrix.adminLogin.useMutation();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!username.trim() || !password) return;
+    setIsLoading(true);
+    try {
+      const result = await adminLogin.mutateAsync({ username: username.trim(), password });
+      if (result.success) {
+        if (result.mustChangePassword) {
+          setDisplayName(result.displayName || username);
+          setMustChangePassword(true);
+        } else {
+          toast.success(`Welcome back, ${result.displayName}!`);
+          onSuccess();
+        }
+      } else {
+        toast.error(result.message || "Invalid credentials.");
+        setPassword("");
+      }
+    } catch (err: any) {
+      toast.error(err.message || "Login failed. Please try again.");
+      setPassword("");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Show force-change-password screen
+  if (mustChangePassword) {
+    return <ChangePasswordForm displayName={displayName} onSuccess={onSuccess} />;
   }
 
-  // Layer 1: Access Code Gate — 6-digit PIN entry
   return (
     <div className="min-h-screen bg-background relative overflow-hidden flex items-center justify-center">
       {/* Background effects */}
@@ -337,7 +223,348 @@ export default function MatrixPortal() {
           }}
         />
       </div>
+      <div className="relative z-10 max-w-md w-full mx-4">
+        <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-2xl shadow-primary/5">
+          {/* Header bar */}
+          <div className="flex items-center gap-2 px-4 py-3 bg-card border-b border-border">
+            <div className="flex gap-1.5">
+              <div className="w-3 h-3 rounded-full bg-red-500/60" />
+              <div className="w-3 h-3 rounded-full bg-yellow-500/60" />
+              <div className="w-3 h-3 rounded-full bg-green-500/60" />
+            </div>
+            <div className="flex-1 text-center">
+              <span className="text-xs text-muted-foreground font-mono">matrix://authenticate</span>
+            </div>
+          </div>
+          <div className="p-8 space-y-6">
+            {/* Icon & Title */}
+            <div className="text-center space-y-3">
+              <div className="w-16 h-16 mx-auto bg-primary/10 rounded-xl border border-primary/20 flex items-center justify-center">
+                <User className="w-8 h-8 text-primary" />
+              </div>
+              <div>
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-green-500/10 border border-green-500/20 rounded-full mb-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                  <span className="text-[10px] font-mono text-green-400 uppercase tracking-wider">Step 1: Passed</span>
+                </div>
+                <h1 className="text-2xl font-bold text-foreground">Admin Credentials</h1>
+                <p className="text-muted-foreground text-sm mt-1">Enter your username and password</p>
+              </div>
+            </div>
 
+            {/* Login Form */}
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-1.5">
+                <Label htmlFor="username" className="text-sm font-medium text-foreground">
+                  Username
+                </Label>
+                <Input
+                  id="username"
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Enter username"
+                  autoComplete="username"
+                  autoFocus
+                  disabled={isLoading}
+                  className="bg-background border-border focus:border-primary font-mono"
+                />
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="password" className="text-sm font-medium text-foreground">
+                  Password
+                </Label>
+                <div className="relative">
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Enter password"
+                    autoComplete="current-password"
+                    disabled={isLoading}
+                    className="bg-background border-border focus:border-primary pr-10"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                    tabIndex={-1}
+                  >
+                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
+                </div>
+              </div>
+              <Button
+                type="submit"
+                size="lg"
+                className="w-full gap-2"
+                disabled={isLoading || !username.trim() || !password}
+              >
+                {isLoading ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <Lock className="w-4 h-4" />
+                )}
+                {isLoading ? "Verifying..." : "Access Dashboard"}
+              </Button>
+            </form>
+
+            {/* Security note */}
+            <div className="flex items-center justify-center gap-1.5">
+              <Shield className="w-3.5 h-3.5 text-muted-foreground" />
+              <span className="text-[10px] text-muted-foreground">
+                All access attempts are logged and monitored
+              </span>
+            </div>
+          </div>
+        </div>
+        <div className="text-center mt-4">
+          <button
+            onClick={onBack}
+            className="text-xs text-muted-foreground hover:text-primary transition-colors"
+          >
+            <ArrowLeft className="w-3 h-3 inline mr-1" />
+            Back to PIN entry
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ==================== MAIN MATRIX PORTAL ====================
+
+export default function MatrixPortal() {
+  const [, setLocation] = useLocation();
+  const searchString = useSearch();
+  const searchParams = new URLSearchParams(searchString);
+  const bypassToken = searchParams.get("bypass");
+
+  // Step 1: PIN verified state
+  const [isPinVerified, setIsPinVerified] = useState(false);
+  // Step 2: Credentials verified
+  const [isCredVerified, setIsCredVerified] = useState(false);
+
+  // PIN entry state
+  const [digits, setDigits] = useState<string[]>(["", "", "", "", "", ""]);
+  const [isVerifying, setIsVerifying] = useState(false);
+  const [attemptsRemaining, setAttemptsRemaining] = useState(5);
+  const [isLockedOut, setIsLockedOut] = useState(false);
+  const [lockoutMinutes, setLockoutMinutes] = useState(0);
+  const [bypassRequested, setBypassRequested] = useState(false);
+  const [bypassLoading, setBypassLoading] = useState(false);
+  const [shake, setShake] = useState(false);
+
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+  const verifyCode = trpc.matrix.verifyCode.useMutation();
+  const requestBypass = trpc.matrix.requestBypass.useMutation();
+  const verifyBypass = trpc.matrix.verifyBypass.useMutation();
+  const checkStatus = trpc.matrix.checkStatus.useQuery(undefined, { retry: false });
+  const checkAdminSession = trpc.matrix.checkAdminSession.useQuery(undefined, { retry: false });
+
+  // On mount: check localStorage for PIN verification
+  useEffect(() => {
+    if (getMatrixVerified()) {
+      setIsPinVerified(true);
+    }
+  }, []);
+
+  // Check if admin session cookie is already valid (returning user)
+  useEffect(() => {
+    if (checkAdminSession.data?.valid) {
+      setIsPinVerified(true);
+      setIsCredVerified(true);
+    }
+  }, [checkAdminSession.data]);
+
+  // Check lockout status on mount
+  useEffect(() => {
+    if (checkStatus.data?.locked) {
+      setIsLockedOut(true);
+      setLockoutMinutes(checkStatus.data.minutesRemaining);
+    }
+  }, [checkStatus.data]);
+
+  // Handle bypass token in URL
+  useEffect(() => {
+    if (bypassToken && !isPinVerified) {
+      verifyBypass.mutateAsync({ token: bypassToken }).then((result) => {
+        if (result.success) {
+          setMatrixVerified();
+          setIsPinVerified(true);
+          setIsLockedOut(false);
+          toast.success("Bypass successful. Enter your credentials.");
+          setLocation("/matrix", { replace: true });
+        } else {
+          toast.error(result.message);
+        }
+      });
+    }
+  }, [bypassToken]);
+
+  // Auto-focus first input when on PIN step
+  useEffect(() => {
+    if (!isPinVerified && !isLockedOut) {
+      setTimeout(() => inputRefs.current[0]?.focus(), 100);
+    }
+  }, [isPinVerified, isLockedOut]);
+
+  // Step 3: Redirect to /admin after credentials verified
+  useEffect(() => {
+    if (isCredVerified) {
+      setLocation("/admin");
+    }
+  }, [isCredVerified, setLocation]);
+
+  const submitPin = useCallback(
+    async (code: string) => {
+      if (isVerifying) return;
+      setIsVerifying(true);
+      try {
+        const result = await verifyCode.mutateAsync({ code });
+        if (result.success) {
+          setMatrixVerified();
+          setIsPinVerified(true);
+        } else {
+          setShake(true);
+          setTimeout(() => {
+            setShake(false);
+            setDigits(["", "", "", "", "", ""]);
+            inputRefs.current[0]?.focus();
+          }, 500);
+          if (result.locked) {
+            setIsLockedOut(true);
+            setLockoutMinutes(result.minutesRemaining ?? 15);
+          } else {
+            setAttemptsRemaining(result.attemptsRemaining ?? 0);
+            toast.error(result.message || "Incorrect code.");
+          }
+        }
+      } catch {
+        toast.error("Connection error. Please try again.");
+        setDigits(["", "", "", "", "", ""]);
+        inputRefs.current[0]?.focus();
+      } finally {
+        setIsVerifying(false);
+      }
+    },
+    [isVerifying, verifyCode]
+  );
+
+  const handleDigitChange = useCallback(
+    (index: number, value: string) => {
+      const digit = value.replace(/\D/g, "").slice(-1);
+      const newDigits = [...digits];
+      newDigits[index] = digit;
+      setDigits(newDigits);
+      if (digit && index < 5) {
+        inputRefs.current[index + 1]?.focus();
+      }
+      if (newDigits.join("").length === 6) {
+        submitPin(newDigits.join(""));
+      }
+    },
+    [digits, submitPin]
+  );
+
+  const handleDigitKeyDown = useCallback(
+    (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === "Backspace") {
+        if (digits[index]) {
+          const newDigits = [...digits];
+          newDigits[index] = "";
+          setDigits(newDigits);
+        } else if (index > 0) {
+          inputRefs.current[index - 1]?.focus();
+          const newDigits = [...digits];
+          newDigits[index - 1] = "";
+          setDigits(newDigits);
+        }
+      } else if (e.key === "Enter") {
+        const code = digits.join("");
+        if (code.length === 6) submitPin(code);
+      }
+    },
+    [digits, submitPin]
+  );
+
+  const handleDigitPaste = useCallback(
+    (e: React.ClipboardEvent) => {
+      e.preventDefault();
+      const pasted = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, 6);
+      if (!pasted) return;
+      const next = ["", "", "", "", "", ""];
+      for (let i = 0; i < pasted.length; i++) next[i] = pasted[i];
+      setDigits(next);
+      const focusIdx = Math.min(pasted.length, 5);
+      inputRefs.current[focusIdx]?.focus();
+      if (pasted.length === 6) submitPin(pasted);
+    },
+    [submitPin]
+  );
+
+  const handleRequestBypass = async () => {
+    setBypassLoading(true);
+    try {
+      const result = await requestBypass.mutateAsync();
+      if (result.success) {
+        setBypassRequested(true);
+        toast.success("Bypass link sent to admin notifications.");
+      } else {
+        toast.error(result.message);
+      }
+    } catch {
+      toast.error("Failed to send bypass link.");
+    } finally {
+      setBypassLoading(false);
+    }
+  };
+
+  // ── Step 2: PIN passed, show credentials form ──
+  if (isPinVerified && !isCredVerified) {
+    return (
+      <CredentialsForm
+        onSuccess={() => setIsCredVerified(true)}
+        onBack={() => {
+          clearMatrixVerified();
+          setIsPinVerified(false);
+          setDigits(["", "", "", "", "", ""]);
+        }}
+      />
+    );
+  }
+
+  // ── Step 3: Credentials verified, redirecting ──
+  if (isCredVerified) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center space-y-3">
+          <Loader2 className="w-8 h-8 animate-spin text-primary mx-auto" />
+          <p className="text-muted-foreground text-sm">Access verified. Loading admin panel...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // ── Step 1: PIN entry ──
+  return (
+    <div className="min-h-screen bg-background relative overflow-hidden flex items-center justify-center">
+      {/* Background effects */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(34,197,94,0.05)_0%,_transparent_70%)]" />
+        <div
+          className="absolute inset-0 opacity-[0.02]"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(34, 197, 94, 0.5) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(34, 197, 94, 0.5) 1px, transparent 1px)
+            `,
+            backgroundSize: "30px 30px",
+          }}
+        />
+      </div>
       <div className="relative z-10 max-w-md w-full mx-4">
         {/* Terminal-style card */}
         <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-2xl shadow-primary/5">
@@ -352,7 +579,6 @@ export default function MatrixPortal() {
               <span className="text-xs text-muted-foreground font-mono">matrix://secure-access</span>
             </div>
           </div>
-
           <div className="p-8 space-y-6">
             {/* Icon & Title */}
             <div className="text-center space-y-3">
@@ -402,9 +628,8 @@ export default function MatrixPortal() {
             ) : (
               /* 6-Digit PIN Entry */
               <div className="space-y-5">
-                {/* PIN boxes */}
                 <div
-                  className={`flex justify-center gap-3 transition-transform ${
+                  className={`flex justify-center gap-3 ${
                     shake ? "animate-[shake_0.4s_ease-in-out]" : ""
                   }`}
                 >
@@ -429,52 +654,49 @@ export default function MatrixPortal() {
                         transition-all duration-150 outline-none
                         ${
                           digit
-                            ? "border-primary shadow-[0_0_12px_rgba(34,197,94,0.25)]"
-                            : "border-border"
+                            ? "border-primary shadow-[0_0_12px_rgba(34,197,94,0.2)]"
+                            : "border-border hover:border-primary/40"
                         }
-                        focus:border-primary focus:shadow-[0_0_12px_rgba(34,197,94,0.35)]
+                        focus:border-primary focus:shadow-[0_0_16px_rgba(34,197,94,0.3)]
                         disabled:opacity-50 disabled:cursor-not-allowed
-                        caret-transparent
                       `}
                     />
                   ))}
                 </div>
 
-                {/* Verifying spinner */}
-                {isVerifying && (
-                  <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-                    <Loader2 className="w-4 h-4 animate-spin text-primary" />
-                    <span>Verifying...</span>
-                  </div>
-                )}
-
-                {/* Attempts indicator */}
-                {attemptsRemaining < 5 && !isVerifying && (
-                  <p className="text-center text-xs text-yellow-400">
-                    {attemptsRemaining} attempt{attemptsRemaining !== 1 ? "s" : ""} remaining before lockout
+                {attemptsRemaining < 5 && (
+                  <p className="text-center text-xs text-destructive">
+                    {attemptsRemaining} attempt{attemptsRemaining !== 1 ? "s" : ""} remaining
                   </p>
                 )}
 
-                {/* Forgot PIN link */}
+                <Button
+                  size="lg"
+                  className="w-full gap-2"
+                  onClick={() => submitPin(digits.join(""))}
+                  disabled={isVerifying || digits.join("").length < 6}
+                >
+                  {isVerifying ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <Shield className="w-4 h-4" />
+                  )}
+                  {isVerifying ? "Verifying..." : "Verify Code"}
+                </Button>
+
                 <div className="text-center">
                   <button
-                    type="button"
                     onClick={handleRequestBypass}
                     disabled={bypassLoading || bypassRequested}
                     className="text-xs text-muted-foreground hover:text-primary transition-colors disabled:opacity-50"
                   >
-                    {bypassRequested
-                      ? "Bypass link sent — check notifications"
-                      : bypassLoading
-                      ? "Sending..."
-                      : "Forgot PIN? Send bypass link"}
+                    {bypassRequested ? "Bypass link sent" : "Forgot PIN? Send bypass link"}
                   </button>
                 </div>
               </div>
             )}
 
-            {/* Security notice */}
-            <div className="flex items-center justify-center gap-2 pt-2 border-t border-border">
+            <div className="flex items-center justify-center gap-1.5">
               <Shield className="w-3.5 h-3.5 text-muted-foreground" />
               <span className="text-[10px] text-muted-foreground">
                 All access attempts are logged and monitored
@@ -482,35 +704,12 @@ export default function MatrixPortal() {
             </div>
           </div>
         </div>
-
-        {/* Back link */}
         <div className="text-center mt-4">
           <Link href="/" className="text-xs text-muted-foreground hover:text-primary transition-colors">
             <ArrowLeft className="w-3 h-3 inline mr-1" />
             Back to site
           </Link>
         </div>
-      </div>
-    </div>
-  );
-}
-
-/**
- * Separate component to handle redirect after all layers pass
- * This avoids calling setLocation during render
- */
-function MatrixRedirect() {
-  const [, setLocation] = useLocation();
-
-  useEffect(() => {
-    setLocation("/admin");
-  }, [setLocation]);
-
-  return (
-    <div className="min-h-screen bg-background flex items-center justify-center">
-      <div className="text-center space-y-3">
-        <Loader2 className="w-8 h-8 animate-spin text-primary mx-auto" />
-        <p className="text-muted-foreground text-sm">Access verified. Loading admin panel...</p>
       </div>
     </div>
   );

@@ -1,0 +1,1 @@
+ALTER TABLE `admin_credentials` ADD `must_change_password` boolean DEFAULT true NOT NULL;

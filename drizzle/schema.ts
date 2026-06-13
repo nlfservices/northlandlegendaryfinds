@@ -1353,3 +1353,21 @@ export const userInvites = mysqlTable("user_invites", {
 });
 export type UserInvite = typeof userInvites.$inferSelect;
 export type InsertUserInvite = typeof userInvites.$inferInsert;
+
+/**
+ * Admin credentials - standalone username/password for Matrix portal Step 2
+ * Separate from OAuth — allows direct admin login without Manus account
+ */
+export const adminCredentials = mysqlTable("admin_credentials", {
+  id: int("id").primaryKey().autoincrement(),
+  username: varchar("username", { length: 64 }).notNull().unique(),
+  passwordHash: varchar("password_hash", { length: 255 }).notNull(),
+  displayName: varchar("display_name", { length: 128 }),
+  isActive: boolean("is_active").notNull().default(true),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  lastLoginAt: timestamp("last_login_at"),
+  mustChangePassword: boolean("must_change_password").notNull().default(true),
+});
+export type AdminCredential = typeof adminCredentials.$inferSelect;
+export type InsertAdminCredential = typeof adminCredentials.$inferInsert;

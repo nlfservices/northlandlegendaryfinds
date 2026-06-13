@@ -281,6 +281,20 @@
       "when": 1781380462451,
       "tag": "0039_worried_scalphunter",
       "breakpoints": true
+    },
+    {
+      "idx": 40,
+      "version": "5",
+      "when": 1781389785767,
+      "tag": "0040_talented_valeria_richards",
+      "breakpoints": true
+    },
+    {
+      "idx": 41,
+      "version": "5",
+      "when": 1781391063496,
+      "tag": "0041_long_johnny_storm",
+      "breakpoints": true
     }
   ]
 }

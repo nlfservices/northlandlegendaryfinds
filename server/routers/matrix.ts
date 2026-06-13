@@ -8,7 +8,8 @@ import { z } from "zod";
 import { publicProcedure, router } from "../_core/trpc";
 import { ENV } from "../_core/env";
 import { getDb } from "../db";
-import { matrixAttempts, matrixBypassTokens } from "../../drizzle/schema";
+import { matrixAttempts, matrixBypassTokens, adminCredentials, siteSettings } from "../../drizzle/schema";
+import bcrypt from "bcryptjs";
 import { eq, and, gt } from "drizzle-orm";
 import { randomUUID } from "crypto";
 import { notifyOwner } from "../_core/notification";
@@ -300,4 +301,159 @@ export const matrixRouter = router({
       minutesRemaining: lockStatus.minutesRemaining,
     };
   }),
+
+  /**
+   * Admin login - Step 2 of Matrix portal
+   * Verifies username + password against admin_credentials table
+   */
+  adminLogin: publicProcedure
+    .input(z.object({ username: z.string().min(1), password: z.string().min(1) }))
+    .mutation(async ({ input, ctx }) => {
+      const db = await getDb();
+      if (!db) return { success: false, message: "Database unavailable." };
+
+      const rows = await db
+        .select()
+        .from(adminCredentials)
+        .where(eq(adminCredentials.username, input.username.toLowerCase().trim()))
+        .limit(1);
+
+      const cred = rows[0];
+      if (!cred || !cred.isActive) {
+        return { success: false, message: "Invalid username or password." };
+      }
+
+      const valid = await bcrypt.compare(input.password, cred.passwordHash);
+      if (!valid) {
+        return { success: false, message: "Invalid username or password." };
+      }
+
+      // Update last login timestamp
+      await db
+        .update(adminCredentials)
+        .set({ lastLoginAt: new Date() })
+        .where(eq(adminCredentials.id, cred.id));
+
+      // Set a 24h admin session cookie
+      const sessionToken = randomUUID();
+      const expires = new Date(Date.now() + 24 * 60 * 60 * 1000);
+      ctx.res.setHeader(
+        "Set-Cookie",
+        `matrix_admin_session=${sessionToken}; Path=/; HttpOnly; SameSite=Lax; Expires=${expires.toUTCString()}`
+      );
+
+      // Store session expiry in site_settings for validation
+      await db
+        .insert(siteSettings)
+        .values({ key: `matrix_session_${sessionToken}`, value: String(expires.getTime()), label: "Matrix admin session" })
+        .onDuplicateKeyUpdate({ set: { value: String(expires.getTime()) } });
+
+      return {
+        success: true,
+        message: "Login successful.",
+        displayName: cred.displayName || cred.username,
+        mustChangePassword: cred.mustChangePassword,
+      };
+    }),
+
+  /**
+   * Verify current admin session cookie
+   */
+  checkAdminSession: publicProcedure.query(async ({ ctx }) => {
+    const cookieHeader = ctx.req.headers.cookie || "";
+    const match = cookieHeader.match(/matrix_admin_session=([^;]+)/);
+    if (!match) return { valid: false };
+    const token = match[1];
+    const db = await getDb();
+    if (!db) return { valid: false };
+    const rows = await db
+      .select()
+      .from(siteSettings)
+      .where(eq(siteSettings.key, `matrix_session_${token}`))
+      .limit(1);
+    if (!rows[0]) return { valid: false };
+    const expiresAt = Number(rows[0].value);
+    if (Date.now() > expiresAt) return { valid: false };
+    return { valid: true };
+  }),
+
+  /**
+   * Admin logout - clears the session cookie
+   */
+  adminLogout: publicProcedure.mutation(async ({ ctx }) => {
+    const cookieHeader = ctx.req.headers.cookie || "";
+    const match = cookieHeader.match(/matrix_admin_session=([^;]+)/);
+    if (match) {
+      const token = match[1];
+      const db = await getDb();
+      if (db) {
+        await db.delete(siteSettings).where(eq(siteSettings.key, `matrix_session_${token}`));
+      }
+    }
+    ctx.res.setHeader("Set-Cookie", "matrix_admin_session=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0");
+    return { success: true };
+  }),
+
+  /**
+   * Change admin password — requires current session to be valid
+   * Clears the mustChangePassword flag after successful change
+   */
+  changeAdminPassword: publicProcedure
+    .input(z.object({ newPassword: z.string().min(8) }))
+    .mutation(async ({ input, ctx }) => {
+      const cookieHeader = ctx.req.headers.cookie || "";
+      const match = cookieHeader.match(/matrix_admin_session=([^;]+)/);
+      if (!match) return { success: false, message: "No active session." };
+      const token = match[1];
+      const db = await getDb();
+      if (!db) return { success: false, message: "Database unavailable." };
+
+      // Verify session is valid
+      const sessionRows = await db
+        .select()
+        .from(siteSettings)
+        .where(eq(siteSettings.key, `matrix_session_${token}`))
+        .limit(1);
+      if (!sessionRows[0] || Date.now() > Number(sessionRows[0].value)) {
+        return { success: false, message: "Session expired. Please log in again." };
+      }
+
+      // Get the admin credential (there's only one for now)
+      const creds = await db.select().from(adminCredentials).where(eq(adminCredentials.isActive, true)).limit(1);
+      if (!creds[0]) return { success: false, message: "Admin account not found." };
+
+      const passwordHash = await bcrypt.hash(input.newPassword, 12);
+      await db
+        .update(adminCredentials)
+        .set({ passwordHash, mustChangePassword: false })
+        .where(eq(adminCredentials.id, creds[0].id));
+
+      return { success: true, message: "Password changed successfully." };
+    }),
+
+  /**
+   * One-time setup: create the initial admin credential
+   * Only works if no admin credentials exist yet
+   */
+  setupAdmin: publicProcedure
+    .input(z.object({ username: z.string().min(3).max(64), password: z.string().min(8), displayName: z.string().optional() }))
+    .mutation(async ({ input }) => {
+      const db = await getDb();
+      if (!db) return { success: false, message: "Database unavailable." };
+
+      const existing = await db.select().from(adminCredentials).limit(1);
+      if (existing.length > 0) {
+        return { success: false, message: "Admin already configured." };
+      }
+
+      const passwordHash = await bcrypt.hash(input.password, 12);
+      await db.insert(adminCredentials).values({
+        username: input.username.toLowerCase().trim(),
+        passwordHash,
+        displayName: input.displayName || input.username,
+        isActive: true,
+      });
+
+      return { success: true, message: "Admin account created successfully." };
+    }),
 });
