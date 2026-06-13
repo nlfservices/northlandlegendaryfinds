@@ -1576,7 +1576,7 @@ const NAV_GROUPS = [
 ];
 
 // ==================== OVERVIEW PANEL ====================
-function OverviewPanel({ user }: { user: { name?: string | null; email?: string | null } }) {
+function OverviewPanel({ user }: { user: { name?: string | null; email?: string | null } | null }) {
   const now = new Date();
   const hour = now.getHours();
   const greeting = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
@@ -1595,7 +1595,7 @@ function OverviewPanel({ user }: { user: { name?: string | null; email?: string 
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent" />
         <div className="relative">
           <p className="text-muted-foreground text-sm font-medium mb-1">{greeting},</p>
-          <h2 className="text-3xl font-bold mb-2">{user.name || "Admin"} 👋</h2>
+          <h2 className="text-3xl font-bold mb-2">{user?.name || "Admin"} 👋</h2>
           <p className="text-muted-foreground">Welcome to the NLF Command Center. Everything you need to run the site is in the sidebar.</p>
         </div>
         <div className="absolute bottom-0 right-0 w-48 h-48 opacity-5">
@@ -1648,12 +1648,14 @@ function OverviewPanel({ user }: { user: { name?: string | null; email?: string 
 
 // ==================== MAIN ADMIN DASHBOARD ====================
 export default function AdminDashboard() {
-  const { user, loading } = useAuth();
   const [activeSection, setActiveSection] = useState("overview");
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  if (loading) {
+  // Auth via Matrix session cookie — no Manus OAuth required
+  const { data: sessionData, isLoading: sessionLoading } = trpc.matrix.checkAdminSession.useQuery();
+
+  if (sessionLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
@@ -1664,8 +1666,7 @@ export default function AdminDashboard() {
     );
   }
 
-  const ALLOWED_ADMIN_ROLES = ['owner', 'super_admin', 'admin'];
-  if (!user || !ALLOWED_ADMIN_ROLES.includes(user.role)) {
+  if (!sessionData?.valid) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <Card className="max-w-md w-full mx-4 border-border">
@@ -1673,15 +1674,15 @@ export default function AdminDashboard() {
             <div className="w-16 h-16 rounded-full bg-destructive/10 flex items-center justify-center mx-auto mb-4">
               <Settings className="w-8 h-8 text-destructive" />
             </div>
-            <h2 className="text-xl font-bold mb-2">Admin Access Required</h2>
-            <p className="text-muted-foreground mb-6">You need to be logged in as an admin to access this page.</p>
+            <h2 className="text-xl font-bold mb-2">Session Expired</h2>
+            <p className="text-muted-foreground mb-6">Your admin session has expired. Please log in again via the Matrix portal.</p>
             <div className="flex gap-3 justify-center">
               <Link href="/">
                 <Button variant="outline"><ArrowLeft className="w-4 h-4 mr-2" /> Back to Site</Button>
               </Link>
-              <a href={getLoginUrl()}>
-                <Button>Log In</Button>
-              </a>
+              <Link href="/matrix">
+                <Button>Go to Matrix Portal</Button>
+              </Link>
             </div>
           </CardContent>
         </Card>
@@ -1738,10 +1739,10 @@ export default function AdminDashboard() {
           </div>
           <div className="flex items-center gap-2 pl-3 border-l border-white/10">
             <div className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xs font-bold">
-              {(user.name || user.email || "A")[0].toUpperCase()}
+              A
             </div>
             <div className="hidden sm:block">
-              <p className="text-xs font-medium leading-none">{user.name || user.email}</p>
+              <p className="text-xs font-medium leading-none">NLF Admin</p>
               <p className="text-[10px] text-primary mt-0.5">Admin</p>
             </div>
           </div>
@@ -1846,7 +1847,7 @@ export default function AdminDashboard() {
             )}
 
             {/* Section Content */}
-            {activeSection === "overview" && <OverviewPanel user={user} />}
+            {activeSection === "overview" && <OverviewPanel user={{ name: "NLF Admin" }} />}
             {activeSection === "products" && <ProductManager />}
             {activeSection === "checklist-sheet" && <ChecklistSheetWrapper />}
             {activeSection === "checklists" && <ChecklistEditor />}
