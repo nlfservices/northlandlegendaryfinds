@@ -265,12 +265,18 @@ export default function MatrixPortal() {
               <p className="text-muted-foreground text-sm">Access code verified. Now authenticate to continue.</p>
             </div>
             <div className="space-y-3">
-              <a href={getLoginUrl("/matrix")}>
-                <Button size="lg" className="w-full gap-2">
-                  <Lock className="w-4 h-4" />
-                  Authenticate via Jarvis Protocol
-                </Button>
-              </a>
+              <Button
+                size="lg"
+                className="w-full gap-2"
+                onClick={() => {
+                  // Store returnTo in localStorage so Home.tsx can redirect back after OAuth
+                  localStorage.setItem("nlf_post_login_redirect", "/matrix");
+                  window.location.href = getLoginUrl();
+                }}
+              >
+                <Lock className="w-4 h-4" />
+                Authenticate via Jarvis Protocol
+              </Button>
               <Link href="/">
                 <Button variant="ghost" size="sm" className="gap-2 mt-2">
                   <ArrowLeft className="w-4 h-4" /> Back to Site

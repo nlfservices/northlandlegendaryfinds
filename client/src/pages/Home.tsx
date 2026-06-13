@@ -5,11 +5,11 @@
  */
 
 import { useAuth } from "@/_core/hooks/useAuth";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ShoppingCart, Shield, Star, TrendingUp, Package, ArrowRight, Zap, BookOpen, Clock, Eye, Radio, HelpCircle, Search, Box, Gift, Sparkles, Compass, Users, Heart, Gamepad2, Play, MapPin, Lightbulb, Crown, Award, ChevronDown, ChevronUp } from "lucide-react";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import { Button } from "@/components/ui/button";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { useCart } from "@/contexts/CartContext";
 import { getProductLines, getComingSoonProducts, products, getFeaturedProduct } from "@/lib/products";
 import { useLaunchCountdown } from "@/hooks/useLaunchCountdown";
@@ -290,6 +290,18 @@ function LatestMCUNews() {
 
 export default function Home() {
   let { user, loading, error, isAuthenticated, logout } = useAuth();
+  const [, setLocation] = useLocation();
+
+  // After OAuth login, check if we need to redirect back to a pending page (e.g. /matrix)
+  useEffect(() => {
+    if (!loading && user) {
+      const pendingRedirect = localStorage.getItem("nlf_post_login_redirect");
+      if (pendingRedirect) {
+        localStorage.removeItem("nlf_post_login_redirect");
+        setLocation(pendingRedirect);
+      }
+    }
+  }, [user, loading, setLocation]);
 
   const { addItem } = useCart();
   const productLines = getProductLines();
