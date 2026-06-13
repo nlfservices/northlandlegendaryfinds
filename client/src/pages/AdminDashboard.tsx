@@ -1664,7 +1664,8 @@ export default function AdminDashboard() {
     );
   }
 
-  if (!user || user.role !== 'admin') {
+  const ALLOWED_ADMIN_ROLES = ['owner', 'super_admin', 'admin'];
+  if (!user || !ALLOWED_ADMIN_ROLES.includes(user.role)) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <Card className="max-w-md w-full mx-4 border-border">
