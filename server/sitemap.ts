@@ -52,7 +52,6 @@ const STATIC_PAGES: { path: string; priority: string; changefreq: string }[] = [
   { path: "/the-little-things", priority: "0.7", changefreq: "weekly" },
   { path: "/movies-series", priority: "0.8", changefreq: "weekly" },
   { path: "/artists", priority: "0.7", changefreq: "monthly" },
-  { path: "/api-docs", priority: "0.4", changefreq: "monthly" },
   // Comic Book Auto Artist Profile Pages
   { path: "/artists/frank-miller", priority: "0.6", changefreq: "monthly" },
   { path: "/artists/jack-kirby", priority: "0.6", changefreq: "monthly" },

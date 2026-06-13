@@ -1,16 +1,19 @@
 /**
  * NLF API Documentation Page
- * Public reference for the NLF REST API v1
+ * Admin-only reference for the NLF REST API v1
+ * Accessible only to logged-in admins via /matrix or the Admin Dashboard
  */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Copy, Check, Key, Zap, Image, FileText, Users, BarChart3, Share2 } from "lucide-react";
+import { Copy, Check, Key, Zap, Image, FileText, Users, BarChart3, Share2, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { useAuth } from "@/_core/hooks/useAuth";
+import { useLocation } from "wouter";
 
 function CopyButton({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
@@ -346,6 +349,38 @@ Name files exactly as the character name: \`Mister Fantastic.png\`, \`Doctor Doo
 
 export default function ApiDocs() {
   const [activeSection, setActiveSection] = useState("quickstart");
+  const { user, loading } = useAuth();
+  const [, setLocation] = useLocation();
+
+  useEffect(() => {
+    if (!loading && (!user || user.role !== "admin")) {
+      setLocation("/matrix");
+    }
+  }, [user, loading, setLocation]);
+
+  // Show loading state while checking auth
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-12 h-12 rounded-full border-2 border-primary border-t-transparent animate-spin mx-auto mb-4" />
+          <p className="text-muted-foreground">Verifying access...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Block non-admins (redirect handled by useEffect above)
+  if (!user || user.role !== "admin") {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <Lock className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+          <p className="text-muted-foreground">Admin access required. Redirecting...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background text-foreground">
