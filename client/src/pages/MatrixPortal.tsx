@@ -1,17 +1,15 @@
 /**
  * Matrix Portal - Hidden admin entry point with 3-layer security
- * Layer 1: Access code gate (this page)
+ * Layer 1: Access code gate (this page) — 6-digit PIN with individual boxes
  * Layer 2: OAuth authentication (after code verified)
  * Layer 3: Admin role check (AdminDashboard component)
- * 
+ *
  * URL: /matrix (hidden from Google via robots.txt)
  */
-
 import { useAuth } from "@/_core/hooks/useAuth";
 import { getLoginUrl } from "@/const";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { Link, useLocation, useSearch } from "wouter";
 import {
@@ -21,15 +19,19 @@ import {
   ArrowLeft,
   Loader2,
   Terminal,
-  Eye,
-  EyeOff,
-  KeyRound,
   Send,
 } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 
 // Session storage key for access code verification
 const MATRIX_VERIFIED_KEY = "matrix_gate_verified";
+
+// Roles that are allowed into the admin dashboard
+const ADMIN_ROLES = ["owner", "super_admin", "admin"] as const;
+type AdminRole = (typeof ADMIN_ROLES)[number];
+function isAdminRole(role: string | undefined | null): role is AdminRole {
+  return ADMIN_ROLES.includes(role as AdminRole);
+}
 
 export default function MatrixPortal() {
   const { user, loading: authLoading } = useAuth();
@@ -38,8 +40,8 @@ export default function MatrixPortal() {
   const searchParams = new URLSearchParams(searchString);
   const bypassToken = searchParams.get("bypass");
 
-  const [code, setCode] = useState("");
-  const [showCode, setShowCode] = useState(false);
+  // 6-digit PIN state — each digit stored separately
+  const [digits, setDigits] = useState<string[]>(["" ,"", "", "", "", ""]);
   const [isVerifying, setIsVerifying] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
   const [attemptsRemaining, setAttemptsRemaining] = useState(5);
@@ -47,7 +49,11 @@ export default function MatrixPortal() {
   const [lockoutMinutes, setLockoutMinutes] = useState(0);
   const [bypassRequested, setBypassRequested] = useState(false);
   const [bypassLoading, setBypassLoading] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+  // Shake animation on wrong PIN
+  const [shake, setShake] = useState(false);
+
+  // Refs for each digit input
+  const inputRefs = useRef<Array<HTMLInputElement | null>>([null, null, null, null, null, null]);
 
   const verifyCode = trpc.matrix.verifyCode.useMutation();
   const verifyBypass = trpc.matrix.verifyBypass.useMutation();
@@ -77,10 +83,10 @@ export default function MatrixPortal() {
     }
   }, [bypassToken]);
 
-  // Auto-focus input
+  // Auto-focus first digit on mount
   useEffect(() => {
-    if (!isVerified && !isLockedOut && inputRef.current) {
-      inputRef.current.focus();
+    if (!isVerified && !isLockedOut) {
+      inputRefs.current[0]?.focus();
     }
   }, [isVerified, isLockedOut]);
 
@@ -97,25 +103,28 @@ export default function MatrixPortal() {
       } else {
         toast.error(result.message);
       }
-    } catch (e: any) {
+    } catch {
       toast.error("Bypass verification failed.");
     }
   }
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (!code.trim() || isVerifying || isLockedOut) return;
-
+  const submitCode = useCallback(async (fullCode: string) => {
+    if (isVerifying || isLockedOut) return;
     setIsVerifying(true);
     try {
-      const result = await verifyCode.mutateAsync({ code: code.trim() });
-
+      const result = await verifyCode.mutateAsync({ code: fullCode });
       if (result.success) {
         sessionStorage.setItem(MATRIX_VERIFIED_KEY, "true");
         setIsVerified(true);
         toast.success("Access granted.");
       } else {
-        setCode("");
+        // Wrong code — shake and clear
+        setShake(true);
+        setTimeout(() => {
+          setShake(false);
+          setDigits(["", "", "", "", "", ""]);
+          inputRefs.current[0]?.focus();
+        }, 500);
         if (result.locked) {
           setIsLockedOut(true);
           setLockoutMinutes(result.minutesRemaining || 15);
@@ -124,10 +133,75 @@ export default function MatrixPortal() {
           toast.error(result.message);
         }
       }
-    } catch (e: any) {
+    } catch {
       toast.error("Verification failed. Try again.");
+      setDigits(["", "", "", "", "", ""]);
+      inputRefs.current[0]?.focus();
     } finally {
       setIsVerifying(false);
+    }
+  }, [isVerifying, isLockedOut, verifyCode]);
+
+  function handleDigitChange(index: number, value: string) {
+    // Only accept digits
+    const digit = value.replace(/\D/g, "").slice(-1);
+    const newDigits = [...digits];
+    newDigits[index] = digit;
+    setDigits(newDigits);
+
+    if (digit) {
+      // Advance to next box
+      if (index < 5) {
+        inputRefs.current[index + 1]?.focus();
+      } else {
+        // Last digit entered — auto-submit
+        const fullCode = newDigits.join("");
+        if (fullCode.length === 6) {
+          submitCode(fullCode);
+        }
+      }
+    }
+  }
+
+  function handleDigitKeyDown(index: number, e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Backspace") {
+      if (digits[index]) {
+        // Clear current box
+        const newDigits = [...digits];
+        newDigits[index] = "";
+        setDigits(newDigits);
+      } else if (index > 0) {
+        // Move back and clear previous
+        const newDigits = [...digits];
+        newDigits[index - 1] = "";
+        setDigits(newDigits);
+        inputRefs.current[index - 1]?.focus();
+      }
+    } else if (e.key === "ArrowLeft" && index > 0) {
+      inputRefs.current[index - 1]?.focus();
+    } else if (e.key === "ArrowRight" && index < 5) {
+      inputRefs.current[index + 1]?.focus();
+    } else if (e.key === "Enter") {
+      const fullCode = digits.join("");
+      if (fullCode.length === 6) {
+        submitCode(fullCode);
+      }
+    }
+  }
+
+  function handleDigitPaste(e: React.ClipboardEvent<HTMLInputElement>) {
+    e.preventDefault();
+    const pasted = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, 6);
+    if (!pasted) return;
+    const newDigits = ["", "", "", "", "", ""];
+    for (let i = 0; i < pasted.length; i++) {
+      newDigits[i] = pasted[i];
+    }
+    setDigits(newDigits);
+    const nextEmpty = pasted.length < 6 ? pasted.length : 5;
+    inputRefs.current[nextEmpty]?.focus();
+    if (pasted.length === 6) {
+      submitCode(pasted);
     }
   }
 
@@ -141,7 +215,7 @@ export default function MatrixPortal() {
       } else {
         toast.error(result.message);
       }
-    } catch (e: any) {
+    } catch {
       toast.error("Failed to send bypass link.");
     } finally {
       setBypassLoading(false);
@@ -189,8 +263,8 @@ export default function MatrixPortal() {
       );
     }
 
-    // Logged in but not admin
-    if (user.role !== "admin") {
+    // Logged in but not an admin-tier role
+    if (!isAdminRole(user.role)) {
       return (
         <div className="min-h-screen bg-background flex items-center justify-center">
           <div className="max-w-md w-full mx-4 text-center space-y-6">
@@ -199,7 +273,12 @@ export default function MatrixPortal() {
             </div>
             <div>
               <h2 className="text-xl font-bold text-foreground mb-2">Access Denied</h2>
-              <p className="text-muted-foreground text-sm">Your account does not have admin privileges.</p>
+              <p className="text-muted-foreground text-sm">
+                Your account does not have admin privileges.
+              </p>
+              <p className="text-muted-foreground text-xs mt-1">
+                Current role: <span className="font-mono text-foreground">{user.role ?? "none"}</span>
+              </p>
             </div>
             <Link href="/">
               <Button variant="outline" className="gap-2">
@@ -216,7 +295,7 @@ export default function MatrixPortal() {
     return <MatrixRedirect />;
   }
 
-  // Layer 1: Access Code Gate
+  // Layer 1: Access Code Gate — 6-digit PIN entry
   return (
     <div className="min-h-screen bg-background relative overflow-hidden flex items-center justify-center">
       {/* Background effects */}
@@ -235,7 +314,7 @@ export default function MatrixPortal() {
       </div>
 
       <div className="relative z-10 max-w-md w-full mx-4">
-        {/* Terminal-style header */}
+        {/* Terminal-style card */}
         <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-2xl shadow-primary/5">
           {/* Header bar */}
           <div className="flex items-center gap-2 px-4 py-3 bg-card border-b border-border">
@@ -257,7 +336,7 @@ export default function MatrixPortal() {
               </div>
               <div>
                 <h1 className="text-2xl font-bold text-foreground">Matrix Access</h1>
-                <p className="text-muted-foreground text-sm mt-1">Enter your access code to proceed</p>
+                <p className="text-muted-foreground text-sm mt-1">Enter your 6-digit access code</p>
               </div>
             </div>
 
@@ -269,11 +348,10 @@ export default function MatrixPortal() {
                   <h3 className="font-bold text-destructive mb-1">Access Locked</h3>
                   <p className="text-sm text-muted-foreground">
                     Too many failed attempts. Try again in{" "}
-                    <span className="text-destructive font-bold">{lockoutMinutes}</span> minute{lockoutMinutes !== 1 ? "s" : ""}.
+                    <span className="text-destructive font-bold">{lockoutMinutes}</span>{" "}
+                    minute{lockoutMinutes !== 1 ? "s" : ""}.
                   </p>
                 </div>
-
-                {/* Forgot PIN / Bypass */}
                 {!bypassRequested ? (
                   <Button
                     variant="ghost"
@@ -297,45 +375,56 @@ export default function MatrixPortal() {
                 )}
               </div>
             ) : (
-              /* Code Entry Form */
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="relative">
-                  <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                  <Input
-                    ref={inputRef}
-                    type={showCode ? "text" : "password"}
-                    value={code}
-                    onChange={(e) => setCode(e.target.value)}
-                    placeholder="Enter access code..."
-                    className="pl-10 pr-10 h-12 font-mono text-lg tracking-widest bg-background border-border focus:border-primary"
-                    autoComplete="off"
-                    disabled={isVerifying}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowCode(!showCode)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {showCode ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                  </button>
+              /* 6-Digit PIN Entry */
+              <div className="space-y-5">
+                {/* PIN boxes */}
+                <div
+                  className={`flex justify-center gap-3 transition-transform ${
+                    shake ? "animate-[shake_0.4s_ease-in-out]" : ""
+                  }`}
+                >
+                  {digits.map((digit, i) => (
+                    <input
+                      key={i}
+                      ref={(el) => { inputRefs.current[i] = el; }}
+                      type="text"
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                      maxLength={1}
+                      value={digit}
+                      onChange={(e) => handleDigitChange(i, e.target.value)}
+                      onKeyDown={(e) => handleDigitKeyDown(i, e)}
+                      onPaste={handleDigitPaste}
+                      onFocus={(e) => e.target.select()}
+                      disabled={isVerifying}
+                      autoComplete="off"
+                      className={`
+                        w-12 h-14 text-center text-xl font-bold font-mono rounded-xl border-2
+                        bg-background text-foreground
+                        transition-all duration-150 outline-none
+                        ${
+                          digit
+                            ? "border-primary shadow-[0_0_12px_rgba(34,197,94,0.25)]"
+                            : "border-border"
+                        }
+                        focus:border-primary focus:shadow-[0_0_12px_rgba(34,197,94,0.35)]
+                        disabled:opacity-50 disabled:cursor-not-allowed
+                        caret-transparent
+                      `}
+                    />
+                  ))}
                 </div>
 
-                <Button
-                  type="submit"
-                  size="lg"
-                  className="w-full h-12 font-bold tracking-wide gap-2"
-                  disabled={!code.trim() || isVerifying}
-                >
-                  {isVerifying ? (
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                  ) : (
-                    <Lock className="w-4 h-4" />
-                  )}
-                  {isVerifying ? "Verifying..." : "Verify Access"}
-                </Button>
+                {/* Verifying spinner */}
+                {isVerifying && (
+                  <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+                    <Loader2 className="w-4 h-4 animate-spin text-primary" />
+                    <span>Verifying...</span>
+                  </div>
+                )}
 
                 {/* Attempts indicator */}
-                {attemptsRemaining < 5 && (
+                {attemptsRemaining < 5 && !isVerifying && (
                   <p className="text-center text-xs text-yellow-400">
                     {attemptsRemaining} attempt{attemptsRemaining !== 1 ? "s" : ""} remaining before lockout
                   </p>
@@ -347,7 +436,7 @@ export default function MatrixPortal() {
                     type="button"
                     onClick={handleRequestBypass}
                     disabled={bypassLoading || bypassRequested}
-                    className="text-xs text-muted-foreground hover:text-primary transition-colors"
+                    className="text-xs text-muted-foreground hover:text-primary transition-colors disabled:opacity-50"
                   >
                     {bypassRequested
                       ? "Bypass link sent — check notifications"
@@ -356,7 +445,7 @@ export default function MatrixPortal() {
                       : "Forgot PIN? Send bypass link"}
                   </button>
                 </div>
-              </form>
+              </div>
             )}
 
             {/* Security notice */}
