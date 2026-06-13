@@ -23,8 +23,28 @@ import {
 } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
 
-// Session storage key for access code verification
+// localStorage key for PIN verification — survives OAuth redirect (unlike sessionStorage)
+// Expires after 30 minutes via a timestamp check
 const MATRIX_VERIFIED_KEY = "matrix_gate_verified";
+const MATRIX_VERIFIED_EXPIRY_KEY = "matrix_gate_verified_expiry";
+const MATRIX_VERIFY_TTL_MS = 30 * 60 * 1000; // 30 minutes
+
+function setMatrixVerified() {
+  localStorage.setItem(MATRIX_VERIFIED_KEY, "true");
+  localStorage.setItem(MATRIX_VERIFIED_EXPIRY_KEY, String(Date.now() + MATRIX_VERIFY_TTL_MS));
+}
+
+function getMatrixVerified(): boolean {
+  const verified = localStorage.getItem(MATRIX_VERIFIED_KEY);
+  if (verified !== "true") return false;
+  const expiry = Number(localStorage.getItem(MATRIX_VERIFIED_EXPIRY_KEY) ?? "0");
+  if (Date.now() > expiry) {
+    localStorage.removeItem(MATRIX_VERIFIED_KEY);
+    localStorage.removeItem(MATRIX_VERIFIED_EXPIRY_KEY);
+    return false;
+  }
+  return true;
+}
 
 // Roles that are allowed into the admin dashboard
 const ADMIN_ROLES = ["owner", "super_admin", "admin"] as const;
@@ -60,10 +80,9 @@ export default function MatrixPortal() {
   const requestBypass = trpc.matrix.requestBypass.useMutation();
   const { data: lockStatus } = trpc.matrix.checkStatus.useQuery();
 
-  // Check session storage for previous verification
+  // Check localStorage for previous PIN verification (survives OAuth redirect)
   useEffect(() => {
-    const verified = sessionStorage.getItem(MATRIX_VERIFIED_KEY);
-    if (verified === "true") {
+    if (getMatrixVerified()) {
       setIsVerified(true);
     }
   }, []);
@@ -94,7 +113,7 @@ export default function MatrixPortal() {
     try {
       const result = await verifyBypass.mutateAsync({ token });
       if (result.success) {
-        sessionStorage.setItem(MATRIX_VERIFIED_KEY, "true");
+        setMatrixVerified();
         setIsVerified(true);
         setIsLockedOut(false);
         toast.success("Bypass successful. Access granted.");
@@ -114,7 +133,7 @@ export default function MatrixPortal() {
     try {
       const result = await verifyCode.mutateAsync({ code: fullCode });
       if (result.success) {
-        sessionStorage.setItem(MATRIX_VERIFIED_KEY, "true");
+        setMatrixVerified();
         setIsVerified(true);
         toast.success("Access granted.");
       } else {
@@ -246,7 +265,7 @@ export default function MatrixPortal() {
               <p className="text-muted-foreground text-sm">Access code verified. Now authenticate to continue.</p>
             </div>
             <div className="space-y-3">
-              <a href={getLoginUrl()}>
+              <a href={getLoginUrl("/matrix")}>
                 <Button size="lg" className="w-full gap-2">
                   <Lock className="w-4 h-4" />
                   Authenticate via Jarvis Protocol
