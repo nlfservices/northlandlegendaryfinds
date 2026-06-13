@@ -1272,3 +1272,58 @@ export const fbMonitoredPosts = mysqlTable("fb_monitored_posts", {
 
 export type FbMonitoredPost = typeof fbMonitoredPosts.$inferSelect;
 export type InsertFbMonitoredPost = typeof fbMonitoredPosts.$inferInsert;
+
+// ─── NLF Public API Keys ────────────────────────────────────────────────────
+
+export const apiKeys = mysqlTable("api_keys", {
+  id: int("id").primaryKey().autoincrement(),
+  /** Human-readable label, e.g. "Grok - Card Images" */
+  name: varchar("name", { length: 100 }).notNull(),
+  /** The actual key value — stored as a hash, shown once on creation */
+  keyHash: varchar("keyHash", { length: 128 }).notNull().unique(),
+  /** Short prefix shown in UI, e.g. "nlf_abc123" */
+  keyPrefix: varchar("keyPrefix", { length: 20 }).notNull(),
+  /**
+   * Comma-separated permission scopes:
+   * cards:read, cards:write, sets:read, sets:write,
+   * articles:read, articles:write, artists:write,
+   * social:write, admin:read
+   */
+  permissions: varchar("permissions", { length: 500 }).notNull().default("cards:read"),
+  /** Whether this key is currently active */
+  active: boolean("active").notNull().default(true),
+  /** Optional expiry — null means never expires */
+  expiresAt: timestamp("expiresAt"),
+  /** Total lifetime request count */
+  requestCount: int("requestCount").notNull().default(0),
+  /** Last time this key was used */
+  lastUsedAt: timestamp("lastUsedAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().notNull(),
+});
+
+export type ApiKey = typeof apiKeys.$inferSelect;
+export type InsertApiKey = typeof apiKeys.$inferInsert;
+
+// ─── API Usage Logs ──────────────────────────────────────────────────────────
+
+export const apiUsageLogs = mysqlTable("api_usage_logs", {
+  id: int("id").primaryKey().autoincrement(),
+  apiKeyId: int("apiKeyId").notNull(),
+  /** HTTP method: GET, POST, PATCH, DELETE */
+  method: varchar("method", { length: 10 }).notNull(),
+  /** The endpoint path, e.g. /api/v1/cards/image */
+  endpoint: varchar("endpoint", { length: 200 }).notNull(),
+  /** HTTP status code returned */
+  statusCode: int("statusCode").notNull(),
+  /** Response time in milliseconds */
+  responseTimeMs: int("responseTimeMs"),
+  /** Optional: card/set/article ID that was affected */
+  resourceId: varchar("resourceId", { length: 100 }),
+  /** Optional: brief note about what changed */
+  note: varchar("note", { length: 500 }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type ApiUsageLog = typeof apiUsageLogs.$inferSelect;
+export type InsertApiUsageLog = typeof apiUsageLogs.$inferInsert;

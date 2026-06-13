@@ -21,7 +21,7 @@ import { getLoginUrl } from "@/const";
 import {
   Package, ListChecks, Zap, Radio, Plus, Trash2, Edit, Eye,
   CheckCircle2, Circle, ArrowLeft, Loader2, Calendar, ExternalLink,
-  ShoppingBag, Truck, CreditCard, Boxes, Hammer, Download, BarChart3, FileSpreadsheet, Flame, Sparkles, Settings, Clock, Facebook
+  ShoppingBag, Truck, CreditCard, Boxes, Hammer, Download, BarChart3, FileSpreadsheet, Flame, Sparkles, Settings, Clock, Facebook, Key
 } from "lucide-react";
 import { useState, useMemo, useEffect } from "react";
 import { Link } from "wouter";
@@ -40,6 +40,7 @@ import GHLCommentManager from "@/components/admin/GHLCommentManager";
 import TokenExpirationAlert from "@/components/admin/TokenExpirationAlert";
 import FacebookBotManager from "@/components/admin/FacebookBotManager";
 import AdminAffiliateLinks from "@/pages/AdminAffiliateLinks";
+import ApiKeysManager from "@/components/admin/ApiKeysManager";
 
 // ==================== SITE SETTINGS (COUNTDOWN TIMER) ====================
 
@@ -1631,6 +1632,9 @@ export default function AdminDashboard() {
             <TabsTrigger value="settings" className="flex items-center gap-2">
               <Settings className="w-4 h-4" /> Settings
             </TabsTrigger>
+            <TabsTrigger value="api-keys" className="flex items-center gap-2">
+              <Key className="w-4 h-4" /> API Keys
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="products">
@@ -1690,6 +1694,9 @@ export default function AdminDashboard() {
           </TabsContent>
           <TabsContent value="settings">
             <SiteSettingsManager />
+          </TabsContent>
+          <TabsContent value="api-keys">
+            <ApiKeysManager />
           </TabsContent>
         </Tabs>
       </div>

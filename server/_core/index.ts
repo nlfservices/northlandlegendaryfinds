@@ -15,6 +15,7 @@ import { registerFacebookWebhook } from "../facebook-webhook";
 import { registerBotReindexScheduledRoute } from "../scheduled-bot-reindex";
 import { registerBotPollScheduledRoute } from "../scheduled-bot-poll";
 import { registerFbTokenRefreshRoute } from "../scheduled-fb-token-refresh";
+import { registerRestApi } from "../rest-api";
 import { appRouter } from "../routers";
 import { startBlogScheduler } from "../blog-scheduler";
 import { createContext } from "./context";
@@ -62,6 +63,8 @@ async function startServer() {
   registerBotReindexScheduledRoute(app);
   registerBotPollScheduledRoute(app);
   registerFbTokenRefreshRoute(app);
+  // NLF Public REST API v1
+  registerRestApi(app);
   // Facebook webhook (comment bot)
   registerFacebookWebhook(app);
   // tRPC API

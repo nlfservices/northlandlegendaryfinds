@@ -75,6 +75,7 @@ import NLFSeries1Checklist from "./pages/NLFSeries1Checklist";
 import NLFInfinitySeries1Checklist from "./pages/NLFInfinitySeries1Checklist";
 import Artists from "./pages/Artists";
 import ArtistProfile from "./pages/ArtistProfile";
+import ApiDocs from "./pages/ApiDocs";
 
 // Routes that render as full-screen standalone experiences (no nav/footer)
 const STANDALONE_ROUTES = ["/card-display", "/matrix", "/free-credit"];
@@ -167,6 +168,7 @@ function AppRouter() {
           <Route path="/mcu-spotlight" component={MCUSpotlight} />
           <Route path="/artists" component={Artists} />
           <Route path="/artists/:slug" component={ArtistProfile} />
+          <Route path="/api-docs" component={ApiDocs} />
           <Route path="/login" component={JarvisProtocol} />
           <Route path="/404" component={NotFound} />
           <Route component={NotFound} />

@@ -22,6 +22,7 @@ import { socialDraftsRouter } from "./routers/socialDrafts";
 import { ghlAdminRouter } from "./routers/ghlAdmin";
 import { pollsRouter } from "./routers/polls";
 import { socialBotRouter } from "./routers/socialBot";
+import { apiKeysRouter } from "./routers/apiKeys";
 
 export const appRouter = router({
   system: systemRouter,
@@ -119,6 +120,9 @@ export const appRouter = router({
 
   // Facebook Comment Bot (admin)
   socialBot: socialBotRouter,
+
+  // API Key management (admin only)
+  apiKeys: apiKeysRouter,
 
 });
 
