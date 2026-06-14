@@ -2601,3 +2601,17 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Reorganize More dropdown: About, FAQ, Voting Grounds
 - [x] Clean up mobile menu to match new structure
 - [ ] Save checkpoint
+
+## AI Chat Assistant (Admin Dashboard)
+- [x] Add adminChat tRPC procedure with LLM + database context (user count, article count, GHL leads, card inventory)
+- [x] Build AI Chat panel component for admin dashboard
+- [x] Add AI Chat tab/section to admin dashboard sidebar
+- [x] Wire up chat with streaming responses
+- [x] Add suggested starter questions (How many leads this week? What articles are published? etc.)
+- [ ] Save checkpoint
+
+## Repack Showcase (Future — Doomsday Launch)
+- [ ] Design repack showcase page architecture (multiple sets: Doom Exclusives, Doomsday sets, limited parallels)
+- [ ] Build /repacks page with set cards, product images, and countdown to availability
+- [ ] Add "Notify Me" form tied to repack interest funnel
+- [ ] Save checkpoint

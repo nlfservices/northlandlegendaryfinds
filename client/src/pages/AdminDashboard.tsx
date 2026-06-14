@@ -21,7 +21,7 @@ import { getLoginUrl } from "@/const";
 import {
   Package, ListChecks, Zap, Radio, Plus, Trash2, Edit, Eye,
   CheckCircle2, Circle, ArrowLeft, Loader2, Calendar, ExternalLink,
-  ShoppingBag, Truck, CreditCard, Boxes, Hammer, Download, BarChart3, FileSpreadsheet, Flame, Sparkles, Settings, Clock, Facebook, Key, Users
+  ShoppingBag, Truck, CreditCard, Boxes, Hammer, Download, BarChart3, FileSpreadsheet, Flame, Sparkles, Settings, Clock, Facebook, Key, Users, Bot
 } from "lucide-react";
 import { useState, useMemo, useEffect } from "react";
 import { Link } from "wouter";
@@ -42,6 +42,7 @@ import FacebookBotManager from "@/components/admin/FacebookBotManager";
 import AdminAffiliateLinks from "@/pages/AdminAffiliateLinks";
 import ApiKeysManager from "@/components/admin/ApiKeysManager";
 import UserPortal from "@/components/admin/UserPortal";
+import { AIChatBox, type Message as ChatMessage } from "@/components/AIChatBox";
 
 // ==================== SITE SETTINGS (COUNTDOWN TIMER) ====================
 
@@ -1573,6 +1574,12 @@ const NAV_GROUPS = [
       { id: "settings", label: "Settings", icon: Settings },
     ],
   },
+  {
+    label: "AI",
+    items: [
+      { id: "ai-assistant", label: "AI Assistant", icon: Bot },
+    ],
+  },
 ];
 
 // ==================== OVERVIEW PANEL ====================
@@ -1642,6 +1649,71 @@ function OverviewPanel({ user }: { user: { name?: string | null; email?: string 
           ))}
         </div>
       </div>
+    </div>
+  );
+}
+
+// ==================== AI ASSISTANT PANEL ====================
+type ConversationMessage = { role: "user" | "assistant"; content: string };
+
+function AIAssistantPanel() {
+  const [messages, setMessages] = useState<ConversationMessage[]>([]);
+
+  const chatMutation = trpc.aiAssistant.chat.useMutation({
+    onSuccess: (response) => {
+      const assistantMsg: ConversationMessage = { role: "assistant", content: String(response.content) };
+      setMessages((prev) => [...prev, assistantMsg]);
+    },
+    onError: (err: any) => {
+      toast.error(err.message || "AI assistant error — please try again");
+    },
+  });
+
+  const handleSend = (content: string) => {
+    const newMessages: ConversationMessage[] = [
+      ...messages,
+      { role: "user" as const, content },
+    ];
+    setMessages(newMessages);
+    chatMutation.mutate({ messages: newMessages });
+  };
+
+  const SUGGESTED_PROMPTS = [
+    "How many users signed up this week?",
+    "How many articles are published vs draft?",
+    "What's the status of upcoming shows?",
+    "How many loyalty members do we have?",
+    "Summarize the site's current content stats",
+    "How many social drafts are pending?",
+  ];
+
+  return (
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex items-start gap-4 p-6 rounded-2xl bg-gradient-to-br from-primary/15 via-primary/8 to-transparent border border-primary/20">
+        <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center flex-shrink-0">
+          <Bot className="w-6 h-6 text-primary" />
+        </div>
+        <div>
+          <h2 className="text-xl font-bold mb-1">NLF Command Center AI</h2>
+          <p className="text-muted-foreground text-sm">
+            Ask anything about your site — live data on users, articles, inventory, shows, orders, subscribers, and more.
+            Powered by real-time database stats.
+          </p>
+        </div>
+      </div>
+
+      {/* Chat Box */}
+      <AIChatBox
+        messages={messages}
+        onSendMessage={handleSend}
+        isLoading={chatMutation.isPending}
+        placeholder="Ask about your site data..."
+        emptyStateMessage="Ask me anything about Northland Legendary Finds"
+        suggestedPrompts={SUGGESTED_PROMPTS}
+        height="calc(100vh - 320px)"
+        className="min-h-[500px]"
+      />
     </div>
   );
 }
@@ -1878,6 +1950,7 @@ export default function AdminDashboard() {
             {activeSection === "settings" && <SiteSettingsManager />}
             {activeSection === "api-keys" && <ApiKeysManager />}
             {activeSection === "users" && <UserPortal />}
+            {activeSection === "ai-assistant" && <AIAssistantPanel />}
           </div>
         </main>
       </div>

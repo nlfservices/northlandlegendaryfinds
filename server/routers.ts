@@ -25,6 +25,7 @@ import { socialBotRouter } from "./routers/socialBot";
 import { apiKeysRouter } from "./routers/apiKeys";
 import { userManagementRouter } from "./routers/userManagement";
 import { invitesRouter } from "./routers/invites";
+import { aiAssistantRouter } from "./routers/aiAssistant";
 
 export const appRouter = router({
   system: systemRouter,
@@ -131,6 +132,9 @@ export const appRouter = router({
 
   // User invitations (admin+)
   invites: invitesRouter,
+
+  // AI Assistant (admin dashboard chat)
+  aiAssistant: aiAssistantRouter,
 
 });
 
