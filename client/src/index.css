@@ -148,6 +148,27 @@
     max-width: 100%;
     height: auto;
   }
+
+  /* Center inline article images on mobile */
+  .prose img,
+  .prose div[style*="text-align"] {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  @media (max-width: 640px) {
+    .prose div[style*="text-align:center"],
+    .prose div[style*="text-align: center"] {
+      text-align: center !important;
+      width: 100%;
+    }
+    .prose div[style*="text-align:center"] img,
+    .prose div[style*="text-align: center"] img {
+      max-width: 100% !important;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+    }
+  }
   
   /* Prevent layout shift on card images */
   img[width][height] {

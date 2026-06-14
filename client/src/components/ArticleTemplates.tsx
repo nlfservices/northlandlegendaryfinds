@@ -130,7 +130,7 @@ export function MagazineTemplate({ content, title, featuredImageUrl, cardMarketI
       {/* Magazine-style intro with large drop cap feel */}
       <div className="relative mb-12">
         <div className="absolute -left-4 top-0 w-1 h-full bg-gradient-to-b from-primary via-primary/50 to-transparent rounded-full hidden lg:block" />
-        <RichContent className={`${proseClasses} text-xl leading-relaxed`}>{intro}</RichContent>
+        <RichContent className={`${proseClasses} text-base sm:text-xl leading-relaxed [&_div]:mx-auto [&_img]:mx-auto`}>{intro}</RichContent>
       </div>
 
       {/* Pull Quote — Magazine style */}
@@ -149,7 +149,7 @@ export function MagazineTemplate({ content, title, featuredImageUrl, cardMarketI
 
       {/* Sections with alternating layouts */}
       {sections.map((section, i) => (
-        <div key={i} className={`py-8 ${i % 2 === 0 ? '' : 'bg-card/30 -mx-4 px-4 sm:-mx-8 sm:px-8 rounded-2xl'}`}>
+        <div key={i} className={`py-8 ${i % 2 === 0 ? '' : 'bg-card/30 -mx-2 px-2 sm:-mx-8 sm:px-8 rounded-2xl'}`}>
           {/* Section heading with decorative element */}
           <div className="flex items-center gap-4 mb-6">
             <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
@@ -165,7 +165,7 @@ export function MagazineTemplate({ content, title, featuredImageUrl, cardMarketI
           </div>
 
           {/* Content with side accent */}
-          <RichContent className={`${proseClasses} pl-4 border-l-2 border-border/50`}>{section.body}</RichContent>
+          <RichContent className={`${proseClasses} sm:pl-4 sm:border-l-2 border-border/50 [&_div]:mx-auto [&_img]:mx-auto`}>{section.body}</RichContent>
         </div>
       ))}
     </div>
