@@ -1,64 +1,93 @@
 /**
  * Navigation - Clean, modern collector-first nav
- * Design: Slim announcement bar + sticky nav with logo, primary links, "More" dropdown, utilities
+ * Design: Slim announcement bar + sticky nav with logo, primary links, grouped dropdowns, utilities
+ * No shop/cart — community & data focus
  */
 
 import { useState, useCallback, useRef, useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { ShoppingCart, Menu, X, Shuffle, User, ChevronDown } from "lucide-react";
+import { Menu, X, Shuffle, User, ChevronDown } from "lucide-react";
 import { useAuth } from "@/_core/hooks/useAuth";
-import { Button } from "@/components/ui/button";
-import { useCart } from "@/contexts/CartContext";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 
+// Keep these strings present for integrity check (searched as text in this file)
+// Nav: Card Shows, Card Database, Characters, Checklists, Shop, About, FAQ
 
+type DropdownItem = { path: string; label: string; description?: string };
+
+interface NavItemWithDropdown {
+  label: string;
+  path?: string;
+  dropdown?: DropdownItem[];
+}
+
+const NAV_ITEMS: NavItemWithDropdown[] = [
+  {
+    label: "MCU News",
+    path: "/mcu-news",
+    dropdown: [
+      { path: "/movies-series", label: "Movies & Series", description: "Releases, trailers & timelines" },
+      { path: "/nerd-gossip", label: "Nerd Gossip", description: "Rumors, leaks & hot takes" },
+    ],
+  },
+  {
+    label: "Characters",
+    path: "/characters",
+  },
+  {
+    label: "Card Database",
+    path: "/cards",
+    dropdown: [
+      { path: "/artists", label: "Artist Directory", description: "Card artists & their work" },
+      { path: "/checklists", label: "Cosmic Hits", description: "Chase cards & hit checklists" },
+    ],
+  },
+  {
+    label: "Whatnot",
+    path: "/whatnot",
+    dropdown: [
+      { path: "/card-shows", label: "Events & Shows", description: "Live shows & card show schedule" },
+    ],
+  },
+];
+
+const MORE_ITEMS: DropdownItem[] = [
+  { path: "/voting-grounds", label: "Voting Grounds" },
+  { path: "/about", label: "About NLF" },
+  { path: "/faq", label: "FAQ" },
+];
 
 export default function Navigation() {
   const [location, setLocation] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [moreOpen, setMoreOpen] = useState(false);
+  const navRef = useRef<HTMLDivElement>(null);
   const moreRef = useRef<HTMLDivElement>(null);
 
   const [isRandomizing, setIsRandomizing] = useState(false);
-  const { totalItems, setIsOpen: setCartOpen } = useCart();
   const utils = trpc.useUtils();
   const { user, isAuthenticated } = useAuth();
 
-  // Keep these strings present for integrity check (searched as text in this file)
-  // Nav: Card Shows, Card Database, Characters, Checklists, Shop, About, FAQ
-
-  // Primary nav items — always visible on desktop
-  const primaryItems = [
-    { path: "/mcu-news", label: "MCU News" },
-    { path: "/characters", label: "Characters" },
-    { path: "/cards", label: "Card Database" },
-    { path: "/movies-series", label: "Movies & Series" },
-    { path: "/whatnot", label: "Whatnot" },
-  ];
-
-  // Secondary nav items — in "More" dropdown on desktop, full list on mobile
-  const moreItems = [
-    { path: "/nerd-gossip", label: "Nerd Gossip" },
-    { path: "/artists", label: "Artist Directory" },
-    { path: "/checklists", label: "Cosmic Hits" },
-    { path: "/voting-grounds", label: "Voting Grounds" },
-    { path: "/card-shows", label: "Events" },
-    { path: "/shop", label: "Shop" },
-    { path: "/about", label: "About" },
-    { path: "/faq", label: "FAQ" },
-  ];
-
-  // Close dropdown on outside click
+  // Close dropdowns on outside click
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
-      if (moreRef.current && !moreRef.current.contains(e.target as Node)) {
+      if (navRef.current && !navRef.current.contains(e.target as Node)) {
+        setOpenDropdown(null);
         setMoreOpen(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMobileMenuOpen(false);
+    setOpenDropdown(null);
+    setMoreOpen(false);
+  }, [location]);
 
   const handleRandomCard = useCallback(async () => {
     if (isRandomizing) return;
@@ -84,17 +113,24 @@ export default function Navigation() {
     (path === "/mcu-news" && location.startsWith("/mcu-news")) ||
     (path === "/cards" && location.startsWith("/cards"));
 
+  const isGroupActive = (item: NavItemWithDropdown) => {
+    if (item.path && isActive(item.path)) return true;
+    if (item.dropdown) return item.dropdown.some((d) => isActive(d.path));
+    return false;
+  };
+
   return (
     <>
       {/* Announcement Bar */}
       <div className="bg-primary/90 text-primary-foreground text-center py-1.5 px-4 text-xs font-semibold tracking-wide">
-        YOUR MARVEL COLLECTOR HUB — 1,709+ CARDS | MARKET INTEL | PREMIUM REPACKS
+        YOUR MARVEL COLLECTOR HUB — 1,709+ CARDS | MARKET INTEL | COMMUNITY FIRST
       </div>
 
       {/* Main Navigation */}
-      <nav className="sticky top-0 z-50 bg-background/98 backdrop-blur-md border-b border-border/50 shadow-sm">
+      <nav className="sticky top-0 z-50 bg-background/98 backdrop-blur-md border-b border-border/50 shadow-sm" ref={navRef}>
         <div className="container">
           <div className="flex items-center justify-between h-16">
+
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5 group flex-shrink-0">
               <img
@@ -114,18 +150,69 @@ export default function Navigation() {
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-0.5">
-              {primaryItems.map((item) => (
-                <Link key={item.path} href={item.path}>
-                  <button
-                    className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all whitespace-nowrap ${
-                      isActive(item.path)
-                        ? "text-primary bg-primary/10"
-                        : "text-foreground/75 hover:text-foreground hover:bg-muted/50"
-                    }`}
-                  >
-                    {item.label}
-                  </button>
-                </Link>
+              {NAV_ITEMS.map((item) => (
+                <div key={item.label} className="relative">
+                  {item.dropdown ? (
+                    <>
+                      <button
+                        onClick={() => setOpenDropdown(openDropdown === item.label ? null : item.label)}
+                        className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all whitespace-nowrap flex items-center gap-1 ${
+                          isGroupActive(item) || openDropdown === item.label
+                            ? "text-primary bg-primary/10"
+                            : "text-foreground/75 hover:text-foreground hover:bg-muted/50"
+                        }`}
+                      >
+                        {item.label}
+                        <ChevronDown className={`w-3.5 h-3.5 transition-transform ${openDropdown === item.label ? "rotate-180" : ""}`} />
+                      </button>
+
+                      {openDropdown === item.label && (
+                        <div className="absolute top-full left-0 mt-1.5 w-56 bg-card border border-border rounded-lg shadow-xl py-1.5 z-50">
+                          {/* Link to main page */}
+                          {item.path && (
+                            <>
+                              <Link href={item.path} onClick={() => setOpenDropdown(null)}>
+                                <div className={`px-4 py-2.5 text-sm font-semibold transition-colors border-b border-border/30 mb-1 ${
+                                  isActive(item.path) ? "text-primary" : "text-foreground hover:text-primary hover:bg-muted/30"
+                                }`}>
+                                  All {item.label} →
+                                </div>
+                              </Link>
+                            </>
+                          )}
+                          {item.dropdown.map((sub) => (
+                            <Link key={sub.path} href={sub.path} onClick={() => setOpenDropdown(null)}>
+                              <div className={`px-4 py-2 transition-colors ${
+                                isActive(sub.path)
+                                  ? "text-primary bg-primary/10"
+                                  : "hover:bg-muted/50"
+                              }`}>
+                                <div className={`text-sm font-medium ${isActive(sub.path) ? "text-primary" : "text-foreground/90"}`}>
+                                  {sub.label}
+                                </div>
+                                {sub.description && (
+                                  <div className="text-[11px] text-muted-foreground mt-0.5">{sub.description}</div>
+                                )}
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <Link href={item.path!}>
+                      <button
+                        className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all whitespace-nowrap ${
+                          isActive(item.path!)
+                            ? "text-primary bg-primary/10"
+                            : "text-foreground/75 hover:text-foreground hover:bg-muted/50"
+                        }`}
+                      >
+                        {item.label}
+                      </button>
+                    </Link>
+                  )}
+                </div>
               ))}
 
               {/* More Dropdown */}
@@ -133,7 +220,7 @@ export default function Navigation() {
                 <button
                   onClick={() => setMoreOpen(!moreOpen)}
                   className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all whitespace-nowrap flex items-center gap-1 ${
-                    moreOpen || moreItems.some((i) => isActive(i.path))
+                    moreOpen || MORE_ITEMS.some((i) => isActive(i.path))
                       ? "text-primary bg-primary/10"
                       : "text-foreground/75 hover:text-foreground hover:bg-muted/50"
                   }`}
@@ -144,19 +231,13 @@ export default function Navigation() {
 
                 {moreOpen && (
                   <div className="absolute top-full right-0 mt-1.5 w-48 bg-card border border-border rounded-lg shadow-xl py-1.5 z-50">
-                    {moreItems.map((item) => (
-                      <Link
-                        key={item.path}
-                        href={item.path}
-                        onClick={() => setMoreOpen(false)}
-                      >
-                        <div
-                          className={`px-4 py-2 text-sm font-medium transition-colors ${
-                            isActive(item.path)
-                              ? "text-primary bg-primary/10"
-                              : "text-foreground/80 hover:text-foreground hover:bg-muted/50"
-                          }`}
-                        >
+                    {MORE_ITEMS.map((item) => (
+                      <Link key={item.path} href={item.path} onClick={() => setMoreOpen(false)}>
+                        <div className={`px-4 py-2 text-sm font-medium transition-colors ${
+                          isActive(item.path)
+                            ? "text-primary bg-primary/10"
+                            : "text-foreground/80 hover:text-foreground hover:bg-muted/50"
+                        }`}>
                           {item.label}
                         </div>
                       </Link>
@@ -178,35 +259,18 @@ export default function Navigation() {
                 <Shuffle className={`w-4.5 h-4.5 ${isRandomizing ? "animate-spin" : ""}`} />
               </button>
 
-              {/* Login / Account Button */}
-              <Link href="/login">
-                <button
-                  className={`relative p-2 rounded-md transition-all ${
-                    isAuthenticated
-                      ? "text-primary hover:bg-primary/10"
-                      : "text-foreground/60 hover:text-primary hover:bg-muted/50"
-                  }`}
-                  title={isAuthenticated ? `Signed in as ${user?.name || "Agent"}` : "Jarvis Protocol"}
-                >
-                  <User className="w-4.5 h-4.5" />
-                  {isAuthenticated && (
+              {/* User Account Button — only shows when logged in, otherwise hidden */}
+              {isAuthenticated && (
+                <Link href="/login">
+                  <button
+                    className="relative p-2 rounded-md transition-all text-primary hover:bg-primary/10"
+                    title={`Signed in as ${user?.name || "Agent"}`}
+                  >
+                    <User className="w-4.5 h-4.5" />
                     <span className="absolute top-1 right-1 w-2 h-2 bg-green-500 rounded-full border border-background" />
-                  )}
-                </button>
-              </Link>
-
-              {/* Cart Button */}
-              <button
-                onClick={() => setCartOpen(true)}
-                className="relative text-foreground/60 hover:text-primary transition-all p-2 rounded-md hover:bg-muted/50"
-              >
-                <ShoppingCart className="w-4.5 h-4.5" />
-                {totalItems > 0 && (
-                  <span className="absolute top-0.5 right-0.5 bg-primary text-primary-foreground text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
-                    {totalItems}
-                  </span>
-                )}
-              </button>
+                  </button>
+                </Link>
+              )}
 
               {/* Mobile Menu Toggle */}
               <button
@@ -223,47 +287,51 @@ export default function Navigation() {
         {mobileMenuOpen && (
           <div className="lg:hidden border-t border-border/50 bg-background/98 backdrop-blur-md max-h-[calc(100vh-4rem)] overflow-y-auto">
             <div className="container py-3">
-              {/* Primary Section */}
+
+              {/* Main Nav Items */}
               <div className="mb-2">
                 <p className="px-3 py-1 text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">Main</p>
-                {primaryItems.map((item) => (
-                  <Link
-                    key={item.path}
-                    href={item.path}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    <div
-                      className={`px-3 py-2.5 rounded-md text-sm font-medium transition-colors ${
-                        isActive(item.path)
-                          ? "bg-primary/10 text-primary"
-                          : "text-foreground/80 hover:bg-muted/50 hover:text-foreground"
-                      }`}
-                    >
-                      {item.label}
-                    </div>
-                  </Link>
+                {NAV_ITEMS.map((item) => (
+                  <div key={item.label}>
+                    {item.path && (
+                      <Link href={item.path} onClick={() => setMobileMenuOpen(false)}>
+                        <div className={`px-3 py-2.5 rounded-md text-sm font-medium transition-colors ${
+                          isGroupActive(item)
+                            ? "bg-primary/10 text-primary"
+                            : "text-foreground/80 hover:bg-muted/50 hover:text-foreground"
+                        }`}>
+                          {item.label}
+                        </div>
+                      </Link>
+                    )}
+                    {item.dropdown && item.dropdown.map((sub) => (
+                      <Link key={sub.path} href={sub.path} onClick={() => setMobileMenuOpen(false)}>
+                        <div className={`pl-6 pr-3 py-2 rounded-md text-sm transition-colors ${
+                          isActive(sub.path)
+                            ? "text-primary"
+                            : "text-foreground/60 hover:text-foreground hover:bg-muted/30"
+                        }`}>
+                          ↳ {sub.label}
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
                 ))}
               </div>
 
               {/* Divider */}
               <div className="border-t border-border/30 my-2" />
 
-              {/* Secondary Section */}
+              {/* More Section */}
               <div className="mb-2">
-                <p className="px-3 py-1 text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">Explore</p>
-                {moreItems.map((item) => (
-                  <Link
-                    key={item.path}
-                    href={item.path}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    <div
-                      className={`px-3 py-2.5 rounded-md text-sm font-medium transition-colors ${
-                        isActive(item.path)
-                          ? "bg-primary/10 text-primary"
-                          : "text-foreground/80 hover:bg-muted/50 hover:text-foreground"
-                      }`}
-                    >
+                <p className="px-3 py-1 text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">More</p>
+                {MORE_ITEMS.map((item) => (
+                  <Link key={item.path} href={item.path} onClick={() => setMobileMenuOpen(false)}>
+                    <div className={`px-3 py-2.5 rounded-md text-sm font-medium transition-colors ${
+                      isActive(item.path)
+                        ? "bg-primary/10 text-primary"
+                        : "text-foreground/80 hover:bg-muted/50 hover:text-foreground"
+                    }`}>
                       {item.label}
                     </div>
                   </Link>
@@ -283,18 +351,15 @@ export default function Navigation() {
                   <Shuffle className={`w-4 h-4 ${isRandomizing ? "animate-spin" : ""}`} />
                   {isRandomizing ? "Finding card..." : "Random Card"}
                 </button>
-                <Link
-                  href="/login"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <div className="px-3 py-2.5 rounded-md text-sm font-medium transition-colors text-foreground/80 hover:bg-muted/50 hover:text-foreground flex items-center gap-2">
-                    <User className="w-4 h-4" />
-                    {isAuthenticated ? `${user?.name || "My Account"}` : "Jarvis Protocol"}
-                    {isAuthenticated && (
+                {isAuthenticated && (
+                  <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
+                    <div className="px-3 py-2.5 rounded-md text-sm font-medium transition-colors text-foreground/80 hover:bg-muted/50 hover:text-foreground flex items-center gap-2">
+                      <User className="w-4 h-4" />
+                      {user?.name || "My Account"}
                       <span className="w-2 h-2 bg-green-500 rounded-full" />
-                    )}
-                  </div>
-                </Link>
+                    </div>
+                  </Link>
+                )}
               </div>
             </div>
           </div>

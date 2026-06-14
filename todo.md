@@ -2577,3 +2577,27 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Save FB_APP_SECRET and new never-expiring FB_PAGE_ACCESS_TOKEN as secrets
 - [x] Write vitest tests for the token refresh handler
 - [x] Deploy site and register heartbeat cron job (monthly, 1st of each month) via manus-heartbeat CLI
+
+## NLF Smart Lead Form (Multi-Funnel)
+- [ ] Add lead_submissions table to DB schema (name, phone, email, interests, source_page, ghl_contact_id, created_at)
+- [ ] Build tRPC procedure: submitLead — validates, saves to DB, pushes to GHL with interest-based tags
+- [ ] Build reusable LeadForm component: first name, last name, phone, email, interest multi-select checklist
+- [ ] Interest options: Marvel Cards, Whatnot Shows, Market Intel / eBay Comps, Repacks, Character Deep Dives, MCU News & Spoilers
+- [ ] Disable autocomplete on all form fields (autocomplete="off", no autofill)
+- [ ] Add honeypot field for bot detection
+- [ ] Show success confirmation with personalized message based on selected interests
+- [ ] Place form on: Home page (hero section or below), About page, MCU News page
+- [ ] Admin dashboard: add Lead Submissions panel showing all submissions with interest tags and GHL sync status
+- [ ] Write vitest tests for submitLead procedure
+- [ ] Save checkpoint
+
+## Navigation Improvements
+- [x] Remove Shop link from nav and More dropdown
+- [x] Remove cart icon from nav bar
+- [x] Remove /login link from nav (keep user avatar for logged-in users only)
+- [x] Add dropdown to MCU News: Movies & Series, Nerd Gossip
+- [x] Add dropdown to Card Database: Artist Directory, Cosmic Hits
+- [x] Add dropdown to Whatnot: Events / Card Shows
+- [x] Reorganize More dropdown: About, FAQ, Voting Grounds
+- [x] Clean up mobile menu to match new structure
+- [ ] Save checkpoint
