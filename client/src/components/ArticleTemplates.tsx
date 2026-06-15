@@ -17,7 +17,7 @@
 import { useMemo } from "react";
 import { Link } from "wouter";
 import RichContent from "@/components/RichContent";
-import { TrendingUp, Star, Calendar, Hash, Zap, Award, Target, Flame, BookOpen, Quote, Shield, Flag, FileText, Eye, ArrowLeft, Share2, Clock, User } from "lucide-react";
+import { TrendingUp, Star, Calendar, Hash, Zap, Award, Target, Flame, BookOpen, Quote, Shield, Flag, FileText, Eye, ArrowLeft, Share2, Clock, User, MapPin, Tv, Sparkles, DollarSign, ChevronRight, Ticket } from "lucide-react";
 import ShareButtons from "@/components/ShareButtons";
 
 type TemplateProps = {
@@ -734,31 +734,285 @@ export function DossierTemplate({ content, title, featuredImageUrl, tags, excerp
 }
 
 // ============================================================
+// TEMPLATE 9: CHARACTER PROFILE — Hero card, actor bio, card cross-reference
+// ============================================================
+export function CharacterProfileTemplate({ content, title, featuredImageUrl, tags, excerpt, cardMarketImpact }: TemplateProps) {
+  const { intro, sections } = useMemo(() => splitBySections(content), [content]);
+  const pullQuote = useMemo(() => extractPullQuote(content), [content]);
+  return (
+    <div className="space-y-6">
+      {/* Hero banner with character art */}
+      {featuredImageUrl && (
+        <div className="relative w-full h-72 sm:h-96 overflow-hidden rounded-2xl mb-2">
+          <img src={featuredImageUrl} alt={title} className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 p-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/20 border border-primary/40 rounded-full mb-3">
+              <User className="w-3 h-3 text-primary" />
+              <span className="text-primary text-xs font-bold uppercase tracking-wider">Character Profile</span>
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-black text-white leading-tight">{title}</h1>
+          </div>
+        </div>
+      )}
+      {/* Two-column: bio + sidebar */}
+      <div className="grid lg:grid-cols-[1fr_300px] gap-6">
+        <div className="space-y-6">
+          {intro && (
+            <div className="bg-gradient-to-br from-primary/5 to-transparent border border-primary/20 rounded-xl p-6">
+              <RichContent className={proseClasses}>{intro}</RichContent>
+            </div>
+          )}
+          {pullQuote && (
+            <div className="relative pl-6 border-l-4 border-primary py-2">
+              <Quote className="w-6 h-6 text-primary/40 mb-2" />
+              <p className="text-lg italic text-foreground/80 leading-relaxed">{pullQuote}</p>
+            </div>
+          )}
+          {sections.map((section, i) => (
+            <div key={i} className="space-y-3">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center flex-shrink-0">
+                  <span className="text-primary text-xs font-bold">{i + 1}</span>
+                </div>
+                <h2 className="text-xl font-bold text-foreground">{section.heading}</h2>
+              </div>
+              <RichContent className={proseClasses}>{section.body}</RichContent>
+            </div>
+          ))}
+        </div>
+        {/* Sticky sidebar */}
+        <aside className="hidden lg:block">
+          <div className="sticky top-24 space-y-4">
+            <div className="bg-card border border-border rounded-xl p-5">
+              <div className="flex items-center gap-2 mb-4">
+                <Award className="w-5 h-5 text-primary" />
+                <h3 className="font-bold text-foreground text-sm uppercase tracking-wider">Character Intel</h3>
+              </div>
+              {excerpt && (
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4 pb-4 border-b border-border">{excerpt}</p>
+              )}
+              {tags && tags.length > 0 && (
+                <div className="space-y-2">
+                  <p className="text-xs text-muted-foreground uppercase tracking-wider">Related Topics</p>
+                  <div className="flex flex-wrap gap-2">
+                    {tags.map((tag, i) => (
+                      <span key={i} className="text-xs px-2 py-1 bg-primary/10 text-primary border border-primary/20 rounded-full">{tag}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {cardMarketImpact && (
+                <div className="mt-4 pt-4 border-t border-border">
+                  <div className="flex items-center gap-2 mb-2">
+                    <TrendingUp className="w-4 h-4 text-green-400" />
+                    <span className="text-xs font-bold text-green-400 uppercase tracking-wider">Card Market</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground">{cardMarketImpact}</p>
+                </div>
+              )}
+              <div className="mt-4 pt-4 border-t border-border">
+                <a href="/cards" className="flex items-center gap-1 text-xs text-primary hover:underline">
+                  <ChevronRight className="w-3 h-3" /> Browse Card Database
+                </a>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
+// TEMPLATE 10: DISNEY EXPERIENCE — Parks + Disney+ explorer, vibrant adventure
+// ============================================================
+export function DisneyExperienceTemplate({ content, title, featuredImageUrl, tags, excerpt, category }: TemplateProps) {
+  const { intro, sections } = useMemo(() => splitBySections(content), [content]);
+  const sectionColors = [
+    { bg: 'from-blue-500/10 to-transparent', border: 'border-blue-500/30', num: 'bg-blue-500/20 text-blue-300' },
+    { bg: 'from-purple-500/10 to-transparent', border: 'border-purple-500/30', num: 'bg-purple-500/20 text-purple-300' },
+    { bg: 'from-pink-500/10 to-transparent', border: 'border-pink-500/30', num: 'bg-pink-500/20 text-pink-300' },
+    { bg: 'from-green-500/10 to-transparent', border: 'border-green-500/30', num: 'bg-green-500/20 text-green-300' },
+    { bg: 'from-yellow-500/10 to-transparent', border: 'border-yellow-500/30', num: 'bg-yellow-500/20 text-yellow-300' },
+  ];
+  return (
+    <div className="space-y-6">
+      {/* Vibrant header */}
+      <div className="relative overflow-hidden rounded-2xl">
+        {featuredImageUrl ? (
+          <img src={featuredImageUrl} alt={title} className="w-full h-64 sm:h-80 object-cover" />
+        ) : (
+          <div className="w-full h-40 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-500" />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 p-6">
+          <div className="flex flex-wrap gap-2 mb-3">
+            {category.includes('disney_parks') && (
+              <span className="inline-flex items-center gap-1 px-3 py-1 bg-blue-500/30 border border-blue-400/50 rounded-full text-blue-300 text-xs font-bold">
+                <Ticket className="w-3 h-3" /> Disney Parks
+              </span>
+            )}
+            {category.includes('disney_plus') && (
+              <span className="inline-flex items-center gap-1 px-3 py-1 bg-purple-500/30 border border-purple-400/50 rounded-full text-purple-300 text-xs font-bold">
+                <Tv className="w-3 h-3" /> Disney+
+              </span>
+            )}
+            {!category.includes('disney_parks') && !category.includes('disney_plus') && (
+              <span className="inline-flex items-center gap-1 px-3 py-1 bg-pink-500/30 border border-pink-400/50 rounded-full text-pink-300 text-xs font-bold">
+                <Sparkles className="w-3 h-3" /> Marvel Experience
+              </span>
+            )}
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-black text-white leading-tight">{title}</h1>
+        </div>
+      </div>
+      {intro && (
+        <div className="border-l-4 border-blue-500 pl-6 py-2">
+          <RichContent className={proseClasses}>{intro}</RichContent>
+        </div>
+      )}
+      {sections.map((section, i) => {
+        const c = sectionColors[i % sectionColors.length];
+        return (
+          <div key={i} className={`bg-gradient-to-br ${c.bg} border ${c.border} rounded-2xl p-6`}>
+            <div className="flex items-center gap-3 mb-4">
+              <div className={`w-8 h-8 rounded-full ${c.num} flex items-center justify-center flex-shrink-0`}>
+                <span className="text-sm font-black">{i + 1}</span>
+              </div>
+              <h2 className="text-xl font-bold text-foreground">{section.heading}</h2>
+            </div>
+            <RichContent className={proseClasses}>{section.body}</RichContent>
+          </div>
+        );
+      })}
+      {tags && tags.length > 0 && (
+        <div className="flex flex-wrap gap-2 pt-4 border-t border-border">
+          {tags.map((tag, i) => (
+            <span key={i} className="text-xs px-3 py-1 bg-muted text-muted-foreground rounded-full">{tag}</span>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ============================================================
+// TEMPLATE 11: COLLECTOR SPOTLIGHT — Comics & cards deep-dive, amber/gold aesthetic
+// ============================================================
+export function CollectorSpotlightTemplate({ content, title, featuredImageUrl, tags, excerpt, cardMarketImpact }: TemplateProps) {
+  const { intro, sections } = useMemo(() => splitBySections(content), [content]);
+  const pullQuote = useMemo(() => extractPullQuote(content), [content]);
+  return (
+    <div className="space-y-6">
+      {/* Collector header — dark gold/amber */}
+      <div className="bg-gradient-to-r from-amber-950/60 via-card to-card border border-amber-700/30 rounded-2xl overflow-hidden">
+        <div className="grid sm:grid-cols-[1fr_auto] gap-0">
+          <div className="p-6 sm:p-8">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-500/20 border border-amber-500/40 rounded-full mb-4">
+              <BookOpen className="w-3 h-3 text-amber-400" />
+              <span className="text-amber-400 text-xs font-bold uppercase tracking-wider">Collector Spotlight</span>
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-black text-foreground leading-tight mb-3">{title}</h1>
+            {excerpt && <p className="text-muted-foreground text-sm leading-relaxed">{excerpt}</p>}
+          </div>
+          {featuredImageUrl && (
+            <div className="sm:w-56 h-48 sm:h-auto overflow-hidden">
+              <img src={featuredImageUrl} alt={title} className="w-full h-full object-cover" />
+            </div>
+          )}
+        </div>
+      </div>
+      {cardMarketImpact && (
+        <div className="bg-green-950/30 border border-green-700/40 rounded-xl p-5">
+          <div className="flex items-start gap-3">
+            <div className="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <DollarSign className="w-4 h-4 text-green-400" />
+            </div>
+            <div>
+              <p className="text-xs font-bold text-green-400 uppercase tracking-wider mb-1">Card Market Impact</p>
+              <p className="text-sm text-green-100/80 leading-relaxed">{cardMarketImpact}</p>
+            </div>
+          </div>
+        </div>
+      )}
+      {intro && (
+        <div className="bg-card/50 rounded-xl p-6 border border-border">
+          <RichContent className={proseClasses}>{intro}</RichContent>
+        </div>
+      )}
+      {pullQuote && (
+        <div className="bg-amber-500/5 border border-amber-500/20 rounded-xl p-6 text-center">
+          <Quote className="w-8 h-8 text-amber-500/40 mx-auto mb-3" />
+          <p className="text-lg italic text-foreground/80 leading-relaxed max-w-2xl mx-auto">{pullQuote}</p>
+        </div>
+      )}
+      {sections.map((section, i) => (
+        <div key={i} className="space-y-3">
+          <div className="flex items-center gap-3">
+            <div className="h-px flex-1 bg-border" />
+            <h2 className="text-lg font-bold text-foreground px-3 py-1 bg-amber-500/10 border border-amber-500/20 rounded-full">
+              {section.heading}
+            </h2>
+            <div className="h-px flex-1 bg-border" />
+          </div>
+          <RichContent className={proseClasses}>{section.body}</RichContent>
+        </div>
+      ))}
+      {tags && tags.length > 0 && (
+        <div className="flex flex-wrap gap-2 pt-4 border-t border-border">
+          <span className="text-xs text-muted-foreground mr-1">Topics:</span>
+          {tags.map((tag, i) => (
+            <span key={i} className="text-xs px-2 py-1 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-full">{tag}</span>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ============================================================
 // TEMPLATE SELECTOR — Returns the correct template component
 // ============================================================
-export type ArticleTemplate = 'classic' | 'magazine' | 'spotlight' | 'timeline' | 'listicle' | 'patriotic' | 'cinematic' | 'dossier';
+export type ArticleTemplate = 'classic' | 'magazine' | 'spotlight' | 'timeline' | 'listicle' | 'patriotic' | 'cinematic' | 'dossier' | 'character_profile' | 'disney_experience' | 'collector_spotlight';
 
 /**
- * 7-template rotation order for MCU News articles.
+ * 10-template rotation order for MCU News articles.
  * Cycles deterministically based on article ID so each article always gets the same template.
  * Patriotic is excluded from rotation (reserved for special occasions like Memorial Day).
  */
 const ROTATION_TEMPLATES: ArticleTemplate[] = [
-  'classic',    // position 0
-  'magazine',   // position 1
-  'spotlight',  // position 2
-  'timeline',   // position 3
-  'listicle',   // position 4
-  'cinematic',  // position 5
-  'dossier',    // position 6
+  'classic',             // position 0
+  'magazine',            // position 1
+  'spotlight',           // position 2
+  'timeline',            // position 3
+  'listicle',            // position 4
+  'cinematic',           // position 5
+  'dossier',             // position 6
+  'character_profile',   // position 7
+  'disney_experience',   // position 8
+  'collector_spotlight', // position 9
 ];
 
 /**
  * Determines the article template to use.
  * - If templateLayout is explicitly set to a non-default template (patriotic, cinematic, etc.), use it.
- * - If articleId is provided, auto-rotate through 7 templates based on ID.
+ * - If articleId is provided, auto-rotate through 10 templates based on ID.
  * - Patriotic is never auto-assigned (only manually set for special articles).
  */
+export const ALL_TEMPLATE_NAMES: Record<ArticleTemplate, string> = {
+  classic: 'Classic',
+  magazine: 'Magazine',
+  spotlight: 'Spotlight',
+  timeline: 'Timeline',
+  listicle: 'Listicle',
+  patriotic: 'Patriotic',
+  cinematic: 'Cinematic',
+  dossier: 'Dossier',
+  character_profile: 'Character Profile',
+  disney_experience: 'Disney Experience',
+  collector_spotlight: 'Collector Spotlight',
+};
 export function getArticleTemplate(
   templateLayout: ArticleTemplate | null | undefined,
   articleId?: number
@@ -794,6 +1048,12 @@ export function ArticleTemplateRenderer({ template, ...props }: TemplateProps & 
       return <CinematicTemplate {...props} />;
     case 'dossier':
       return <DossierTemplate {...props} />;
+    case 'character_profile':
+      return <CharacterProfileTemplate {...props} />;
+    case 'disney_experience':
+      return <DisneyExperienceTemplate {...props} />;
+    case 'collector_spotlight':
+      return <CollectorSpotlightTemplate {...props} />;
     case 'classic':
     default:
       return <ClassicTemplate {...props} />;

@@ -181,6 +181,90 @@ export const TOPIC_POOLS: Record<string, string[]> = {
     "Basketball meets Marvel: how the collecting skills transfer perfectly",
     "The family card night: how Marvel and sports cards are bringing families together",
   ],
+
+  // ── NEW EXPANDED CATEGORIES (June 2026) ─────────────────────────────────────
+
+  disney_parks: [
+    "Avengers Campus at Disneyland: the complete guide for Marvel fans in 2026",
+    "WEB SLINGERS Spider-Man Adventure: why it's the best Marvel theme park attraction ever built",
+    "Guardians of the Galaxy Cosmic Rewind: the ride that changed Disney Parks forever",
+    "Is Disney building a new Marvel ride? Everything we know about upcoming MCU attractions",
+    "The Collector's Warehouse at Disneyland: how Benicio del Toro's character inspired a Marvel experience",
+    "Avengers Campus vs Universal's Marvel Experience: which park wins for Marvel fans?",
+    "How Disney Parks are driving the next generation of Marvel card collectors",
+    "The best Marvel merchandise at Disney Parks that doubles as collectibles",
+    "Disney's Marvel expansion plans: every confirmed and rumored attraction coming 2026-2030",
+    "How the Guardians of the Galaxy ride at EPCOT connects to the card market",
+  ],
+
+  disney_plus: [
+    "The most-watched Marvel series on Disney+ and what they mean for card values",
+    "WandaVision effect: how a Disney+ series created one of Marvel's hottest card markets",
+    "Loki Season 2 and the multiverse: which cards spiked after the finale",
+    "What to watch on Marvel Disney+ in order: the complete collector's guide",
+    "The top 5 Marvel Disney+ series ranked by card market impact",
+    "Daredevil Born Again on Disney+: which cards to collect before the next season",
+    "Wonder Man Disney+ series: the complete guide to collecting before it drops",
+    "Secret Invasion aftermath: which Nick Fury cards are worth collecting now",
+    "Ms. Marvel and the new generation: why Kamala Khan cards are a long-term hold",
+    "The Hawkeye effect: how Kate Bishop cards became one of 2025's best performers",
+    "Agatha All Along: which Scarlet Witch and Agatha cards to own before Season 2",
+  ],
+
+  best_actors: [
+    "The 10 best actors in Marvel MCU history ranked by performance and card value",
+    "Robert Downey Jr. as Iron Man: why his cards are the blue-chip investment of the MCU",
+    "Chris Evans as Captain America: the complete guide to collecting his Topps Marvel cards",
+    "Benedict Cumberbatch as Doctor Strange: actor profile and card cross-reference guide",
+    "Tom Holland as Spider-Man: why his cards are the most popular with younger collectors",
+    "Chadwick Boseman as Black Panther: the legacy collection every fan should own",
+    "Scarlett Johansson as Black Widow: the complete Topps Marvel card guide",
+    "Paul Rudd as Ant-Man: underrated actor, undervalued cards — the hidden gem of the MCU",
+    "Chris Hemsworth as Thor: which Thor cards have the best long-term potential",
+    "The best MCU villain actors and which of their cards are worth collecting",
+    "Brie Larson as Captain Marvel: the complete card collecting guide for 2026",
+  ],
+
+  kids_marvel: [
+    "What kids love most about Marvel in 2026: the characters driving the next generation",
+    "Why Spider-Man is every kid's first Marvel hero — and first Marvel card",
+    "The best Marvel characters for kids and which Topps cards to start their collection",
+    "How to start a Marvel card collection with your kids: a parent's complete guide",
+    "Marvel and kids: why the MCU is creating the next generation of card collectors",
+    "The top 5 Marvel characters kids love most and their card market impact",
+    "Ms. Marvel, Moon Knight, and the new heroes kids are obsessed with",
+    "Why Marvel Snap is turning kids into Marvel card collectors",
+    "The best Marvel movies for kids to watch before starting a card collection",
+    "How Marvel's animated series on Disney+ is creating young collectors",
+  ],
+
+  comics_spotlight: [
+    "The 10 most loved Marvel comics of all time and their card market connection",
+    "Amazing Spider-Man #1 (1963): the comic that started it all and what it means for collectors",
+    "The Infinity Gauntlet comic series: why it's the most important Marvel story ever told",
+    "Civil War comics vs MCU: which version created more valuable cards?",
+    "House of M: the comic that changed Marvel forever and its card market legacy",
+    "The best X-Men comics to read before collecting MCU X-Men cards",
+    "Secret Invasion comics: the original story and how it compares to the Disney+ series",
+    "Why the original Guardians of the Galaxy comics are essential reading for card collectors",
+    "The best Doctor Strange comics and which cards they inspired in the Topps Marvel sets",
+    "From comic page to card slab: how Marvel's greatest stories become collectible art",
+    "The most valuable first appearance comics and their corresponding Topps Marvel cards",
+  ],
+
+  card_interest: [
+    "The most searched Marvel cards on eBay in 2026 and what collectors are really after",
+    "Which Marvel cards are people buying most right now: the complete market breakdown",
+    "The top 10 most wanted Topps Marvel cards among serious collectors in 2026",
+    "Spider-Man cards dominate: why Peter Parker is the most collected character in the hobby",
+    "Why Iron Man cards remain the most sought-after in the entire Topps Marvel catalog",
+    "The hottest Marvel chase cards of 2026 and how to find them",
+    "What makes a Marvel card truly desirable: the collector psychology behind demand",
+    "Autograph cards vs base cards: what collectors actually want in 2026",
+    "The most underrated Marvel cards that collectors are sleeping on right now",
+    "From casual fan to serious collector: what cards people buy at every stage",
+    "Why numbered parallels are what every Marvel card collector really wants",
+  ],
 };
 
 // ==================== BULK GENERATE TOPIC POOL ====================
@@ -225,6 +309,13 @@ export const CATEGORY_LABELS: Record<string, string> = {
   behind_the_scenes: "Behind the Scenes at NLF",
   card_history: "Marvel Trading Card History & Nostalgia",
   sports_crossover: "Sports Card to Marvel Card Crossover",
+  // New expanded categories
+  disney_parks: "Disney Parks & Marvel Rides",
+  disney_plus: "Disney+ Marvel Series & Most Watched",
+  best_actors: "Best MCU Actors & Character Profiles",
+  kids_marvel: "What Kids Love in Marvel",
+  comics_spotlight: "Marvel Comics People Love",
+  card_interest: "What Cards People Are Most Interested In",
 };
 
 // ==================== ORDER 66 — TEMPLATE ROTATION ====================
@@ -273,6 +364,13 @@ export const CATEGORY_TEMPLATE_AFFINITY: Record<string, number[]> = {
   behind_the_scenes: [11, 1, 9, 6],  // Surveillance Log, Field Report, After-Action Report, Asset Gallery
   card_history: [4, 11, 2, 9],       // Intercepted Transmission, Surveillance Log, Personnel Dossier, After-Action Report
   sports_crossover: [5, 7, 3, 12],   // Situation Room, Strategic Analysis, Data Brief, Command Briefing
+  // New expanded categories
+  disney_parks: [6, 1, 5, 8],        // Asset Gallery, Field Report, Situation Room, Flash Alert
+  disney_plus: [8, 4, 11, 3],        // Flash Alert, Intercepted Transmission, Surveillance Log, Data Brief
+  best_actors: [2, 1, 12, 6],        // Personnel Dossier, Field Report, Command Briefing, Asset Gallery
+  kids_marvel: [1, 9, 5, 6],         // Field Report, After-Action Report, Situation Room, Asset Gallery
+  comics_spotlight: [4, 11, 2, 9],   // Intercepted Transmission, Surveillance Log, Personnel Dossier, After-Action Report
+  card_interest: [3, 7, 5, 8],       // Data Brief, Strategic Analysis, Situation Room, Flash Alert
 };
 
 // ==================== LAYOUT DATA GENERATION PROMPT ====================

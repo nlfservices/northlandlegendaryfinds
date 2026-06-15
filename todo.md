@@ -2626,3 +2626,19 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [ ] Generate Scorpion hero image (oil painting style) and publish first article
 - [ ] Add Reddit post copy display to Social Drafts admin tab
 - [ ] Save checkpoint and deploy
+
+## 10-Template Article System & Expanded Content Categories (June 2026)
+- [x] Add 3 new article templates to ArticleTemplates.tsx: CharacterProfile, DisneyExperience, CollectorSpotlight
+- [x] Update ArticleTemplate type to include 3 new template names
+- [x] Update ROTATION_TEMPLATES array to cycle through all 10 templates
+- [x] Update ArticleTemplateRenderer switch to handle 3 new templates
+- [x] Update articles DB schema: add new categories (disney_parks, disney_plus, kids_marvel, comics_spotlight, best_actors, card_interest)
+- [x] Run pnpm db:push to migrate new categories to DB
+- [x] Update blog-content-strategy.ts: add TOPIC_POOLS for 6 new categories with 8+ topics each
+- [x] Update CATEGORY_LABELS for new categories
+- [x] Update CATEGORY_TEMPLATE_AFFINITY for new categories
+- [ ] Update NLF_BLOG_SYSTEM_PROMPT to include new content pillars (future task)
+- [ ] Update blog-scheduler.ts FALLBACK_PROMPTS for new categories (future task)
+- [ ] Update templateLayout enum in schema.ts to include 3 new templates (future task)
+- [x] Verify all 10 templates render distinctly on /mcu-news article pages
+- [x] Update TemplateShowcase page to preview all 10 templates
