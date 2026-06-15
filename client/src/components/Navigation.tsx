@@ -62,7 +62,9 @@ export default function Navigation() {
   const [location, setLocation] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const [moreOpen, setMoreOpen] = useState(false);
+  // Unified dropdown state — "__more__" is the key for the More dropdown
+  const moreOpen = openDropdown === "__more__";
+  const setMoreOpen = (v: boolean) => setOpenDropdown(v ? "__more__" : null);
   const navRef = useRef<HTMLDivElement>(null);
   const moreRef = useRef<HTMLDivElement>(null);
 
@@ -75,7 +77,6 @@ export default function Navigation() {
     function handleClickOutside(e: MouseEvent) {
       if (navRef.current && !navRef.current.contains(e.target as Node)) {
         setOpenDropdown(null);
-        setMoreOpen(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -86,7 +87,6 @@ export default function Navigation() {
   useEffect(() => {
     setMobileMenuOpen(false);
     setOpenDropdown(null);
-    setMoreOpen(false);
   }, [location]);
 
   const handleRandomCard = useCallback(async () => {
@@ -155,7 +155,7 @@ export default function Navigation() {
                   {item.dropdown ? (
                     <>
                       <button
-                        onClick={() => setOpenDropdown(openDropdown === item.label ? null : item.label)}
+                        onClick={() => setOpenDropdown(openDropdown === item.label ? null : item.label) }
                         className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all whitespace-nowrap flex items-center gap-1 ${
                           isGroupActive(item) || openDropdown === item.label
                             ? "text-primary bg-primary/10"
