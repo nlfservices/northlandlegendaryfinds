@@ -1371,3 +1371,31 @@ export const adminCredentials = mysqlTable("admin_credentials", {
 });
 export type AdminCredential = typeof adminCredentials.$inferSelect;
 export type InsertAdminCredential = typeof adminCredentials.$inferInsert;
+
+/**
+ * Article Pipeline Topics — tracks used topics and art style rotation
+ * so the daily AGENT cron never repeats a topic and rotates art styles
+ */
+export const articlePipelineTopics = mysqlTable("article_pipeline_topics", {
+  id: int("id").primaryKey().autoincrement(),
+  /** Slug or unique key for the topic (e.g. "scorpion-brand-new-day") */
+  topicKey: varchar("topic_key", { length: 255 }).notNull().unique(),
+  /** Human-readable topic title */
+  topicTitle: varchar("topic_title", { length: 512 }).notNull(),
+  /** Category bucket: spider_man_bnd | avengers_doomsday | secret_wars | general_mcu */
+  bucket: varchar("bucket", { length: 64 }).notNull().default("general_mcu"),
+  /** Art style used: oil_painting | watercolor | comic_halftone | charcoal | neon_noir | golden_age | concept_art */
+  artStyle: varchar("art_style", { length: 64 }),
+  /** Index of this entry in the art style rotation (0-6) */
+  artStyleIndex: int("art_style_index").notNull().default(0),
+  /** The article ID that was published for this topic */
+  articleId: int("article_id"),
+  /** Reddit post copy generated for this article */
+  redditPostCopy: text("reddit_post_copy"),
+  /** Whether this topic has been published */
+  published: boolean("published").notNull().default(false),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  publishedAt: timestamp("published_at"),
+});
+export type ArticlePipelineTopic = typeof articlePipelineTopics.$inferSelect;
+export type InsertArticlePipelineTopic = typeof articlePipelineTopics.$inferInsert;

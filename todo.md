@@ -2615,3 +2615,14 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [ ] Build /repacks page with set cards, product images, and countdown to availability
 - [ ] Add "Notify Me" form tied to repack interest funnel
 - [ ] Save checkpoint
+
+## Daily Article Pipeline & SEO (June 2026)
+- [ ] Add article_pipeline_topics table to schema (tracks used topics + art style rotation index)
+- [ ] Add redditPostCopy field to socialPostDrafts table
+- [ ] Push DB migrations
+- [ ] Build server/scheduled-daily-article.ts (AGENT cron callback endpoint)
+- [ ] Register scheduled-daily-article route in server/_core/index.ts
+- [ ] Create AGENT cron (3x daily: 6am, 11am, 5pm CT) for daily article generation
+- [ ] Generate Scorpion hero image (oil painting style) and publish first article
+- [ ] Add Reddit post copy display to Social Drafts admin tab
+- [ ] Save checkpoint and deploy
