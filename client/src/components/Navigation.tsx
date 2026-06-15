@@ -134,7 +134,7 @@ export default function Navigation() {
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5 group flex-shrink-0">
               <img
-                src="/logo.png"
+                src="https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/logo_48eacf8e.png"
                 alt="NLF"
                 className="h-11 w-11 object-contain group-hover:scale-105 transition-transform"
               />

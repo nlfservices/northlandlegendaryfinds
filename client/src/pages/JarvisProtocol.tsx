@@ -26,7 +26,7 @@ import {
   KeyRound,
 } from "lucide-react";
 
-const NLF_LOGO = "/logo.png";
+const NLF_LOGO = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/logo_48eacf8e.png";
 
 const BENEFITS = [
   {

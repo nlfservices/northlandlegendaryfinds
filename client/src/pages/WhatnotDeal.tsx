@@ -126,7 +126,7 @@ export default function WhatnotDeal() {
         <div className="container flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-3 group">
             <img
-              src="/logo.png"
+              src="https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/logo_48eacf8e.png"
               alt="NLF"
               className="h-12 w-12 object-contain group-hover:scale-105 transition-transform"
             />
