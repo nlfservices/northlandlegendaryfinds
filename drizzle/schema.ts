@@ -520,7 +520,7 @@ export const articles = mysqlTable("articles", {
   /** Featured image URL */
   featuredImageUrl: text("featuredImageUrl"),
   /** Article category */
-  category: mysqlEnum("category", ["movie_news", "show_news", "casting", "card_market", "release_dates", "rumors", "analysis", "interactive_social", "nerd_gossip", "card_collectors"]).notNull().default("movie_news"),
+  category: mysqlEnum("category", ["movie_news", "show_news", "casting", "card_market", "release_dates", "rumors", "analysis", "interactive_social", "nerd_gossip", "card_collectors", "disney_parks", "disney_plus", "best_actors", "kids_marvel", "comics_spotlight"]).notNull().default("movie_news"),
   /** Tags as JSON array (e.g., ["Avengers", "Doomsday", "Doctor Doom"]) */
   tags: json("tags"),
   /** Card market impact note (e.g., "Doctor Doom cards up 40% since casting news") */
@@ -542,7 +542,7 @@ export const articles = mysqlTable("articles", {
   /** SEO meta description */
   metaDescription: varchar("metaDescription", { length: 320 }),
   /** Article template layout style (classic, magazine, spotlight, timeline, listicle) */
-  templateLayout: mysqlEnum("templateLayout", ["classic", "magazine", "spotlight", "timeline", "listicle", "patriotic", "cinematic", "dossier"]).default("classic"),
+  templateLayout: mysqlEnum("templateLayout", ["classic", "magazine", "spotlight", "timeline", "listicle", "patriotic", "cinematic", "dossier", "collector_spotlight", "disney_experience", "character_profile"]).default("classic"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });

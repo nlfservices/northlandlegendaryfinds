@@ -2642,3 +2642,19 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [ ] Update templateLayout enum in schema.ts to include 3 new templates (future task)
 - [x] Verify all 10 templates render distinctly on /mcu-news article pages
 - [x] Update TemplateShowcase page to preview all 10 templates
+
+## 7 Signature Articles — Human Voice, Unique Layouts
+- [ ] Update NLF_BLOG_SYSTEM_PROMPT with human voice rules (short sentences, opinions, collector tone, no AI tells)
+- [ ] Add 7 new signature topics to TOPIC_POOLS
+- [ ] Generate hero images for all 7 articles (unique per article, no duplicates)
+- [ ] Generate Facebook scroll-stopper images for all 7 articles (different from hero images, bold/dramatic)
+- [ ] Write & publish Article 1: "The Logan Paul Effect — What Happens When an A-List Actor Wears a Doctor Doom Card?"
+- [ ] Write & publish Article 2: "Marvel Is Generational. Pokemon Is Not."
+- [ ] Write & publish Article 3: "The Full Marvel Ecosystem — Why No Other IP Touches Every Generation"
+- [ ] Write & publish Article 4: "RDJ's Doctor Doom Rookie Card — We're Watching a Logan Paul Moment Build in Slow Motion"
+- [ ] Write & publish Article 5: "Avengers Doomsday Will Dethrone Avatar. Here's Why."
+- [ ] Write & publish Article 6: "Topps Didn't Buy the Marvel License to Lose to Pokemon"
+- [ ] Write & publish Article 7: "Spider-Man Will Reunite the Community"
+- [ ] Each article uses a different layout template (no two the same)
+- [ ] Each article has Facebook post copy in social drafts
+- [ ] Verify all 7 articles appear in admin drafts for review
