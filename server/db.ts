@@ -1819,3 +1819,51 @@ export async function getPublishedSocialPosts(): Promise<SocialPostDraft[]> {
     .orderBy(desc(socialPostDrafts.publishedAt));
 }
 
+
+/**
+ * Get related articles that share at least one tag with the given article.
+ * Excludes the current article (by slug), sorts by number of shared tags desc,
+ * then by publishedAt desc. Returns up to `limit` results.
+ */
+export async function getRelatedArticles(
+  currentSlug: string,
+  tags: string[],
+  limit: number = 3,
+): Promise<Article[]> {
+  const db = await getDb();
+  if (!db || tags.length === 0) return [];
+  const now = Date.now();
+
+  // Fetch all published articles except the current one
+  const candidates = await db.select().from(articles)
+    .where(
+      and(
+        eq(articles.isPublished, true),
+        sql`${articles.slug} != ${currentSlug}`,
+        sql`${articles.category} != 'interactive_social'`,
+        sql`${articles.publishedAt} <= ${now}`,
+      )
+    )
+    .orderBy(desc(articles.publishedAt));
+
+  // Score each candidate by number of shared tags
+  const tagSet = new Set(tags.map(t => t.toLowerCase()));
+  const scored = candidates
+    .map(a => {
+      const articleTags: string[] = Array.isArray(a.tags) ? (a.tags as string[]) : [];
+      const sharedCount = articleTags.filter(t => tagSet.has(t.toLowerCase())).length;
+      return { article: a, sharedCount };
+    })
+    .filter(s => s.sharedCount > 0)
+    .sort((a, b) => b.sharedCount - a.sharedCount || (b.article.publishedAt ?? 0) - (a.article.publishedAt ?? 0));
+
+  // If not enough tag matches, pad with the most recent articles
+  const matched = scored.slice(0, limit).map(s => s.article);
+  if (matched.length < limit) {
+    const matchedIds = new Set(matched.map(a => a.id));
+    const recent = candidates.filter(a => !matchedIds.has(a.id));
+    matched.push(...recent.slice(0, limit - matched.length));
+  }
+
+  return matched.slice(0, limit);
+}

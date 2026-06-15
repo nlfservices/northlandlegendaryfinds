@@ -6,7 +6,7 @@ import {
   createArticle, updateArticle, deleteArticle,
   toggleArticleFeatured, toggleArticlePublished,
   castArticleVote, getArticleVoteCounts, getVisitorArticleVote,
-  getAllArticleVoteSummaries,
+  getAllArticleVoteSummaries, getRelatedArticles,
 } from "../db";
 
 const articleInput = z.object({
@@ -123,5 +123,14 @@ export const articlePublicRouter = router({
   /** Get vote summaries for all articles (Voting Grounds) */
   allVoteSummaries: publicProcedure.query(async () => {
     return getAllArticleVoteSummaries();
+  }),
+
+  /** Get related articles by shared tags, excluding the current article */
+  getRelated: publicProcedure.input(z.object({
+    slug: z.string(),
+    tags: z.array(z.string()),
+    limit: z.number().min(1).max(6).default(3),
+  })).query(async ({ input }) => {
+    return getRelatedArticles(input.slug, input.tags, input.limit);
   }),
 });

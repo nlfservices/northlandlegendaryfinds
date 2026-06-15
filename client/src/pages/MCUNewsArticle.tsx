@@ -19,6 +19,7 @@ import { ArticleTemplateRenderer, getArticleTemplate, type ArticleTemplate } fro
 import ShareButtons from "@/components/ShareButtons";
 import ArticlePollWidget from "@/components/ArticlePollWidget";
 import ArticlePollWidgetMini from "@/components/ArticlePollWidgetMini";
+import RelatedArticles from "@/components/RelatedArticles";
 
 const CARD_MARKET_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mcu-intel-card-market-Lt56dsta4y7Hzfj6pzAysR.webp";
 
@@ -443,6 +444,9 @@ export default function MCUNewsArticle() {
           tags={tags}
           relatedCharacters={relatedCharacters}
         />
+
+        {/* Related Articles — tag-matched */}
+        <RelatedArticles currentSlug={slug || ""} tags={tags} />
 
         {/* Whatnot Live Stream CTA */}
         <div className="bg-gradient-to-r from-yellow-500/10 via-yellow-400/5 to-yellow-500/10 border-2 border-yellow-500/40 rounded-xl p-6 sm:p-8 mb-8 text-center">
