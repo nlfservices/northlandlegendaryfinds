@@ -15,7 +15,7 @@ export default function Footer() {
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-3 mb-4">
               <img
-                src="https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/logo_48eacf8e.png"
+                src={import.meta.env.VITE_APP_LOGO}
                 alt="NLF"
                 className="h-12 w-12 object-contain"
               />
