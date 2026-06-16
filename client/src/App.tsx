@@ -76,6 +76,7 @@ import NLFInfinitySeries1Checklist from "./pages/NLFInfinitySeries1Checklist";
 import Artists from "./pages/Artists";
 import ArtistProfile from "./pages/ArtistProfile";
 import ApiDocs from "./pages/ApiDocs";
+import SellCards from "./pages/SellCards";
 
 // Routes that render as full-screen standalone experiences (no nav/footer)
 const STANDALONE_ROUTES = ["/card-display", "/matrix", "/free-credit"];
@@ -169,6 +170,7 @@ function AppRouter() {
           <Route path="/artists" component={Artists} />
           <Route path="/artists/:slug" component={ArtistProfile} />
           <Route path="/api-docs" component={ApiDocs} />
+          <Route path="/sell-cards" component={SellCards} />
           <Route path="/login" component={JarvisProtocol} />
           <Route path="/404" component={NotFound} />
           <Route component={NotFound} />

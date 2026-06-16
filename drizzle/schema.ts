@@ -1401,3 +1401,40 @@ export const articlePipelineTopics = mysqlTable("article_pipeline_topics", {
 });
 export type ArticlePipelineTopic = typeof articlePipelineTopics.$inferSelect;
 export type InsertArticlePipelineTopic = typeof articlePipelineTopics.$inferInsert;
+
+/**
+ * Sell Submissions — people who want to sell their Topps Marvel numbered/autograph cards to NLF
+ */
+export const sellSubmissions = mysqlTable("sell_submissions", {
+  id: int("id").primaryKey().autoincrement(),
+  /** Seller's full name */
+  name: varchar("name", { length: 128 }).notNull(),
+  /** Seller's email address */
+  email: varchar("email", { length: 255 }).notNull(),
+  /** Seller's phone number */
+  phone: varchar("phone", { length: 32 }).notNull(),
+  /** Card name / character */
+  cardName: varchar("card_name", { length: 255 }).notNull(),
+  /** Card number (e.g. /25, /10, /1) */
+  cardNumber: varchar("card_number", { length: 32 }).notNull(),
+  /** Year of the card */
+  cardYear: varchar("card_year", { length: 8 }),
+  /** Set name (e.g. Topps Chrome Marvel, Marvel Mint) */
+  setName: varchar("set_name", { length: 255 }),
+  /** Card condition (Raw / PSA / BGS / CGC) */
+  condition: varchar("condition", { length: 64 }),
+  /** Whether it's an autograph card */
+  isAutograph: boolean("is_autograph").notNull().default(false),
+  /** Seller's asking price (optional) */
+  askingPrice: varchar("asking_price", { length: 64 }),
+  /** Additional notes from seller */
+  notes: text("notes"),
+  /** JSON array of uploaded image URLs (comma-separated or JSON) */
+  imageUrls: varchar("image_urls", { length: 2048 }).notNull().default(""),
+  /** Submission status: new | reviewing | offer_sent | purchased | declined */
+  status: varchar("status", { length: 32 }).notNull().default("new"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+export type SellSubmission = typeof sellSubmissions.$inferSelect;
+export type InsertSellSubmission = typeof sellSubmissions.$inferInsert;

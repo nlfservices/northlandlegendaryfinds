@@ -54,6 +54,7 @@ const NAV_ITEMS: NavItemWithDropdown[] = [
 
 const MORE_ITEMS: DropdownItem[] = [
   { path: "/voting-grounds", label: "Voting Grounds" },
+  { path: "/sell-cards", label: "Sell Your Cards" },
   { path: "/about", label: "About NLF" },
   { path: "/faq", label: "FAQ" },
 ];

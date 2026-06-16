@@ -1867,3 +1867,64 @@ export async function getRelatedArticles(
 
   return matched.slice(0, limit);
 }
+
+// ============================================================
+// SELL SUBMISSIONS
+// ============================================================
+
+export async function createSellSubmission(data: {
+  name: string;
+  email: string;
+  phone: string;
+  cardName: string;
+  cardNumber: string;
+  cardYear?: string;
+  setName?: string;
+  condition?: string;
+  isAutograph: boolean;
+  askingPrice?: string;
+  notes?: string;
+  imageUrls: string[];
+}) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const { sellSubmissions } = await import("../drizzle/schema");
+  const [row] = await db.insert(sellSubmissions).values({
+    name: data.name,
+    email: data.email,
+    phone: data.phone,
+    cardName: data.cardName,
+    cardNumber: data.cardNumber,
+    cardYear: data.cardYear,
+    setName: data.setName,
+    condition: data.condition,
+    isAutograph: data.isAutograph,
+    askingPrice: data.askingPrice,
+    notes: data.notes,
+    imageUrls: JSON.stringify(data.imageUrls),
+    status: "new",
+  });
+  return row;
+}
+
+export async function getSellSubmissions(limit = 50, offset = 0) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const { sellSubmissions } = await import("../drizzle/schema");
+  return db
+    .select()
+    .from(sellSubmissions)
+    .orderBy(desc(sellSubmissions.createdAt))
+    .limit(limit)
+    .offset(offset);
+}
+
+export async function updateSellSubmissionStatus(id: number, status: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const { sellSubmissions } = await import("../drizzle/schema");
+  return db
+    .update(sellSubmissions)
+    .set({ status })
+    .where(eq(sellSubmissions.id, id));
+}

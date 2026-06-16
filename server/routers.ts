@@ -26,6 +26,7 @@ import { apiKeysRouter } from "./routers/apiKeys";
 import { userManagementRouter } from "./routers/userManagement";
 import { invitesRouter } from "./routers/invites";
 import { aiAssistantRouter } from "./routers/aiAssistant";
+import { sellCardsRouter } from "./routers/sellCards";
 
 export const appRouter = router({
   system: systemRouter,
@@ -135,6 +136,9 @@ export const appRouter = router({
 
   // AI Assistant (admin dashboard chat)
   aiAssistant: aiAssistantRouter,
+
+  // Sell Cards (public submissions + admin management)
+  sellCards: sellCardsRouter,
 
 });
 

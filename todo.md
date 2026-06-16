@@ -2298,7 +2298,7 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Verify all images load correctly (confirmed on live site)
 - [x] Write Knull article — comparison to Doctor Doom, Thanos, and other MCU big bads
 - [x] Knull article: include comparison list of similar cosmic-level villains (Kang, Thanos, Doom, Galactus, etc.)
-- [ ] Build "Sell Your Cards" section/page — currently buying Topps Marvel products only
+- [x] Build "Sell Your Cards" section/page — currently buying Topps Marvel products only (at /sell-cards with photo upload + DB + owner notifications)
 - [x] Move "Movies & Series" nav item to between "Events" and "About"
 
 ## Voting & Social Media

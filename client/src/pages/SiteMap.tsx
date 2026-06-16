@@ -85,6 +85,7 @@ const SITE_SECTIONS: SiteSection[] = [
       { path: "/transparency", label: "Transparency", description: "Real-time pull tracking and full checklist disclosure" },
       { path: "/contact", label: "Contact Us", description: "Get in touch with the NLF team" },
       { path: "/faq", label: "FAQ", description: "Frequently asked questions about our products and services" },
+      { path: "/sell-cards", label: "Sell Your Cards", description: "Sell your Topps Marvel numbered and autograph cards to NLF" },
     ],
   },
   {

@@ -1,0 +1,1 @@
+ALTER TABLE `sell_submissions` MODIFY COLUMN `image_urls` varchar(2048) NOT NULL DEFAULT '';
