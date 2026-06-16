@@ -127,36 +127,36 @@ export default function Navigation() {
       </div>
 
       {/* Main Navigation */}
-      <nav className="sticky top-0 z-50 bg-background/98 backdrop-blur-md border-b border-border/50 shadow-sm" ref={navRef}>
+      <nav className="sticky top-0 z-50 bg-background/98 backdrop-blur-md border-b border-border/50 shadow-lg" ref={navRef}>
         <div className="container">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-20">
 
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2.5 group flex-shrink-0">
+            <Link href="/" className="flex items-center gap-3 group flex-shrink-0">
               <img
                 src={"https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/site-assets/NLF-Logo-MainLogo.png"}
                 alt="NLF"
-                className="h-11 w-11 object-contain group-hover:scale-105 transition-transform"
+                className="h-16 w-16 object-contain group-hover:scale-105 transition-transform drop-shadow-[0_0_10px_rgba(34,197,94,0.35)]"
               />
               <div className="hidden sm:flex flex-col">
-                <span className="text-primary font-bold text-base tracking-wider leading-tight" style={{ fontFamily: "'Anton', sans-serif" }}>
+                <span className="text-primary font-bold text-xl tracking-wider leading-tight" style={{ fontFamily: "'Anton', sans-serif" }}>
                   NORTHLAND
                 </span>
-                <span className="text-muted-foreground text-[9px] tracking-widest uppercase -mt-0.5">
-                  Legendary Finds
+                <span className="text-muted-foreground text-[10px] tracking-[0.2em] uppercase -mt-0.5 font-semibold">
+                  LEGENDARY FINDS
                 </span>
               </div>
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-0.5">
+            <div className="hidden lg:flex items-center gap-1">
               {NAV_ITEMS.map((item) => (
                 <div key={item.label} className="relative">
                   {item.dropdown ? (
                     <>
                       <button
                         onClick={() => setOpenDropdown(openDropdown === item.label ? null : item.label) }
-                        className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all whitespace-nowrap flex items-center gap-1 ${
+                        className={`px-3.5 py-2 text-sm font-semibold rounded-md transition-all whitespace-nowrap flex items-center gap-1 ${
                           isGroupActive(item) || openDropdown === item.label
                             ? "text-primary bg-primary/10"
                             : "text-foreground/75 hover:text-foreground hover:bg-muted/50"
@@ -202,7 +202,7 @@ export default function Navigation() {
                   ) : (
                     <Link href={item.path!}>
                       <button
-                        className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all whitespace-nowrap ${
+                        className={`px-3.5 py-2 text-sm font-semibold rounded-md transition-all whitespace-nowrap ${
                           isActive(item.path!)
                             ? "text-primary bg-primary/10"
                             : "text-foreground/75 hover:text-foreground hover:bg-muted/50"
@@ -219,7 +219,7 @@ export default function Navigation() {
               <div className="relative" ref={moreRef}>
                 <button
                   onClick={() => setMoreOpen(!moreOpen)}
-                  className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all whitespace-nowrap flex items-center gap-1 ${
+                  className={`px-3.5 py-2 text-sm font-semibold rounded-md transition-all whitespace-nowrap flex items-center gap-1 ${
                     moreOpen || MORE_ITEMS.some((i) => isActive(i.path))
                       ? "text-primary bg-primary/10"
                       : "text-foreground/75 hover:text-foreground hover:bg-muted/50"
@@ -285,7 +285,7 @@ export default function Navigation() {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="lg:hidden border-t border-border/50 bg-background/98 backdrop-blur-md max-h-[calc(100vh-4rem)] overflow-y-auto">
+          <div className="lg:hidden border-t border-border/50 bg-background/98 backdrop-blur-md max-h-[calc(100vh-5rem)] overflow-y-auto">
             <div className="container py-3">
 
               {/* Main Nav Items */}
