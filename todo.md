@@ -2658,3 +2658,6 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [ ] Each article uses a different layout template (no two the same)
 - [ ] Each article has Facebook post copy in social drafts
 - [ ] Verify all 7 articles appear in admin drafts for review
+
+## Article Queue — Next Up
+- [ ] Write article based on: https://youtu.be/NW8DzX4mE6w — analyze video, determine angle, write + publish full NLF article
