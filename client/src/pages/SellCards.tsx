@@ -328,11 +328,11 @@ export default function SellCards() {
             {/* Quick contact */}
             <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
               <a
-                href="mailto:contact@northlandlegendaryfinds.com"
+                href="mailto:buy@nlfservices.com"
                 className="flex items-center gap-2 hover:text-primary transition-colors"
               >
                 <Mail className="w-4 h-4 text-primary" />
-                contact@northlandlegendaryfinds.com
+                buy@nlfservices.com
               </a>
             </div>
           </div>
@@ -747,11 +747,11 @@ export default function SellCards() {
                 REACH US DIRECTLY
               </h3>
               <a
-                href="mailto:contact@northlandlegendaryfinds.com"
+                href="mailto:buy@nlfservices.com"
                 className="flex items-center gap-2 text-sm text-primary hover:underline mb-4"
               >
                 <Mail className="w-4 h-4" />
-                contact@northlandlegendaryfinds.com
+                buy@nlfservices.com
               </a>
               <div className="border-t border-border/40 pt-4 mt-2">
                 <p className="text-xs text-muted-foreground leading-relaxed">
