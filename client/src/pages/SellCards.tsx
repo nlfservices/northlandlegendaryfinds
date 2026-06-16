@@ -7,14 +7,16 @@
  * Form: name / phone / email + card details + multi-photo upload.
  */
 
-import { useState, useRef, useCallback } from "react";
+import {
+  useState, useRef, useCallback
+} from "react";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
+
 import {
   Upload,
   X,
   CheckCircle2,
-  Phone,
   Mail,
   Camera,
   Shield,
@@ -104,7 +106,7 @@ export default function SellCards() {
       window.scrollTo({ top: 0, behavior: "smooth" });
     },
     onError: (err) => {
-      toast.error("Something went wrong. Please try again or call us directly.");
+      toast.error("Something went wrong. Please try again or email us directly.");
       console.error("[SellCards] Submit error:", err);
     },
   });
@@ -174,8 +176,8 @@ export default function SellCards() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim() || !email.trim() || !phone.trim()) {
-      toast.error("Please fill in your name, email, and phone number.");
+    if (!name.trim() || !email.trim()) {
+      toast.error("Please fill in your name and email.");
       return;
     }
     if (!cardName.trim() || !cardNumber.trim()) {
@@ -215,7 +217,7 @@ export default function SellCards() {
           </h1>
           <p className="text-muted-foreground text-lg mb-2">
             Your submission is in. We review every inquiry personally — expect
-            a call or email within <strong className="text-foreground">24–48 hours</strong>.
+            an email within <strong className="text-foreground">24–48 hours</strong>.
           </p>
           <p className="text-muted-foreground mb-8">
             If your card is a strong fit, we move fast. Numbered Topps Marvel
@@ -311,13 +313,6 @@ export default function SellCards() {
             {/* Quick contact */}
             <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
               <a
-                href="tel:+1-218-000-0000"
-                className="flex items-center gap-2 hover:text-primary transition-colors"
-              >
-                <Phone className="w-4 h-4 text-primary" />
-                Call or text us
-              </a>
-              <a
                 href="mailto:contact@northlandlegendaryfinds.com"
                 className="flex items-center gap-2 hover:text-primary transition-colors"
               >
@@ -368,7 +363,7 @@ export default function SellCards() {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="phone" className="text-foreground/80 text-sm font-medium">
-                      Phone Number <span className="text-primary">*</span>
+                      Phone Number <span className="text-muted-foreground text-xs">(optional)</span>
                     </Label>
                     <Input
                       id="phone"
@@ -376,7 +371,6 @@ export default function SellCards() {
                       placeholder="(218) 555-0100"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      required
                       className="bg-muted/30 border-border/60 focus:border-primary"
                     />
                   </div>
@@ -730,26 +724,26 @@ export default function SellCards() {
               </ul>
             </div>
 
-            {/* Direct contact */}
+            {/* Direct contact + network message */}
             <div className="bg-card border border-border/50 rounded-xl p-6">
               <h3
                 className="text-sm font-bold text-foreground uppercase tracking-widest mb-4"
               >
-                PREFER TO CALL?
+                REACH US DIRECTLY
               </h3>
-              <p className="text-xs text-muted-foreground mb-4">
-                Sometimes it's faster to just talk. Reach us directly:
-              </p>
               <a
                 href="mailto:contact@northlandlegendaryfinds.com"
-                className="flex items-center gap-2 text-sm text-primary hover:underline mb-2"
+                className="flex items-center gap-2 text-sm text-primary hover:underline mb-4"
               >
                 <Mail className="w-4 h-4" />
                 contact@northlandlegendaryfinds.com
               </a>
-              <p className="text-xs text-muted-foreground mt-3">
-                Mon–Fri · 9am–6pm CT
-              </p>
+              <div className="border-t border-border/40 pt-4 mt-2">
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  <span className="text-foreground font-semibold">Can't help with your card?</span>{" "}
+                  No worries — if it's outside what we buy, our network of collectors and dealers might be able to. Submit the form anyway and we'll point you in the right direction.
+                </p>
+              </div>
             </div>
           </aside>
         </div>
