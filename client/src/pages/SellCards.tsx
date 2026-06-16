@@ -47,17 +47,32 @@ const MAX_PHOTOS = 8;
 const MAX_FILE_SIZE_MB = 8;
 
 const TOPPS_SETS = [
-  "Topps Chrome Marvel",
-  "Topps Marvel Mint",
-  "Topps Marvel Comic Book Heroes (CBH)",
-  "Topps Marvel Masterpieces",
-  "Topps Marvel Inception",
-  "Topps Marvel Finest",
-  "Topps Marvel Sapphire",
-  "Topps Marvel Luminance",
-  "Topps Marvel Transcendent",
-  "Topps Marvel Definitive",
-  "Other Topps Marvel Set",
+  // 2026
+  "2026 Topps Marvel Chrome",
+  "2026 Topps Marvel Finest",
+  "2026 Topps Marvel Inception",
+  "2026 Topps Marvel Sapphire",
+  "2026 Topps Marvel Mint",
+  // 2025
+  "2025 Topps Marvel Chrome",
+  "2025 Topps Marvel Finest",
+  "2025 Topps Marvel Inception",
+  "2025 Topps Marvel Sapphire",
+  "2025 Topps Marvel Mint",
+  "2025 Topps Marvel Comic Book Heroes (CBH)",
+  "2025 Topps Marvel Masterpieces",
+  "2025 Topps Marvel Luminance",
+  // 2024
+  "2024 Topps Marvel Chrome",
+  "2024 Topps Marvel Finest",
+  "2024 Topps Marvel Inception",
+  "2024 Topps Marvel Sapphire",
+  "2024 Topps Marvel Mint",
+  "2024 Topps Marvel Comic Book Heroes (CBH)",
+  "2024 Topps Marvel Masterpieces",
+  "2024 Topps Marvel Luminance",
+  // Other
+  "Other 2024–2026 Topps Marvel Set",
 ];
 
 const CONDITIONS = [
