@@ -15,6 +15,7 @@ import { publicProcedure, router, adminProcedure } from "../_core/trpc";
 import { createSellSubmission, getSellSubmissions, updateSellSubmissionStatus } from "../db";
 import { storagePut } from "../storage";
 import { notifyOwner } from "../_core/notification";
+import { createGHLContact, searchGHLContact, addGHLContactNote, addGHLContactTags } from "../ghl";
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
@@ -94,7 +95,62 @@ export const sellCardsRouter = router({
         imageUrls,
       });
 
-      // 3. Notify owner
+      // 3. Push to GoHighLevel CRM
+      try {
+        const nameParts = input.name.trim().split(/\s+/);
+        const firstName = nameParts[0] ?? input.name;
+        const lastName = nameParts.slice(1).join(" ") || undefined;
+
+        // Search for existing contact first
+        const existing = await searchGHLContact(input.email);
+        let ghlContactId: string | undefined;
+
+        if (existing.found && existing.contactId) {
+          ghlContactId = existing.contactId;
+          console.log(`[sellCards] GHL contact already exists: ${ghlContactId}`);
+        } else {
+          const ghlResult = await createGHLContact({
+            email: input.email,
+            firstName,
+            lastName,
+            name: input.name,
+            phone: input.phone,
+            tags: ["sell-inquiry", "topps-marvel"],
+            source: "NLF Sell Cards Form",
+          });
+          if (ghlResult.success && ghlResult.contactId) {
+            ghlContactId = ghlResult.contactId;
+            console.log(`[sellCards] GHL contact created: ${ghlContactId}`);
+          }
+        }
+
+        // Add a note with all card details
+        if (ghlContactId) {
+          const autographLine = input.isAutograph ? " ✍️ AUTOGRAPH" : "";
+          const noteLines = [
+            `💰 SELL INQUIRY — ${input.cardName} ${input.cardNumber}${autographLine}`,
+            `Card: ${input.cardName} — ${input.cardNumber}${autographLine}`,
+            input.cardYear ? `Year: ${input.cardYear}` : "",
+            input.setName ? `Set: ${input.setName}` : "",
+            input.condition ? `Condition/Grade: ${input.condition}` : "",
+            input.askingPrice ? `Asking Price: ${input.askingPrice}` : "",
+            input.notes ? `Notes: ${input.notes}` : "",
+            imageUrls.length ? `Photos: ${imageUrls.length} uploaded` : "",
+            `Phone: ${input.phone}`,
+            `Submitted via: northlandlegendaryfinds.com/sell-cards`,
+          ].filter(Boolean).join("\n");
+
+          await addGHLContactNote(ghlContactId, noteLines);
+          // Tag as sell-inquiry so it's easy to filter in GHL
+          await addGHLContactTags(ghlContactId, ["sell-inquiry", "topps-marvel"]);
+          console.log(`[sellCards] GHL note + tags added for contact: ${ghlContactId}`);
+        }
+      } catch (ghlErr) {
+        // GHL errors should never block the submission
+        console.error("[sellCards] GHL sync failed (non-blocking):", ghlErr);
+      }
+
+      // 4. Notify owner
       const photoLine = imageUrls.length
         ? `\n📸 ${imageUrls.length} photo(s) attached`
         : "";
