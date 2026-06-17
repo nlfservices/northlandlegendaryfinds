@@ -137,6 +137,60 @@ export default function DoomsdayCountdown() {
       />
 
       <div className="min-h-screen bg-black">
+
+        {/* ===== STOCK TICKER BAR ===== */}
+        <div className="sticky top-[80px] z-40 bg-black border-y border-green-500/30 overflow-hidden">
+          <div className="flex items-center">
+            {/* Label badge */}
+            <div className="flex-shrink-0 bg-green-500 text-black text-[11px] font-black tracking-widest uppercase px-3 py-2 z-10">
+              DOOMSDAY
+            </div>
+            {/* Scrolling ticker */}
+            <div className="flex-1 overflow-hidden relative">
+              <div
+                className="flex items-center gap-0 whitespace-nowrap"
+                style={{
+                  animation: "nlf-ticker-scroll 40s linear infinite",
+                }}
+              >
+                {[0, 1].map((copy) => (
+                  <span key={copy} className="inline-flex items-center gap-6 pr-6">
+                    <span className="text-green-400 text-xs font-bold tracking-wider">
+                      ⚡ AVENGERS: DOOMSDAY
+                    </span>
+                    <span className="text-gray-400 text-xs">DEC 18, 2026</span>
+                    <span className="text-green-500/40">|</span>
+                    <span className="text-white text-xs font-semibold">
+                      {doomMonths}M {doomRemainingDays}D {String(doomsday.hours).padStart(2,"0")}H {String(doomsday.minutes).padStart(2,"0")}M {String(doomsday.seconds).padStart(2,"0")}S
+                    </span>
+                    <span className="text-green-500/40">|</span>
+                    <span className="text-gray-400 text-xs">🎬 DIRECTED BY THE RUSSO BROTHERS</span>
+                    <span className="text-green-500/40">|</span>
+                    <span className="text-yellow-400 text-xs font-semibold">★ RDJ AS DOCTOR DOOM</span>
+                    <span className="text-green-500/40">|</span>
+                    <span className="text-gray-400 text-xs">🕷 SPIDER-MAN: BRAND NEW DAY — JUL 31, 2026</span>
+                    <span className="text-green-500/40">|</span>
+                    <span className="text-blue-400 text-xs font-semibold">
+                      {String(spiderman.days).padStart(3,"0")}D {String(spiderman.hours).padStart(2,"0")}H {String(spiderman.minutes).padStart(2,"0")}M AWAY
+                    </span>
+                    <span className="text-green-500/40">|</span>
+                    <span className="text-gray-400 text-xs">🃏 NUMBERED TOPPS MARVEL CARDS — LIMITED FOREVER</span>
+                    <span className="text-green-500/40">|</span>
+                    <span className="text-green-400 text-xs font-semibold">NORTHLANDLEGENDARYFINDS.COM</span>
+                    <span className="text-green-500/40 pr-8">|</span>
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+          <style>{`
+            @keyframes nlf-ticker-scroll {
+              0% { transform: translateX(0); }
+              100% { transform: translateX(-50%); }
+            }
+          `}</style>
+        </div>
+
         {/* ===== HERO — Full cinematic countdown ===== */}
         <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
           {/* Background */}
