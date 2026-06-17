@@ -6,6 +6,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { CartProvider } from "./contexts/CartContext";
 import Navigation from "./components/Navigation";
+import GlobalTicker from "./components/GlobalTicker";
 import Footer from "./components/Footer";
 import CartDrawer from "./components/CartDrawer";
 import Home from "./pages/Home";
@@ -101,6 +102,7 @@ function AppRouter() {
   return (
     <>
       <Navigation />
+      <GlobalTicker />
       <CartDrawer />
       <main className="min-h-screen">
         <Switch>
