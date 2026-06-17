@@ -1,5 +1,5 @@
 /**
- * MCU Countdown Section — Dual countdown for upcoming Marvel movies
+ * MCU Countdown Section — Cinematic Doomsday countdown with Star Wars hyperspace intro
  * Primary: Avengers: Doomsday (December 18, 2026)
  * Secondary: Spider-Man: Brand New Day (July 31, 2026)
  */
@@ -7,185 +7,319 @@
 import { useLaunchCountdown } from "@/hooks/useLaunchCountdown";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import { Film, Ticket, ArrowRight, Flame } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
-// Release dates (UTC)
 const DOOMSDAY_DATE = "2026-12-18T00:00:00Z";
 const SPIDERMAN_DATE = "2026-07-31T00:00:00Z";
-
-// Background image
 const COUNTDOWN_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/doomsday-section-bg-BjSMCi7WHT8WWJNCqKkRAi.webp";
 
-function CountdownUnit({ value, label, color }: { value: number; label: string; color: string }) {
+function getMonthsAndDays(targetDateUtc: string) {
+  const now = new Date();
+  const target = new Date(targetDateUtc);
+  if (target <= now) return { months: 0, remainingDays: 0 };
+  let months =
+    (target.getFullYear() - now.getFullYear()) * 12 +
+    (target.getMonth() - now.getMonth());
+  if (now.getDate() > target.getDate()) months -= 1;
+  const afterMonths = new Date(now.getFullYear(), now.getMonth() + months, now.getDate());
+  const remainingDays = Math.floor(
+    (target.getTime() - afterMonths.getTime()) / (1000 * 60 * 60 * 24)
+  );
+  return { months: Math.max(0, months), remainingDays: Math.max(0, remainingDays) };
+}
+
+/** Flip-card style digit block matching the screenshot */
+function FlipDigit({ value, label }: { value: number; label: string }) {
+  const display = String(value).padStart(2, "0");
   return (
-    <div className="flex flex-col items-center">
-      <div className={`relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 flex items-center justify-center rounded-xl bg-black/60 backdrop-blur-sm border ${color} shadow-lg`}>
-        <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tabular-nums" style={{ fontFamily: "'Anton', sans-serif" }}>
-          {String(value).padStart(2, "0")}
+    <div className="flex flex-col items-center gap-2">
+      <div
+        className="relative flex items-center justify-center rounded-xl overflow-hidden"
+        style={{
+          width: "clamp(64px, 10vw, 110px)",
+          height: "clamp(64px, 10vw, 110px)",
+          background: "linear-gradient(160deg, #0d1a0d 0%, #030a03 100%)",
+          border: "1px solid rgba(34,197,94,0.25)",
+          boxShadow: "0 0 24px rgba(34,197,94,0.12), inset 0 1px 0 rgba(34,197,94,0.08)",
+        }}
+      >
+        {/* Subtle grid texture */}
+        <div
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(0deg,transparent,transparent 19px,rgba(34,197,94,0.3) 19px,rgba(34,197,94,0.3) 20px), repeating-linear-gradient(90deg,transparent,transparent 19px,rgba(34,197,94,0.3) 19px,rgba(34,197,94,0.3) 20px)",
+          }}
+        />
+        {/* Center divider line */}
+        <div className="absolute left-0 right-0 top-1/2 h-px bg-black/60 z-10" />
+        <span
+          className="relative z-20 text-white font-black tabular-nums leading-none"
+          style={{
+            fontFamily: "'Anton', 'Impact', sans-serif",
+            fontSize: "clamp(28px, 5.5vw, 58px)",
+            textShadow: "0 0 20px rgba(34,197,94,0.4)",
+          }}
+        >
+          {display}
         </span>
       </div>
-      <span className="text-[10px] sm:text-xs uppercase tracking-widest text-gray-400 mt-2 font-medium">{label}</span>
+      <span
+        className="text-green-400 font-bold tracking-widest uppercase"
+        style={{ fontSize: "clamp(9px, 1.2vw, 13px)" }}
+      >
+        {label}
+      </span>
     </div>
   );
 }
 
-function MiniCountdownUnit({ value, label }: { value: number; label: string }) {
+function Colon() {
   return (
-    <div className="flex flex-col items-center">
-      <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-lg bg-black/50 backdrop-blur-sm border border-blue-500/30">
-        <span className="text-base sm:text-lg font-bold text-blue-300 tabular-nums" style={{ fontFamily: "'Anton', sans-serif" }}>
-          {String(value).padStart(2, "0")}
-        </span>
-      </div>
-      <span className="text-[8px] sm:text-[10px] uppercase tracking-wider text-gray-500 mt-1">{label}</span>
+    <div className="flex flex-col items-center justify-center gap-3 self-start mt-4" style={{ paddingTop: "clamp(12px, 2vw, 24px)" }}>
+      <div className="w-1.5 h-1.5 rounded-full bg-green-500/60" />
+      <div className="w-1.5 h-1.5 rounded-full bg-green-500/60" />
     </div>
+  );
+}
+
+/** Star Wars hyperspace canvas */
+function HyperspaceCanvas({ active }: { active: boolean }) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const animRef = useRef<number>(0);
+
+  useEffect(() => {
+    if (!active) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+
+    const cx = canvas.width / 2;
+    const cy = canvas.height / 2;
+    const stars: { x: number; y: number; z: number; pz: number }[] = Array.from({ length: 300 }, () => ({
+      x: (Math.random() - 0.5) * canvas.width,
+      y: (Math.random() - 0.5) * canvas.height,
+      z: Math.random() * canvas.width,
+      pz: 0,
+    }));
+
+    let frame = 0;
+    const maxFrames = 90; // ~1.5s at 60fps
+
+    function draw() {
+      if (!ctx || !canvas) return;
+      const progress = Math.min(frame / maxFrames, 1);
+      const speed = 20 + progress * 60;
+
+      ctx.fillStyle = `rgba(0,0,0,${0.3 + progress * 0.4})`;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      for (const star of stars) {
+        star.pz = star.z;
+        star.z -= speed;
+        if (star.z <= 0) {
+          star.x = (Math.random() - 0.5) * canvas.width;
+          star.y = (Math.random() - 0.5) * canvas.height;
+          star.z = canvas.width;
+          star.pz = star.z;
+        }
+        const sx = (star.x / star.z) * canvas.width + cx;
+        const sy = (star.y / star.z) * canvas.height + cy;
+        const px = (star.x / star.pz) * canvas.width + cx;
+        const py = (star.y / star.pz) * canvas.height + cy;
+        const size = Math.max(0.5, (1 - star.z / canvas.width) * 3);
+        const alpha = Math.min(1, (1 - star.z / canvas.width) * 2);
+        ctx.strokeStyle = `rgba(180,255,180,${alpha * 0.9})`;
+        ctx.lineWidth = size;
+        ctx.beginPath();
+        ctx.moveTo(px, py);
+        ctx.lineTo(sx, sy);
+        ctx.stroke();
+      }
+
+      frame++;
+      if (frame < maxFrames + 20) {
+        animRef.current = requestAnimationFrame(draw);
+      }
+    }
+
+    animRef.current = requestAnimationFrame(draw);
+    return () => cancelAnimationFrame(animRef.current);
+  }, [active]);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 w-full h-full pointer-events-none"
+      style={{
+        opacity: active ? 1 : 0,
+        transition: "opacity 0.6s ease",
+        zIndex: 5,
+      }}
+    />
   );
 }
 
 export default function MCUCountdown() {
   const doomsday = useLaunchCountdown(DOOMSDAY_DATE);
   const spiderman = useLaunchCountdown(SPIDERMAN_DATE);
+  const { months, remainingDays } = getMonthsAndDays(DOOMSDAY_DATE);
+
+  const sectionRef = useRef<HTMLElement>(null);
+  const [hyperactive, setHyperactive] = useState(false);
+  const [revealed, setRevealed] = useState(false);
+  const firedRef = useRef(false);
+
+  // Trigger hyperspace when section scrolls into view
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !firedRef.current) {
+          firedRef.current = true;
+          setHyperactive(true);
+          // After hyperspace, reveal the countdown
+          setTimeout(() => {
+            setRevealed(true);
+            setHyperactive(false);
+          }, 1800);
+        }
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section className="relative py-16 lg:py-24 overflow-hidden">
+    <section
+      ref={sectionRef}
+      className="relative py-16 lg:py-24 overflow-hidden"
+    >
       {/* Background */}
       <div className="absolute inset-0">
-        <img src={COUNTDOWN_BG} alt="" className="w-full h-full object-cover opacity-30" loading="lazy" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-black/90 to-background" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-green-500/5 via-transparent to-transparent" />
+        <img src={COUNTDOWN_BG} alt="" className="w-full h-full object-cover opacity-25" loading="lazy" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-black/95 to-background" />
+        {/* Green vein texture overlay */}
+        <div
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage:
+              "radial-gradient(ellipse at 20% 50%, rgba(34,197,94,0.15) 0%, transparent 60%), radial-gradient(ellipse at 80% 50%, rgba(34,197,94,0.08) 0%, transparent 60%)",
+          }}
+        />
       </div>
 
-      {/* Animated accent lines */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-green-500/20 to-transparent" />
-        <div className="absolute bottom-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-500/15 to-transparent" />
-      </div>
+      {/* Hyperspace canvas */}
+      <HyperspaceCanvas active={hyperactive} />
 
-      <div className="container relative z-10">
-        {/* Section Header */}
+      <div
+        className="container relative z-10"
+        style={{
+          opacity: revealed || !hyperactive ? 1 : 0,
+          transform: revealed ? "none" : hyperactive ? "scale(0.95)" : "none",
+          transition: "opacity 0.8s ease, transform 0.8s ease",
+        }}
+      >
+        {/* ===== TITLE ===== */}
         <div className="text-center mb-10 sm:mb-14">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-red-500/15 border border-red-500/30 rounded-full mb-4">
-            <Film className="w-4 h-4 text-red-400" />
-            <span className="text-red-400 text-sm font-bold tracking-wide">MCU INCOMING</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
-            THE <span className="text-primary">COUNTDOWN</span> IS ON
+          <p className="text-green-400 text-xs sm:text-sm font-bold tracking-[0.3em] uppercase mb-3">
+            ⚡ MARVEL CINEMATIC UNIVERSE
+          </p>
+          <h2
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-none mb-2"
+            style={{
+              fontFamily: "'Anton', 'Impact', sans-serif",
+              letterSpacing: "-0.02em",
+              textShadow: "0 0 60px rgba(34,197,94,0.3)",
+            }}
+          >
+            <span className="text-green-400">AVENGERS:</span>
           </h2>
-          <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-            Two massive Marvel movies are heading to theaters. Get your collection ready before the hype hits.
+          <h2
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-none mb-6"
+            style={{
+              fontFamily: "'Anton', 'Impact', sans-serif",
+              letterSpacing: "-0.02em",
+              color: "white",
+              textShadow: "0 0 60px rgba(255,255,255,0.1)",
+            }}
+          >
+            DOOMSDAY
+          </h2>
+          <p className="text-gray-400 text-sm sm:text-base">
+            December 18, 2026 &nbsp;·&nbsp; Robert Downey Jr. as Doctor Doom &nbsp;·&nbsp; Directed by the Russo Brothers
           </p>
         </div>
 
-        {/* ===== PRIMARY: Avengers Doomsday ===== */}
-        <div className="max-w-4xl mx-auto mb-10 sm:mb-14">
-          <div className="relative bg-card/40 backdrop-blur-md border border-green-500/20 rounded-2xl p-6 sm:p-8 lg:p-10 overflow-hidden">
-            {/* Glow effect */}
-            <div className="absolute -top-20 -right-20 w-60 h-60 bg-green-500/10 rounded-full blur-3xl" />
-            <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-green-500/5 rounded-full blur-3xl" />
+        {/* ===== FLIP COUNTDOWN ===== */}
+        <div className="flex items-start justify-center gap-2 sm:gap-3 md:gap-5 mb-10 sm:mb-14">
+          <FlipDigit value={months} label="Months" />
+          <Colon />
+          <FlipDigit value={remainingDays} label="Days" />
+          <Colon />
+          <FlipDigit value={doomsday.hours} label="Hours" />
+          <Colon />
+          <FlipDigit value={doomsday.minutes} label="Min" />
+          <Colon />
+          <FlipDigit value={doomsday.seconds} label="Sec" />
+        </div>
 
-            <div className="relative z-10">
-              {/* Movie title */}
-              <div className="flex flex-col sm:flex-row items-center gap-3 mb-6 sm:mb-8">
-                <div className="w-12 h-12 bg-green-500/15 border border-green-500/30 rounded-xl flex items-center justify-center">
-                  <Flame className="w-6 h-6 text-green-400" />
-                </div>
-                <div className="text-center sm:text-left">
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold" style={{ fontFamily: "'Anton', sans-serif" }}>
-                    <span className="text-green-400">AVENGERS:</span>{" "}
-                    <span className="text-white">DOOMSDAY</span>
-                  </h3>
-                  <p className="text-sm text-gray-400">
-                    December 18, 2026 &middot; Robert Downey Jr. as Doctor Doom
-                  </p>
-                </div>
-              </div>
+        {/* ===== CTAs ===== */}
+        <div className="flex flex-col sm:flex-row gap-3 justify-center mb-12">
+          <Link href="/doomsday">
+            <Button
+              size="lg"
+              className="bg-green-500 hover:bg-green-400 text-black font-black text-base px-8 rounded-none uppercase tracking-wider w-full sm:w-auto"
+            >
+              Full Doomsday Intel
+            </Button>
+          </Link>
+          <a href="https://riseofdoom.com" target="_blank" rel="noopener noreferrer">
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-green-500/40 text-green-400 hover:bg-green-500/10 font-bold text-base px-8 rounded-none uppercase tracking-wider w-full sm:w-auto"
+            >
+              Browse Doom Cards
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+          </a>
+        </div>
 
-              {/* Countdown */}
-              {!doomsday.isLaunched ? (
-                <div className="flex justify-center gap-3 sm:gap-4 md:gap-6 mb-6 sm:mb-8">
-                  <CountdownUnit value={doomsday.days} label="Days" color="border-green-500/30" />
-                  <div className="flex items-center text-green-500/50 text-2xl font-bold self-start mt-5 sm:mt-6 md:mt-7">:</div>
-                  <CountdownUnit value={doomsday.hours} label="Hours" color="border-green-500/20" />
-                  <div className="flex items-center text-green-500/50 text-2xl font-bold self-start mt-5 sm:mt-6 md:mt-7">:</div>
-                  <CountdownUnit value={doomsday.minutes} label="Min" color="border-green-500/20" />
-                  <div className="flex items-center text-green-500/50 text-2xl font-bold self-start mt-5 sm:mt-6 md:mt-7">:</div>
-                  <CountdownUnit value={doomsday.seconds} label="Sec" color="border-green-500/20" />
-                </div>
-              ) : (
-                <div className="text-center mb-8">
-                  <p className="text-3xl font-bold text-green-400" style={{ fontFamily: "'Anton', sans-serif" }}>
-                    NOW IN THEATERS
-                  </p>
-                </div>
-              )}
-
-              {/* CTA */}
-              <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                <Link href="/doomsday">
-                  <Button size="lg" className="bg-green-500 hover:bg-green-600 text-black font-bold w-full sm:w-auto">
-                    <Ticket className="w-5 h-5 mr-2" />
-                    Explore Doomsday Intel
-                  </Button>
-                </Link>
-                <Link href="/characters">
-                  <Button size="lg" variant="outline" className="border-green-500/30 text-green-400 hover:bg-green-500/10 font-bold w-full sm:w-auto">
-                    Browse Characters
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
-                </Link>
-              </div>
+        {/* ===== SECONDARY: Spider-Man ===== */}
+        <div className="max-w-xl mx-auto">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-black/40 border border-blue-500/20 rounded-xl px-5 py-4 backdrop-blur-sm">
+            <div>
+              <p className="text-blue-400 font-bold text-sm uppercase tracking-wider">
+                🕷 Spider-Man: Brand New Day
+              </p>
+              <p className="text-gray-500 text-xs mt-0.5">July 31, 2026</p>
             </div>
+            {!spiderman.isLaunched ? (
+              <div className="flex items-center gap-2 text-blue-300 font-bold tabular-nums text-sm sm:text-base" style={{ fontFamily: "'Anton', sans-serif" }}>
+                <span>{String(spiderman.days).padStart(3, "0")}D</span>
+                <span className="text-blue-500/40">:</span>
+                <span>{String(spiderman.hours).padStart(2, "0")}H</span>
+                <span className="text-blue-500/40">:</span>
+                <span>{String(spiderman.minutes).padStart(2, "0")}M</span>
+                <span className="text-blue-500/40">:</span>
+                <span>{String(spiderman.seconds).padStart(2, "0")}S</span>
+              </div>
+            ) : (
+              <span className="text-blue-400 font-bold text-sm uppercase">Now in Theaters</span>
+            )}
           </div>
         </div>
 
-        {/* ===== SECONDARY: Spider-Man Brand New Day ===== */}
-        <div className="max-w-2xl mx-auto">
-          <div className="relative bg-card/30 backdrop-blur-sm border border-blue-500/15 rounded-xl p-5 sm:p-6 overflow-hidden">
-            {/* Subtle glow */}
-            <div className="absolute -top-10 -right-10 w-40 h-40 bg-blue-500/5 rounded-full blur-2xl" />
-
-            <div className="relative z-10">
-              <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
-                {/* Movie info */}
-                <div className="flex items-center gap-3 flex-shrink-0">
-                  <div className="w-10 h-10 bg-blue-500/15 border border-blue-500/30 rounded-lg flex items-center justify-center">
-                    <Film className="w-5 h-5 text-blue-400" />
-                  </div>
-                  <div>
-                    <h4 className="text-lg sm:text-xl font-bold" style={{ fontFamily: "'Anton', sans-serif" }}>
-                      <span className="text-blue-400">SPIDER-MAN:</span>{" "}
-                      <span className="text-white">BRAND NEW DAY</span>
-                    </h4>
-                    <p className="text-xs text-gray-500">July 31, 2026</p>
-                  </div>
-                </div>
-
-                {/* Mini countdown */}
-                <div className="flex items-center gap-2">
-                  {!spiderman.isLaunched ? (
-                    <>
-                      <MiniCountdownUnit value={spiderman.days} label="Days" />
-                      <span className="text-blue-500/40 font-bold mt-[-12px]">:</span>
-                      <MiniCountdownUnit value={spiderman.hours} label="Hrs" />
-                      <span className="text-blue-500/40 font-bold mt-[-12px]">:</span>
-                      <MiniCountdownUnit value={spiderman.minutes} label="Min" />
-                      <span className="text-blue-500/40 font-bold mt-[-12px]">:</span>
-                      <MiniCountdownUnit value={spiderman.seconds} label="Sec" />
-                    </>
-                  ) : (
-                    <span className="text-blue-400 font-bold text-sm" style={{ fontFamily: "'Anton', sans-serif" }}>
-                      NOW IN THEATERS
-                    </span>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom note */}
-        <p className="text-center text-xs text-muted-foreground/60 mt-6">
-          Release dates subject to change &middot; Start collecting now so you're ready when the movies drop
+        <p className="text-center text-xs text-muted-foreground/40 mt-6">
+          Release dates subject to change · Start collecting now so you're ready when the movies drop
         </p>
       </div>
     </section>
