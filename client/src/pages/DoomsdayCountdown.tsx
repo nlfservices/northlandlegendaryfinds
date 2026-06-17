@@ -106,9 +106,27 @@ function MiniDigit({ value, label }: { value: number; label: string }) {
   );
 }
 
+function getMonthsAndDays(targetDateUtc: string) {
+  const now = new Date();
+  const target = new Date(targetDateUtc);
+  if (target <= now) return { months: 0, remainingDays: 0 };
+  let months =
+    (target.getFullYear() - now.getFullYear()) * 12 +
+    (target.getMonth() - now.getMonth());
+  const dayOfMonth = now.getDate();
+  const targetDay = target.getDate();
+  if (dayOfMonth > targetDay) months -= 1;
+  const afterMonths = new Date(now.getFullYear(), now.getMonth() + months, now.getDate());
+  const remainingDays = Math.floor(
+    (target.getTime() - afterMonths.getTime()) / (1000 * 60 * 60 * 24)
+  );
+  return { months: Math.max(0, months), remainingDays: Math.max(0, remainingDays) };
+}
+
 export default function DoomsdayCountdown() {
   const doomsday = useLaunchCountdown(DOOMSDAY_DATE);
   const spiderman = useLaunchCountdown(SPIDERMAN_DATE);
+  const { months: doomMonths, remainingDays: doomRemainingDays } = getMonthsAndDays(DOOMSDAY_DATE);
 
   return (
     <>
@@ -163,14 +181,18 @@ export default function DoomsdayCountdown() {
 
             {/* Countdown */}
             {!doomsday.isLaunched ? (
-              <div className="flex items-start justify-center gap-2 sm:gap-4 md:gap-6 mb-8 sm:mb-12">
-                <CountdownDigit value={doomsday.days} label="Days" />
-                <Separator />
-                <CountdownDigit value={doomsday.hours} label="Hours" />
-                <Separator />
-                <CountdownDigit value={doomsday.minutes} label="Min" />
-                <Separator />
-                <CountdownDigit value={doomsday.seconds} label="Sec" />
+              <div className="flex flex-col items-center gap-4 mb-8 sm:mb-12">
+                <div className="flex items-start justify-center gap-2 sm:gap-4 md:gap-6">
+                  <CountdownDigit value={doomMonths} label="Months" />
+                  <Separator />
+                  <CountdownDigit value={doomRemainingDays} label="Days" />
+                  <Separator />
+                  <CountdownDigit value={doomsday.hours} label="Hours" />
+                  <Separator />
+                  <CountdownDigit value={doomsday.minutes} label="Min" />
+                  <Separator />
+                  <CountdownDigit value={doomsday.seconds} label="Sec" />
+                </div>
               </div>
             ) : (
               <div className="mb-12">
