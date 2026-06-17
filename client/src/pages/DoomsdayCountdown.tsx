@@ -37,7 +37,7 @@ const COLLECTOR_ANGLES = [
   {
     title: "Doctor Doom Cards",
     desc: "RDJ stepping into Doom is the biggest MCU casting news in years. Numbered Doom cards are already moving.",
-    href: "/marvel-characters/doctor-doom",
+    href: "https://riseofdoom.com",
   },
   {
     title: "Fantastic Four Connection",
@@ -269,7 +269,7 @@ export default function DoomsdayCountdown() {
 
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link href="/marvel-characters/doctor-doom">
+              <a href="https://riseofdoom.com" target="_blank" rel="noopener noreferrer">
                 <Button
                   size="lg"
                   className="bg-green-500 hover:bg-green-400 text-black font-bold text-base px-8 w-full sm:w-auto"
@@ -277,7 +277,7 @@ export default function DoomsdayCountdown() {
                   <Shield className="w-5 h-5 mr-2" />
                   Browse Doom Cards
                 </Button>
-              </Link>
+              </a>
               <Link href="/mcu-news">
                 <Button
                   size="lg"
