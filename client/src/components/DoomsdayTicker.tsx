@@ -1,262 +1,308 @@
 /**
- * DoomsdayTicker — Sticky countdown bar with Doctor Doom lightning/electrical effects.
- * Shows a compact, always-visible countdown to Avengers: Doomsday (Dec 18, 2026).
- * Features animated SVG lightning bolts, crackling energy, and electrical glow.
+ * DoomsdayTicker — Cinematic full-width countdown bar.
+ * Dramatic dark design with animated energy particles, glowing flip-style digits,
+ * scanline texture, and a pulsing red/green Doom aesthetic.
  */
 
 import { useLaunchCountdown } from "@/hooks/useLaunchCountdown";
-import { useState, useEffect, useCallback } from "react";
-import { Zap, X, ArrowRight } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { X } from "lucide-react";
 import { Link } from "wouter";
 
 const DOOMSDAY_DATE = "2026-12-18T00:00:00Z";
 
-/** Generates a random jagged lightning bolt SVG path */
-function generateBoltPath(startX: number, startY: number, endX: number, endY: number, segments: number = 6): string {
-  const dx = (endX - startX) / segments;
-  const dy = (endY - startY) / segments;
-  let path = `M ${startX} ${startY}`;
-  for (let i = 1; i < segments; i++) {
-    const jitterX = (Math.random() - 0.5) * 20;
-    const jitterY = (Math.random() - 0.5) * 4;
-    path += ` L ${startX + dx * i + jitterX} ${startY + dy * i + jitterY}`;
-  }
-  path += ` L ${endX} ${endY}`;
-  return path;
-}
-
-/** Animated lightning bolt that randomly appears and fades */
-function LightningBolt({ side }: { side: "left" | "right" }) {
-  const [bolts, setBolts] = useState<{ id: number; path: string; opacity: number }[]>([]);
-
-  const spawnBolt = useCallback(() => {
-    const startX = side === "left" ? 0 : 200;
-    const endX = side === "left" ? 180 + Math.random() * 60 : Math.random() * 60;
-    const startY = Math.random() * 36;
-    const endY = Math.random() * 36;
-    const path = generateBoltPath(startX, startY, endX, endY, 5 + Math.floor(Math.random() * 4));
-    const id = Date.now() + Math.random();
-    setBolts(prev => [...prev.slice(-2), { id, path, opacity: 0.6 + Math.random() * 0.4 }]);
-    setTimeout(() => {
-      setBolts(prev => prev.filter(b => b.id !== id));
-    }, 150 + Math.random() * 200);
-  }, [side]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (Math.random() > 0.55) spawnBolt();
-    }, 800 + Math.random() * 1200);
-    return () => clearInterval(interval);
-  }, [spawnBolt]);
-
-  return (
-    <svg
-      className={`absolute top-0 ${side === "left" ? "left-0" : "right-0"} h-full pointer-events-none`}
-      width="260"
-      height="36"
-      viewBox="0 0 260 36"
-      preserveAspectRatio="none"
-      style={{ overflow: "visible" }}
-    >
-      {bolts.map(bolt => (
-        <g key={bolt.id}>
-          {/* Outer glow */}
-          <path
-            d={bolt.path}
-            fill="none"
-            stroke="#22c55e"
-            strokeWidth="3"
-            opacity={bolt.opacity * 0.3}
-            filter="url(#bolt-glow)"
-          />
-          {/* Core bolt */}
-          <path
-            d={bolt.path}
-            fill="none"
-            stroke="#4ade80"
-            strokeWidth="1.5"
-            opacity={bolt.opacity}
-            strokeLinecap="round"
-          />
-          {/* Bright center */}
-          <path
-            d={bolt.path}
-            fill="none"
-            stroke="#bbf7d0"
-            strokeWidth="0.5"
-            opacity={bolt.opacity}
-            strokeLinecap="round"
-          />
-        </g>
-      ))}
-      <defs>
-        <filter id="bolt-glow" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="3" result="blur" />
-          <feMerge>
-            <feMergeNode in="blur" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
-      </defs>
-    </svg>
+function getMonthsAndDays(targetDateUtc: string) {
+  const now = new Date();
+  const target = new Date(targetDateUtc);
+  if (target <= now) return { months: 0, remainingDays: 0 };
+  let months =
+    (target.getFullYear() - now.getFullYear()) * 12 +
+    (target.getMonth() - now.getMonth());
+  if (now.getDate() > target.getDate()) months -= 1;
+  const afterMonths = new Date(now.getFullYear(), now.getMonth() + months, now.getDate());
+  const remainingDays = Math.floor(
+    (target.getTime() - afterMonths.getTime()) / (1000 * 60 * 60 * 24)
   );
+  return { months: Math.max(0, months), remainingDays: Math.max(0, remainingDays) };
 }
 
-/** Small sparks that crackle around the countdown numbers */
-function ElectricalSparks() {
-  const [sparks, setSparks] = useState<{ id: number; x: number; y: number; size: number }[]>([]);
+/** Animated particle canvas — floating embers/energy dots */
+function ParticleCanvas() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const animRef = useRef<number>(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      const newSparks = Array.from({ length: 2 + Math.floor(Math.random() * 3) }, () => ({
-        id: Date.now() + Math.random(),
-        x: 20 + Math.random() * 60,
-        y: Math.random() * 100,
-        size: 1 + Math.random() * 2,
-      }));
-      setSparks(prev => [...prev.slice(-6), ...newSparks]);
-      setTimeout(() => {
-        setSparks(prev => prev.filter(s => !newSparks.find(ns => ns.id === s.id)));
-      }, 100 + Math.random() * 150);
-    }, 400 + Math.random() * 600);
-    return () => clearInterval(interval);
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const resize = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    };
+    resize();
+    window.addEventListener("resize", resize);
+
+    const particles: {
+      x: number; y: number; vx: number; vy: number;
+      size: number; alpha: number; color: string;
+    }[] = Array.from({ length: 40 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.4,
+      vy: -0.3 - Math.random() * 0.5,
+      size: 0.8 + Math.random() * 1.6,
+      alpha: 0.3 + Math.random() * 0.6,
+      color: Math.random() > 0.6 ? "#22c55e" : Math.random() > 0.5 ? "#ef4444" : "#fbbf24",
+    }));
+
+    const draw = () => {
+      if (!ctx || !canvas) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (const p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.alpha -= 0.002;
+        if (p.y < -2 || p.alpha <= 0) {
+          p.x = Math.random() * canvas.width;
+          p.y = canvas.height + 2;
+          p.alpha = 0.3 + Math.random() * 0.6;
+          p.vx = (Math.random() - 0.5) * 0.4;
+          p.vy = -0.3 - Math.random() * 0.5;
+        }
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = p.alpha;
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+      animRef.current = requestAnimationFrame(draw);
+    };
+    animRef.current = requestAnimationFrame(draw);
+    return () => {
+      cancelAnimationFrame(animRef.current);
+      window.removeEventListener("resize", resize);
+    };
   }, []);
 
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      {sparks.map(spark => (
-        <div
-          key={spark.id}
-          className="absolute rounded-full"
-          style={{
-            left: `${spark.x}%`,
-            top: `${spark.y}%`,
-            width: spark.size,
-            height: spark.size,
-            backgroundColor: "#4ade80",
-            boxShadow: `0 0 ${spark.size * 3}px ${spark.size}px rgba(74, 222, 128, 0.8)`,
-          }}
-        />
-      ))}
-    </div>
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 w-full h-full pointer-events-none"
+      style={{ opacity: 0.7 }}
+    />
   );
 }
 
-function TickerUnit({ value, label }: { value: number; label: string }) {
+/** Glowing digit block */
+function DigitBlock({ value, label, color = "green" }: { value: number; label: string; color?: "green" | "red" | "gold" }) {
+  const display = String(value).padStart(2, "0");
+  const colors = {
+    green: { border: "rgba(34,197,94,0.4)", glow: "rgba(34,197,94,0.6)", text: "#4ade80" },
+    red:   { border: "rgba(239,68,68,0.4)",  glow: "rgba(239,68,68,0.5)",  text: "#f87171" },
+    gold:  { border: "rgba(251,191,36,0.4)", glow: "rgba(251,191,36,0.5)", text: "#fbbf24" },
+  }[color];
+
   return (
-    <div className="flex items-center gap-0.5 relative">
-      <span
-        className="text-sm sm:text-base md:text-lg font-bold text-white tabular-nums drop-shadow-[0_0_6px_rgba(74,222,128,0.5)]"
-        style={{ fontFamily: "'Anton', sans-serif" }}
+    <div className="flex flex-col items-center gap-0.5">
+      <div
+        className="relative flex items-center justify-center"
+        style={{
+          width: "clamp(36px, 5vw, 56px)",
+          height: "clamp(36px, 5vw, 56px)",
+          background: "linear-gradient(160deg, #0a0a0a 0%, #111 100%)",
+          border: `1px solid ${colors.border}`,
+          borderRadius: "6px",
+          boxShadow: `0 0 12px ${colors.glow}, inset 0 1px 0 rgba(255,255,255,0.04)`,
+        }}
       >
-        {String(value).padStart(2, "0")}
-      </span>
-      <span className="text-[9px] sm:text-[10px] uppercase tracking-wider text-green-300/80 font-medium">
+        {/* Scanline overlay */}
+        <div
+          className="absolute inset-0 pointer-events-none rounded"
+          style={{
+            backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.15) 3px, rgba(0,0,0,0.15) 4px)",
+          }}
+        />
+        {/* Center split line */}
+        <div className="absolute left-0 right-0 top-1/2 h-px bg-black/50 z-10" />
+        <span
+          className="relative z-20 font-black tabular-nums leading-none"
+          style={{
+            fontFamily: "'Anton', 'Impact', sans-serif",
+            fontSize: "clamp(16px, 2.8vw, 28px)",
+            color: colors.text,
+            textShadow: `0 0 12px ${colors.glow}`,
+          }}
+        >
+          {display}
+        </span>
+      </div>
+      <span
+        className="font-bold tracking-widest uppercase"
+        style={{ fontSize: "clamp(7px, 0.9vw, 10px)", color: colors.text, opacity: 0.7 }}
+      >
         {label}
       </span>
     </div>
   );
 }
 
+function Separator({ color = "green" }: { color?: "green" | "red" }) {
+  return (
+    <div
+      className="flex flex-col items-center gap-1 self-start"
+      style={{ marginTop: "clamp(8px, 1.2vw, 14px)" }}
+    >
+      <div className="w-1 h-1 rounded-full" style={{ background: color === "green" ? "#22c55e" : "#ef4444", opacity: 0.7 }} />
+      <div className="w-1 h-1 rounded-full" style={{ background: color === "green" ? "#22c55e" : "#ef4444", opacity: 0.7 }} />
+    </div>
+  );
+}
+
 export default function DoomsdayTicker() {
   const countdown = useLaunchCountdown(DOOMSDAY_DATE);
+  const { months, remainingDays } = getMonthsAndDays(DOOMSDAY_DATE);
   const [dismissed, setDismissed] = useState(false);
-  const [flash, setFlash] = useState(false);
+  const [pulse, setPulse] = useState(false);
 
-  // Random full-bar flash effect
+  // Pulse every second on the seconds digit change
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (Math.random() > 0.7) {
-        setFlash(true);
-        setTimeout(() => setFlash(false), 80);
-      }
-    }, 3000 + Math.random() * 4000);
-    return () => clearInterval(interval);
-  }, []);
+    setPulse(true);
+    const t = setTimeout(() => setPulse(false), 120);
+    return () => clearTimeout(t);
+  }, [countdown.seconds]);
 
   if (dismissed || countdown.isLaunched) return null;
 
   return (
     <div className="sticky top-0 z-50 w-full">
-      <div className="relative overflow-hidden border-b border-green-500/30"
+      <div
+        className="relative overflow-hidden"
         style={{
-          background: "linear-gradient(90deg, #000 0%, #052e16 30%, #14532d 50%, #052e16 70%, #000 100%)",
+          background: "linear-gradient(90deg, #000 0%, #0a0a0a 20%, #0d1117 50%, #0a0a0a 80%, #000 100%)",
+          borderBottom: "1px solid rgba(34,197,94,0.2)",
+          borderTop: "1px solid rgba(239,68,68,0.15)",
+          minHeight: "clamp(56px, 7vw, 72px)",
         }}
       >
-        {/* Electrical energy background — pulsing */}
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-green-500/8 to-transparent animate-pulse" />
+        {/* Animated particles */}
+        <ParticleCanvas />
 
-        {/* Flash overlay on random lightning strikes */}
-        {flash && (
-          <div className="absolute inset-0 bg-green-400/10 transition-opacity duration-75" />
-        )}
+        {/* Left red accent stripe */}
+        <div
+          className="absolute left-0 top-0 bottom-0 w-1"
+          style={{ background: "linear-gradient(180deg, #ef4444 0%, #7f1d1d 100%)", opacity: 0.8 }}
+        />
+        {/* Right green accent stripe */}
+        <div
+          className="absolute right-0 top-0 bottom-0 w-1"
+          style={{ background: "linear-gradient(180deg, #22c55e 0%, #14532d 100%)", opacity: 0.8 }}
+        />
 
-        {/* Lightning bolts on both sides */}
-        <LightningBolt side="left" />
-        <LightningBolt side="right" />
+        {/* Top edge glow */}
+        <div
+          className="absolute top-0 left-0 right-0 h-px"
+          style={{ background: "linear-gradient(90deg, transparent, #ef4444 20%, #22c55e 80%, transparent)" }}
+        />
+        {/* Bottom edge glow */}
+        <div
+          className="absolute bottom-0 left-0 right-0 h-px"
+          style={{ background: `linear-gradient(90deg, transparent, rgba(34,197,94,${pulse ? "0.8" : "0.4"}) 50%, transparent)`, transition: "all 0.1s" }}
+        />
 
-        {/* Electrical sparks around the content */}
-        <ElectricalSparks />
+        {/* Pulse flash on seconds tick */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "radial-gradient(ellipse at center, rgba(34,197,94,0.06) 0%, transparent 70%)",
+            opacity: pulse ? 1 : 0,
+            transition: "opacity 0.1s",
+          }}
+        />
 
-        {/* Crackling edge lines — top */}
-        <div className="absolute top-0 left-0 right-0 h-px">
-          <div className="h-full bg-gradient-to-r from-transparent via-green-400/60 to-transparent animate-pulse" />
-        </div>
+        {/* Content */}
+        <div className="relative flex items-center justify-center gap-3 sm:gap-5 md:gap-7 px-8 h-full" style={{ minHeight: "inherit" }}>
 
-        <div className="relative flex items-center justify-center gap-2 sm:gap-4 px-3 py-1.5 sm:py-2">
-          {/* Zap icon + Title — links to MCU News */}
-          <Link href="/mcu-news" className="flex items-center gap-2 hover:opacity-80 transition-opacity group">
-            <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 shrink-0 drop-shadow-[0_0_8px_rgba(74,222,128,0.7)] group-hover:drop-shadow-[0_0_12px_rgba(74,222,128,1)]" />
-            <span
-              className="text-[10px] sm:text-xs uppercase tracking-[0.15em] text-green-400 font-bold hidden sm:inline drop-shadow-[0_0_4px_rgba(74,222,128,0.4)]"
-              style={{ fontFamily: "'Anton', sans-serif" }}
+          {/* DOOM badge */}
+          <Link href="/doomsday" className="flex-shrink-0 flex items-center gap-2 group">
+            <div
+              className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded"
+              style={{
+                background: "linear-gradient(135deg, #1a0000 0%, #2d0000 100%)",
+                border: "1px solid rgba(239,68,68,0.4)",
+                boxShadow: "0 0 10px rgba(239,68,68,0.2)",
+              }}
             >
-              Avengers: Doomsday
-            </span>
+              <span style={{ fontSize: "14px" }}>⚡</span>
+              <span
+                className="font-black uppercase tracking-wider text-red-400"
+                style={{ fontFamily: "'Anton', sans-serif", fontSize: "clamp(9px, 1.2vw, 12px)" }}
+              >
+                DOOMSDAY
+              </span>
+            </div>
+            <span className="sm:hidden text-red-400 font-black text-xs" style={{ fontFamily: "'Anton', sans-serif" }}>⚡</span>
+          </Link>
+
+          {/* Vertical divider */}
+          <div className="hidden sm:block w-px h-8 bg-gradient-to-b from-transparent via-green-500/30 to-transparent" />
+
+          {/* AVENGERS: DOOMSDAY label */}
+          <Link href="/doomsday" className="hidden md:block flex-shrink-0 group">
             <span
-              className="text-[10px] uppercase tracking-wider text-green-400 font-bold sm:hidden drop-shadow-[0_0_4px_rgba(74,222,128,0.4)]"
-              style={{ fontFamily: "'Anton', sans-serif" }}
+              className="font-black uppercase tracking-widest group-hover:text-green-300 transition-colors"
+              style={{
+                fontFamily: "'Anton', sans-serif",
+                fontSize: "clamp(10px, 1.4vw, 14px)",
+                background: "linear-gradient(90deg, #4ade80, #22c55e)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
             >
-              Doomsday
+              AVENGERS: DOOMSDAY
             </span>
           </Link>
 
-          {/* Separator — electrified */}
-          <div className="w-px h-4 bg-green-400/40 hidden sm:block shadow-[0_0_4px_rgba(74,222,128,0.5)]" />
+          {/* Vertical divider */}
+          <div className="hidden md:block w-px h-8 bg-gradient-to-b from-transparent via-green-500/30 to-transparent" />
 
-          {/* Countdown units — links to MCU News */}
-          <Link href="/mcu-news" className="flex items-center gap-1.5 sm:gap-2.5 hover:opacity-80 transition-opacity relative">
-            <TickerUnit value={countdown.days} label="D" />
-            <span className="text-green-400/60 text-xs font-light drop-shadow-[0_0_3px_rgba(74,222,128,0.4)]">:</span>
-            <TickerUnit value={countdown.hours} label="H" />
-            <span className="text-green-400/60 text-xs font-light drop-shadow-[0_0_3px_rgba(74,222,128,0.4)]">:</span>
-            <TickerUnit value={countdown.minutes} label="M" />
-            <span className="text-green-400/60 text-xs font-light drop-shadow-[0_0_3px_rgba(74,222,128,0.4)]">:</span>
-            <TickerUnit value={countdown.seconds} label="S" />
+          {/* Countdown digits */}
+          <Link href="/doomsday" className="flex items-center gap-1.5 sm:gap-2 md:gap-3">
+            <DigitBlock value={months} label="MO" color="green" />
+            <Separator color="green" />
+            <DigitBlock value={remainingDays} label="D" color="green" />
+            <Separator color="green" />
+            <DigitBlock value={countdown.hours} label="H" color="green" />
+            <Separator color="green" />
+            <DigitBlock value={countdown.minutes} label="M" color="green" />
+            <Separator color="green" />
+            <DigitBlock value={countdown.seconds} label="S" color="red" />
           </Link>
 
-          {/* Separator — electrified */}
-          <div className="w-px h-4 bg-green-400/40 hidden md:block shadow-[0_0_4px_rgba(74,222,128,0.5)]" />
+          {/* Vertical divider */}
+          <div className="hidden lg:block w-px h-8 bg-gradient-to-b from-transparent via-green-500/30 to-transparent" />
 
-          {/* CTA link — desktop only */}
-          <Link href="/mcu-news" className="hidden md:flex items-center gap-1 text-[10px] sm:text-xs text-green-400/70 hover:text-green-300 transition-colors group">
-            <span className="drop-shadow-[0_0_3px_rgba(74,222,128,0.3)]">MCU News</span>
-            <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
-          </Link>
+          {/* Dec 18 2026 label */}
+          <div className="hidden lg:flex flex-col items-start flex-shrink-0">
+            <span className="text-gray-400 font-medium" style={{ fontSize: "10px", letterSpacing: "0.1em" }}>
+              DEC 18, 2026
+            </span>
+            <span className="text-gray-600" style={{ fontSize: "9px" }}>
+              RDJ as Doctor Doom
+            </span>
+          </div>
 
-          {/* Dismiss button */}
+          {/* Dismiss */}
           <button
             onClick={() => setDismissed(true)}
-            className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-gray-500 hover:text-white transition-colors z-10"
+            className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-gray-600 hover:text-white transition-colors z-10 rounded"
             aria-label="Dismiss countdown"
           >
-            <X className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+            <X className="w-3 h-3" />
           </button>
-        </div>
-
-        {/* Bottom edge glow line — crackling */}
-        <div className="absolute bottom-0 left-0 right-0 h-px">
-          <div className="h-full bg-gradient-to-r from-transparent via-green-400/60 to-transparent animate-pulse" />
         </div>
       </div>
     </div>
