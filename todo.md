@@ -2661,3 +2661,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 
 ## Article Queue — Next Up
 - [x] Write article based on: https://youtu.be/NW8DzX4mE6w — published "The Avengers Just Accidentally Created the Multiverse" (collector_spotlight template)
+
+## Spider-Man: Brand New Day Article
+- [x] Browse 5 eBay sold listings for card comps (Spider-Man BGS 10 Black /10, Scorpion 1/1, Punisher Black Auto /10, Dr. Doom Comic Cut 1/1 HULK, Jean Grey Gold /10)
+- [x] Generate 3 article images (NYC web city hero, Scorpion villain, Spider-Man cards collector)
+- [x] Write and publish article with cinematic template — slug: spiderman-brand-new-day-trailer-record-breaking-card-market
+- [x] Integrity check passed 81/81
+- [x] Checkpoint saved
