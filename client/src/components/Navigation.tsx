@@ -53,6 +53,7 @@ const NAV_ITEMS: NavItemWithDropdown[] = [
 ];
 
 const MORE_ITEMS: DropdownItem[] = [
+  { path: "/doomsday", label: "Doomsday Countdown" },
   { path: "/voting-grounds", label: "Voting Grounds" },
   { path: "/sell-cards", label: "Sell Your Cards" },
   { path: "/about", label: "About NLF" },
