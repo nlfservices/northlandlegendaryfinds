@@ -129,7 +129,7 @@ export default function Navigation() {
       </div>
 
       {/* Main Navigation */}
-      <nav className="sticky top-0 z-50 bg-background/98 backdrop-blur-md border-b border-border/50 shadow-lg" ref={navRef}>
+      <nav className="sticky top-0 z-[60] bg-background/98 backdrop-blur-md border-b border-border/50 shadow-lg" ref={navRef}>
         <div className="container">
           <div className="flex items-center justify-between h-20">
 
