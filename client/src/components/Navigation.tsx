@@ -134,19 +134,28 @@ export default function Navigation() {
           <div className="flex items-center justify-between h-20">
 
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 group flex-shrink-0">
-              <img
-                src={"https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/site-assets/NLF-Logo-MainLogo.png"}
-                alt="NLF"
-                className="h-16 w-16 object-contain group-hover:scale-105 transition-transform drop-shadow-[0_0_10px_rgba(34,197,94,0.35)]"
-              />
+            <Link href="/" className="flex items-center gap-3.5 group flex-shrink-0">
+              <div className="relative">
+                {/* Green glow aura behind logo */}
+                <div className="absolute inset-0 rounded-xl bg-green-500/20 blur-lg group-hover:bg-green-500/35 transition-all duration-500" />
+                <img
+                  src={"https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/site-assets/NLF-Logo-MainLogo.png"}
+                  alt="NLF"
+                  className="relative h-[4.5rem] w-[4.5rem] object-contain group-hover:scale-105 transition-transform duration-300 drop-shadow-[0_0_12px_rgba(34,197,94,0.5)]"
+                />
+              </div>
               <div className="hidden sm:flex flex-col">
-                <span className="text-primary font-bold text-xl tracking-wider leading-tight" style={{ fontFamily: "'Anton', sans-serif" }}>
+                <span
+                  className="font-bold text-2xl tracking-wider leading-tight bg-gradient-to-r from-green-400 via-emerald-300 to-green-500 bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(34,197,94,0.3)]"
+                  style={{ fontFamily: "'Anton', sans-serif" }}
+                >
                   NORTHLAND
                 </span>
-                <span className="text-muted-foreground text-[10px] tracking-[0.2em] uppercase -mt-0.5 font-semibold">
+                <span className="text-emerald-400/70 text-[11px] tracking-[0.3em] uppercase -mt-0.5 font-semibold">
                   LEGENDARY FINDS
                 </span>
+                {/* Subtle accent line */}
+                <div className="h-[1px] w-full mt-1 bg-gradient-to-r from-transparent via-green-500/50 to-transparent" />
               </div>
             </Link>
 
