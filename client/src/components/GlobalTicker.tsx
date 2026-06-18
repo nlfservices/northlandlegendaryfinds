@@ -42,12 +42,7 @@ export default function GlobalTicker() {
       bold: true,
       icon: "⚡",
     },
-    {
-      text: `${doomMonths}M ${doomRemainingDays}D ${pad(doomsday.hours)}H ${pad(doomsday.minutes)}M ${pad(doomsday.seconds)}S`,
-      href: "/doomsday",
-      color: "text-white",
-      bold: true,
-    },
+
     {
       text: "RDJ AS DOCTOR DOOM",
       href: "/doomsday",
@@ -74,12 +69,7 @@ export default function GlobalTicker() {
       color: "text-gray-300",
       icon: "🃏",
     },
-    {
-      text: "NORTHLANDLEGENDARYFINDS.COM",
-      href: "/",
-      color: "text-green-400",
-      bold: true,
-    },
+
   ];
 
   return (
