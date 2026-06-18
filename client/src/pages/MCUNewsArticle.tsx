@@ -20,6 +20,7 @@ import ShareButtons from "@/components/ShareButtons";
 import ArticlePollWidget from "@/components/ArticlePollWidget";
 import ArticlePollWidgetMini from "@/components/ArticlePollWidgetMini";
 import RelatedArticles from "@/components/RelatedArticles";
+import MCUCountdown from "@/components/MCUCountdown";
 
 const CARD_MARKET_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mcu-intel-card-market-Lt56dsta4y7Hzfj6pzAysR.webp";
 
@@ -436,6 +437,11 @@ export default function MCUNewsArticle() {
             />
           </div>
         )}
+
+        {/* Doomsday Countdown — embedded in every article */}
+        <div className={getArticleTemplate(article.templateLayout as ArticleTemplate | null, article.id) === 'patriotic' ? 'container max-w-4xl px-4 sm:px-6 mb-8' : 'mb-8'}>
+          <MCUCountdown />
+        </div>
 
         {/* Collector's Corner and CTAs — wrapped in container for patriotic template */}
         <div className={getArticleTemplate(article.templateLayout as ArticleTemplate | null, article.id) === 'patriotic' ? 'container max-w-4xl px-4 sm:px-6' : ''}>

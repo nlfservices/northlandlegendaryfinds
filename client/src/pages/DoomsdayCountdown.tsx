@@ -19,6 +19,7 @@ import {
   ExternalLink,
 } from "lucide-react";
 import SEO from "@/components/SEO";
+import NewsletterSignup from "@/components/NewsletterSignup";
 
 const DOOMSDAY_DATE = "2026-12-18T00:00:00Z";
 const SPIDERMAN_DATE = "2026-07-31T00:00:00Z";
@@ -352,6 +353,29 @@ export default function DoomsdayCountdown() {
                 </div>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* ===== EMAIL SIGNUP — News, Giveaways, Drops ===== */}
+        <section className="py-14 sm:py-16 border-t border-green-500/10">
+          <div className="container max-w-lg">
+            <div className="text-center mb-6">
+              <h2
+                className="text-2xl sm:text-3xl font-black text-white mb-2"
+                style={{ fontFamily: "'Anton', sans-serif" }}
+              >
+                STAY IN THE <span className="text-green-400">LOOP</span>
+              </h2>
+              <p className="text-gray-400 text-sm sm:text-base">
+                Get Doomsday news, giveaway alerts, and exclusive collector drops — straight to your inbox.
+              </p>
+            </div>
+            <NewsletterSignup
+              variant="sidebar"
+              source="doomsday-countdown"
+              headline="JOIN THE DOOMSDAY LIST"
+              subtext="Be first to know about card drops, giveaways, and breaking MCU news leading up to December 18."
+            />
           </div>
         </section>
 

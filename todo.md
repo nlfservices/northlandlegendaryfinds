@@ -2668,3 +2668,7 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Write and publish article with cinematic template — slug: spiderman-brand-new-day-trailer-record-breaking-card-market
 - [x] Integrity check passed 81/81
 - [x] Checkpoint saved
+
+## Doomsday Countdown & Email Signup Enhancements
+- [x] Add Doomsday countdown widget to article detail pages (especially Doomsday articles)
+- [x] Add email signup form to /doomsday countdown page (news, giveaways, etc.) — integrate with GHL
