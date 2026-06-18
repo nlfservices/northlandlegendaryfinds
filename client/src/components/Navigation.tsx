@@ -170,7 +170,7 @@ export default function Navigation() {
                         className={`px-3.5 py-2 text-sm font-semibold rounded-md transition-all whitespace-nowrap flex items-center gap-1 ${
                           isGroupActive(item) || openDropdown === item.label
                             ? "text-primary bg-primary/10"
-                            : "text-foreground/75 hover:text-foreground hover:bg-muted/50"
+                            : "text-white hover:text-green-400 hover:bg-green-500/10"
                         }`}
                       >
                         {item.label}
@@ -216,7 +216,7 @@ export default function Navigation() {
                         className={`px-3.5 py-2 text-sm font-semibold rounded-md transition-all whitespace-nowrap ${
                           isActive(item.path!)
                             ? "text-primary bg-primary/10"
-                            : "text-foreground/75 hover:text-foreground hover:bg-muted/50"
+                            : "text-white hover:text-green-400 hover:bg-green-500/10"
                         }`}
                       >
                         {item.label}
@@ -233,7 +233,7 @@ export default function Navigation() {
                   className={`px-3.5 py-2 text-sm font-semibold rounded-md transition-all whitespace-nowrap flex items-center gap-1 ${
                     moreOpen || MORE_ITEMS.some((i) => isActive(i.path))
                       ? "text-primary bg-primary/10"
-                      : "text-foreground/75 hover:text-foreground hover:bg-muted/50"
+                      : "text-white hover:text-green-400 hover:bg-green-500/10"
                   }`}
                 >
                   More
@@ -247,7 +247,7 @@ export default function Navigation() {
                         <div className={`px-4 py-2 text-sm font-medium transition-colors ${
                           isActive(item.path)
                             ? "text-primary bg-primary/10"
-                            : "text-foreground/80 hover:text-foreground hover:bg-muted/50"
+                            : "text-white hover:text-green-400 hover:bg-green-500/10"
                         }`}>
                           {item.label}
                         </div>
