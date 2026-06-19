@@ -2683,3 +2683,17 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Internal links to /doomsday and Doomsday article
 - [x] Publish article to database (ID 2310001, featured)
 - [x] Integrity check 81/81 passed
+
+## Article Ecosystem: Celebrity Collectors Series
+- [x] Research Tom Brady card collecting involvement
+- [x] Research Cards HQ store and celebrity connection
+- [x] Plan ecosystem structure and internal linking
+- [x] Generate unique images for each sub-article (8 images across 4 articles)
+- [x] Write and publish Steve Aoki article (magazine template, Jun 12)
+- [x] Write and publish Dana White article (cinematic template, Jun 15)
+- [x] Write and publish Cards HQ article (collector_spotlight template, Jun 10)
+- [x] Write and publish Tom Brady article (dossier template, Jun 17)
+- [x] Update main Hidden Asset hub article with Celebrity Collectors Series section
+- [x] Verify template rotation: collector_spotlight → magazine → cinematic → dossier (all different)
+- [x] Staggered publish dates across past 9 days
+- [x] Integrity check 81/81 passed
