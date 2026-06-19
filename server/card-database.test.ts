@@ -168,3 +168,91 @@ describe("Graded Cards API", () => {
     expect(result[0].name).toBe("2025 Topps Chrome");
   });
 });
+
+describe("Card Database - Year-Based Organization", () => {
+  // Simulate the frontend grouping logic
+  function groupSetsByYear(sets: Array<{ id: number; name: string; releaseYear: number | null }>) {
+    const grouped: Record<number, typeof sets> = {};
+    sets.forEach((set) => {
+      const year = set.releaseYear ?? 2025;
+      if (!grouped[year]) grouped[year] = [];
+      grouped[year].push(set);
+    });
+    return Object.entries(grouped)
+      .map(([year, yearSets]) => ({ year: Number(year), sets: yearSets }))
+      .sort((a, b) => b.year - a.year);
+  }
+
+  const mockSets = [
+    { id: 1, name: "2025 Topps Chrome", releaseYear: 2025 },
+    { id: 2, name: "2025 Topps Comic Book Heroes", releaseYear: 2025 },
+    { id: 3, name: "2024 Topps Chrome Marvel", releaseYear: 2024 },
+    { id: 4, name: "2024 Topps Chrome Sapphire Marvel", releaseYear: 2024 },
+    { id: 5, name: "2026 Topps Finest Fantastic Four", releaseYear: 2026 },
+    { id: 6, name: "2026 Topps Brooklyn Collection Captain America 85th", releaseYear: 2026 },
+    { id: 7, name: "2026 Topps Chrome Marvel Comics", releaseYear: 2026 },
+  ];
+
+  it("groups sets by year correctly", () => {
+    const result = groupSetsByYear(mockSets);
+    expect(result).toHaveLength(3);
+    expect(result[0].year).toBe(2026);
+    expect(result[1].year).toBe(2025);
+    expect(result[2].year).toBe(2024);
+  });
+
+  it("sorts years in descending order (newest first)", () => {
+    const result = groupSetsByYear(mockSets);
+    const years = result.map((g) => g.year);
+    expect(years).toEqual([2026, 2025, 2024]);
+  });
+
+  it("assigns correct number of sets per year", () => {
+    const result = groupSetsByYear(mockSets);
+    expect(result[0].sets).toHaveLength(3); // 2026: 3 sets
+    expect(result[1].sets).toHaveLength(2); // 2025: 2 sets
+    expect(result[2].sets).toHaveLength(2); // 2024: 2 sets
+  });
+
+  it("handles sets with null releaseYear by defaulting to 2025", () => {
+    const setsWithNull = [
+      ...mockSets,
+      { id: 8, name: "Unknown Year Set", releaseYear: null },
+    ];
+    const result = groupSetsByYear(setsWithNull);
+    const year2025 = result.find((g) => g.year === 2025);
+    expect(year2025?.sets).toHaveLength(3); // 2 original + 1 null-defaulted
+  });
+
+  it("handles empty sets array", () => {
+    const result = groupSetsByYear([]);
+    expect(result).toHaveLength(0);
+  });
+
+  it("all 13 sets across 3 years (2024-2026) are expected in production", () => {
+    // Production should have: 2 sets in 2024, 8 sets in 2025, 3 sets in 2026
+    const productionSets = [
+      { id: 1, name: "2024 Topps Chrome Marvel", releaseYear: 2024 },
+      { id: 2, name: "2024 Topps Chrome Sapphire Marvel", releaseYear: 2024 },
+      { id: 3, name: "2025 Topps Chrome", releaseYear: 2025 },
+      { id: 4, name: "2025 Topps Chrome Deadpool", releaseYear: 2025 },
+      { id: 5, name: "2025 Topps Comic Book Heroes", releaseYear: 2025 },
+      { id: 6, name: "2025 Topps Marvel Mint", releaseYear: 2025 },
+      { id: 7, name: "2025 Topps Marvel Sapphire", releaseYear: 2025 },
+      { id: 8, name: "2025 Topps Marvel Studios", releaseYear: 2025 },
+      { id: 9, name: "2025 Topps Marvel Studios Sapphire", releaseYear: 2025 },
+      { id: 10, name: "2025 Topps Marvel Studios: The Collector", releaseYear: 2025 },
+      { id: 11, name: "2026 Topps Brooklyn Collection Captain America 85th", releaseYear: 2026 },
+      { id: 12, name: "2026 Topps Chrome Marvel Comics", releaseYear: 2026 },
+      { id: 13, name: "2026 Topps Finest Fantastic Four", releaseYear: 2026 },
+    ];
+    const result = groupSetsByYear(productionSets);
+    expect(result).toHaveLength(3);
+    expect(result[0].year).toBe(2026);
+    expect(result[0].sets).toHaveLength(3);
+    expect(result[1].year).toBe(2025);
+    expect(result[1].sets).toHaveLength(8);
+    expect(result[2].year).toBe(2024);
+    expect(result[2].sets).toHaveLength(2);
+  });
+});

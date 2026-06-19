@@ -273,6 +273,34 @@ export default function CardDatabase() {
   return <SetBrowser />;
 }
 
+// Year-based background themes for the card set sections
+const YEAR_THEMES: Record<number, { gradient: string; radial1: string; radial2: string; border: string; accent: string; label: string }> = {
+  2026: {
+    gradient: "bg-gradient-to-br from-[oklch(0.18_0.10_280)] via-[oklch(0.14_0.08_290)] to-[oklch(0.11_0.06_300)]",
+    radial1: "bg-[radial-gradient(ellipse_at_top_right,oklch(0.30_0.14_280/0.3),transparent_60%)]",
+    radial2: "bg-[radial-gradient(ellipse_at_bottom_left,oklch(0.25_0.12_310/0.2),transparent_60%)]",
+    border: "border-purple-500/30 hover:border-purple-400/70",
+    accent: "text-purple-400",
+    label: "UPCOMING & NEW"
+  },
+  2025: {
+    gradient: "bg-gradient-to-br from-[oklch(0.20_0.08_145)] via-[oklch(0.15_0.06_155)] to-[oklch(0.12_0.04_165)]",
+    radial1: "bg-[radial-gradient(ellipse_at_top_right,oklch(0.30_0.12_145/0.3),transparent_60%)]",
+    radial2: "bg-[radial-gradient(ellipse_at_bottom_left,oklch(0.25_0.10_195/0.2),transparent_60%)]",
+    border: "border-primary/20 hover:border-primary/60",
+    accent: "text-primary",
+    label: "CURRENT YEAR"
+  },
+  2024: {
+    gradient: "bg-gradient-to-br from-[oklch(0.18_0.08_30)] via-[oklch(0.14_0.06_35)] to-[oklch(0.11_0.04_40)]",
+    radial1: "bg-[radial-gradient(ellipse_at_top_right,oklch(0.30_0.12_30/0.3),transparent_60%)]",
+    radial2: "bg-[radial-gradient(ellipse_at_bottom_left,oklch(0.25_0.10_50/0.2),transparent_60%)]",
+    border: "border-orange-500/30 hover:border-orange-400/70",
+    accent: "text-orange-400",
+    label: "INAUGURAL YEAR"
+  }
+};
+
 function SetBrowser() {
   const { data: sets, isLoading } = trpc.public.marvel.sets.useQuery();
   const [searchQuery, setSearchQuery] = useState("");
@@ -282,12 +310,26 @@ function SetBrowser() {
     { enabled: searchQuery.length >= 2 }
   );
 
+  // Group sets by year (newest first)
+  const setsByYear = useMemo(() => {
+    if (!sets) return [];
+    const grouped: Record<number, typeof sets> = {};
+    sets.forEach((set) => {
+      const year = set.releaseYear ?? 2025;
+      if (!grouped[year]) grouped[year] = [];
+      grouped[year].push(set);
+    });
+    return Object.entries(grouped)
+      .map(([year, yearSets]) => ({ year: Number(year), sets: yearSets }))
+      .sort((a, b) => b.year - a.year);
+  }, [sets]);
+
   // SEO: structured data for the page
   useEffect(() => {
-    document.title = "Marvel Card Database | 2025 Topps Sets | Northland Legendary Finds";
+    document.title = "Marvel Card Database | 2024-2026 Topps Sets | Northland Legendary Finds";
     const meta = document.querySelector('meta[name="description"]');
     if (meta) {
-      meta.setAttribute("content", "Browse every 2025 Topps Marvel trading card set. Complete checklists for Chrome, Comic Book Heroes, Marvel Mint, Sapphire, and more. Know what you could pull in NLF repacks.");
+      meta.setAttribute("content", "Browse every Topps Marvel trading card set from 2024 to 2026. Complete checklists for Chrome, Sapphire, Marvel Mint, Finest, Brooklyn Collection, and more.");
     }
   }, []);
 
@@ -311,7 +353,7 @@ function SetBrowser() {
             <div>
               <h1 className="text-3xl lg:text-4xl font-bold">Card Database</h1>
               <p className="text-muted-foreground mt-1">
-                Browse every 2025 Topps Marvel card set — know what you could pull
+                Every Topps Marvel card set from 2024 to 2026 — organized by year
               </p>
             </div>
           </div>
@@ -389,14 +431,9 @@ function SetBrowser() {
           </div>
         )}
 
-        {/* Set Grid */}
+        {/* Set Grid - Organized by Year */}
         {(!searchQuery || searchQuery.length < 2) && (
           <>
-            <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-              <Layers className="w-5 h-5 text-primary" />
-              2025 Topps Marvel Sets
-            </h2>
-
             {isLoading ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {[1, 2, 3, 4, 5, 6].map((i) => (
@@ -404,75 +441,103 @@ function SetBrowser() {
                 ))}
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {sets?.map((set) => (
-                  <Link key={set.id} href={`/cards/${set.slug}`}>
-                    <article className="group relative overflow-hidden rounded-xl border-2 border-primary/20 hover:border-primary/60 transition-all duration-300 hover:shadow-xl hover:shadow-primary/15 cursor-pointer">
-                      {/* Green gradient background */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-[oklch(0.20_0.08_145)] via-[oklch(0.15_0.06_155)] to-[oklch(0.12_0.04_165)]" />
-                      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,oklch(0.30_0.12_145/0.3),transparent_60%)]" />
-                      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,oklch(0.25_0.10_195/0.2),transparent_60%)]" />
-                      
-                      <div className="relative z-10 p-5">
-                        {/* Box image + info layout */}
-                        <div className="flex gap-4 items-start">
-                          {/* Box image */}
-                          <div className="shrink-0 w-28 h-36 rounded-lg overflow-hidden border border-primary/20 bg-black/30 shadow-lg group-hover:scale-105 transition-transform duration-300">
-                            {set.imageUrl ? (
-                              <img
-                                src={set.imageUrl}
-                                alt={`${set.name} box`}
-                                className="w-full h-full object-contain p-1"
-                                loading="lazy"
-                              />
-                            ) : (
-                              <div className="w-full h-full flex items-center justify-center">
-                                <Layers className="w-10 h-10 text-primary/40" />
-                              </div>
-                            )}
-                          </div>
-
-                          {/* Set info */}
-                          <div className="flex-1 min-w-0">
-                            <h3 className="font-bold text-base leading-tight text-foreground group-hover:text-primary transition-colors">
-                              {set.name}
-                            </h3>
-                            {set.shortName && set.shortName !== set.name && (
-                              <p className="text-xs text-primary/70 font-medium mt-0.5">{set.shortName}</p>
-                            )}
-
-                            <div className="flex items-center gap-3 mt-3 text-sm">
-                              <div className="flex items-center gap-1.5 text-primary/80">
-                                <Hash className="w-3.5 h-3.5" />
-                                <span className="font-semibold">{set.totalCards}</span>
-                                <span className="text-muted-foreground text-xs">cards</span>
-                              </div>
-                              <div className="flex items-center gap-1.5 text-primary/80">
-                                <Star className="w-3.5 h-3.5" />
-                                <span className="font-semibold">{set.releaseYear}</span>
-                              </div>
-                            </div>
-
-                            {/* View button */}
-                            <div className="mt-4 flex items-center gap-1.5 text-xs font-semibold text-primary group-hover:translate-x-1 transition-transform">
-                              <span>View Full Set</span>
-                              <ChevronRight className="w-3.5 h-3.5" />
-                            </div>
-                          </div>
+              <div className="space-y-12">
+                {setsByYear.map(({ year, sets: yearSets }) => {
+                  const yearTheme = YEAR_THEMES[year] || YEAR_THEMES[2025];
+                  return (
+                    <section key={year}>
+                      {/* Year Header */}
+                      <div className="flex items-center gap-4 mb-6">
+                        <div className="flex items-center gap-3">
+                          <Layers className={`w-5 h-5 ${yearTheme.accent}`} />
+                          <h2 className="text-2xl font-bold">{year} Topps Marvel Sets</h2>
                         </div>
+                        <Badge variant="outline" className={`text-[10px] font-bold tracking-wider ${yearTheme.accent} border-current/30`}>
+                          {yearTheme.label}
+                        </Badge>
+                        <div className="flex-1 h-px bg-gradient-to-r from-border to-transparent" />
                       </div>
 
-                      {/* Bottom accent line */}
-                      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary/0 via-primary/60 to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </article>
-                  </Link>
-                ))}
+                      {/* Set Cards Grid */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {yearSets.map((set) => (
+                          <Link key={set.id} href={`/cards/${set.slug}`}>
+                            <article className={`group relative overflow-hidden rounded-xl border-2 ${yearTheme.border} transition-all duration-300 hover:shadow-xl hover:shadow-primary/15 cursor-pointer`}>
+                              {/* Year-specific gradient background */}
+                              <div className={`absolute inset-0 ${yearTheme.gradient}`} />
+                              <div className={`absolute inset-0 ${yearTheme.radial1}`} />
+                              <div className={`absolute inset-0 ${yearTheme.radial2}`} />
+                              
+                              <div className="relative z-10 p-5">
+                                {/* Box image + info layout */}
+                                <div className="flex gap-4 items-start">
+                                  {/* Box image */}
+                                  <div className="shrink-0 w-28 h-36 rounded-lg overflow-hidden border border-white/10 bg-black/30 shadow-lg group-hover:scale-105 transition-transform duration-300">
+                                    {set.imageUrl ? (
+                                      <img
+                                        src={set.imageUrl}
+                                        alt={`${set.name} box`}
+                                        className="w-full h-full object-contain p-1"
+                                        loading="lazy"
+                                      />
+                                    ) : (
+                                      <div className="w-full h-full flex items-center justify-center">
+                                        <Layers className="w-10 h-10 text-white/20" />
+                                      </div>
+                                    )}
+                                  </div>
+
+                                  {/* Set info */}
+                                  <div className="flex-1 min-w-0">
+                                    <h3 className={`font-bold text-base leading-tight text-foreground group-hover:${yearTheme.accent} transition-colors`}>
+                                      {set.name}
+                                    </h3>
+                                    {set.shortName && set.shortName !== set.name && (
+                                      <p className={`text-xs font-medium mt-0.5 ${yearTheme.accent} opacity-70`}>{set.shortName}</p>
+                                    )}
+
+                                    <div className="flex items-center gap-3 mt-3 text-sm">
+                                      {(set.totalCards ?? 0) > 0 && (
+                                        <div className={`flex items-center gap-1.5 ${yearTheme.accent} opacity-80`}>
+                                          <Hash className="w-3.5 h-3.5" />
+                                          <span className="font-semibold">{set.totalCards}</span>
+                                          <span className="text-muted-foreground text-xs">cards</span>
+                                        </div>
+                                      )}
+                                      {(set.totalCards ?? 0) === 0 && (
+                                        <Badge variant="outline" className={`text-[10px] ${yearTheme.accent} border-current/30`}>Coming Soon</Badge>
+                                      )}
+                                      <div className={`flex items-center gap-1.5 ${yearTheme.accent} opacity-80`}>
+                                        <Star className="w-3.5 h-3.5" />
+                                        <span className="font-semibold">{set.releaseYear}</span>
+                                      </div>
+                                    </div>
+
+                                    {/* View button */}
+                                    <div className={`mt-4 flex items-center gap-1.5 text-xs font-semibold ${yearTheme.accent} group-hover:translate-x-1 transition-transform`}>
+                                      <span>{(set.totalCards ?? 0) > 0 ? 'View Full Set' : 'View Details'}</span>
+                                      <ChevronRight className="w-3.5 h-3.5" />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              {/* Bottom accent line */}
+                              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </article>
+                          </Link>
+                        ))}
+                      </div>
+                    </section>
+                  );
+                })}
               </div>
             )}
 
             {sets && (
-              <div className="mt-8 text-center text-muted-foreground">
-                <p>{sets.length} sets &bull; {sets.reduce((sum, s) => sum + (s.totalCards ?? 0), 0)} total cards in database</p>
+              <div className="mt-12 text-center text-muted-foreground">
+                <p className="text-lg font-medium">{sets.length} sets &bull; {sets.reduce((sum, s) => sum + (s.totalCards ?? 0), 0).toLocaleString()} total cards in database</p>
+                <p className="text-sm mt-1">Spanning 2024–2026 &bull; Updated as new sets release</p>
               </div>
             )}
           </>

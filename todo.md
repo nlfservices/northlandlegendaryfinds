@@ -2706,3 +2706,15 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Verify all artist profile pages render correctly
 - [x] Integrity check 81/81 passed
 - [x] All 386 tests passing (37 test files)
+
+## Cards Page - Year-Based Organization (2024-2026)
+- [x] Add 2024 sets to database (Chrome Marvel, Chrome Sapphire Marvel)
+- [x] Add 2025 Chrome Deadpool to database
+- [x] Add 2026 sets to database (Brooklyn Collection Cap 85th, Chrome Marvel Comics)
+- [x] Fix Finest Fantastic Four year from 2025 to 2026
+- [x] Redesign /cards page to organize by year (2026, 2025, 2024)
+- [x] Unique background color per year (purple=2026, green=2025, orange=2024)
+- [x] Year section headers with badges (UPCOMING & NEW, CURRENT YEAR, INAUGURAL YEAR)
+- [x] "Coming Soon" badge for sets with 0 cards
+- [x] Box images for all new sets uploaded to CDN
+- [x] All 392 tests passing (37 test files)
