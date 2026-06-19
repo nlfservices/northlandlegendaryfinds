@@ -304,7 +304,7 @@ export default function Artists() {
                   const isComicAuto = artist.category === "Comic Book Artist Autographs";
                   const portrait = ARTIST_PORTRAITS[slug];
                   const shortBio = ARTIST_SHORT_BIOS[slug];
-                  const hasProfile = isComicAuto;
+                  const hasProfile = true; // All artists get profile pages (TBA for those without bios)
                   const hasPortrait = !!portrait;
 
                   const cardContent = (

@@ -2697,3 +2697,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Verify template rotation: collector_spotlight → magazine → cinematic → dossier (all different)
 - [x] Staggered publish dates across past 9 days
 - [x] Integrity check 81/81 passed
+
+## Artist Portfolio Completion
+- [x] Make all artists clickable in Artists.tsx (remove comic-auto-only restriction)
+- [x] Add TBA state to ArtistProfile.tsx for artists without bios ("Full Portfolio Coming Soon" with tier badge)
+- [x] Research 28 top-tier sketch card artists for real bios (all found)
+- [x] Add 28 sketch artist bios to ArtistProfile.tsx with websites and notable works
+- [x] Verify all artist profile pages render correctly
+- [x] Integrity check 81/81 passed
+- [x] All 386 tests passing (37 test files)
