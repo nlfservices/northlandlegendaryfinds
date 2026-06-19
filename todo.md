@@ -2718,3 +2718,16 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] "Coming Soon" badge for sets with 0 cards
 - [x] Box images for all new sets uploaded to CDN
 - [x] All 392 tests passing (37 test files)
+
+## Performance Optimization
+- [x] Audit bundle size (was 6MB single chunk, 1.1MB gzipped)
+- [x] Add code splitting / lazy loading for all 70+ route pages (React.lazy + Suspense)
+- [x] Manual chunks: streamdown-vendor, react-vendor, trpc-vendor, radix-vendor, icons-vendor
+- [x] Main bundle reduced from 6MB to 499KB (89KB gzipped) - 92% reduction
+- [x] Heavy deps (mermaid, shiki, katex) only load when viewing articles
+- [ ] Further image optimization (proper lazy loading, sizing hints) - future improvement
+
+## Set Detail Pages for New Sets
+- [x] Build Coming Soon detail page state for sets with 0 cards (box image, description, subscribe CTA)
+- [x] All new sets have proper detail pages with Coming Soon state
+- [x] 392 tests passing (37 test files)

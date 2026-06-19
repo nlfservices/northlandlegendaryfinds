@@ -23,6 +23,32 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          // Streamdown + its heavy deps (mermaid, shiki, katex) - only loaded on article pages
+          if (id.includes('node_modules/streamdown') || id.includes('node_modules/mermaid') || id.includes('node_modules/shiki') || id.includes('node_modules/katex')) {
+            return 'streamdown-vendor';
+          }
+          // React core
+          if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/')) {
+            return 'react-vendor';
+          }
+          // tRPC + tanstack query
+          if (id.includes('node_modules/@trpc/') || id.includes('node_modules/@tanstack/')) {
+            return 'trpc-vendor';
+          }
+          // Radix UI components
+          if (id.includes('node_modules/@radix-ui/')) {
+            return 'radix-vendor';
+          }
+          // Lucide icons
+          if (id.includes('node_modules/lucide-react')) {
+            return 'icons-vendor';
+          }
+        },
+      },
+    },
   },
   server: {
     host: true,

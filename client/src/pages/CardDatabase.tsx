@@ -817,7 +817,47 @@ function SetDetail({ slug }: { slug: string }) {
         </div>
       </div>
 
+      {/* Coming Soon state for sets with no cards yet */}
+      {cards.length === 0 && (
+        <div className="container pb-16">
+          <div className="max-w-2xl mx-auto text-center py-16">
+            {set.imageUrl && (
+              <div className="mb-8">
+                <img 
+                  src={set.imageUrl} 
+                  alt={`${set.name} box`}
+                  className="mx-auto max-h-80 object-contain drop-shadow-2xl"
+                />
+              </div>
+            )}
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/15 border border-primary/30 rounded-full mb-6">
+              <span className="text-primary text-sm font-bold tracking-wide">COMING SOON</span>
+            </div>
+            <h2 className="text-2xl font-bold mb-4">{set.name}</h2>
+            <p className="text-muted-foreground text-lg mb-6">
+              Full checklist and card database coming soon. This set {set.releaseYear && set.releaseYear > new Date().getFullYear() ? `releases in ${set.releaseYear}` : 'has been announced'} — we'll have the complete breakdown as soon as the checklist drops.
+            </p>
+            {set.description && (
+              <p className="text-muted-foreground mb-8">{set.description}</p>
+            )}
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Link href="/cards">
+                <Button variant="outline" className="gap-2">
+                  <ArrowLeft className="w-4 h-4" /> Browse All Sets
+                </Button>
+              </Link>
+              <Link href="/subscribe">
+                <Button className="gap-2">
+                  Get Notified When Available
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Cards */}
+      {cards.length > 0 && (
       <div className="container pb-16">
         {viewMode === "grid" ? (
           /* Check if current filter is a playing card type for special layout */
@@ -948,6 +988,7 @@ function SetDetail({ slug }: { slug: string }) {
           Showing {filteredCards.length} of {cards.length} cards
         </div>
       </div>
+      )}
     </div>
   );
 }
