@@ -2672,3 +2672,14 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 ## Doomsday Countdown & Email Signup Enhancements
 - [x] Add Doomsday countdown widget to article detail pages (especially Doomsday articles)
 - [x] Add email signup form to /doomsday countdown page (news, giveaways, etc.) — integrate with GHL
+
+## Editorial Article: Marvel Cards Hidden Asset
+- [x] Research editorial thesis from user PDF
+- [x] Analyze 4 YouTube videos (Steve Aoki x2, Dana White x2)
+- [x] Determine next template in rotation (magazine)
+- [x] Generate 3 unique article images (vault, celebrity collector, convention)
+- [x] Write long-form editorial with all 4 YouTube embeds
+- [x] Include Collector's Corner with Card Ladder, MySlabs, Whatnot rotation
+- [x] Internal links to /doomsday and Doomsday article
+- [x] Publish article to database (ID 2310001, featured)
+- [x] Integrity check 81/81 passed
