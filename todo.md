@@ -2764,3 +2764,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Publish article to database via publish script
 - [x] Run integrity check (81/81 passed)
 - [x] Save checkpoint
+
+## Fix: Brand New Day Presales Article (June 20, 2026)
+- [x] Remove duplicate hero image from inline article body (same image appears as featured AND inline)
+- [x] Change template from 'listicle' to 'spotlight' (proper round-robin, not used recently)
+
+## Fix: Card Sets Order on /cards Page (June 20, 2026)
+- [x] Reorder card sets by release date with newest first

@@ -608,7 +608,7 @@ import { like } from "drizzle-orm";
 export async function getAllMarvelSets(): Promise<MarvelSet[]> {
   const db = await getDb();
   if (!db) return [];
-  return db.select().from(marvelSets).orderBy(asc(marvelSets.name));
+  return db.select().from(marvelSets).orderBy(desc(marvelSets.releaseYear), asc(marvelSets.name));
 }
 
 export async function getMarvelSetBySlug(slug: string): Promise<MarvelSet | undefined> {
