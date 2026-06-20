@@ -2748,3 +2748,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Default to list/checklist view for sets without images (useEffect + useRef pattern)
 - [x] Brooklyn Collection also defaults to list view (no images)
 - [x] All 392 tests passing (37 test files)
+
+## 2024 Sets Checklist Population
+- [x] Extract 2024 Topps Chrome Marvel checklist from PDF (260 cards across 17 subsets)
+- [x] Extract 2024 Topps Chrome Sapphire Marvel checklist from PDF (185 cards across 6 subsets)
+- [x] Insert all cards into database with correct column names
+- [x] Both sets auto-default to list/checklist view (no images)
+- [x] All 392 tests passing (37 test files)
