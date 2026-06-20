@@ -2731,3 +2731,11 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Build Coming Soon detail page state for sets with 0 cards (box image, description, subscribe CTA)
 - [x] All new sets have proper detail pages with Coming Soon state
 - [x] 392 tests passing (37 test files)
+
+## Brooklyn Collection Captain America 85th Set Page
+- [x] Extract full checklist from PDF (267 cards, 13 subsets)
+- [x] Extract odds/parallel info from PDF
+- [x] Insert all 267 cards into database with proper card types and parallels
+- [x] Match character images from Marvel Mint where possible (102 cards got real images)
+- [x] Verify page renders with all subset filters working
+- [x] All 392 tests passing (37 test files)
