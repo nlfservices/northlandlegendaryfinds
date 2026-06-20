@@ -2755,3 +2755,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Insert all cards into database with correct column names
 - [x] Both sets auto-default to list/checklist view (no images)
 - [x] All 392 tests passing (37 test files)
+
+## Brand New Day Presales Article (June 20, 2026)
+- [x] Research Brand New Day presale records (Screen Rant, Deadline, Variety)
+- [x] Generate 3 unique article images (hero, triple-event lobby, collector desk)
+- [x] Determine next template in rotation (listicle)
+- [x] Write article with YouTube embed, box office table, Collector's Corner
+- [x] Publish article to database via publish script
+- [x] Run integrity check (81/81 passed)
+- [x] Save checkpoint
