@@ -2739,3 +2739,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Match character images from Marvel Mint where possible (102 cards got real images)
 - [x] Verify page renders with all subset filters working
 - [x] All 392 tests passing (37 test files)
+
+## Checklist-Only Set Pages (Finest FF, Chrome Deadpool, Chrome Marvel Comics)
+- [x] Extract Finest Fantastic Four checklist from Excel (704 cards, 30 subsets)
+- [x] Extract Chrome Deadpool checklist from Excel (314 cards, 22 subsets)
+- [x] Build Chrome Marvel Comics checklist (530 cards, 7 subsets)
+- [x] Insert all cards into database (set IDs: 60001, 90003, 90005)
+- [x] Default to list/checklist view for sets without images (useEffect + useRef pattern)
+- [x] Brooklyn Collection also defaults to list view (no images)
+- [x] All 392 tests passing (37 test files)

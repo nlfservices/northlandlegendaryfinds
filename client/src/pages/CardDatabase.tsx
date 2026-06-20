@@ -650,6 +650,9 @@ function SetDetail({ slug }: { slug: string }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
+  // Default to list view for checklist-only sets (no images)
+  const defaultedToList = useRef(false);
+
   // Custom display order for card types
   const CARD_TYPE_ORDER: Record<string, number> = {
     "BASE CARDS – BRONZE": 1,
@@ -697,6 +700,17 @@ function SetDetail({ slug }: { slug: string }) {
       return numA - numB;
     });
   }, [data?.cards, filterType, searchQuery]);
+
+  // Default to list view for sets without images
+  useEffect(() => {
+    if (data?.cards && !defaultedToList.current) {
+      const hasAnyImages = data.cards.some(c => c.imageUrl);
+      if (!hasAnyImages && data.cards.length > 0) {
+        setViewMode("list");
+      }
+      defaultedToList.current = true;
+    }
+  }, [data?.cards]);
 
   // SEO: set page title and description
   useEffect(() => {
