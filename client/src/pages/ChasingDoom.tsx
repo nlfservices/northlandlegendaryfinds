@@ -6,6 +6,7 @@
  */
 
 import { Heart, MapPin, Calendar, ArrowRight, Play } from "lucide-react";
+import RoadTripTimeline from "@/components/RoadTripTimeline";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import SEO, { breadcrumbJsonLd } from "@/components/SEO";
@@ -302,24 +303,23 @@ export default function ChasingDoom() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════════════
-          SECTION 6 — COMING SOON / TRIP UPDATES
-          Placeholder for future content
+          SECTION 6 — INTERACTIVE ROAD TRIP TIMELINE
+          Visual tracker of the cross-country journey
       ═══════════════════════════════════════════════════════════════════ */}
       <section className="py-16 lg:py-24 bg-card/50 border-y border-border/50">
-        <div className="container max-w-4xl text-center">
-          <p className="text-primary font-bold text-sm tracking-[0.2em] uppercase mb-3">On The Road</p>
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6">TRIP UPDATES</h2>
-          <p className="text-gray-400 text-lg mb-8 max-w-2xl mx-auto">
-            We just took off on our first journey. Updates, photos, and finds coming soon.
-          </p>
-          
-          <div className="bg-background/50 border border-dashed border-green-500/30 rounded-xl p-12">
-            <MapPin className="w-12 h-12 text-green-400/50 mx-auto mb-4" />
-            <p className="text-gray-500 text-lg">First stop incoming...</p>
-            <p className="text-gray-600 text-sm mt-2">Check back for card store visits, finds, and giveaway announcements.</p>
+        <div className="container max-w-4xl">
+          <div className="text-center mb-12">
+            <p className="text-primary font-bold text-sm tracking-[0.2em] uppercase mb-3">On The Road</p>
+            <h2 className="text-4xl sm:text-5xl font-bold mb-4">TRIP UPDATES</h2>
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              Follow our journey across America. Every stop, every find, every card store.
+              Click a stop to see what we found.
+            </p>
           </div>
 
-          <div className="mt-10">
+          <RoadTripTimeline />
+
+          <div className="mt-12 text-center">
             <Link href="/about">
               <Button variant="outline" className="border-green-500/30 text-green-400 hover:bg-green-500/10">
                 Read Our Full Story <ArrowRight className="w-4 h-4 ml-2" />

@@ -2780,3 +2780,9 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add routing (hidden - no nav link yet, direct URL only)
 - [ ] Add to sitemap (LATER - when Patrick says go)
 - [x] Design for eventual spin-off to chasingdoom.com
+
+## Chasing Doom Interactive Timeline (June 21, 2026)
+- [x] Build interactive road trip timeline component for Trip Updates section
+- [x] Include visual route line, stop markers, dates, descriptions, and finds
+- [x] Make it expandable/clickable for each stop
+- [x] Integrate into ChasingDoom.tsx replacing the placeholder
