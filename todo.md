@@ -2771,3 +2771,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 
 ## Fix: Card Sets Order on /cards Page (June 20, 2026)
 - [x] Reorder card sets by release date with newest first
+
+## Chasing Doom Segment Page (June 21, 2026)
+- [x] Build "Chasing Doom" page on NLF with Patrick's full bio/origin story
+- [x] Include RDJ/Doctor Doom/sobriety parallel narrative
+- [x] Include family story (Laura, Landon, Kaya)
+- [x] Generate hero image for the page
+- [x] Add routing (hidden - no nav link yet, direct URL only)
+- [ ] Add to sitemap (LATER - when Patrick says go)
+- [x] Design for eventual spin-off to chasingdoom.com
