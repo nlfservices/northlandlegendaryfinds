@@ -2786,3 +2786,8 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Include visual route line, stop markers, dates, descriptions, and finds
 - [x] Make it expandable/clickable for each stop
 - [x] Integrate into ChasingDoom.tsx replacing the placeholder
+
+## Chasing Doom Crew Section Update (June 22, 2026)
+- [x] Upload Kaya photos (sunflower field with Landon, holding baby Landon in NF shirt, shoveling dirt)
+- [x] Add Kaya subsection with photos and expanded bio to Crew section
+- [x] Add Jim subsection (boxing cutman, best friend, Bane/Mini Goldberg, Uncle Jim) with placeholder for photo

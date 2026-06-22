@@ -21,6 +21,9 @@ const PHOTOS = {
   family: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/3ofUs-StarWarsStarCruiser_8441a617.jpg",
   kayaAndPatrick: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/KayaandINLFVegasRetreat_ce081be8.jpg",
   landonAssemble: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landon-Assemble3_5789b932.jpg",
+  kayaLandonSunflowers: "/manus-storage/kaya-landon-sunflowers_b86daef5.jpg",
+  kayaBabyLandon: "/manus-storage/kaya-baby-landon-nf-shirt_b7dae711.jpg",
+  kayaWorking: "/manus-storage/kaya-working-northland-fence_972cdf8b.jpg",
 };
 
 export default function ChasingDoom() {
@@ -215,6 +218,116 @@ export default function ChasingDoom() {
               <div className="absolute bottom-4 left-4 bg-black/70 backdrop-blur-sm px-4 py-2 rounded-lg flex items-center gap-2">
                 <Heart className="w-4 h-4 text-red-400" />
                 <p className="text-sm text-gray-300 italic">The whole crew</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════════════
+          SECTION 3B — KAYA: The Legacy
+          Image RIGHT, text LEFT
+      ═══════════════════════════════════════════════════════════════════ */}
+      <section className="py-16 lg:py-24 bg-card/50 border-y border-border/50">
+        <div className="container max-w-6xl">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            {/* Text */}
+            <div>
+              <p className="text-amber-400 font-bold text-sm tracking-[0.2em] uppercase mb-3">The Legacy</p>
+              <h2 className="text-4xl sm:text-5xl font-bold mb-6">KAYA</h2>
+              <div className="space-y-5 text-gray-300 text-lg leading-relaxed">
+                <p>
+                  She was 8 years old when I came into her life. I adopted her when she was 18. 
+                  She grew up in the Northland Fence trucks — shoveling dirt, hauling materials, 
+                  learning the business from the ground up.
+                </p>
+                <p>
+                  Now she's 26 and she <strong className="text-white">runs the company</strong>. 
+                  After the sale, Kaya stayed on and took the reins. She earned every bit of it.
+                </p>
+                <p>
+                  She's the proof that this story isn't just about me. It's about what you build 
+                  and who you build it for.
+                </p>
+                <p className="text-amber-400/90 italic border-l-4 border-amber-500/50 pl-5">
+                  "I didn't hand her anything. She showed up, did the work, and earned it."
+                </p>
+              </div>
+            </div>
+
+            {/* Images - stacked collage */}
+            <div className="space-y-4">
+              <div className="relative group">
+                <img
+                  src={PHOTOS.kayaLandonSunflowers}
+                  alt="Kaya holding Landon in a sunflower field — Minnesota"
+                  className="rounded-xl w-full aspect-[16/10] object-cover shadow-2xl"
+                />
+                <div className="absolute bottom-3 left-3 bg-black/70 backdrop-blur-sm px-3 py-1.5 rounded-lg">
+                  <p className="text-xs text-gray-300">Kaya & Landon — Minnesota sunflower fields</p>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="relative">
+                  <img
+                    src={PHOTOS.kayaBabyLandon}
+                    alt="Kaya in Northland Fence shirt holding baby Landon and shipping packages"
+                    className="rounded-lg w-full aspect-[3/4] object-cover shadow-xl"
+                  />
+                  <div className="absolute bottom-2 left-2 bg-black/70 backdrop-blur-sm px-2 py-1 rounded">
+                    <p className="text-[10px] text-gray-300">Day one — baby Landon & the NF shirt</p>
+                  </div>
+                </div>
+                <div className="relative">
+                  <img
+                    src={PHOTOS.kayaWorking}
+                    alt="Kaya working at Northland Fence — shoveling dirt on a job site"
+                    className="rounded-lg w-full aspect-[3/4] object-cover shadow-xl"
+                  />
+                  <div className="absolute bottom-2 left-2 bg-black/70 backdrop-blur-sm px-2 py-1 rounded">
+                    <p className="text-[10px] text-gray-300">Earning it — on the job site</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════════════
+          SECTION 3C — JIM: The Cutman
+          Full-width character card
+      ═══════════════════════════════════════════════════════════════════ */}
+      <section className="py-16 lg:py-24">
+        <div className="container max-w-4xl">
+          <div className="bg-gradient-to-br from-gray-800/60 via-card/80 to-gray-900/60 border border-gray-500/20 rounded-2xl p-8 lg:p-12">
+            <div className="flex flex-col md:flex-row gap-8 items-center">
+              {/* Placeholder avatar */}
+              <div className="w-32 h-32 md:w-40 md:h-40 bg-gray-700/50 border-2 border-gray-500/30 rounded-full flex items-center justify-center flex-shrink-0">
+                <span className="text-4xl md:text-5xl font-bold text-gray-400">J</span>
+              </div>
+              
+              {/* Text */}
+              <div>
+                <p className="text-gray-400 font-bold text-sm tracking-[0.2em] uppercase mb-2">The Enforcer</p>
+                <h3 className="text-3xl sm:text-4xl font-bold mb-4">
+                  <span className="text-white">UNCLE JIM</span>
+                </h3>
+                <div className="space-y-4 text-gray-300 text-lg leading-relaxed">
+                  <p>
+                    My old boxing cutman and best friend. Jim still works at Northland Fence — 
+                    he's been there since the beginning. Built like a tank, looks like 
+                    <strong className="text-white">Bane from Batman</strong> crossed with a 
+                    <strong className="text-white">mini Goldberg from WWE</strong>.
+                  </p>
+                  <p>
+                    Landon calls him "Uncle Jim" — and sometimes just "Mini Goldberg" to his face. 
+                    Jim doesn't mind. He's the kind of guy who'd take a punch for you and laugh about it after.
+                  </p>
+                </div>
+                <p className="mt-4 text-gray-500 italic text-sm">
+                  📸 Photos coming soon — stay tuned for the full Jim experience.
+                </p>
               </div>
             </div>
           </div>
