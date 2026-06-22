@@ -238,19 +238,22 @@ export default function ChasingDoom() {
               <div className="space-y-5 text-gray-300 text-lg leading-relaxed">
                 <p>
                   She was 8 years old when I came into her life. I adopted her when she was 18. 
-                  She grew up in the Northland Fence trucks — shoveling dirt, hauling materials, 
-                  learning the business from the ground up.
+                  By 15, she was out in the shop <strong className="text-white">fabricating gates 
+                  with the guys</strong> — not answering phones, not filing paperwork. Welding. Building.
                 </p>
                 <p>
-                  Now she's 26 and she <strong className="text-white">runs the company</strong>. 
-                  After the sale, Kaya stayed on and took the reins. She earned every bit of it.
+                  From there she moved into admin and reception, then into sales, and eventually 
+                  became the one building the systems the whole company ran on. I'm more risk-adverse — 
+                  she's the one who brought the structure.
                 </p>
                 <p>
-                  She's the proof that this story isn't just about me. It's about what you build 
-                  and who you build it for.
+                  The truth is, <strong className="text-white">she left me in the dust</strong>. 
+                  After my exit, Kaya stayed on in upper management running Northland Fence. 
+                  She didn't inherit anything — she outgrew the guy who started it.
                 </p>
                 <p className="text-amber-400/90 italic border-l-4 border-amber-500/50 pl-5">
-                  "I didn't hand her anything. She showed up, did the work, and earned it."
+                  "I didn't hand her anything. She showed up at 15, outworked everyone, 
+                  and now she runs the place better than I ever did."
                 </p>
               </div>
             </div>
