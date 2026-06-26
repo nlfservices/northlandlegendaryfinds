@@ -624,6 +624,8 @@ const publicSubscribeRouter = router({
         email: z.string().email("Please enter a valid email address"),
         firstName: z.string().optional(),
         lastName: z.string().optional(),
+        phone: z.string().optional(),
+        preferredContact: z.enum(["sms", "email", "both"]).optional(),
         source: z.string().optional(),
       })
     )
@@ -631,12 +633,18 @@ const publicSubscribeRouter = router({
       const email = input.email.toLowerCase().trim();
       const source = input.source || "website-popup";
 
+      // Build tags based on source and contact preference
+      const tags = ["website-subscriber", `source-${source}`];
+      if (input.preferredContact) tags.push(`contact-pref-${input.preferredContact}`);
+      if (source === "giveaway-signup") tags.push("giveaway-entrant");
+
       // 1. Create contact in GoHighLevel
       const ghlResult = await createGHLContact({
         email,
         firstName: input.firstName,
         lastName: input.lastName,
-        tags: ["website-subscriber", `source-${source}`],
+        phone: input.phone,
+        tags,
         source: `NLF Website - ${source}`,
       });
 
@@ -653,7 +661,9 @@ const publicSubscribeRouter = router({
         isDuplicate: ghlResult.isDuplicate || false,
         message: ghlResult.isDuplicate
           ? "You're already on our list! We'll keep you updated."
-          : "Welcome to the NLF community! Check your email for your 10% discount code.",
+          : source === "giveaway-signup"
+            ? "You're in! Winners are contacted by SMS. Stay tuned and good luck!"
+            : "Welcome to the NLF community! Check your email for your 10% discount code.",
       };
     }),
 });

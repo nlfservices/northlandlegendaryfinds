@@ -2795,3 +2795,11 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 ## MCU News Articles
 - [x] Publish "The Road to Doomsday: Every MCU Event Building Toward December 2026" (timeline template, June 25 2026)
 - [x] Publish "From Upper Deck to Doomsday: How Topps Built the New Marvel Card Era" (listicle template, June 26 2026) — includes 1975 origin story, 50th anniversary angle, user's SDCC Doctor Doom /99 card photos
+
+## Bug Fixes
+- [x] Fix /subscribers page — added public giveaway signup form (no login required)
+- [x] Form collects: first name, last name, email, phone, preferred contact method
+- [x] "Winners are contacted by SMS" messaging on phone field
+- [x] "What's the best way to reach you?" selector (SMS/Email/Both)
+- [x] Integrates with GHL including phone + giveaway-entrant tag
+- [x] Vitest tests for giveaway signup logic

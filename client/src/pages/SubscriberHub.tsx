@@ -1,7 +1,7 @@
 /**
  * Subscriber Hub — Premium gated content for subscribers
- * Features: Early access repacks, exclusive checklists, subscriber benefits
- * Non-subscribers see a blurred preview with upgrade CTA
+ * Features: Giveaway signup form (public), early access repacks, exclusive checklists
+ * Non-subscribers see giveaway form + blurred preview with upgrade CTA
  */
 
 import { useAuth } from "@/_core/hooks/useAuth";
@@ -11,6 +11,8 @@ import { Badge } from "@/components/ui/badge";
 import SEO from "@/components/SEO";
 import { Link } from "wouter";
 import { getLoginUrl } from "@/const";
+import { useState } from "react";
+import { toast } from "sonner";
 import {
   Crown,
   Lock,
@@ -29,6 +31,10 @@ import {
   ArrowRight,
   Zap,
   CheckCircle,
+  Trophy,
+  Phone,
+  Mail,
+  MessageSquare,
 } from "lucide-react";
 
 // ─── Icon map for benefits ───
@@ -56,12 +62,216 @@ export default function SubscriberHub() {
 
   const isLoading = authLoading || hubLoading;
 
+  // ─── Giveaway Form State ───
+  const [giveawayForm, setGiveawayForm] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    preferredContact: "sms" as "sms" | "email" | "both",
+  });
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const subscribeMutation = trpc.public.subscribe.submit.useMutation({
+    onSuccess: (data) => {
+      setFormSubmitted(true);
+      toast.success(data.message);
+    },
+    onError: (err) => {
+      toast.error(err.message || "Something went wrong. Please try again.");
+    },
+  });
+
   return (
     <div className="min-h-screen bg-background">
       <SEO
         title="Subscriber Hub | Northland Legendary Finds"
         description="Exclusive subscriber content — early access to repacks, exclusive checklists with estimated values, subscriber-only pricing, and priority drop alerts."
       />
+
+      {/* ===== GIVEAWAY SIGNUP SECTION (PUBLIC - NO LOGIN REQUIRED) ===== */}
+      {!isSubscriber && (
+        <section className="relative py-16 sm:py-20 overflow-hidden">
+          {/* Background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[oklch(0.12_0.05_145)] via-background to-[oklch(0.10_0.04_285)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_center,oklch(0.25_0.15_145/0.25),transparent_50%)]" />
+
+          <div className="container relative z-10">
+            <div className="max-w-2xl mx-auto">
+              {/* Header */}
+              <div className="text-center mb-10">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/15 border border-primary/30 rounded-full mb-6">
+                  <Trophy className="w-4 h-4 text-primary" />
+                  <span className="text-primary text-sm font-bold tracking-wide">MONTHLY GIVEAWAYS</span>
+                </div>
+
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black mb-4">
+                  <span className="text-foreground">Win </span>
+                  <span className="bg-gradient-to-r from-primary via-[oklch(0.65_0.18_145)] to-[oklch(0.55_0.20_195)] bg-clip-text text-transparent">
+                    Graded Slabs
+                  </span>
+                </h1>
+                <p className="text-lg text-muted-foreground max-w-xl mx-auto">
+                  We're giving away graded cards, sealed packs, and gift cards every month leading up to Avengers: Doomsday. Sign up below to enter.
+                </p>
+              </div>
+
+              {/* Form */}
+              {formSubmitted ? (
+                <div className="bg-[oklch(0.15_0.04_145)] border border-primary/30 rounded-2xl p-8 text-center">
+                  <CheckCircle className="w-16 h-16 text-primary mx-auto mb-4" />
+                  <h2 className="text-2xl font-bold text-foreground mb-2">You're In!</h2>
+                  <p className="text-muted-foreground text-lg mb-2">
+                    Winners are contacted by SMS. Good luck!
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    While you wait, check out our latest <a href="/mcu-news" className="text-primary hover:underline">MCU News</a> and <a href="/characters" className="text-primary hover:underline">Character Guides</a>.
+                  </p>
+                </div>
+              ) : (
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    if (!giveawayForm.email) {
+                      toast.error("Please enter your email address.");
+                      return;
+                    }
+                    subscribeMutation.mutate({
+                      email: giveawayForm.email,
+                      firstName: giveawayForm.firstName || undefined,
+                      lastName: giveawayForm.lastName || undefined,
+                      phone: giveawayForm.phone || undefined,
+                      preferredContact: giveawayForm.preferredContact,
+                      source: "giveaway-signup",
+                    });
+                  }}
+                  className="bg-[oklch(0.13_0.03_285)] border border-border/50 rounded-2xl p-6 sm:p-8 space-y-5"
+                >
+                  {/* Name row */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-muted-foreground mb-1.5">First Name</label>
+                      <input
+                        type="text"
+                        placeholder="Your first name"
+                        value={giveawayForm.firstName}
+                        onChange={(e) => setGiveawayForm(f => ({ ...f, firstName: e.target.value }))}
+                        className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-muted-foreground mb-1.5">Last Name</label>
+                      <input
+                        type="text"
+                        placeholder="Your last name"
+                        value={giveawayForm.lastName}
+                        onChange={(e) => setGiveawayForm(f => ({ ...f, lastName: e.target.value }))}
+                        className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Email */}
+                  <div>
+                    <label className="block text-sm font-medium text-muted-foreground mb-1.5">Email *</label>
+                    <input
+                      type="email"
+                      required
+                      placeholder="your@email.com"
+                      value={giveawayForm.email}
+                      onChange={(e) => setGiveawayForm(f => ({ ...f, email: e.target.value }))}
+                      className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                    />
+                  </div>
+
+                  {/* Phone */}
+                  <div>
+                    <label className="block text-sm font-medium text-muted-foreground mb-1.5">
+                      Phone Number
+                      <span className="text-xs text-primary ml-2">— Winners are contacted by SMS</span>
+                    </label>
+                    <input
+                      type="tel"
+                      placeholder="(555) 123-4567"
+                      value={giveawayForm.phone}
+                      onChange={(e) => setGiveawayForm(f => ({ ...f, phone: e.target.value }))}
+                      className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                    />
+                  </div>
+
+                  {/* Preferred Contact Method */}
+                  <div>
+                    <label className="block text-sm font-medium text-muted-foreground mb-3">
+                      What's the best way to reach you?
+                    </label>
+                    <div className="grid grid-cols-3 gap-3">
+                      <button
+                        type="button"
+                        onClick={() => setGiveawayForm(f => ({ ...f, preferredContact: "sms" }))}
+                        className={`flex flex-col items-center gap-1.5 p-3 rounded-lg border transition-all ${
+                          giveawayForm.preferredContact === "sms"
+                            ? "border-primary bg-primary/10 text-primary"
+                            : "border-border bg-background text-muted-foreground hover:border-primary/50"
+                        }`}
+                      >
+                        <MessageSquare className="w-5 h-5" />
+                        <span className="text-xs font-medium">SMS</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setGiveawayForm(f => ({ ...f, preferredContact: "email" }))}
+                        className={`flex flex-col items-center gap-1.5 p-3 rounded-lg border transition-all ${
+                          giveawayForm.preferredContact === "email"
+                            ? "border-primary bg-primary/10 text-primary"
+                            : "border-border bg-background text-muted-foreground hover:border-primary/50"
+                        }`}
+                      >
+                        <Mail className="w-5 h-5" />
+                        <span className="text-xs font-medium">Email</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setGiveawayForm(f => ({ ...f, preferredContact: "both" }))}
+                        className={`flex flex-col items-center gap-1.5 p-3 rounded-lg border transition-all ${
+                          giveawayForm.preferredContact === "both"
+                            ? "border-primary bg-primary/10 text-primary"
+                            : "border-border bg-background text-muted-foreground hover:border-primary/50"
+                        }`}
+                      >
+                        <Phone className="w-5 h-5" />
+                        <span className="text-xs font-medium">Both</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Submit */}
+                  <Button
+                    type="submit"
+                    size="lg"
+                    disabled={subscribeMutation.isPending}
+                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-lg py-6"
+                  >
+                    {subscribeMutation.isPending ? (
+                      <span className="flex items-center gap-2">
+                        <span className="animate-spin w-5 h-5 border-2 border-current border-t-transparent rounded-full" />
+                        Entering...
+                      </span>
+                    ) : (
+                      <span className="flex items-center gap-2">
+                        <Trophy className="w-5 h-5" />
+                        Enter Giveaway
+                      </span>
+                    )}
+                  </Button>
+
+                  <p className="text-xs text-muted-foreground/70 text-center">
+                    By signing up, you agree to receive occasional updates about giveaways and Marvel card news. Unsubscribe anytime. We never share your info.
+                  </p>
+                </form>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ===== HERO SECTION ===== */}
       <section className="relative py-20 overflow-hidden">
