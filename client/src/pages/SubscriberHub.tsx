@@ -121,48 +121,40 @@ export default function SubscriberHub() {
 
                 {/* Right: 2x2 photo grid — all unique to this page */}
                 <div className="grid grid-cols-2 gap-3">
-                  <div className="relative rounded-xl overflow-hidden aspect-square group">
+                  <div className="relative rounded-xl overflow-hidden bg-black/20 group">
                     <img
-                      src="/manus-storage/subscribers-family-dinner_d584ea7a.webp"
+                      src="/manus-storage/subscribers-family-dinner-full_a7a1592c.webp"
                       alt="Kaya and Landon at dinner"
                       loading="lazy"
                       decoding="async"
-                      width={300}
-                      height={300}
-                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-auto rounded-xl group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
-                  <div className="relative rounded-xl overflow-hidden aspect-square group">
+                  <div className="relative rounded-xl overflow-hidden bg-black/20 group">
                     <img
-                      src="/manus-storage/subscribers-display-case_e58609e5.webp"
+                      src="/manus-storage/subscribers-display-case-full_e4ec1752.webp"
                       alt="Landon with Marvel figure display case"
                       loading="lazy"
                       decoding="async"
-                      width={300}
-                      height={300}
-                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-auto rounded-xl group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
-                  <div className="relative rounded-xl overflow-hidden aspect-square group">
+                  <div className="relative rounded-xl overflow-hidden bg-black/20 group">
                     <img
-                      src="/manus-storage/subscribers-marvel-figures_9263d63e.webp"
+                      src="/manus-storage/subscribers-marvel-figures-full_8fe057c3.webp"
                       alt="Landon playing with Marvel action figures"
                       loading="lazy"
                       decoding="async"
-                      width={300}
-                      height={300}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-auto rounded-xl group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
-                  <div className="relative rounded-xl overflow-hidden aspect-square group">
+                  <div className="relative rounded-xl overflow-hidden bg-black/20 group">
                     <img
-                      src="/manus-storage/subscribers-waterfall_2677cfbf.webp"
+                      src="/manus-storage/subscribers-waterfall-full_2a9d0fdb.webp"
                       alt="Landon and his sister by the waterfall"
                       loading="lazy"
                       decoding="async"
-                      width={300}
-                      height={300}
-                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-auto rounded-xl group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
                 </div>
