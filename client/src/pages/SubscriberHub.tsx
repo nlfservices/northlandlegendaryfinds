@@ -60,7 +60,8 @@ export default function SubscriberHub() {
   });
   const { data: benefitsData } = trpc.subscriber.benefits.useQuery();
 
-  const isLoading = authLoading || hubLoading;
+  // Don't block the page on API calls - show public sections immediately
+  const isLoading = false;
 
   // ─── Giveaway Form State ───
   const [giveawayForm, setGiveawayForm] = useState({
@@ -122,29 +123,45 @@ export default function SubscriberHub() {
                 <div className="grid grid-cols-2 gap-3">
                   <div className="relative rounded-xl overflow-hidden aspect-square group">
                     <img
-                      src="/manus-storage/1000042583_b0b2cb78.jpg"
+                      src="/manus-storage/subscribers-family-dinner_d584ea7a.webp"
                       alt="Kaya and Landon at dinner"
+                      loading="lazy"
+                      decoding="async"
+                      width={300}
+                      height={300}
                       className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
                   <div className="relative rounded-xl overflow-hidden aspect-square group">
                     <img
-                      src="/manus-storage/1000042587_f5a76bda.jpg"
+                      src="/manus-storage/subscribers-display-case_e58609e5.webp"
                       alt="Landon with Marvel figure display case"
+                      loading="lazy"
+                      decoding="async"
+                      width={300}
+                      height={300}
                       className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
                   <div className="relative rounded-xl overflow-hidden aspect-square group">
                     <img
-                      src="/manus-storage/1000042585_9277879b.jpg"
+                      src="/manus-storage/subscribers-marvel-figures_9263d63e.webp"
                       alt="Landon playing with Marvel action figures"
+                      loading="lazy"
+                      decoding="async"
+                      width={300}
+                      height={300}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
                   <div className="relative rounded-xl overflow-hidden aspect-square group">
                     <img
-                      src="/manus-storage/1000042588_a7b83062.jpg"
+                      src="/manus-storage/subscribers-waterfall_2677cfbf.webp"
                       alt="Landon and his sister by the waterfall"
+                      loading="lazy"
+                      decoding="async"
+                      width={300}
+                      height={300}
                       className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
