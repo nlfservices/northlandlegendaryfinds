@@ -88,154 +88,57 @@ export default function SubscriberHub() {
         description="Exclusive subscriber content — early access to repacks, exclusive checklists with estimated values, subscriber-only pricing, and priority drop alerts."
       />
 
-      {/* ===== FAMILY STORY SECTION (PUBLIC) ===== */}
+      {/* ===== FAMILY TEASER SECTION (PUBLIC) ===== */}
       {!isSubscriber && (
-        <section className="relative py-16 sm:py-24 overflow-hidden">
+        <section className="relative py-14 sm:py-20 overflow-hidden">
           {/* Background */}
           <div className="absolute inset-0 bg-gradient-to-b from-[oklch(0.10_0.03_285)] via-background to-background" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_center,oklch(0.20_0.10_145/0.15),transparent_60%)]" />
 
           <div className="container relative z-10">
-            {/* Intro text */}
-            <div className="text-center max-w-3xl mx-auto mb-12">
-              <p className="text-primary text-sm font-bold tracking-wide uppercase mb-4">Who We Are</p>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black mb-6">
-                <span className="text-foreground">Not a Big Company.</span><br />
-                <span className="bg-gradient-to-r from-primary via-[oklch(0.65_0.18_145)] to-[oklch(0.55_0.20_195)] bg-clip-text text-transparent">
-                  Just a Family.
-                </span>
-              </h1>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                A father, his 8-year-old son, and an eye-rolling wife who somehow puts up with boxes of Marvel cards in the living room. We're not backed by investors or running some corporate operation — we're a Minnesota family that loves Marvel, loves collecting, and wanted to build something real.
-              </p>
-            </div>
+            <div className="max-w-4xl mx-auto">
+              {/* Text + Photo side by side */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                {/* Left: Text */}
+                <div>
+                  <p className="text-primary text-sm font-bold tracking-wide uppercase mb-3">Who We Are</p>
+                  <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-4">
+                    <span className="text-foreground">Not a Big Company.</span><br />
+                    <span className="bg-gradient-to-r from-primary via-[oklch(0.65_0.18_145)] to-[oklch(0.55_0.20_195)] bg-clip-text text-transparent">
+                      Just a Family.
+                    </span>
+                  </h1>
+                  <p className="text-muted-foreground leading-relaxed mb-4">
+                    A father, his 8-year-old son, and an eye-rolling wife who somehow puts up with boxes of Marvel cards in the living room. No investors. No corporate playbook. Just a Minnesota family that loves Marvel and wanted to build something real.
+                  </p>
+                  <Link href="/about">
+                    <Button variant="outline" className="border-primary/50 text-primary hover:bg-primary/10">
+                      <ArrowRight className="w-4 h-4 mr-2" />
+                      Meet the Family
+                    </Button>
+                  </Link>
+                </div>
 
-            {/* Photo grid - asymmetric layout */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 max-w-5xl mx-auto mb-12">
-              {/* Large hero photo - family together */}
-              <div className="md:col-span-7 relative rounded-2xl overflow-hidden aspect-[4/3] group">
-                <img
-                  src="https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/3ofUs-StarWarsStarCruiser_8441a617.jpg"
-                  alt="The whole family — Star Wars Star Cruiser adventure"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                <div className="absolute bottom-4 left-4">
-                  <p className="text-white text-sm font-medium bg-black/40 backdrop-blur-sm px-3 py-1 rounded-full">The whole crew</p>
-                </div>
-              </div>
-
-              {/* Right column - stacked */}
-              <div className="md:col-span-5 flex flex-col gap-4 sm:gap-6">
-                {/* Father & son card ripping */}
-                <div className="relative rounded-2xl overflow-hidden aspect-[4/3] group">
-                  <img
-                    src="https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/LandonReadyToRip_398dd41e.png"
-                    alt="Landon ready to rip some packs"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                  <div className="absolute bottom-3 left-3">
-                    <p className="text-white text-xs font-medium bg-black/40 backdrop-blur-sm px-2.5 py-1 rounded-full">Landon ready to rip</p>
+                {/* Right: 2 photos stacked — NOT used on About page */}
+                <div className="flex flex-col gap-4">
+                  {/* Landon with Spider-Man presents — unique to this page */}
+                  <div className="relative rounded-2xl overflow-hidden aspect-[16/10] group">
+                    <img
+                      src="https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/LandonSpiderman-Presents_ae93e17f.jpg"
+                      alt="Landon opening Spider-Man presents"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                  </div>
+                  {/* Avengers cruise dinner — unique to this page */}
+                  <div className="relative rounded-2xl overflow-hidden aspect-[16/10] group">
+                    <img
+                      src="https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/AvengersCruiseDinner_649ef3b3.jpg"
+                      alt="Family at Avengers cruise dinner"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                   </div>
                 </div>
-                {/* Card show / convention */}
-                <div className="relative rounded-2xl overflow-hidden aspect-[4/3] group">
-                  <img
-                    src="https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/MNSportsCardShow_6e7594b5.jpg"
-                    alt="At the Minnesota Sports Card Show"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                  <div className="absolute bottom-3 left-3">
-                    <p className="text-white text-xs font-medium bg-black/40 backdrop-blur-sm px-2.5 py-1 rounded-full">Card show days</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Second row - text + photos */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 max-w-5xl mx-auto mb-12">
-              {/* Left column - more photos */}
-              <div className="md:col-span-5 flex flex-col gap-4 sm:gap-6">
-                <div className="relative rounded-2xl overflow-hidden aspect-[4/3] group">
-                  <img
-                    src="https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/ToySwapFun!_fd3c1d78.jpg"
-                    alt="Toy swap fun at conventions"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                  <div className="absolute bottom-3 left-3">
-                    <p className="text-white text-xs font-medium bg-black/40 backdrop-blur-sm px-2.5 py-1 rounded-full">Toy swap fun</p>
-                  </div>
-                </div>
-                <div className="relative rounded-2xl overflow-hidden aspect-[4/3] group">
-                  <img
-                    src="https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landon&Thor_b859091f.jpg"
-                    alt="Landon meeting Thor"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                  <div className="absolute bottom-3 left-3">
-                    <p className="text-white text-xs font-medium bg-black/40 backdrop-blur-sm px-2.5 py-1 rounded-full">Meeting Thor!</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right column - story text */}
-              <div className="md:col-span-7 flex flex-col justify-center">
-                <div className="bg-[oklch(0.13_0.03_285)] border border-border/50 rounded-2xl p-6 sm:p-8">
-                  <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">
-                    This Started at the Kitchen Table
-                  </h2>
-                  <div className="space-y-4 text-muted-foreground leading-relaxed">
-                    <p>
-                      My son Landon is obsessed with Marvel. Spider-Man, Doctor Doom, the X-Men — he knows every character, every storyline. One night we were ripping packs together and he said, <span className="text-foreground italic">"Dad, we should do this for other people too."</span>
-                    </p>
-                    <p>
-                      That's how Northland Legendary Finds started. Not a business plan. Not a pitch deck. Just a kid who wanted to share the excitement of pulling a sick card with other fans.
-                    </p>
-                    <p>
-                      My wife Kaya? She rolls her eyes every time a new shipment shows up. But she's the one who keeps us organized, keeps us honest, and occasionally reminds us that dinner exists.
-                    </p>
-                    <p className="text-foreground font-medium">
-                      We built this community for collectors like us — people who love the hunt, love the characters, and don't need some corporate middleman telling them what to collect.
-                    </p>
-                  </div>
-                  <div className="mt-6 flex flex-wrap gap-3">
-                    <Link href="/about">
-                      <Button variant="outline" className="border-primary/50 text-primary hover:bg-primary/10">
-                        <ArrowRight className="w-4 h-4 mr-2" />
-                        Read Our Full Story
-                      </Button>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom row - cards showcase */}
-            <div className="grid grid-cols-3 gap-3 sm:gap-4 max-w-3xl mx-auto">
-              <div className="relative rounded-xl overflow-hidden aspect-square group">
-                <img
-                  src="https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/MNSportsstore4_3c2e5a50.webp"
-                  alt="Father and son at the card shop"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-              <div className="relative rounded-xl overflow-hidden aspect-square group">
-                <img
-                  src="https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landon&I-Hayride_a8eeed98.webp"
-                  alt="Landon and Dad on a hayride"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-              <div className="relative rounded-xl overflow-hidden aspect-square group">
-                <img
-                  src="https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landon-Assemble3_5789b932.jpg"
-                  alt="Landon with Avengers Assemble"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
               </div>
             </div>
           </div>
