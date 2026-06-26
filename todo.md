@@ -2803,3 +2803,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] "What's the best way to reach you?" selector (SMS/Email/Both)
 - [x] Integrates with GHL including phone + giveaway-entrant tag
 - [x] Vitest tests for giveaway signup logic
+
+## Subscribers Page Family Story Redesign
+- [x] Add personal family story section above giveaway form on /subscribers page
+- [x] Include family photos (father-son, family hero, card ripping) — 7 photos total
+- [x] Casual tone: "not a big company, just a father, son, and an eye-rolling wife"
+- [x] Link to /about bio page ("Read Our Full Story" button)
+- [x] Show cards/collecting imagery (card show, toy swap, card shop photos)
