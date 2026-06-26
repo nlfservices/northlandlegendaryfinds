@@ -118,25 +118,35 @@ export default function SubscriberHub() {
                   </Link>
                 </div>
 
-                {/* Right: 2 photos stacked — NOT used on About page */}
-                <div className="flex flex-col gap-4">
-                  {/* Kaya & Landon at dinner — unique to this page */}
-                  <div className="relative rounded-2xl overflow-hidden aspect-[16/10] group">
+                {/* Right: 2x2 photo grid — all unique to this page */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="relative rounded-xl overflow-hidden aspect-square group">
                     <img
                       src="/manus-storage/1000042583_b0b2cb78.jpg"
                       alt="Kaya and Landon at dinner"
                       className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                   </div>
-                  {/* Landon playing with Marvel figures — unique to this page */}
-                  <div className="relative rounded-2xl overflow-hidden aspect-[16/10] group">
+                  <div className="relative rounded-xl overflow-hidden aspect-square group">
+                    <img
+                      src="/manus-storage/1000042587_f5a76bda.jpg"
+                      alt="Landon with Marvel figure display case"
+                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                  <div className="relative rounded-xl overflow-hidden aspect-square group">
                     <img
                       src="/manus-storage/1000042585_9277879b.jpg"
                       alt="Landon playing with Marvel action figures"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                  </div>
+                  <div className="relative rounded-xl overflow-hidden aspect-square group">
+                    <img
+                      src="/manus-storage/1000042588_a7b83062.jpg"
+                      alt="Landon and his sister by the waterfall"
+                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                    />
                   </div>
                 </div>
               </div>
@@ -164,11 +174,11 @@ export default function SubscriberHub() {
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black mb-4">
                   <span className="text-foreground">Win </span>
                   <span className="bg-gradient-to-r from-primary via-[oklch(0.65_0.18_145)] to-[oklch(0.55_0.20_195)] bg-clip-text text-transparent">
-                    Graded Slabs
+                    Cool Stuff
                   </span>
                 </h1>
                 <p className="text-lg text-muted-foreground max-w-xl mx-auto">
-                  We're giving away graded cards, sealed packs, and gift cards every month leading up to Avengers: Doomsday. Sign up below to enter.
+                  We're giving away movie tickets, trading cards, toys, and more every month leading up to Avengers: Doomsday. Sign up below to enter.
                 </p>
               </div>
 
