@@ -120,20 +120,20 @@ export default function SubscriberHub() {
 
                 {/* Right: 2 photos stacked — NOT used on About page */}
                 <div className="flex flex-col gap-4">
-                  {/* Landon with Spider-Man presents — unique to this page */}
+                  {/* Kaya & Landon at dinner — unique to this page */}
                   <div className="relative rounded-2xl overflow-hidden aspect-[16/10] group">
                     <img
-                      src="https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/LandonSpiderman-Presents_ae93e17f.jpg"
-                      alt="Landon opening Spider-Man presents"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      src="/manus-storage/1000042583_b0b2cb78.jpg"
+                      alt="Kaya and Landon at dinner"
+                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                   </div>
-                  {/* Avengers cruise dinner — unique to this page */}
+                  {/* Landon playing with Marvel figures — unique to this page */}
                   <div className="relative rounded-2xl overflow-hidden aspect-[16/10] group">
                     <img
-                      src="https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/AvengersCruiseDinner_649ef3b3.jpg"
-                      alt="Family at Avengers cruise dinner"
+                      src="/manus-storage/1000042585_9277879b.jpg"
+                      alt="Landon playing with Marvel action figures"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
