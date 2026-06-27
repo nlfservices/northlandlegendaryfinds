@@ -2822,3 +2822,20 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Include Chrome Variations, Autographs, Cut Signatures, Sketch Cards in odds data
 - [x] Test and verify all tabs/sections display correctly
 - [x] Save checkpoint
+
+## Add Checklist & Odds Tabs to All Set Pages (Matching Marvel Mint)
+- [ ] Extract data from all official PDFs/Excel files provided
+- [ ] Build reusable SetChecklist component (generic version of MarvelMintChecklist)
+- [x] Add Checklist & Odds tab to 2025 Topps Chrome set page
+- [x] Add Checklist & Odds tab to 2025 Topps Marvel Chrome Sapphire set page
+- [x] Add Checklist & Odds tab to 2025 Topps Marvel Studios set page
+- [x] Add Checklist & Odds tab to 2025 Topps Marvel Studios Sapphire set page
+- [x] Add Checklist & Odds tab to 2025 Topps Comic Book Heroes set page
+- [x] Add Checklist & Odds tab to 2025 Topps Marvel Mint set page (DONE - already built)
+- [x] Add Checklist & Odds tab to 2025 Marvel The Collector set page
+- [x] Add Checklist & Odds tab to 2025 Topps Chrome Deadpool set page
+- [x] Add Checklist & Odds tab to 2026 Topps Finest Fantastic Four set page
+- [x] Add Checklist & Odds tab to 2026 Topps Chrome Marvel Comics set page
+- [x] Add Checklist & Odds tab to 2026 Topps Brooklyn Collection Captain America 85th set page
+- [x] Test all set pages display correctly
+- [x] Save checkpoint

@@ -16,6 +16,8 @@ import {
   Star, X, Grid3X3, List, Trophy, Flame, Target
 } from "lucide-react";
 import MarvelMintChecklist from "@/components/MarvelMintChecklist";
+import GenericSetChecklist from "@/components/GenericSetChecklist";
+import { getSetChecklist } from "@/data/setChecklists";
 
 import SEO, { breadcrumbJsonLd, collectionPageJsonLd } from "@/components/SEO";
 
@@ -682,6 +684,8 @@ function SetDetail({ slug }: { slug: string }) {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [pageTab, setPageTab] = useState<"cards" | "checklist-odds">("cards");
   const isMarvelMint = slug === "2025-topps-marvel-mint";
+  const genericChecklistData = !isMarvelMint ? getSetChecklist(slug) : null;
+  const hasChecklist = isMarvelMint || !!genericChecklistData;
 
   // Default to list view for checklist-only sets (no images)
   const defaultedToList = useRef(false);
@@ -818,7 +822,7 @@ function SetDetail({ slug }: { slug: string }) {
           </div>
 
           {/* Marvel Mint Page Tabs */}
-          {isMarvelMint && (
+          {hasChecklist && (
             <div className="flex gap-2 mt-5 border-b border-border pb-0">
               <button
                 onClick={() => setPageTab("cards")}
@@ -899,10 +903,15 @@ function SetDetail({ slug }: { slug: string }) {
         </div>
       </div>
 
-      {/* Checklist & Odds Tab Content (Marvel Mint only) */}
+      {/* Checklist & Odds Tab Content */}
       {isMarvelMint && pageTab === "checklist-odds" && (
         <div className="container pb-16 pt-4">
           <MarvelMintChecklist />
+        </div>
+      )}
+      {!isMarvelMint && genericChecklistData && pageTab === "checklist-odds" && (
+        <div className="container pb-16 pt-4">
+          <GenericSetChecklist data={genericChecklistData} />
         </div>
       )}
 
