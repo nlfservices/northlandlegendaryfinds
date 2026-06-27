@@ -2810,3 +2810,15 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Casual tone: "not a big company, just a father, son, and an eye-rolling wife"
 - [x] Link to /about bio page ("Read Our Full Story" button)
 - [x] Show cards/collecting imagery (card show, toy swap, card shop photos)
+
+## 2025 Topps Marvel Mint Flagship Page Enhancement
+- [x] Add "Checklist & Odds" tab to Marvel Mint set page with full parallel breakdown and pull rates
+- [x] Add "Set Overview" section with description, release info (SDCC 2025), and key highlights
+- [x] Add "Most Hunted" badge/featured designation to Marvel Mint on /cards page
+- [x] Reorder /cards page: Marvel Mint first in 2025 section with special featured treatment
+- [x] Add "2nd Tier" designation for 2025 Topps Marvel Studios on /cards page
+- [x] Add "Sleeper" designation for 2025 Topps Comic Book Heroes on /cards page
+- [x] Include SDCC exclusive Doctor Doom cards in odds breakdown
+- [x] Include Chrome Variations, Autographs, Cut Signatures, Sketch Cards in odds data
+- [x] Test and verify all tabs/sections display correctly
+- [x] Save checkpoint

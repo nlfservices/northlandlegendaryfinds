@@ -10,10 +10,12 @@ import { Link, useRoute } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import {
   Search, ChevronRight, BookOpen, Layers, Hash, ArrowLeft,
-  Star, X, Grid3X3, List
+  Star, X, Grid3X3, List, Trophy, Flame, Target
 } from "lucide-react";
+import MarvelMintChecklist from "@/components/MarvelMintChecklist";
 
 import SEO, { breadcrumbJsonLd, collectionPageJsonLd } from "@/components/SEO";
 
@@ -310,7 +312,21 @@ function SetBrowser() {
     { enabled: searchQuery.length >= 2 }
   );
 
-  // Group sets by year (newest first)
+  // Set tier designations for featured badges
+  const SET_TIERS: Record<string, { label: string; color: string }> = {
+    "2025-topps-marvel-mint": { label: "MOST HUNTED", color: "bg-amber-500/20 text-amber-400 border-amber-500/40" },
+    "2025-topps-marvel-studios": { label: "2ND TIER", color: "bg-blue-500/20 text-blue-400 border-blue-500/40" },
+    "2025-topps-comic-book-heroes": { label: "SLEEPER", color: "bg-emerald-500/20 text-emerald-400 border-emerald-500/40" },
+  };
+
+  // Custom sort priority (lower = first)
+  const SET_SORT_PRIORITY: Record<string, number> = {
+    "2025-topps-marvel-mint": 0,
+    "2025-topps-marvel-studios": 1,
+    "2025-topps-comic-book-heroes": 2,
+  };
+
+  // Group sets by year (newest first), with priority sorting within each year
   const setsByYear = useMemo(() => {
     if (!sets) return [];
     const grouped: Record<number, typeof sets> = {};
@@ -320,7 +336,15 @@ function SetBrowser() {
       grouped[year].push(set);
     });
     return Object.entries(grouped)
-      .map(([year, yearSets]) => ({ year: Number(year), sets: yearSets }))
+      .map(([year, yearSets]) => ({
+        year: Number(year),
+        sets: yearSets.sort((a, b) => {
+          const prioA = SET_SORT_PRIORITY[a.slug] ?? 99;
+          const prioB = SET_SORT_PRIORITY[b.slug] ?? 99;
+          if (prioA !== prioB) return prioA - prioB;
+          return a.name.localeCompare(b.name);
+        })
+      }))
       .sort((a, b) => b.year - a.year);
   }, [sets]);
 
@@ -489,9 +513,16 @@ function SetBrowser() {
 
                                   {/* Set info */}
                                   <div className="flex-1 min-w-0">
-                                    <h3 className={`font-bold text-base leading-tight text-foreground group-hover:${yearTheme.accent} transition-colors`}>
-                                      {set.name}
-                                    </h3>
+                                    <div className="flex items-center gap-2">
+                                      <h3 className={`font-bold text-base leading-tight text-foreground group-hover:${yearTheme.accent} transition-colors`}>
+                                        {set.name}
+                                      </h3>
+                                      {SET_TIERS[set.slug] && (
+                                        <Badge className={`text-[9px] font-bold px-1.5 py-0 shrink-0 ${SET_TIERS[set.slug].color}`}>
+                                          {SET_TIERS[set.slug].label}
+                                        </Badge>
+                                      )}
+                                    </div>
                                     {set.shortName && set.shortName !== set.name && (
                                       <p className={`text-xs font-medium mt-0.5 ${yearTheme.accent} opacity-70`}>{set.shortName}</p>
                                     )}
@@ -649,6 +680,8 @@ function SetDetail({ slug }: { slug: string }) {
   const [filterType, setFilterType] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [pageTab, setPageTab] = useState<"cards" | "checklist-odds">("cards");
+  const isMarvelMint = slug === "2025-topps-marvel-mint";
 
   // Default to list view for checklist-only sets (no images)
   const defaultedToList = useRef(false);
@@ -756,7 +789,12 @@ function SetDetail({ slug }: { slug: string }) {
               </Button>
             </Link>
           </div>
-          <h1 className="text-2xl lg:text-3xl font-bold mb-2">{set.name}</h1>
+          <div className="flex items-center gap-3 mb-2">
+            <h1 className="text-2xl lg:text-3xl font-bold">{set.name}</h1>
+            {isMarvelMint && (
+              <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/40 text-xs font-bold">MOST HUNTED</Badge>
+            )}
+          </div>
           <div className="flex items-center gap-4 text-muted-foreground">
             <span>{set.releaseYear}</span>
             <span>&bull;</span>
@@ -779,7 +817,36 @@ function SetDetail({ slug }: { slug: string }) {
 
           </div>
 
-          {/* Filters */}
+          {/* Marvel Mint Page Tabs */}
+          {isMarvelMint && (
+            <div className="flex gap-2 mt-5 border-b border-border pb-0">
+              <button
+                onClick={() => setPageTab("cards")}
+                className={`px-4 py-2 text-sm font-semibold border-b-2 transition-colors -mb-px ${
+                  pageTab === "cards" 
+                    ? "border-primary text-primary" 
+                    : "border-transparent text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                <Grid3X3 className="w-3.5 h-3.5 inline mr-1.5" />
+                Browse Cards
+              </button>
+              <button
+                onClick={() => setPageTab("checklist-odds")}
+                className={`px-4 py-2 text-sm font-semibold border-b-2 transition-colors -mb-px ${
+                  pageTab === "checklist-odds" 
+                    ? "border-primary text-primary" 
+                    : "border-transparent text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                <Target className="w-3.5 h-3.5 inline mr-1.5" />
+                Checklist & Odds
+              </button>
+            </div>
+          )}
+
+          {/* Filters - only show on cards tab */}
+          {pageTab === "cards" && (
           <div className="flex flex-col sm:flex-row gap-3 mt-6">
             <div className="relative flex-1 max-w-sm">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
@@ -828,8 +895,16 @@ function SetDetail({ slug }: { slug: string }) {
               </div>
             </div>
           </div>
+          )}
         </div>
       </div>
+
+      {/* Checklist & Odds Tab Content (Marvel Mint only) */}
+      {isMarvelMint && pageTab === "checklist-odds" && (
+        <div className="container pb-16 pt-4">
+          <MarvelMintChecklist />
+        </div>
+      )}
 
       {/* Coming Soon state for sets with no cards yet */}
       {cards.length === 0 && (
@@ -871,7 +946,7 @@ function SetDetail({ slug }: { slug: string }) {
       )}
 
       {/* Cards */}
-      {cards.length > 0 && (
+      {cards.length > 0 && pageTab === "cards" && (
       <div className="container pb-16">
         {viewMode === "grid" ? (
           /* Check if current filter is a playing card type for special layout */
