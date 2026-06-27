@@ -132,7 +132,7 @@ export default function SubscriberHub() {
                   </div>
                   <div className="relative rounded-xl overflow-hidden bg-black/20 group aspect-square">
                     <img
-                      src="/manus-storage/subscribers-display-case-full_e4ec1752.webp"
+                      src="/manus-storage/display-case-fixed2_89d45435.webp"
                       alt="Landon with Marvel figure display case"
                       loading="lazy"
                       decoding="async"
