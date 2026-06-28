@@ -276,53 +276,165 @@ export function ClassicTemplate({
 // ============================================================
 // TEMPLATE 2: MAGAZINE — Pull quotes, alternating image/text blocks
 // ============================================================
-export function MagazineTemplate({ content, title, featuredImageUrl, cardMarketImpact }: TemplateProps) {
+export function MagazineTemplate({
+  content,
+  title,
+  featuredImageUrl,
+  excerpt,
+  tags,
+  category,
+  cardMarketImpact,
+}: TemplateProps) {
   const { intro, sections } = useMemo(() => splitBySections(content), [content]);
   const pullQuote = useMemo(() => extractPullQuote(content), [content]);
 
+  const PINK = "#ff5d8f";
+  const GOLD = "#e8b84b";
+  const VIOLET = "#9b6bff";
+  const BORDER = "#2a2733";
+  const ROMAN = ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix", "x", "xi", "xii"];
+
+  const introHalves = useMemo(() => {
+    if (!intro) return null;
+    const paras = intro.split(/\n\n+/).filter(Boolean);
+    if (paras.length < 2) return { a: intro, b: "" };
+    const mid = Math.ceil(paras.length / 2);
+    return { a: paras.slice(0, mid).join("\n\n"), b: paras.slice(mid).join("\n\n") };
+  }, [intro]);
+
+  const collectorAt = Math.max(0, Math.ceil(sections.length * 0.6) - 1);
+
   return (
-    <div className="space-y-0">
-      {/* Magazine-style intro with large drop cap feel */}
-      <div className="relative mb-12">
-        <div className="absolute -left-4 top-0 w-1 h-full bg-gradient-to-b from-primary via-primary/50 to-transparent rounded-full hidden lg:block" />
-        <RichContent className={`${proseClasses} text-base sm:text-xl leading-relaxed [&_div]:mx-auto [&_img]:mx-auto`}>{intro}</RichContent>
+    <div>
+      {/* ① masthead opener */}
+      <div style={{ marginBottom: "1.8rem" }}>
+        <div style={{ fontFamily: "'Archivo',sans-serif", fontWeight: 800, letterSpacing: ".2em", textTransform: "uppercase", fontSize: ".74rem", color: PINK, marginBottom: ".6rem" }}>
+          {category || "The Feature"}
+        </div>
+        {excerpt && (
+          <p style={{ fontFamily: "'Playfair Display',serif", fontStyle: "italic", fontWeight: 600, fontSize: "1.55rem", lineHeight: 1.4, color: "#d6d2dd", margin: 0, maxWidth: "34rem" }}>
+            {excerpt}
+          </p>
+        )}
       </div>
 
-      {/* Pull Quote — Magazine style */}
-      {pullQuote && (
-        <div className="my-12 py-8 px-6 sm:px-10 relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 rounded-2xl" />
-          <div className="absolute left-6 top-4 opacity-20">
-            <Quote className="w-12 h-12 text-primary" />
+      {/* ② asymmetric hero w/ offset tag card */}
+      <div style={{ position: "relative", margin: "0 -1.25rem 0" }}>
+        <div style={{ aspectRatio: "21 / 10", background: "#0a090d", position: "relative", overflow: "hidden" }}>
+          {featuredImageUrl ? (
+            <img src={featuredImageUrl} alt={title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+          ) : (
+            <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: ".4rem", color: "#5a5667", background: "repeating-linear-gradient(135deg,#131119 0 18px,#0e0d13 18px 36px)" }}>
+              <span style={{ fontSize: "2rem" }}>▦</span>
+              <span style={{ fontWeight: 600, letterSpacing: ".1em", textTransform: "uppercase", fontSize: ".74rem" }}>Cover Image</span>
+              <span style={{ fontFamily: "'Archivo',sans-serif", fontSize: ".66rem", opacity: 0.65 }}>1680 × 800 · 21:10</span>
+            </div>
+          )}
+        </div>
+        <div style={{ position: "absolute", bottom: 0, right: "1.25rem", background: PINK, color: "#0d0c10", fontFamily: "'Archivo',sans-serif", fontWeight: 800, textTransform: "uppercase", letterSpacing: ".06em", fontSize: ".7rem", padding: ".5rem .9rem" }}>
+          Cover Story
+        </div>
+      </div>
+
+      {/* ③ two-column intro w/ drop cap */}
+      {introHalves && (
+        <div className="mag-intro" style={{ margin: "2rem 0" }}>
+          <div className="mag-intro-a">
+            <RichContent className={`${proseClasses} mag-dropcap`}>{introHalves.a}</RichContent>
           </div>
-          <blockquote className="relative text-2xl sm:text-3xl font-bold text-foreground leading-snug italic text-center px-8">
-            "{pullQuote}"
-          </blockquote>
-          <div className="h-1 w-20 bg-primary mx-auto mt-6 rounded-full" />
+          {introHalves.b && (
+            <div className="mag-intro-b">
+              <RichContent className={proseClasses}>{introHalves.b}</RichContent>
+            </div>
+          )}
         </div>
       )}
 
-      {/* Sections with alternating layouts */}
-      {sections.map((section, i) => (
-        <div key={i} className={`py-8 ${i % 2 === 0 ? '' : 'bg-card/30 -mx-2 px-2 sm:-mx-8 sm:px-8 rounded-2xl'}`}>
-          {/* Section heading with decorative element */}
-          <div className="flex items-center gap-4 mb-6">
-            <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
-              i % 3 === 0 ? 'bg-primary/20 text-primary' :
-              i % 3 === 1 ? 'bg-yellow-500/20 text-yellow-400' :
-              'bg-purple-500/20 text-purple-400'
-            }`}>
-              {i % 3 === 0 ? <Flame className="w-5 h-5" /> :
-               i % 3 === 1 ? <Star className="w-5 h-5" /> :
-               <Zap className="w-5 h-5" />}
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground">{section.heading}</h2>
+      {/* ④ full-bleed pull-quote band */}
+      {pullQuote && (
+        <div style={{ margin: "2rem -1.25rem", padding: "2.2rem 1.8rem", background: "linear-gradient(135deg,#1c1622,#15131b)", borderTop: `1px solid ${BORDER}`, borderBottom: `1px solid ${BORDER}`, position: "relative" }}>
+          <div style={{ fontFamily: "'Playfair Display',serif", position: "absolute", top: ".2rem", left: "1rem", fontSize: "5rem", color: VIOLET, opacity: 0.25, lineHeight: 1 }}>&ldquo;</div>
+          <blockquote style={{ margin: "0 auto", fontFamily: "'Playfair Display',serif", fontWeight: 700, fontSize: "clamp(1.5rem,3.6vw,2.2rem)", lineHeight: 1.2, color: "#fff", textAlign: "center", maxWidth: "38rem" }}>
+            {pullQuote}
+          </blockquote>
+          <div style={{ textAlign: "center", fontFamily: "'Archivo',sans-serif", fontWeight: 700, letterSpacing: ".16em", textTransform: "uppercase", fontSize: ".66rem", color: GOLD, marginTop: "1rem" }}>
+            — The NLF Collector&apos;s Desk
           </div>
-
-          {/* Content with side accent */}
-          <RichContent className={`${proseClasses} sm:pl-4 sm:border-l-2 border-border/50 [&_div]:mx-auto [&_img]:mx-auto`}>{section.body}</RichContent>
         </div>
-      ))}
+      )}
+
+      {/* ⑤ feature sections — alternating figure/text + collector slot */}
+      {sections.map((section, i) => {
+        const imgRight = i % 2 === 1;
+        const fig = (
+          <figure className="mag-fig" style={{ margin: 0 }}>
+            <div style={{ aspectRatio: "4 / 5", background: "#0a090d", border: `1px solid ${BORDER}`, position: "relative", overflow: "hidden" }}>
+              <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: ".3rem", color: "#5a5667", background: "repeating-linear-gradient(135deg,#131119 0 16px,#0e0d13 16px 32px)" }}>
+                <span style={{ fontWeight: 600, letterSpacing: ".08em", textTransform: "uppercase", fontSize: ".66rem" }}>Figure — Add</span>
+                <span style={{ fontFamily: "'Archivo',sans-serif", fontSize: ".6rem", opacity: 0.65 }}>800 × 1000 · 4:5</span>
+              </div>
+            </div>
+            <figcaption style={{ fontSize: ".74rem", color: "var(--muted-foreground)", marginTop: ".5rem", lineHeight: 1.45, borderLeft: `2px solid ${PINK}`, paddingLeft: ".6rem" }}>
+              {section.heading}
+            </figcaption>
+          </figure>
+        );
+        const txt = (
+          <div>
+            <div style={{ fontFamily: "'Playfair Display',serif", fontStyle: "italic", fontWeight: 600, fontSize: "1.1rem", color: GOLD, marginBottom: ".3rem" }}>
+              {ROMAN[i] || String(i + 1)}.
+            </div>
+            <h2 style={{ fontFamily: "'Playfair Display',serif", fontWeight: 700, fontSize: "1.7rem", lineHeight: 1.15, margin: "0 0 .8rem", color: "#fff" }}>
+              {section.heading}
+            </h2>
+            <div style={{ color: "#c8c5d2", fontSize: "1rem" }}>
+              <RichContent className={proseClasses}>{section.body}</RichContent>
+            </div>
+          </div>
+        );
+
+        return (
+          <div key={i}>
+            <div
+              className="mag-feature grid"
+              style={{ gap: "1.6rem", margin: "2rem 0", alignItems: "start", gridTemplateColumns: imgRight ? "1.15fr 0.85fr" : "0.85fr 1.15fr" }}
+            >
+              {imgRight ? (<>{txt}{fig}</>) : (<>{fig}{txt}</>)}
+            </div>
+
+            {i === collectorAt && (
+              <>
+                <CollectorSpot cardMarketImpact={cardMarketImpact} focusTitle={null} skin="glossy" />
+                <a
+                  href="/mcu-news"
+                  className="grid items-center"
+                  style={{ margin: "1.6rem 0 0", border: `1px solid ${BORDER}`, borderRadius: 10, background: "var(--card)", gridTemplateColumns: "1fr auto", gap: "1rem", padding: "1.1rem 1.4rem", textDecoration: "none" }}
+                >
+                  <span>
+                    <span style={{ fontFamily: "'Archivo',sans-serif", fontWeight: 700, fontSize: ".62rem", letterSpacing: ".2em", textTransform: "uppercase", color: GOLD, display: "block", marginBottom: ".25rem" }}>In This Issue</span>
+                    <span style={{ fontFamily: "'Playfair Display',serif", fontWeight: 700, fontSize: "1.2rem", color: "#fff", lineHeight: 1.25 }}>
+                      {excerpt ? "Continue the feature" : "More from the MCU News desk"}
+                    </span>
+                  </span>
+                  <span style={{ fontSize: "1.4rem", color: PINK }}>&rarr;</span>
+                </a>
+              </>
+            )}
+          </div>
+        );
+      })}
+
+      <style>{`
+        .mag-intro{ column-count:2; column-gap:2rem; font-size:1rem; color:#cfccd8; }
+        .mag-intro .mag-dropcap > p:first-of-type::first-letter{
+          font-family:'Playfair Display',serif; font-weight:800; float:left;
+          font-size:4.2rem; line-height:.72; margin:.4rem .6rem 0 0; color:${PINK};
+        }
+        @media(max-width:640px){
+          .mag-intro{ column-count:1; }
+          .mag-feature{ grid-template-columns:1fr !important; }
+        }
+      `}</style>
     </div>
   );
 }
@@ -413,65 +525,144 @@ export function SpotlightTemplate({ content, title, featuredImageUrl, tags, card
 // ============================================================
 // TEMPLATE 4: TIMELINE — Visual timeline with event markers
 // ============================================================
-export function TimelineTemplate({ content, title, cardMarketImpact }: TemplateProps) {
+export function TimelineTemplate({
+  content,
+  title,
+  excerpt,
+  tags,
+  cardMarketImpact,
+}: TemplateProps) {
   const { intro, sections } = useMemo(() => splitBySections(content), [content]);
+  const pullQuote = useMemo(() => extractPullQuote(content), [content]);
 
-  const timelineColors = [
-    'border-primary bg-primary/20 text-primary',
-    'border-yellow-500 bg-yellow-500/20 text-yellow-400',
-    'border-purple-500 bg-purple-500/20 text-purple-400',
-    'border-cyan-500 bg-cyan-500/20 text-cyan-400',
-    'border-red-500 bg-red-500/20 text-red-400',
-    'border-emerald-500 bg-emerald-500/20 text-emerald-400',
-  ];
+  const TL_CYAN = "#48c9d6";
+  const TL_AMBER = "#ffce4d";
+  const TL_HOT = "#ff6b5c";
+  const TL_STEEL = "#37454f";
+  const TL_BORDER = "#243038";
+
+  // Build a descending countdown of day labels: start 30, end 0.
+  const dayLabels = useMemo(() => {
+    const n = sections.length;
+    if (n <= 1) return ["0"];
+    const start = 30;
+    return sections.map((_, i) => String(Math.round(start - (start * i) / (n - 1))));
+  }, [sections]);
+
+  const collectorAt = Math.max(0, Math.ceil(sections.length * 0.6) - 1);
 
   return (
-    <div className="space-y-8">
-      {/* Intro with large text */}
-      <div className="relative pb-8 border-b border-border/50">
-        <RichContent className={`${proseClasses} text-lg`}>{intro}</RichContent>
-      </div>
-
-      {/* Timeline Layout */}
-      <div className="relative">
-        {/* Vertical timeline line */}
-        <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-primary/50 to-primary/20 hidden sm:block" />
-
-        <div className="space-y-0">
-          {sections.map((section, i) => {
-            const colorClass = timelineColors[i % timelineColors.length];
-            return (
-              <div key={i} className="relative pl-0 sm:pl-16 pb-10">
-                {/* Timeline node */}
-                <div className={`absolute left-3 top-2 w-7 h-7 rounded-full border-2 flex items-center justify-center hidden sm:flex ${colorClass}`}>
-                  <span className="text-[10px] font-bold">{i + 1}</span>
-                </div>
-
-                {/* Mobile indicator */}
-                <div className={`sm:hidden inline-flex items-center gap-2 px-3 py-1 rounded-full border text-xs font-bold mb-3 ${colorClass}`}>
-                  <span>Part {i + 1}</span>
-                </div>
-
-                {/* Content card */}
-                <div className={`bg-card/50 border border-border/50 rounded-xl p-6 sm:p-8 hover:border-border transition-colors ${
-                  i % 2 === 0 ? '' : 'bg-card/30'
-                }`}>
-                  <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4 flex items-center gap-3">
-                    <div className={`w-2 h-2 rounded-full ${colorClass.split(' ')[1]}`} />
-                    {section.heading}
-                  </h2>
-                  <RichContent className={proseClasses}>{section.body}</RichContent>
-                </div>
-
-                {/* Connector line for mobile */}
-                {i < sections.length - 1 && (
-                  <div className="sm:hidden w-0.5 h-6 bg-border/50 ml-6 mt-2" />
-                )}
-              </div>
-            );
-          })}
+    <div>
+      {/* ① mission-clock header */}
+      <div style={{ background: "var(--card)", border: `1px solid ${TL_BORDER}`, borderRadius: 14, padding: "1.4rem 1.5rem", marginBottom: "1.4rem", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", inset: 0, background: "repeating-linear-gradient(90deg,transparent 0 38px,rgba(72,201,214,.04) 38px 40px)", pointerEvents: "none" }} />
+        <div className="inline-flex items-center" style={{ gap: ".5rem", fontFamily: "'JetBrains Mono',monospace", fontSize: ".7rem", letterSpacing: ".16em", textTransform: "uppercase", color: TL_CYAN, marginBottom: ".7rem", position: "relative", zIndex: 1 }}>
+          <span style={{ width: 7, height: 7, borderRadius: "50%", background: TL_CYAN, boxShadow: `0 0 8px ${TL_CYAN}` }} />
+          T-Minus {dayLabels[0]} · Mission Active
+        </div>
+        <div style={{ fontSize: "1.02rem", color: "#c4ccd2", position: "relative", zIndex: 1 }}>
+          {intro ? <RichContent className={proseClasses}>{intro}</RichContent> : excerpt && <div>{excerpt}</div>}
         </div>
       </div>
+
+      {/* ② horizontal node rail */}
+      <div style={{ position: "relative", margin: "0 -1.25rem 1.4rem", padding: "0 1.25rem" }}>
+        <div className="tl-rail" style={{ display: "flex", overflowX: "auto", padding: ".5rem 0 1.2rem" }}>
+          {sections.map((_, i) => (
+            <div key={i} style={{ flex: "0 0 auto", width: 84, textAlign: "center", position: "relative" }}>
+              {i < sections.length - 1 && (
+                <div style={{ position: "absolute", top: 18, left: "50%", width: "100%", height: 2, background: TL_BORDER, zIndex: 0 }} />
+              )}
+              <div
+                style={{
+                  position: "relative", zIndex: 1, width: 38, height: 38, borderRadius: "50%",
+                  margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "center",
+                  fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, fontSize: "1.1rem",
+                  border: `2px solid ${i <= collectorAt ? TL_CYAN : TL_STEEL}`,
+                  background: "var(--card)",
+                  color: i <= collectorAt ? TL_CYAN : "var(--muted-foreground)",
+                  boxShadow: i <= collectorAt ? "0 0 0 4px rgba(72,201,214,.12)" : "none",
+                }}
+              >
+                {dayLabels[i]}
+              </div>
+              <div style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".6rem", letterSpacing: ".08em", color: i <= collectorAt ? "var(--foreground)" : "var(--muted-foreground)", marginTop: ".5rem", lineHeight: 1.3 }}>
+                T-{dayLabels[i]}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ③ phase blocks + collector slot mid-way */}
+      {sections.map((section, i) => {
+        const isLaunch = i === sections.length - 1;
+        return (
+          <div key={i}>
+            <div className="tl-phase grid" style={{ gridTemplateColumns: "130px 1fr", border: `1px solid ${TL_BORDER}`, borderRadius: 14, overflow: "hidden", marginBottom: "1.1rem", background: "var(--card)" }}>
+              <div className="tl-marker" style={{ background: "linear-gradient(160deg,#16202a,#101820)", borderRight: `1px solid ${TL_BORDER}`, padding: "1.3rem 1rem", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center" }}>
+                <div>
+                  <div style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, fontSize: "3rem", lineHeight: 0.85, color: isLaunch ? TL_HOT : TL_CYAN }}>
+                    {dayLabels[i]}
+                  </div>
+                  <div style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".58rem", letterSpacing: ".2em", textTransform: "uppercase", color: "var(--muted-foreground)", marginTop: ".3rem" }}>
+                    {isLaunch ? "Launch" : "Days Out"}
+                  </div>
+                </div>
+              </div>
+              <div style={{ padding: "1.2rem 1.4rem" }}>
+                <div style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".62rem", letterSpacing: ".16em", textTransform: "uppercase", color: isLaunch ? TL_HOT : TL_AMBER, marginBottom: ".4rem" }}>
+                  Phase {i + 1}{tags && tags[i] ? ` · ${tags[i]}` : ""}
+                </div>
+                <h2 style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, fontSize: "1.5rem", lineHeight: 1.1, textTransform: "uppercase", letterSpacing: ".01em", margin: "0 0 .6rem", color: "#fff" }}>
+                  {section.heading}
+                </h2>
+                <div style={{ color: "#c2cad0", fontSize: ".95rem" }}>
+                  <RichContent className={proseClasses}>{section.body}</RichContent>
+                </div>
+              </div>
+            </div>
+
+            {/* telemetry pull quote after first phase */}
+            {i === 0 && pullQuote && (
+              <div style={{ margin: "1.4rem 0", borderLeft: `3px solid ${TL_CYAN}`, background: "linear-gradient(90deg,rgba(72,201,214,.07),transparent)", padding: "1.1rem 1.4rem", borderRadius: "0 8px 8px 0" }}>
+                <blockquote style={{ margin: 0, fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 600, fontSize: "1.5rem", lineHeight: 1.2, color: "#fff", textTransform: "uppercase", letterSpacing: ".01em" }}>
+                  "{pullQuote}"
+                </blockquote>
+              </div>
+            )}
+
+            {/* COLLECTOR SLOT — mission skin, ~60% scroll */}
+            {i === collectorAt && (
+              <>
+                <CollectorSpot cardMarketImpact={cardMarketImpact} focusTitle={null} skin="mission" />
+                <a
+                  href="/mcu-news"
+                  className="grid items-center"
+                  style={{ margin: "1.1rem 0 0", border: `1px solid ${TL_BORDER}`, borderRadius: 14, background: "var(--card)", gridTemplateColumns: "1fr auto", gap: "1rem", padding: "1.1rem 1.4rem", textDecoration: "none" }}
+                >
+                  <span>
+                    <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".62rem", letterSpacing: ".2em", textTransform: "uppercase", color: TL_AMBER, display: "block", marginBottom: ".25rem" }}>Next Mission</span>
+                    <span style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, fontSize: "1.3rem", color: "#fff", lineHeight: 1.1, textTransform: "uppercase" }}>
+                      {excerpt ? "Continue the plan" : "More from the MCU News desk"}
+                    </span>
+                  </span>
+                  <span style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, fontSize: "1.6rem", color: TL_CYAN }}>→</span>
+                </a>
+              </>
+            )}
+          </div>
+        );
+      })}
+
+      <style>{`
+        .tl-rail::-webkit-scrollbar{ height:6px; }
+        .tl-rail::-webkit-scrollbar-thumb{ background:#37454f; border-radius:3px; }
+        @media(max-width:640px){
+          .tl-phase{ grid-template-columns:1fr !important; }
+          .tl-marker{ border-right:none !important; border-bottom:1px solid #243038; flex-direction:row !important; gap:1rem; justify-content:flex-start !important; }
+        }
+      `}</style>
     </div>
   );
 }
@@ -800,7 +991,7 @@ export function PatrioticTemplate({ content, title, featuredImageUrl, excerpt, t
 const NLF_WHATNOT_URL = "https://www.whatnot.com/user/northlandfinds";
 const NLF_SHOP_URL = "https://northlandlegendaryfinds.com/shop";
 
-type CollectorSkin = "cinematic" | "comic" | "editorial" | "intel" | "countdown" | "default";
+type CollectorSkin = "cinematic" | "comic" | "editorial" | "intel" | "countdown" | "mission" | "glossy" | "default";
 
 function CollectorSpot({
   cardMarketImpact,
@@ -1235,6 +1426,61 @@ function CollectorSpot({
           >
             Shop the Repacks
           </a>
+        </div>
+      </div>
+    );
+  }
+
+  if (skin === "mission") {
+    return (
+      <div
+        style={{
+          margin: "1.4rem 0",
+          border: "1px solid #243038",
+          borderRadius: 14,
+          background: "linear-gradient(135deg,#16202a,#101820)",
+          display: "grid",
+          gridTemplateColumns: hasCard ? "auto 1fr auto" : "1fr auto",
+          gap: "1.3rem",
+          padding: "1.3rem 1.5rem",
+          alignItems: "center",
+        }}
+      >
+        {hasCard && (
+          <div style={{ width: 78, height: 106, flexShrink: 0, border: "1px solid #243038", background: "repeating-linear-gradient(135deg,#101820 0 9px,#16202a 9px 18px)", display: "flex", alignItems: "center", justifyContent: "center", color: "#37454f", fontSize: ".52rem", textAlign: "center" }}>CARD IMG</div>
+        )}
+        <div>
+          <div style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".62rem", letterSpacing: ".2em", textTransform: "uppercase", color: "#48c9d6", marginBottom: ".35rem" }}>{kicker}</div>
+          <h4 style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, fontSize: "1.5rem", margin: "0 0 .3rem", color: "#fff", textTransform: "uppercase", letterSpacing: ".01em" }}>{heading}</h4>
+          <p style={{ margin: 0, fontSize: ".88rem", color: "#8a9aaa", maxWidth: "32rem" }}>{body}</p>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: ".5rem" }}>
+          <a href={NLF_WHATNOT_URL} style={{ fontWeight: 700, fontSize: ".84rem", padding: ".55rem 1.15rem", borderRadius: 7, textDecoration: "none", textAlign: "center", whiteSpace: "nowrap", background: "#48c9d6", color: "#0a1820" }}>Watch on Whatnot →</a>
+          <a href={NLF_SHOP_URL} style={{ fontWeight: 600, fontSize: ".84rem", padding: ".55rem 1.15rem", borderRadius: 7, textDecoration: "none", textAlign: "center", whiteSpace: "nowrap", border: "1px solid #243038", color: "#c4ccd2" }}>Shop the Repacks</a>
+        </div>
+      </div>
+    );
+  }
+
+  if (skin === "glossy") {
+    return (
+      <div style={{ margin: "2rem -1.25rem", background: "linear-gradient(135deg,#ff5d8f,#9b6bff)", padding: 2 }}>
+        <div
+          className="grid items-center"
+          style={{ background: "#141019", gridTemplateColumns: hasCard ? "auto 1fr auto" : "1fr auto", gap: "1.4rem", padding: "1.4rem 1.6rem" }}
+        >
+          {hasCard && (
+            <div style={{ width: 84, height: 112, flexShrink: 0, border: "1px solid #3c3848", background: "repeating-linear-gradient(135deg,#1b1622 0 9px,#15111c 9px 18px)", display: "flex", alignItems: "center", justifyContent: "center", color: "#7a7488", fontFamily: "'Archivo',sans-serif", fontSize: ".54rem", textAlign: "center" }}>CARD IMG</div>
+          )}
+          <div>
+            <div style={{ fontFamily: "'Archivo',sans-serif", fontWeight: 800, color: "#ff5d8f", letterSpacing: ".2em", textTransform: "uppercase", fontSize: ".64rem", marginBottom: ".35rem" }}>{kicker}</div>
+            <h4 style={{ fontFamily: "'Playfair Display',serif", fontWeight: 700, fontSize: "1.5rem", margin: "0 0 .3rem", color: "#fff" }}>{heading}</h4>
+            <p style={{ margin: 0, fontSize: ".88rem", color: "#bdb9c8", maxWidth: "32rem" }}>{body}</p>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: ".5rem" }}>
+            <a href={NLF_WHATNOT_URL} style={{ fontWeight: 600, fontSize: ".84rem", padding: ".55rem 1.15rem", borderRadius: 7, textDecoration: "none", textAlign: "center", whiteSpace: "nowrap", background: "var(--primary)", color: "var(--primary-foreground)" }}>Watch on Whatnot →</a>
+            <a href={NLF_SHOP_URL} style={{ fontWeight: 600, fontSize: ".84rem", padding: ".55rem 1.15rem", borderRadius: 7, textDecoration: "none", textAlign: "center", whiteSpace: "nowrap", border: "1px solid #3c3848", color: "#dcd9e4" }}>Shop the Repacks</a>
+          </div>
         </div>
       </div>
     );

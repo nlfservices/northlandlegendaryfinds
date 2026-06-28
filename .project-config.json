@@ -13,10 +13,10 @@
   "experiments": null,
   "git_remote": {
     "repo_url": "s3://vida-prod-gitrepo/webdev-git/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi",
-    "access_key_id": "ASIAZV3A2ECZGK5L4AJ2",
-    "secret_access_key": "VCwZ/AbMzaJ+mT8HGP/nUALwiwmtGj1dFIAvx0TL",
-    "session_token": "IQoJb3JpZ2luX2VjEKz//////////wEaCXVzLWVhc3QtMSJIMEYCIQCoFdZnQT+ySPEIeyCf5sx+I2G/Dcr8OJ7GQnGL+9iaXgIhAIlsG6mVwqJDJ0BehZSbBM1A+SnidffhvtKkVYhNKd3IKvYDCHUQBBoMNjY1Mzg2MDk4ODY2Igw6a0G/5iGrqQcQoVgq0wOLV3uXS8+Ms9esVwhv3SwMXyZws1rZ6V8QDo6iLKc0ecnqu3ip7gCv8N6s+FnQsKgnI3imLi3W6tNpDqUlKqjNU83nAUflw49MaASvn/8mHhXNbP3FQR3IoS7+PNCx1/mEMvx5/f0YQ0d8aZazAA3CsufkSRqr/HdCLbKZSsvBpRiSTyKcczfr01fdoIcGDeVZAHP4aiDS867FaiyO7k8ZLZTkwVxDQqFnA2606tEuyA0ibPIt8qSH3XOhEyTd4BO/6WZtByEaaeR9Il1/eNs/Te1VFsG13G6Ju+H0nr+WS3+srp0fbNeSarBd9w+ALodxJBgDDRacLFSBFaNaAiWHlm4+FyxY0XKDyokkVw0msqsi9ufg9wkmt2cUhLLYavhXQ5kaj8WEbjDAd+9fLwMdu04I0h9P3hAvjKee4QKnVcl4s4dx1eDJ1AiwHzUakRDCPKWRprwLjzZnx5fxDYe+kSjJrP51teZ9vKiEvVSNUVI/qQNyBA/CWl9y6M+EJctX6JnKUzudyCKwj1KKBIAlARwWdzAzDorAz4J5O6om7Wfh8msh68eX4LuR+Zlt+NV0oDQiaQAM6/CMjGoH4c6o9RCqND/3XTnWoTPISTDiv3npqzDblP3RBjqcAS9HZwngW6OdbA/CzeSiIDIfEGK34OHSooH1H+4mN++yOGxae1miKvahUd52eMAJSnFwMg1apsRGZ82yTGyAi3DlKqfMCybMwxQ8dwYwk9j1qmn1xqsYCHZIUnnuj1eCgO+jeqWPBMcaZ+nDAPeLiRnUN451eNrFmxLfRPOpWaIcY+w9UHjc+neacEAWSoy1GBvSC9Vc3GBn9W7psA==",
-    "expiration": "2026-06-27T15:58:19.000Z",
+    "access_key_id": "ASIAZV3A2ECZFFZMUQ52",
+    "secret_access_key": "yRzzZ5E73ByO8UPO1QFXyDxaDfOMe+wMmm8gw9Ky",
+    "session_token": "IQoJb3JpZ2luX2VjENj//////////wEaCXVzLWVhc3QtMSJIMEYCIQCvpkj/m2uI/ob9E0C/vHRYlxmKWSixBfcGeQv2hthnowIhAKlytrdwYdJuWNQL7qSgjm3SgfYbKHmzc0EpcciZc/FnKv8DCKD//////////wEQBBoMNjY1Mzg2MDk4ODY2IgySoZ3g26KcVKZ2Rooq0wMcd0nLgeq1d9b/x/rfhiasu7SLti4aoMNn6fvMnvFfQdYmfbQJyWYcfOIjHd29neOTV5Y0UW9KavLZlsm2lMozid3lSedQuJTF9m/Gvh/Zov1rVDgKfDZiz0oAbOZONeEhUkDG2O1yYCVCk6NiFiwe8tMtITn1rFsUMjCKFE5Q4pRpupB3SIrxi3B+/9ILhRZMvLKU+KjEMpi2M5y0yFWYAtB3oekvV8pWswmw+bxzxgXm9CBR209+nPkvpOkWhR4GgLutCaOiROPplp6G/6eN5VHr5tCfMSLtBDfuMqF1uRvmESFmylp90dHxdYWDxn1MmT6zSHFV6KxXYChE56WVbzmaChmuQopzjdTjtcMLwj7Z4cTOktL67LnkrqKfuqB6KTdXNoxAf8nQk1XkewDBU4Aqk2lDEnjNk0dI+z8yoheoUWfgAA5x+viESFoN/9rfr14psUwnYSzPEvjcrpEgK9VGYfjlPYuCrBKG0/LQy7MgXISTSOtuT4eF2omrvfnkvbS2WplvurEvvGVMF3aFxkKQ4bM+l8hOC/B7dqbvjuC26LCY0a525il/KD3xIjvwlSJX8n5rp/5NalpIMsc9zRIn5Wv+XvE4BVs7NVLKruMMnzDT1IbSBjqcAcT85+na74+82qlirQSpnD11tL81DnqsoNy6lrbdqI9CMWgn9Ru5SNY2Gj5653F01mp2zEfi/ymPjmtSGOYGgHbONPt73Bh1l2E5j5Lryr7OaMm2N472pm2lgTYnGIZrS72xeUjEmVmXOz67D1vwWKBIFumYMpK0T1+6uNOYPPmva9/l4pHDKi3Ahe5qAk+oIRVvYLNmv9hEfaLuGQ==",
+    "expiration": "2026-06-29T11:12:19.000Z",
     "backend": "GIT_BACKEND_S3"
   },
   "name": "northland-legendary-finds",
