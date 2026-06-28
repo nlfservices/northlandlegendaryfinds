@@ -440,84 +440,151 @@ export function MagazineTemplate({
 }
 
 // ============================================================
-// TEMPLATE 3: SPOTLIGHT — Character/topic focus with stats sidebar
+// TEMPLATE 3: SPOTLIGHT EXPLAINER — TOC rail, numbered sections, key-facts chips
 // ============================================================
-export function SpotlightTemplate({ content, title, featuredImageUrl, tags, cardMarketImpact }: TemplateProps) {
-  const { intro, sections } = useMemo(() => splitBySections(content), [content]);
+function slugify(s: string) {
+  return s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "").slice(0, 60);
+}
 
-  // Extract character names from tags for the spotlight sidebar
-  const characters = tags?.slice(0, 6) || [];
+export function SpotlightTemplate({
+  content,
+  title,
+  featuredImageUrl,
+  excerpt,
+  tags,
+  category,
+  cardMarketImpact,
+}: TemplateProps) {
+  const { intro, sections } = useMemo(() => splitBySections(content), [content]);
+  const collectorAt = Math.max(0, Math.ceil(sections.length * 0.6) - 1);
+  const ACCENT = "#5b8cff";
+  const ACCENT2 = "#8b6bff";
+  const AMBER = "#ffce4d";
+  const BORDER = "#232838";
+
+  const facts = useMemo(() => {
+    const out: { k: string; v: string }[] = [];
+    if (category) out.push({ k: "Category", v: category });
+    if (tags) tags.slice(0, 3).forEach((t, i) => out.push({ k: `Tag ${i + 1}`, v: t }));
+    return out.slice(0, 4);
+  }, [category, tags]);
+
+  const anchors = sections.map((s) => slugify(s.heading));
 
   return (
-    <div className="space-y-8">
-      {/* Spotlight Hero — Full-width image */}
-      {featuredImageUrl && (
-        <div className="relative -mx-4 sm:-mx-8 rounded-2xl overflow-hidden mb-10">
-          <img src={featuredImageUrl} alt={title} className="w-full h-64 sm:h-80 object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+    <div>
+      {/* ① hero band */}
+      <div style={{ position: "relative", margin: "0 -1.25rem 0" }}>
+        <div style={{ aspectRatio: "16 / 7", background: "#0a0b10", position: "relative", overflow: "hidden" }}>
+          {featuredImageUrl ? (
+            <img src={featuredImageUrl} alt={title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+          ) : (
+            <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: ".4rem", color: "#565d72", background: "repeating-linear-gradient(135deg,#101420 0 18px,#0b0e16 18px 36px)" }}>
+              <span style={{ fontSize: "2rem" }}>▤</span>
+              <span style={{ fontWeight: 600, letterSpacing: ".1em", textTransform: "uppercase", fontSize: ".74rem" }}>Hero Image — Add</span>
+              <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".66rem", opacity: 0.65 }}>1200 × 525 · 16:7</span>
+            </div>
+          )}
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top,rgba(10,12,17,.95),transparent 60%)" }} />
+          <div style={{ position: "absolute", left: "1.5rem", bottom: "1.1rem", right: "1.5rem", zIndex: 2 }}>
+            <div style={{ fontFamily: "'JetBrains Mono',monospace", color: ACCENT, letterSpacing: ".2em", textTransform: "uppercase", fontSize: ".68rem", marginBottom: ".4rem" }}>
+              {category || "The Explainer"}
+            </div>
+            <h2 style={{ fontFamily: "'Sora',sans-serif", fontWeight: 800, fontSize: "clamp(1.4rem,4vw,2rem)", lineHeight: 1.1, margin: 0, color: "#fff", maxWidth: "80%" }}>
+              {title}
+            </h2>
+          </div>
+        </div>
+      </div>
+
+      {/* ② key-facts chips */}
+      {facts.length > 0 && (
+        <div className="flex" style={{ flexWrap: "wrap", gap: ".6rem", margin: "1.2rem 0 1.6rem" }}>
+          {facts.map((f, i) => (
+            <div key={i} style={{ background: "var(--card)", border: `1px solid ${BORDER}`, borderRadius: 10, padding: ".5rem .8rem", display: "flex", flexDirection: "column", minWidth: 120 }}>
+              <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".56rem", letterSpacing: ".12em", textTransform: "uppercase", color: "var(--muted-foreground)" }}>{f.k}</span>
+              <span style={{ fontFamily: "'Sora',sans-serif", fontWeight: 700, fontSize: "1rem", color: "#fff", marginTop: ".15rem" }}>{f.v}</span>
+            </div>
+          ))}
         </div>
       )}
 
-      {/* Two-column layout: Main content + Sidebar */}
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-8">
-        {/* Main content column */}
-        <div className="space-y-10">
+      {/* ③ two-column: content + sticky rail */}
+      <div className="sp-grid" style={{ display: "grid", gridTemplateColumns: "1fr 230px", gap: "2rem", alignItems: "start" }}>
+        <div>
           {intro && (
-            <RichContent className={`${proseClasses} text-lg`}>{intro}</RichContent>
+            <div style={{ fontSize: "1.08rem", color: "#cfd3de", marginBottom: "1.8rem", paddingBottom: "1.6rem", borderBottom: `1px solid ${BORDER}` }}>
+              <RichContent className={proseClasses}>{intro}</RichContent>
+            </div>
           )}
 
           {sections.map((section, i) => (
-            <div key={i} className="relative">
-              {/* Numbered section marker */}
-              <div className="flex items-start gap-4 mb-4">
-                <div className="w-8 h-8 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center flex-shrink-0 mt-1">
-                  <span className="text-xs font-bold text-primary">{i + 1}</span>
+            <div key={i}>
+              <div id={anchors[i]} style={{ marginBottom: "2rem", scrollMarginTop: "2rem" }}>
+                <div className="flex items-center" style={{ gap: ".8rem", marginBottom: ".8rem" }}>
+                  <span style={{ fontFamily: "'Sora',sans-serif", fontWeight: 800, fontSize: ".95rem", color: ACCENT, background: "rgba(91,140,255,.12)", border: "1px solid rgba(91,140,255,.3)", width: 30, height: 30, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    {i + 1}
+                  </span>
+                  <h3 style={{ fontFamily: "'Sora',sans-serif", fontWeight: 700, fontSize: "1.35rem", lineHeight: 1.2, margin: 0, color: "#fff" }}>
+                    {section.heading}
+                  </h3>
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">{section.heading}</h2>
+                <div style={{ color: "#c4c9d6", fontSize: "1rem" }}>
+                  <RichContent className={proseClasses}>{section.body}</RichContent>
+                </div>
               </div>
-              <RichContent className={`${proseClasses} ml-12`}>{section.body}</RichContent>
+
+              {i === collectorAt && (
+                <>
+                  <CollectorSpot cardMarketImpact={cardMarketImpact} focusTitle={null} skin="explainer" />
+                  <a href="/mcu-news" className="grid items-center" style={{ margin: "1.4rem 0 2rem", border: `1px solid ${BORDER}`, borderRadius: 14, background: "var(--card)", gridTemplateColumns: "1fr auto", gap: "1rem", padding: "1.1rem 1.4rem", textDecoration: "none" }}>
+                    <span>
+                      <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".62rem", letterSpacing: ".2em", textTransform: "uppercase", color: AMBER, display: "block", marginBottom: ".25rem" }}>Go Deeper</span>
+                      <span style={{ fontFamily: "'Sora',sans-serif", fontWeight: 700, fontSize: "1.15rem", color: "#fff", lineHeight: 1.25 }}>More from the MCU News desk</span>
+                    </span>
+                    <span style={{ fontSize: "1.3rem", color: ACCENT }}>→</span>
+                  </a>
+                </>
+              )}
             </div>
           ))}
         </div>
 
-        {/* Sticky Sidebar */}
-        <aside className="hidden lg:block">
-          <div className="sticky top-24 space-y-6">
-            {/* Character/Topic Quick Stats */}
-            <div className="bg-card border border-border rounded-xl p-5">
-              <h3 className="font-bold text-sm uppercase tracking-wider text-primary mb-4 flex items-center gap-2">
-                <Target className="w-4 h-4" />
-                Key Characters
-              </h3>
-              <div className="space-y-2">
-                {characters.map((char, i) => (
-                  <div key={i} className="flex items-center gap-3 py-2 border-b border-border/50 last:border-0">
-                    <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
-                      <span className="text-xs font-bold">{char.charAt(0)}</span>
-                    </div>
-                    <span className="text-sm font-medium">{char}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Quick Navigation */}
-            <div className="bg-card border border-border rounded-xl p-5">
-              <h3 className="font-bold text-sm uppercase tracking-wider text-muted-foreground mb-3 flex items-center gap-2">
-                <BookOpen className="w-4 h-4" />
-                In This Article
-              </h3>
-              <nav className="space-y-1">
-                {sections.slice(0, 8).map((section, i) => (
-                  <div key={i} className="text-xs text-muted-foreground py-1.5 border-b border-border/30 last:border-0 truncate">
-                    {section.heading}
-                  </div>
-                ))}
-              </nav>
+        {/* sticky nav rail */}
+        <aside className="sp-rail" style={{ position: "sticky", top: "1.5rem" }}>
+          <div style={{ height: 5, background: "#1a1f2e", borderRadius: 3, overflow: "hidden", marginBottom: "1rem" }}>
+            <i style={{ display: "block", height: "100%", width: "42%", background: `linear-gradient(90deg,${ACCENT},${ACCENT2})` }} />
+          </div>
+          <div style={{ background: "var(--card)", border: `1px solid ${BORDER}`, borderRadius: 12, padding: "1.1rem", marginBottom: "1rem" }}>
+            <h4 style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".64rem", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--muted-foreground)", margin: "0 0 .8rem" }}>In This Explainer</h4>
+            <nav>
+              {sections.map((s, i) => (
+                <a key={i} href={`#${anchors[i]}`} className="flex items-center" style={{ gap: ".6rem", color: i === 0 ? "#fff" : "#b4bacb", textDecoration: "none", fontSize: ".84rem", padding: ".35rem 0 .35rem .7rem", lineHeight: 1.3, borderLeft: `2px solid ${i === 0 ? ACCENT : "transparent"}`, marginLeft: "-.7rem" }}>
+                  <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".66rem", color: ACCENT }}>{String(i + 1).padStart(2, "0")}</span>
+                  {s.heading}
+                </a>
+              ))}
+            </nav>
+          </div>
+          <div style={{ background: "var(--card)", border: `1px solid ${BORDER}`, borderRadius: 12, padding: "1.1rem" }}>
+            <h4 style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".64rem", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--muted-foreground)", margin: "0 0 .8rem" }}>Gallery</h4>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: ".5rem" }}>
+              {[0, 1, 2, 3].map((n) => (
+                <div key={n} style={{ aspectRatio: "1", border: `1px solid ${BORDER}`, borderRadius: 7, background: "#0c0e15", position: "relative", overflow: "hidden" }}>
+                  <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", color: "#4a5068", fontSize: "1rem", background: "repeating-linear-gradient(135deg,#0f121b 0 10px,#0b0d14 10px 20px)" }}>▤</div>
+                </div>
+              ))}
             </div>
           </div>
         </aside>
       </div>
+
+      <style>{`
+        @media(max-width:780px){
+          .sp-grid{ grid-template-columns:1fr !important; }
+          .sp-rail{ display:none; }
+        }
+      `}</style>
     </div>
   );
 }
@@ -991,7 +1058,7 @@ export function PatrioticTemplate({ content, title, featuredImageUrl, excerpt, t
 const NLF_WHATNOT_URL = "https://www.whatnot.com/user/northlandfinds";
 const NLF_SHOP_URL = "https://northlandlegendaryfinds.com/shop";
 
-type CollectorSkin = "cinematic" | "comic" | "editorial" | "intel" | "countdown" | "mission" | "glossy" | "default";
+type CollectorSkin = "cinematic" | "comic" | "editorial" | "intel" | "countdown" | "mission" | "glossy" | "explainer" | "parkpass" | "default";
 
 function CollectorSpot({
   cardMarketImpact,
@@ -1480,6 +1547,46 @@ function CollectorSpot({
           <div style={{ display: "flex", flexDirection: "column", gap: ".5rem" }}>
             <a href={NLF_WHATNOT_URL} style={{ fontWeight: 600, fontSize: ".84rem", padding: ".55rem 1.15rem", borderRadius: 7, textDecoration: "none", textAlign: "center", whiteSpace: "nowrap", background: "var(--primary)", color: "var(--primary-foreground)" }}>Watch on Whatnot →</a>
             <a href={NLF_SHOP_URL} style={{ fontWeight: 600, fontSize: ".84rem", padding: ".55rem 1.15rem", borderRadius: 7, textDecoration: "none", textAlign: "center", whiteSpace: "nowrap", border: "1px solid #3c3848", color: "#dcd9e4" }}>Shop the Repacks</a>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (skin === "explainer") {
+    return (
+      <div className="grid items-center" style={{ margin:"1.6rem 0", border:"1px solid rgba(91,140,255,.4)", borderRadius:14, background:"linear-gradient(135deg,rgba(91,140,255,.1),rgba(139,107,255,.04))", gridTemplateColumns: hasCard ? "auto 1fr auto" : "1fr auto", gap:"1.3rem", padding:"1.3rem 1.5rem" }}>
+        {hasCard && (
+          <div style={{ width:76, height:104, flexShrink:0, borderRadius:8, border:"1px solid #353c52", background:"repeating-linear-gradient(135deg,#161b28 0 9px,#11151f 9px 18px)", display:"flex", alignItems:"center", justifyContent:"center", color:"#6a7286", fontFamily:"'JetBrains Mono',monospace", fontSize:".54rem", textAlign:"center" }}>CARD IMG</div>
+        )}
+        <div>
+          <div style={{ fontFamily:"'JetBrains Mono',monospace", color:"#5b8cff", letterSpacing:".2em", textTransform:"uppercase", fontSize:".64rem", marginBottom:".35rem" }}>{kicker}</div>
+          <h4 style={{ fontFamily:"'Sora',sans-serif", fontWeight:700, fontSize:"1.3rem", margin:"0 0 .3rem", color:"#fff" }}>{heading}</h4>
+          <p style={{ margin:0, fontSize:".88rem", color:"#aeb4c4", maxWidth:"32rem" }}>{body}</p>
+        </div>
+        <div style={{ display:"flex", flexDirection:"column", gap:".5rem" }}>
+          <a href={NLF_WHATNOT_URL} style={{ fontWeight:600, fontSize:".84rem", padding:".55rem 1.15rem", borderRadius:7, textDecoration:"none", textAlign:"center", whiteSpace:"nowrap", background:"var(--primary)", color:"var(--primary-foreground)" }}>Watch on Whatnot →</a>
+          <a href={NLF_SHOP_URL} style={{ fontWeight:600, fontSize:".84rem", padding:".55rem 1.15rem", borderRadius:7, textDecoration:"none", textAlign:"center", whiteSpace:"nowrap", border:"1px solid #353c52", color:"#d4d8e2" }}>Shop the Repacks</a>
+        </div>
+      </div>
+    );
+  }
+
+  if (skin === "parkpass") {
+    return (
+      <div style={{ margin:"1.5rem 0", borderRadius:16, overflow:"hidden", background:"linear-gradient(135deg,#3aa0ff,#a86bff,#ff6fb5)", padding:2 }}>
+        <div className="grid items-center" style={{ background:"#10172a", borderRadius:14, gridTemplateColumns: hasCard ? "auto 1fr auto" : "1fr auto", gap:"1.3rem", padding:"1.3rem 1.5rem" }}>
+          {hasCard && (
+            <div style={{ width:80, height:108, flexShrink:0, borderRadius:10, border:"1px solid #384465", background:"repeating-linear-gradient(135deg,#18203a 0 9px,#121829 9px 18px)", display:"flex", alignItems:"center", justifyContent:"center", color:"#7a85a8", fontFamily:"'Baloo 2',sans-serif", fontSize:".56rem", textAlign:"center" }}>CARD IMG</div>
+          )}
+          <div>
+            <div style={{ fontFamily:"'Baloo 2',sans-serif", fontWeight:700, color:"#ffcf5c", letterSpacing:".14em", textTransform:"uppercase", fontSize:".66rem", marginBottom:".35rem" }}>{kicker}</div>
+            <h4 style={{ fontFamily:"'Baloo 2',sans-serif", fontWeight:800, fontSize:"1.45rem", margin:"0 0 .3rem", color:"#fff" }}>{heading}</h4>
+            <p style={{ margin:0, fontSize:".88rem", color:"#b4bcd4", maxWidth:"32rem" }}>{body}</p>
+          </div>
+          <div style={{ display:"flex", flexDirection:"column", gap:".5rem" }}>
+            <a href={NLF_WHATNOT_URL} style={{ fontFamily:"'Baloo 2',sans-serif", fontWeight:700, fontSize:".84rem", padding:".55rem 1.15rem", borderRadius:999, textDecoration:"none", textAlign:"center", whiteSpace:"nowrap", background:"var(--primary)", color:"var(--primary-foreground)" }}>Watch on Whatnot →</a>
+            <a href={NLF_SHOP_URL} style={{ fontFamily:"'Baloo 2',sans-serif", fontWeight:700, fontSize:".84rem", padding:".55rem 1.15rem", borderRadius:999, textDecoration:"none", textAlign:"center", whiteSpace:"nowrap", border:"1.5px solid #384465", color:"#d6dcec" }}>Shop the Repacks</a>
           </div>
         </div>
       </div>
@@ -2068,74 +2175,132 @@ export function CharacterProfileTemplate({ content, title, featuredImageUrl, tag
 }
 
 // ============================================================
-// TEMPLATE 10: DISNEY EXPERIENCE — Parks + Disney+ explorer, vibrant adventure
+// TEMPLATE 10: DISNEY EXPERIENCE — Park-brochure layout, festive gradient hero
 // ============================================================
-export function DisneyExperienceTemplate({ content, title, featuredImageUrl, tags, excerpt, category }: TemplateProps) {
+const DX_CARD_COLORS = [
+  { accent: "linear-gradient(90deg,#3aa0ff,#46d4c8)", tier: "#3aa0ff" },
+  { accent: "linear-gradient(90deg,#a86bff,#ff6fb5)", tier: "#a86bff" },
+  { accent: "linear-gradient(90deg,#ff6fb5,#ffcf5c)", tier: "#ff6fb5" },
+  { accent: "linear-gradient(90deg,#ffcf5c,#46d4c8)", tier: "#ffcf5c" },
+];
+
+export function DisneyExperienceTemplate({
+  content,
+  title,
+  featuredImageUrl,
+  excerpt,
+  tags,
+  category,
+  cardMarketImpact,
+}: TemplateProps) {
   const { intro, sections } = useMemo(() => splitBySections(content), [content]);
-  const sectionColors = [
-    { bg: 'from-blue-500/10 to-transparent', border: 'border-blue-500/30', num: 'bg-blue-500/20 text-blue-300' },
-    { bg: 'from-purple-500/10 to-transparent', border: 'border-purple-500/30', num: 'bg-purple-500/20 text-purple-300' },
-    { bg: 'from-pink-500/10 to-transparent', border: 'border-pink-500/30', num: 'bg-pink-500/20 text-pink-300' },
-    { bg: 'from-green-500/10 to-transparent', border: 'border-green-500/30', num: 'bg-green-500/20 text-green-300' },
-    { bg: 'from-yellow-500/10 to-transparent', border: 'border-yellow-500/30', num: 'bg-yellow-500/20 text-yellow-300' },
+  const pullQuote = useMemo(() => extractPullQuote(content), [content]);
+  const collectorAt = Math.max(0, Math.ceil(sections.length * 0.6) - 1);
+  const GOLD = "#ffcf5c";
+  const pills = (tags && tags.length ? tags : ["Disney Parks", "Disney+", "Marvel Experience"]).slice(0, 3);
+  const pillStyles = [
+    { color: "#3aa0ff", border: "rgba(58,160,255,.45)", bg: "rgba(58,160,255,.1)" },
+    { color: "#a86bff", border: "rgba(168,107,255,.45)", bg: "rgba(168,107,255,.1)" },
+    { color: "#ff6fb5", border: "rgba(255,111,181,.45)", bg: "rgba(255,111,181,.1)" },
   ];
+
   return (
-    <div className="space-y-6">
-      {/* Vibrant header */}
-      <div className="relative overflow-hidden rounded-2xl">
-        {featuredImageUrl ? (
-          <img src={featuredImageUrl} alt={title} className="w-full h-64 sm:h-80 object-cover" />
-        ) : (
-          <div className="w-full h-40 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-500" />
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 p-6">
-          <div className="flex flex-wrap gap-2 mb-3">
-            {category.includes('disney_parks') && (
-              <span className="inline-flex items-center gap-1 px-3 py-1 bg-blue-500/30 border border-blue-400/50 rounded-full text-blue-300 text-xs font-bold">
-                <Ticket className="w-3 h-3" /> Disney Parks
-              </span>
-            )}
-            {category.includes('disney_plus') && (
-              <span className="inline-flex items-center gap-1 px-3 py-1 bg-purple-500/30 border border-purple-400/50 rounded-full text-purple-300 text-xs font-bold">
-                <Tv className="w-3 h-3" /> Disney+
-              </span>
-            )}
-            {!category.includes('disney_parks') && !category.includes('disney_plus') && (
-              <span className="inline-flex items-center gap-1 px-3 py-1 bg-pink-500/30 border border-pink-400/50 rounded-full text-pink-300 text-xs font-bold">
-                <Sparkles className="w-3 h-3" /> Marvel Experience
-              </span>
-            )}
+    <div>
+      {/* ① festive hero */}
+      <div style={{ position: "relative", margin: "0 -1.25rem 1.5rem", overflow: "hidden" }}>
+        <div style={{ aspectRatio: "16 / 8", position: "relative", overflow: "hidden", background: "linear-gradient(135deg,rgba(58,160,255,.25),rgba(168,107,255,.18),rgba(255,111,181,.22))" }}>
+          {featuredImageUrl ? (
+            <img src={featuredImageUrl} alt={title} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+          ) : (
+            <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: ".4rem", color: "#aab4d0", background: "repeating-linear-gradient(135deg,rgba(255,255,255,.03) 0 18px,transparent 18px 36px)" }}>
+              <span style={{ fontSize: "2.2rem" }}>✦</span>
+              <span style={{ fontFamily: "'Baloo 2',sans-serif", fontWeight: 700, letterSpacing: ".06em", textTransform: "uppercase", fontSize: ".8rem" }}>Hero Image — Add</span>
+              <span style={{ fontSize: ".66rem", opacity: 0.7 }}>1200 × 600 · 16:8</span>
+            </div>
+          )}
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top,rgba(11,15,26,.92),transparent 55%)" }} />
+          <div style={{ position: "absolute", left: "1.5rem", bottom: "1.2rem", right: "1.5rem", zIndex: 2 }}>
+            <span style={{ display: "inline-block", background: "#ff6fb5", color: "#fff", fontFamily: "'Baloo 2',sans-serif", fontWeight: 700, fontSize: ".72rem", letterSpacing: ".04em", padding: ".35rem .9rem", borderRadius: 999, marginBottom: ".7rem" }}>
+              ★ {category || "Now at the Parks"}
+            </span>
+            <h2 style={{ fontFamily: "'Pacifico',cursive", fontWeight: 400, fontSize: "clamp(1.8rem,5vw,2.8rem)", lineHeight: 1.05, margin: 0, color: "#fff", textShadow: "0 2px 12px rgba(0,0,0,.4)" }}>
+              {title}
+            </h2>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-white leading-tight">{title}</h1>
         </div>
       </div>
+
+      {/* ② category pills */}
+      <div className="flex" style={{ flexWrap: "wrap", gap: ".5rem", marginBottom: "1.6rem" }}>
+        {pills.map((p, i) => {
+          const m = pillStyles[i % pillStyles.length];
+          return (
+            <span key={i} style={{ fontFamily: "'Baloo 2',sans-serif", fontWeight: 600, fontSize: ".78rem", padding: ".4rem .9rem", borderRadius: 999, border: `1.5px solid ${m.border}`, color: m.color, background: m.bg }}>{p}</span>
+          );
+        })}
+      </div>
+
+      {/* ③ intro card */}
       {intro && (
-        <div className="border-l-4 border-blue-500 pl-6 py-2">
+        <div style={{ background: "var(--card)", border: "1px solid var(--border)", borderLeft: "4px solid #3aa0ff", borderRadius: 14, padding: "1.3rem 1.5rem", marginBottom: "1.8rem", fontSize: "1.05rem", color: "#cdd4e6" }}>
           <RichContent className={proseClasses}>{intro}</RichContent>
         </div>
       )}
-      {sections.map((section, i) => {
-        const c = sectionColors[i % sectionColors.length];
-        return (
-          <div key={i} className={`bg-gradient-to-br ${c.bg} border ${c.border} rounded-2xl p-6`}>
-            <div className="flex items-center gap-3 mb-4">
-              <div className={`w-8 h-8 rounded-full ${c.num} flex items-center justify-center flex-shrink-0`}>
-                <span className="text-sm font-black">{i + 1}</span>
+
+      {/* ④ postcard mosaic */}
+      <div className="dx-mosaic" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "1.5rem" }}>
+        {sections.map((section, i) => {
+          const c = DX_CARD_COLORS[i % DX_CARD_COLORS.length];
+          const wide = i === 0;
+          return (
+            <div key={i} className="dx-card" style={{ borderRadius: 16, overflow: "hidden", border: "1px solid var(--border)", background: "var(--card)", display: "flex", flexDirection: "column", gridColumn: wide ? "1 / -1" : "auto" }}>
+              <div style={{ height: 6, background: c.accent }} />
+              <div style={{ aspectRatio: wide ? "21 / 8" : "16 / 9", position: "relative", overflow: "hidden", background: "#0c1120" }}>
+                <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: ".3rem", color: "#6a7493", background: "repeating-linear-gradient(135deg,#111728 0 16px,#0c1120 16px 32px)" }}>
+                  <span style={{ fontFamily: "'Baloo 2',sans-serif", fontWeight: 600, letterSpacing: ".04em", textTransform: "uppercase", fontSize: ".68rem" }}>Image — Add</span>
+                  <span style={{ fontSize: ".6rem", opacity: 0.7 }}>{wide ? "1600 × 600" : "800 × 450"}</span>
+                </div>
               </div>
-              <h2 className="text-xl font-bold text-foreground">{section.heading}</h2>
+              <div style={{ padding: "1.1rem 1.2rem", flex: 1 }}>
+                <div style={{ fontFamily: "'Baloo 2',sans-serif", fontWeight: 700, fontSize: ".66rem", letterSpacing: ".1em", textTransform: "uppercase", marginBottom: ".4rem", color: c.tier }}>
+                  {tags && tags[i] ? tags[i] : `Highlight ${i + 1}`}
+                </div>
+                <h3 style={{ fontFamily: "'Baloo 2',sans-serif", fontWeight: 700, fontSize: "1.3rem", lineHeight: 1.15, margin: "0 0 .5rem", color: "#fff" }}>{section.heading}</h3>
+                <div style={{ color: "#c2cade", fontSize: ".95rem" }}>
+                  <RichContent className={proseClasses}>{section.body}</RichContent>
+                </div>
+              </div>
             </div>
-            <RichContent className={proseClasses}>{section.body}</RichContent>
-          </div>
-        );
-      })}
-      {tags && tags.length > 0 && (
-        <div className="flex flex-wrap gap-2 pt-4 border-t border-border">
-          {tags.map((tag, i) => (
-            <span key={i} className="text-xs px-3 py-1 bg-muted text-muted-foreground rounded-full">{tag}</span>
-          ))}
+          );
+        })}
+      </div>
+
+      {/* ⑤ ticket-style pull quote */}
+      {pullQuote && (
+        <div className="flex" style={{ alignItems: "stretch", borderRadius: 14, overflow: "hidden", border: `2px dashed ${GOLD}`, background: "linear-gradient(135deg,rgba(255,207,92,.08),transparent)", margin: "1.5rem 0" }}>
+          <div style={{ background: GOLD, color: "#3a2c08", fontFamily: "'Baloo 2',sans-serif", fontWeight: 800, writingMode: "vertical-rl", textOrientation: "mixed", padding: ".8rem .5rem", letterSpacing: ".1em", textTransform: "uppercase", fontSize: ".7rem", display: "flex", alignItems: "center", justifyContent: "center" }}>Admit One</div>
+          <blockquote style={{ margin: 0, padding: "1.2rem 1.4rem", fontFamily: "'Baloo 2',sans-serif", fontWeight: 600, fontSize: "1.3rem", lineHeight: 1.3, color: "#fff" }}>"{pullQuote}"</blockquote>
         </div>
       )}
+
+      {/* ♥ collector slot + anti-bounce */}
+      <CollectorSpot cardMarketImpact={cardMarketImpact} focusTitle={null} skin="parkpass" />
+      <a href="/mcu-news" className="grid items-center" style={{ margin: "1.4rem 0 0", border: "1px solid var(--border)", borderRadius: 16, background: "var(--card)", gridTemplateColumns: "1fr auto", gap: "1rem", padding: "1.1rem 1.4rem", textDecoration: "none" }}>
+        <span>
+          <span style={{ fontFamily: "'Baloo 2',sans-serif", fontWeight: 700, fontSize: ".64rem", letterSpacing: ".14em", textTransform: "uppercase", color: GOLD, display: "block", marginBottom: ".25rem" }}>Plan Your Visit</span>
+          <span style={{ fontFamily: "'Baloo 2',sans-serif", fontWeight: 700, fontSize: "1.2rem", color: "#fff", lineHeight: 1.2 }}>
+            {excerpt ? "More from the experience" : "More from the MCU News desk"}
+          </span>
+        </span>
+        <span style={{ fontSize: "1.4rem", color: "#ff6fb5" }}>→</span>
+      </a>
+
+      <style>{`
+        @media(max-width:640px){
+          .dx-mosaic{ grid-template-columns:1fr !important; }
+          .dx-card{ grid-column:auto !important; }
+        }
+      `}</style>
     </div>
   );
 }
