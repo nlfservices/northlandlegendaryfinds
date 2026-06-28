@@ -740,7 +740,7 @@ export function PatrioticTemplate({ content, title, featuredImageUrl, excerpt, t
 const NLF_WHATNOT_URL = "https://www.whatnot.com/user/northlandfinds";
 const NLF_SHOP_URL = "https://northlandlegendaryfinds.com/shop";
 
-type CollectorSkin = "cinematic" | "comic" | "editorial" | "default";
+type CollectorSkin = "cinematic" | "comic" | "editorial" | "intel" | "default";
 
 function CollectorSpot({
   cardMarketImpact,
@@ -849,6 +849,128 @@ function CollectorSpot({
             .cine-cta-primary,.cine-cta-ghost{font-size:.78rem;}
           }
         `}</style>
+      </div>
+    );
+  }
+
+  // intel skin — S.H.I.E.L.D. green, IBM Plex Mono, classified aesthetic
+  if (skin === "intel") {
+    return (
+      <div
+        style={{
+          margin: "1.5rem 0",
+          border: "2px solid #7dd66f",
+          borderRadius: 4,
+          background: "var(--card)",
+          overflow: "hidden",
+          fontFamily: "'IBM Plex Mono', monospace",
+        }}
+      >
+        <div
+          style={{
+            background: "#7dd66f",
+            color: "#0a1606",
+            fontWeight: 700,
+            textTransform: "uppercase",
+            letterSpacing: ".14em",
+            fontSize: ".66rem",
+            padding: ".4rem 1rem",
+          }}
+        >
+          // Recovered Asset — Acquisition Recommended
+        </div>
+        <div
+          className="grid items-center"
+          style={{
+            gridTemplateColumns: hasCard ? "auto 1fr auto" : "1fr auto",
+            gap: "1.2rem",
+            padding: "1.1rem 1.3rem",
+          }}
+        >
+          {hasCard && (
+            <div
+              style={{
+                width: 74,
+                height: 100,
+                flexShrink: 0,
+                border: "1px solid #2a301f",
+                background: "repeating-linear-gradient(45deg,#161a10 0 8px,#101309 8px 16px)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#6a7158",
+                fontSize: ".52rem",
+                textAlign: "center",
+              }}
+            >
+              CARD IMG
+            </div>
+          )}
+          <div>
+            <h4
+              style={{
+                fontSize: "1.1rem",
+                margin: "0 0 .3rem",
+                color: "#d8e0d0",
+                textTransform: "uppercase",
+                letterSpacing: ".04em",
+                fontWeight: 700,
+              }}
+            >
+              {heading}
+            </h4>
+            <p
+              style={{
+                margin: 0,
+                fontFamily: "'Inter', sans-serif",
+                fontSize: ".86rem",
+                color: "var(--muted-foreground)",
+                maxWidth: "30rem",
+                lineHeight: 1.6,
+              }}
+            >
+              {body}
+            </p>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: ".5rem" }}>
+            <a
+              href={NLF_WHATNOT_URL}
+              style={{
+                fontSize: ".78rem",
+                fontWeight: 600,
+                textTransform: "uppercase",
+                letterSpacing: ".06em",
+                padding: ".55rem 1.05rem",
+                borderRadius: 3,
+                textDecoration: "none",
+                textAlign: "center",
+                whiteSpace: "nowrap",
+                background: "#7dd66f",
+                color: "#0a1606",
+              }}
+            >
+              Watch on Whatnot →
+            </a>
+            <a
+              href={NLF_SHOP_URL}
+              style={{
+                fontSize: ".78rem",
+                fontWeight: 600,
+                textTransform: "uppercase",
+                letterSpacing: ".06em",
+                padding: ".55rem 1.05rem",
+                borderRadius: 3,
+                textDecoration: "none",
+                textAlign: "center",
+                whiteSpace: "nowrap",
+                border: "1px solid #2a301f",
+                color: "#d8e0d0",
+              }}
+            >
+              Shop the Repacks
+            </a>
+          </div>
+        </div>
       </div>
     );
   }
@@ -1273,83 +1395,178 @@ export function CinematicTemplate({
 }
 
 // ============================================================
-// TEMPLATE 8: DOSSIER — Intel briefing, classified look, data panels
+// TEMPLATE 8: DOSSIER — S.H.I.E.L.D. intel file, classified look
+// Classified header, metadata grid + stamp, evidence image,
+// executive summary, file-folder sections, redacted pull quote,
+// CollectorSpot intel skin.
 // ============================================================
-export function DossierTemplate({ content, title, featuredImageUrl, tags, excerpt }: TemplateProps) {
+
+const CLASSIFIED = "#d4a017";
+const PRIMARY_GREEN = "#7dd66f";
+const STAMP_RED = "#b5341f";
+const DOS_BORDER = "#2a301f";
+const DOS_PAPER = "#161a10";
+
+function RedactedQuote({ quote }: { quote: string }) {
+  const words = quote.trim().split(/\s+/);
+  if (words.length < 4) return <>"{quote}"</>;
+  const idx = Math.max(2, words.length - 2);
+  const redactLen = Math.max(6, words[idx].length);
+  return (
+    <>
+      "{words.slice(0, idx).join(" ")}{" "}
+      <span
+        style={{ background: "#1a1d14", color: "transparent", padding: "0 .2rem", borderRadius: 2, userSelect: "none" }}
+        aria-label="redacted"
+      >
+        {"█".repeat(redactLen)}
+      </span>{" "}
+      {words.slice(idx + 1).join(" ")}"
+    </>
+  );
+}
+
+export function DossierTemplate({
+  content,
+  title,
+  featuredImageUrl,
+  excerpt,
+  tags,
+  category,
+  cardMarketImpact,
+}: TemplateProps) {
   const { intro, sections } = useMemo(() => splitBySections(content), [content]);
+  const pullQuote = useMemo(() => extractPullQuote(content), [content]);
+  const collectorAfter = Math.max(0, Math.ceil(sections.length * 0.6) - 1);
+
+  const caseNo = useMemo(() => {
+    let h = 0;
+    for (let i = 0; i < (title || "").length; i++) h = (h * 31 + title.charCodeAt(i)) & 0xffff;
+    return `NLF-2026-${String(h % 10000).padStart(4, "0")}`;
+  }, [title]);
 
   return (
-    <div className="space-y-6 font-mono">
-      {/* Classified header bar */}
-      <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <FileText className="w-5 h-5 text-yellow-400" />
-          <span className="text-yellow-400 text-sm font-bold uppercase tracking-wider">Intelligence Briefing</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <Eye className="w-4 h-4 text-yellow-400/60" />
-          <span className="text-xs text-yellow-400/60">EYES ONLY</span>
-        </div>
+    <div style={{ fontFamily: "'IBM Plex Mono', monospace", color: "#d8e0d0" }}>
+      {/* ① classified header bar */}
+      <div
+        className="flex items-center justify-between"
+        style={{ border: `2px solid ${CLASSIFIED}`, marginBottom: "1.2rem", borderRadius: 3, overflow: "hidden" }}
+      >
+        <span style={{ background: CLASSIFIED, color: "#000", fontWeight: 700, letterSpacing: ".18em", textTransform: "uppercase", fontSize: ".8rem", padding: ".55rem 1rem", flex: 1 }}>
+          Intelligence Briefing
+        </span>
+        <span style={{ background: "#000", color: CLASSIFIED, fontSize: ".66rem", letterSpacing: ".1em", padding: ".55rem 1rem", whiteSpace: "nowrap" }}>
+          CLEARANCE: COLLECTOR · EYES ONLY
+        </span>
       </div>
 
-      {/* Subject line */}
-      <div className="bg-card border border-border rounded-lg p-5">
-        <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 text-sm">
-          <span className="text-muted-foreground uppercase tracking-wider">Subject:</span>
-          <span className="text-foreground font-bold">{title}</span>
+      {/* ② subject metadata + stamp */}
+      <div style={{ background: DOS_PAPER, border: `1px solid ${DOS_BORDER}`, borderRadius: 4, padding: "1.1rem 1.3rem", marginBottom: "1.2rem", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", top: "50%", right: "1.5rem", transform: "translateY(-50%) rotate(-14deg)", border: `3px solid ${STAMP_RED}`, color: STAMP_RED, fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", fontSize: "1rem", padding: ".3rem .8rem", borderRadius: 4, opacity: 0.85 }}>
+          Active
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "7rem 1fr", gap: ".4rem 1rem", fontSize: ".82rem", lineHeight: 1.6 }}>
+          <span style={{ color: CLASSIFIED, textTransform: "uppercase", letterSpacing: ".08em" }}>Subject:</span>
+          <span>{title}</span>
+          <span style={{ color: CLASSIFIED, textTransform: "uppercase", letterSpacing: ".08em" }}>Case No:</span>
+          <span>{caseNo}</span>
+          {category && (
+            <>
+              <span style={{ color: CLASSIFIED, textTransform: "uppercase", letterSpacing: ".08em" }}>Category:</span>
+              <span style={{ color: PRIMARY_GREEN }}>{category}</span>
+            </>
+          )}
           {tags && tags.length > 0 && (
             <>
-              <span className="text-muted-foreground uppercase tracking-wider">Tags:</span>
-              <span className="text-primary">{tags.join(' / ')}</span>
-            </>
-          )}
-          {excerpt && (
-            <>
-              <span className="text-muted-foreground uppercase tracking-wider">Summary:</span>
-              <span className="text-muted-foreground">{excerpt}</span>
+              <span style={{ color: CLASSIFIED, textTransform: "uppercase", letterSpacing: ".08em" }}>Tags:</span>
+              <span>{tags.join(" · ")}</span>
             </>
           )}
         </div>
       </div>
 
-      {/* Featured image as "attached evidence" */}
-      {featuredImageUrl && (
-        <div className="border border-dashed border-border rounded-lg p-3">
-          <div className="text-xs text-muted-foreground mb-2 uppercase tracking-wider">Attached: Visual Reference</div>
-          <img src={featuredImageUrl} alt={title} className="w-full h-auto rounded-lg" />
+      {/* ③ attached evidence (image) */}
+      <div style={{ border: `1px dashed ${DOS_BORDER}`, borderRadius: 4, padding: ".7rem", marginBottom: "1.2rem", background: "#0e110a" }}>
+        <div style={{ fontSize: ".62rem", color: "var(--muted-foreground)", textTransform: "uppercase", letterSpacing: ".12em", marginBottom: ".5rem" }}>
+          Attached — Exhibit A · Visual Reference
+        </div>
+        <div style={{ aspectRatio: "16 / 8", background: "#0a0c07", position: "relative", overflow: "hidden", border: `1px solid ${DOS_BORDER}` }}>
+          {featuredImageUrl ? (
+            <img src={featuredImageUrl} alt={title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+          ) : (
+            <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: ".35rem", color: "#5a6048", background: "repeating-linear-gradient(45deg,#101309 0 16px,#0c0e08 16px 32px)" }}>
+              <span style={{ fontSize: "1.5rem" }}>▤</span>
+              <span style={{ letterSpacing: ".12em", textTransform: "uppercase", fontSize: ".72rem" }}>Evidence Image — Add</span>
+              <span style={{ fontSize: ".62rem", opacity: 0.65 }}>1200 × 600</span>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* ④ executive summary */}
+      {intro && (
+        <div style={{ background: "var(--card)", borderLeft: `3px solid ${PRIMARY_GREEN}`, borderRadius: "0 4px 4px 0", padding: "1.1rem 1.3rem", marginBottom: "1.5rem" }}>
+          <div style={{ color: PRIMARY_GREEN, textTransform: "uppercase", letterSpacing: ".14em", fontSize: ".7rem", fontWeight: 600, marginBottom: ".6rem" }}>
+            Executive Summary
+          </div>
+          <RichContent className={proseClasses}>{intro}</RichContent>
         </div>
       )}
 
-      {/* Intro as "executive summary" */}
-      <div className="bg-card/50 border border-border rounded-lg p-6">
-        <h3 className="text-sm uppercase tracking-wider text-primary mb-4 font-bold">Executive Summary</h3>
-        <RichContent className={`${proseClasses} font-sans`}>{intro}</RichContent>
-      </div>
-
-      {/* Sections as "intelligence sections" */}
+      {/* ⑤ intel sections + collector slot mid-way */}
       {sections.map((section, i) => (
-        <div key={i} className="border border-border rounded-lg overflow-hidden">
-          {/* Section header bar */}
-          <div className="bg-muted/50 px-5 py-3 border-b border-border flex items-center justify-between">
-            <h2 className="text-base font-bold text-foreground uppercase tracking-wide">
-              {section.heading}
-            </h2>
-            <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded">
-              Section {String(i + 1).padStart(2, '0')}
-            </span>
+        <div key={i}>
+          <div style={{ border: `1px solid ${DOS_BORDER}`, borderRadius: 4, marginBottom: "1rem", overflow: "hidden", background: DOS_PAPER }}>
+            <div className="flex items-center justify-between" style={{ background: "#1c2114", padding: ".7rem 1.1rem", borderBottom: `1px solid ${DOS_BORDER}` }}>
+              <h3 style={{ margin: 0, fontSize: ".92rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: ".06em", color: "#d8e0d0" }}>
+                {section.heading}
+              </h3>
+              <span style={{ fontSize: ".64rem", color: "var(--muted-foreground)", background: "#000", padding: ".2rem .5rem", borderRadius: 3, letterSpacing: ".08em" }}>
+                SEC {String(i + 1).padStart(2, "0")}
+              </span>
+            </div>
+            <div style={{ padding: "1rem 1.2rem" }}>
+              <RichContent className={proseClasses}>{section.body}</RichContent>
+            </div>
           </div>
-          {/* Section content */}
-          <div className="p-5 sm:p-6">
-            <RichContent className={`${proseClasses} font-sans`}>{section.body}</RichContent>
-          </div>
+
+          {/* redacted pull quote after first section */}
+          {i === 0 && pullQuote && (
+            <div style={{ margin: "1.5rem 0", background: "#0a0c07", border: `1px solid ${DOS_BORDER}`, borderRadius: 4, padding: "1.2rem 1.4rem", position: "relative" }}>
+              <span style={{ position: "absolute", top: ".5rem", right: ".7rem", fontSize: ".58rem", color: "var(--muted-foreground)", letterSpacing: ".1em" }}>
+                // FLAGGED
+              </span>
+              <blockquote style={{ margin: 0, fontFamily: "'Special Elite', monospace", fontSize: "1.15rem", lineHeight: 1.5, color: "#d8e0d0" }}>
+                <RedactedQuote quote={pullQuote} />
+              </blockquote>
+            </div>
+          )}
+
+          {/* COLLECTOR SLOT — intel skin, ~60% scroll */}
+          {i === collectorAfter && (
+            <>
+              <CollectorSpot cardMarketImpact={cardMarketImpact} focusTitle={null} skin="intel" />
+              <a
+                href="/mcu-news"
+                className="grid items-center"
+                style={{ margin: "1.5rem 0 0", border: `1px solid ${DOS_BORDER}`, borderRadius: 4, background: DOS_PAPER, gridTemplateColumns: "1fr auto", gap: "1rem", padding: "1rem 1.3rem", textDecoration: "none" }}
+              >
+                <span>
+                  <span style={{ fontSize: ".62rem", letterSpacing: ".16em", textTransform: "uppercase", color: CLASSIFIED, display: "block", marginBottom: ".3rem" }}>Related File</span>
+                  <span style={{ fontSize: "1rem", color: "#d8e0d0", lineHeight: 1.3, fontWeight: 600 }}>
+                    {excerpt ? "Cross-reference: related briefing" : "More from the MCU News desk"}
+                  </span>
+                </span>
+                <span style={{ fontSize: "1.3rem", color: PRIMARY_GREEN }}>→</span>
+              </a>
+            </>
+          )}
         </div>
       ))}
 
-      {/* End of briefing */}
-      <div className="text-center py-4">
-        <div className="inline-flex items-center gap-2 px-4 py-2 border border-muted-foreground/20 rounded-full">
-          <span className="text-xs text-muted-foreground uppercase tracking-widest">End of Briefing</span>
-        </div>
+      {/* end of briefing */}
+      <div style={{ textAlign: "center", marginTop: "1.5rem", color: "var(--muted-foreground)", fontSize: ".66rem", letterSpacing: ".2em", textTransform: "uppercase" }}>
+        <span style={{ border: `1px solid ${DOS_BORDER}`, padding: ".4rem 1rem", borderRadius: 999 }}>— End of Briefing —</span>
       </div>
     </div>
   );
