@@ -2839,3 +2839,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add Checklist & Odds tab to 2026 Topps Brooklyn Collection Captain America 85th set page
 - [x] Test all set pages display correctly
 - [x] Save checkpoint
+
+## Comic Strip Article Template
+- [x] Add Bangers + Archivo Black fonts to client/index.html
+- [x] Implement ComicStripTemplate component in ArticleTemplates.tsx (Template 12)
+- [x] Add comic_strip to ArticleTemplate union type
+- [x] Replace collector_spotlight with comic_strip in ROTATION_TEMPLATES (position 9)
+- [x] Add comic_strip to ALL_TEMPLATE_NAMES map
+- [x] Add comic_strip case to ArticleTemplateRenderer switch
+- [x] Add all 12 templates (including comic_strip) to TEMPLATE_LAYOUTS dropdown in ArticleManager.tsx

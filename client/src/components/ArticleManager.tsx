@@ -67,6 +67,13 @@ const TEMPLATE_LAYOUTS = [
   { value: "spotlight", label: "Spotlight — Sidebar with stats & navigation" },
   { value: "timeline", label: "Timeline — Visual timeline with markers" },
   { value: "listicle", label: "Listicle — Numbered cards with color coding" },
+  { value: "patriotic", label: "Patriotic — Red/white/blue (special occasions)" },
+  { value: "cinematic", label: "Cinematic — Dark moody, full-bleed hero" },
+  { value: "dossier", label: "Dossier — Intel briefing / classified look" },
+  { value: "character_profile", label: "Character Profile — Card-focused deep dive" },
+  { value: "disney_experience", label: "Disney Experience — Vibrant editorial" },
+  { value: "collector_spotlight", label: "Collector Spotlight — Amber/gold deep dive" },
+  { value: "comic_strip", label: "Comic Strip — Comic-book panel layout" },
 ];
 
 const emptyForm: ArticleForm = {

@@ -972,9 +972,406 @@ export function CollectorSpotlightTemplate({ content, title, featuredImageUrl, t
 }
 
 // ============================================================
+// TEMPLATE 12: COMIC STRIP — Comic-book panel layout, bold ink aesthetic
+// ============================================================
+
+const INK = "#0c0a12";
+const SHADOW = "6px 6px 0 #0c0a12";
+
+function ComicPlaceholder({
+  label = "Add Image",
+  dims = "1200 × 900",
+  icon = "★",
+  side = false,
+}: { label?: string; dims?: string; icon?: string; side?: boolean }) {
+  return (
+    <div
+      className={`relative w-full h-full flex flex-col items-center justify-center gap-2 text-center select-none ${
+        side ? "min-h-[190px]" : "min-h-[130px]"
+      }`}
+      style={{
+        color: "#0c0a12",
+        border: "3px dashed rgba(12,10,18,.55)",
+        background:
+          "repeating-linear-gradient(45deg, rgba(12,10,18,.18) 0 12px, transparent 12px 24px)",
+      }}
+    >
+      <span style={{ fontFamily: "'Bangers', cursive", fontSize: "2.2rem", lineHeight: 1 }}>{icon}</span>
+      <span
+        style={{
+          fontFamily: "'Archivo Black', sans-serif",
+          fontSize: ".7rem",
+          letterSpacing: ".1em",
+          textTransform: "uppercase",
+        }}
+      >
+        {label}
+      </span>
+      <span style={{ fontSize: ".68rem", fontWeight: 600, opacity: 0.7 }}>{dims}</span>
+    </div>
+  );
+}
+
+function ComicArt({
+  imageUrl,
+  alt,
+  dims,
+  icon,
+  side = false,
+}: {
+  imageUrl?: string | null;
+  alt: string;
+  dims: string;
+  icon: string;
+  side?: boolean;
+}) {
+  if (imageUrl) {
+    return (
+      <img
+        src={imageUrl}
+        alt={alt}
+        className={`w-full ${side ? "h-full" : "h-auto"} object-cover`}
+        style={{ display: "block" }}
+      />
+    );
+  }
+  return <ComicPlaceholder label={alt} dims={dims} icon={icon} side={side} />;
+}
+
+export function ComicStripTemplate({ content, title, featuredImageUrl, tags, excerpt }: TemplateProps) {
+  const { intro, sections } = useMemo(() => splitBySections(content), [content]);
+  const pullQuote = useMemo(() => extractPullQuote(content), [content]);
+
+  const headVariants = [
+    { bg: "#aff46d", color: INK, shadow: `2px 2px 0 ${INK}` },
+    { bg: "var(--primary)", color: INK, shadow: `2px 2px 0 ${INK}` },
+    { bg: "#4db8ff", color: INK, shadow: `2px 2px 0 #fff` },
+    { bg: "#ffd23f", color: INK, shadow: `2px 2px 0 ${INK}` },
+  ];
+
+  const halftone: React.CSSProperties = {
+    backgroundImage: "radial-gradient(#e2a214 1.4px, transparent 1.5px)",
+    backgroundSize: "9px 9px",
+  };
+
+  const panelBase: React.CSSProperties = {
+    border: `4px solid ${INK}`,
+    borderRadius: 0,
+    background: "var(--card)",
+    overflow: "hidden",
+    boxShadow: SHADOW,
+  };
+
+  const nextIssueHref = "/mcu-news";
+  const nextIssueTitleText = excerpt
+    ? "Keep reading the next file"
+    : "More from the MCU News desk";
+
+  return (
+    <div style={{ "--gutter": "14px" } as React.CSSProperties}>
+      {/* ISSUE COVER */}
+      <div style={{ ...panelBase, marginBottom: 14 }}>
+        <div className="grid grid-cols-1 sm:grid-cols-[2.15fr_.85fr]">
+          <div style={{ ...halftone, background: "#ffd23f", color: INK, padding: "1.6rem 1.4rem" }}>
+            <span
+              style={{
+                display: "inline-block",
+                background: INK,
+                color: "#ffd23f",
+                fontFamily: "'Archivo Black', sans-serif",
+                fontSize: ".62rem",
+                letterSpacing: ".14em",
+                padding: ".3rem .7rem",
+                borderRadius: 3,
+                textTransform: "uppercase",
+                marginBottom: ".9rem",
+              }}
+            >
+              Collector File
+            </span>
+            <h2
+              style={{
+                fontFamily: "'Bangers', cursive",
+                letterSpacing: ".02em",
+                fontSize: "clamp(2rem,5vw,3.2rem)",
+                lineHeight: 0.95,
+                margin: "0 0 .8rem",
+                color: INK,
+                textShadow: "3px 3px 0 #fff",
+              }}
+            >
+              {title}
+            </h2>
+            {excerpt && (
+              <div style={{ fontWeight: 600, fontSize: ".98rem", color: "#3a2e08", lineHeight: 1.45 }}>
+                {excerpt}
+              </div>
+            )}
+          </div>
+          <div style={{ background: "#e4db5f", minHeight: 230 }}>
+            <ComicArt
+              imageUrl={featuredImageUrl}
+              alt={title}
+              dims="1200 × 900 — portrait or action"
+              icon="★"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* INTRO CAPTION BOX */}
+      {intro && (
+        <div style={{ ...panelBase, marginBottom: 14 }}>
+          <div
+            className="comic-cap"
+            style={{
+              background: "#f4ef2d",
+              color: INK,
+              fontWeight: 700,
+              padding: "1.25rem 1.4rem",
+              fontSize: "1.05rem",
+              lineHeight: 1.6,
+            }}
+          >
+            <RichContent className={`${proseClasses} comic-intro-prose`}>{intro}</RichContent>
+          </div>
+        </div>
+      )}
+
+      {/* SECTION PANELS */}
+      {sections.map((section, i) => {
+        const v = headVariants[i % headVariants.length];
+        const imgLeft = i % 2 === 0;
+        const isFullRowImage = i % 3 !== 2;
+
+        const head = (
+          <div
+            style={{
+              background: v.bg,
+              color: v.color,
+              fontFamily: "'Bangers', cursive",
+              letterSpacing: ".03em",
+              padding: ".55rem 1rem",
+              lineHeight: 1.1,
+              borderBottom: `4px solid ${INK}`,
+              textShadow: v.shadow,
+            }}
+          >
+            {section.heading}
+          </div>
+        );
+
+        const body = (
+          <div style={{ padding: "1.15rem 1.25rem", flex: 1 }}>
+            <RichContent className={proseClasses}>{section.body}</RichContent>
+          </div>
+        );
+
+        const art = (
+          <div
+            style={{
+              ...halftone,
+              flex: "0 0 42%",
+              borderRight: imgLeft ? `4px solid ${INK}` : undefined,
+              borderLeft: imgLeft ? undefined : `4px solid ${INK}`,
+            }}
+            className="comic-side-art"
+          >
+            <ComicArt
+              imageUrl={null}
+              alt={section.heading}
+              dims="800 × 800"
+              icon="◆"
+              side
+            />
+          </div>
+        );
+
+        if (!isFullRowImage) {
+          return (
+            <div key={i} style={{ ...panelBase, marginBottom: 14, display: "flex", flexDirection: "column" }}>
+              {head}
+              {body}
+            </div>
+          );
+        }
+
+        return (
+          <div
+            key={i}
+            style={{ ...panelBase, marginBottom: 14 }}
+            className="comic-img-row"
+          >
+            <div className={`flex flex-col sm:flex-row ${imgLeft ? "" : "sm:flex-row-reverse"}`}>
+              <div className="flex flex-col flex-1">
+                {head}
+                {body}
+              </div>
+              {art}
+            </div>
+          </div>
+        );
+      })}
+
+      {/* SPEECH-BUBBLE PULL QUOTE */}
+      {pullQuote && (
+        <div className="flex justify-center" style={{ margin: "20px 0" }}>
+          <div
+            style={{
+              position: "relative",
+              background: "#ffff",
+              color: INK,
+              border: `4px solid ${INK}`,
+              borderRadius: 28,
+              padding: "1.4rem 1.8rem",
+              maxWidth: "80%",
+              textAlign: "center",
+              fontFamily: "'Bangers', cursive",
+              fontSize: "clamp(1.4vw,3.4vw,2rem)",
+              lineHeight: 1.05,
+              letterSpacing: ".02em",
+              boxShadow: SHADOW,
+            }}
+          >
+            &ldquo;{pullQuote}&rdquo;
+            <span
+              aria-hidden
+              style={{
+                position: "absolute",
+                left: 48,
+                bottom: -28,
+                width: 30,
+                height: 30,
+                background: "#ffff",
+                borderRight: `4px solid ${INK}`,
+                borderBottom: `4px solid ${INK}`,
+                transform: "skewX(-18deg)",
+              }}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* POW DIVIDER + MID-ARTICLE HOOK */}
+      <div className="flex items-center" style={{ gap: 14, margin: "20px 0" }}>
+        <div
+          style={{
+            flex: 1,
+            height: 4,
+            background: "repeating-linear-gradient(90deg,#0c0a12 0 14px,transparent 14px 22px)",
+          }}
+        />
+        <div
+          style={{
+            fontFamily: "'Bangers', cursive",
+            fontSize: "1.5rem",
+            color: INK,
+            background: "#ffd23f",
+            border: `4px solid ${INK}`,
+            padding: ".2rem 1rem",
+            borderRadius: 4,
+            transform: "rotate(-3deg)",
+            boxShadow: `4px 4px 0 #0c0a12`,
+          }}
+        >
+          MEANWHILE…
+        </div>
+        <div
+          style={{
+            flex: 1,
+            height: 4,
+            background: "repeating-linear-gradient(90deg,#0c0a12 0 14px,transparent 14px 22px)",
+          }}
+        />
+      </div>
+
+      {/* NEXT ISSUE HOOK */}
+      <a
+        href={nextIssueHref}
+        className="grid items-center no-underline"
+        style={{
+          gridTemplateColumns: "auto 1fr auto",
+          gap: "1rem",
+          border: `4px solid ${INK}`,
+          borderRadius: 4,
+          background: INK,
+          boxShadow: SHADOW,
+          padding: "1rem 1.5rem",
+          margin: "20px 0",
+        }}
+      >
+        <span
+          style={{
+            fontFamily: "'Archivo Black', sans-serif",
+            fontSize: ".62rem",
+            letterSpacing: ".14em",
+            color: "#ffd23f",
+            textTransform: "uppercase",
+          }}
+        >
+          Next Issue
+        </span>
+        <span
+          style={{
+            fontFamily: "'Bangers', cursive",
+            fontSize: "1.35rem",
+            color: "#ffff",
+            lineHeight: 1.05,
+            letterSpacing: ".02em",
+          }}
+        >
+          {nextIssueTitleText}
+        </span>
+        <span style={{ fontFamily: "'Bangers', cursive", fontSize: "2rem", color: "var(--primary)" }}>
+          »
+        </span>
+      </a>
+
+      {/* TAGS */}
+      {tags && tags.length > 0 && (
+        <div className="flex flex-wrap gap-2 pt-4" style={{ borderTop: `2px solid ${INK}` }}>
+          {tags.map((tag, i) => (
+            <span
+              key={i}
+              style={{
+                fontFamily: "'Archivo Black', sans-serif",
+                fontSize: ".65rem",
+                letterSpacing: ".08em",
+                textTransform: "uppercase",
+                background: INK,
+                color: "#ffd23f",
+                padding: ".25rem .6rem",
+                borderRadius: 2,
+              }}
+            >
+              #{tag}
+            </span>
+          ))}
+        </div>
+      )}
+
+      {/* Scoped CSS */}
+      <style>{`
+        .comic-intro-prose p:first-of-type::first-letter {
+          font-family: 'Bangers', cursive;
+          font-size: 3.4rem;
+          line-height: .8;
+          float: left;
+          margin: .35rem .35rem -.2rem 0;
+          color: #eff4d4;
+        }
+        .comic-intro-prose p { color: #0c0a12 !important; }
+        @media (min-width: 640px) { .comic-side-art { min-height: 190px; } }
+        @media (min-width: 640px) { .comic-img-row .comic-side-art { min-height: 100%; } }
+      `}</style>
+    </div>
+  );
+}
+
+// ============================================================
 // TEMPLATE SELECTOR — Returns the correct template component
 // ============================================================
-export type ArticleTemplate = 'classic' | 'magazine' | 'spotlight' | 'timeline' | 'listicle' | 'patriotic' | 'cinematic' | 'dossier' | 'character_profile' | 'disney_experience' | 'collector_spotlight';
+export type ArticleTemplate = 'classic' | 'magazine' | 'spotlight' | 'timeline' | 'listicle' | 'patriotic' | 'cinematic' | 'dossier' | 'character_profile' | 'disney_experience' | 'collector_spotlight' | 'comic_strip';
 
 /**
  * 10-template rotation order for MCU News articles.
@@ -991,7 +1388,7 @@ const ROTATION_TEMPLATES: ArticleTemplate[] = [
   'dossier',             // position 6
   'character_profile',   // position 7
   'disney_experience',   // position 8
-  'collector_spotlight', // position 9
+  'comic_strip',        // position 9
 ];
 
 /**
@@ -1012,6 +1409,7 @@ export const ALL_TEMPLATE_NAMES: Record<ArticleTemplate, string> = {
   character_profile: 'Character Profile',
   disney_experience: 'Disney Experience',
   collector_spotlight: 'Collector Spotlight',
+  comic_strip: 'Comic Strip',
 };
 export function getArticleTemplate(
   templateLayout: ArticleTemplate | null | undefined,
@@ -1054,6 +1452,8 @@ export function ArticleTemplateRenderer({ template, ...props }: TemplateProps & 
       return <DisneyExperienceTemplate {...props} />;
     case 'collector_spotlight':
       return <CollectorSpotlightTemplate {...props} />;
+    case 'comic_strip':
+      return <ComicStripTemplate {...props} />;
     case 'classic':
     default:
       return <ClassicTemplate {...props} />;
