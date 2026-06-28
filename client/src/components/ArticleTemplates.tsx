@@ -576,76 +576,436 @@ export function PatrioticTemplate({ content, title, featuredImageUrl, excerpt, t
 }
 
 // ============================================================
-// TEMPLATE 7: CINEMATIC — Full-bleed hero, dark moody, film-strip feel
+// TEMPLATE 7: CINEMATIC — Marvel.com-style feature layout
+// Full-bleed 21:9 letterbox hero, scene-marked sections,
+// full-bleed stills, theatrical pull quote, CollectorSpot CTA.
 // ============================================================
-export function CinematicTemplate({ content, title, featuredImageUrl, excerpt }: TemplateProps) {
+
+// Shared URLs — single source of truth for all templates
+const NLF_WHATNOT_URL = "https://www.whatnot.com/user/northlandfinds";
+const NLF_SHOP_URL = "https://northlandlegendaryfinds.com/shop";
+
+type CollectorSkin = "cinematic" | "comic" | "default";
+
+function CollectorSpot({
+  cardMarketImpact,
+  focusTitle,
+  skin = "default",
+}: {
+  cardMarketImpact?: string | null;
+  focusTitle?: string | null;
+  skin?: CollectorSkin;
+}) {
+  const hasCard = Boolean(cardMarketImpact || focusTitle);
+  const heading = hasCard ? (focusTitle || "This Week's Collector Focus") : "Build Different.";
+  const body = hasCard
+    ? cardMarketImpact ||
+      "Tracking this one closely — supply is tightening and the window is open."
+    : "Strong floor, loaded middle, healthy ceiling. That's every NLF repack — live on Whatnot.";
+  const kicker = hasCard ? "Now Collecting" : "From The Shop";
+
+  if (skin === "cinematic") {
+    return (
+      <div
+        style={{
+          position: "relative",
+          margin: "3rem -1.25rem",
+          background: "#000",
+          borderTop: "2px solid #e23636",
+          borderBottom: "2px solid #e23636",
+          overflow: "hidden",
+        }}
+      >
+        <div
+          className="grid items-center"
+          style={{
+            gridTemplateColumns: hasCard ? "auto 1fr auto" : "1fr auto",
+            gap: "1.5rem",
+            padding: "1.5rem 2rem",
+          }}
+        >
+          {hasCard && (
+            <div
+              style={{
+                width: 90,
+                height: 120,
+                flexShrink: 0,
+                background:
+                  "repeating-linear-gradient(45deg,#16161f 0 10px,#101018 10px 20px)",
+                border: "1px solid #3a4a5a",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#6a6a7a",
+                fontFamily: "'JetBrains Mono', monospace",
+                fontSize: ".56rem",
+                textAlign: "center",
+              }}
+            >
+              CARD IMG
+            </div>
+          )}
+          <div>
+            <div
+              style={{
+                fontFamily: "'JetBrains Mono', monospace",
+                color: "#ffce4d",
+                letterSpacing: ".25em",
+                textTransform: "uppercase",
+                fontSize: ".66rem",
+                marginBottom: ".4rem",
+              }}
+            >
+              {kicker}
+            </div>
+            <h4
+              style={{
+                fontFamily: "'Oswald', sans-serif",
+                textTransform: "uppercase",
+                fontSize: "1.4rem",
+                margin: "0 0 .35rem",
+                color: "#fff",
+                letterSpacing: ".01em",
+              }}
+            >
+              {heading}
+            </h4>
+            <p style={{ margin: 0, fontSize: ".88rem", color: "#b4b4c0", maxWidth: "34rem" }}>
+              {body}
+            </p>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: ".5rem" }}>
+            <a href={NLF_WHATNOT_URL} className="cine-cta-primary">
+              Watch on Whatnot →
+            </a>
+            <a href={NLF_SHOP_URL} className="cine-cta-ghost">
+              Shop the Repacks
+            </a>
+          </div>
+        </div>
+        <style>{`
+          .cine-cta-primary{display:inline-block;text-align:center;font-family:'Oswald',sans-serif;
+            text-transform:uppercase;letter-spacing:.06em;font-size:.82rem;padding:.6rem 1.2rem;
+            border-radius:3px;text-decoration:none;white-space:nowrap;background:#e23636;color:#fff;}
+          .cine-cta-ghost{display:inline-block;text-align:center;font-family:'Oswald',sans-serif;
+            text-transform:uppercase;letter-spacing:.06em;font-size:.82rem;padding:.6rem 1.2rem;
+            border-radius:3px;text-decoration:none;white-space:nowrap;border:1px solid #3a4a5a;color:#d4d4de;}
+          @media(max-width:640px){
+            .cine-cta-primary,.cine-cta-ghost{font-size:.78rem;}
+          }
+        `}</style>
+      </div>
+    );
+  }
+
+  // default skin — neutral, uses brand tokens
+  return (
+    <div
+      style={{
+        margin: "2.5rem 0",
+        border: "1px solid var(--border)",
+        borderLeft: "4px solid var(--primary)",
+        borderRadius: 8,
+        background: "var(--card)",
+        padding: "1.4rem 1.5rem",
+        display: "grid",
+        gridTemplateColumns: "1fr auto",
+        gap: "1rem",
+        alignItems: "center",
+      }}
+    >
+      <div>
+        <div
+          style={{
+            fontSize: ".66rem",
+            letterSpacing: ".18em",
+            textTransform: "uppercase",
+            color: "var(--primary)",
+            marginBottom: ".4rem",
+            fontWeight: 600,
+          }}
+        >
+          {kicker}
+        </div>
+        <h4 style={{ margin: "0 0 .35rem", fontSize: "1.2rem", color: "var(--foreground)" }}>
+          {heading}
+        </h4>
+        <p style={{ margin: 0, fontSize: ".9rem", color: "var(--muted-foreground)" }}>{body}</p>
+      </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: ".5rem" }}>
+        <a
+          href={NLF_WHATNOT_URL}
+          style={{
+            background: "var(--primary)",
+            color: "var(--primary-foreground)",
+            padding: ".55rem 1.1rem",
+            borderRadius: 6,
+            textDecoration: "none",
+            fontWeight: 600,
+            fontSize: ".85rem",
+            textAlign: "center",
+            whiteSpace: "nowrap",
+          }}
+        >
+          Watch on Whatnot →
+        </a>
+        <a
+          href={NLF_SHOP_URL}
+          style={{
+            border: "1px solid var(--border)",
+            color: "var(--foreground)",
+            padding: ".55rem 1.1rem",
+            borderRadius: 6,
+            textDecoration: "none",
+            fontSize: ".85rem",
+            textAlign: "center",
+            whiteSpace: "nowrap",
+          }}
+        >
+          Shop the Repacks
+        </a>
+      </div>
+    </div>
+  );
+}
+
+function CineStill({
+  imageUrl,
+  caption,
+  alt,
+}: {
+  imageUrl?: string | null;
+  caption?: string;
+  alt: string;
+}) {
+  return (
+    <div
+      style={{
+        position: "relative",
+        margin: "2.5rem -1.25rem",
+        aspectRatio: "16 / 7",
+        background: "#000",
+        overflow: "hidden",
+      }}
+    >
+      {imageUrl ? (
+        <img src={imageUrl} alt={alt} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+      ) : (
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: ".4rem",
+            color: "#5a5a6a",
+            background: "repeating-linear-gradient(45deg,#0e0e16 0 22px,#0a0a10 22px 44px)",
+          }}
+        >
+          <span style={{ fontSize: "1.6rem" }}>▦</span>
+          <span style={{ fontFamily: "'Oswald',sans-serif", letterSpacing: ".2em", textTransform: "uppercase", fontSize: ".74rem" }}>
+            Scene Still — Add Image
+          </span>
+          <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".66rem", opacity: 0.6 }}>1600 × 700</span>
+        </div>
+      )}
+      {caption && (
+        <div
+          style={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+            bottom: 0,
+            padding: "1rem 1.5rem",
+            background: "linear-gradient(transparent,rgba(0,0,0,.85))",
+            fontFamily: "'JetBrains Mono',monospace",
+            fontSize: ".7rem",
+            color: "#b4b4c0",
+            letterSpacing: ".05em",
+            zIndex: 2,
+          }}
+        >
+          {caption}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export function CinematicTemplate({
+  content,
+  title,
+  featuredImageUrl,
+  excerpt,
+  cardMarketImpact,
+  category,
+}: TemplateProps) {
   const { intro, sections } = useMemo(() => splitBySections(content), [content]);
   const pullQuote = useMemo(() => extractPullQuote(content), [content]);
 
+  // collector slot sits after ~60-65% of sections; place before the last section
+  const collectorAfter = Math.max(0, Math.ceil(sections.length * 0.6) - 1);
+
   return (
-    <div className="space-y-0 -mx-4 sm:-mx-8">
-      {/* Full-bleed hero with cinematic aspect ratio */}
-      {featuredImageUrl && (
-        <div className="relative w-full aspect-[21/9] mb-12 overflow-hidden">
-          <img src={featuredImageUrl} alt={title} className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-black/60" />
-          {/* Film grain overlay */}
-          <div className="absolute inset-0 opacity-[0.03] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc1IiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI2EpIi8+PC9zdmc+')]" />
-          {/* Film strip perforations */}
-          <div className="absolute top-0 left-0 right-0 h-6 flex items-center justify-between px-4 opacity-30">
-            {Array.from({ length: 20 }).map((_, i) => (
-              <div key={i} className="w-3 h-3 rounded-sm bg-black border border-white/20" />
-            ))}
+    <div>
+      {/* ① full-bleed 21:9 letterbox hero */}
+      <div
+        style={{
+          position: "relative",
+          margin: "0 -1.25rem",
+          aspectRatio: "21 / 9",
+          background: "#000",
+          overflow: "hidden",
+          display: "flex",
+          alignItems: "flex-end",
+        }}
+      >
+        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 42, background: "#000", zIndex: 2 }} />
+        {featuredImageUrl ? (
+          <img src={featuredImageUrl} alt={title} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+        ) : (
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: ".5rem",
+              color: "#5a5a6a",
+              background: "repeating-linear-gradient(45deg,#0e0e16 0 22px,#0a0a10 22px 44px)",
+            }}
+          >
+            <span style={{ fontSize: "2rem" }}>▦</span>
+            <span style={{ fontFamily: "'Oswald',sans-serif", letterSpacing: ".2em", textTransform: "uppercase", fontSize: ".8rem" }}>
+              Hero Still — Add Image
+            </span>
+            <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".68rem", opacity: 0.6 }}>1920 × 823 · 21:9</span>
           </div>
-          <div className="absolute bottom-0 left-0 right-0 h-6 flex items-center justify-between px-4 opacity-30">
-            {Array.from({ length: 20 }).map((_, i) => (
-              <div key={i} className="w-3 h-3 rounded-sm bg-black border border-white/20" />
-            ))}
+        )}
+        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 42, background: "#000", zIndex: 2 }} />
+        <div style={{ position: "relative", zIndex: 3, padding: "0 2rem 3rem" }}>
+          <div style={{ fontFamily: "'JetBrains Mono',monospace", color: "#ffce4d", letterSpacing: ".3em", textTransform: "uppercase", fontSize: ".7rem", marginBottom: ".6rem" }}>
+            {category || "Field Report"}
           </div>
+          <h2
+            style={{
+              fontFamily: "'Oswald',sans-serif",
+              fontWeight: 700,
+              textTransform: "uppercase",
+              fontSize: "clamp(1.8rem,5vw,3rem)",
+              lineHeight: 0.98,
+              margin: 0,
+              color: "#fff",
+              maxWidth: "70%",
+            }}
+          >
+            {title}
+          </h2>
+        </div>
+      </div>
+
+      {/* ② theatrical intro */}
+      {intro && (
+        <div className="cine-intro-wrap" style={{ maxWidth: "42rem", margin: "3rem auto 2.5rem", textAlign: "center" }}>
+          <RichContent className={`${proseClasses} cine-intro-prose`}>{intro}</RichContent>
         </div>
       )}
 
-      <div className="px-4 sm:px-8">
-        {/* Cinematic intro — centered, dramatic */}
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <RichContent className={`${proseClasses} text-xl leading-loose prose-p:text-foreground/80 text-center`}>{intro}</RichContent>
-        </div>
-
-        {/* Sections as cinematic "scenes" */}
-        {sections.map((section, i) => (
-          <div key={i} className="mb-16">
-            {/* Scene marker */}
-            <div className="flex items-center justify-center gap-4 mb-8">
-              <div className="h-px flex-1 max-w-[100px] bg-gradient-to-r from-transparent to-muted-foreground/30" />
-              <span className="text-xs font-mono uppercase tracking-[0.3em] text-muted-foreground/60">
-                Scene {String(i + 1).padStart(2, '0')}
+      {/* ③ scenes + stills + collector slot injected mid-way */}
+      {sections.map((section, i) => (
+        <div key={i}>
+          <div style={{ margin: "0 0 3rem" }}>
+            <div className="flex items-center justify-center" style={{ gap: "1rem", margin: "0 0 1.6rem" }}>
+              <span style={{ height: 1, flex: 1, maxWidth: 120, background: "linear-gradient(90deg,transparent,#3a4a5a)" }} />
+              <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".66rem", letterSpacing: ".3em", textTransform: "uppercase", color: "var(--muted-foreground)" }}>
+                Scene {String(i + 1).padStart(2, "0")}
               </span>
-              <div className="h-px flex-1 max-w-[100px] bg-gradient-to-l from-transparent to-muted-foreground/30" />
+              <span style={{ height: 1, flex: 1, maxWidth: 120, background: "linear-gradient(90deg,#3a4a5a,transparent)" }} />
             </div>
-
-            {/* Section title — large, cinematic */}
-            <h2 className="text-3xl sm:text-4xl font-bold text-center mb-8 text-foreground leading-tight">
+            <h3
+              style={{
+                fontFamily: "'Oswald',sans-serif",
+                fontWeight: 600,
+                textTransform: "uppercase",
+                fontSize: "clamp(1.5rem,3.5vw,2.1rem)",
+                textAlign: "center",
+                margin: "0 0 1.4rem",
+                color: "#fff",
+              }}
+            >
               {section.heading}
-            </h2>
-
-            {/* Content with max-width for readability */}
-            <div className="max-w-3xl mx-auto">
-              <RichContent className={`${proseClasses} prose-p:text-lg`}>{section.body}</RichContent>
+            </h3>
+            <div style={{ maxWidth: "40rem", margin: "0 auto" }}>
+              <RichContent className={proseClasses}>{section.body}</RichContent>
             </div>
-
-            {/* Dramatic pull quote after first section */}
-            {i === 0 && pullQuote && (
-              <div className="max-w-2xl mx-auto my-12 text-center">
-                <div className="text-4xl text-muted-foreground/20 mb-2">"</div>
-                <blockquote className="text-2xl sm:text-3xl font-light italic text-foreground/80 leading-relaxed">
-                  {pullQuote}
-                </blockquote>
-                <div className="text-4xl text-muted-foreground/20 mt-2 rotate-180">"</div>
-              </div>
-            )}
           </div>
-        ))}
-      </div>
+
+          {/* still after first scene */}
+          {i === 0 && <CineStill imageUrl={null} caption="FIG. 01 — Add a scene still." alt={section.heading} />}
+
+          {/* pull quote after first scene */}
+          {i === 0 && pullQuote && (
+            <div style={{ maxWidth: "34rem", margin: "2.5rem auto", textAlign: "center" }}>
+              <div style={{ fontFamily: "'Oswald',sans-serif", fontSize: "2.5rem", color: "#e23636", lineHeight: 0.5 }}>"</div>
+              <blockquote
+                style={{
+                  margin: ".4rem 0 0",
+                  fontFamily: "'Oswald',sans-serif",
+                  fontWeight: 500,
+                  fontSize: "clamp(1.3rem,3vw,1.8rem)",
+                  lineHeight: 1.3,
+                  color: "#fff",
+                  fontStyle: "italic",
+                }}
+              >
+                {pullQuote}
+              </blockquote>
+            </div>
+          )}
+
+          {/* COLLECTOR SLOT — guaranteed, genre-skinned, ~60% scroll */}
+          {i === collectorAfter && (
+            <>
+              <CollectorSpot cardMarketImpact={cardMarketImpact} focusTitle={null} skin="cinematic" />
+              <a
+                href="/mcu-news"
+                className="grid items-center"
+                style={{
+                  margin: "2.5rem 0",
+                  border: "1px solid var(--border)",
+                  borderRadius: 6,
+                  background: "var(--card)",
+                  gridTemplateColumns: "1fr auto",
+                  gap: "1rem",
+                  padding: "1.1rem 1.4rem",
+                  textDecoration: "none",
+                }}
+              >
+                <span>
+                  <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".62rem", letterSpacing: ".2em", textTransform: "uppercase", color: "#ffce4d", display: "block", marginBottom: ".25rem" }}>
+                    Up Next
+                  </span>
+                  <span style={{ fontFamily: "'Oswald',sans-serif", fontSize: "1.15rem", color: "#fff", lineHeight: 1.2 }}>
+                    {excerpt ? "Continue the series" : "More from the MCU News desk"}
+                  </span>
+                </span>
+                <span style={{ fontFamily: "'Oswald',sans-serif", fontSize: "1.5rem", color: "var(--primary)" }}>→</span>
+              </a>
+            </>
+          )}
+        </div>
+      ))}
+
+      <style>{`
+        .cine-intro-prose p{ font-size:1.2rem; line-height:1.9; color:#d4d4de; text-align:center; }
+        .cine-intro-prose > p:first-of-type::first-letter{
+          font-family:'Oswald',sans-serif; font-size:1.4em; color:#e23636; font-weight:700;
+        }
+      `}</style>
     </div>
   );
 }
