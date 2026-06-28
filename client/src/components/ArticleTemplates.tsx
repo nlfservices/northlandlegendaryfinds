@@ -479,82 +479,142 @@ export function TimelineTemplate({ content, title, cardMarketImpact }: TemplateP
 // ============================================================
 // TEMPLATE 5: LISTICLE — Numbered entries with visual cards
 // ============================================================
-export function ListicleTemplate({ content, title, tags, cardMarketImpact }: TemplateProps) {
+export function ListicleTemplate({
+  content,
+  title,
+  excerpt,
+  tags,
+  category,
+  cardMarketImpact,
+}: TemplateProps) {
   const { intro, sections } = useMemo(() => splitBySections(content), [content]);
 
-  const rankColors = [
-    'from-yellow-500/20 to-yellow-500/5 border-yellow-500/40',
-    'from-purple-500/20 to-purple-500/5 border-purple-500/40',
-    'from-cyan-500/20 to-cyan-500/5 border-cyan-500/40',
-    'from-red-500/20 to-red-500/5 border-red-500/40',
-    'from-emerald-500/20 to-emerald-500/5 border-emerald-500/40',
-    'from-blue-500/20 to-blue-500/5 border-blue-500/40',
-    'from-orange-500/20 to-orange-500/5 border-orange-500/40',
-    'from-pink-500/20 to-pink-500/5 border-pink-500/40',
-  ];
+  // Count UP to #1: reverse the sections so the last becomes the climax.
+  // Set to false if your articles are authored #1-first.
+  const countUp = true;
+  const ranked = useMemo(() => {
+    const arr = sections.map((s, i) => ({ ...s, rank: i + 1 }));
+    return countUp ? arr.slice().reverse().map((s, idx) => ({ ...s, rank: sections.length - idx })) : arr;
+  }, [sections, countUp]);
 
-  const rankBadgeColors = [
-    'bg-yellow-500 text-black',
-    'bg-purple-500 text-white',
-    'bg-cyan-500 text-black',
-    'bg-red-500 text-white',
-    'bg-emerald-500 text-black',
-    'bg-blue-500 text-white',
-    'bg-orange-500 text-black',
-    'bg-pink-500 text-white',
-  ];
+  // Collector slot injected ~60% through the ranked list
+  const collectorAt = Math.max(0, Math.ceil(ranked.length * 0.6) - 1);
+
+  const HOT = "#aff5c5";
+  const GOLD = "#ffcc4d";
+  const STEEL = "#3a425d";
 
   return (
-    <div className="space-y-8">
-      {/* Listicle intro with count badge */}
-      <div className="relative">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="px-4 py-2 bg-primary/20 border border-primary/40 rounded-full">
-            <span className="text-sm font-bold text-primary">{sections.length} Sections</span>
-          </div>
-          {tags && tags.length > 0 && (
-            <div className="flex gap-2 flex-wrap">
-              {tags.slice(0, 4).map(tag => (
-                <span key={tag} className="text-xs px-2 py-1 bg-muted rounded-full text-muted-foreground">
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
+    <div>
+      {/* 0 countdown header + counter */}
+      <div
+        className="grid items-center"
+        style={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 14, padding: "1.4rem 1.5rem", marginBottom: "1.4rem", gridTemplateColumns: "1fr auto", gap: "1.2rem" }}
+      >
+        <div className="inline-flex items-center" style={{ gap: ".5rem", background: HOT, color: "#fff", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700, fontSize: ".72rem", letterSpacing: ".1em", textTransform: "uppercase", padding: ".3rem .7rem", borderRadius: 999, marginBottom: ".7rem" }}>
+          <span>● Counting Down · {sections.length} Picks</span>
         </div>
-        <RichContent className={`${proseClasses} text-lg border-b border-border/50 pb-8`}>{intro}</RichContent>
+        {intro ? (
+          <RichContent className={proseClasses}>{intro}</RichContent>
+        ) : (
+          excerpt && <div>{excerpt}</div>
+        )}
+      </div>
+      <div
+        style={{ textAlign: "center", flexShrink: 0 }} className="lc-counter"
+      >
+        <div style={{ fontFamily: "'Anton',sans-serif", fontSize: "3.4rem", lineHeight: 0.85, color: GOLD }}>{sections.length}</div>
+        <div style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".6rem", letterSpacing: ".2em", textTransform: "uppercase", color: "var(--muted-foreground)", marginTop: ".2rem" }}>#Picks</div>
       </div>
 
-      {/* Listicle entries as visual cards */}
-      <div className="space-y-6">
-        {sections.map((section, i) => {
-          const colorClass = rankColors[i % rankColors.length];
-          const badgeClass = rankBadgeColors[i % rankBadgeColors.length];
-          return (
-            <div key={i} className={`relative bg-gradient-to-r ${colorClass} border rounded-xl overflow-hidden`}>
-              {/* Rank badge */}
-              <div className="absolute top-0 left-0">
-                <div className={`${badgeClass} px-4 py-2 rounded-br-xl font-bold text-lg`}>
-                  #{i + 1}
-                </div>
-              </div>
+      {/* rank entries — alternating split cards */}
+      {ranked.map((entry, idx) => {
+        const flip = idx % 2 === 1; // alternate image side
+        const isTop = entry.rank === 1;
 
-              <div className="p-6 sm:p-8 pt-14 sm:pt-8 sm:pl-20">
-                {/* Section heading */}
-                <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4 leading-tight">
-                  {section.heading}
-                </h2>
-
-                {/* Content */}
-                <RichContent className={proseClasses}>{section.body}</RichContent>
-              </div>
-
-              {/* Bottom accent line */}
-              <div className={`h-1 w-full ${badgeClass.split(' ')[0]} opacity-50`} />
+        const art = (
+          <div className="lc-art" style={{ position: "relative", minHeight: 240, background: "#0a0010" }}>
+            <div style={{ position: "absolute", top: 0, left: 12, fontFamily: "'Anton',sans-serif", fontSize: "6rem", lineHeight: 1, color: isTop ? "#ffff" : "rgba(255,255,255,.08)", pointerEvents: "none" }}>
+              {String(entry.rank).padStart(2, "0")}
             </div>
-          );
-        })}
-      </div>
+            <div style={{ position: "absolute", top: 12, left: 12, zIndex: 2, background: isTop ? GOLD : STEEL, width: 46, height: 46, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              {entry.rank}
+            </div>
+            {/* TODO(manus): pass a per-entry image when available */}
+            <span style={{ fontSize: "2rem" }}>{isTop ? "★" : "🃏"}</span>
+            <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".64rem", opacity: 0.65 }}>880 × 880</span>
+          </div>
+        );
+
+        const copy = (
+          <div className="lc-copy" style={{ padding: "1.4rem 1.5rem", display: "flex", flexDirection: "column" }}>
+            <div style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".62rem", letterSpacing: ".16em", textTransform: "uppercase", color: isTop ? GOLD : HOT, marginBottom: ".4rem" }}>
+              {isTop ? "The One We'd Buy First" : `Tags: ${tags?.[idx % Math.max(1, tags.length)] ?? tags?.[0] ?? "The Pick"}`}
+            </div>
+            <h2 style={{ fontFamily: "'Anton',sans-serif", fontWeight: 400, fontSize: "1.7rem", lineHeight: 1.05, textTransform: "uppercase", letterSpacing: "-0.01em", color: "#ffff" }}>
+              {entry.heading}
+            </h2>
+            <div style={{ color: "#c4c0d0", fontSize: ".96rem", margin: "0 0 .7rem" }}>
+              <RichContent className={proseClasses}>{entry.body}</RichContent>
+            </div>
+          </div>
+        );
+
+        return (
+          <div
+            key={idx}
+            className="lc-entry grid"
+            style={{
+              gridTemplateColumns: flip ? "1.1fr 0.9fr" : "0.9fr 1.1fr",
+              marginBottom: "1.2rem",
+              border: "3px solid var(--border)",
+              borderRadius: 14,
+              overflow: "hidden",
+              background: "var(--card)",
+            }}
+          >
+            {flip ? (
+              <>
+                {copy}
+                {art}
+              </>
+            ) : (
+              <>
+                {art}
+                {copy}
+              </>
+            )}
+          </div>
+        );
+      })}
+
+      {/* COLLECTOR SLOT — countdown skin, ~60% scroll */}
+      {collectorAt >= 0 && (
+        <>
+          <CollectorSpot cardMarketImpact={cardMarketImpact} focusTitle={null} skin="countdown" />
+          {/* anti-bounce next-up hook */}
+          <a
+            href="/mcu-news"
+            className="grid items-center"
+            style={{ margin: "1.2rem 0 0", border: "1px solid var(--border)", borderRadius: 14, background: "var(--card)", gridTemplateColumns: "1fr auto", gap: "1rem", padding: "1.3rem 1.5rem", textDecoration: "none" }}
+          >
+            <span>
+              <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".62rem", letterSpacing: ".2em", display: "block", marginBottom: ".25rem", color: GOLD, textTransform: "uppercase" }}>Up Next</span>
+              <span style={{ fontFamily: "'Anton',sans-serif", fontWeight: 400, fontSize: "1.3rem", lineHeight: 1.1, textTransform: "uppercase" }}>
+                {excerpt ? "The Full Breakdown" : "More from the MCU News desk"}
+              </span>
+            </span>
+            <span style={{ fontFamily: "'Anton',sans-serif", fontSize: "1.6rem", color: "var(--primary)" }}>→</span>
+          </a>
+        </>
+      )}
+
+      <style>{`
+        @media(max-width:640px){
+          .lc-entry{ grid-template-columns:1fr !important; }
+          .lc-counter{ display:none; }
+        }
+      `}</style>
     </div>
   );
 }
@@ -740,7 +800,7 @@ export function PatrioticTemplate({ content, title, featuredImageUrl, excerpt, t
 const NLF_WHATNOT_URL = "https://www.whatnot.com/user/northlandfinds";
 const NLF_SHOP_URL = "https://northlandlegendaryfinds.com/shop";
 
-type CollectorSkin = "cinematic" | "comic" | "editorial" | "intel" | "default";
+type CollectorSkin = "cinematic" | "comic" | "editorial" | "intel" | "countdown" | "default";
 
 function CollectorSpot({
   cardMarketImpact,
@@ -1073,6 +1133,104 @@ function CollectorSpot({
               whiteSpace: "nowrap",
               border: "1px solid var(--border)",
               color: "var(--foreground)",
+            }}
+          >
+            Shop the Repacks
+          </a>
+        </div>
+      </div>
+    );
+  }
+
+  // countdown skin — blue/steel gradient, JetBrains Mono, rank-list aesthetic
+  if (skin === "countdown") {
+    return (
+      <div
+        className="grid items-center"
+        style={{
+          margin: "1.2rem 0",
+          borderRadius: 14,
+          background: "linear-gradient(135deg,rgba(98,224,138,.12),rgba(77,181,255,.06))",
+          border: "1px solid rgba(98,224,138,.3)",
+          gridTemplateColumns: hasCard ? "auto 1fr auto" : "1fr auto",
+          gap: "1.3rem",
+          padding: "1.3rem 1.5rem",
+        }}
+      >
+        {hasCard && (
+          <div
+            style={{
+              width: 78,
+              height: 106,
+              flexShrink: 0,
+              border: "1px solid #3a4258",
+              background: "repeating-linear-gradient(135deg,#0e1621 0 9px,#111927 9px 18px)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "#4a5568",
+              fontSize: ".52rem",
+              textAlign: "center",
+            }}
+          >
+            CARD IMG
+          </div>
+        )}
+        <div>
+          <div
+            style={{
+              fontFamily: "'JetBrains Mono', monospace",
+              fontSize: ".62rem",
+              letterSpacing: ".16em",
+              textTransform: "uppercase",
+              color: "var(--primary)",
+              marginBottom: ".35rem",
+            }}
+          >
+            {heading}
+          </div>
+          <p
+            style={{
+              margin: 0,
+              fontFamily: "'Inter', sans-serif",
+              fontSize: ".88rem",
+              color: "var(--muted-foreground)",
+              maxWidth: "32rem",
+              lineHeight: 1.6,
+            }}
+          >
+            {body}
+          </p>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: ".55rem" }}>
+          <a
+            href={NLF_WHATNOT_URL}
+            style={{
+              fontWeight: 600,
+              fontSize: ".84rem",
+              padding: ".55rem 1.15rem",
+              borderRadius: 7,
+              textDecoration: "none",
+              textAlign: "center",
+              whiteSpace: "nowrap",
+              background: "var(--primary)",
+              color: "#0a1606",
+            }}
+          >
+            Watch on Whatnot
+          </a>
+          <a
+            href={NLF_SHOP_URL}
+            style={{
+              fontWeight: 600,
+              fontSize: ".84rem",
+              padding: ".55rem 1.15rem",
+              borderRadius: 7,
+              textDecoration: "none",
+              textAlign: "center",
+              whiteSpace: "nowrap",
+              border: "1px solid #3a4258",
+              color: "var(--primary-foreground)",
             }}
           >
             Shop the Repacks

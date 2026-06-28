@@ -2848,3 +2848,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add comic_strip to ALL_TEMPLATE_NAMES map
 - [x] Add comic_strip case to ArticleTemplateRenderer switch
 - [x] Add all 12 templates (including comic_strip) to TEMPLATE_LAYOUTS dropdown in ArticleManager.tsx
+
+## Article Template Redesigns (Handoff Series)
+- [x] Comic Strip template (comic_strip) — Bangers/Archivo Black fonts, panel layout, speech bubble
+- [x] Cinematic template (cinematic) — redesigned with CollectorSpot cinematic skin
+- [x] Clean Informational template (classic) — Fraunces font, drop-cap, editorial CollectorSpot skin
+- [x] Dossier/Intel File template (dossier) — IBM Plex Mono, classified header, redacted quote, intel skin
+- [ ] Ranked Countdown template (listicle) — Anton/JetBrains Mono, split image/text rank cards, countdown skin
