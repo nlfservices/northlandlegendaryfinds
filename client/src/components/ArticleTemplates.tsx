@@ -110,11 +110,166 @@ function extractImages(content: string): string[] {
 }
 
 // ============================================================
-// TEMPLATE 1: CLASSIC (current layout — kept as default)
+// TEMPLATE 1: CLASSIC — Clean Informational (NYT/Vox editorial feel)
+// Serif deck, byline rule, lead image, drop-cap, inline figure,
+// hanging pull quote, CollectorSpot editorial skin.
 // ============================================================
-export function ClassicTemplate({ content }: TemplateProps) {
+
+const CI_ACCENT = "#c9a24b"; // understated editorial gold
+const CI_RULE = "#2e333d";
+
+export function ClassicTemplate({
+  content,
+  title,
+  featuredImageUrl,
+  excerpt,
+  tags,
+  category,
+  cardMarketImpact,
+}: TemplateProps) {
+  const { intro, sections } = useMemo(() => splitBySections(content), [content]);
+  const pullQuote = useMemo(() => extractPullQuote(content), [content]);
+
+  const collectorAfter = Math.max(0, Math.ceil(sections.length * 0.6) - 1);
+
+  const chips = [
+    category || "Analysis",
+    ...(tags && tags.length ? [tags[0]] : []),
+  ].filter(Boolean);
+
   return (
-    <RichContent className={proseClasses}>{content}</RichContent>
+    <div style={{ maxWidth: "40rem", margin: "0 auto" }}>
+      {/* ① deck / standfirst */}
+      {excerpt && (
+        <p
+          style={{
+            fontFamily: "'Fraunces',serif",
+            fontWeight: 400,
+            fontSize: "1.4rem",
+            lineHeight: 1.5,
+            color: "#c4c7d0",
+            margin: "0 0 1.8rem",
+            fontStyle: "italic",
+          }}
+        >
+          {excerpt}
+        </p>
+      )}
+
+      {/* byline rule */}
+      <div
+        className="flex items-center"
+        style={{
+          gap: "1rem",
+          borderTop: `1px solid ${CI_RULE}`,
+          borderBottom: `1px solid ${CI_RULE}`,
+          padding: ".7rem 0",
+          margin: "0 0 2.2rem",
+          fontSize: ".78rem",
+          letterSpacing: ".06em",
+          textTransform: "uppercase",
+          color: "var(--muted-foreground)",
+        }}
+      >
+        {chips.map((c, i) => (
+          <span key={i} className="flex items-center" style={{ gap: "1rem" }}>
+            {i > 0 && <span style={{ width: 4, height: 4, borderRadius: "50%", background: CI_ACCENT }} />}
+            {c}
+          </span>
+        ))}
+      </div>
+
+      {/* ② lead image */}
+      <figure style={{ margin: "0 0 2.2rem" }}>
+        <div style={{ aspectRatio: "3 / 2", background: "#0c0d11", border: "1px solid var(--border)", position: "relative", overflow: "hidden" }}>
+          {featuredImageUrl ? (
+            <img src={featuredImageUrl} alt={title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+          ) : (
+            <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: ".4rem", color: "#565b66", background: "repeating-linear-gradient(135deg,#121419 0 16px,#0e1014 16px 32px)" }}>
+              <span style={{ fontSize: "1.8rem" }}>▭</span>
+              <span style={{ fontWeight: 600, letterSpacing: ".1em", textTransform: "uppercase", fontSize: ".74rem" }}>Lead Image — Add</span>
+              <span style={{ fontSize: ".66rem", opacity: 0.65 }}>1200 × 800 · 3:2</span>
+            </div>
+          )}
+        </div>
+        <figcaption style={{ fontSize: ".78rem", color: "var(--muted-foreground)", marginTop: ".6rem", lineHeight: 1.5, paddingLeft: ".8rem", borderLeft: `2px solid ${CI_RULE}` }}>
+          {title}
+        </figcaption>
+      </figure>
+
+      {/* ③ body */}
+      <div className="ci-body" style={{ fontSize: "1.08rem", color: "#d2d5dd" }}>
+        {intro && <RichContent className={`${proseClasses} ci-intro-prose`}>{intro}</RichContent>}
+
+        {sections.map((section, i) => (
+          <div key={i}>
+            <div style={{ margin: "2.4rem 0 1rem" }}>
+              <div style={{ fontSize: ".7rem", letterSpacing: ".18em", textTransform: "uppercase", color: CI_ACCENT, marginBottom: ".4rem" }}>
+                {tags && tags[i % Math.max(1, tags.length)] ? tags[i % tags.length] : "More"}
+              </div>
+              <h2 style={{ fontFamily: "'Fraunces',serif", fontWeight: 600, fontSize: "1.6rem", lineHeight: 1.25, margin: 0, color: "#fff" }}>
+                {section.heading}
+              </h2>
+            </div>
+
+            {/* inline right-set figure on the first section */}
+            {i === 0 && (
+              <figure className="ci-figure" style={{ float: "right", width: "46%", margin: ".4rem 0 1rem 1.4rem" }}>
+                <div style={{ aspectRatio: "4 / 3", background: "#0c0d11", border: "1px solid var(--border)", position: "relative", overflow: "hidden" }}>
+                  <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: ".3rem", color: "#565b66", background: "repeating-linear-gradient(135deg,#121419 0 16px,#0e1014 16px 32px)" }}>
+                    <span style={{ fontWeight: 600, letterSpacing: ".08em", textTransform: "uppercase", fontSize: ".66rem" }}>Figure — Add</span>
+                    <span style={{ fontSize: ".6rem", opacity: 0.65 }}>800 × 600</span>
+                  </div>
+                </div>
+                <figcaption style={{ fontSize: ".74rem", color: "var(--muted-foreground)", marginTop: ".5rem", lineHeight: 1.45 }}>
+                  Add a supporting figure for this section.
+                </figcaption>
+              </figure>
+            )}
+
+            <RichContent className={proseClasses}>{section.body}</RichContent>
+
+            {/* hanging serif pull quote after first section */}
+            {i === 0 && pullQuote && (
+              <div style={{ margin: "2rem 0", paddingLeft: "1.4rem", borderLeft: `2px solid ${CI_ACCENT}`, clear: "both" }}>
+                <blockquote style={{ margin: 0, fontFamily: "'Fraunces',serif", fontWeight: 500, fontStyle: "italic", fontSize: "1.5rem", lineHeight: 1.4, color: "#fff" }}>
+                  "{pullQuote}"
+                </blockquote>
+              </div>
+            )}
+
+            {/* COLLECTOR SLOT — editorial skin, ~60% scroll */}
+            {i === collectorAfter && (
+              <div style={{ clear: "both" }}>
+                <CollectorSpot cardMarketImpact={cardMarketImpact} focusTitle={null} skin="editorial" />
+                <a
+                  href="/mcu-news"
+                  className="grid items-center"
+                  style={{ margin: "2rem 0 0", borderTop: `1px solid ${CI_RULE}`, paddingTop: "1.2rem", gridTemplateColumns: "1fr auto", gap: "1rem", textDecoration: "none" }}
+                >
+                  <span>
+                    <span style={{ fontSize: ".66rem", letterSpacing: ".18em", textTransform: "uppercase", color: CI_ACCENT, display: "block", marginBottom: ".3rem" }}>Keep Reading</span>
+                    <span style={{ fontFamily: "'Fraunces',serif", fontWeight: 500, fontSize: "1.2rem", color: "#fff", lineHeight: 1.3 }}>
+                      {excerpt ? "Continue the analysis" : "More from the MCU News desk"}
+                    </span>
+                  </span>
+                  <span style={{ fontSize: "1.4rem", color: CI_ACCENT }}>→</span>
+                </a>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      <style>{`
+        .ci-intro-prose > p:first-of-type::first-letter{
+          font-family:'Fraunces',serif; font-weight:600; float:left; font-size:3.6rem;
+          line-height:.78; margin:.35rem .7rem 0 0; color:var(--foreground);
+        }
+        .ci-body p{ margin:0 0 1.3rem; }
+        @media(max-width:620px){ .ci-figure{ float:none !important; width:100% !important; margin:1rem 0 !important; } }
+      `}</style>
+    </div>
   );
 }
 
@@ -585,7 +740,7 @@ export function PatrioticTemplate({ content, title, featuredImageUrl, excerpt, t
 const NLF_WHATNOT_URL = "https://www.whatnot.com/user/northlandfinds";
 const NLF_SHOP_URL = "https://northlandlegendaryfinds.com/shop";
 
-type CollectorSkin = "cinematic" | "comic" | "default";
+type CollectorSkin = "cinematic" | "comic" | "editorial" | "default";
 
 function CollectorSpot({
   cardMarketImpact,
@@ -694,6 +849,113 @@ function CollectorSpot({
             .cine-cta-primary,.cine-cta-ghost{font-size:.78rem;}
           }
         `}</style>
+      </div>
+    );
+  }
+
+  // editorial skin — quiet gold accent, Fraunces serif heading
+  if (skin === "editorial") {
+    return (
+      <div
+        className="grid items-center"
+        style={{
+          margin: "2.4rem 0",
+          border: "1px solid var(--border)",
+          borderTop: "2px solid #c9a24b",
+          background: "var(--card)",
+          gridTemplateColumns: hasCard ? "auto 1fr auto" : "1fr auto",
+          gap: "1.3rem",
+          padding: "1.3rem 1.4rem",
+        }}
+      >
+        {hasCard && (
+          <div
+            style={{
+              width: 74,
+              height: 100,
+              flexShrink: 0,
+              border: "1px solid #2e333d",
+              background: "repeating-linear-gradient(135deg,#181b22 0 9px,#13151b 9px 18px)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "#666c78",
+              fontSize: ".54rem",
+              textAlign: "center",
+            }}
+          >
+            CARD IMG
+          </div>
+        )}
+        <div>
+          <div
+            style={{
+              fontSize: ".66rem",
+              letterSpacing: ".2em",
+              textTransform: "uppercase",
+              color: "#c9a24b",
+              marginBottom: ".35rem",
+            }}
+          >
+            {kicker}
+          </div>
+          <h4
+            style={{
+              fontFamily: "'Fraunces',serif",
+              fontWeight: 600,
+              fontSize: "1.25rem",
+              margin: "0 0 .3rem",
+              color: "#fff",
+            }}
+          >
+            {heading}
+          </h4>
+          <p
+            style={{
+              margin: 0,
+              fontSize: ".88rem",
+              color: "var(--muted-foreground)",
+              maxWidth: "30rem",
+              lineHeight: 1.6,
+            }}
+          >
+            {body}
+          </p>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: ".5rem" }}>
+          <a
+            href={NLF_WHATNOT_URL}
+            style={{
+              fontSize: ".82rem",
+              fontWeight: 600,
+              padding: ".55rem 1.1rem",
+              borderRadius: 6,
+              textDecoration: "none",
+              textAlign: "center",
+              whiteSpace: "nowrap",
+              background: "var(--primary)",
+              color: "var(--primary-foreground)",
+            }}
+          >
+            Watch on Whatnot →
+          </a>
+          <a
+            href={NLF_SHOP_URL}
+            style={{
+              fontSize: ".82rem",
+              fontWeight: 600,
+              padding: ".55rem 1.1rem",
+              borderRadius: 6,
+              textDecoration: "none",
+              textAlign: "center",
+              whiteSpace: "nowrap",
+              border: "1px solid var(--border)",
+              color: "var(--foreground)",
+            }}
+          >
+            Shop the Repacks
+          </a>
+        </div>
       </div>
     );
   }
