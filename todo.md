@@ -2880,3 +2880,4 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Update CardOfTheDay page to support date param with prev/next navigation arrows
 - [x] Each date page gets unique SEO metadata (title, description, OG image, canonical, rel prev/next)
 - [x] Add date-based card pages to sitemap (58 URLs)
+- [x] Publish "The Brady Effect" MCU News article — analysis piece on why MCU actors collecting their own Marvel cards could transform the hobby (spotlight template, featured)
