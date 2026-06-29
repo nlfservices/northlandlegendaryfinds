@@ -542,7 +542,7 @@ export const articles = mysqlTable("articles", {
   /** SEO meta description */
   metaDescription: varchar("metaDescription", { length: 320 }),
   /** Article template layout style (classic, magazine, spotlight, timeline, listicle) */
-  templateLayout: mysqlEnum("templateLayout", ["classic", "magazine", "spotlight", "timeline", "listicle", "patriotic", "cinematic", "dossier", "collector_spotlight", "disney_experience", "character_profile"]).default("classic"),
+  templateLayout: mysqlEnum("templateLayout", ["classic", "magazine", "spotlight", "timeline", "listicle", "patriotic", "cinematic", "dossier", "collector_spotlight", "disney_experience", "character_profile", "comic_strip"]).default("classic"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });

@@ -1,0 +1,1 @@
+ALTER TABLE `articles` MODIFY COLUMN `templateLayout` enum('classic','magazine','spotlight','timeline','listicle','patriotic','cinematic','dossier','collector_spotlight','disney_experience','character_profile','comic_strip') DEFAULT 'classic';
