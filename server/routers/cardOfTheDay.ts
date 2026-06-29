@@ -40,44 +40,80 @@ function parseCharacterFacts(raw: string | null | undefined) {
 
 /**
  * Merge rotation defaults with any admin overrides stored in DB.
- * DB values take precedence over rotation defaults.
+ * When a DB entry exists, it is used as the primary source of truth.
+ * The rotation engine only provides fallback data for dates with no DB entry.
  */
 function mergeWithRotation(dateISO: string, dbEntry: typeof cardOfTheDayEntries.$inferSelect | null) {
+  // Format date label
+  const dateObj = new Date(dateISO + "T00:00:00Z");
+  const dateLabel = dateObj.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC",
+  });
+
+  if (dbEntry) {
+    // DB entry is the source of truth — use it directly
+    return {
+      dateISO,
+      dateLabel,
+      characterIndex: 0,
+      characterName: dbEntry.characterName,
+      characterRealName: dbEntry.characterRealName ?? null,
+      characterTagline: dbEntry.characterTagline ?? null,
+      characterBio: dbEntry.characterBio ?? null,
+      characterFacts: parseCharacterFacts(dbEntry.characterFacts),
+      characterImageUrl: dbEntry.characterImageUrl ?? null,
+      cardNumber: dbEntry.cardNumber ?? null,
+      setName: dbEntry.setName,
+      setLabel: dbEntry.setLabel ?? (SET_LABELS as Record<string, string>)[dbEntry.setName] ?? dbEntry.setName,
+      frontImageUrl: dbEntry.frontImageUrl ?? null,
+      backImageUrl: dbEntry.backImageUrl ?? null,
+      youtubeId: dbEntry.youtubeId ?? null,
+      estimatedPrice: dbEntry.estimatedPrice ?? null,
+      buzzNote: dbEntry.buzzNote ?? null,
+      isActive: dbEntry.isActive ?? true,
+      parallelType: dbEntry.parallelType ?? null,
+      printRun: dbEntry.printRun ?? null,
+      serialNumber: dbEntry.serialNumber ?? null,
+      cgcGrade: dbEntry.cgcGrade ?? null,
+      gradingCompany: dbEntry.gradingCompany ?? null,
+      dbId: dbEntry.id,
+      hasDbEntry: true,
+    };
+  }
+
+  // No DB entry — fall back to rotation engine
   const rotation = getRotationForDate(dateISO);
   const char = rotation.character;
 
   return {
     dateISO: rotation.dateISO,
-    dateLabel: rotation.dateLabel,
+    dateLabel,
     characterIndex: rotation.characterIndex,
-    // Character info — DB overrides rotation defaults
-    characterName: dbEntry?.characterName ?? char.characterName,
-    characterRealName: dbEntry?.characterRealName ?? char.characterRealName,
-    characterTagline: dbEntry?.characterTagline ?? char.characterTagline,
-    characterBio: dbEntry?.characterBio ?? char.characterBio,
-    characterFacts: dbEntry?.characterFacts
-      ? parseCharacterFacts(dbEntry.characterFacts)
-      : char.characterFacts,
-    characterImageUrl: dbEntry?.characterImageUrl ?? null,
-    // Card info
-    cardNumber: dbEntry?.cardNumber ?? rotation.cardNumber,
-    setName: dbEntry?.setName ?? rotation.setKey,
-    setLabel: dbEntry?.setLabel ?? rotation.setLabel,
-    frontImageUrl: dbEntry?.frontImageUrl ?? null,
-    backImageUrl: dbEntry?.backImageUrl ?? null,
-    youtubeId: dbEntry?.youtubeId ?? null,
-    estimatedPrice: dbEntry?.estimatedPrice ?? null,
-    buzzNote: dbEntry?.buzzNote ?? char.buzzNote,
-    isActive: dbEntry?.isActive ?? true,
-    // Parallel / grading info
-    parallelType: dbEntry?.parallelType ?? null,
-    printRun: dbEntry?.printRun ?? null,
-    serialNumber: dbEntry?.serialNumber ?? null,
-    cgcGrade: dbEntry?.cgcGrade ?? null,
-    gradingCompany: dbEntry?.gradingCompany ?? null,
-    // DB metadata
-    dbId: dbEntry?.id ?? null,
-    hasDbEntry: dbEntry !== null,
+    characterName: char.characterName,
+    characterRealName: char.characterRealName,
+    characterTagline: char.characterTagline,
+    characterBio: char.characterBio,
+    characterFacts: char.characterFacts,
+    characterImageUrl: null,
+    cardNumber: rotation.cardNumber,
+    setName: rotation.setKey,
+    setLabel: rotation.setLabel,
+    frontImageUrl: null,
+    backImageUrl: null,
+    youtubeId: null,
+    estimatedPrice: null,
+    buzzNote: char.buzzNote,
+    isActive: true,
+    parallelType: null,
+    printRun: null,
+    serialNumber: null,
+    cgcGrade: null,
+    gradingCompany: null,
+    dbId: null,
+    hasDbEntry: false,
   };
 }
 

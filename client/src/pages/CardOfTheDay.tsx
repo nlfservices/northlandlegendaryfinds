@@ -120,7 +120,7 @@ function CardOfTheDayDisplay({ data }: { data: CardData }) {
   const cardName = buildCardName(data);
   const printRunLabel = buildPrintRunLabel(data);
   const gradeLabel = buildGradeLabel(data);
-  const nlfStoreUrl = "https://northlandlegendaryfinds.com/shop";
+  const nlfMcuNewsUrl = "/mcu-news";
   const whatnotUrl = "https://www.whatnot.com/user/northlandlegendaryfinds";
 
   const tabs = useMemo(() => {
@@ -147,12 +147,12 @@ function CardOfTheDayDisplay({ data }: { data: CardData }) {
         "@type": "AggregateOffer",
         availability: "https://schema.org/InStock",
         priceCurrency: "USD",
-        url: nlfStoreUrl,
+        url: "https://northlandlegendaryfinds.com/mcu-news",
       },
     };
     Object.keys(obj).forEach((k) => obj[k] === undefined && delete obj[k]);
     return JSON.stringify(obj);
-  }, [cardName, setLabel, frontImageUrl, characterBio, nlfStoreUrl]);
+  }, [cardName, setLabel, frontImageUrl, characterBio]);
 
   return (
     <div style={{ maxWidth: "60rem", margin: "0 auto", padding: "2rem 1.25rem 4rem", color: "var(--foreground,#eaedf4)" }}>
@@ -247,9 +247,9 @@ function CardOfTheDayDisplay({ data }: { data: CardData }) {
                style={{ background: "#fff", color: "#111" }}>
               Search on <strong style={{ color: "#e53238", marginLeft: ".25rem" }}>eBay</strong>
             </a>
-            <a className="cod-btn" href={nlfStoreUrl} target="_blank" rel="noopener"
+            <a className="cod-btn" href={nlfMcuNewsUrl}
                style={{ background: PRIMARY, color: "var(--primary-foreground,#08200f)" }}>
-              Shop at NLF
+              Explore MCU News
             </a>
             <a className="cod-btn" href={whatnotUrl} target="_blank" rel="noopener"
                style={{ background: "#1c2333", color: "#fff", border: "1px solid var(--steel,#384259)" }}>

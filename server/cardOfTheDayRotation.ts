@@ -400,14 +400,10 @@ export function getRotationForDate(dateISO: string): DayRotation {
 }
 
 /**
- * Get today's rotation (Central Time date).
+ * Get today's rotation (UTC date — matches DB seed dates).
  */
 export function getTodayRotation(): DayRotation {
   const now = new Date();
-  // Use Central Time (UTC-5/UTC-6)
-  const ctOffset = -6 * 60; // CDT = UTC-5, CST = UTC-6; use -6 as conservative
-  const ctMs = now.getTime() + (now.getTimezoneOffset() + ctOffset) * 60_000;
-  const ctDate = new Date(ctMs);
-  const dateISO = ctDate.toISOString().slice(0, 10);
+  const dateISO = now.toISOString().slice(0, 10);
   return getRotationForDate(dateISO);
 }
