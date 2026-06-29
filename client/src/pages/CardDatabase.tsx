@@ -4,7 +4,7 @@
  * Lazy loading images for performance
  */
 
-import { useState, useMemo, useRef, useCallback, useEffect } from "react";
+import { useState, useMemo, useRef, useCallback, useEffect, type MouseEvent as ReactMouseEvent } from "react";
 import { trpc } from "@/lib/trpc";
 import { Link, useRoute } from "wouter";
 import { Button } from "@/components/ui/button";
@@ -13,7 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import {
   Search, ChevronRight, BookOpen, Layers, Hash, ArrowLeft,
-  Star, X, Grid3X3, List, Trophy, Flame, Target
+  Star, X, Grid3X3, List, Trophy, Flame, Target, Sparkles, Eye
 } from "lucide-react";
 import MarvelMintChecklist from "@/components/MarvelMintChecklist";
 import GenericSetChecklist from "@/components/GenericSetChecklist";
@@ -204,7 +204,7 @@ function LazyImage({ src, alt, className }: { src: string; alt: string; classNam
   );
 }
 
-// ==================== CARD IMAGE (no flip) ====================
+// ==================== CARD IMAGE (Premium 3D Tilt + Holographic Shimmer) ====================
 function CardImage({ frontImg, name, cardNumber, cosmicBg, borderColor, glowColor }: {
   frontImg: string;
   name: string;
@@ -214,11 +214,33 @@ function CardImage({ frontImg, name, cardNumber, cosmicBg, borderColor, glowColo
   glowColor?: string;
 }) {
   const hasCosmic = !!cosmicBg;
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0 });
+
+  const handleMouseMove = useCallback((e: ReactMouseEvent<HTMLDivElement>) => {
+    const el = cardRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+    // Tilt range: -8 to 8 degrees
+    setTilt({
+      rotateX: (0.5 - y) * 16,
+      rotateY: (x - 0.5) * 16,
+    });
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    setTilt({ rotateX: 0, rotateY: 0 });
+  }, []);
 
   return (
     <div
-      className="relative group"
+      className="relative card-3d-wrapper"
       title={name}
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
     >
       {/* Cosmic background container */}
       {hasCosmic && (
@@ -242,11 +264,14 @@ function CardImage({ frontImg, name, cardNumber, cosmicBg, borderColor, glowColo
         />
       )}
       <div
-        className="relative w-full"
-        style={{ aspectRatio: "2.5/3.5" }}
+        className="relative w-full card-3d-inner rounded-lg"
+        style={{
+          aspectRatio: "2.5/3.5",
+          transform: `rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg)`,
+        }}
       >
         <div
-          className="absolute inset-0 rounded-lg overflow-hidden bg-card"
+          className="absolute inset-0 rounded-lg overflow-hidden bg-card holo-shimmer"
           style={{
             border: hasCosmic ? `2px solid ${borderColor || 'rgba(255,255,255,0.3)'}` : '1px solid rgba(255,255,255,0.1)',
             boxShadow: hasCosmic ? `0 4px 15px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)` : 'none',
@@ -417,17 +442,17 @@ function SetBrowser() {
             {searchResults.length === 0 ? (
               <p className="text-muted-foreground py-8 text-center">No cards found matching "{searchQuery}"</p>
             ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-4">
-                {searchResults.map((card: any) => {
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-5">
+                {searchResults.map((card: any, idx: number) => {
                   const theme = getEraTheme(card.cardType || '');
                   const cosmicBgUrl = COSMIC_BG[card.cardType || ''];
                   const hasCosmic = !!cosmicBgUrl;
                   const setSlugForLink = card.setSlug || (sets?.find((s: any) => s.id === card.setId)?.slug);
                   return (
-                    <Link key={card.id} href={setSlugForLink ? `/cards/${setSlugForLink}/${encodeURIComponent(card.cardNumber)}` : '#'} className="group block">
+                    <Link key={card.id} href={setSlugForLink ? `/cards/${setSlugForLink}/${encodeURIComponent(card.cardNumber)}` : '#'} className="group block card-tile-enter" style={{ animationDelay: `${Math.min(idx * 30, 600)}ms` }}>
                       <article>
-                      <div className={`rounded-lg overflow-hidden transition-all ${hasCosmic ? 'border-0 bg-transparent' : 'bg-card border border-border hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5'}`}>
-                        <div className={hasCosmic ? 'p-2 pt-3' : ''}>
+                      <div className={`rounded-xl overflow-hidden transition-all duration-300 hover:scale-[1.03] hover:-translate-y-1 ${hasCosmic ? 'border-0 bg-transparent' : 'bg-card border border-border/60 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/5'}`}>
+                        <div className={hasCosmic ? 'p-2 pt-3' : 'p-1.5 pt-2'}>
                           <CardImage
                             frontImg={card.imageUrl || PLACEHOLDER_IMG}
                             name={card.characterName}
@@ -437,10 +462,10 @@ function SetBrowser() {
                             glowColor={theme.glowColor}
                           />
                         </div>
-                        <div className={`p-3 ${hasCosmic ? 'bg-black/40 backdrop-blur-sm rounded-b-lg' : ''}`}>
+                        <div className={`px-2.5 pb-2.5 pt-1.5 ${hasCosmic ? 'bg-black/40 backdrop-blur-sm rounded-b-xl' : ''}`}>
                           <p className="font-semibold text-sm truncate">{card.characterName}</p>
                           <div className="flex items-center justify-between mt-1">
-                            <span className="text-xs text-muted-foreground">#{card.cardNumber}</span>
+                            <span className="text-xs text-muted-foreground font-mono">#{card.cardNumber}</span>
                             <Badge variant="outline" className={`text-[10px] px-1.5 py-0 ${theme.badge}`}>{card.cardType || "Base"}</Badge>
                           </div>
                           {card.setName && (
@@ -962,33 +987,58 @@ function SetDetail({ slug }: { slug: string }) {
           isPlayingCardType(filterType) ? (
             <PlayingCardSuitGrid cards={filteredCards} setName={set.name} />
           ) : (
-          /* Standard Grid View with Card Images */
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-4">
-            {filteredCards.map((card) => (
-              <article key={card.id} className="group">
+          /* Premium Grid View with 3D Tilt, Shimmer, Staggered Animation */
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-5">
+            {filteredCards.map((card, idx) => (
+              <article
+                key={card.id}
+                className="group relative card-tile-enter"
+                style={{ animationDelay: `${Math.min(idx * 30, 600)}ms` }}
+              >
                 {(() => {
                   const theme = getEraTheme(card.cardType || '');
                   // Gambit cards don't get cosmic backgrounds
                   const isGambit = isPlayingCardType(card.cardType || '');
                   const cosmicBgUrl = isGambit ? undefined : COSMIC_BG[card.cardType || ''];
                   const hasCosmic = !!cosmicBgUrl;
+                  const hasImage = card.imageUrl && card.imageUrl !== PLACEHOLDER_IMG;
+                  // Count parallel variants from the parallels string
+                  const parallelCount = card.parallels ? card.parallels.split(',').length : 0;
 
                   return (
-                    <div className={`rounded-lg overflow-hidden transition-all ${hasCosmic ? 'border-0 bg-transparent' : `border border-border ${theme.border} hover:shadow-lg ${theme.glow} ${theme.bg}`}`}>
-                      {/* Cosmic card with nebula background */}
+                    <div className={`rounded-xl overflow-hidden transition-all duration-300 ${hasCosmic ? 'border-0 bg-transparent' : `border border-border/60 ${theme.border} hover:shadow-xl ${theme.glow} ${theme.bg}`} hover:scale-[1.03] hover:-translate-y-1`}>
+                      {/* Card Image with Link */}
                       <Link href={`/cards/${set.slug}/${encodeURIComponent(card.cardNumber)}`} className="block">
-                      <div className={hasCosmic ? 'p-2 pt-3' : ''}>
-                        <CardImage
-                          frontImg={card.imageUrl || PLACEHOLDER_IMG}
-                          name={card.characterName}
-                          cardNumber={card.cardNumber}
-                          cosmicBg={cosmicBgUrl}
-                          borderColor={theme.borderColor}
-                          glowColor={theme.glowColor}
-                        />
+                      <div className={hasCosmic ? 'p-2 pt-3' : 'p-1.5 pt-2'}>
+                        {hasImage ? (
+                          <CardImage
+                            frontImg={card.imageUrl || PLACEHOLDER_IMG}
+                            name={card.characterName}
+                            cardNumber={card.cardNumber}
+                            cosmicBg={cosmicBgUrl}
+                            borderColor={theme.borderColor}
+                            glowColor={theme.glowColor}
+                          />
+                        ) : (
+                          /* Premium empty state for cards without images */
+                          <div
+                            className="relative w-full rounded-lg overflow-hidden bg-gradient-to-b from-muted/40 to-muted/20 border border-border/30 flex items-center justify-center"
+                            style={{ aspectRatio: "2.5/3.5" }}
+                          >
+                            <div className="text-center px-2">
+                              <div className="w-10 h-10 mx-auto mb-2 rounded-full bg-muted/50 flex items-center justify-center">
+                                <Sparkles className="w-5 h-5 text-muted-foreground/60" />
+                              </div>
+                              <p className="text-xs font-semibold text-foreground/70 line-clamp-2">{card.characterName}</p>
+                              <p className="text-[10px] text-muted-foreground mt-0.5">#{card.cardNumber}</p>
+                            </div>
+                          </div>
+                        )}
                       </div>
                       </Link>
-                      <div className={`p-2.5 ${hasCosmic ? 'bg-black/40 backdrop-blur-sm rounded-b-lg' : ''}`}>
+
+                      {/* Card Info Footer */}
+                      <div className={`px-2.5 pb-2.5 pt-1.5 ${hasCosmic ? 'bg-black/40 backdrop-blur-sm rounded-b-xl' : ''}`}>
                         <Link href={`/characters/${card.characterName?.toLowerCase().replace(/['\u2019]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`}>
                           <p className="font-semibold text-sm truncate hover:text-primary transition-colors cursor-pointer" title={card.characterName}>
                             {card.characterName}
@@ -1000,12 +1050,29 @@ function SetDetail({ slug }: { slug: string }) {
                             {theme.label || card.cardType || "Base"}
                           </span>
                         </div>
-                        {card.parallels && (
-                          <p className="text-[10px] text-muted-foreground mt-1.5 line-clamp-1" title={card.parallels}>
-                            {card.parallels}
-                          </p>
+                        {/* Parallel count badge */}
+                        {parallelCount > 0 && (
+                          <div className="flex items-center gap-1 mt-1.5">
+                            <Layers className="w-3 h-3 text-muted-foreground" />
+                            <span className="text-[10px] text-muted-foreground">{parallelCount} parallel{parallelCount > 1 ? 's' : ''}</span>
+                          </div>
                         )}
+                      </div>
 
+                      {/* Quick-view tooltip on hover */}
+                      <div className="card-quickview absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-50 w-56 bg-popover border border-border rounded-lg shadow-xl p-3 text-xs">
+                        <div className="font-bold text-sm mb-1 truncate">{card.characterName}</div>
+                        <div className="text-muted-foreground space-y-0.5">
+                          <div className="flex justify-between"><span>Card #</span><span className="font-mono">{card.cardNumber}</span></div>
+                          <div className="flex justify-between"><span>Type</span><span>{card.cardType || 'Base'}</span></div>
+                          {parallelCount > 0 && (
+                            <div className="flex justify-between"><span>Parallels</span><span>{parallelCount} variants</span></div>
+                          )}
+                          <div className="flex justify-between"><span>Set</span><span className="truncate ml-2">{set.name}</span></div>
+                        </div>
+                        <div className="mt-2 flex items-center gap-1 text-primary text-[10px] font-semibold">
+                          <Eye className="w-3 h-3" /> View Full Details
+                        </div>
                       </div>
                     </div>
                   );

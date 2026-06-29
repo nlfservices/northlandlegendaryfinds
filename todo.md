@@ -2884,3 +2884,18 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add Card of the Day to navigation dropdown (under Card Database)
 - [x] Add Card of the Day homepage widget/preview section (amber/gold theme, shows today's card with image + details)
 - [x] Add Card of the Day link to footer (Explore section, first item)
+- [x] Replace AI placeholder art with actual Topps card artwork for Marvel Mint set (100 base cards updated with real art)
+- [x] Redesign /cards page grid layout — premium hover effects, better card sizing, smoother animations
+- [ ] Improve card detail modal/view — show parallel variants, grading info, pricing context
+- [ ] Better filtering/search UX — faster subset tabs, search by character name, sort options
+- [x] Visual design polish — dark premium theme, card glow effects, better typography
+
+## /Cards Page Premium Redesign
+- [x] Add 3D card tilt/perspective hover effect (CSS transform perspective + rotateX/rotateY via mouse tracking)
+- [x] Add holographic shimmer overlay on card hover (animated gradient)
+- [x] Improve card tile sizing — slightly larger with better spacing and responsive breakpoints
+- [x] Add staggered fade-in animation as cards enter viewport
+- [x] Add rarity/parallel count badges on card tiles
+- [x] Better empty state for cards without images (styled placeholder with character name)
+- [x] Quick-view tooltip on hover showing card details (character, set, type, parallels)
+- [x] Smooth scale transitions on card hover

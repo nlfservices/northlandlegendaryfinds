@@ -377,3 +377,87 @@
     90%       { transform: translateX(3px); }
   }
 }
+
+
+  /* ===== Premium Card Grid Animations ===== */
+  
+  /* Holographic shimmer sweep */
+  @keyframes holographic-shimmer {
+    0% {
+      transform: translateX(-100%) rotate(25deg);
+    }
+    100% {
+      transform: translateX(200%) rotate(25deg);
+    }
+  }
+  
+  /* Staggered fade-in for card grid items */
+  @keyframes card-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(16px) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  
+  .card-tile-enter {
+    animation: card-fade-in 0.4s ease-out both;
+  }
+  
+  /* Holographic shimmer overlay */
+  .holo-shimmer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.08) 45%,
+      rgba(255, 255, 255, 0.15) 50%,
+      rgba(255, 255, 255, 0.08) 55%,
+      transparent 60%
+    );
+    transform: translateX(-100%) rotate(25deg);
+    transition: none;
+    pointer-events: none;
+    border-radius: inherit;
+    z-index: 10;
+  }
+  
+  .group:hover .holo-shimmer::after {
+    animation: holographic-shimmer 0.8s ease-out forwards;
+  }
+  
+  /* 3D card tilt container */
+  .card-3d-wrapper {
+    perspective: 800px;
+    transform-style: preserve-3d;
+  }
+  
+  .card-3d-inner {
+    transition: transform 0.15s ease-out, box-shadow 0.2s ease;
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+  
+  .card-3d-inner:hover {
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.4),
+      0 0 20px rgba(132, 204, 22, 0.1);
+  }
+  
+  /* Quick-view tooltip */
+  .card-quickview {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+  }
+  
+  .group:hover .card-quickview {
+    opacity: 1;
+    transform: translateY(0);
+  }
