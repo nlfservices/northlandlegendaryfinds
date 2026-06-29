@@ -2821,21 +2821,30 @@ export const ALL_TEMPLATE_NAMES: Record<ArticleTemplate, string> = {
 };
 export function getArticleTemplate(
   templateLayout: ArticleTemplate | null | undefined,
-  articleId?: number
+  _articleId?: number
 ): ArticleTemplate {
-  // If explicitly set to patriotic, always respect it (special occasion template)
-  if (templateLayout === 'patriotic') {
-    return 'patriotic';
+  // The stored templateLayout is the source of truth.
+  // Template rotation is determined at publish time and stored in the DB.
+  // The renderer ALWAYS respects whatever template was assigned.
+  if (templateLayout && ROTATION_TEMPLATES.includes(templateLayout)) {
+    return templateLayout;
   }
-  
-  // If we have an article ID, auto-rotate through 7 templates
-  if (articleId) {
-    const index = (articleId - 1) % ROTATION_TEMPLATES.length;
-    return ROTATION_TEMPLATES[index];
+  if (templateLayout === 'patriotic' || templateLayout === 'collector_spotlight') {
+    return templateLayout;
   }
-  
-  // Fallback for when no articleId is available
+  // Fallback for legacy articles with no stored template
   return templateLayout || 'classic';
+}
+
+/**
+ * Determines the next template in rotation based on the last published article's template.
+ * Call this server-side when publishing a new article to get the correct next template.
+ */
+export function getNextTemplateInRotation(lastTemplate: ArticleTemplate | null | undefined): ArticleTemplate {
+  if (!lastTemplate) return ROTATION_TEMPLATES[0];
+  const lastIndex = ROTATION_TEMPLATES.indexOf(lastTemplate);
+  if (lastIndex === -1) return ROTATION_TEMPLATES[0];
+  return ROTATION_TEMPLATES[(lastIndex + 1) % ROTATION_TEMPLATES.length];
 }
 
 export function ArticleTemplateRenderer({ template, ...props }: TemplateProps & { template: ArticleTemplate }) {
