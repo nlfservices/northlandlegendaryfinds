@@ -54,6 +54,7 @@ export default function Footer() {
           <div>
             <h3 className="font-bold text-sm uppercase tracking-wider mb-4">Explore</h3>
             <ul className="space-y-2.5">
+              <li><Link href="/card-of-the-day" className="text-sm text-muted-foreground hover:text-primary transition-colors">Card of the Day</Link></li>
               <li><Link href="/checklists" className="text-sm text-muted-foreground hover:text-primary transition-colors">Cosmic Hits</Link></li>
               <li><Link href="/characters" className="text-sm text-muted-foreground hover:text-primary transition-colors">Characters</Link></li>
               <li><Link href="/cards" className="text-sm text-muted-foreground hover:text-primary transition-colors">Card Database</Link></li>

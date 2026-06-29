@@ -172,6 +172,70 @@ function LegacyLegendCard({ legend }: { legend: typeof LEGACY_LEGENDS[number] })
   );
 }
 
+// Card of the Day homepage widget — shows today's featured card with link to full page
+function CardOfTheDayWidget() {
+  const { data: todayCard, isLoading } = trpc.cardOfTheDay.getTodaysCard.useQuery();
+
+  if (isLoading || !todayCard) return null;
+
+  const today = new Date();
+  const dateStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+
+  return (
+    <section className="relative py-14 lg:py-16 overflow-hidden">
+      {/* Deep gold/amber background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-amber-950 via-amber-950/95 to-amber-950" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-amber-800/10 via-transparent to-transparent" />
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-amber-500/40 to-transparent" />
+      <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-amber-500/40 to-transparent" />
+
+      <div className="container relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-5xl mx-auto">
+          {/* Left: Card Image */}
+          <div className="flex justify-center">
+            <Link href={`/card-of-the-day/${dateStr}`}>
+              <div className="relative group cursor-pointer">
+                <div className="absolute -inset-3 bg-gradient-to-r from-amber-500/20 via-yellow-500/20 to-amber-500/20 rounded-2xl blur-xl opacity-60 group-hover:opacity-100 transition-opacity" />
+                <img
+                  src={todayCard.frontImageUrl || ''}
+                  alt={`${todayCard.characterName} - Card of the Day`}
+                  className="relative w-64 sm:w-72 rounded-xl shadow-2xl shadow-amber-900/40 group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+            </Link>
+          </div>
+
+          {/* Right: Info */}
+          <div className="text-center lg:text-left">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-500/15 border border-amber-500/30 rounded-full mb-4">
+              <Crown className="w-4 h-4 text-amber-400" />
+              <span className="text-amber-400 text-xs font-bold tracking-wider uppercase">Card of the Day</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">{todayCard.characterName}</h2>
+            <p className="text-amber-200/80 text-sm mb-1">
+              {todayCard.setLabel || todayCard.setName} &bull; #{todayCard.cardNumber}
+            </p>
+            <p className="text-amber-200/80 text-sm mb-4">
+              {todayCard.parallelType} &bull; {todayCard.gradingCompany} {todayCard.cgcGrade}
+            </p>
+            {todayCard.buzzNote && (
+              <p className="text-muted-foreground text-sm mb-6 max-w-md mx-auto lg:mx-0 line-clamp-2">
+                {todayCard.buzzNote}
+              </p>
+            )}
+            <Link href={`/card-of-the-day/${dateStr}`}>
+              <Button variant="outline" className="border-amber-500/50 text-amber-400 hover:bg-amber-500/10 hover:text-amber-300">
+                View Today's Card
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // Latest MCU News section — auto-populated from published articles
 function LatestMCUNews() {
   const { data: articles = [], isLoading } = trpc.articles.list.useQuery({ limit: 3 });
@@ -745,6 +809,9 @@ export default function Home() {
 
       {/* ===== 5c. LATEST MCU NEWS — AUTO-POPULATED ===== */}
       <LatestMCUNews />
+
+      {/* ===== 5d. CARD OF THE DAY — DAILY FEATURED CARD ===== */}
+      <CardOfTheDayWidget />
 
       {/* ===== 6. MARVELOUS TOP 5 ===== */}
       <MarvelousTop5 />
