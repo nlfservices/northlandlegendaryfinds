@@ -121,6 +121,8 @@ function CardOfTheDayDisplay({ data }: { data: CardData }) {
   const printRunLabel = buildPrintRunLabel(data);
   const gradeLabel = buildGradeLabel(data);
   const nlfMcuNewsUrl = "/mcu-news";
+  const nlfCharactersUrl = `/characters`;
+  const nlfCardDatabaseUrl = "/cards";
   const whatnotUrl = "https://www.whatnot.com/user/northlandlegendaryfinds";
 
   const tabs = useMemo(() => {
@@ -260,6 +262,14 @@ function CardOfTheDayDisplay({ data }: { data: CardData }) {
             <a className="cod-btn" href={nlfMcuNewsUrl}
                style={{ background: PRIMARY, color: "var(--primary-foreground,#08200f)" }}>
               Explore MCU News
+            </a>
+            <a className="cod-btn" href={nlfCharactersUrl}
+               style={{ background: "linear-gradient(135deg, #5b8cff, #a86bff)", color: "#fff" }}>
+              🦸 Meet the Characters
+            </a>
+            <a className="cod-btn" href={nlfCardDatabaseUrl}
+               style={{ background: "linear-gradient(135deg, #ffce4d, #ff9f43)", color: "#111" }}>
+              🃏 Browse Card Database
             </a>
             <a className="cod-btn" href={whatnotUrl} target="_blank" rel="noopener"
                style={{ background: "#1c2333", color: "#fff", border: "1px solid var(--steel,#384259)" }}>
