@@ -2870,5 +2870,5 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Seed DB with 54 cards across 3 sets (CBH50, Studios Chrome, Marvel Mint) — June 29 through August 21
 - [x] Generate printable PDF reference sheet (14 pages, all 54 cards with image boxes and missing-image flags)
 - [ ] Add /card-of-the-day link to homepage (optional — after user review)
-- [ ] Add 6 missing Marvel Mint images (#101, #102, #104, #107, #118, #120) when photographed
+- [x] Add 6 missing Marvel Mint images — uploaded #101 Spider-Man (CGC 8.5), #102 Wolverine (CGC 9), #104 Captain America (PSA 10), #107 Doctor Doom (CGC 8.5), #112 Storm (PSA 10 — corrected from CGC 9), #113 Black Widow (CGC 10 Pristine — corrected from CGC 9). Rotation extended to Aug 25 for new entries.
 - [x] Fix "Shop at NLF" button on /card-of-the-day — changed to "Explore MCU News" linking to /mcu-news (per project rules: no external shop links)
