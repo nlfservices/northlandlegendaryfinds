@@ -27,6 +27,7 @@ import { userManagementRouter } from "./routers/userManagement";
 import { invitesRouter } from "./routers/invites";
 import { aiAssistantRouter } from "./routers/aiAssistant";
 import { sellCardsRouter } from "./routers/sellCards";
+import { cardOfTheDayRouter } from "./routers/cardOfTheDay";
 
 export const appRouter = router({
   system: systemRouter,
@@ -139,6 +140,9 @@ export const appRouter = router({
 
   // Sell Cards (public submissions + admin management)
   sellCards: sellCardsRouter,
+
+  // Card of the Day (public + admin)
+  cardOfTheDay: cardOfTheDayRouter,
 
 });
 

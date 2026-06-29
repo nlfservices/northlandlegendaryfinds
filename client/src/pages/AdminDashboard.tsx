@@ -21,7 +21,7 @@ import { getLoginUrl } from "@/const";
 import {
   Package, ListChecks, Zap, Radio, Plus, Trash2, Edit, Eye,
   CheckCircle2, Circle, ArrowLeft, Loader2, Calendar, ExternalLink,
-  ShoppingBag, Truck, CreditCard, Boxes, Hammer, Download, BarChart3, FileSpreadsheet, Flame, Sparkles, Settings, Clock, Facebook, Key, Users, Bot
+  ShoppingBag, Truck, CreditCard, Boxes, Hammer, Download, BarChart3, FileSpreadsheet, Flame, Sparkles, Settings, Clock, Facebook, Key, Users, Bot, Star
 } from "lucide-react";
 import { useState, useMemo, useEffect } from "react";
 import { Link } from "wouter";
@@ -29,6 +29,7 @@ import CsvUploader from "@/components/CsvUploader";
 import InventoryManager from "@/components/InventoryManager";
 import RepackBuilder from "@/components/RepackBuilder";
 import EbayCompsPanel from "@/components/EbayCompsPanel";
+import CardOfTheDayAdmin from "@/components/CardOfTheDayAdmin";
 import ChecklistSheet from "@/components/ChecklistSheet";
 import ArticleManager from "@/components/ArticleManager";
 import Top5Manager from "@/components/Top5Manager";
@@ -1555,6 +1556,7 @@ const NAV_GROUPS = [
       { id: "articles", label: "MCU News", icon: Sparkles },
       { id: "blog", label: "The Collector", icon: Flame },
       { id: "top5", label: "Top 5", icon: BarChart3 },
+      { id: "card-of-the-day", label: "Card of the Day", icon: Star },
       { id: "ebay-comps", label: "eBay Comps", icon: CreditCard },
       { id: "pages", label: "Pages", icon: FileSpreadsheet },
     ],
@@ -1928,6 +1930,7 @@ export default function AdminDashboard() {
             {activeSection === "orders" && <OrderManager />}
             {activeSection === "inventory" && <InventoryManager />}
             {activeSection === "repack-builder" && <RepackBuilder />}
+            {activeSection === "card-of-the-day" && <CardOfTheDayAdmin />}
             {activeSection === "ebay-comps" && <EbayCompsPanel />}
             {activeSection === "articles" && <ArticleManager />}
             {activeSection === "top5" && <Top5Manager />}

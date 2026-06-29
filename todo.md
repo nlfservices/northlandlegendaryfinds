@@ -2855,3 +2855,19 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Clean Informational template (classic) — Fraunces font, drop-cap, editorial CollectorSpot skin
 - [x] Dossier/Intel File template (dossier) — IBM Plex Mono, classified header, redacted quote, intel skin
 - [ ] Ranked Countdown template (listicle) — Anton/JetBrains Mono, split image/text rank cards, countdown skin
+
+## Card of the Day Feature
+- [x] Design DB schema for cardOfTheDayEntries (date, character, set, parallel, print run, serial, CGC grade, image URL, buzz note)
+- [x] Run DB migration for new table
+- [x] Build rotation engine (cardOfTheDayRotation.ts) with 54-card catalog across 3 sets
+- [x] Build tRPC router (server/routers/cardOfTheDay.ts) with getToday, getSchedule, upsertCard, updateImageByCardNumber procedures
+- [x] Wire cardOfTheDayRouter into main routers.ts
+- [x] Build public /card-of-the-day page (CardOfTheDay.tsx) with card image, set/parallel/grade badges, buzz note
+- [x] Register /card-of-the-day route in App.tsx
+- [x] Build CardOfTheDayAdmin component (today preview, rotation schedule, edit dialog)
+- [x] Add Card of the Day section to AdminDashboard sidebar and render switch
+- [x] Upload 40 card images to S3 (CBH50 Black & Gold /10, Studios Chrome Black /10, Marvel Mint Black/Red Chrome /10 /5)
+- [x] Seed DB with 54 cards across 3 sets (CBH50, Studios Chrome, Marvel Mint) — June 29 through August 21
+- [x] Generate printable PDF reference sheet (14 pages, all 54 cards with image boxes and missing-image flags)
+- [ ] Add /card-of-the-day link to homepage (optional — after user review)
+- [ ] Add 6 missing Marvel Mint images (#101, #102, #104, #107, #118, #120) when photographed

@@ -1438,3 +1438,56 @@ export const sellSubmissions = mysqlTable("sell_submissions", {
 });
 export type SellSubmission = typeof sellSubmissions.$inferSelect;
 export type InsertSellSubmission = typeof sellSubmissions.$inferInsert;
+
+// ============================================================
+// CARD OF THE DAY
+// ============================================================
+export const cardOfTheDayEntries = mysqlTable("card_of_the_day_entries", {
+  id: int("id").autoincrement().primaryKey(),
+  /** ISO date string YYYY-MM-DD — unique per day */
+  date: varchar("date", { length: 10 }).notNull().unique(),
+  /** Display name of the character, e.g. "Doctor Doom" */
+  characterName: varchar("characterName", { length: 128 }).notNull(),
+  /** Character's real name, e.g. "Victor Von Doom" */
+  characterRealName: varchar("characterRealName", { length: 128 }),
+  /** Short tagline, e.g. "Doctor Doom · Latveria" */
+  characterTagline: varchar("characterTagline", { length: 255 }),
+  /** 2–4 sentence evergreen bio (SEO content) */
+  characterBio: text("characterBio"),
+  /** JSON array of {k,v} fact chips */
+  characterFacts: text("characterFacts"),
+  /** Character portrait image URL */
+  characterImageUrl: text("characterImageUrl"),
+  /** Card number in the set, e.g. "#107" */
+  cardNumber: varchar("cardNumber", { length: 20 }),
+  /** Which set this card is from: mint | comic_book_heroes | marvel_studios */
+  setName: mysqlEnum("setName", ["mint", "comic_book_heroes", "marvel_studios"]).notNull().default("mint"),
+  /** Human-readable set label, e.g. "2025 Topps Marvel Mint" */
+  setLabel: varchar("setLabel", { length: 128 }),
+  /** Front card image URL */
+  frontImageUrl: text("frontImageUrl"),
+  /** Back card image URL */
+  backImageUrl: text("backImageUrl"),
+  /** YouTube video ID */
+  youtubeId: varchar("youtubeId", { length: 32 }),
+  /** Estimated raw price display string, e.g. "~$18–25" */
+  estimatedPrice: varchar("estimatedPrice", { length: 64 }),
+  /** Short "why it matters now" note */
+  buzzNote: text("buzzNote"),
+  /** Parallel type, e.g. "Black & Gold Refractor", "Red Chrome", "Platinum" */
+  parallelType: varchar("parallelType", { length: 128 }),
+  /** Total print run, e.g. 10 for /10 */
+  printRun: int("printRun"),
+  /** Serial number on the card, e.g. 7 for 07/10 */
+  serialNumber: int("serialNumber"),
+  /** CGC/AGS grade, e.g. "10", "9.5", "8.5" */
+  cgcGrade: varchar("cgcGrade", { length: 10 }),
+  /** Grading company: CGC, AGS, PSA, etc. */
+  gradingCompany: varchar("gradingCompany", { length: 20 }),
+  /** Whether this entry is active/published */
+  isActive: boolean("isActive").notNull().default(true),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+export type CardOfTheDayEntry = typeof cardOfTheDayEntries.$inferSelect;
+export type InsertCardOfTheDayEntry = typeof cardOfTheDayEntries.$inferInsert;

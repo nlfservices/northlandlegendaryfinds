@@ -1,0 +1,23 @@
+CREATE TABLE `card_of_the_day_entries` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`date` varchar(10) NOT NULL,
+	`characterName` varchar(128) NOT NULL,
+	`characterRealName` varchar(128),
+	`characterTagline` varchar(255),
+	`characterBio` text,
+	`characterFacts` text,
+	`characterImageUrl` text,
+	`cardNumber` varchar(20),
+	`setName` enum('mint','comic_book_heroes','marvel_studios') NOT NULL DEFAULT 'mint',
+	`setLabel` varchar(128),
+	`frontImageUrl` text,
+	`backImageUrl` text,
+	`youtubeId` varchar(32),
+	`estimatedPrice` varchar(64),
+	`buzzNote` text,
+	`isActive` boolean NOT NULL DEFAULT true,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	CONSTRAINT `card_of_the_day_entries_id` PRIMARY KEY(`id`),
+	CONSTRAINT `card_of_the_day_entries_date_unique` UNIQUE(`date`)
+);
