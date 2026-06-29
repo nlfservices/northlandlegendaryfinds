@@ -357,153 +357,164 @@ export const CATEGORY_LABELS: Record<string, string> = {
   card_interest: "What Cards People Are Most Interested In",
 };
 
-// ==================== ORDER 66 — TEMPLATE ROTATION ====================
+// ==================== 9-TEMPLATE ROTATION ====================
 
+/** The 9 active visual templates in rotation order */
+export const ROTATION_TEMPLATE_KEYS = [
+  "classic",
+  "magazine",
+  "spotlight",
+  "timeline",
+  "listicle",
+  "cinematic",
+  "dossier",
+  "comic_strip",
+  "disney_experience",
+] as const;
+
+export type RotationTemplateKey = typeof ROTATION_TEMPLATE_KEYS[number];
+
+export const TEMPLATE_DISPLAY_NAMES: Record<RotationTemplateKey, string> = {
+  classic: "Clean Informational",
+  magazine: "Magazine Spread",
+  spotlight: "Spotlight Explainer",
+  timeline: "Timeline Countdown",
+  listicle: "Ranked Countdown",
+  cinematic: "Cinematic",
+  dossier: "Dossier / Intel File",
+  comic_strip: "Comic Strip",
+  disney_experience: "Disney Experience",
+};
+
+// Keep legacy TEMPLATE_NAMES for any code that still references it by number
 export const TEMPLATE_NAMES: Record<number, string> = {
-  1: "Field Report",
-  2: "Personnel Dossier",
-  3: "Data Brief",
-  4: "Intercepted Transmission",
-  5: "Situation Room",
-  6: "Asset Gallery",
-  7: "Strategic Analysis",
-  8: "Flash Alert",
-  9: "After-Action Report",
-  10: "Technical Schematic",
-  11: "Surveillance Log",
-  12: "Command Briefing",
+  1: "Clean Informational",
+  2: "Magazine Spread",
+  3: "Spotlight Explainer",
+  4: "Timeline Countdown",
+  5: "Ranked Countdown",
+  6: "Cinematic",
+  7: "Dossier / Intel File",
+  8: "Comic Strip",
+  9: "Disney Experience",
 };
 
 /**
  * Round-robin template counter.
- * Cycles 1 → 12 → 1 → 12 ...
- * In-memory; resets on server restart but that's fine — 
- * the goal is variety, not strict sequencing.
+ * Cycles 0 → 8 → 0 → 8 (9 templates)
+ * In-memory; resets on server restart — goal is variety, not strict sequencing.
  */
-let _templateCounter = 0;
+let _templateCounter = -1;
 
 export function getNextTemplate(): number {
-  _templateCounter = (_templateCounter % 12) + 1;
+  _templateCounter = (_templateCounter + 1) % 9;
   return _templateCounter;
 }
 
+/** Returns the template key string for the next rotation slot */
+export function getNextTemplateKey(): RotationTemplateKey {
+  return ROTATION_TEMPLATE_KEYS[getNextTemplate()];
+}
+
 /**
- * Category → best-fit templates mapping.
+ * Category → best-fit template keys mapping.
  * Each category has 3-4 templates that work especially well for it.
- * The generator will prefer these but still rotate through all 12.
  */
-export const CATEGORY_TEMPLATE_AFFINITY: Record<string, number[]> = {
-  market_trends: [3, 5, 7, 8],       // Data Brief, Situation Room, Strategic Analysis, Flash Alert
-  character_spotlight: [2, 1, 4, 12], // Personnel Dossier, Field Report, Intercepted Transmission, Command Briefing
-  grading_guide: [10, 3, 9, 7],      // Technical Schematic, Data Brief, After-Action Report, Strategic Analysis
-  set_breakdown: [6, 3, 10, 5],      // Asset Gallery, Data Brief, Technical Schematic, Situation Room
-  investment_strategy: [7, 3, 5, 12], // Strategic Analysis, Data Brief, Situation Room, Command Briefing
-  collecting_tips: [9, 1, 11, 10],   // After-Action Report, Field Report, Surveillance Log, Technical Schematic
-  nlf_news: [8, 4, 12, 1],           // Flash Alert, Intercepted Transmission, Command Briefing, Field Report
-  behind_the_scenes: [11, 1, 9, 6],  // Surveillance Log, Field Report, After-Action Report, Asset Gallery
-  card_history: [4, 11, 2, 9],       // Intercepted Transmission, Surveillance Log, Personnel Dossier, After-Action Report
-  sports_crossover: [5, 7, 3, 12],   // Situation Room, Strategic Analysis, Data Brief, Command Briefing
-  // New expanded categories
-  disney_parks: [6, 1, 5, 8],        // Asset Gallery, Field Report, Situation Room, Flash Alert
-  disney_plus: [8, 4, 11, 3],        // Flash Alert, Intercepted Transmission, Surveillance Log, Data Brief
-  best_actors: [2, 1, 12, 6],        // Personnel Dossier, Field Report, Command Briefing, Asset Gallery
-  kids_marvel: [1, 9, 5, 6],         // Field Report, After-Action Report, Situation Room, Asset Gallery
-  comics_spotlight: [4, 11, 2, 9],   // Intercepted Transmission, Surveillance Log, Personnel Dossier, After-Action Report
-  card_interest: [3, 7, 5, 8],       // Data Brief, Strategic Analysis, Situation Room, Flash Alert
+export const CATEGORY_TEMPLATE_AFFINITY: Record<string, RotationTemplateKey[]> = {
+  market_trends:      ["timeline", "listicle", "classic", "cinematic"],
+  character_spotlight:["spotlight", "dossier", "magazine", "comic_strip"],
+  grading_guide:      ["classic", "spotlight", "timeline", "listicle"],
+  set_breakdown:      ["magazine", "listicle", "classic", "spotlight"],
+  investment_strategy:["dossier", "timeline", "classic", "cinematic"],
+  collecting_tips:    ["classic", "listicle", "spotlight", "comic_strip"],
+  nlf_news:           ["cinematic", "magazine", "dossier", "classic"],
+  behind_the_scenes:  ["dossier", "classic", "magazine", "cinematic"],
+  card_history:       ["timeline", "dossier", "magazine", "comic_strip"],
+  sports_crossover:   ["listicle", "classic", "spotlight", "cinematic"],
+  disney_parks:       ["disney_experience", "magazine", "cinematic", "listicle"],
+  disney_plus:        ["disney_experience", "spotlight", "timeline", "classic"],
+  best_actors:        ["spotlight", "dossier", "magazine", "comic_strip"],
+  kids_marvel:        ["disney_experience", "comic_strip", "listicle", "classic"],
+  comics_spotlight:   ["comic_strip", "dossier", "timeline", "magazine"],
+  card_interest:      ["listicle", "classic", "spotlight", "cinematic"],
 };
 
 // ==================== LAYOUT DATA GENERATION PROMPT ====================
 
 /**
  * Template-specific instructions for the LLM to generate layoutData.
- * Each template needs different fields populated.
+ * Each new visual template needs specific fields populated.
  */
-export function getLayoutDataPrompt(templateNumber: number): string {
-  const base = `\n\nLAYOUT DATA — You MUST also return a "layoutData" JSON object with the following fields for Template ${templateNumber} (${TEMPLATE_NAMES[templateNumber]}):`;
+export function getLayoutDataPrompt(templateKey: RotationTemplateKey): string {
+  const base = `\n\nLAYOUT DATA — You MUST also return a "layoutData" JSON object with the following fields for the "${templateKey}" (${TEMPLATE_DISPLAY_NAMES[templateKey]}) template:`;
 
-  switch (templateNumber) {
-    case 1: // Field Report — image-left / text-right
+  switch (templateKey) {
+    case "classic": // Clean Informational — editorial serif layout
       return base + `
 - "pullQuote": A powerful 1-2 sentence quote from the article that captures the key insight
 - "factBox": A brief "Did You Know?" fact related to the topic (1-2 sentences)
 - "stats": An array of 3-4 stat objects, each with "label" (string), "value" (number), and optional "suffix" (string like "%", "+", "x"). Example: [{"label":"Fanbase Size","value":300,"suffix":"M+"},{"label":"Price Growth","value":47,"suffix":"%"}]
 - "heatLevel": One of "blazing", "hot", "rising", or "new" based on topic urgency`;
 
-    case 2: // Personnel Dossier — character profile
+    case "magazine": // Magazine Spread — asymmetric hero, two-column
       return base + `
-- "profile": An object with: "name" (character/subject name), "title" (role like "The Web-Slinger" or "Card Market Analyst"), "stats" (array of {"label":"...","value":"..."} pairs, 4-6 items like card count, first appearance year, avg grade, etc.), "bio" (2-3 sentence bio), "status" (like "Active" or "Legendary")
-- "pullQuote": A memorable quote about the character/subject
+- "pullQuote": A bold magazine-style pull quote (1-2 punchy sentences, could be a stat or opinion)
+- "stats": An array of 3-4 stat objects with "label", "value" (number), "suffix" (optional)
+- "comparison": An object with "title", "headers" [2 strings], "rows" [4-5 objects with "label", "col1", "col2"]
 - "heatLevel": One of "blazing", "hot", "rising", or "new"`;
 
-    case 3: // Data Brief — stats-heavy
+    case "spotlight": // Spotlight Explainer — TOC rail, key-facts chips
       return base + `
-- "stats": An array of 4-6 stat objects with "label", "value" (number), "suffix" (optional), and "color" (one of "green", "teal", "gold", "purple")
-- "comparison": An object with "title" (string), "headers" (array of 2 strings for column headers), and "rows" (array of {"label":"...","col1":"...","col2":"..."} objects, 4-6 rows)
-- "factBox": A data-driven insight (1-2 sentences)
+- "toc": An array of 4-6 table of contents items, each with "id" (kebab-case), "title" (section title), "level" (1 or 2)
+- "keyFacts": An array of 3-5 short fact strings (each under 15 words) to display as chips at the top
+- "pullQuote": A memorable expert-style quote from the article
+- "stats": An array of 3-4 stat objects with "label", "value" (number), "suffix" (optional)
 - "heatLevel": One of "blazing", "hot", "rising", or "new"`;
 
-    case 4: // Intercepted Transmission — timeline
+    case "timeline": // Timeline Countdown — mission clock, horizontal node rail
       return base + `
-- "timeline": An array of 4-6 timeline entries, each with "date" (string like "2024 Q1"), "title" (string), "description" (1 sentence)
-- "alertLevel": One of "low", "medium", "high", or "critical"
-- "pullQuote": A dramatic quote fitting the "intercepted intel" theme
-- "subtitle": A subtitle like "CLASSIFIED INTEL REPORT" or "DECODED TRANSMISSION"`;
-
-    case 5: // Situation Room — dashboard feel
-      return base + `
-- "stats": An array of 4 stat objects with "label", "value" (number), "suffix", "color"
-- "comparison": A comparison table with "title", "headers" [2 strings], "rows" [4-5 objects with "label", "col1", "col2"]
-- "pullQuote": An authoritative assessment quote
-- "heatLevel": One of "blazing", "hot", "rising", or "new"`;
-
-    case 6: // Asset Gallery — visual showcase
-      return base + `
-- "gallery": An array of 3-4 gallery items, each with "url" (use the featured image URL or leave empty string — we'll use placeholder), "alt" (descriptive alt text), "caption" (1 sentence caption)
-- "pullQuote": A quote about the visual appeal or significance
-- "factBox": A fun fact about the cards/set being showcased`;
-
-    case 7: // Strategic Analysis — two-column comparison
-      return base + `
-- "comparison": An object with "title", "headers" [2 strings], "rows" [5-7 objects with "label", "col1", "col2"]
-- "stats": An array of 3-4 stat objects
-- "pullQuote": An analytical insight quote
-- "factBox": A strategic takeaway (1-2 sentences)`;
-
-    case 8: // Flash Alert — breaking news
-      return base + `
-- "alertLevel": One of "low", "medium", "high", or "critical" based on urgency
-- "stats": An array of 2-3 stat objects for quick-hit data
-- "pullQuote": The most urgent/important takeaway
-- "subtitle": A brief alert subtitle like "MARKET MOVEMENT DETECTED" or "BREAKING: NEW SET ANNOUNCED"`;
-
-    case 9: // After-Action Report — structured debrief
-      return base + `
-- "stats": An array of 3-4 stat objects summarizing outcomes
-- "timeline": An array of 3-5 timeline entries showing the sequence of events
-- "pullQuote": A lessons-learned quote
-- "factBox": A key takeaway or recommendation`;
-
-    case 10: // Technical Schematic — detailed breakdown
-      return base + `
-- "toc": An array of 4-6 table of contents items, each with "id" (kebab-case string), "title" (section title), "level" (1 or 2)
-- "stats": An array of 3-4 technical stat objects
-- "factBox": A technical detail or specification
-- "comparison": Optional comparison table if relevant`;
-
-    case 11: // Surveillance Log — chronological entries
-      return base + `
-- "timeline": An array of 5-8 timeline entries in chronological order, each with "date", "title", "description"
-- "pullQuote": An observation or pattern noticed
+- "timeline": An array of 4-6 timeline entries, each with "date" (string like "2024 Q1" or "May 2026"), "title" (string), "description" (1 sentence)
+- "pullQuote": A dramatic quote that fits the countdown/mission theme
+- "stats": An array of 3-4 stat objects with "label", "value" (number), "suffix" (optional)
 - "heatLevel": One of "blazing", "hot", "rising", or "new"
-- "subtitle": A log identifier like "SURVEILLANCE LOG #NLF-2026-042"`;
+- "subtitle": A mission-style subtitle like "T-MINUS 60 DAYS" or "PHASE 3 INITIATED"`;
 
-    case 12: // Command Briefing — executive summary
+    case "listicle": // Ranked Countdown — split image/text rank cards
       return base + `
-- "stats": An array of 4 stat objects for the executive overview
-- "pullQuote": The commander's key directive or insight
-- "factBox": A mission-critical fact
-- "comparison": A comparison table if the topic involves comparing options
+- "rankItems": An array of 5-7 ranked items, each with "rank" (number 1-7), "title" (string), "description" (2-3 sentences), "stat" (a single impressive number or short value like "$2,400" or "#1 searched")
+- "pullQuote": The most shareable takeaway from the list
 - "heatLevel": One of "blazing", "hot", "rising", or "new"`;
+
+    case "cinematic": // Cinematic — letterbox hero, scene-by-scene
+      return base + `
+- "pullQuote": A cinematic, dramatic quote (think movie trailer voiceover energy)
+- "scenes": An array of 2-3 scene objects, each with "heading" (string like "ACT I: THE SETUP"), "body" (2-3 sentences)
+- "stats": An array of 2-3 stat objects with "label", "value" (number), "suffix" (optional)
+- "heatLevel": One of "blazing", "hot", "rising", or "new"
+- "subtitle": A cinematic tagline like "THE COLLECTOR'S ORIGIN STORY" or "WHEN THE MARKET CHANGED FOREVER"`;
+
+    case "dossier": // Dossier / Intel File — classified header, S.H.I.E.L.D. style
+      return base + `
+- "profile": An object with: "name" (subject name), "title" (role/classification like "PRIORITY ASSET" or "MARKET INTELLIGENCE"), "stats" (array of {"label":"...","value":"..."} pairs, 4-6 items), "bio" (2-3 sentence intelligence summary), "status" (like "ACTIVE", "CLASSIFIED", or "CONFIRMED")
+- "pullQuote": An intel-style quote (authoritative, factual, slightly ominous)
+- "timeline": An array of 3-4 timeline entries with "date", "title", "description"
+- "heatLevel": One of "blazing", "hot", "rising", or "new"`;
+
+    case "comic_strip": // Comic Strip — panel layout, speech bubbles
+      return base + `
+- "pullQuote": A punchy comic-book style quote (could be a character speaking or a bold caption)
+- "panels": An array of 3-4 panel objects, each with "heading" (panel title in caps like "MEANWHILE..."), "body" (2-3 sentences in comic narration style)
+- "stats": An array of 2-3 stat objects with "label", "value" (number), "suffix" (optional)
+- "heatLevel": One of "blazing", "hot", "rising", or "new"
+- "issueLabel": A comic issue label like "ISSUE #42" or "SPECIAL EDITION"`;
+
+    case "disney_experience": // Disney Experience — postcard mosaic, park-brochure style
+      return base + `
+- "pullQuote": A warm, enthusiastic quote that captures the magic/excitement of the topic
+- "highlights": An array of 3-5 highlight strings (each under 20 words) — the best moments or facts to feature
+- "stats": An array of 3-4 stat objects with "label", "value" (number), "suffix" (optional)
+- "heatLevel": One of "blazing", "hot", "rising", or "new"
+- "subtitle": A Disney-style subtitle like "THE MAGIC IS REAL" or "YOUR NEXT ADVENTURE AWAITS"`;
 
     default:
       return base + `

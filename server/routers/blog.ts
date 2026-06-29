@@ -12,8 +12,8 @@ import {
 } from "../db";
 import {
   NLF_BLOG_SYSTEM_PROMPT, BULK_TOPIC_POOL, CATEGORY_LABELS,
-  getNextTemplate, getLayoutDataPrompt, BLOG_JSON_SCHEMA_WITH_LAYOUT,
-  TEMPLATE_NAMES,
+  getNextTemplateKey, getLayoutDataPrompt, BLOG_JSON_SCHEMA_WITH_LAYOUT,
+  TEMPLATE_DISPLAY_NAMES,
 } from "../blog-content-strategy";
 
 const BLOG_CATEGORIES = [
@@ -181,9 +181,9 @@ export const blogAdminRouter = router({
     scheduledAt: z.number().optional(),
   })).mutation(async ({ input }) => {
     // Get next template in the rotation
-    const templateNumber = getNextTemplate();
-    const templateName = TEMPLATE_NAMES[templateNumber] || "Field Report";
-    const layoutDataPrompt = getLayoutDataPrompt(templateNumber);
+    const templateKey = getNextTemplateKey();
+    const templateName = TEMPLATE_DISPLAY_NAMES[templateKey];
+    const layoutDataPrompt = getLayoutDataPrompt(templateKey);
 
     const categoryLabel = CATEGORY_LABELS[input.category] || input.category;
     const topicPrompt = input.topic
@@ -195,7 +195,7 @@ export const blogAdminRouter = router({
 Category: ${categoryLabel}
 ${input.focusKeyword ? `Focus Keyword: ${input.focusKeyword}` : ""}
 
-This article will use Layout Template #${templateNumber}: "${templateName}".
+This article will use the "${templateKey}" template (${templateName}).
 ${layoutDataPrompt}
 
 Respond in JSON with these fields:
@@ -203,7 +203,7 @@ Respond in JSON with these fields:
 
 imagePrompt MUST describe a REALISTIC PHOTOGRAPHY-STYLE image. Must look like a real photograph, not AI art. Use product photography, flat-lay, macro, or lifestyle photo styles with natural lighting. NEVER use cosmic, glowing, neon, or illustrated styles. MUST NOT contain any text, letters, or words.`;
 
-    console.log(`[Blog] Generating article with Template #${templateNumber} (${templateName})`);
+    console.log(`[Blog] Generating article with Template: ${templateKey} (${templateName})`);
 
     const response = await invokeLLM({
       messages: [
@@ -247,11 +247,11 @@ imagePrompt MUST describe a REALISTIC PHOTOGRAPHY-STYLE image. Must look like a 
       focusKeyword: article.focusKeyword || input.focusKeyword || null,
       internalLinks: INTERNAL_LINKS,
       readTimeMinutes: readTime,
-      layoutTemplate: templateNumber,
+      layoutTemplate: 1,
       layoutData: article.layoutData || null,
     });
 
-    return { success: true, title: article.title, template: templateNumber, templateName };
+    return { success: true, title: article.title, template: templateKey, templateName };
   }),
 
   // Bulk generate articles for scheduling — with template rotation
@@ -262,14 +262,14 @@ imagePrompt MUST describe a REALISTIC PHOTOGRAPHY-STYLE image. Must look like a 
     categories: z.array(z.enum(BLOG_CATEGORIES)).optional(),
   })).mutation(async ({ input }) => {
     const startTime = input.startTime || Date.now();
-    const results: { title: string; scheduledAt: number; template: number }[] = [];
+    const results: { title: string; scheduledAt: number; template: string }[] = [];
 
     for (let i = 0; i < Math.min(input.count, BULK_TOPIC_POOL.length); i++) {
       const scheduledAt = startTime + (i * input.intervalMinutes * 60 * 1000);
       const topicEntry = BULK_TOPIC_POOL[i];
-      const templateNumber = getNextTemplate();
-      const templateName = TEMPLATE_NAMES[templateNumber] || "Field Report";
-      const layoutDataPrompt = getLayoutDataPrompt(templateNumber);
+      const templateKey = getNextTemplateKey();
+      const templateName = TEMPLATE_DISPLAY_NAMES[templateKey];
+      const layoutDataPrompt = getLayoutDataPrompt(templateKey);
 
       try {
         const response = await invokeLLM({
@@ -277,7 +277,7 @@ imagePrompt MUST describe a REALISTIC PHOTOGRAPHY-STYLE image. Must look like a 
             { role: "system", content: NLF_BLOG_SYSTEM_PROMPT },
             {
               role: "user",
-              content: `Write about: ${topicEntry.topic}\nCategory: ${CATEGORY_LABELS[topicEntry.category] || topicEntry.category}\n\nThis article will use Layout Template #${templateNumber}: "${templateName}".\n${layoutDataPrompt}\n\nRespond in JSON with: title, slug, excerpt, contentMarkdown, metaDescription, focusKeyword, tags, imagePrompt, layoutData\n\nimagePrompt MUST describe a REALISTIC PHOTOGRAPHY-STYLE image. MUST NOT contain any text, letters, or words.`
+              content: `Write about: ${topicEntry.topic}\nCategory: ${CATEGORY_LABELS[topicEntry.category] || topicEntry.category}\n\nThis article will use the "${templateKey}" template (${templateName}).\n${layoutDataPrompt}\n\nRespond in JSON with: title, slug, excerpt, contentMarkdown, metaDescription, focusKeyword, tags, imagePrompt, layoutData\n\nimagePrompt MUST describe a REALISTIC PHOTOGRAPHY-STYLE image. MUST NOT contain any text, letters, or words.`
             },
           ],
           response_format: BLOG_JSON_SCHEMA_WITH_LAYOUT,
@@ -315,11 +315,11 @@ imagePrompt MUST describe a REALISTIC PHOTOGRAPHY-STYLE image. Must look like a 
           focusKeyword: parsed.focusKeyword,
           internalLinks: INTERNAL_LINKS,
           readTimeMinutes: readTime,
-          layoutTemplate: templateNumber,
+          layoutTemplate: 1,
           layoutData: parsed.layoutData || null,
         });
 
-        results.push({ title: parsed.title, scheduledAt, template: templateNumber });
+        results.push({ title: parsed.title, scheduledAt, template: templateKey });
       } catch (err) {
         console.error(`[Blog] Failed to generate article ${i + 1}:`, err);
       }

@@ -17,13 +17,13 @@
  * - Deduplication: checks existing slugs/titles before generating
  */
 
-import { publishScheduledBlogPosts, publishScheduledArticles, createBlogPost, getPublishedBlogPosts } from "./db";
+import { publishScheduledBlogPosts, publishScheduledArticles, createArticle, getPublishedArticles } from "./db";
 import { invokeLLM } from "./_core/llm";
 import { generateImage } from "./_core/imageGeneration";
 import {
   NLF_BLOG_SYSTEM_PROMPT, TOPIC_POOLS, CATEGORY_LABELS,
-  getNextTemplate, getLayoutDataPrompt, BLOG_JSON_SCHEMA_WITH_LAYOUT,
-  TEMPLATE_NAMES,
+  getNextTemplateKey, getLayoutDataPrompt, BLOG_JSON_SCHEMA_WITH_LAYOUT,
+  TEMPLATE_DISPLAY_NAMES,
 } from "./blog-content-strategy";
 
 // ==================== CONFIGURATION ====================
@@ -137,7 +137,7 @@ const recentCategories: string[] = [];
 async function getRecentCategoriesFromDB(count = 3): Promise<string[]> {
   try {
     const posts = await withRetry(
-      () => getPublishedBlogPosts(count),
+      () => getPublishedArticles(count),
       "Fetch recent categories"
     );
     return posts.map(p => p.category || 'unknown').filter(Boolean);
@@ -206,12 +206,12 @@ async function getRandomTopic(): Promise<{ topic: string; category: string }> {
 async function generateAndPublishArticle(): Promise<boolean> {
   const { topic, category } = await getRandomTopic();
 
-  // ORDER 66 — Get next template in rotation
-  const templateNumber = getNextTemplate();
-  const templateName = TEMPLATE_NAMES[templateNumber] || "Field Report";
-  const layoutDataPrompt = getLayoutDataPrompt(templateNumber);
+  // Get next template in rotation (9-template cycle)
+  const templateKey = getNextTemplateKey();
+  const templateName = TEMPLATE_DISPLAY_NAMES[templateKey];
+  const layoutDataPrompt = getLayoutDataPrompt(templateKey);
 
-  console.log(`[Blog Scheduler] Generating article: "${topic}" (${category}) — Template #${templateNumber} (${templateName})`);
+  console.log(`[Blog Scheduler] Generating article: "${topic}" (${category}) — Template: ${templateKey} (${templateName})`);
 
   try {
     const response = await withRetry(
@@ -220,7 +220,7 @@ async function generateAndPublishArticle(): Promise<boolean> {
           { role: "system", content: NLF_BLOG_SYSTEM_PROMPT },
           {
             role: "user",
-            content: `Write about: ${topic}\nCategory: ${CATEGORY_LABELS[category] || category}\n\nThis article will use Layout Template #${templateNumber}: "${templateName}".\n${layoutDataPrompt}\n\nRespond in JSON with: title, slug, excerpt, contentMarkdown, metaDescription, focusKeyword, tags, imagePrompt, layoutData\n\nimagePrompt MUST describe a REALISTIC PHOTOGRAPHY-STYLE image. Must look like a real photograph, not AI art. Use product photography, flat-lay, macro, or lifestyle photo styles with natural lighting. NEVER use cosmic, glowing, neon, or illustrated styles. MUST NOT contain any text, letters, or words.`
+            content: `Write about: ${topic}\nCategory: ${CATEGORY_LABELS[category] || category}\n\nThis article will use the "${templateKey}" template (${templateName}).\n${layoutDataPrompt}\n\nRespond in JSON with: title, slug, excerpt, contentMarkdown, metaDescription, focusKeyword, tags, imagePrompt, layoutData\n\nimagePrompt MUST describe a REALISTIC PHOTOGRAPHY-STYLE image. Must look like a real photograph, not AI art. Use product photography, flat-lay, macro, or lifestyle photo styles with natural lighting. NEVER use cosmic, glowing, neon, or illustrated styles. MUST NOT contain any text, letters, or words.`
           },
         ],
         response_format: BLOG_JSON_SCHEMA_WITH_LAYOUT,
@@ -248,9 +248,9 @@ async function generateAndPublishArticle(): Promise<boolean> {
     const readTime = Math.max(1, Math.ceil((article.contentMarkdown || "").split(/\s+/).length / 200));
     const now = Date.now();
 
-    // Create the blog post with retry for DB operations
+    // Create the MCU News article with retry for DB operations
     await withRetry(
-      () => createBlogPost({
+      () => createArticle({
         title: article.title,
         slug: article.slug + "-" + now.toString(36),
         excerpt: article.excerpt,
@@ -258,24 +258,18 @@ async function generateAndPublishArticle(): Promise<boolean> {
         featuredImageUrl,
         category: category as any,
         tags: article.tags,
-        isAiGenerated: true,
-        aiPrompt: topic,
         isFeatured: false,
         isPublished: true,
         authorName: "NLF Team",
         publishedAt: now,
         scheduledAt: null,
         metaDescription: article.metaDescription,
-        focusKeyword: article.focusKeyword,
-        internalLinks: INTERNAL_LINKS,
-        readTimeMinutes: readTime,
-        layoutTemplate: templateNumber,
-        layoutData: article.layoutData || null,
+        templateLayout: templateKey as any,
       }),
-      "DB insert blog post"
+      "DB insert MCU News article"
     );
 
-    console.log(`[Blog Scheduler] Published: "${article.title}" (Template #${templateNumber})`);
+    console.log(`[Blog Scheduler] Published: "${article.title}" (Template: ${templateKey})`);
     return true;
   } catch (err) {
     console.error("[Blog Scheduler] Failed to generate article:", err);
@@ -322,9 +316,9 @@ async function checkScheduledPosts(): Promise<void> {
 async function hasGeneratedRecently(): Promise<boolean> {
   try {
     const posts = await withRetry(
-      () => getPublishedBlogPosts(1),
+      () => getPublishedArticles(1),
       "Check recent generation"
-    );
+    ) as any[];
 
     if (posts.length === 0) return false;
 
@@ -335,9 +329,9 @@ async function hasGeneratedRecently(): Promise<boolean> {
         ? latestPost.createdAt
         : new Date(latestPost.createdAt as any).getTime();
 
-    // If the latest AI-generated post was created within the last 2 hours, skip
+    // If the latest article was created within the last 2 hours, skip
     const twoHoursAgo = Date.now() - (2 * 60 * 60 * 1000);
-    if (latestPost.isAiGenerated && createdAt > twoHoursAgo) {
+    if (createdAt > twoHoursAgo) {
       return true;
     }
 
