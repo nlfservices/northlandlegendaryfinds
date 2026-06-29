@@ -2874,3 +2874,9 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Fix "Shop at NLF" button on /card-of-the-day — changed to "Explore MCU News" linking to /mcu-news (per project rules: no external shop links)
 - [x] Add hover-to-zoom effect on Card of the Day card image (scale 1.55x on hover, smooth cubic-bezier transition, zoom-in cursor, 🔍 hint badge that fades on hover)
 - [x] Upload Gambit #119 Marvel Mint Red Refractor CGC 10 Gem Mint photo and update DB record (corrected from null grade)
+- [x] Add backend tRPC endpoint to fetch card by specific date (getCardByDate)
+- [x] Add backend endpoint to get prev/next card dates for navigation (getAdjacentDates, getAllDates)
+- [x] Add /card-of-the-day/:date route in App.tsx
+- [x] Update CardOfTheDay page to support date param with prev/next navigation arrows
+- [x] Each date page gets unique SEO metadata (title, description, OG image, canonical, rel prev/next)
+- [x] Add date-based card pages to sitemap (58 URLs)

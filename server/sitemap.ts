@@ -1,8 +1,8 @@
 import type { Express } from "express";
 import { getAllMarvelSets, getAllCharacterSlugs, getAllCardDetailSlugs, getPublishedBlogPosts, getPublishedArticles } from "./db";
 import { getDb } from "./db";
-import { mcuMedia } from "../drizzle/schema";
-import { eq } from "drizzle-orm";
+import { mcuMedia, cardOfTheDayEntries } from "../drizzle/schema";
+import { eq, asc } from "drizzle-orm";
 
 const SITE_URL = "https://northlandlegendaryfinds.com";
 
@@ -212,6 +212,23 @@ export function registerSitemapRoute(app: Express) {
         }
       } catch {
         console.warn("[Sitemap] Failed to fetch MCU Movies & Series from database");
+      }
+
+      // Dynamic Card of the Day date pages
+      try {
+        const db = await getDb();
+        if (db) {
+          const cotdEntries = await db
+            .select({ date: cardOfTheDayEntries.date })
+            .from(cardOfTheDayEntries)
+            .orderBy(asc(cardOfTheDayEntries.date));
+          for (const entry of cotdEntries) {
+            entries.push(buildUrlEntry(`/card-of-the-day/${entry.date}`, "0.6", "monthly", entry.date));
+          }
+          console.log(`[Sitemap] Added ${cotdEntries.length} Card of the Day date URLs`);
+        }
+      } catch {
+        console.warn("[Sitemap] Failed to fetch Card of the Day entries from database");
       }
 
       // Dynamic blog post pages (The Collector)

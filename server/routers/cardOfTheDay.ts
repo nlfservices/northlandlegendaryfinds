@@ -5,7 +5,7 @@
  */
 
 import { z } from "zod";
-import { eq } from "drizzle-orm";
+import { eq, lt, gt, asc, desc } from "drizzle-orm";
 import { getDb } from "../db";
 import { cardOfTheDayEntries } from "../../drizzle/schema";
 import { publicProcedure, protectedProcedure, router } from "../_core/trpc";
@@ -260,6 +260,53 @@ export const cardOfTheDayRouter = router({
       characterName: c.characterName,
       characterRealName: c.characterRealName,
     }));
+  }),
+
+  /**
+   * Get adjacent card dates (prev/next) for a given date (public).
+   * Used for prev/next navigation on individual card pages.
+   */
+  getAdjacentDates: publicProcedure
+    .input(z.object({ date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/) }))
+    .query(async ({ input }) => {
+      const db = await getDb();
+      if (!db) return { prev: null, next: null };
+
+      const prevRows = await db
+        .select({ date: cardOfTheDayEntries.date })
+        .from(cardOfTheDayEntries)
+        .where(lt(cardOfTheDayEntries.date, input.date))
+        .orderBy(desc(cardOfTheDayEntries.date))
+        .limit(1);
+
+      const nextRows = await db
+        .select({ date: cardOfTheDayEntries.date })
+        .from(cardOfTheDayEntries)
+        .where(gt(cardOfTheDayEntries.date, input.date))
+        .orderBy(asc(cardOfTheDayEntries.date))
+        .limit(1);
+
+      return {
+        prev: prevRows[0]?.date ?? null,
+        next: nextRows[0]?.date ?? null,
+      };
+    }),
+
+  /**
+   * Get all card dates for sitemap generation (public).
+   */
+  getAllDates: publicProcedure.query(async () => {
+    const db = await getDb();
+    if (!db) return [];
+    const rows = await db
+      .select({
+        date: cardOfTheDayEntries.date,
+        characterName: cardOfTheDayEntries.characterName,
+        setName: cardOfTheDayEntries.setName,
+      })
+      .from(cardOfTheDayEntries)
+      .orderBy(asc(cardOfTheDayEntries.date));
+    return rows;
   }),
 
   /**

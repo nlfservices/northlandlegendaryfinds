@@ -5,6 +5,7 @@
  */
 
 import { useMemo, useState } from "react";
+import { useParams, useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { Helmet } from "react-helmet-async";
 
@@ -384,17 +385,44 @@ function CardOfTheDayDisplay({ data }: { data: CardData }) {
 
 // ── Page wrapper ─────────────────────────────────────────────────────────────
 export default function CardOfTheDayPage() {
-  const { data, isLoading, error } = trpc.cardOfTheDay.getTodaysCard.useQuery(undefined, {
-    staleTime: 1000 * 60 * 5, // 5 min cache
+  const params = useParams();
+  const [, navigate] = useLocation();
+  const dateParam = params.date; // undefined = today
+
+  // Fetch card data — either by date or today's
+  const todayQuery = trpc.cardOfTheDay.getTodaysCard.useQuery(undefined, {
+    staleTime: 1000 * 60 * 5,
+    enabled: !dateParam,
   });
+  const dateQuery = trpc.cardOfTheDay.getCardForDate.useQuery(
+    { date: dateParam! },
+    { staleTime: 1000 * 60 * 5, enabled: !!dateParam }
+  );
+
+  const data = dateParam ? dateQuery.data : todayQuery.data;
+  const isLoading = dateParam ? dateQuery.isLoading : todayQuery.isLoading;
+  const error = dateParam ? dateQuery.error : todayQuery.error;
+
+  // Get the effective date for navigation
+  const effectiveDate = data?.dateISO ?? dateParam;
+
+  // Fetch prev/next dates for navigation
+  const adjacentQuery = trpc.cardOfTheDay.getAdjacentDates.useQuery(
+    { date: effectiveDate! },
+    { enabled: !!effectiveDate, staleTime: 1000 * 60 * 5 }
+  );
 
   const pageTitle = data
     ? `Card of the Day: ${data.characterName} — ${data.setLabel || "NLF Collection"} | Northland Legendary Finds`
     : "Card of the Day | Northland Legendary Finds";
 
   const pageDesc = data
-    ? `Today's featured card: ${data.characterName} ${data.cardNumber ?? ""} ${data.parallelType ?? ""} ${data.printRun ? `/${data.printRun}` : ""}. ${data.characterTagline ?? ""} Discover rare Marvel trading cards at NLF.`
+    ? `Featured card for ${data.dateLabel}: ${data.characterName} ${data.cardNumber ?? ""} ${data.parallelType ?? ""} ${data.printRun ? `/${data.printRun}` : ""}. ${data.characterTagline ?? ""} Discover rare Marvel trading cards at NLF.`
     : "Discover a new rare Marvel trading card every day at Northland Legendary Finds.";
+
+  const canonicalUrl = effectiveDate
+    ? `https://northlandlegendaryfinds.com/card-of-the-day/${effectiveDate}`
+    : "https://northlandlegendaryfinds.com/card-of-the-day";
 
   return (
     <>
@@ -404,24 +432,58 @@ export default function CardOfTheDayPage() {
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={pageDesc} />
         {data?.frontImageUrl && <meta property="og:image" content={data.frontImageUrl} />}
-        <meta property="og:type" content="website" />
-        <link rel="canonical" href="https://northlandlegendaryfinds.com/card-of-the-day" />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={canonicalUrl} />
+        <link rel="canonical" href={canonicalUrl} />
+        {adjacentQuery.data?.prev && (
+          <link rel="prev" href={`https://northlandlegendaryfinds.com/card-of-the-day/${adjacentQuery.data.prev}`} />
+        )}
+        {adjacentQuery.data?.next && (
+          <link rel="next" href={`https://northlandlegendaryfinds.com/card-of-the-day/${adjacentQuery.data.next}`} />
+        )}
       </Helmet>
 
       {isLoading && (
         <div style={{ maxWidth: "60rem", margin: "4rem auto", padding: "2rem", textAlign: "center", color: "var(--muted-foreground,#8a90a3)" }}>
           <div style={{ fontSize: "2rem", marginBottom: "1rem" }}>◈</div>
-          <p style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".85rem", letterSpacing: ".08em", textTransform: "uppercase" }}>Loading today's card…</p>
+          <p style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".85rem", letterSpacing: ".08em", textTransform: "uppercase" }}>Loading card…</p>
         </div>
       )}
 
       {error && (
         <div style={{ maxWidth: "60rem", margin: "4rem auto", padding: "2rem", textAlign: "center", color: "#ff6b6b" }}>
-          <p>Could not load today's card. Please try again.</p>
+          <p>Could not load this card. Please try again.</p>
         </div>
       )}
 
       {data && <CardOfTheDayDisplay data={data as CardData} />}
+
+      {/* Prev / Next Navigation */}
+      {effectiveDate && (
+        <div style={{ maxWidth: "60rem", margin: "0 auto 3rem", padding: "0 1.2rem" }}>
+          <div className="flex items-center justify-between" style={{ background: "var(--card,#141823)", border: "1px solid var(--border,#242a3a)", borderRadius: 14, padding: "1rem 1.4rem" }}>
+            {adjacentQuery.data?.prev ? (
+              <button
+                onClick={() => navigate(`/card-of-the-day/${adjacentQuery.data!.prev}`)}
+                style={{ background: "none", border: "1px solid var(--border,#242a3a)", color: "#fff", fontFamily: "'Sora',sans-serif", fontWeight: 700, fontSize: ".85rem", padding: ".6rem 1.2rem", borderRadius: 10, cursor: "pointer" }}
+              >
+                ← Previous Card
+              </button>
+            ) : <div />}
+            <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".75rem", color: "var(--muted-foreground,#8a90a3)", letterSpacing: ".05em" }}>
+              {data?.dateLabel}
+            </span>
+            {adjacentQuery.data?.next ? (
+              <button
+                onClick={() => navigate(`/card-of-the-day/${adjacentQuery.data!.next}`)}
+                style={{ background: "none", border: "1px solid var(--border,#242a3a)", color: "#fff", fontFamily: "'Sora',sans-serif", fontWeight: 700, fontSize: ".85rem", padding: ".6rem 1.2rem", borderRadius: 10, cursor: "pointer" }}
+              >
+                Next Card →
+              </button>
+            ) : <div />}
+          </div>
+        </div>
+      )}
     </>
   );
 }
