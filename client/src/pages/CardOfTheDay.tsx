@@ -193,15 +193,25 @@ function CardOfTheDayDisplay({ data }: { data: CardData }) {
               </button>
             ))}
           </div>
-          <div style={{ aspectRatio: "3 / 4", position: "relative", background: "#0a0c11" }}>
+          <div className="cod-card-viewer" style={{ aspectRatio: "3 / 4", position: "relative", background: "#0a0c11", overflow: "hidden" }}>
             {active === "front" && (
               frontImageUrl
-                ? <img src={frontImageUrl} alt={`${cardName} front`} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain" }} />
+                ? (
+                  <>
+                    <img src={frontImageUrl} alt={`${cardName} front`} className="cod-card-img" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain" }} />
+                    <div className="cod-zoom-hint" title="Hover to zoom">🔍</div>
+                  </>
+                )
                 : <Placeholder icon="◈" label="Card Image Coming Soon" dims="Photo being added" />
             )}
             {active === "back" && (
               backImageUrl
-                ? <img src={backImageUrl} alt={`${cardName} back`} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain" }} />
+                ? (
+                  <>
+                    <img src={backImageUrl} alt={`${cardName} back`} className="cod-card-img" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain" }} />
+                    <div className="cod-zoom-hint" title="Hover to zoom">🔍</div>
+                  </>
+                )
                 : <Placeholder icon="▣" label="Card Back — Coming Soon" />
             )}
             {active === "video" && youtubeId && (
@@ -325,6 +335,34 @@ function CardOfTheDayDisplay({ data }: { data: CardData }) {
           transition: opacity .15s;
         }
         .cod-btn:hover { opacity: .85; }
+
+        /* Card hover zoom */
+        .cod-card-viewer { cursor: zoom-in; }
+        .cod-card-img {
+          transform-origin: center center;
+          transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          will-change: transform;
+        }
+        .cod-card-viewer:hover .cod-card-img {
+          transform: scale(1.55);
+        }
+        .cod-zoom-hint {
+          position: absolute;
+          bottom: 10px;
+          right: 10px;
+          background: rgba(0,0,0,0.55);
+          color: #fff;
+          font-size: 1rem;
+          padding: 4px 7px;
+          border-radius: 8px;
+          pointer-events: none;
+          opacity: 0.7;
+          transition: opacity 0.2s;
+          z-index: 10;
+        }
+        .cod-card-viewer:hover .cod-zoom-hint {
+          opacity: 0;
+        }
         @media (max-width: 640px) {
           .cod-main { grid-template-columns: 1fr !important; }
           .cod-char { grid-template-columns: 80px 1fr !important; }
