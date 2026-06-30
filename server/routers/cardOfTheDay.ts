@@ -293,7 +293,7 @@ export const cardOfTheDayRouter = router({
     }),
 
   /**
-   * Get all card dates for sitemap generation (public).
+   * Get all card dates for sitemap generation and public archive gallery.
    */
   getAllDates: publicProcedure.query(async () => {
     const db = await getDb();
@@ -303,9 +303,12 @@ export const cardOfTheDayRouter = router({
         date: cardOfTheDayEntries.date,
         characterName: cardOfTheDayEntries.characterName,
         setName: cardOfTheDayEntries.setName,
+        setLabel: cardOfTheDayEntries.setLabel,
+        frontImageUrl: cardOfTheDayEntries.frontImageUrl,
+        parallelType: cardOfTheDayEntries.parallelType,
       })
       .from(cardOfTheDayEntries)
-      .orderBy(asc(cardOfTheDayEntries.date));
+      .orderBy(desc(cardOfTheDayEntries.date));
     return rows;
   }),
 

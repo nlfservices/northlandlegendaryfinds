@@ -383,6 +383,122 @@ function CardOfTheDayDisplay({ data }: { data: CardData }) {
   );
 }
 
+// ── Archive Gallery Component ────────────────────────────────────────────────
+function ArchiveGallery({ currentDate }: { currentDate?: string }) {
+  const [showArchive, setShowArchive] = useState(false);
+  const [, navigate] = useLocation();
+  const allDatesQuery = trpc.cardOfTheDay.getAllDates.useQuery(undefined, {
+    staleTime: 1000 * 60 * 10,
+    enabled: showArchive,
+  });
+
+  // Filter to only past/today cards (not future)
+  const todayISO = new Date().toISOString().slice(0, 10);
+  const pastCards = useMemo(() => {
+    if (!allDatesQuery.data) return [];
+    return allDatesQuery.data.filter((c) => c.date <= todayISO);
+  }, [allDatesQuery.data, todayISO]);
+
+  const setColorMap: Record<string, string> = {
+    mint: "#ffce4d",
+    comic_book_heroes: "#5b8cff",
+    marvel_studios: "#a86bff",
+  };
+
+  return (
+    <div style={{ maxWidth: "60rem", margin: "0 auto", padding: "0 1.25rem 3rem" }}>
+      {!showArchive ? (
+        <button
+          onClick={() => setShowArchive(true)}
+          style={{
+            width: "100%",
+            background: "var(--card,#141823)",
+            border: "1px solid var(--border,#242a3a)",
+            borderRadius: 14,
+            padding: "1.2rem 1.4rem",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: ".8rem",
+            transition: "border-color .2s, background .2s",
+          }}
+          onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(255,206,77,.5)"; e.currentTarget.style.background = "rgba(255,206,77,.04)"; }}
+          onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--border,#242a3a)"; e.currentTarget.style.background = "var(--card,#141823)"; }}
+        >
+          <span style={{ fontSize: "1.3rem" }}>📅</span>
+          <span style={{ fontFamily: "'Sora',sans-serif", fontWeight: 700, fontSize: ".95rem", color: "#fff" }}>Browse All Past Cards</span>
+          <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".72rem", color: "var(--muted-foreground,#8a90a3)" }}>View the full archive</span>
+        </button>
+      ) : (
+        <div>
+          <div className="flex items-center justify-between" style={{ marginBottom: "1.2rem" }}>
+            <h2 style={{ fontFamily: "'Sora',sans-serif", fontWeight: 800, fontSize: "1.3rem", color: "#fff", margin: 0, display: "flex", alignItems: "center", gap: ".6rem" }}>
+              <span>📅</span> Card Archive
+            </h2>
+            <button
+              onClick={() => setShowArchive(false)}
+              style={{ background: "none", border: "1px solid var(--border,#242a3a)", color: "var(--muted-foreground,#8a90a3)", fontFamily: "'Sora',sans-serif", fontWeight: 600, fontSize: ".78rem", padding: ".4rem .9rem", borderRadius: 8, cursor: "pointer" }}
+            >
+              Close
+            </button>
+          </div>
+
+          {allDatesQuery.isLoading && (
+            <div style={{ textAlign: "center", padding: "2rem", color: "var(--muted-foreground,#8a90a3)" }}>
+              <p style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".8rem" }}>Loading archive…</p>
+            </div>
+          )}
+
+          {pastCards.length > 0 && (
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))", gap: ".8rem" }}>
+              {pastCards.map((card) => {
+                const isActive = card.date === currentDate;
+                const dateObj = new Date(card.date + "T00:00:00Z");
+                const shortDate = dateObj.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
+                return (
+                  <button
+                    key={card.date}
+                    onClick={() => navigate(`/card-of-the-day/${card.date}`)}
+                    style={{
+                      background: isActive ? "rgba(255,206,77,.1)" : "var(--card,#141823)",
+                      border: `1px solid ${isActive ? "rgba(255,206,77,.5)" : "var(--border,#242a3a)"}`,
+                      borderRadius: 12,
+                      padding: ".5rem",
+                      cursor: "pointer",
+                      transition: "all .2s",
+                      textAlign: "center",
+                    }}
+                    onMouseEnter={(e) => { if (!isActive) { e.currentTarget.style.borderColor = "rgba(255,206,77,.3)"; e.currentTarget.style.transform = "translateY(-2px)"; } }}
+                    onMouseLeave={(e) => { if (!isActive) { e.currentTarget.style.borderColor = "var(--border,#242a3a)"; e.currentTarget.style.transform = "translateY(0)"; } }}
+                  >
+                    {/* Thumbnail */}
+                    <div style={{ aspectRatio: "3/4", borderRadius: 8, overflow: "hidden", background: "#0a0c11", marginBottom: ".4rem", position: "relative" }}>
+                      {card.frontImageUrl ? (
+                        <img src={card.frontImageUrl} alt={card.characterName} style={{ width: "100%", height: "100%", objectFit: "cover" }} loading="lazy" />
+                      ) : (
+                        <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", color: "#565d72", fontSize: "1.4rem" }}>◈</div>
+                      )}
+                    </div>
+                    {/* Info */}
+                    <p style={{ fontFamily: "'Sora',sans-serif", fontWeight: 700, fontSize: ".72rem", color: "#fff", margin: "0 0 .15rem", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                      {card.characterName}
+                    </p>
+                    <div className="flex items-center justify-center" style={{ gap: ".35rem" }}>
+                      <span style={{ width: 6, height: 6, borderRadius: "50%", background: setColorMap[card.setName] || "#888" }} />
+                      <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".62rem", color: "var(--muted-foreground,#8a90a3)" }}>{shortDate}</span>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ── Page wrapper ─────────────────────────────────────────────────────────────
 export default function CardOfTheDayPage() {
   const params = useParams();
@@ -458,32 +574,89 @@ export default function CardOfTheDayPage() {
 
       {data && <CardOfTheDayDisplay data={data as CardData} />}
 
-      {/* Prev / Next Navigation */}
+      {/* Enhanced Prev / Next Navigation */}
       {effectiveDate && (
-        <div style={{ maxWidth: "60rem", margin: "0 auto 3rem", padding: "0 1.2rem" }}>
-          <div className="flex items-center justify-between" style={{ background: "var(--card,#141823)", border: "1px solid var(--border,#242a3a)", borderRadius: 14, padding: "1rem 1.4rem" }}>
+        <div style={{ maxWidth: "60rem", margin: "0 auto 2rem", padding: "0 1.25rem" }}>
+          <div className="flex items-center justify-between" style={{ background: "var(--card,#141823)", border: "1px solid var(--border,#242a3a)", borderRadius: 16, padding: "0", overflow: "hidden" }}>
+            {/* Previous Arrow */}
             {adjacentQuery.data?.prev ? (
               <button
                 onClick={() => navigate(`/card-of-the-day/${adjacentQuery.data!.prev}`)}
-                style={{ background: "none", border: "1px solid var(--border,#242a3a)", color: "#fff", fontFamily: "'Sora',sans-serif", fontWeight: 700, fontSize: ".85rem", padding: ".6rem 1.2rem", borderRadius: 10, cursor: "pointer" }}
+                className="cod-nav-btn"
+                style={{
+                  flex: 1,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: ".8rem",
+                  background: "none",
+                  border: "none",
+                  borderRight: "1px solid var(--border,#242a3a)",
+                  color: "#fff",
+                  padding: "1rem 1.4rem",
+                  cursor: "pointer",
+                  transition: "background .2s",
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,206,77,.05)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = "none"; }}
               >
-                ← Previous Card
+                <span style={{ fontSize: "1.6rem", color: GOLD, lineHeight: 1 }}>‹</span>
+                <div style={{ textAlign: "left" }}>
+                  <span style={{ display: "block", fontFamily: "'JetBrains Mono',monospace", fontSize: ".62rem", color: "var(--muted-foreground,#8a90a3)", letterSpacing: ".1em", textTransform: "uppercase" }}>Previous</span>
+                  <span style={{ display: "block", fontFamily: "'Sora',sans-serif", fontWeight: 700, fontSize: ".85rem", marginTop: ".1rem" }}>← Earlier Card</span>
+                </div>
               </button>
-            ) : <div />}
-            <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".75rem", color: "var(--muted-foreground,#8a90a3)", letterSpacing: ".05em" }}>
-              {data?.dateLabel}
-            </span>
+            ) : (
+              <div style={{ flex: 1, padding: "1rem 1.4rem", borderRight: "1px solid var(--border,#242a3a)" }}>
+                <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".7rem", color: "var(--muted-foreground,#565d72)", letterSpacing: ".06em" }}>No earlier cards</span>
+              </div>
+            )}
+
+            {/* Center date */}
+            <div style={{ padding: "1rem 1.4rem", textAlign: "center", minWidth: "120px" }}>
+              <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".72rem", color: GOLD, letterSpacing: ".06em", fontWeight: 600 }}>
+                {data?.dateLabel || effectiveDate}
+              </span>
+            </div>
+
+            {/* Next Arrow */}
             {adjacentQuery.data?.next ? (
               <button
                 onClick={() => navigate(`/card-of-the-day/${adjacentQuery.data!.next}`)}
-                style={{ background: "none", border: "1px solid var(--border,#242a3a)", color: "#fff", fontFamily: "'Sora',sans-serif", fontWeight: 700, fontSize: ".85rem", padding: ".6rem 1.2rem", borderRadius: 10, cursor: "pointer" }}
+                className="cod-nav-btn"
+                style={{
+                  flex: 1,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "flex-end",
+                  gap: ".8rem",
+                  background: "none",
+                  border: "none",
+                  borderLeft: "1px solid var(--border,#242a3a)",
+                  color: "#fff",
+                  padding: "1rem 1.4rem",
+                  cursor: "pointer",
+                  transition: "background .2s",
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,206,77,.05)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = "none"; }}
               >
-                Next Card →
+                <div style={{ textAlign: "right" }}>
+                  <span style={{ display: "block", fontFamily: "'JetBrains Mono',monospace", fontSize: ".62rem", color: "var(--muted-foreground,#8a90a3)", letterSpacing: ".1em", textTransform: "uppercase" }}>Next</span>
+                  <span style={{ display: "block", fontFamily: "'Sora',sans-serif", fontWeight: 700, fontSize: ".85rem", marginTop: ".1rem" }}>Later Card →</span>
+                </div>
+                <span style={{ fontSize: "1.6rem", color: GOLD, lineHeight: 1 }}>›</span>
               </button>
-            ) : <div />}
+            ) : (
+              <div style={{ flex: 1, padding: "1rem 1.4rem", borderLeft: "1px solid var(--border,#242a3a)", textAlign: "right" }}>
+                <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".7rem", color: "var(--muted-foreground,#565d72)", letterSpacing: ".06em" }}>No later cards</span>
+              </div>
+            )}
           </div>
         </div>
       )}
+
+      {/* Archive Gallery */}
+      <ArchiveGallery currentDate={effectiveDate} />
     </>
   );
 }

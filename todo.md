@@ -2899,3 +2899,8 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Better empty state for cards without images (styled placeholder with character name)
 - [x] Quick-view tooltip on hover showing card details (character, set, type, parallels)
 - [x] Smooth scale transitions on card hover
+
+## Card of the Day Navigation Improvements
+- [x] Make prev/next navigation arrows more prominent and always visible (larger, styled, with card character preview)
+- [x] Add "Browse All Past Cards" archive gallery section below the card content
+- [x] Archive shows thumbnail grid of all past cards with date, character name, and set badge
