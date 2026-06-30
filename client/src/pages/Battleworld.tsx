@@ -1,7 +1,7 @@
 /**
  * Battleworld — Card of the Day Hub
  * Themed around Doctor Doom's Secret Wars domain.
- * Entry point for daily featured cards with full archive.
+ * Features: cosmic background, Doom card flip animation, team filter tabs, archive grid.
  */
 
 import { useMemo, useState } from "react";
@@ -9,8 +9,105 @@ import { useLocation } from "wouter";
 import { Helmet } from "react-helmet-async";
 import { trpc } from "@/lib/trpc";
 
-// ── Constants ────────────────────────────────────────────────────────────────
-const GOLD = "#ffce4d";
+// ── Assets ──────────────────────────────────────────────────────────────────
+const BG_IMAGE = "/manus-storage/battleworld-bg_c7b881be.png";
+const DOOM_FRONT = "/manus-storage/battleworld-doom-front_96cc98f4.webp";
+const DOOM_BACK = "/manus-storage/battleworld-doom-back_9608cec7.webp";
+
+// ── Team Definitions ────────────────────────────────────────────────────────
+type TeamKey = "all" | "avengers" | "xmen" | "fantastic_four" | "guardians" | "villains" | "secret_wars";
+
+interface TeamDef {
+  key: TeamKey;
+  label: string;
+  color: string;
+  members: string[];
+}
+
+const TEAMS: TeamDef[] = [
+  { key: "all", label: "ALL (A-Z)", color: "#ffce4d", members: [] },
+  {
+    key: "avengers",
+    label: "AVENGERS",
+    color: "#e63946",
+    members: [
+      "iron man", "captain america", "thor", "hulk", "black widow", "hawkeye",
+      "scarlet witch", "vision", "ant-man", "wasp", "falcon", "war machine",
+      "black panther", "spider-man", "captain marvel", "she-hulk", "wonder man",
+      "ms. marvel", "kate bishop", "shang-chi", "moon knight", "tony stark",
+      "steve rogers", "natasha romanoff", "clint barton", "wanda maximoff",
+      "sam wilson", "peter parker", "carol danvers", "bruce banner",
+    ],
+  },
+  {
+    key: "xmen",
+    label: "X-MEN",
+    color: "#ffd60a",
+    members: [
+      "wolverine", "storm", "cyclops", "jean grey", "rogue", "gambit",
+      "beast", "nightcrawler", "colossus", "kitty pryde", "iceman", "angel",
+      "magneto", "professor x", "psylocke", "cable", "bishop", "jubilee",
+      "emma frost", "mystique", "deadpool", "x-23", "laura kinney",
+      "logan", "ororo munroe", "scott summers",
+    ],
+  },
+  {
+    key: "fantastic_four",
+    label: "FANTASTIC FOUR",
+    color: "#4895ef",
+    members: [
+      "mr. fantastic", "invisible woman", "human torch", "thing",
+      "reed richards", "sue storm", "johnny storm", "ben grimm",
+      "silver surfer", "galactus", "franklin richards", "valeria richards",
+    ],
+  },
+  {
+    key: "guardians",
+    label: "GUARDIANS",
+    color: "#a855f7",
+    members: [
+      "star-lord", "gamora", "drax", "rocket raccoon", "groot", "mantis",
+      "nebula", "adam warlock", "peter quill", "rocket",
+    ],
+  },
+  {
+    key: "villains",
+    label: "VILLAINS",
+    color: "#8b0000",
+    members: [
+      "doctor doom", "thanos", "loki", "venom", "green goblin", "kingpin",
+      "ultron", "kang", "red skull", "carnage", "mephisto", "dormammu",
+      "hela", "taskmaster", "baron zemo", "modok", "abomination",
+      "doc ock", "doctor octopus", "vulture", "mysterio", "electro",
+      "sandman", "rhino", "kraven", "scorpion", "hobgoblin",
+      "norman osborn", "wilson fisk", "victor von doom",
+    ],
+  },
+  {
+    key: "secret_wars",
+    label: "SECRET WARS",
+    color: "#9d4edd",
+    members: [
+      "doctor doom", "beyonder", "molecule man", "spider-woman",
+      "battleworld", "god emperor doom", "maker", "black swan",
+      "namor", "black bolt", "medusa", "maximus",
+    ],
+  },
+];
+
+function getTeamForCharacter(characterName: string): TeamKey[] {
+  const lower = characterName.toLowerCase();
+  const teams: TeamKey[] = [];
+  for (const team of TEAMS) {
+    if (team.key === "all") continue;
+    if (team.members.some((m) => lower.includes(m) || m.includes(lower))) {
+      teams.push(team.key);
+    }
+  }
+  return teams.length > 0 ? teams : ["all"];
+}
+
+// ── Constants ───────────────────────────────────────────────────────────────
 const DOOM_GREEN = "#3fb56b";
 
 const SET_COLORS: Record<string, string> = {
@@ -19,15 +116,11 @@ const SET_COLORS: Record<string, string> = {
   marvel_studios: "#a86bff",
 };
 
-const SET_LABELS_FALLBACK: Record<string, string> = {
-  mint: "Marvel Mint",
-  comic_book_heroes: "Comic Book Heroes",
-  marvel_studios: "Marvel Studios",
-};
-
-// ── Page Component ───────────────────────────────────────────────────────────
+// ── Page Component ──────────────────────────────────────────────────────────
 export default function Battleworld() {
   const [, navigate] = useLocation();
+  const [activeTeam, setActiveTeam] = useState<TeamKey>("all");
+  const [cardFlipped, setCardFlipped] = useState(false);
 
   // Fetch today's card
   const todayQuery = trpc.cardOfTheDay.getTodaysCard.useQuery(undefined, {
@@ -47,373 +140,331 @@ export default function Battleworld() {
     return allDatesQuery.data.filter((c) => c.date <= todayISO);
   }, [allDatesQuery.data, todayISO]);
 
-  // Group by month for the archive
-  const groupedByMonth = useMemo(() => {
-    const groups: Record<string, typeof pastCards> = {};
-    pastCards.forEach((card) => {
-      const monthKey = card.date.slice(0, 7); // YYYY-MM
-      if (!groups[monthKey]) groups[monthKey] = [];
-      groups[monthKey].push(card);
-    });
-    return Object.entries(groups).sort((a, b) => b[0].localeCompare(a[0]));
-  }, [pastCards]);
+  // Filter by team
+  const filteredCards = useMemo(() => {
+    if (activeTeam === "all") {
+      return [...pastCards].sort((a, b) => a.characterName.localeCompare(b.characterName));
+    }
+    return pastCards
+      .filter((c) => getTeamForCharacter(c.characterName).includes(activeTeam))
+      .sort((a, b) => a.characterName.localeCompare(b.characterName));
+  }, [pastCards, activeTeam]);
 
-  const todayCard = todayQuery.data;
+  // Stats
+  const totalCards = pastCards.length;
+  const uniqueSets = new Set(pastCards.map((c) => c.setName)).size;
+
+  const today = todayQuery.data;
 
   return (
     <>
       <Helmet>
-        <title>Battleworld — Card of the Day | Northland Legendary Finds</title>
-        <meta name="description" content="Welcome to Battleworld. Every day, one Marvel trading card rises to rule. Explore today's featured card and browse the full archive of past selections from Northland Legendary Finds." />
-        <meta property="og:title" content="Battleworld — Card of the Day | Northland Legendary Finds" />
-        <meta property="og:description" content="Doctor Doom's domain awaits. One card rules each day. Explore the full archive of Marvel trading cards featured on Northland Legendary Finds." />
-        {todayCard?.frontImageUrl && <meta property="og:image" content={todayCard.frontImageUrl} />}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://northlandlegendaryfinds.com/battleworld" />
-        <link rel="canonical" href="https://northlandlegendaryfinds.com/battleworld" />
+        <title>Battleworld | Card of the Day Hub | Northland Legendary Finds</title>
+        <meta
+          name="description"
+          content="Welcome to Battleworld — Doctor Doom's domain where one card rules each day. Explore daily featured Marvel trading cards organized by team, from Avengers to X-Men to Secret Wars."
+        />
+        <meta property="og:title" content="Battleworld | Northland Legendary Finds" />
+        <meta property="og:description" content="Doctor Doom's domain — one card rules each day. Daily featured Marvel cards, team archives, and more." />
+        <meta property="og:image" content={DOOM_FRONT} />
       </Helmet>
 
-      <div style={{ minHeight: "100vh", background: "#080b12" }}>
-        {/* ═══ HERO SECTION ═══ */}
-        <section style={{
-          position: "relative",
-          padding: "4rem 1.25rem 3rem",
-          textAlign: "center",
-          overflow: "hidden",
-        }}>
-          {/* Subtle radial glow behind */}
-          <div style={{
-            position: "absolute",
-            top: "-30%",
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: "800px",
-            height: "800px",
-            background: "radial-gradient(circle, rgba(63,181,107,.08) 0%, transparent 70%)",
-            pointerEvents: "none",
-          }} />
+      <div
+        className="min-h-screen relative"
+        style={{
+          backgroundImage: `url(${BG_IMAGE})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundAttachment: "fixed",
+        }}
+      >
+        {/* Dark overlay for readability */}
+        <div className="absolute inset-0 bg-black/60" />
 
-          {/* Title */}
-          <div style={{ position: "relative", zIndex: 1 }}>
-            <h1 style={{
-              fontFamily: "'Sora',sans-serif",
-              fontWeight: 900,
-              fontSize: "clamp(2.2rem, 6vw, 4rem)",
-              color: "#fff",
-              margin: "0 0 .4rem",
-              letterSpacing: "-.02em",
-              lineHeight: 1.1,
-            }}>
-              <span style={{ color: DOOM_GREEN }}>BATTLE</span>WORLD
-            </h1>
-            <p style={{
-              fontFamily: "'JetBrains Mono',monospace",
-              fontSize: ".78rem",
-              color: "var(--muted-foreground,#8a90a3)",
-              letterSpacing: ".12em",
-              textTransform: "uppercase",
-              margin: "0 0 .5rem",
-            }}>
-              One card rules each day
-            </p>
-            <p style={{
-              maxWidth: "36rem",
-              margin: "0 auto 2.5rem",
-              fontSize: ".92rem",
-              color: "#c4c9d6",
-              lineHeight: 1.6,
-            }}>
-              Welcome to Doctor Doom's domain. Every day we crown a new card from the NLF collection — 
-              explore today's ruler and browse the full archive of past featured cards.
-            </p>
-          </div>
+        {/* Content */}
+        <div className="relative z-10">
+          {/* ═══ HERO SECTION ═══ */}
+          <section className="pt-24 pb-16 px-4">
+            <div className="max-w-6xl mx-auto text-center">
+              {/* Title */}
+              <h1
+                className="text-6xl sm:text-7xl lg:text-8xl font-black tracking-tighter mb-2"
+                style={{
+                  background: `linear-gradient(135deg, ${DOOM_GREEN}, #ffce4d)`,
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  textShadow: "0 0 40px rgba(63,181,107,0.3)",
+                }}
+              >
+                BATTLEWORLD
+              </h1>
+              <p className="text-lg sm:text-xl text-gray-300 font-medium mb-2">
+                Doctor Doom's Domain — One Card Rules Each Day
+              </p>
+              <p className="text-sm text-gray-500 mb-10">
+                {totalCards} cards featured across {uniqueSets} sets
+              </p>
 
-          {/* Today's Card — Hero Display */}
-          {todayQuery.isLoading && (
-            <div style={{ padding: "3rem", color: "var(--muted-foreground,#8a90a3)" }}>
-              <p style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".8rem" }}>Loading today's card…</p>
-            </div>
-          )}
+              {/* ═══ DOOM CARD FLIP ═══ */}
+              <div className="flex justify-center mb-12">
+                <div
+                  className="relative cursor-pointer group"
+                  style={{ perspective: "1200px", width: 280, height: 390 }}
+                  onClick={() => setCardFlipped(!cardFlipped)}
+                  title="Click to flip"
+                >
+                  <div
+                    className="absolute inset-0 transition-transform duration-700"
+                    style={{
+                      transformStyle: "preserve-3d",
+                      transform: cardFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
+                    }}
+                  >
+                    {/* Front */}
+                    <div
+                      className="absolute inset-0 rounded-xl overflow-hidden shadow-2xl"
+                      style={{ backfaceVisibility: "hidden" }}
+                    >
+                      <img
+                        src={DOOM_FRONT}
+                        alt="Doctor Doom Gold Wave PSA 9 — Front"
+                        className="w-full h-full object-cover"
+                      />
+                      {/* Holographic shimmer */}
+                      <div
+                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                        style={{
+                          background: "linear-gradient(135deg, transparent 30%, rgba(255,206,77,0.15) 50%, transparent 70%)",
+                          animation: "shimmer 2.5s infinite",
+                        }}
+                      />
+                    </div>
 
-          {todayCard && (
-            <div
-              onClick={() => navigate(`/card-of-the-day/${todayCard.dateISO}`)}
-              style={{
-                position: "relative",
-                zIndex: 1,
-                maxWidth: "52rem",
-                margin: "0 auto",
-                display: "grid",
-                gridTemplateColumns: "280px 1fr",
-                gap: "2rem",
-                alignItems: "center",
-                background: "linear-gradient(135deg, rgba(63,181,107,.06), rgba(255,206,77,.03))",
-                border: `1px solid rgba(63,181,107,.3)`,
-                borderRadius: 20,
-                padding: "2rem",
-                cursor: "pointer",
-                transition: "border-color .3s, transform .3s",
-                textAlign: "left",
-              }}
-              onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(63,181,107,.6)"; e.currentTarget.style.transform = "translateY(-3px)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(63,181,107,.3)"; e.currentTarget.style.transform = "translateY(0)"; }}
-            >
-              {/* Card Image */}
-              <div style={{
-                aspectRatio: "63/88",
-                borderRadius: 14,
-                overflow: "hidden",
-                background: "#0a0c11",
-                boxShadow: "0 8px 32px rgba(0,0,0,.5), 0 0 60px rgba(63,181,107,.15)",
-              }}>
-                {todayCard.frontImageUrl ? (
-                  <img
-                    src={todayCard.frontImageUrl}
-                    alt={`${todayCard.characterName} — Today's Card`}
-                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    {/* Back */}
+                    <div
+                      className="absolute inset-0 rounded-xl overflow-hidden shadow-2xl"
+                      style={{
+                        backfaceVisibility: "hidden",
+                        transform: "rotateY(180deg)",
+                      }}
+                    >
+                      <img
+                        src={DOOM_BACK}
+                        alt="Doctor Doom Gold Wave PSA 9 — Back"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Glow ring */}
+                  <div
+                    className="absolute -inset-3 rounded-2xl opacity-50 group-hover:opacity-80 transition-opacity duration-500 -z-10"
+                    style={{
+                      background: `radial-gradient(ellipse at center, ${DOOM_GREEN}40, transparent 70%)`,
+                    }}
                   />
-                ) : (
-                  <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "#565d72", fontSize: "3rem" }}>◈</div>
-                )}
+
+                  {/* Flip hint */}
+                  <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                    Click to flip
+                  </div>
+                </div>
               </div>
 
-              {/* Card Info */}
-              <div>
-                <div style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: ".5rem",
-                  background: "rgba(63,181,107,.12)",
-                  border: "1px solid rgba(63,181,107,.3)",
-                  borderRadius: 8,
-                  padding: ".35rem .75rem",
-                  marginBottom: ".8rem",
-                }}>
-                  <span style={{ width: 8, height: 8, borderRadius: "50%", background: DOOM_GREEN }} />
-                  <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".68rem", color: DOOM_GREEN, letterSpacing: ".1em", textTransform: "uppercase", fontWeight: 700 }}>
-                    Today's Ruler
+              {/* Today's Card CTA */}
+              {today && (
+                <button
+                  onClick={() => navigate(`/card-of-the-day/${today.dateISO}`)}
+                  className="inline-flex items-center gap-3 px-6 py-3 rounded-full border transition-all hover:scale-105"
+                  style={{
+                    borderColor: DOOM_GREEN + "60",
+                    background: "rgba(63,181,107,0.08)",
+                  }}
+                >
+                  <span className="text-sm font-bold" style={{ color: DOOM_GREEN }}>
+                    TODAY'S RULER:
                   </span>
-                </div>
+                  <span className="text-white font-semibold">{today.characterName}</span>
+                  <span className="text-gray-400">→</span>
+                </button>
+              )}
+            </div>
+          </section>
 
-                <h2 style={{
-                  fontFamily: "'Sora',sans-serif",
-                  fontWeight: 800,
-                  fontSize: "clamp(1.5rem, 3vw, 2.2rem)",
-                  color: "#fff",
-                  margin: "0 0 .4rem",
-                  lineHeight: 1.15,
-                }}>
-                  {todayCard.characterName}
-                </h2>
+          {/* ═══ TEAM FILTER TABS ═══ */}
+          <section className="px-4 pb-6">
+            <div className="max-w-6xl mx-auto">
+              <div className="flex flex-wrap justify-center gap-2">
+                {TEAMS.map((team) => {
+                  const isActive = activeTeam === team.key;
+                  const count =
+                    team.key === "all"
+                      ? pastCards.length
+                      : pastCards.filter((c) => getTeamForCharacter(c.characterName).includes(team.key)).length;
 
-                {todayCard.characterTagline && (
-                  <p style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".72rem", color: DOOM_GREEN, letterSpacing: ".08em", textTransform: "uppercase", margin: "0 0 .8rem" }}>
-                    {todayCard.characterTagline}
-                  </p>
-                )}
-
-                <div className="flex" style={{ flexWrap: "wrap", gap: ".5rem", marginBottom: "1rem" }}>
-                  {todayCard.setLabel && (
-                    <span style={{ fontSize: ".74rem", background: "#0e121b", border: "1px solid var(--border,#242a3a)", borderRadius: 8, padding: ".3rem .6rem", color: "#c4c9d6" }}>
-                      {todayCard.setLabel}
-                    </span>
-                  )}
-                  {todayCard.parallelType && (
-                    <span style={{ fontSize: ".74rem", background: "#0e121b", border: "1px solid var(--border,#242a3a)", borderRadius: 8, padding: ".3rem .6rem", color: GOLD }}>
-                      {todayCard.parallelType}
-                    </span>
-                  )}
-                  {todayCard.cardNumber && (
-                    <span style={{ fontSize: ".74rem", background: "#0e121b", border: "1px solid var(--border,#242a3a)", borderRadius: 8, padding: ".3rem .6rem", color: "#c4c9d6" }}>
-                      {todayCard.cardNumber}
-                    </span>
-                  )}
-                  {todayCard.printRun && (
-                    <span style={{ fontSize: ".74rem", background: "#0e121b", border: `1px solid rgba(255,206,77,.3)`, borderRadius: 8, padding: ".3rem .6rem", color: GOLD, fontWeight: 700 }}>
-                      /{todayCard.printRun}
-                    </span>
-                  )}
-                </div>
-
-                {todayCard.characterBio && (
-                  <p style={{ fontSize: ".88rem", color: "#aeb4c4", lineHeight: 1.55, margin: "0 0 1rem", maxWidth: "28rem" }}>
-                    {todayCard.characterBio.slice(0, 180)}{todayCard.characterBio.length > 180 ? "…" : ""}
-                  </p>
-                )}
-
-                <span style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: ".4rem",
-                  fontFamily: "'Sora',sans-serif",
-                  fontWeight: 700,
-                  fontSize: ".85rem",
-                  color: DOOM_GREEN,
-                }}>
-                  View Full Card →
-                </span>
+                  return (
+                    <button
+                      key={team.key}
+                      onClick={() => setActiveTeam(team.key)}
+                      className="px-4 py-2 rounded-lg text-sm font-bold transition-all duration-200"
+                      style={{
+                        background: isActive ? team.color + "25" : "rgba(255,255,255,0.05)",
+                        border: `2px solid ${isActive ? team.color : "rgba(255,255,255,0.1)"}`,
+                        color: isActive ? team.color : "#9ca3af",
+                        transform: isActive ? "scale(1.05)" : "scale(1)",
+                      }}
+                    >
+                      {team.label}
+                      {count > 0 && (
+                        <span
+                          className="ml-2 text-xs px-1.5 py-0.5 rounded-full"
+                          style={{
+                            background: isActive ? team.color + "30" : "rgba(255,255,255,0.08)",
+                          }}
+                        >
+                          {count}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
               </div>
             </div>
-          )}
+          </section>
 
-          {/* Responsive override for mobile */}
-          <style>{`
-            @media (max-width: 640px) {
-              .bw-hero-card { grid-template-columns: 1fr !important; text-align: center !important; }
-            }
-          `}</style>
-        </section>
-
-        {/* ═══ STATS BAR ═══ */}
-        <section style={{ maxWidth: "52rem", margin: "0 auto 2.5rem", padding: "0 1.25rem" }}>
-          <div className="flex items-center justify-center" style={{
-            gap: "2rem",
-            flexWrap: "wrap",
-            background: "var(--card,#141823)",
-            border: "1px solid var(--border,#242a3a)",
-            borderRadius: 14,
-            padding: "1rem 2rem",
-          }}>
-            <div style={{ textAlign: "center" }}>
-              <span style={{ fontFamily: "'Sora',sans-serif", fontWeight: 800, fontSize: "1.4rem", color: GOLD }}>{pastCards.length}</span>
-              <span style={{ display: "block", fontFamily: "'JetBrains Mono',monospace", fontSize: ".65rem", color: "var(--muted-foreground,#8a90a3)", letterSpacing: ".08em", textTransform: "uppercase", marginTop: ".1rem" }}>Cards Featured</span>
-            </div>
-            <div style={{ width: 1, height: 28, background: "var(--border,#242a3a)" }} />
-            <div style={{ textAlign: "center" }}>
-              <span style={{ fontFamily: "'Sora',sans-serif", fontWeight: 800, fontSize: "1.4rem", color: "#5b8cff" }}>{groupedByMonth.length}</span>
-              <span style={{ display: "block", fontFamily: "'JetBrains Mono',monospace", fontSize: ".65rem", color: "var(--muted-foreground,#8a90a3)", letterSpacing: ".08em", textTransform: "uppercase", marginTop: ".1rem" }}>Months Active</span>
-            </div>
-            <div style={{ width: 1, height: 28, background: "var(--border,#242a3a)" }} />
-            <div style={{ textAlign: "center" }}>
-              <span style={{ fontFamily: "'Sora',sans-serif", fontWeight: 800, fontSize: "1.4rem", color: "#a86bff" }}>3</span>
-              <span style={{ display: "block", fontFamily: "'JetBrains Mono',monospace", fontSize: ".65rem", color: "var(--muted-foreground,#8a90a3)", letterSpacing: ".08em", textTransform: "uppercase", marginTop: ".1rem" }}>Sets Represented</span>
-            </div>
-          </div>
-        </section>
-
-        {/* ═══ ARCHIVE SECTION ═══ */}
-        <section style={{ maxWidth: "60rem", margin: "0 auto", padding: "0 1.25rem 4rem" }}>
-          <div className="flex items-center justify-between" style={{ marginBottom: "1.5rem" }}>
-            <h2 style={{
-              fontFamily: "'Sora',sans-serif",
-              fontWeight: 800,
-              fontSize: "1.3rem",
-              color: "#fff",
-              margin: 0,
-            }}>
-              The Archive
-            </h2>
-            <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".7rem", color: "var(--muted-foreground,#8a90a3)", letterSpacing: ".06em" }}>
-              {pastCards.length} cards total
-            </span>
-          </div>
-
-          {allDatesQuery.isLoading && (
-            <div style={{ textAlign: "center", padding: "3rem", color: "var(--muted-foreground,#8a90a3)" }}>
-              <p style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".8rem" }}>Loading archive…</p>
-            </div>
-          )}
-
-          {groupedByMonth.map(([monthKey, cards]) => {
-            const monthDate = new Date(monthKey + "-01T00:00:00Z");
-            const monthLabel = monthDate.toLocaleDateString("en-US", { month: "long", year: "numeric", timeZone: "UTC" });
-            return (
-              <div key={monthKey} style={{ marginBottom: "2rem" }}>
-                <h3 style={{
-                  fontFamily: "'JetBrains Mono',monospace",
-                  fontSize: ".72rem",
-                  color: "var(--muted-foreground,#8a90a3)",
-                  letterSpacing: ".1em",
-                  textTransform: "uppercase",
-                  margin: "0 0 .8rem",
-                  paddingBottom: ".5rem",
-                  borderBottom: "1px solid var(--border,#242a3a)",
-                }}>
-                  {monthLabel}
-                </h3>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(130px, 1fr))", gap: ".7rem" }}>
-                  {cards.map((card) => {
-                    const dateObj = new Date(card.date + "T00:00:00Z");
-                    const dayLabel = dateObj.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
+          {/* ═══ ARCHIVE GRID ═══ */}
+          <section className="px-4 pb-24">
+            <div className="max-w-6xl mx-auto">
+              {filteredCards.length === 0 ? (
+                <div className="text-center py-16">
+                  <p className="text-gray-400 text-lg">
+                    {allDatesQuery.isLoading
+                      ? "Loading the domains of Battleworld..."
+                      : "No cards in this domain yet. Check back as Battleworld grows."}
+                  </p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                  {filteredCards.map((card, idx) => {
                     const isToday = card.date === todayISO;
+                    const setColor = SET_COLORS[card.setName] || "#888";
+                    const teams = getTeamForCharacter(card.characterName);
+                    const teamColor = teams[0] !== "all"
+                      ? TEAMS.find((t) => t.key === teams[0])?.color || "#888"
+                      : setColor;
+
                     return (
-                      <button
+                      <div
                         key={card.date}
                         onClick={() => navigate(`/card-of-the-day/${card.date}`)}
+                        className="group relative rounded-xl overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.03] hover:-translate-y-1"
                         style={{
-                          background: isToday ? "rgba(63,181,107,.08)" : "var(--card,#141823)",
-                          border: `1px solid ${isToday ? "rgba(63,181,107,.5)" : "var(--border,#242a3a)"}`,
-                          borderRadius: 12,
-                          padding: ".45rem",
-                          cursor: "pointer",
-                          transition: "all .2s",
-                          textAlign: "center",
+                          animationDelay: `${idx * 30}ms`,
+                          border: isToday
+                            ? `2px solid ${DOOM_GREEN}`
+                            : "1px solid rgba(255,255,255,0.08)",
+                          background: "rgba(0,0,0,0.5)",
+                          backdropFilter: "blur(8px)",
                         }}
-                        onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(255,206,77,.4)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
-                        onMouseLeave={(e) => { e.currentTarget.style.borderColor = isToday ? "rgba(63,181,107,.5)" : "var(--border,#242a3a)"; e.currentTarget.style.transform = "translateY(0)"; }}
                       >
-                        {/* Thumbnail */}
-                        <div style={{ aspectRatio: "3/4", borderRadius: 8, overflow: "hidden", background: "#0a0c11", marginBottom: ".35rem", position: "relative" }}>
+                        {/* Card image */}
+                        <div className="aspect-[2/3] relative overflow-hidden">
                           {card.frontImageUrl ? (
-                            <img src={card.frontImageUrl} alt={card.characterName} style={{ width: "100%", height: "100%", objectFit: "cover" }} loading="lazy" />
+                            <img
+                              src={card.frontImageUrl}
+                              alt={card.characterName}
+                              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                              loading="lazy"
+                            />
                           ) : (
-                            <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", color: "#565d72", fontSize: "1.3rem" }}>◈</div>
+                            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-800 to-gray-900">
+                              <span className="text-3xl">🃏</span>
+                            </div>
                           )}
+
+                          {/* Hover overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                          {/* Today badge */}
                           {isToday && (
-                            <div style={{ position: "absolute", top: 4, right: 4, background: DOOM_GREEN, color: "#000", fontSize: ".55rem", fontWeight: 800, padding: "2px 5px", borderRadius: 4, fontFamily: "'Sora',sans-serif" }}>TODAY</div>
+                            <div
+                              className="absolute top-2 right-2 px-2 py-0.5 rounded-full text-[10px] font-black"
+                              style={{ background: DOOM_GREEN, color: "#000" }}
+                            >
+                              TODAY
+                            </div>
                           )}
+
+                          {/* Team dot */}
+                          <div
+                            className="absolute top-2 left-2 w-3 h-3 rounded-full border border-white/30"
+                            style={{ background: teamColor }}
+                            title={teams.join(", ")}
+                          />
                         </div>
+
                         {/* Info */}
-                        <p style={{ fontFamily: "'Sora',sans-serif", fontWeight: 700, fontSize: ".68rem", color: "#fff", margin: "0 0 .1rem", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                          {card.characterName}
-                        </p>
-                        <div className="flex items-center justify-center" style={{ gap: ".3rem" }}>
-                          <span style={{ width: 5, height: 5, borderRadius: "50%", background: SET_COLORS[card.setName] || "#888" }} />
-                          <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".58rem", color: "var(--muted-foreground,#8a90a3)" }}>{dayLabel}</span>
+                        <div className="p-3">
+                          <p className="text-white text-sm font-bold truncate">
+                            {card.characterName}
+                          </p>
+                          <div className="flex items-center justify-between mt-1">
+                            <span className="text-[11px] text-gray-400">
+                              {new Date(card.date + "T12:00:00").toLocaleDateString("en-US", {
+                                month: "short",
+                                day: "numeric",
+                              })}
+                            </span>
+                            <span
+                              className="text-[10px] font-semibold px-1.5 py-0.5 rounded"
+                              style={{ background: setColor + "20", color: setColor }}
+                            >
+                              {card.setLabel || card.setName}
+                            </span>
+                          </div>
                         </div>
-                      </button>
+                      </div>
                     );
                   })}
                 </div>
-              </div>
-            );
-          })}
-
-          {pastCards.length === 0 && !allDatesQuery.isLoading && (
-            <div style={{ textAlign: "center", padding: "3rem", color: "var(--muted-foreground,#8a90a3)" }}>
-              <p style={{ fontSize: "2rem", marginBottom: ".5rem" }}>◈</p>
-              <p style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".8rem" }}>No cards featured yet. Check back tomorrow.</p>
+              )}
             </div>
-          )}
-        </section>
+          </section>
 
-        {/* ═══ SEO CONTENT FOOTER ═══ */}
-        <section style={{ maxWidth: "52rem", margin: "0 auto", padding: "0 1.25rem 4rem" }}>
-          <div style={{ borderTop: "1px solid var(--border,#242a3a)", paddingTop: "2rem" }}>
-            <h2 style={{ fontFamily: "'Sora',sans-serif", fontWeight: 800, fontSize: "1.1rem", color: "#fff", margin: "0 0 .8rem" }}>
-              About Battleworld
-            </h2>
-            <p style={{ fontSize: ".88rem", color: "#aeb4c4", lineHeight: 1.7, margin: "0 0 1rem" }}>
-              In Marvel Comics, Battleworld is the patchwork planet assembled by Doctor Doom during the Secret Wars event. 
-              Doom, wielding the power of the Beyonders, stitched together fragments of destroyed universes into a single world 
-              where he ruled as God Emperor. Here at Northland Legendary Finds, our Battleworld serves a similar purpose — 
-              each day we crown one card from our collection as the day's ruler, showcasing the best of 
-              2025 Topps Marvel Mint, Comic Book Heroes, and Marvel Studios sets.
-            </p>
-            <p style={{ fontSize: ".88rem", color: "#aeb4c4", lineHeight: 1.7, margin: "0 0 1rem" }}>
-              With Avengers: Doomsday arriving in theaters, Doctor Doom's influence on the MCU has never been greater. 
-              Our daily card selections highlight the characters, parallels, and chase cards that connect to the 
-              unfolding Multiverse Saga — from Robert Downey Jr.'s Doctor Doom to the heroes assembling to stop him.
-            </p>
-            <p style={{ fontSize: ".85rem", color: "#8a90a3", lineHeight: 1.6, margin: 0 }}>
-              Browse our archive to see every card that has ruled Battleworld, or visit our{" "}
-              <a href="/characters" style={{ color: DOOM_GREEN, textDecoration: "none" }}>Marvel Characters</a> page 
-              to explore the full roster. Join the community on{" "}
-              <a href="/about" style={{ color: DOOM_GREEN, textDecoration: "none" }}>our About page</a> to learn more 
-              about Northland Legendary Finds.
-            </p>
-          </div>
-        </section>
+          {/* ═══ SEO CONTENT FOOTER ═══ */}
+          <section className="px-4 pb-16">
+            <div className="max-w-4xl mx-auto text-center">
+              <div className="rounded-2xl p-8" style={{ background: "rgba(0,0,0,0.6)", border: "1px solid rgba(255,255,255,0.05)" }}>
+                <h2 className="text-xl font-bold text-white mb-4">Welcome to Battleworld</h2>
+                <p className="text-gray-400 text-sm leading-relaxed mb-4">
+                  In Marvel's Secret Wars, Doctor Doom seized the power of the Beyonders and forged Battleworld — a patchwork
+                  planet of salvaged realities where he ruled as God Emperor. Here at Northland Legendary Finds, our Battleworld
+                  is where one graded Marvel trading card claims the throne each day. From Avengers to X-Men, Fantastic Four to
+                  the Guardians of the Galaxy, every domain is represented.
+                </p>
+                <p className="text-gray-400 text-sm leading-relaxed mb-6">
+                  With Avengers: Doomsday approaching, the cards featured here connect directly to the characters rumored for
+                  Marvel's next epic crossover. Explore the archive, discover which cards have ruled, and see which team's domain
+                  grows the fastest.
+                </p>
+                <div className="flex flex-wrap justify-center gap-3">
+                  <a href="/characters" className="text-xs px-3 py-1.5 rounded-full border border-white/10 text-gray-300 hover:text-white hover:border-white/30 transition-colors">
+                    Marvel Characters
+                  </a>
+                  <a href="/cards" className="text-xs px-3 py-1.5 rounded-full border border-white/10 text-gray-300 hover:text-white hover:border-white/30 transition-colors">
+                    Card Database
+                  </a>
+                  <a href="/mcu-news" className="text-xs px-3 py-1.5 rounded-full border border-white/10 text-gray-300 hover:text-white hover:border-white/30 transition-colors">
+                    MCU News
+                  </a>
+                  <a href="/about" className="text-xs px-3 py-1.5 rounded-full border border-white/10 text-gray-300 hover:text-white hover:border-white/30 transition-colors">
+                    About NLF
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
       </div>
     </>
   );

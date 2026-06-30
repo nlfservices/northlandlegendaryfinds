@@ -2914,3 +2914,9 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Remove Google News outbound links from Card of the Day (no SEO value)
 - [x] Replace with internal character page links (better for SEO + keeps users on-site)
 - [x] Add to sitemap
+
+## Battleworld Page V2 — Custom Assets & Team Tabs
+- [x] Add Galactus/NLF cosmic storm background image to Battleworld page
+- [x] Feature Doctor Doom Gold Wave PSA 9 card with front/back flip animation
+- [x] Add team filter tabs (ALL A-Z, Avengers, X-Men, Fantastic Four, Guardians, Villains, Secret Wars)
+- [x] Auto-map characters to teams based on Marvel affiliations
