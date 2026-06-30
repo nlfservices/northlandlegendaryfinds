@@ -18,6 +18,7 @@ import {
 import MarvelMintChecklist from "@/components/MarvelMintChecklist";
 import GenericSetChecklist from "@/components/GenericSetChecklist";
 import { getSetChecklist } from "@/data/setChecklists";
+import { getSetBackground } from "@/lib/cardBackgrounds";
 
 import SEO, { breadcrumbJsonLd, collectionPageJsonLd } from "@/components/SEO";
 
@@ -205,13 +206,14 @@ function LazyImage({ src, alt, className }: { src: string; alt: string; classNam
 }
 
 // ==================== CARD IMAGE (Premium 3D Tilt + Holographic Shimmer) ====================
-function CardImage({ frontImg, name, cardNumber, cosmicBg, borderColor, glowColor }: {
+function CardImage({ frontImg, name, cardNumber, cosmicBg, borderColor, glowColor, setBackground }: {
   frontImg: string;
   name: string;
   cardNumber: string;
   cosmicBg?: string;
   borderColor?: string;
   glowColor?: string;
+  setBackground?: string;
 }) {
   const hasCosmic = !!cosmicBg;
   const cardRef = useRef<HTMLDivElement>(null);
@@ -271,16 +273,25 @@ function CardImage({ frontImg, name, cardNumber, cosmicBg, borderColor, glowColo
         }}
       >
         <div
-          className="absolute inset-0 rounded-lg overflow-hidden bg-card holo-shimmer"
+          className="absolute inset-0 rounded-lg overflow-hidden holo-shimmer"
           style={{
             border: hasCosmic ? `2px solid ${borderColor || 'rgba(255,255,255,0.3)'}` : '1px solid rgba(255,255,255,0.1)',
             boxShadow: hasCosmic ? `0 4px 15px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)` : 'none',
           }}
         >
+          {/* NLF set-matched background mat */}
+          {setBackground && (
+            <img
+              src={setBackground}
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover"
+              loading="lazy"
+            />
+          )}
           <LazyImage
             src={frontImg}
             alt={`${name} #${cardNumber} - 2025 Topps Marvel Trading Card`}
-            className="w-full h-full"
+            className={setBackground ? "relative w-[80%] h-[88%] mx-auto mt-[5%] object-contain drop-shadow-2xl" : "w-full h-full"}
           />
         </div>
       </div>
@@ -460,6 +471,7 @@ function SetBrowser() {
                             cosmicBg={cosmicBgUrl}
                             borderColor={theme.borderColor}
                             glowColor={theme.glowColor}
+                            setBackground={!cosmicBgUrl ? getSetBackground(card.setName || '') : undefined}
                           />
                         </div>
                         <div className={`px-2.5 pb-2.5 pt-1.5 ${hasCosmic ? 'bg-black/40 backdrop-blur-sm rounded-b-xl' : ''}`}>
@@ -683,6 +695,7 @@ function PlayingCardSuitGrid({ cards, setName }: { cards: any[]; setName: string
                     frontImg={card.imageUrl || PLACEHOLDER_IMG}
                     name={card.characterName}
                     cardNumber={card.cardNumber}
+                    setBackground={getSetBackground(setName)}
                   />
                   <div className="p-2 text-center">
                     <p className="font-semibold text-sm truncate" title={card.characterName}>
@@ -1018,6 +1031,7 @@ function SetDetail({ slug }: { slug: string }) {
                             cosmicBg={cosmicBgUrl}
                             borderColor={theme.borderColor}
                             glowColor={theme.glowColor}
+                            setBackground={!cosmicBgUrl ? getSetBackground(set.name) : undefined}
                           />
                         ) : (
                           /* Premium empty state for cards without images */
@@ -1102,11 +1116,12 @@ function SetDetail({ slug }: { slug: string }) {
                       {hasImages && (
                         <td className="p-2">
                           <Link href={`/cards/${set.slug}/${encodeURIComponent(card.cardNumber)}`}>
-                          <div className="w-10 h-14 rounded overflow-hidden hover:ring-2 hover:ring-primary/50 transition-all">
+                          <div className="w-10 h-14 rounded overflow-hidden hover:ring-2 hover:ring-primary/50 transition-all relative">
+                            <img src={getSetBackground(set.name)} alt="" className="absolute inset-0 w-full h-full object-cover" />
                             <LazyImage
                               src={card.imageUrl || PLACEHOLDER_IMG}
                               alt={`${card.characterName} trading card`}
-                              className="w-full h-full"
+                              className="relative w-[80%] h-[85%] mx-auto mt-[7%] object-contain drop-shadow-lg"
                             />
                           </div>
                           </Link>

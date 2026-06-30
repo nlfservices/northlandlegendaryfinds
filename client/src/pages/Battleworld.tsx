@@ -8,6 +8,7 @@ import { useMemo, useState } from "react";
 import { useLocation } from "wouter";
 import { Helmet } from "react-helmet-async";
 import { trpc } from "@/lib/trpc";
+import { getCharacterBackground } from "@/lib/cardBackgrounds";
 
 // ── Assets ──────────────────────────────────────────────────────────────────
 const BG_IMAGE = "/manus-storage/battleworld-bg_c7b881be.png";
@@ -367,17 +368,24 @@ export default function Battleworld() {
                           backdropFilter: "blur(8px)",
                         }}
                       >
-                        {/* Card image */}
+                        {/* Card image with NLF background */}
                         <div className="aspect-[2/3] relative overflow-hidden">
+                          {/* Team-matched background */}
+                          <img
+                            src={getCharacterBackground(card.characterName)}
+                            alt=""
+                            className="absolute inset-0 w-full h-full object-cover"
+                            loading="lazy"
+                          />
                           {card.frontImageUrl ? (
                             <img
                               src={card.frontImageUrl}
                               alt={card.characterName}
-                              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                              className="relative w-[78%] h-[85%] object-contain mx-auto mt-[7%] drop-shadow-2xl transition-transform duration-500 group-hover:scale-110"
                               loading="lazy"
                             />
                           ) : (
-                            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-800 to-gray-900">
+                            <div className="relative w-full h-full flex items-center justify-center">
                               <span className="text-3xl">🃏</span>
                             </div>
                           )}

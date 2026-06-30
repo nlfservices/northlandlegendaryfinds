@@ -8,6 +8,7 @@ import { useMemo, useState } from "react";
 import { useParams, useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { Helmet } from "react-helmet-async";
+import { getCharacterBackground } from "@/lib/cardBackgrounds";
 
 // ── Gold + Primary colors matching NLF design ────────────────────────────────
 const GOLD = "#ffce4d";
@@ -197,7 +198,9 @@ function CardOfTheDayDisplay({ data }: { data: CardData }) {
               </button>
             ))}
           </div>
-          <div className="cod-card-viewer" style={{ aspectRatio: "3 / 4", position: "relative", background: "#0a0c11", overflow: "hidden" }}>
+          <div className="cod-card-viewer" style={{ aspectRatio: "3 / 4", position: "relative", overflow: "hidden" }}>
+            {/* NLF team-matched background */}
+            <img src={getCharacterBackground(characterName)} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
             {active === "front" && (
               frontImageUrl
                 ? (
@@ -473,10 +476,11 @@ function ArchiveGallery({ currentDate }: { currentDate?: string }) {
                     onMouseEnter={(e) => { if (!isActive) { e.currentTarget.style.borderColor = "rgba(255,206,77,.3)"; e.currentTarget.style.transform = "translateY(-2px)"; } }}
                     onMouseLeave={(e) => { if (!isActive) { e.currentTarget.style.borderColor = "var(--border,#242a3a)"; e.currentTarget.style.transform = "translateY(0)"; } }}
                   >
-                    {/* Thumbnail */}
-                    <div style={{ aspectRatio: "3/4", borderRadius: 8, overflow: "hidden", background: "#0a0c11", marginBottom: ".4rem", position: "relative" }}>
+                    {/* Thumbnail with NLF background */}
+                    <div style={{ aspectRatio: "3/4", borderRadius: 8, overflow: "hidden", marginBottom: ".4rem", position: "relative" }}>
+                      <img src={getCharacterBackground(card.characterName)} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
                       {card.frontImageUrl ? (
-                        <img src={card.frontImageUrl} alt={card.characterName} style={{ width: "100%", height: "100%", objectFit: "cover" }} loading="lazy" />
+                        <img src={card.frontImageUrl} alt={card.characterName} style={{ position: "relative", width: "78%", height: "85%", objectFit: "contain", margin: "7% auto 0", display: "block", filter: "drop-shadow(0 4px 12px rgba(0,0,0,0.5))" }} loading="lazy" />
                       ) : (
                         <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", color: "#565d72", fontSize: "1.4rem" }}>◈</div>
                       )}

@@ -2920,3 +2920,11 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Feature Doctor Doom Gold Wave PSA 9 card with front/back flip animation
 - [x] Add team filter tabs (ALL A-Z, Avengers, X-Men, Fantastic Four, Guardians, Villains, Secret Wars)
 - [x] Auto-map characters to teams based on Marvel affiliations
+
+## Custom NLF Backgrounds Behind All Card Images
+- [x] Upload all needed NLF background images (Spotlight-RedBlue, Spotlight-Gold, Spotlight-Blue, Spotlight-Purple, Lightning-maroon, Lightning-Purplegold)
+- [x] Battleworld page: card tiles use team-matched backgrounds behind card photos
+- [x] Card of the Day page: use team-matched background behind featured card
+- [x] /cards database: card tiles use set-matched backgrounds behind card photos
+- [x] List view thumbnails on /cards also use set-matched backgrounds
+- [x] Created shared cardBackgrounds.ts helper with team/set mapping logic
