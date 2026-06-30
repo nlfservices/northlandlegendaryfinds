@@ -63,8 +63,9 @@ function buildGradeLabel(data: CardData) {
 function ebaySearchUrl(cardName: string) {
   return `https://www.ebay.com/sch/i.html?_nkw=${encodeURIComponent(cardName)}`;
 }
-function googleNewsUrl(characterName: string) {
-  return `https://news.google.com/search?q=${encodeURIComponent(`"${characterName}" Marvel`)}`;
+function characterPageUrl(characterName: string) {
+  const slug = characterName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  return `/characters/${slug}`;
 }
 
 // ── Sub-components ───────────────────────────────────────────────────────────
@@ -314,10 +315,10 @@ function CardOfTheDayDisplay({ data }: { data: CardData }) {
       <SectionRule icon="🎬" title="Why the Buzz Right Now" />
       <div style={{ background: "linear-gradient(135deg,rgba(91,140,255,.08),rgba(168,107,255,.04))", border: "1px solid rgba(91,140,255,.3)", borderRadius: 16, padding: "1.3rem 1.4rem", marginBottom: "1.4rem" }}>
         {buzzNote && <p style={{ fontSize: ".96rem", color: "#cdd2e0", margin: "0 0 1rem" }}>{buzzNote}</p>}
-        <a href={googleNewsUrl(characterName)} target="_blank" rel="noopener noreferrer"
+        <a href={characterPageUrl(characterName)}
            className="inline-flex items-center"
            style={{ gap: ".5rem", fontFamily: "'Sora',sans-serif", fontWeight: 700, fontSize: ".9rem", color: "#5b8cff", textDecoration: "none", border: "1px solid rgba(91,140,255,.4)", padding: ".6rem 1.1rem", borderRadius: 10 }}>
-          📰 Latest {characterName} News →
+          🦸 Explore {characterName} →
         </a>
       </div>
 

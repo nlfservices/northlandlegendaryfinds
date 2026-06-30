@@ -48,6 +48,7 @@ const SITE_SECTIONS: SiteSection[] = [
     icon: Database,
     color: "text-blue-400",
     pages: [
+      { path: "/battleworld", label: "Battleworld", description: "Card of the Day hub — Doctor Doom's domain where one card rules each day" },
       { path: "/cards", label: "Card Database", description: "Browse all 2025 Topps Marvel card sets with images and details" },
       { path: "/characters", label: "Character Directory", description: "Explore Marvel characters and their cards across all sets" },
       { path: "/marvel-card-hub", label: "Marvel Card Hub", description: "Central hub for all Marvel trading card information" },

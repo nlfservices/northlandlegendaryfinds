@@ -2904,3 +2904,13 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Make prev/next navigation arrows more prominent and always visible (larger, styled, with card character preview)
 - [x] Add "Browse All Past Cards" archive gallery section below the card content
 - [x] Archive shows thumbnail grid of all past cards with date, character name, and set badge
+
+## Battleworld Hub Page
+- [x] Create /battleworld page as Card of the Day entry hub (Doctor Doom's Secret Wars theme)
+- [x] Hero section with today's featured card prominently displayed
+- [x] Archive grid of all past cards below (thumbnail, character, date, set)
+- [x] Register /battleworld route in App.tsx
+- [x] Add Battleworld to site navigation
+- [x] Remove Google News outbound links from Card of the Day (no SEO value)
+- [x] Replace with internal character page links (better for SEO + keeps users on-site)
+- [x] Add to sitemap

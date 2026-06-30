@@ -48,6 +48,7 @@ const STATIC_PAGES: { path: string; priority: string; changefreq: string }[] = [
   { path: "/submit-show", priority: "0.4", changefreq: "monthly" },
   { path: "/whatnot", priority: "0.7", changefreq: "daily" },
   { path: "/nerd-gossip", priority: "0.7", changefreq: "daily" },
+  { path: "/battleworld", priority: "0.8", changefreq: "daily" },
   { path: "/gambit-deck", priority: "0.6", changefreq: "monthly" },
   { path: "/mcu-spotlight", priority: "0.7", changefreq: "weekly" },
   { path: "/the-little-things", priority: "0.7", changefreq: "weekly" },

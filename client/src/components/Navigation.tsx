@@ -39,6 +39,7 @@ const NAV_ITEMS: NavItemWithDropdown[] = [
     label: "Card Database",
     path: "/cards",
     dropdown: [
+      { path: "/battleworld", label: "Battleworld", description: "Card of the Day hub & archive" },
       { path: "/card-of-the-day", label: "Card of the Day", description: "Daily featured graded card" },
       { path: "/artists", label: "Artist Directory", description: "Card artists & their work" },
       { path: "/checklists", label: "Cosmic Hits", description: "Chase cards & hit checklists" },
