@@ -12,8 +12,6 @@ import { getCharacterBackground } from "@/lib/cardBackgrounds";
 
 // ── Assets ──────────────────────────────────────────────────────────────────
 const BG_IMAGE = "/manus-storage/battleworld-bg_c7b881be.png";
-const DOOM_FRONT = "/manus-storage/battleworld-doom-front_96cc98f4.webp";
-const DOOM_BACK = "/manus-storage/battleworld-doom-back_9608cec7.webp";
 
 // ── Team Definitions ────────────────────────────────────────────────────────
 type TeamKey = "all" | "avengers" | "xmen" | "fantastic_four" | "guardians" | "villains" | "secret_wars";
@@ -121,7 +119,7 @@ const SET_COLORS: Record<string, string> = {
 export default function Battleworld() {
   const [, navigate] = useLocation();
   const [activeTeam, setActiveTeam] = useState<TeamKey>("all");
-  const [cardFlipped, setCardFlipped] = useState(false);
+
 
   // Fetch today's card
   const todayQuery = trpc.cardOfTheDay.getTodaysCard.useQuery(undefined, {
@@ -167,7 +165,7 @@ export default function Battleworld() {
         />
         <meta property="og:title" content="Battleworld | Northland Legendary Finds" />
         <meta property="og:description" content="Doctor Doom's domain — one card rules each day. Daily featured Marvel cards, team archives, and more." />
-        <meta property="og:image" content={DOOM_FRONT} />
+        <meta property="og:image" content={BG_IMAGE} />
       </Helmet>
 
       <div
@@ -191,7 +189,7 @@ export default function Battleworld() {
               <h1
                 className="text-6xl sm:text-7xl lg:text-8xl font-black tracking-tighter mb-2"
                 style={{
-                  background: `linear-gradient(135deg, ${DOOM_GREEN}, #ffce4d)`,
+                  background: `linear-gradient(135deg, ${DOOM_GREEN}, #b0b0b0)`,
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   textShadow: "0 0 40px rgba(63,181,107,0.3)",
@@ -206,71 +204,7 @@ export default function Battleworld() {
                 {totalCards} cards featured across {uniqueSets} sets
               </p>
 
-              {/* ═══ DOOM CARD FLIP ═══ */}
-              <div className="flex justify-center mb-12">
-                <div
-                  className="relative cursor-pointer group"
-                  style={{ perspective: "1200px", width: 280, height: 390 }}
-                  onClick={() => setCardFlipped(!cardFlipped)}
-                  title="Click to flip"
-                >
-                  <div
-                    className="absolute inset-0 transition-transform duration-700"
-                    style={{
-                      transformStyle: "preserve-3d",
-                      transform: cardFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
-                    }}
-                  >
-                    {/* Front */}
-                    <div
-                      className="absolute inset-0 rounded-xl overflow-hidden shadow-2xl"
-                      style={{ backfaceVisibility: "hidden" }}
-                    >
-                      <img
-                        src={DOOM_FRONT}
-                        alt="Doctor Doom Gold Wave PSA 9 — Front"
-                        className="w-full h-full object-cover"
-                      />
-                      {/* Holographic shimmer */}
-                      <div
-                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                        style={{
-                          background: "linear-gradient(135deg, transparent 30%, rgba(255,206,77,0.15) 50%, transparent 70%)",
-                          animation: "shimmer 2.5s infinite",
-                        }}
-                      />
-                    </div>
 
-                    {/* Back */}
-                    <div
-                      className="absolute inset-0 rounded-xl overflow-hidden shadow-2xl"
-                      style={{
-                        backfaceVisibility: "hidden",
-                        transform: "rotateY(180deg)",
-                      }}
-                    >
-                      <img
-                        src={DOOM_BACK}
-                        alt="Doctor Doom Gold Wave PSA 9 — Back"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Glow ring */}
-                  <div
-                    className="absolute -inset-3 rounded-2xl opacity-50 group-hover:opacity-80 transition-opacity duration-500 -z-10"
-                    style={{
-                      background: `radial-gradient(ellipse at center, ${DOOM_GREEN}40, transparent 70%)`,
-                    }}
-                  />
-
-                  {/* Flip hint */}
-                  <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                    Click to flip
-                  </div>
-                </div>
-              </div>
 
               {/* Today's Card CTA */}
               {today && (
@@ -298,17 +232,17 @@ export default function Battleworld() {
               <div
                 className="rounded-2xl overflow-hidden"
                 style={{
-                  background: "linear-gradient(135deg, rgba(15,15,25,0.9), rgba(20,20,40,0.85))",
-                  border: "1px solid rgba(255,206,77,0.2)",
-                  boxShadow: "0 0 40px rgba(255,206,77,0.05)",
+                  background: "linear-gradient(135deg, rgba(10,10,10,0.92), rgba(15,20,15,0.88))",
+                  border: `1px solid ${DOOM_GREEN}30`,
+                  boxShadow: `0 0 40px ${DOOM_GREEN}08`,
                 }}
               >
                 {/* Header bar */}
                 <div
                   className="px-6 py-3 flex items-center gap-3"
-                  style={{ background: "linear-gradient(90deg, rgba(255,206,77,0.15), transparent)" }}
+                  style={{ background: `linear-gradient(90deg, ${DOOM_GREEN}20, transparent)` }}
                 >
-                  <span className="text-xs font-black tracking-widest" style={{ color: "#ffce4d" }}>
+                  <span className="text-xs font-black tracking-widest" style={{ color: DOOM_GREEN }}>
                     ⚡ NEW RELEASE
                   </span>
                   <span className="text-xs text-gray-400">July 1, 2026</span>
@@ -356,7 +290,7 @@ export default function Battleworld() {
                         href="/mcu-news/2026-topps-chrome-marvel-complete-breakdown"
                         className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold transition-all hover:scale-105"
                         style={{
-                          background: "linear-gradient(135deg, #ffce4d, #f59e0b)",
+                          background: `linear-gradient(135deg, ${DOOM_GREEN}, #2d8a4e)`,
                           color: "#000",
                         }}
                       >
@@ -370,8 +304,8 @@ export default function Battleworld() {
                         className="relative w-48 h-64 sm:w-56 sm:h-72 rounded-xl overflow-hidden"
                         style={{
                           background: "linear-gradient(135deg, #1a1a2e, #16213e)",
-                          border: "2px solid rgba(255,206,77,0.3)",
-                          boxShadow: "0 20px 60px rgba(0,0,0,0.5), 0 0 30px rgba(255,206,77,0.1)",
+                          border: `2px solid ${DOOM_GREEN}50`,
+                          boxShadow: `0 20px 60px rgba(0,0,0,0.5), 0 0 30px ${DOOM_GREEN}15`,
                         }}
                       >
                         <div className="absolute inset-0 flex flex-col items-center justify-center p-4">
@@ -379,7 +313,7 @@ export default function Battleworld() {
                           <div className="text-center">
                             <div className="text-xs font-bold text-gray-400 uppercase tracking-wider">2026</div>
                             <div className="text-lg font-black text-white">CHROME</div>
-                            <div className="text-sm font-bold" style={{ color: "#ffce4d" }}>MARVEL</div>
+                            <div className="text-sm font-bold" style={{ color: DOOM_GREEN }}>MARVEL</div>
                           </div>
                           <div className="mt-3 text-[10px] text-gray-500 text-center">
                             Hobby • Value • Mega
@@ -389,7 +323,7 @@ export default function Battleworld() {
                         <div
                           className="absolute inset-0 pointer-events-none"
                           style={{
-                            background: "linear-gradient(135deg, transparent 30%, rgba(255,206,77,0.08) 50%, transparent 70%)",
+                            background: `linear-gradient(135deg, transparent 30%, ${DOOM_GREEN}12 50%, transparent 70%)`,
                             animation: "shimmer 3s infinite",
                           }}
                         />
