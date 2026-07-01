@@ -2934,3 +2934,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Spotlight shows 2026 Topps Chrome Marvel with key stats (200 base, 17 inserts, 15+ debuts)
 - [x] Write full breakdown article with all insert sets, hits, odds, and highlights
 - [x] Publish article to database with proper SEO metadata
+
+## Field Guide Page — Wire Verified Odds Data
+- [x] Replace generic parallel structure table with verified 2026 Chrome Marvel odds
+- [x] Add box-type comparison section (Hobby vs Value vs Mega exclusive parallels)
+- [x] Add insert set odds table with real pull rates
+- [x] Update PRODUCTS data to include 2026 Chrome Marvel as the newest entry
+- [x] Add hits/relics/sketch section with verified data
