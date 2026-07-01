@@ -2928,3 +2928,9 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] /cards database: card tiles use set-matched backgrounds behind card photos
 - [x] List view thumbnails on /cards also use set-matched backgrounds
 - [x] Created shared cardBackgrounds.ts helper with team/set mapping logic
+
+## 2026 Topps Chrome Marvel — Spotlight & Article
+- [x] Add "New Set Release Spotlight" section to Battleworld page (between hero and team tabs)
+- [x] Spotlight shows 2026 Topps Chrome Marvel with key stats (200 base, 17 inserts, 15+ debuts)
+- [x] Write full breakdown article with all insert sets, hits, odds, and highlights
+- [x] Publish article to database with proper SEO metadata

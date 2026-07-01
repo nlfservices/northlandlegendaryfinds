@@ -292,6 +292,115 @@ export default function Battleworld() {
             </div>
           </section>
 
+          {/* ═══ NEW SET RELEASE SPOTLIGHT ═══ */}
+          <section className="px-4 pb-10">
+            <div className="max-w-5xl mx-auto">
+              <div
+                className="rounded-2xl overflow-hidden"
+                style={{
+                  background: "linear-gradient(135deg, rgba(15,15,25,0.9), rgba(20,20,40,0.85))",
+                  border: "1px solid rgba(255,206,77,0.2)",
+                  boxShadow: "0 0 40px rgba(255,206,77,0.05)",
+                }}
+              >
+                {/* Header bar */}
+                <div
+                  className="px-6 py-3 flex items-center gap-3"
+                  style={{ background: "linear-gradient(90deg, rgba(255,206,77,0.15), transparent)" }}
+                >
+                  <span className="text-xs font-black tracking-widest" style={{ color: "#ffce4d" }}>
+                    ⚡ NEW RELEASE
+                  </span>
+                  <span className="text-xs text-gray-400">July 1, 2026</span>
+                </div>
+
+                {/* Content */}
+                <div className="p-6 sm:p-8">
+                  <div className="flex flex-col md:flex-row gap-8 items-center">
+                    {/* Left: Info */}
+                    <div className="flex-1 text-center md:text-left">
+                      <h2 className="text-2xl sm:text-3xl font-black text-white mb-2">
+                        2026 Topps Chrome Marvel
+                      </h2>
+                      <p className="text-gray-300 text-sm mb-5 leading-relaxed">
+                        The flagship Chrome set is here. 200-card base with 15+ DEBUT characters never before on a Topps card,
+                        17 insert sets including One World Under Doom and The Beyond, plus Hobby-exclusive Clawed Chrome
+                        and Storm's Lightning parallels.
+                      </p>
+
+                      {/* Key stats */}
+                      <div className="grid grid-cols-3 gap-3 mb-6">
+                        <div className="text-center p-3 rounded-lg" style={{ background: "rgba(255,255,255,0.04)" }}>
+                          <div className="text-xl font-black text-white">200</div>
+                          <div className="text-[10px] text-gray-400 uppercase tracking-wide">Base Cards</div>
+                        </div>
+                        <div className="text-center p-3 rounded-lg" style={{ background: "rgba(255,255,255,0.04)" }}>
+                          <div className="text-xl font-black text-white">17</div>
+                          <div className="text-[10px] text-gray-400 uppercase tracking-wide">Insert Sets</div>
+                        </div>
+                        <div className="text-center p-3 rounded-lg" style={{ background: "rgba(255,255,255,0.04)" }}>
+                          <div className="text-xl font-black text-white">15+</div>
+                          <div className="text-[10px] text-gray-400 uppercase tracking-wide">Debut Cards</div>
+                        </div>
+                      </div>
+
+                      {/* Highlights */}
+                      <div className="space-y-2 text-sm text-gray-300 mb-6">
+                        <p>🎯 <strong className="text-white">Chase Hits:</strong> Kevin Feige Auto, Frank Miller Auto, Stan Lee Relics, 1960s Comic Excerpts</p>
+                        <p>🔥 <strong className="text-white">Hobby Exclusives:</strong> Clawed Chrome, Storm's Lightning, Marvel Logofractor</p>
+                        <p>⭐ <strong className="text-white">Key Inserts:</strong> One World Under Doom, The Beyond, Cordially Invited, Marvel Icons</p>
+                      </div>
+
+                      {/* CTA */}
+                      <a
+                        href="/mcu-news/2026-topps-chrome-marvel-complete-breakdown"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold transition-all hover:scale-105"
+                        style={{
+                          background: "linear-gradient(135deg, #ffce4d, #f59e0b)",
+                          color: "#000",
+                        }}
+                      >
+                        Read Full Breakdown →
+                      </a>
+                    </div>
+
+                    {/* Right: Product visual */}
+                    <div className="flex-shrink-0">
+                      <div
+                        className="relative w-48 h-64 sm:w-56 sm:h-72 rounded-xl overflow-hidden"
+                        style={{
+                          background: "linear-gradient(135deg, #1a1a2e, #16213e)",
+                          border: "2px solid rgba(255,206,77,0.3)",
+                          boxShadow: "0 20px 60px rgba(0,0,0,0.5), 0 0 30px rgba(255,206,77,0.1)",
+                        }}
+                      >
+                        <div className="absolute inset-0 flex flex-col items-center justify-center p-4">
+                          <div className="text-4xl mb-3">💎</div>
+                          <div className="text-center">
+                            <div className="text-xs font-bold text-gray-400 uppercase tracking-wider">2026</div>
+                            <div className="text-lg font-black text-white">CHROME</div>
+                            <div className="text-sm font-bold" style={{ color: "#ffce4d" }}>MARVEL</div>
+                          </div>
+                          <div className="mt-3 text-[10px] text-gray-500 text-center">
+                            Hobby • Value • Mega
+                          </div>
+                        </div>
+                        {/* Shimmer effect */}
+                        <div
+                          className="absolute inset-0 pointer-events-none"
+                          style={{
+                            background: "linear-gradient(135deg, transparent 30%, rgba(255,206,77,0.08) 50%, transparent 70%)",
+                            animation: "shimmer 3s infinite",
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
           {/* ═══ TEAM FILTER TABS ═══ */}
           <section className="px-4 pb-6">
             <div className="max-w-6xl mx-auto">
