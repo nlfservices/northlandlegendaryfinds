@@ -1,99 +1,36 @@
 import { useEffect, useState, useRef } from "react";
 import { useLocation } from "wouter";
-import { X, Loader2, CheckCircle, Gift, Trophy, Sparkles } from "lucide-react";
+import { X, Loader2, CheckCircle, Gift, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 
 /**
- * Smart Email Capture Popup Component — Upgraded with Giveaway Hook
- * 
- * Dynamic messaging based on page context:
- * - MCU News pages → "Get insider card picks before prices spike"
- * - Card/Character pages → "Get alerts when this card trends"
- * - Default → "Enter our monthly giveaway"
+ * Email Capture Popup — Homepage Only with Last-Chance Confirmation
  * 
  * Behavior:
+ * - ONLY shows on the homepage (/)
  * - Shows 3 seconds after page load on first visit
- * - If user closes popup (X) -> stays dismissed for the entire session
- * - If user closed popup AND tries to leave the page (exit intent) -> shows ONE more time
- * - After exit intent is shown once, never shows again in that session
- * - Uses sessionStorage for per-session tracking + localStorage for permanent (subscribed) state
+ * - When user clicks X, shows a "last chance" confirmation before fully dismissing
+ * - After dismissal, never shows again in that session
  * - Never shows to users who already submitted their email
  * - Submits email to GoHighLevel CRM via tRPC
  */
 
-type PopupVariant = "giveaway" | "insider" | "alerts";
-
-function getVariant(path: string): PopupVariant {
-  if (path.startsWith("/mcu-news") || path.startsWith("/nerd-gossip")) return "insider";
-  if (path.startsWith("/characters") || path.startsWith("/cards") || path.startsWith("/trending")) return "alerts";
-  return "giveaway";
-}
-
-const VARIANT_CONFIG: Record<PopupVariant, {
-  icon: typeof Gift;
-  title: string;
-  exitTitle: string;
-  subtitle: string;
-  exitSubtitle: string;
-  buttonText: string;
-  successMessage: string;
-  socialProof: string;
-}> = {
-  giveaway: {
-    icon: Gift,
-    title: "Win Free Cards Every Month",
-    exitTitle: "Wait — Free Cards!",
-    subtitle: "Enter our monthly giveaway for graded slabs, sealed packs, gift cards, and more. Email = automatic entry.",
-    exitSubtitle: "Don't miss this month's giveaway — graded slabs and sealed packs up for grabs!",
-    buttonText: "Enter Giveaway",
-    successMessage: "You're entered! Good luck this month. 🎉",
-    socialProof: "Join to win free cards, gift cards & more",
-  },
-  insider: {
-    icon: Sparkles,
-    title: "Get Card Picks Before They Spike",
-    exitTitle: "One More Thing —",
-    subtitle: "We called the Wolverine card spike 3 weeks early. Get insider picks and market alerts before everyone else.",
-    exitSubtitle: "Our last alert saved collectors $200+ on early pickups. Don't miss the next one.",
-    buttonText: "Get Insider Picks",
-    successMessage: "You're on the list! Next alert coming soon. 📈",
-    socialProof: "Subscribers got 3-week early notice on last spike",
-  },
-  alerts: {
-    icon: Trophy,
-    title: "Track Cards That Matter",
-    exitTitle: "Before You Go —",
-    subtitle: "Get notified when Marvel cards trend, new sets drop, or prices move. No spam — just the cards you care about.",
-    exitSubtitle: "Marvel Mint cards moved 40% last month. Get alerts before the next wave.",
-    buttonText: "Get Card Alerts",
-    successMessage: "Alerts activated! We'll keep you posted. 🔔",
-    socialProof: "Marvel Mint up 40% since Doomsday announcement",
-  },
-};
-
 export default function EmailCapturePopup() {
   const [location] = useLocation();
   const [isOpen, setIsOpen] = useState(false);
-  const [isExitIntent, setIsExitIntent] = useState(false);
+  const [showLastChance, setShowLastChance] = useState(false);
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const exitIntentShownRef = useRef(false);
-  const dismissedRef = useRef(false);
-
-  const variant = getVariant(location);
-  const config = VARIANT_CONFIG[variant];
-  const IconComponent = config.icon;
 
   const subscribeMutation = trpc.public.subscribe.submit.useMutation({
-    onSuccess: (data) => {
+    onSuccess: () => {
       setSubmitted(true);
       localStorage.setItem("nlf_email_submitted", "true");
       sessionStorage.setItem("nlf_popup_subscribed", "true");
-      toast.success(config.successMessage);
-      // Auto-close after 4 seconds
+      toast.success("You're entered! Good luck this month. 🎉");
       setTimeout(() => {
         setIsOpen(false);
       }, 4000);
@@ -104,8 +41,8 @@ export default function EmailCapturePopup() {
   });
 
   useEffect(() => {
-    // Suppress popup entirely on landing pages (e.g., /free-credit) — it kills FB ad conversions
-    if (location === "/free-credit") return;
+    // ONLY show on homepage
+    if (location !== "/") return;
 
     // Check if user has already submitted (permanent — never show again)
     const hasSubmitted = localStorage.getItem("nlf_email_submitted");
@@ -113,43 +50,9 @@ export default function EmailCapturePopup() {
 
     // Check if popup was already dismissed this session
     const sessionDismissed = sessionStorage.getItem("nlf_popup_dismissed");
-    const exitIntentUsed = sessionStorage.getItem("nlf_exit_intent_shown");
+    if (sessionDismissed) return;
 
-    if (sessionDismissed && exitIntentUsed) {
-      // Both initial popup and exit intent already shown this session — done
-      return;
-    }
-
-    if (sessionDismissed) {
-      // Popup was dismissed but exit intent hasn't been shown yet
-      dismissedRef.current = true;
-
-      const handleMouseLeave = (e: MouseEvent) => {
-        if (e.clientY <= 0 && !exitIntentShownRef.current) {
-          exitIntentShownRef.current = true;
-          sessionStorage.setItem("nlf_exit_intent_shown", "true");
-          setIsExitIntent(true);
-          setIsOpen(true);
-        }
-      };
-
-      const handleVisibilityChange = () => {
-        if (document.visibilityState === "hidden" && !exitIntentShownRef.current) {
-          exitIntentShownRef.current = true;
-          sessionStorage.setItem("nlf_exit_intent_shown", "true");
-        }
-      };
-
-      document.addEventListener("mouseleave", handleMouseLeave);
-      document.addEventListener("visibilitychange", handleVisibilityChange);
-
-      return () => {
-        document.removeEventListener("mouseleave", handleMouseLeave);
-        document.removeEventListener("visibilitychange", handleVisibilityChange);
-      };
-    }
-
-    // First visit this session — show popup after 3 seconds (slightly longer for less intrusion)
+    // Show popup after 3 seconds
     const timer = setTimeout(() => {
       setIsOpen(true);
     }, 3000);
@@ -157,16 +60,22 @@ export default function EmailCapturePopup() {
     return () => {
       clearTimeout(timer);
     };
-  }, []);
+  }, [location]);
 
   const handleClose = () => {
-    setIsOpen(false);
-    dismissedRef.current = true;
-    sessionStorage.setItem("nlf_popup_dismissed", "true");
-
-    if (isExitIntent) {
-      sessionStorage.setItem("nlf_exit_intent_shown", "true");
+    if (!showLastChance && !submitted) {
+      // First close attempt — show last chance message
+      setShowLastChance(true);
+    } else {
+      // Second close (from last chance) or after submit — fully dismiss
+      setIsOpen(false);
+      sessionStorage.setItem("nlf_popup_dismissed", "true");
     }
+  };
+
+  const handleDismissForReal = () => {
+    setIsOpen(false);
+    sessionStorage.setItem("nlf_popup_dismissed", "true");
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -176,7 +85,7 @@ export default function EmailCapturePopup() {
     subscribeMutation.mutate({
       email: email.trim(),
       firstName: firstName.trim() || undefined,
-      source: isExitIntent ? "exit-intent-popup" : `welcome-popup-${variant}`,
+      source: showLastChance ? "homepage-popup-last-chance" : "homepage-popup-giveaway",
     });
   };
 
@@ -188,7 +97,7 @@ export default function EmailCapturePopup() {
         {/* Subtle green glow accent at top */}
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-green-500 via-emerald-400 to-green-500 rounded-t-2xl" />
 
-        {/* Close button — large tap target for mobile */}
+        {/* Close button */}
         <button
           onClick={handleClose}
           className="absolute top-3 right-3 w-9 h-9 flex items-center justify-center rounded-full bg-white/10 text-white/70 hover:text-white hover:bg-white/20 active:bg-white/30 transition-colors z-10"
@@ -209,36 +118,35 @@ export default function EmailCapturePopup() {
                 You're In!
               </h3>
               <p className="text-white/80 text-base">
-                {config.successMessage}
+                You're entered! Good luck this month. 🎉
               </p>
             </div>
-          ) : (
-            /* Form state */
+          ) : showLastChance ? (
+            /* Last Chance state — shown when user tries to close */
             <>
-              {/* Header with icon */}
               <div className="flex items-start gap-4 mb-5">
-                <div className="flex-shrink-0 w-12 h-12 bg-green-500/15 border border-green-500/30 rounded-xl flex items-center justify-center">
-                  <IconComponent className="w-6 h-6 text-green-400" />
+                <div className="flex-shrink-0 w-12 h-12 bg-yellow-500/15 border border-yellow-500/30 rounded-xl flex items-center justify-center">
+                  <AlertTriangle className="w-6 h-6 text-yellow-400" />
                 </div>
                 <div className="flex-1 pr-6">
                   <h3 className="text-xl font-bold text-white leading-tight" style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif', letterSpacing: '-0.01em' }}>
-                    {isExitIntent ? config.exitTitle : config.title}
+                    Wait — Free Cards!
                   </h3>
                   <p className="text-[15px] text-white/75 mt-1.5 leading-relaxed">
-                    {isExitIntent ? config.exitSubtitle : config.subtitle}
+                    We give away graded slabs, sealed packs, and gift cards every month. One email = automatic entry. Sure you want to miss out?
                   </p>
                 </div>
               </div>
 
-              {/* Social proof badge */}
-              <div className="flex items-center gap-2.5 mb-5 px-3.5 py-2 bg-green-500/10 border border-green-500/20 rounded-lg w-fit">
+              {/* Social proof */}
+              <div className="flex items-center gap-2.5 mb-5 px-3.5 py-2 bg-yellow-500/10 border border-yellow-500/20 rounded-lg w-fit">
                 <div className="flex -space-x-1.5">
                   <div className="w-5 h-5 rounded-full bg-green-500 border-2 border-black" />
                   <div className="w-5 h-5 rounded-full bg-emerald-400 border-2 border-black" />
                   <div className="w-5 h-5 rounded-full bg-teal-400 border-2 border-black" />
                 </div>
-                <span className="text-xs text-green-300/90 font-medium">
-                  {config.socialProof}
+                <span className="text-xs text-yellow-300/90 font-medium">
+                  500+ collectors already entered this month
                 </span>
               </div>
 
@@ -274,8 +182,84 @@ export default function EmailCapturePopup() {
                     </span>
                   ) : (
                     <span className="flex items-center justify-center gap-2">
-                      <IconComponent className="w-5 h-5" />
-                      {config.buttonText}
+                      <Gift className="w-5 h-5" />
+                      Last Chance — Enter Giveaway
+                    </span>
+                  )}
+                </Button>
+              </form>
+
+              {/* No thanks link */}
+              <button
+                onClick={handleDismissForReal}
+                className="w-full text-center text-xs text-white/40 hover:text-white/60 mt-4 transition-colors cursor-pointer"
+              >
+                No thanks, I don't want free cards
+              </button>
+            </>
+          ) : (
+            /* Initial state — giveaway offer */
+            <>
+              <div className="flex items-start gap-4 mb-5">
+                <div className="flex-shrink-0 w-12 h-12 bg-green-500/15 border border-green-500/30 rounded-xl flex items-center justify-center">
+                  <Gift className="w-6 h-6 text-green-400" />
+                </div>
+                <div className="flex-1 pr-6">
+                  <h3 className="text-xl font-bold text-white leading-tight" style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif', letterSpacing: '-0.01em' }}>
+                    Win Free Cards Every Month
+                  </h3>
+                  <p className="text-[15px] text-white/75 mt-1.5 leading-relaxed">
+                    Enter our monthly giveaway for graded slabs, sealed packs, gift cards, and more. Email = automatic entry.
+                  </p>
+                </div>
+              </div>
+
+              {/* Social proof badge */}
+              <div className="flex items-center gap-2.5 mb-5 px-3.5 py-2 bg-green-500/10 border border-green-500/20 rounded-lg w-fit">
+                <div className="flex -space-x-1.5">
+                  <div className="w-5 h-5 rounded-full bg-green-500 border-2 border-black" />
+                  <div className="w-5 h-5 rounded-full bg-emerald-400 border-2 border-black" />
+                  <div className="w-5 h-5 rounded-full bg-teal-400 border-2 border-black" />
+                </div>
+                <span className="text-xs text-green-300/90 font-medium">
+                  Join to win free cards, gift cards & more
+                </span>
+              </div>
+
+              {/* Form */}
+              <form onSubmit={handleSubmit} className="space-y-3">
+                <input
+                  type="text"
+                  placeholder="First name (optional)"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  disabled={subscribeMutation.isPending}
+                  className="w-full px-4 py-3 bg-white/10 border border-white/15 rounded-xl text-white text-[15px] placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 transition-all disabled:opacity-50"
+                />
+                <input
+                  type="email"
+                  placeholder="Your best email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={subscribeMutation.isPending}
+                  className="w-full px-4 py-3 bg-white/10 border border-white/15 rounded-xl text-white text-[15px] placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 transition-all disabled:opacity-50"
+                />
+                
+                <Button
+                  type="submit"
+                  disabled={subscribeMutation.isPending || !email.trim()}
+                  className="w-full bg-green-500 hover:bg-green-400 text-black font-bold py-3.5 rounded-xl transition-all disabled:opacity-50 text-[15px] shadow-lg shadow-green-500/20"
+                >
+                  {subscribeMutation.isPending ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      Joining...
+                    </span>
+                  ) : (
+                    <span className="flex items-center justify-center gap-2">
+                      <Gift className="w-5 h-5" />
+                      Enter Giveaway
                     </span>
                   )}
                 </Button>
