@@ -45,19 +45,14 @@ const NAV_ITEMS: NavItemWithDropdown[] = [
       { path: "/checklists", label: "Cosmic Hits", description: "Chase cards & hit checklists" },
     ],
   },
-  {
-    label: "Whatnot",
-    path: "/whatnot",
-    dropdown: [
-      { path: "/card-shows", label: "Events & Shows", description: "Live shows & card show schedule" },
-    ],
-  },
 ];
 
 const MORE_ITEMS: DropdownItem[] = [
   { path: "/doomsday", label: "Doomsday Countdown" },
   { path: "/voting-grounds", label: "Voting Grounds" },
   { path: "/sell-cards", label: "Sell Your Cards" },
+  { path: "/whatnot", label: "Whatnot" },
+  { path: "/card-shows", label: "Events & Shows" },
   { path: "/about", label: "About NLF" },
   { path: "/faq", label: "FAQ" },
 ];
