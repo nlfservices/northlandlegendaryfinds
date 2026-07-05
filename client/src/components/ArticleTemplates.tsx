@@ -1019,7 +1019,7 @@ export function PatrioticTemplate({ content, title, featuredImageUrl, excerpt, t
                   {isEven ? (
                     <>
                       <div className="rounded-2xl overflow-hidden shadow-2xl border-4 border-[#B22234]/30">
-                        <img src={sectionImage} alt={section.heading} className="w-full h-auto object-cover" />
+                        <img src={sectionImage} alt={section.heading} className="w-full h-auto object-contain" />
                       </div>
                       <RichContent className="prose prose-invert prose-lg max-w-none prose-headings:text-white prose-p:text-gray-300 prose-p:leading-relaxed prose-a:text-[#6B8FD4] prose-strong:text-white prose-blockquote:border-[#B22234] prose-blockquote:text-gray-400 prose-img:rounded-lg">{sectionBody}</RichContent>
                     </>
@@ -1027,7 +1027,7 @@ export function PatrioticTemplate({ content, title, featuredImageUrl, excerpt, t
                     <>
                       <RichContent className="prose prose-invert prose-lg max-w-none prose-headings:text-white prose-p:text-gray-300 prose-p:leading-relaxed prose-a:text-[#6B8FD4] prose-strong:text-white prose-blockquote:border-[#B22234] prose-blockquote:text-gray-400 prose-img:rounded-lg">{sectionBody}</RichContent>
                       <div className="rounded-2xl overflow-hidden shadow-2xl border-4 border-[#3C3B6E]/30">
-                        <img src={sectionImage} alt={section.heading} className="w-full h-auto object-cover" />
+                        <img src={sectionImage} alt={section.heading} className="w-full h-auto object-contain" />
                       </div>
                     </>
                   )}
