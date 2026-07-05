@@ -752,6 +752,20 @@ function extractFirstSectionImage(body: string): string | null {
   return null;
 }
 
+/**
+ * Remove the first image from a section body to avoid showing it twice
+ * (once in the art slot and once inline in the text).
+ */
+function stripFirstImage(body: string): string {
+  // Try removing markdown image first
+  const mdStripped = body.replace(/!\[.*?\]\(.*?\)(\n*\*.*?\*)?/, '');
+  if (mdStripped !== body) return mdStripped.replace(/^\n{2,}/, '\n');
+  // Try removing HTML img tag (and optional caption paragraph)
+  const htmlStripped = body.replace(/<img[^>]+>[\s\n]*(<em>.*?<\/em>)?/, '');
+  if (htmlStripped !== body) return htmlStripped.replace(/^\n{2,}/, '\n');
+  return body;
+}
+
 export function ListicleTemplate({
   content,
   title,
@@ -835,7 +849,7 @@ export function ListicleTemplate({
               {entry.heading}
             </h2>
             <div style={{ color: "#c4c0d0", fontSize: ".96rem", margin: "0 0 .7rem" }}>
-              <RichContent className={proseClasses}>{entry.body}</RichContent>
+              <RichContent className={proseClasses}>{sectionImg ? stripFirstImage(entry.body) : entry.body}</RichContent>
             </div>
           </div>
         );
