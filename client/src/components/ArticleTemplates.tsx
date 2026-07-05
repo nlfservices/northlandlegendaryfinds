@@ -737,6 +737,21 @@ export function TimelineTemplate({
 // ============================================================
 // TEMPLATE 5: LISTICLE — Numbered entries with visual cards
 // ============================================================
+
+/**
+ * Extract the first image URL from a section body.
+ * Supports both markdown ![alt](url) and HTML <img src="url"> syntax.
+ */
+function extractFirstSectionImage(body: string): string | null {
+  // Try markdown syntax first
+  const mdMatch = body.match(/!\[.*?\]\((.*?)\)/);
+  if (mdMatch) return mdMatch[1];
+  // Try HTML img tag
+  const htmlMatch = body.match(/<img[^>]+src=["']([^"']+)["']/);
+  if (htmlMatch) return htmlMatch[1];
+  return null;
+}
+
 export function ListicleTemplate({
   content,
   title,
@@ -790,17 +805,24 @@ export function ListicleTemplate({
         const flip = idx % 2 === 1; // alternate image side
         const isTop = entry.rank === 1;
 
+        const sectionImg = extractFirstSectionImage(entry.body);
+
         const art = (
-          <div className="lc-art" style={{ position: "relative", minHeight: 240, background: "#0a0010" }}>
-            <div style={{ position: "absolute", top: 0, left: 12, fontFamily: "'Anton',sans-serif", fontSize: "6rem", lineHeight: 1, color: isTop ? "#ffff" : "rgba(255,255,255,.08)", pointerEvents: "none" }}>
+          <div className="lc-art" style={{ position: "relative", minHeight: 240, background: "#0a0010", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+            <div style={{ position: "absolute", top: 0, left: 12, fontFamily: "'Anton',sans-serif", fontSize: "6rem", lineHeight: 1, color: isTop ? "#ffff" : "rgba(255,255,255,.08)", pointerEvents: "none", zIndex: 1 }}>
               {String(entry.rank).padStart(2, "0")}
             </div>
             <div style={{ position: "absolute", top: 12, left: 12, zIndex: 2, background: isTop ? GOLD : STEEL, width: 46, height: 46, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center" }}>
               {entry.rank}
             </div>
-            {/* TODO(manus): pass a per-entry image when available */}
-            <span style={{ fontSize: "2rem" }}>{isTop ? "★" : "🃏"}</span>
-            <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".64rem", opacity: 0.65 }}>880 × 880</span>
+            {sectionImg ? (
+              <img src={sectionImg} alt={entry.heading} style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", inset: 0 }} />
+            ) : (
+              <>
+                <span style={{ fontSize: "2rem" }}>{isTop ? "★" : "🃏"}</span>
+                <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".64rem", opacity: 0.65 }}>Card Image</span>
+              </>
+            )}
           </div>
         );
 
