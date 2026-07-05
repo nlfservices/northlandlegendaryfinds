@@ -20,18 +20,28 @@ export default function ImageLightbox({ src, alt, className = "", caption }: Ima
   const open = useCallback(() => setIsOpen(true), []);
   const close = useCallback(() => setIsOpen(false), []);
 
+  // Determine if the image needs absolute positioning (used in lc-art containers)
+  const isAbsolute = className.includes('absolute');
+  // Strip absolute/inset from the img className since the wrapper handles positioning
+  const imgClassName = isAbsolute
+    ? className.replace(/absolute/g, '').replace(/inset-0/g, '').trim()
+    : className;
+
   return (
     <>
       {/* Clickable image with zoom indicator */}
-      <div className="relative group cursor-pointer" onClick={open}>
-        <img src={src} alt={alt} className={className} />
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 rounded-2xl flex items-center justify-center">
+      <div
+        className={`group cursor-pointer ${isAbsolute ? 'absolute inset-0' : 'relative'}`}
+        onClick={open}
+      >
+        <img src={src} alt={alt} className={`${imgClassName} ${isAbsolute ? 'w-full h-full' : ''}`} />
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
           <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/60 rounded-full p-3">
             <ZoomIn className="w-6 h-6 text-white" />
           </div>
         </div>
         {caption && (
-          <p className="text-xs text-gray-400 mt-2 text-center italic">{caption}</p>
+          <p className="absolute bottom-2 left-0 right-0 text-xs text-gray-400 text-center italic">{caption}</p>
         )}
       </div>
 
