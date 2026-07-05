@@ -2941,3 +2941,4 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add insert set odds table with real pull rates
 - [x] Update PRODUCTS data to include 2026 Chrome Marvel as the newest entry
 - [x] Add hits/relics/sketch section with verified data
+- [ ] Add click-to-zoom lightbox feature to card images in article templates

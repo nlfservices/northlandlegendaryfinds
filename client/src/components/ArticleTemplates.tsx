@@ -19,6 +19,7 @@ import { Link } from "wouter";
 import RichContent from "@/components/RichContent";
 import { TrendingUp, Star, Calendar, Hash, Zap, Award, Target, Flame, BookOpen, Quote, Shield, Flag, FileText, Eye, ArrowLeft, Share2, Clock, User, MapPin, Tv, Sparkles, DollarSign, ChevronRight, Ticket } from "lucide-react";
 import ShareButtons from "@/components/ShareButtons";
+import ImageLightbox from "@/components/ImageLightbox";
 
 type TemplateProps = {
   content: string;
@@ -830,7 +831,7 @@ export function ListicleTemplate({
               {entry.rank}
             </div>
             {sectionImg ? (
-              <img src={sectionImg} alt={entry.heading} style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", inset: 0 }} />
+              <ImageLightbox src={sectionImg} alt={entry.heading} className="w-full h-full object-contain absolute inset-0" caption={entry.heading} />
             ) : (
               <>
                 <span style={{ fontSize: "2rem" }}>{isTop ? "★" : "🃏"}</span>
@@ -1019,7 +1020,7 @@ export function PatrioticTemplate({ content, title, featuredImageUrl, excerpt, t
                   {isEven ? (
                     <>
                       <div className="rounded-2xl overflow-hidden shadow-2xl border-4 border-[#B22234]/30">
-                        <img src={sectionImage} alt={section.heading} className="w-full h-auto object-contain" />
+                        <ImageLightbox src={sectionImage} alt={section.heading} className="w-full h-auto object-contain" caption={section.heading} />
                       </div>
                       <RichContent className="prose prose-invert prose-lg max-w-none prose-headings:text-white prose-p:text-gray-300 prose-p:leading-relaxed prose-a:text-[#6B8FD4] prose-strong:text-white prose-blockquote:border-[#B22234] prose-blockquote:text-gray-400 prose-img:rounded-lg">{sectionBody}</RichContent>
                     </>
@@ -1027,7 +1028,7 @@ export function PatrioticTemplate({ content, title, featuredImageUrl, excerpt, t
                     <>
                       <RichContent className="prose prose-invert prose-lg max-w-none prose-headings:text-white prose-p:text-gray-300 prose-p:leading-relaxed prose-a:text-[#6B8FD4] prose-strong:text-white prose-blockquote:border-[#B22234] prose-blockquote:text-gray-400 prose-img:rounded-lg">{sectionBody}</RichContent>
                       <div className="rounded-2xl overflow-hidden shadow-2xl border-4 border-[#3C3B6E]/30">
-                        <img src={sectionImage} alt={section.heading} className="w-full h-auto object-contain" />
+                        <ImageLightbox src={sectionImage} alt={section.heading} className="w-full h-auto object-contain" caption={section.heading} />
                       </div>
                     </>
                   )}
