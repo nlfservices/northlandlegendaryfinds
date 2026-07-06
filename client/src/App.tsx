@@ -215,7 +215,7 @@ function App() {
         <CartProvider>
           <TooltipProvider>
             <Toaster />
-            <EmailCapturePopup />
+            {/* <EmailCapturePopup /> — disabled per owner request */}
             <AppRouter />
           </TooltipProvider>
         </CartProvider>
