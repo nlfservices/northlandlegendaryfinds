@@ -101,11 +101,19 @@ function extractPullQuote(content: string): string {
  * Extract images from markdown content
  */
 function extractImages(content: string): string[] {
-  const imgRegex = /!\[.*?\]\((.*?)\)/g;
   const images: string[] = [];
+  // Match markdown image syntax: ![alt](url)
+  const mdRegex = /!\[.*?\]\((.*?)\)/g;
   let match;
-  while ((match = imgRegex.exec(content)) !== null) {
+  while ((match = mdRegex.exec(content)) !== null) {
     images.push(match[1]);
+  }
+  // Match HTML img tags: <img src="url" ...>
+  const htmlRegex = /<img[^>]+src=["']([^"']+)["'][^>]*>/g;
+  while ((match = htmlRegex.exec(content)) !== null) {
+    if (!images.includes(match[1])) {
+      images.push(match[1]);
+    }
   }
   return images;
 }
@@ -130,6 +138,7 @@ export function ClassicTemplate({
 }: TemplateProps) {
   const { intro, sections } = useMemo(() => splitBySections(content), [content]);
   const pullQuote = useMemo(() => extractPullQuote(content), [content]);
+  const inlineImages = useMemo(() => extractImages(content), [content]);
 
   const collectorAfter = Math.max(0, Math.ceil(sections.length * 0.6) - 1);
 
@@ -242,7 +251,7 @@ export function ClassicTemplate({
             {/* COLLECTOR SLOT — editorial skin, ~60% scroll */}
             {i === collectorAfter && (
               <div style={{ clear: "both" }}>
-                <CollectorSpot cardMarketImpact={cardMarketImpact} focusTitle={null} skin="editorial" />
+                <CollectorSpot cardMarketImpact={cardMarketImpact} focusTitle={null} skin="editorial" cardImageUrl={inlineImages[0] || null} />
                 <a
                   href="/mcu-news"
                   className="grid items-center"
@@ -286,9 +295,9 @@ export function MagazineTemplate({
   category,
   cardMarketImpact,
 }: TemplateProps) {
-  const { intro, sections } = useMemo(() => splitBySections(content), [content]);
+    const { intro, sections } = useMemo(() => splitBySections(content), [content]);
   const pullQuote = useMemo(() => extractPullQuote(content), [content]);
-
+  const inlineImages = useMemo(() => extractImages(content), [content]);
   const PINK = "#ff5d8f";
   const GOLD = "#e8b84b";
   const VIOLET = "#9b6bff";
@@ -405,7 +414,7 @@ export function MagazineTemplate({
 
             {i === collectorAt && (
               <>
-                <CollectorSpot cardMarketImpact={cardMarketImpact} focusTitle={null} skin="glossy" />
+                <CollectorSpot cardMarketImpact={cardMarketImpact} focusTitle={null} skin="glossy" cardImageUrl={inlineImages[0] || null} />
                 <a
                   href="/mcu-news"
                   className="grid items-center"
@@ -457,6 +466,7 @@ export function SpotlightTemplate({
   cardMarketImpact,
 }: TemplateProps) {
   const { intro, sections } = useMemo(() => splitBySections(content), [content]);
+  const inlineImages = useMemo(() => extractImages(content), [content]);
   const collectorAt = Math.max(0, Math.ceil(sections.length * 0.6) - 1);
   const ACCENT = "#5b8cff";
   const ACCENT2 = "#8b6bff";
@@ -537,7 +547,7 @@ export function SpotlightTemplate({
 
               {i === collectorAt && (
                 <>
-                  <CollectorSpot cardMarketImpact={cardMarketImpact} focusTitle={null} skin="explainer" />
+                  <CollectorSpot cardMarketImpact={cardMarketImpact} focusTitle={null} skin="explainer" cardImageUrl={inlineImages[0] || null} />
                   <a href="/mcu-news" className="grid items-center" style={{ margin: "1.4rem 0 2rem", border: `1px solid ${BORDER}`, borderRadius: 14, background: "var(--card)", gridTemplateColumns: "1fr auto", gap: "1rem", padding: "1.1rem 1.4rem", textDecoration: "none" }}>
                     <span>
                       <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".62rem", letterSpacing: ".2em", textTransform: "uppercase", color: AMBER, display: "block", marginBottom: ".25rem" }}>Go Deeper</span>
@@ -600,9 +610,9 @@ export function TimelineTemplate({
   tags,
   cardMarketImpact,
 }: TemplateProps) {
-  const { intro, sections } = useMemo(() => splitBySections(content), [content]);
+    const { intro, sections } = useMemo(() => splitBySections(content), [content]);
   const pullQuote = useMemo(() => extractPullQuote(content), [content]);
-
+  const inlineImages = useMemo(() => extractImages(content), [content]);
   const TL_CYAN = "#48c9d6";
   const TL_AMBER = "#ffce4d";
   const TL_HOT = "#ff6b5c";
@@ -703,7 +713,7 @@ export function TimelineTemplate({
             {/* COLLECTOR SLOT — mission skin, ~60% scroll */}
             {i === collectorAt && (
               <>
-                <CollectorSpot cardMarketImpact={cardMarketImpact} focusTitle={null} skin="mission" />
+                <CollectorSpot cardMarketImpact={cardMarketImpact} focusTitle={null} skin="mission" cardImageUrl={inlineImages[0] || null} />
                 <a
                   href="/mcu-news"
                   className="grid items-center"
@@ -775,8 +785,8 @@ export function ListicleTemplate({
   category,
   cardMarketImpact,
 }: TemplateProps) {
-  const { intro, sections } = useMemo(() => splitBySections(content), [content]);
-
+    const { intro, sections } = useMemo(() => splitBySections(content), [content]);
+  const inlineImages = useMemo(() => extractImages(content), [content]);
   // Count UP to #1: reverse the sections so the last becomes the climax.
   // Set to false if your articles are authored #1-first.
   const countUp = true;
@@ -886,7 +896,7 @@ export function ListicleTemplate({
       {/* COLLECTOR SLOT — countdown skin, ~60% scroll */}
       {collectorAt >= 0 && (
         <>
-          <CollectorSpot cardMarketImpact={cardMarketImpact} focusTitle={null} skin="countdown" />
+          <CollectorSpot cardMarketImpact={cardMarketImpact} focusTitle={null} skin="countdown" cardImageUrl={inlineImages[0] || null} />
           {/* anti-bounce next-up hook */}
           <a
             href="/mcu-news"
@@ -1101,10 +1111,12 @@ function CollectorSpot({
   cardMarketImpact,
   focusTitle,
   skin = "default",
+  cardImageUrl,
 }: {
   cardMarketImpact?: string | null;
   focusTitle?: string | null;
   skin?: CollectorSkin;
+  cardImageUrl?: string | null;
 }) {
   const hasCard = Boolean(cardMarketImpact || focusTitle);
   const heading = hasCard ? (focusTitle || "This Week's Collector Focus") : "Build Different.";
@@ -1135,25 +1147,25 @@ function CollectorSpot({
           }}
         >
           {hasCard && (
-            <div
-              style={{
-                width: 90,
-                height: 120,
-                flexShrink: 0,
-                background:
-                  "repeating-linear-gradient(45deg,#16161f 0 10px,#101018 10px 20px)",
-                border: "1px solid #3a4a5a",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "#6a6a7a",
-                fontFamily: "'JetBrains Mono', monospace",
-                fontSize: ".56rem",
-                textAlign: "center",
-              }}
-            >
-              CARD IMG
-            </div>
+            cardImageUrl ? (
+              <img src={cardImageUrl} alt="Featured card" style={{ width: 90, height: 120, flexShrink: 0, objectFit: "cover", borderRadius: 6, border: "1px solid #3a4a5a" }} />
+            ) : (
+              <div
+                style={{
+                  width: 90,
+                  height: 120,
+                  flexShrink: 0,
+                  background: "linear-gradient(135deg,#1a1a2e,#16213e)",
+                  border: "1px solid #3a4a5a",
+                  borderRadius: 6,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <span style={{ fontSize: "2rem" }}>🃏</span>
+              </div>
+            )
           )}
           <div>
             <div
@@ -1243,23 +1255,13 @@ function CollectorSpot({
           }}
         >
           {hasCard && (
-            <div
-              style={{
-                width: 74,
-                height: 100,
-                flexShrink: 0,
-                border: "1px solid #2a301f",
-                background: "repeating-linear-gradient(45deg,#161a10 0 8px,#101309 8px 16px)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "#6a7158",
-                fontSize: ".52rem",
-                textAlign: "center",
-              }}
-            >
-              CARD IMG
-            </div>
+            cardImageUrl ? (
+              <img src={cardImageUrl} alt="Featured card" style={{ width: 74, height: 100, flexShrink: 0, objectFit: "cover", borderRadius: 4, border: "1px solid #2a301f" }} />
+            ) : (
+              <div style={{ width: 74, height: 100, flexShrink: 0, background: "linear-gradient(135deg,#161a10,#101309)", border: "1px solid #2a301f", borderRadius: 4, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <span style={{ fontSize: "1.6rem" }}>🃏</span>
+              </div>
+            )
           )}
           <div>
             <h4
@@ -1346,23 +1348,13 @@ function CollectorSpot({
         }}
       >
         {hasCard && (
-          <div
-            style={{
-              width: 74,
-              height: 100,
-              flexShrink: 0,
-              border: "1px solid #2e333d",
-              background: "repeating-linear-gradient(135deg,#181b22 0 9px,#13151b 9px 18px)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "#666c78",
-              fontSize: ".54rem",
-              textAlign: "center",
-            }}
-          >
-            CARD IMG
-          </div>
+          cardImageUrl ? (
+            <img src={cardImageUrl} alt="Featured card" style={{ width: 74, height: 100, flexShrink: 0, objectFit: "cover", borderRadius: 4, border: "1px solid #2e333d" }} />
+          ) : (
+            <div style={{ width: 74, height: 100, flexShrink: 0, background: "linear-gradient(135deg,#181b22,#13151b)", border: "1px solid #2e333d", borderRadius: 4, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <span style={{ fontSize: "1.6rem" }}>🃏</span>
+            </div>
+          )
         )}
         <div>
           <div
@@ -1453,23 +1445,13 @@ function CollectorSpot({
         }}
       >
         {hasCard && (
-          <div
-            style={{
-              width: 78,
-              height: 106,
-              flexShrink: 0,
-              border: "1px solid #3a4258",
-              background: "repeating-linear-gradient(135deg,#0e1621 0 9px,#111927 9px 18px)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "#4a5568",
-              fontSize: ".52rem",
-              textAlign: "center",
-            }}
-          >
-            CARD IMG
-          </div>
+          cardImageUrl ? (
+            <img src={cardImageUrl} alt="Featured card" style={{ width: 78, height: 106, flexShrink: 0, objectFit: "cover", borderRadius: 4, border: "1px solid #3a4258" }} />
+          ) : (
+            <div style={{ width: 78, height: 106, flexShrink: 0, background: "linear-gradient(135deg,#0e1621,#111927)", border: "1px solid #3a4258", borderRadius: 4, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <span style={{ fontSize: "1.6rem" }}>🃏</span>
+            </div>
+          )
         )}
         <div>
           <div
@@ -1551,7 +1533,13 @@ function CollectorSpot({
         }}
       >
         {hasCard && (
-          <div style={{ width: 78, height: 106, flexShrink: 0, border: "1px solid #243038", background: "repeating-linear-gradient(135deg,#101820 0 9px,#16202a 9px 18px)", display: "flex", alignItems: "center", justifyContent: "center", color: "#37454f", fontSize: ".52rem", textAlign: "center" }}>CARD IMG</div>
+          cardImageUrl ? (
+            <img src={cardImageUrl} alt="Featured card" style={{ width: 78, height: 106, flexShrink: 0, objectFit: "cover", borderRadius: 4, border: "1px solid #243038" }} />
+          ) : (
+            <div style={{ width: 78, height: 106, flexShrink: 0, background: "linear-gradient(135deg,#101820,#16202a)", border: "1px solid #243038", borderRadius: 4, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <span style={{ fontSize: "1.6rem" }}>🃏</span>
+            </div>
+          )
         )}
         <div>
           <div style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".62rem", letterSpacing: ".2em", textTransform: "uppercase", color: "#48c9d6", marginBottom: ".35rem" }}>{kicker}</div>
@@ -1574,7 +1562,13 @@ function CollectorSpot({
           style={{ background: "#141019", gridTemplateColumns: hasCard ? "auto 1fr auto" : "1fr auto", gap: "1.4rem", padding: "1.4rem 1.6rem" }}
         >
           {hasCard && (
-            <div style={{ width: 84, height: 112, flexShrink: 0, border: "1px solid #3c3848", background: "repeating-linear-gradient(135deg,#1b1622 0 9px,#15111c 9px 18px)", display: "flex", alignItems: "center", justifyContent: "center", color: "#7a7488", fontFamily: "'Archivo',sans-serif", fontSize: ".54rem", textAlign: "center" }}>CARD IMG</div>
+            cardImageUrl ? (
+              <img src={cardImageUrl} alt="Featured card" style={{ width: 84, height: 112, flexShrink: 0, objectFit: "cover", borderRadius: 4, border: "1px solid #3c3848" }} />
+            ) : (
+              <div style={{ width: 84, height: 112, flexShrink: 0, background: "linear-gradient(135deg,#1b1622,#15111c)", border: "1px solid #3c3848", borderRadius: 4, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <span style={{ fontSize: "1.6rem" }}>🃏</span>
+              </div>
+            )
           )}
           <div>
             <div style={{ fontFamily: "'Archivo',sans-serif", fontWeight: 800, color: "#ff5d8f", letterSpacing: ".2em", textTransform: "uppercase", fontSize: ".64rem", marginBottom: ".35rem" }}>{kicker}</div>
@@ -1594,7 +1588,13 @@ function CollectorSpot({
     return (
       <div className="grid items-center" style={{ margin:"1.6rem 0", border:"1px solid rgba(91,140,255,.4)", borderRadius:14, background:"linear-gradient(135deg,rgba(91,140,255,.1),rgba(139,107,255,.04))", gridTemplateColumns: hasCard ? "auto 1fr auto" : "1fr auto", gap:"1.3rem", padding:"1.3rem 1.5rem" }}>
         {hasCard && (
-          <div style={{ width:76, height:104, flexShrink:0, borderRadius:8, border:"1px solid #353c52", background:"repeating-linear-gradient(135deg,#161b28 0 9px,#11151f 9px 18px)", display:"flex", alignItems:"center", justifyContent:"center", color:"#6a7286", fontFamily:"'JetBrains Mono',monospace", fontSize:".54rem", textAlign:"center" }}>CARD IMG</div>
+          cardImageUrl ? (
+            <img src={cardImageUrl} alt="Featured card" style={{ width: 76, height: 104, flexShrink: 0, objectFit: "cover", borderRadius: 8, border: "1px solid #353c52" }} />
+          ) : (
+            <div style={{ width: 76, height: 104, flexShrink: 0, borderRadius: 8, background: "linear-gradient(135deg,#161b28,#11151f)", border: "1px solid #353c52", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <span style={{ fontSize: "1.6rem" }}>🃏</span>
+            </div>
+          )
         )}
         <div>
           <div style={{ fontFamily:"'JetBrains Mono',monospace", color:"#5b8cff", letterSpacing:".2em", textTransform:"uppercase", fontSize:".64rem", marginBottom:".35rem" }}>{kicker}</div>
@@ -1614,7 +1614,13 @@ function CollectorSpot({
       <div style={{ margin:"1.5rem 0", borderRadius:16, overflow:"hidden", background:"linear-gradient(135deg,#3aa0ff,#a86bff,#ff6fb5)", padding:2 }}>
         <div className="grid items-center" style={{ background:"#10172a", borderRadius:14, gridTemplateColumns: hasCard ? "auto 1fr auto" : "1fr auto", gap:"1.3rem", padding:"1.3rem 1.5rem" }}>
           {hasCard && (
-            <div style={{ width:80, height:108, flexShrink:0, borderRadius:10, border:"1px solid #384465", background:"repeating-linear-gradient(135deg,#18203a 0 9px,#121829 9px 18px)", display:"flex", alignItems:"center", justifyContent:"center", color:"#7a85a8", fontFamily:"'Baloo 2',sans-serif", fontSize:".56rem", textAlign:"center" }}>CARD IMG</div>
+            cardImageUrl ? (
+              <img src={cardImageUrl} alt="Featured card" style={{ width: 80, height: 108, flexShrink: 0, objectFit: "cover", borderRadius: 10, border: "1px solid #384465" }} />
+            ) : (
+              <div style={{ width: 80, height: 108, flexShrink: 0, borderRadius: 10, background: "linear-gradient(135deg,#18203a,#121829)", border: "1px solid #384465", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <span style={{ fontSize: "1.6rem" }}>🃏</span>
+              </div>
+            )
           )}
           <div>
             <div style={{ fontFamily:"'Baloo 2',sans-serif", fontWeight:700, color:"#ffcf5c", letterSpacing:".14em", textTransform:"uppercase", fontSize:".66rem", marginBottom:".35rem" }}>{kicker}</div>
@@ -1776,6 +1782,7 @@ export function CinematicTemplate({
 }: TemplateProps) {
   const { intro, sections } = useMemo(() => splitBySections(content), [content]);
   const pullQuote = useMemo(() => extractPullQuote(content), [content]);
+  const inlineImages = useMemo(() => extractImages(content), [content]);
 
   // collector slot sits after ~60-65% of sections; place before the last section
   const collectorAfter = Math.max(0, Math.ceil(sections.length * 0.6) - 1);
@@ -1876,8 +1883,8 @@ export function CinematicTemplate({
             </div>
           </div>
 
-          {/* still after first scene */}
-          {i === 0 && <CineStill imageUrl={null} caption="FIG. 01 — Add a scene still." alt={section.heading} />}
+          {/* still after first scene — use first inline image if available */}
+          {i === 0 && inlineImages.length > 0 && <CineStill imageUrl={inlineImages[0]} caption={undefined} alt={section.heading} />}
 
           {/* pull quote after first scene */}
           {i === 0 && pullQuote && (
@@ -1902,7 +1909,7 @@ export function CinematicTemplate({
           {/* COLLECTOR SLOT — guaranteed, genre-skinned, ~60% scroll */}
           {i === collectorAfter && (
             <>
-              <CollectorSpot cardMarketImpact={cardMarketImpact} focusTitle={null} skin="cinematic" />
+              <CollectorSpot cardMarketImpact={cardMarketImpact} focusTitle={null} skin="cinematic" cardImageUrl={inlineImages[0] || null} />
               <a
                 href="/mcu-news"
                 className="grid items-center"
@@ -1983,10 +1990,10 @@ export function DossierTemplate({
   category,
   cardMarketImpact,
 }: TemplateProps) {
-  const { intro, sections } = useMemo(() => splitBySections(content), [content]);
+    const { intro, sections } = useMemo(() => splitBySections(content), [content]);
   const pullQuote = useMemo(() => extractPullQuote(content), [content]);
+  const inlineImages = useMemo(() => extractImages(content), [content]);
   const collectorAfter = Math.max(0, Math.ceil(sections.length * 0.6) - 1);
-
   const caseNo = useMemo(() => {
     let h = 0;
     for (let i = 0; i < (title || "").length; i++) h = (h * 31 + title.charCodeAt(i)) & 0xffff;
@@ -2093,7 +2100,7 @@ export function DossierTemplate({
           {/* COLLECTOR SLOT — intel skin, ~60% scroll */}
           {i === collectorAfter && (
             <>
-              <CollectorSpot cardMarketImpact={cardMarketImpact} focusTitle={null} skin="intel" />
+              <CollectorSpot cardMarketImpact={cardMarketImpact} focusTitle={null} skin="intel" cardImageUrl={inlineImages[0] || null} />
               <a
                 href="/mcu-news"
                 className="grid items-center"
@@ -2232,6 +2239,7 @@ export function DisneyExperienceTemplate({
 }: TemplateProps) {
   const { intro, sections } = useMemo(() => splitBySections(content), [content]);
   const pullQuote = useMemo(() => extractPullQuote(content), [content]);
+  const inlineImages = useMemo(() => extractImages(content), [content]);
   const collectorAt = Math.max(0, Math.ceil(sections.length * 0.6) - 1);
   const GOLD = "#ffcf5c";
   const pills = (tags && tags.length ? tags : ["Disney Parks", "Disney+", "Marvel Experience"]).slice(0, 3);
@@ -2321,7 +2329,7 @@ export function DisneyExperienceTemplate({
       )}
 
       {/* ♥ collector slot + anti-bounce */}
-      <CollectorSpot cardMarketImpact={cardMarketImpact} focusTitle={null} skin="parkpass" />
+      <CollectorSpot cardMarketImpact={cardMarketImpact} focusTitle={null} skin="parkpass" cardImageUrl={inlineImages[0] || null} />
       <a href="/mcu-news" className="grid items-center" style={{ margin: "1.4rem 0 0", border: "1px solid var(--border)", borderRadius: 16, background: "var(--card)", gridTemplateColumns: "1fr auto", gap: "1rem", padding: "1.1rem 1.4rem", textDecoration: "none" }}>
         <span>
           <span style={{ fontFamily: "'Baloo 2',sans-serif", fontWeight: 700, fontSize: ".64rem", letterSpacing: ".14em", textTransform: "uppercase", color: GOLD, display: "block", marginBottom: ".25rem" }}>Plan Your Visit</span>

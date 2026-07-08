@@ -2942,3 +2942,11 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Update PRODUCTS data to include 2026 Chrome Marvel as the newest entry
 - [x] Add hits/relics/sketch section with verified data
 - [ ] Add click-to-zoom lightbox feature to card images in article templates
+
+## Fix: Blank Image Placeholders in Article Templates
+- [x] Fix "CARD IMG" placeholder in CollectorSpot cinematic skin - show actual card image or emoji fallback
+- [x] Fix "CARD IMG" placeholder in all other template skins (comic, editorial, intel, countdown, mission, glossy, explainer, parkpass)
+- [x] Fix "Scene Still" placeholder in CineStill component - use first inline image from content
+- [x] Update extractImages() to find HTML <img> tags in addition to markdown ![alt](url) syntax
+- [x] Pass cardImageUrl prop to all CollectorSpot usages across all templates
+- [x] Verify all blank placeholders are resolved on live article
