@@ -23,6 +23,9 @@ export const repackFeedbackRouter = router({
         suggestion: z.string().max(1000).optional(),
         email: z.string().email().optional().or(z.literal("")),
         firstName: z.string().max(100).optional(),
+        phone: z.string().max(50).optional(),
+        zipCode: z.string().max(10).optional(),
+        favoriteCharacter: z.string().max(255).optional(),
       })
     )
     .mutation(async ({ input, ctx }) => {
@@ -42,6 +45,10 @@ export const repackFeedbackRouter = router({
         gradedPreference: input.gradedPreference || null,
         suggestion: input.suggestion || null,
         email: input.email || null,
+        firstName: input.firstName || null,
+        phone: input.phone || null,
+        zipCode: input.zipCode || null,
+        favoriteCharacter: input.favoriteCharacter || null,
         fingerprint,
       });
 
@@ -61,10 +68,11 @@ export const repackFeedbackRouter = router({
             "100_plus": "$100+",
           };
 
-          // Create contact in GHL
+          // Create contact in GHL with phone
           const ghlResult = await createGHLContact({
             email: input.email.trim(),
             firstName: input.firstName?.trim() || undefined,
+            phone: input.phone?.trim() || undefined,
             tags: [
               "repack-interest",
               `repack-format-${input.format}`,
@@ -78,12 +86,16 @@ export const repackFeedbackRouter = router({
             const noteBody = [
               `📦 REPACK PREFERENCES (Build Your Repack Survey)`,
               ``,
+              `Name: ${input.firstName || "Not provided"}`,
+              `Phone: ${input.phone || "Not provided"}`,
+              `Zip Code: ${input.zipCode || "Not provided"}`,
+              `Favorite Character: ${input.favoriteCharacter || "Not provided"}`,
               `Format: ${formatLabels[input.format] || input.format}`,
               `Price Range: ${priceLabels[input.priceRange] || input.priceRange}`,
               input.characters?.length ? `Characters: ${input.characters.join(", ")}` : null,
               input.sets?.length ? `Sets: ${input.sets.join(", ")}` : null,
               input.gradedPreference ? `Graded Preference: ${input.gradedPreference}` : null,
-              input.suggestion ? `Suggestion: ${input.suggestion}` : null,
+              input.suggestion ? `Comments: ${input.suggestion}` : null,
               ``,
               `Submitted: ${new Date().toISOString()}`,
             ]

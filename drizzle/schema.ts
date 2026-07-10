@@ -1510,6 +1510,14 @@ export const repackFeedback = mysqlTable("repack_feedback", {
   suggestion: text("suggestion"),
   /** Optional email for launch notification */
   email: varchar("email", { length: 255 }),
+  /** First name */
+  firstName: varchar("first_name", { length: 100 }),
+  /** Phone number */
+  phone: varchar("phone", { length: 50 }),
+  /** Zip code */
+  zipCode: varchar("zip_code", { length: 10 }),
+  /** Favorite Marvel character (free text) */
+  favoriteCharacter: varchar("favorite_character", { length: 255 }),
   /** IP fingerprint to prevent spam (hashed) */
   fingerprint: varchar("fingerprint", { length: 64 }),
   createdAt: timestamp("createdAt").defaultNow().notNull(),

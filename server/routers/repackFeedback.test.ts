@@ -64,16 +64,29 @@ describe("repackFeedback router", () => {
         expect(validGraded).toContain(pref);
       });
     });
+
+    it("should accept new fields: phone, zipCode, favoriteCharacter", () => {
+      const input = {
+        format: "single_slab",
+        priceRange: "50_100",
+        phone: "555-123-4567",
+        zipCode: "55401",
+        favoriteCharacter: "Doctor Doom",
+      };
+      expect(input.phone).toBe("555-123-4567");
+      expect(input.zipCode).toBe("55401");
+      expect(input.favoriteCharacter).toBe("Doctor Doom");
+    });
   });
 
   describe("GHL integration logic", () => {
-    it("should call createGHLContact with correct tags when email is provided", async () => {
+    it("should call createGHLContact with phone when provided", async () => {
       const { createGHLContact: mockCreate } = await import("../ghl");
 
-      // Simulate what the router does
       const input = {
         email: "test@example.com",
         firstName: "John",
+        phone: "555-123-4567",
         format: "single_slab",
         priceRange: "50_100",
       };
@@ -81,6 +94,7 @@ describe("repackFeedback router", () => {
       await (mockCreate as any)({
         email: input.email,
         firstName: input.firstName,
+        phone: input.phone,
         tags: [
           "repack-interest",
           `repack-format-${input.format}`,
@@ -92,25 +106,67 @@ describe("repackFeedback router", () => {
       expect(mockCreate).toHaveBeenCalledWith({
         email: "test@example.com",
         firstName: "John",
+        phone: "555-123-4567",
         tags: ["repack-interest", "repack-format-single_slab", "repack-price-50_100"],
         source: "Build Your Repack Survey",
       });
     });
 
-    it("should call addGHLContactNote with preferences when contact is created", async () => {
+    it("should include zip code, favorite character, and phone in GHL note", async () => {
       const { addGHLContactNote: mockNote } = await import("../ghl");
 
       const contactId = "test-contact-123";
-      const noteBody = `📦 REPACK PREFERENCES (Build Your Repack Survey)\n\nFormat: Single Graded Slab\nPrice Range: $50-$100\nCharacters: Doctor Doom, Spider-Man\n\nSubmitted: 2026-07-10`;
+      const input = {
+        firstName: "Jane",
+        phone: "612-555-0000",
+        zipCode: "55401",
+        favoriteCharacter: "Wolverine",
+        format: "slab_and_packs",
+        priceRange: "25_50",
+        characters: ["Wolverine", "Gambit"],
+        suggestion: "More X-Men please",
+      };
+
+      const formatLabels: Record<string, string> = {
+        single_slab: "Single Graded Slab",
+        slab_and_packs: "Slab + 2 Packs",
+        mystery_tier: "Mystery Tier Box",
+        other: "Other Format",
+      };
+      const priceLabels: Record<string, string> = {
+        under_25: "Under $25",
+        "25_50": "$25-$50",
+        "50_100": "$50-$100",
+        "100_plus": "$100+",
+      };
+
+      const noteBody = [
+        `📦 REPACK PREFERENCES (Build Your Repack Survey)`,
+        ``,
+        `Name: ${input.firstName || "Not provided"}`,
+        `Phone: ${input.phone || "Not provided"}`,
+        `Zip Code: ${input.zipCode || "Not provided"}`,
+        `Favorite Character: ${input.favoriteCharacter || "Not provided"}`,
+        `Format: ${formatLabels[input.format] || input.format}`,
+        `Price Range: ${priceLabels[input.priceRange] || input.priceRange}`,
+        input.characters?.length ? `Characters: ${input.characters.join(", ")}` : null,
+        input.suggestion ? `Comments: ${input.suggestion}` : null,
+        ``,
+        `Submitted: ${new Date().toISOString()}`,
+      ]
+        .filter(Boolean)
+        .join("\n");
 
       await (mockNote as any)(contactId, noteBody);
 
-      expect(mockNote).toHaveBeenCalledWith(contactId, expect.stringContaining("REPACK PREFERENCES"));
+      expect(mockNote).toHaveBeenCalledWith(contactId, expect.stringContaining("Zip Code: 55401"));
+      expect(mockNote).toHaveBeenCalledWith(contactId, expect.stringContaining("Favorite Character: Wolverine"));
+      expect(mockNote).toHaveBeenCalledWith(contactId, expect.stringContaining("Phone: 612-555-0000"));
+      expect(mockNote).toHaveBeenCalledWith(contactId, expect.stringContaining("Comments: More X-Men please"));
     });
 
     it("should NOT call GHL when email is empty", () => {
       const input = { email: "", format: "single_slab", priceRange: "under_25" };
-      // The router checks: if (input.email && input.email.trim())
       const shouldCallGHL = !!(input.email && input.email.trim());
       expect(shouldCallGHL).toBe(false);
     });
@@ -120,11 +176,46 @@ describe("repackFeedback router", () => {
       const shouldCallGHL = !!(input.email && input.email.trim());
       expect(shouldCallGHL).toBe(false);
     });
+
+    it("should handle missing optional fields gracefully in note", async () => {
+      const { addGHLContactNote: mockNote } = await import("../ghl");
+
+      const contactId = "test-contact-456";
+      const input = {
+        firstName: undefined as string | undefined,
+        phone: undefined as string | undefined,
+        zipCode: undefined as string | undefined,
+        favoriteCharacter: undefined as string | undefined,
+        format: "mystery_tier",
+        priceRange: "under_25",
+      };
+
+      const noteBody = [
+        `📦 REPACK PREFERENCES (Build Your Repack Survey)`,
+        ``,
+        `Name: ${input.firstName || "Not provided"}`,
+        `Phone: ${input.phone || "Not provided"}`,
+        `Zip Code: ${input.zipCode || "Not provided"}`,
+        `Favorite Character: ${input.favoriteCharacter || "Not provided"}`,
+        `Format: Mystery Tier Box`,
+        `Price Range: Under $25`,
+        ``,
+        `Submitted: ${new Date().toISOString()}`,
+      ]
+        .filter(Boolean)
+        .join("\n");
+
+      await (mockNote as any)(contactId, noteBody);
+
+      expect(mockNote).toHaveBeenCalledWith(contactId, expect.stringContaining("Name: Not provided"));
+      expect(mockNote).toHaveBeenCalledWith(contactId, expect.stringContaining("Phone: Not provided"));
+      expect(mockNote).toHaveBeenCalledWith(contactId, expect.stringContaining("Zip Code: Not provided"));
+      expect(mockNote).toHaveBeenCalledWith(contactId, expect.stringContaining("Favorite Character: Not provided"));
+    });
   });
 
   describe("human verification (client-side)", () => {
     it("should generate valid math challenges", () => {
-      // Replicate the math challenge generation logic
       for (let i = 0; i < 100; i++) {
         const a = Math.floor(Math.random() * 9) + 1;
         const b = Math.floor(Math.random() * 9) + 1;
@@ -139,7 +230,6 @@ describe("repackFeedback router", () => {
 
     it("should block submission when honeypot is filled (bot behavior)", () => {
       const honeypot = "bot-filled-this";
-      // The client checks: if (honeypot) { setSubmitted(true); return; }
       const isBot = !!honeypot;
       expect(isBot).toBe(true);
     });

@@ -1,16 +1,17 @@
 /**
  * Build Your Repack — Interactive community feedback page
  * Lets visitors vote on what they want inside NLF repacks
+ * Form collects: name, email, phone, zip code, favorite character, comments
  * Submits to GHL CRM + database with honeypot + math captcha for bot protection
  */
-import { useState, useMemo, useRef } from "react";
+import { useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { toast } from "sonner";
 import SEO from "@/components/SEO";
 import HoneypotField from "@/components/HoneypotField";
-import { Package, Sparkles, Star, CheckCircle2, MessageSquare, ShieldCheck } from "lucide-react";
+import { Package, Sparkles, Star, CheckCircle2, MessageSquare, ShieldCheck, Phone, MapPin, User } from "lucide-react";
 
 const FORMAT_OPTIONS = [
   {
@@ -82,6 +83,9 @@ export default function BuildYourRepack() {
   const [suggestion, setSuggestion] = useState("");
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [zipCode, setZipCode] = useState("");
+  const [favoriteCharacter, setFavoriteCharacter] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
   // Honeypot state (bots fill this, humans don't see it)
@@ -140,6 +144,9 @@ export default function BuildYourRepack() {
       suggestion: suggestion.trim() || undefined,
       email: email.trim() || undefined,
       firstName: firstName.trim() || undefined,
+      phone: phone.trim() || undefined,
+      zipCode: zipCode.trim() || undefined,
+      favoriteCharacter: favoriteCharacter.trim() || undefined,
     });
   };
 
@@ -367,30 +374,31 @@ export default function BuildYourRepack() {
           </div>
         )}
 
-        {/* Step 6: Contact Info + Suggestion + Human Verification */}
+        {/* Step 6: Contact Info + Favorite Character + Comments + Human Verification */}
         {step === 6 && (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-white mb-2">Almost done — tell us about you</h2>
-            <p className="text-muted-foreground mb-6">Leave your info to get notified when repacks launch. Add a suggestion if you've got one.</p>
+            <p className="text-muted-foreground mb-6">Leave your info so we can notify you when repacks launch.</p>
 
             {/* Name + Email */}
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-white mb-2">
-                  First Name
+                <label className="flex items-center gap-1.5 text-sm font-medium text-white mb-2">
+                  <User className="w-4 h-4 text-primary" />
+                  Name
                 </label>
                 <input
                   type="text"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
-                  placeholder="Your first name"
+                  placeholder="Your name"
                   className="w-full px-4 py-3 bg-background border border-border rounded-xl text-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-white mb-2">
-                  <Sparkles className="w-4 h-4 inline mr-1" />
-                  Email (for launch notification)
+                <label className="flex items-center gap-1.5 text-sm font-medium text-white mb-2">
+                  <Sparkles className="w-4 h-4 text-primary" />
+                  Email
                 </label>
                 <input
                   type="email"
@@ -401,23 +409,70 @@ export default function BuildYourRepack() {
                 />
               </div>
             </div>
-            <p className="text-xs text-muted-foreground -mt-2">We'll only email you when repacks drop. No spam ever.</p>
 
-            {/* Suggestion */}
+            {/* Phone + Zip Code */}
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label className="flex items-center gap-1.5 text-sm font-medium text-white mb-2">
+                  <Phone className="w-4 h-4 text-primary" />
+                  Phone
+                </label>
+                <input
+                  type="tel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder="(555) 123-4567"
+                  className="w-full px-4 py-3 bg-background border border-border rounded-xl text-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+              <div>
+                <label className="flex items-center gap-1.5 text-sm font-medium text-white mb-2">
+                  <MapPin className="w-4 h-4 text-primary" />
+                  Zip Code
+                </label>
+                <input
+                  type="text"
+                  value={zipCode}
+                  onChange={(e) => setZipCode(e.target.value)}
+                  placeholder="12345"
+                  maxLength={10}
+                  className="w-full px-4 py-3 bg-background border border-border rounded-xl text-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+            </div>
+
+            {/* Favorite Marvel Character */}
             <div>
-              <label className="block text-sm font-medium text-white mb-2">
-                <MessageSquare className="w-4 h-4 inline mr-1" />
-                Your suggestion (optional)
+              <label className="flex items-center gap-1.5 text-sm font-medium text-white mb-2">
+                <Star className="w-4 h-4 text-primary" />
+                Who's your favorite Marvel character?
+              </label>
+              <input
+                type="text"
+                value={favoriteCharacter}
+                onChange={(e) => setFavoriteCharacter(e.target.value)}
+                placeholder="e.g., Doctor Doom, Spider-Man, Wolverine..."
+                className="w-full px-4 py-3 bg-background border border-border rounded-xl text-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+            </div>
+
+            {/* Comments / Suggestion */}
+            <div>
+              <label className="flex items-center gap-1.5 text-sm font-medium text-white mb-2">
+                <MessageSquare className="w-4 h-4 text-primary" />
+                Comments (optional)
               </label>
               <textarea
                 value={suggestion}
                 onChange={(e) => setSuggestion(e.target.value)}
-                placeholder="What would make you buy a repack? Any specific cards you're chasing? Ideas for bonus items?"
+                placeholder="What would make you buy a repack? Any specific cards you're chasing? Ideas for bonus items? Tell us anything."
                 className="w-full px-4 py-3 bg-background border border-border rounded-xl text-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary resize-none h-28"
                 maxLength={1000}
               />
               <p className="text-xs text-muted-foreground mt-1">{suggestion.length}/1000</p>
             </div>
+
+            <p className="text-xs text-muted-foreground -mt-2">We'll only contact you about repacks. No spam ever.</p>
 
             {/* Human Verification — Simple Math */}
             <div className="p-4 rounded-xl border border-border bg-card/30">
