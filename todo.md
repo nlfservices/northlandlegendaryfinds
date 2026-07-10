@@ -2966,3 +2966,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add route to App.tsx and SiteMap
 - [x] Publish Facebook post driving traffic to /build-your-repack
 - [x] Post follow-up comment with direct link
+
+## Build Your Repack — GHL Integration + Human Verification
+- [x] Add name/email form fields to Build Your Repack page for GHL contact creation
+- [x] Add honeypot field (HoneypotField component) for simple bot detection
+- [x] Add simple math captcha as human verification ("What is 3 + 4?")
+- [x] Update server router to submit to GHL (createGHLContact + addGHLContactNote with preferences)
+- [x] Add repack-specific tags to GHL contact (e.g., "repack-interest", format, price range)

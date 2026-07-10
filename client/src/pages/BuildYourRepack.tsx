@@ -1,14 +1,16 @@
 /**
  * Build Your Repack — Interactive community feedback page
  * Lets visitors vote on what they want inside NLF repacks
+ * Submits to GHL CRM + database with honeypot + math captcha for bot protection
  */
-import { useState } from "react";
+import { useState, useMemo, useRef } from "react";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { toast } from "sonner";
 import SEO from "@/components/SEO";
-import { Package, Sparkles, Star, CheckCircle2, MessageSquare } from "lucide-react";
+import HoneypotField from "@/components/HoneypotField";
+import { Package, Sparkles, Star, CheckCircle2, MessageSquare, ShieldCheck } from "lucide-react";
 
 const FORMAT_OPTIONS = [
   {
@@ -63,6 +65,13 @@ const GRADED_OPTIONS = [
   { id: "no_preference" as const, label: "No Preference", description: "Surprise me" },
 ];
 
+/** Generate a simple math challenge */
+function generateMathChallenge() {
+  const a = Math.floor(Math.random() * 9) + 1;
+  const b = Math.floor(Math.random() * 9) + 1;
+  return { a, b, answer: a + b };
+}
+
 export default function BuildYourRepack() {
   const [step, setStep] = useState(1);
   const [format, setFormat] = useState<typeof FORMAT_OPTIONS[number]["id"] | null>(null);
@@ -72,15 +81,24 @@ export default function BuildYourRepack() {
   const [gradedPreference, setGradedPreference] = useState<typeof GRADED_OPTIONS[number]["id"] | null>(null);
   const [suggestion, setSuggestion] = useState("");
   const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
   const [submitted, setSubmitted] = useState(false);
+
+  // Honeypot state (bots fill this, humans don't see it)
+  const [honeypot, setHoneypot] = useState("");
+
+  // Simple math captcha
+  const [mathChallenge] = useState(() => generateMathChallenge());
+  const [captchaAnswer, setCaptchaAnswer] = useState("");
+  const [captchaError, setCaptchaError] = useState(false);
 
   const submitMutation = trpc.repackFeedback.submit.useMutation({
     onSuccess: () => {
       setSubmitted(true);
       toast.success("Thanks! Your feedback helps us build better repacks.");
     },
-    onError: () => {
-      toast.error("Something went wrong. Please try again.");
+    onError: (err) => {
+      toast.error(err.message || "Something went wrong. Please try again.");
     },
   });
 
@@ -97,7 +115,22 @@ export default function BuildYourRepack() {
   };
 
   const handleSubmit = () => {
+    // Bot check: honeypot should be empty
+    if (honeypot) {
+      // Silently "succeed" for bots so they don't retry
+      setSubmitted(true);
+      return;
+    }
+
+    // Human verification: check math answer
+    if (parseInt(captchaAnswer, 10) !== mathChallenge.answer) {
+      setCaptchaError(true);
+      toast.error("Math answer is incorrect. Please try again.");
+      return;
+    }
+
     if (!format || !priceRange) return;
+
     submitMutation.mutate({
       format,
       priceRange,
@@ -106,6 +139,7 @@ export default function BuildYourRepack() {
       gradedPreference: gradedPreference || undefined,
       suggestion: suggestion.trim() || undefined,
       email: email.trim() || undefined,
+      firstName: firstName.trim() || undefined,
     });
   };
 
@@ -140,31 +174,9 @@ export default function BuildYourRepack() {
           </div>
           <Card className="bg-card/50 border-primary/20">
             <CardContent className="p-6">
-              <p className="text-muted-foreground mb-4">
-                {email ? "We'll notify you when repacks drop." : "Want to know when repacks launch?"}
+              <p className="text-muted-foreground">
+                {email ? "We'll notify you when repacks drop. Keep an eye on your inbox." : "Thanks for helping shape the future of NLF repacks."}
               </p>
-              {!email && (
-                <div className="flex gap-2 max-w-sm mx-auto">
-                  <input
-                    type="email"
-                    placeholder="your@email.com"
-                    className="flex-1 px-4 py-2 bg-background border border-border rounded-lg text-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                  <Button
-                    onClick={() => {
-                      if (email.trim()) toast.success("You're on the list!");
-                    }}
-                    className="bg-primary hover:bg-primary/90"
-                  >
-                    Notify Me
-                  </Button>
-                </div>
-              )}
-              {email && (
-                <p className="text-green-400 font-medium">You're on the list.</p>
-              )}
             </CardContent>
           </Card>
           <div className="mt-8">
@@ -355,11 +367,43 @@ export default function BuildYourRepack() {
           </div>
         )}
 
-        {/* Step 6: Suggestion + Email */}
+        {/* Step 6: Contact Info + Suggestion + Human Verification */}
         {step === 6 && (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-white mb-2">Anything else?</h2>
-            <p className="text-muted-foreground mb-6">Drop a suggestion or leave your email to get notified when repacks launch.</p>
+            <h2 className="text-2xl font-bold text-white mb-2">Almost done — tell us about you</h2>
+            <p className="text-muted-foreground mb-6">Leave your info to get notified when repacks launch. Add a suggestion if you've got one.</p>
+
+            {/* Name + Email */}
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-white mb-2">
+                  First Name
+                </label>
+                <input
+                  type="text"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  placeholder="Your first name"
+                  className="w-full px-4 py-3 bg-background border border-border rounded-xl text-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-white mb-2">
+                  <Sparkles className="w-4 h-4 inline mr-1" />
+                  Email (for launch notification)
+                </label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="your@email.com"
+                  className="w-full px-4 py-3 bg-background border border-border rounded-xl text-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+            </div>
+            <p className="text-xs text-muted-foreground -mt-2">We'll only email you when repacks drop. No spam ever.</p>
+
+            {/* Suggestion */}
             <div>
               <label className="block text-sm font-medium text-white mb-2">
                 <MessageSquare className="w-4 h-4 inline mr-1" />
@@ -369,25 +413,42 @@ export default function BuildYourRepack() {
                 value={suggestion}
                 onChange={(e) => setSuggestion(e.target.value)}
                 placeholder="What would make you buy a repack? Any specific cards you're chasing? Ideas for bonus items?"
-                className="w-full px-4 py-3 bg-background border border-border rounded-xl text-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary resize-none h-32"
+                className="w-full px-4 py-3 bg-background border border-border rounded-xl text-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary resize-none h-28"
                 maxLength={1000}
               />
               <p className="text-xs text-muted-foreground mt-1">{suggestion.length}/1000</p>
             </div>
-            <div>
-              <label className="block text-sm font-medium text-white mb-2">
-                <Sparkles className="w-4 h-4 inline mr-1" />
-                Email for launch notification (optional)
+
+            {/* Human Verification — Simple Math */}
+            <div className="p-4 rounded-xl border border-border bg-card/30">
+              <label className="flex items-center gap-2 text-sm font-medium text-white mb-3">
+                <ShieldCheck className="w-4 h-4 text-primary" />
+                Quick human check
               </label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="your@email.com"
-                className="w-full px-4 py-3 bg-background border border-border rounded-xl text-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-              />
-              <p className="text-xs text-muted-foreground mt-1">We'll only email you when repacks drop. No spam.</p>
+              <div className="flex items-center gap-3">
+                <span className="text-lg text-white font-mono">
+                  {mathChallenge.a} + {mathChallenge.b} =
+                </span>
+                <input
+                  type="number"
+                  value={captchaAnswer}
+                  onChange={(e) => {
+                    setCaptchaAnswer(e.target.value);
+                    setCaptchaError(false);
+                  }}
+                  placeholder="?"
+                  className={`w-20 px-3 py-2 bg-background border rounded-lg text-white text-center text-lg focus:outline-none focus:ring-2 focus:ring-primary ${
+                    captchaError ? "border-red-500 ring-1 ring-red-500" : "border-border"
+                  }`}
+                />
+              </div>
+              {captchaError && (
+                <p className="text-xs text-red-400 mt-2">That's not right — give it another shot.</p>
+              )}
             </div>
+
+            {/* Honeypot (invisible to humans) */}
+            <HoneypotField value={honeypot} onChange={setHoneypot} />
           </div>
         )}
 
