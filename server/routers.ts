@@ -28,6 +28,7 @@ import { invitesRouter } from "./routers/invites";
 import { aiAssistantRouter } from "./routers/aiAssistant";
 import { sellCardsRouter } from "./routers/sellCards";
 import { cardOfTheDayRouter } from "./routers/cardOfTheDay";
+import { repackFeedbackRouter } from "./routers/repackFeedback";
 
 export const appRouter = router({
   system: systemRouter,
@@ -143,6 +144,9 @@ export const appRouter = router({
 
   // Card of the Day (public + admin)
   cardOfTheDay: cardOfTheDayRouter,
+
+  // Build Your Repack feedback (public + admin results)
+  repackFeedback: repackFeedbackRouter,
 
 });
 

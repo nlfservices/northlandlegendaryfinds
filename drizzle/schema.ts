@@ -1491,3 +1491,28 @@ export const cardOfTheDayEntries = mysqlTable("card_of_the_day_entries", {
 });
 export type CardOfTheDayEntry = typeof cardOfTheDayEntries.$inferSelect;
 export type InsertCardOfTheDayEntry = typeof cardOfTheDayEntries.$inferInsert;
+
+
+// ─── Repack Feedback / Build Your Repack Survey ──────────────────────────────
+export const repackFeedback = mysqlTable("repack_feedback", {
+  id: int("id").primaryKey().autoincrement(),
+  /** Preferred format: single_slab, slab_and_packs, mystery_tier, other */
+  format: varchar("format", { length: 64 }).notNull(),
+  /** Price range they'd pay: under_25, 25_50, 50_100, 100_plus */
+  priceRange: varchar("price_range", { length: 32 }).notNull(),
+  /** Characters they want most (JSON array) */
+  characters: text("characters"),
+  /** Sets they want most (JSON array) */
+  sets: text("sets"),
+  /** Whether they prefer graded or raw cards */
+  gradedPreference: varchar("graded_preference", { length: 32 }),
+  /** Free-text suggestion */
+  suggestion: text("suggestion"),
+  /** Optional email for launch notification */
+  email: varchar("email", { length: 255 }),
+  /** IP fingerprint to prevent spam (hashed) */
+  fingerprint: varchar("fingerprint", { length: 64 }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+export type RepackFeedback = typeof repackFeedback.$inferSelect;
+export type InsertRepackFeedback = typeof repackFeedback.$inferInsert;

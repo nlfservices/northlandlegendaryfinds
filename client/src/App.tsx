@@ -85,6 +85,7 @@ const DoomsdayCountdown = lazy(() => import("./pages/DoomsdayCountdown"));
 const ChasingDoom = lazy(() => import("./pages/ChasingDoom"));
 const CardOfTheDayPage = lazy(() => import("./pages/CardOfTheDay"));
 const Battleworld = lazy(() => import("./pages/Battleworld"));
+const BuildYourRepack = lazy(() => import("./pages/BuildYourRepack"));
 
 // Minimal loading spinner for lazy-loaded pages
 function PageLoader() {
@@ -195,6 +196,7 @@ function AppRouter() {
             <Route path="/doomsday" component={DoomsdayCountdown} />
             <Route path="/chasing-doom" component={ChasingDoom} />
             <Route path="/battleworld" component={Battleworld} />
+            <Route path="/build-your-repack" component={BuildYourRepack} />
             <Route path="/card-of-the-day/:date" component={CardOfTheDayPage} />
             <Route path="/card-of-the-day" component={CardOfTheDayPage} />
             <Route path="/login" component={JarvisProtocol} />

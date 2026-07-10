@@ -2950,3 +2950,19 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Update extractImages() to find HTML <img> tags in addition to markdown ![alt](url) syntax
 - [x] Pass cardImageUrl prop to all CollectorSpot usages across all templates
 - [x] Verify all blank placeholders are resolved on live article
+
+## July 10, 2026 — Doom Throne Article + Build Your Repack
+- [x] Research Doctor Doom throne reveal at Shanghai Expo / Bilibili World 2026
+- [x] Research SDCC 2026 Hall H panel, trailer confirmation, leaked footage
+- [x] Research 5 confirmed superhero teams for Doomsday
+- [x] Research LEGO set leaks (Dark Avengers)
+- [x] Research Doom card market (2026 Topps Chrome One World Under Doom insert set)
+- [x] Generate featured image for Doom throne article
+- [x] Generate inline images (X-Mansion, Sentinels)
+- [x] Write and publish "Doom's Throne Revealed" MCU News article
+- [x] Create repack_feedback database table (schema + migration)
+- [x] Build repackFeedback tRPC router (submit + admin results endpoints)
+- [x] Build /build-your-repack interactive page (6-step survey: format, price, characters, sets, graded preference, suggestion/email)
+- [x] Add route to App.tsx and SiteMap
+- [x] Publish Facebook post driving traffic to /build-your-repack
+- [x] Post follow-up comment with direct link
