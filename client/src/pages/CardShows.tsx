@@ -155,7 +155,7 @@ function ShowCard({ show }: { show: CardShow }) {
   return (
     <div className={`relative rounded-xl border transition-all duration-200 ${
       isPast
-        ? "border-border/50 bg-card/40 opacity-60"
+        ? "border-border/30 bg-card/20 opacity-40 grayscale"
         : show.featured
           ? "border-orange-500/40 bg-gradient-to-br from-orange-500/5 via-card to-card hover:border-orange-500/60 hover:shadow-lg"
           : "border-border bg-card hover:border-primary/40 hover:shadow-lg"
@@ -296,12 +296,17 @@ function StateSection({
   const pastCount = shows.filter(s => s.status === "past" || s.endDate < today).length;
   const upcomingCount = shows.length - pastCount;
   const sectionRef = useRef<HTMLDivElement>(null);
+  const allPast = upcomingCount === 0;
 
   return (
     <div ref={sectionRef} id={`state-${stateAbbr}`} className="scroll-mt-40">
       <button
         onClick={onToggle}
-        className="w-full flex items-center gap-4 p-4 rounded-xl border border-border bg-card/50 hover:bg-card hover:border-primary/30 transition-all duration-200 group"
+        className={`w-full flex items-center gap-4 p-4 rounded-xl border transition-all duration-200 group ${
+          allPast
+            ? "border-border/30 bg-card/20 opacity-50 grayscale"
+            : "border-border bg-card/50 hover:bg-card hover:border-primary/30"
+        }`}
       >
         <div className="w-10 h-10 rounded-lg bg-primary/15 border border-primary/30 flex items-center justify-center text-primary font-bold text-sm flex-shrink-0">
           {stateAbbr}
