@@ -118,6 +118,14 @@ function extractImages(content: string): string[] {
   return images;
 }
 
+/**
+ * Strip markdown image syntax from text so Streamdown doesn't try to render them
+ * (images are already extracted and displayed in figure slots)
+ */
+function stripImages(text: string): string {
+  return text.replace(/!\[.*?\]\(.*?\)\n*/g, '').trim();
+}
+
 // ============================================================
 // TEMPLATE 1: CLASSIC — Clean Informational (NYT/Vox editorial feel)
 // Serif deck, byline rule, lead image, drop-cap, inline figure,
@@ -209,7 +217,7 @@ export function ClassicTemplate({
 
       {/* ③ body */}
       <div className="ci-body" style={{ fontSize: "1.08rem", color: "#d2d5dd" }}>
-        {intro && <RichContent className={`${proseClasses} ci-intro-prose`}>{intro}</RichContent>}
+        {intro && <RichContent className={`${proseClasses} ci-intro-prose`}>{stripImages(intro)}</RichContent>}
 
         {sections.map((section, i) => (
           <div key={i}>
@@ -237,7 +245,7 @@ export function ClassicTemplate({
               </figure>
             )}
 
-            <RichContent className={proseClasses}>{section.body}</RichContent>
+            <RichContent className={proseClasses}>{stripImages(section.body)}</RichContent>
 
             {/* hanging serif pull quote after first section */}
             {i === 0 && pullQuote && (
@@ -350,11 +358,11 @@ export function MagazineTemplate({
       {introHalves && (
         <div className="mag-intro" style={{ margin: "2rem 0" }}>
           <div className="mag-intro-a">
-            <RichContent className={`${proseClasses} mag-dropcap`}>{introHalves.a}</RichContent>
+            <RichContent className={`${proseClasses} mag-dropcap`}>{stripImages(introHalves.a)}</RichContent>
           </div>
           {introHalves.b && (
             <div className="mag-intro-b">
-              <RichContent className={proseClasses}>{introHalves.b}</RichContent>
+              <RichContent className={proseClasses}>{stripImages(introHalves.b)}</RichContent>
             </div>
           )}
         </div>
@@ -376,13 +384,18 @@ export function MagazineTemplate({
       {/* ⑤ feature sections — alternating figure/text + collector slot */}
       {sections.map((section, i) => {
         const imgRight = i % 2 === 1;
+        const sectionImg = inlineImages[i] || null;
         const fig = (
           <figure className="mag-fig" style={{ margin: 0 }}>
             <div style={{ aspectRatio: "4 / 5", background: "#0a090d", border: `1px solid ${BORDER}`, position: "relative", overflow: "hidden" }}>
+              {sectionImg ? (
+                <img src={sectionImg} alt={section.heading} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              ) : (
               <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: ".3rem", color: "#5a5667", background: "repeating-linear-gradient(135deg,#131119 0 16px,#0e0d13 16px 32px)" }}>
                 <span style={{ fontWeight: 600, letterSpacing: ".08em", textTransform: "uppercase", fontSize: ".66rem" }}>Figure — Add</span>
                 <span style={{ fontFamily: "'Archivo',sans-serif", fontSize: ".6rem", opacity: 0.65 }}>800 × 1000 · 4:5</span>
               </div>
+              )}
             </div>
             <figcaption style={{ fontSize: ".74rem", color: "var(--muted-foreground)", marginTop: ".5rem", lineHeight: 1.45, borderLeft: `2px solid ${PINK}`, paddingLeft: ".6rem" }}>
               {section.heading}
@@ -398,7 +411,7 @@ export function MagazineTemplate({
               {section.heading}
             </h2>
             <div style={{ color: "#c8c5d2", fontSize: "1rem" }}>
-              <RichContent className={proseClasses}>{section.body}</RichContent>
+              <RichContent className={proseClasses}>{stripImages(section.body)}</RichContent>
             </div>
           </div>
         );
@@ -525,7 +538,7 @@ export function SpotlightTemplate({
         <div>
           {intro && (
             <div style={{ fontSize: "1.08rem", color: "#cfd3de", marginBottom: "1.8rem", paddingBottom: "1.6rem", borderBottom: `1px solid ${BORDER}` }}>
-              <RichContent className={proseClasses}>{intro}</RichContent>
+              <RichContent className={proseClasses}>{stripImages(intro)}</RichContent>
             </div>
           )}
 
@@ -541,7 +554,7 @@ export function SpotlightTemplate({
                   </h3>
                 </div>
                 <div style={{ color: "#c4c9d6", fontSize: "1rem" }}>
-                  <RichContent className={proseClasses}>{section.body}</RichContent>
+                  <RichContent className={proseClasses}>{stripImages(section.body)}</RichContent>
                 </div>
               </div>
 
@@ -639,7 +652,7 @@ export function TimelineTemplate({
           T-Minus {dayLabels[0]} · Mission Active
         </div>
         <div style={{ fontSize: "1.02rem", color: "#c4ccd2", position: "relative", zIndex: 1 }}>
-          {intro ? <RichContent className={proseClasses}>{intro}</RichContent> : excerpt && <div>{excerpt}</div>}
+          {intro ? <RichContent className={proseClasses}>{stripImages(intro)}</RichContent> : excerpt && <div>{excerpt}</div>}
         </div>
       </div>
 
@@ -696,7 +709,7 @@ export function TimelineTemplate({
                   {section.heading}
                 </h2>
                 <div style={{ color: "#c2cad0", fontSize: ".95rem" }}>
-                  <RichContent className={proseClasses}>{section.body}</RichContent>
+                  <RichContent className={proseClasses}>{stripImages(section.body)}</RichContent>
                 </div>
               </div>
             </div>
@@ -813,7 +826,7 @@ export function ListicleTemplate({
           <span>● Counting Down · {sections.length} Picks</span>
         </div>
         {intro ? (
-          <RichContent className={proseClasses}>{intro}</RichContent>
+          <RichContent className={proseClasses}>{stripImages(intro)}</RichContent>
         ) : (
           excerpt && <div>{excerpt}</div>
         )}
@@ -1002,7 +1015,7 @@ export function PatrioticTemplate({ content, title, featuredImageUrl, excerpt, t
 
         {/* Intro — light text on dark, serious editorial */}
         <div className="relative z-10 max-w-4xl mx-auto mb-14 pb-10 border-b-4 border-[#B22234]">
-          <RichContent className="prose prose-invert prose-lg max-w-none prose-headings:text-white prose-p:text-gray-300 prose-p:leading-relaxed prose-p:text-xl prose-a:text-[#6B8FD4] prose-strong:text-white prose-blockquote:border-[#B22234] prose-blockquote:text-gray-300 prose-img:rounded-lg">{intro}</RichContent>
+          <RichContent className="prose prose-invert prose-lg max-w-none prose-headings:text-white prose-p:text-gray-300 prose-p:leading-relaxed prose-p:text-xl prose-a:text-[#6B8FD4] prose-strong:text-white prose-blockquote:border-[#B22234] prose-blockquote:text-gray-300 prose-img:rounded-lg">{stripImages(intro)}</RichContent>
         </div>
 
         {/* Sections — alternating side-by-side layout like Northland Fence */}
@@ -1032,11 +1045,11 @@ export function PatrioticTemplate({ content, title, featuredImageUrl, excerpt, t
                       <div className="rounded-2xl overflow-hidden shadow-2xl border-4 border-[#B22234]/30">
                         <ImageLightbox src={sectionImage} alt={section.heading} className="w-full h-auto object-contain" caption={section.heading} />
                       </div>
-                      <RichContent className="prose prose-invert prose-lg max-w-none prose-headings:text-white prose-p:text-gray-300 prose-p:leading-relaxed prose-a:text-[#6B8FD4] prose-strong:text-white prose-blockquote:border-[#B22234] prose-blockquote:text-gray-400 prose-img:rounded-lg">{sectionBody}</RichContent>
+                      <RichContent className="prose prose-invert prose-lg max-w-none prose-headings:text-white prose-p:text-gray-300 prose-p:leading-relaxed prose-a:text-[#6B8FD4] prose-strong:text-white prose-blockquote:border-[#B22234] prose-blockquote:text-gray-400 prose-img:rounded-lg">{stripImages(sectionBody)}</RichContent>
                     </>
                   ) : (
                     <>
-                      <RichContent className="prose prose-invert prose-lg max-w-none prose-headings:text-white prose-p:text-gray-300 prose-p:leading-relaxed prose-a:text-[#6B8FD4] prose-strong:text-white prose-blockquote:border-[#B22234] prose-blockquote:text-gray-400 prose-img:rounded-lg">{sectionBody}</RichContent>
+                      <RichContent className="prose prose-invert prose-lg max-w-none prose-headings:text-white prose-p:text-gray-300 prose-p:leading-relaxed prose-a:text-[#6B8FD4] prose-strong:text-white prose-blockquote:border-[#B22234] prose-blockquote:text-gray-400 prose-img:rounded-lg">{stripImages(sectionBody)}</RichContent>
                       <div className="rounded-2xl overflow-hidden shadow-2xl border-4 border-[#3C3B6E]/30">
                         <ImageLightbox src={sectionImage} alt={section.heading} className="w-full h-auto object-contain" caption={section.heading} />
                       </div>
@@ -1044,7 +1057,7 @@ export function PatrioticTemplate({ content, title, featuredImageUrl, excerpt, t
                   )}
                 </div>
               ) : (
-                <RichContent className="prose prose-invert prose-lg max-w-none prose-headings:text-white prose-p:text-gray-300 prose-p:leading-relaxed prose-a:text-[#6B8FD4] prose-strong:text-white prose-blockquote:border-[#B22234] prose-blockquote:text-gray-400 prose-img:rounded-lg">{sectionBody}</RichContent>
+                <RichContent className="prose prose-invert prose-lg max-w-none prose-headings:text-white prose-p:text-gray-300 prose-p:leading-relaxed prose-a:text-[#6B8FD4] prose-strong:text-white prose-blockquote:border-[#B22234] prose-blockquote:text-gray-400 prose-img:rounded-lg">{stripImages(sectionBody)}</RichContent>
               )}
 
               {/* Pull quote after first section */}
@@ -1850,7 +1863,7 @@ export function CinematicTemplate({
       {/* ② theatrical intro */}
       {intro && (
         <div className="cine-intro-wrap" style={{ maxWidth: "42rem", margin: "3rem auto 2.5rem", textAlign: "center" }}>
-          <RichContent className={`${proseClasses} cine-intro-prose`}>{intro}</RichContent>
+          <RichContent className={`${proseClasses} cine-intro-prose`}>{stripImages(intro)}</RichContent>
         </div>
       )}
 
@@ -1879,7 +1892,7 @@ export function CinematicTemplate({
               {section.heading}
             </h3>
             <div style={{ maxWidth: "40rem", margin: "0 auto" }}>
-              <RichContent className={proseClasses}>{section.body}</RichContent>
+              <RichContent className={proseClasses}>{stripImages(section.body)}</RichContent>
             </div>
           </div>
 
@@ -2064,7 +2077,7 @@ export function DossierTemplate({
           <div style={{ color: PRIMARY_GREEN, textTransform: "uppercase", letterSpacing: ".14em", fontSize: ".7rem", fontWeight: 600, marginBottom: ".6rem" }}>
             Executive Summary
           </div>
-          <RichContent className={proseClasses}>{intro}</RichContent>
+          <RichContent className={proseClasses}>{stripImages(intro)}</RichContent>
         </div>
       )}
 
@@ -2081,7 +2094,7 @@ export function DossierTemplate({
               </span>
             </div>
             <div style={{ padding: "1rem 1.2rem" }}>
-              <RichContent className={proseClasses}>{section.body}</RichContent>
+              <RichContent className={proseClasses}>{stripImages(section.body)}</RichContent>
             </div>
           </div>
 
@@ -2154,7 +2167,7 @@ export function CharacterProfileTemplate({ content, title, featuredImageUrl, tag
         <div className="space-y-6">
           {intro && (
             <div className="bg-gradient-to-br from-primary/5 to-transparent border border-primary/20 rounded-xl p-6">
-              <RichContent className={proseClasses}>{intro}</RichContent>
+              <RichContent className={proseClasses}>{stripImages(intro)}</RichContent>
             </div>
           )}
           {pullQuote && (
@@ -2171,7 +2184,7 @@ export function CharacterProfileTemplate({ content, title, featuredImageUrl, tag
                 </div>
                 <h2 className="text-xl font-bold text-foreground">{section.heading}</h2>
               </div>
-              <RichContent className={proseClasses}>{section.body}</RichContent>
+              <RichContent className={proseClasses}>{stripImages(section.body)}</RichContent>
             </div>
           ))}
         </div>
@@ -2288,7 +2301,7 @@ export function DisneyExperienceTemplate({
       {/* ③ intro card */}
       {intro && (
         <div style={{ background: "var(--card)", border: "1px solid var(--border)", borderLeft: "4px solid #3aa0ff", borderRadius: 14, padding: "1.3rem 1.5rem", marginBottom: "1.8rem", fontSize: "1.05rem", color: "#cdd4e6" }}>
-          <RichContent className={proseClasses}>{intro}</RichContent>
+          <RichContent className={proseClasses}>{stripImages(intro)}</RichContent>
         </div>
       )}
 
@@ -2312,7 +2325,7 @@ export function DisneyExperienceTemplate({
                 </div>
                 <h3 style={{ fontFamily: "'Baloo 2',sans-serif", fontWeight: 700, fontSize: "1.3rem", lineHeight: 1.15, margin: "0 0 .5rem", color: "#fff" }}>{section.heading}</h3>
                 <div style={{ color: "#c2cade", fontSize: ".95rem" }}>
-                  <RichContent className={proseClasses}>{section.body}</RichContent>
+                  <RichContent className={proseClasses}>{stripImages(section.body)}</RichContent>
                 </div>
               </div>
             </div>
@@ -2391,7 +2404,7 @@ export function CollectorSpotlightTemplate({ content, title, featuredImageUrl, t
       )}
       {intro && (
         <div className="bg-card/50 rounded-xl p-6 border border-border">
-          <RichContent className={proseClasses}>{intro}</RichContent>
+          <RichContent className={proseClasses}>{stripImages(intro)}</RichContent>
         </div>
       )}
       {pullQuote && (
@@ -2409,7 +2422,7 @@ export function CollectorSpotlightTemplate({ content, title, featuredImageUrl, t
             </h2>
             <div className="h-px flex-1 bg-border" />
           </div>
-          <RichContent className={proseClasses}>{section.body}</RichContent>
+          <RichContent className={proseClasses}>{stripImages(section.body)}</RichContent>
         </div>
       ))}
       {tags && tags.length > 0 && (
@@ -2586,7 +2599,7 @@ export function ComicStripTemplate({ content, title, featuredImageUrl, tags, exc
               lineHeight: 1.6,
             }}
           >
-            <RichContent className={`${proseClasses} comic-intro-prose`}>{intro}</RichContent>
+            <RichContent className={`${proseClasses} comic-intro-prose`}>{stripImages(intro)}</RichContent>
           </div>
         </div>
       )}
@@ -2616,7 +2629,7 @@ export function ComicStripTemplate({ content, title, featuredImageUrl, tags, exc
 
         const body = (
           <div style={{ padding: "1.15rem 1.25rem", flex: 1 }}>
-            <RichContent className={proseClasses}>{section.body}</RichContent>
+            <RichContent className={proseClasses}>{stripImages(section.body)}</RichContent>
           </div>
         );
 
