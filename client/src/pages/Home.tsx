@@ -22,7 +22,7 @@ import DoomsdayTicker from "@/components/DoomsdayTicker";
 import { trpc } from "@/lib/trpc";
 
 
-const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hero-collector-banner-VbjWsKXzVgGZ6irJXkBrQz.webp";
+const HERO_BG = "/manus-storage/doomsday-hero-banner_8bef00bd.jpg";
 const NLF_PACK = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-nlf-variant-2CkMPP3CsZhFkFXpzSuZkV.webp";
 const TRUST_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/trust-section-bg-kwnjuLkybJ2rqpCpEwiChw.webp";
 
@@ -391,7 +391,7 @@ export default function Home() {
       <section className="relative min-h-[500px] sm:min-h-[600px] lg:min-h-[720px] flex items-center overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0">
-          <img src={HERO_BG} alt="" className="w-full h-full object-cover" loading="eager" decoding="async" fetchPriority="high" />
+          <img src={HERO_BG} alt="" className="w-full h-full object-cover object-top" loading="eager" decoding="async" fetchPriority="high" />
           <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/80 to-black/50" />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
         </div>
