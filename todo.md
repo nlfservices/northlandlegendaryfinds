@@ -2973,3 +2973,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Add simple math captcha as human verification ("What is 3 + 4?")
 - [x] Update server router to submit to GHL (createGHLContact + addGHLContactNote with preferences)
 - [x] Add repack-specific tags to GHL contact (e.g., "repack-interest", format, price range)
+
+## Topps God Emperor Expansion + Victor Article (Jul 11)
+- [x] Add sports/Star Wars licensing section to Topps God Emperor article (NBA, NFL, MLB, Star Wars)
+- [x] Add Panini unlicensed sports angle to the article
+- [x] Research Victor Wembanyama stats, card market, and parallels to Victor Von Doom
+- [x] Write and publish "There's Only One Victor" article (Wembanyama vs Von Doom)
+- [x] Generate images for the Victor article
