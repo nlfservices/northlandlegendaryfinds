@@ -338,9 +338,9 @@ export function MagazineTemplate({
 
       {/* ② asymmetric hero w/ offset tag card */}
       <div style={{ position: "relative", margin: "0 -1.25rem 0" }}>
-        <div style={{ aspectRatio: "21 / 10", background: "#0a090d", position: "relative", overflow: "hidden" }}>
+        <div style={{ background: "#0a090d", position: "relative", overflow: "hidden" }}>
           {featuredImageUrl ? (
-            <img src={featuredImageUrl} alt={title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+            <img src={featuredImageUrl} alt={title} style={{ width: "100%", height: "auto", display: "block" }} />
           ) : (
             <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: ".4rem", color: "#5a5667", background: "repeating-linear-gradient(135deg,#131119 0 18px,#0e0d13 18px 36px)" }}>
               <span style={{ fontSize: "2rem" }}>▦</span>
@@ -387,9 +387,9 @@ export function MagazineTemplate({
         const sectionImg = inlineImages[i] || null;
         const fig = (
           <figure className="mag-fig" style={{ margin: 0 }}>
-            <div style={{ aspectRatio: "4 / 5", background: "#0a090d", border: `1px solid ${BORDER}`, position: "relative", overflow: "hidden" }}>
+            <div style={{ background: "#0a090d", border: `1px solid ${BORDER}`, position: "relative", overflow: "hidden" }}>
               {sectionImg ? (
-                <img src={sectionImg} alt={section.heading} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                <img src={sectionImg} alt={section.heading} style={{ width: "100%", height: "auto", display: "block" }} />
               ) : (
               <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: ".3rem", color: "#5a5667", background: "repeating-linear-gradient(135deg,#131119 0 16px,#0e0d13 16px 32px)" }}>
                 <span style={{ fontWeight: 600, letterSpacing: ".08em", textTransform: "uppercase", fontSize: ".66rem" }}>Figure — Add</span>
