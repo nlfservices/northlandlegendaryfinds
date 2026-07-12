@@ -8,6 +8,7 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { useState, useEffect } from "react";
 import { ShoppingCart, Shield, Star, TrendingUp, Package, ArrowRight, Zap, BookOpen, Clock, Eye, Radio, HelpCircle, Search, Box, Gift, Sparkles, Compass, Users, Heart, Gamepad2, Play, MapPin, Lightbulb, Crown, Award, ChevronDown, ChevronUp } from "lucide-react";
 import NewsletterSignup from "@/components/NewsletterSignup";
+import LegendaryListForm from "@/components/LegendaryListForm";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "wouter";
 import { useCart } from "@/contexts/CartContext";
@@ -72,40 +73,40 @@ const LEGACY_LEGENDS = [
     id: "mckellen",
     actorName: "Ian McKellen",
     characterName: "Magneto",
-    badge: "Debut Auto",
+    badge: "Awaiting Debut Auto",
     badgeColor: "from-red-500 to-red-700",
     badgeTextColor: "text-red-100",
     borderColor: "border-red-500/40",
     glowColor: "shadow-red-500/30",
     accentColor: "text-red-400",
     image: LEGACY_MCKELLEN_MAGNETO,
-    note: "Six-time Olivier Award winner. Knighted for services to the performing arts. Defined Gandalf and Magneto for an entire generation. Sir Ian McKellen has been a titan of stage and screen for over 60 years — and a fearless advocate for equality. His first-ever Marvel autograph card.",
+    note: "Six-time Olivier Award winner. Knighted for services to the performing arts. Defined Gandalf and Magneto for an entire generation. Sir Ian McKellen has been a titan of stage and screen for over 60 years — and a fearless advocate for equality. No Marvel autograph card exists yet — collectors are hoping for a debut auto in a future Topps set.",
   },
   {
     id: "stewart",
     actorName: "Patrick Stewart",
     characterName: "Professor X",
-    badge: "Debut Auto",
+    badge: "Awaiting Debut Auto",
     badgeColor: "from-blue-500 to-cyan-600",
     badgeTextColor: "text-blue-100",
     borderColor: "border-blue-500/40",
     glowColor: "shadow-blue-500/30",
     accentColor: "text-blue-400",
     image: LEGACY_STEWART_PROFX,
-    note: "Legendary Royal Shakespeare Company actor. Knighted in 2010. Made Captain Picard and Professor X two of the most iconic characters in pop culture history. Sir Patrick Stewart brings gravitas to everything he touches — from Star Trek to the X-Men. His first-ever Marvel autograph card.",
+    note: "Legendary Royal Shakespeare Company actor. Knighted in 2010. Made Captain Picard and Professor X two of the most iconic characters in pop culture history. Sir Patrick Stewart brings gravitas to everything he touches — from Star Trek to the X-Men. No Marvel autograph card exists yet — collectors are hoping for a debut auto in a future Topps set.",
   },
   {
     id: "downey",
     actorName: "Robert Downey Jr.",
     characterName: "Iron Man / Doctor Doom",
-    badge: "The Godfather",
+    badge: "Awaiting Debut Auto",
     badgeColor: "from-red-500 to-amber-600",
     badgeTextColor: "text-red-100",
     borderColor: "border-red-500/40",
     glowColor: "shadow-red-500/30",
     accentColor: "text-red-400",
     image: LEGACY_RDJ_IRON_MAN,
-    note: "Academy Award winner for Oppenheimer. Launched the entire MCU as Tony Stark in 2008 and defined a generation of superhero cinema across 11 films. His 'I am Iron Man' became the most iconic line in Marvel history. Now returning as Doctor Doom in Avengers: Doomsday — the only actor to play both the MCU's greatest hero and its greatest villain.",
+    note: "Academy Award winner for Oppenheimer. Launched the entire MCU as Tony Stark in 2008 and defined a generation of superhero cinema across 11 films. His 'I am Iron Man' became the most iconic line in Marvel history. Now returning as Doctor Doom in Avengers: Doomsday — the only actor to play both the MCU's greatest hero and its greatest villain. No Marvel autograph card exists yet — collectors are hoping for a debut auto in a future Topps set.",
   },
 ];
 
@@ -1335,8 +1336,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== 15. NEWSLETTER ===== */}
-      <NewsletterSignup variant="section" source="homepage-inline" />
+      {/* ===== 15. LEGENDARY LIST SIGNUP ===== */}
+      <LegendaryListForm variant="section" source="homepage-inline" />
     </div>
   );
 }

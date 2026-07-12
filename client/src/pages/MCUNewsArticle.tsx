@@ -21,6 +21,7 @@ import ArticlePollWidget from "@/components/ArticlePollWidget";
 import ArticlePollWidgetMini from "@/components/ArticlePollWidgetMini";
 import RelatedArticles from "@/components/RelatedArticles";
 import MCUCountdown from "@/components/MCUCountdown";
+import LegendaryListForm from "@/components/LegendaryListForm";
 
 const CARD_MARKET_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mcu-intel-card-market-Lt56dsta4y7Hzfj6pzAysR.webp";
 
@@ -468,6 +469,9 @@ export default function MCUNewsArticle() {
           </a>
           <p className="text-xs text-muted-foreground mt-3">No purchase necessary to watch or win. Just show up.</p>
         </div>
+
+        {/* Legendary List Signup — end of article */}
+        <LegendaryListForm variant="article-end" source={`article-${slug}`} />
 
         {/* Sources */}
         {sources.length > 0 && (

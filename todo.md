@@ -2980,3 +2980,25 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Research Victor Wembanyama stats, card market, and parallels to Victor Von Doom
 - [x] Write and publish "There's Only One Victor" article (Wembanyama vs Von Doom)
 - [x] Generate images for the Victor article
+
+## Legendary List Signup Form
+- [ ] Create database table for newsletter subscribers (name, email, phone, sms_consent, email_consent, source_page, created_at)
+- [ ] Build reusable LegendaryListForm component (fields: first name, email, phone optional, SMS checkbox, disclaimer)
+- [ ] Add form validation (email format, phone format when entered)
+- [ ] Build backend tRPC endpoint for form submission
+- [ ] Integrate with GoHighLevel CRM (GHL_API_KEY)
+- [ ] Add duplicate contact prevention
+- [ ] Add basic spam protection (honeypot field)
+- [ ] Build desktop slide-in popup (bottom-right corner, subtle animation)
+- [ ] Build mobile bottom sheet version
+- [ ] Implement trigger logic (40 seconds OR 50% scroll, whichever first)
+- [ ] Implement display rules (once per 10 days, not after subscribe, not on cart/checkout/login pages)
+- [ ] Wait for cookie notice dismissal before showing
+- [ ] Session dismissal tracking (close = don't show again this session)
+- [ ] Add permanent form: homepage above footer
+- [ ] Add permanent form: inside footer
+- [ ] Add permanent form: end of articles
+- [ ] Success message with conditional VIP text alert confirmation
+- [ ] Track form views, opens, closes, submissions
+- [ ] Store consent status and source page with each submission
+- [ ] Test responsive behavior on all screen sizes

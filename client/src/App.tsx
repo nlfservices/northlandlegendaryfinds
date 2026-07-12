@@ -10,7 +10,7 @@ import Navigation from "./components/Navigation";
 import GlobalTicker from "./components/GlobalTicker";
 import Footer from "./components/Footer";
 import CartDrawer from "./components/CartDrawer";
-import EmailCapturePopup from "./components/EmailCapturePopup";
+import LegendaryListPopup from "./components/LegendaryListPopup";
 
 // Critical path - loaded eagerly (homepage)
 import Home from "./pages/Home";
@@ -217,7 +217,7 @@ function App() {
         <CartProvider>
           <TooltipProvider>
             <Toaster />
-            {/* <EmailCapturePopup /> — disabled per owner request */}
+            <LegendaryListPopup />
             <AppRouter />
           </TooltipProvider>
         </CartProvider>
