@@ -54,9 +54,10 @@ function createAnonContext(): TrpcContext {
 
 const sampleArticle = {
   title: "Test Article: Doomsday Update",
-  slug: "test-article-doomsday-update",
+  slug: "test-article-doomsday-update-" + Date.now(),
   excerpt: "A test article about Doomsday",
-  contentMarkdown: "## Test Content\n\nThis is test content for the article system.",
+  contentMarkdown: "## Section One\n\n![Hero image](https://example.com/img1.png)\n\nFirst section content about Doomsday and the upcoming film.\n\n> This is a pull quote about the significance of this reveal.\n\n## Section Two\n\n![Cast image](https://example.com/img2.png)\n\nSecond section about the cast and their roles in the MCU.\n\n## Section Three\n\n![Cards image](https://example.com/img3.png)\n\nThird section about card market impact and collector demand.\n\n> Another blockquote about the market implications for collectors.\n\n## Section Four\n\n![Market image](https://example.com/img4.png)\n\nFourth section about what this means for the hobby going forward.\n\n## Section Five\n\n![Future image](https://example.com/img5.png)\n\nFifth section wrapping up with predictions and community reactions.",
+  featuredImageUrl: "https://example.com/test-hero.png",
   category: "movie_news" as const,
   tags: ["Doomsday", "Test"],
   cardMarketImpact: "Test cards trending upward",
@@ -71,7 +72,8 @@ describe("articles - admin procedures", () => {
   it("admin can create an article", async () => {
     const caller = appRouter.createCaller(createAdminContext());
     const result = await caller.adminArticles.create(sampleArticle);
-    expect(result).toEqual({ success: true });
+    expect(result.success).toBe(true);
+    expect(result.templateLayout).toBeDefined();
   });
 
   it("admin can list all articles", async () => {

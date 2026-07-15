@@ -1010,6 +1010,7 @@ export default function Home() {
             </div>
           </div>
 
+          {/* NEWSLETTER */}
           <div className="text-center mt-8">
             <p className="text-muted-foreground text-sm mb-4">Want to be first to know when new fandoms drop?</p>
             <NewsletterSignup variant="sidebar" source="homepage-fandom-roadmap" headline="Get Notified" subtext="Be the first to know when new fandoms launch" />
