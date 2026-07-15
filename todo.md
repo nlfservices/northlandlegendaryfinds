@@ -3002,3 +3002,18 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [ ] Track form views, opens, closes, submissions
 - [ ] Store consent status and source page with each submission
 - [ ] Test responsive behavior on all screen sizes
+
+## Auto-Quarantine Contract Verifier + Explosion Article (July 2026)
+- [x] Upgrade article-pipeline.ts: quarantineFailingArticles() auto-unpublishes + sets NEEDS_MANUAL_REVIEW status
+- [x] Wire quarantine verifier into articles router as on-demand admin mutation
+- [x] Update NLF Article Publisher skill with permanent editorial hero image policy (card-scan collage, no AI illustrations)
+- [x] Create card-scan collage hero image from 6 real NLF card images (Doom, Cyclops, Gambit, Thor, Loki, Mr. Fantastic)
+- [x] Upload collage to CDN (accessible: card-scan-collage-hero-editorial.webp)
+- [x] Write "The Explosion Is Coming" article — classic template, 6 H2s, 0 blockquotes, featured image present
+- [x] Publish article to database (ID 4530001, slug: marvel-cards-going-mainstream-explosion-2026)
+- [x] Contract verification passed: ✅ PASS (classic template, 6 H2s, 0 blockquotes, featured image)
+- [x] Update rotation counter to "classic"
+- [x] Wire quarantine verifier into scheduled-daily-article.ts (auto-quarantine on publishImmediately)
+- [x] Wire quarantine verifier into rest-api.ts POST and PATCH (auto-quarantine on publish)
+- [x] All 437 tests passing (41 test files), zero TypeScript errors
+- [ ] Save checkpoint

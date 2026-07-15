@@ -227,7 +227,69 @@ export function validatePublishedAt(value: unknown): number {
 }
 
 
-// ─── 6. TEMPLATE INFO HELPER (for callers to know what's next) ────────────────
+// ─── 6. AUTO-QUARANTINE VERIFIER ─────────────────────────────────────────────
+
+export interface QuarantineResult {
+  scanned: number;
+  quarantined: number;
+  details: Array<{ id: number; slug: string; template: string; errors: string[] }>;
+}
+
+/**
+ * Scans ALL published articles against their template contracts.
+ * Any article that fails is auto-flipped to unpublished (quarantined).
+ * Returns a summary of what was found and quarantined.
+ *
+ * Call this:
+ *  - On-demand after any raw SQL workflow touching the articles table
+ *  - From the daily heartbeat as a safety net
+ */
+export async function quarantineFailingArticles(
+  getAllPublished: () => Promise<Array<{ id: number; slug: string; templateLayout: string; contentMarkdown: string; featuredImageUrl: string | null }>>,
+  unpublishById: (id: number) => Promise<void>
+): Promise<QuarantineResult> {
+  const articles = await getAllPublished();
+  const details: QuarantineResult["details"] = [];
+
+  for (const article of articles) {
+    const template = article.templateLayout as AnyTemplate;
+    if (!CONTRACTS[template]) {
+      // Unknown template — quarantine
+      details.push({
+        id: article.id,
+        slug: article.slug,
+        template: article.templateLayout,
+        errors: [`Unknown template "${article.templateLayout}" not in contracts`],
+      });
+      await unpublishById(article.id);
+      continue;
+    }
+
+    const result = validateArticle(
+      { contentMarkdown: article.contentMarkdown, featuredImageUrl: article.featuredImageUrl },
+      template
+    );
+
+    if (!result.ok) {
+      details.push({
+        id: article.id,
+        slug: article.slug,
+        template: article.templateLayout,
+        errors: result.errors,
+      });
+      await unpublishById(article.id);
+    }
+  }
+
+  return {
+    scanned: articles.length,
+    quarantined: details.length,
+    details,
+  };
+}
+
+
+// ─── 7. TEMPLATE INFO HELPER (for callers to know what's next) ────────────────
 
 export function getContractSummary(template: AnyTemplate): string {
   const c = CONTRACTS[template];

@@ -17,6 +17,8 @@
  */
 import { Express, Request, Response } from "express";
 import mysql from "mysql2/promise";
+import { validateArticle, AnyTemplate } from "./article-pipeline";
+import { notifyOwner } from "./_core/notification";
 
 // Art style rotation — 7 styles, cycles through in order, never same two days in a row
 const ART_STYLES = [
@@ -213,6 +215,38 @@ export function registerDailyArticleRoute(app: Express) {
         }
 
         await conn.end();
+
+        // 8. On-demand contract verification for publishImmediately articles
+        if (publishImmediately) {
+          const contractResult = validateArticle(
+            { contentMarkdown, featuredImageUrl: featuredImageUrl ?? null },
+            templateLayout as AnyTemplate
+          );
+          if (!contractResult.ok) {
+            // Auto-quarantine: unpublish the article immediately
+            const quarantineConn = await mysql.createConnection(process.env.DATABASE_URL!);
+            await quarantineConn.execute(
+              `UPDATE articles SET isPublished = 0 WHERE id = ?`,
+              [articleId]
+            );
+            await quarantineConn.end();
+            console.error(
+              `[DailyArticle] ⚠️ QUARANTINED article ${articleId} ("${title}"): ${contractResult.errors.join("; ")}`
+            );
+            await notifyOwner({
+              title: `⚠️ Article Auto-Quarantined: ${title}`,
+              content: `Article "${title}" (slug: ${slug}) was auto-quarantined immediately after publish.\n\nContract violations:\n${contractResult.errors.map(e => `• ${e}`).join("\n")}\n\nTemplate: ${templateLayout}\nAction: Unpublished automatically. Review in admin dashboard.`,
+            });
+            return res.json({
+              success: false,
+              articleId,
+              slug,
+              quarantined: true,
+              errors: contractResult.errors,
+              message: `Article quarantined — failed ${templateLayout} contract: ${contractResult.errors.join("; ")}`,
+            });
+          }
+        }
 
         console.log(
           `[DailyArticle] ${publishImmediately ? "Published" : "Draft saved"}: "${title}" | ` +

@@ -12,7 +12,7 @@ import {
 import {
   ROTATION, SPECIALS, CONTRACTS,
   getNextTemplate, advanceRotation, validateArticle,
-  getContractSummary, validatePublishedAt,
+  getContractSummary, validatePublishedAt, quarantineFailingArticles,
   type RotationTemplate, type AnyTemplate,
 } from "../article-pipeline";
 
@@ -163,6 +163,28 @@ export const articleAdminRouter = router({
   toggleFeatured: adminProcedure.input(z.object({ id: z.number() })).mutation(async ({ input }) => {
     await toggleArticleFeatured(input.id);
     return { success: true };
+  }),
+
+  /** Run the auto-quarantine verifier on all published articles.
+   *  Any article failing its template contract is immediately unpublished.
+   *  Call after any raw SQL workflow or as a safety check. */
+  quarantineCheck: adminProcedure.mutation(async () => {
+    const result = await quarantineFailingArticles(
+      async () => {
+        const all = await getPublishedArticles();
+        return (all || []).map((a: any) => ({
+          id: a.id,
+          slug: a.slug,
+          templateLayout: a.templateLayout || "classic",
+          contentMarkdown: a.contentMarkdown || "",
+          featuredImageUrl: a.featuredImageUrl || null,
+        }));
+      },
+      async (id: number) => {
+        await toggleArticlePublished(id);
+      }
+    );
+    return result;
   }),
 
   togglePublished: adminProcedure.input(z.object({ id: z.number() })).mutation(async ({ input }) => {

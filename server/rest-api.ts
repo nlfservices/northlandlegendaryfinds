@@ -34,6 +34,8 @@ import {
   apiKeys,
 } from "../drizzle/schema";
 import { eq, like, and, desc, sql } from "drizzle-orm";
+import { validateArticle, AnyTemplate } from "./article-pipeline";
+import { notifyOwner } from "./_core/notification";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -427,17 +429,47 @@ export function registerRestApi(app: import("express").Express) {
         return void res.status(400).json({ error: "title, slug, and contentMarkdown are required" });
       }
 
+      const publishing = isPublished === true || isPublished === "true";
+      const tpl = templateLayout || "classic";
+
+      // On-demand contract verification before publishing
+      if (publishing) {
+        const contractResult = validateArticle(
+          { contentMarkdown, featuredImageUrl: featuredImageUrl || null },
+          tpl as AnyTemplate
+        );
+        if (!contractResult.ok) {
+          // Auto-quarantine: insert as unpublished
+          await db.insert(articles).values({
+            title, slug, contentMarkdown,
+            excerpt: excerpt || "",
+            isPublished: false,
+            featuredImageUrl: featuredImageUrl || null,
+            category: category || "movie_news",
+            tags: tags || null,
+            templateLayout: tpl,
+            publishedAt: null,
+          });
+          await notifyOwner({
+            title: `\u26a0\ufe0f Article Auto-Quarantined: ${title}`,
+            content: `REST API tried to publish "${title}" (slug: ${slug}) but it failed contract.\n\nViolations:\n${contractResult.errors.map(e => `\u2022 ${e}`).join("\n")}\n\nTemplate: ${tpl}\nAction: Saved as unpublished draft. Review in admin.`,
+          });
+          const [created] = await db.select().from(articles).where(eq(articles.slug, slug)).limit(1);
+          return void res.status(422).json({ data: created, quarantined: true, errors: contractResult.errors });
+        }
+      }
+
       await db.insert(articles).values({
         title,
         slug,
         contentMarkdown,
         excerpt: excerpt || "",
-        isPublished: isPublished === true || isPublished === "true",
+        isPublished: publishing,
         featuredImageUrl: featuredImageUrl || null,
         category: category || "movie_news",
         tags: tags || null,
-        templateLayout: templateLayout || "classic",
-        publishedAt: (isPublished === true || isPublished === "true") ? Date.now() : null,
+        templateLayout: tpl,
+        publishedAt: publishing ? Date.now() : null,
       });
 
       const [created] = await db.select().from(articles).where(eq(articles.slug, slug)).limit(1);
@@ -464,6 +496,32 @@ export function registerRestApi(app: import("express").Express) {
       if (req.body.isPublished === true || req.body.isPublished === "true") {
         updates.publishedAt = Date.now();
       }
+
+      // On-demand contract verification when publishing via PATCH
+      const isPublishing = req.body.isPublished === true || req.body.isPublished === "true";
+      if (isPublishing) {
+        // Fetch existing article to merge with updates for validation
+        const [existing] = await db.select().from(articles).where(eq(articles.id, parseInt(req.params.id))).limit(1);
+        if (existing) {
+          const content = (updates.contentMarkdown as string) || existing.contentMarkdown || "";
+          const featImg = (updates.featuredImageUrl as string) ?? existing.featuredImageUrl ?? null;
+          const tpl = (updates.templateLayout as string) || existing.templateLayout || "classic";
+          const contractResult = validateArticle({ contentMarkdown: content, featuredImageUrl: featImg }, tpl as AnyTemplate);
+          if (!contractResult.ok) {
+            // Don't publish — save as draft instead
+            updates.isPublished = false;
+            updates.publishedAt = null as any;
+            await db.update(articles).set(updates as any).where(eq(articles.id, parseInt(req.params.id)));
+            await notifyOwner({
+              title: `\u26a0\ufe0f Article Auto-Quarantined: ${existing.title}`,
+              content: `REST API PATCH tried to publish article ${existing.id} ("${existing.title}") but it failed contract.\n\nViolations:\n${contractResult.errors.map(e => `\u2022 ${e}`).join("\n")}\n\nTemplate: ${tpl}\nAction: Kept as unpublished. Review in admin.`,
+            });
+            const [updated] = await db.select().from(articles).where(eq(articles.id, parseInt(req.params.id))).limit(1);
+            return void res.status(422).json({ data: updated, quarantined: true, errors: contractResult.errors });
+          }
+        }
+      }
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       await db.update(articles).set(updates as any).where(eq(articles.id, parseInt(req.params.id)));
       const [updated] = await db.select().from(articles).where(eq(articles.id, parseInt(req.params.id))).limit(1);
