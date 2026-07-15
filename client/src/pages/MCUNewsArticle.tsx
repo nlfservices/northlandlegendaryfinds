@@ -257,7 +257,12 @@ export default function MCUNewsArticle() {
     );
   }
 
-  const tags = (article.tags as string[] | null) || [];
+  const rawTags = article.tags;
+  const tags: string[] = Array.isArray(rawTags)
+    ? rawTags
+    : typeof rawTags === 'string'
+      ? (() => { try { return JSON.parse(rawTags); } catch { return []; } })()
+      : [];
   const sources = (article.sources as Array<{ title: string; url: string }> | null) || [];
   const relatedCharacters = (article.relatedCharacters as string[] | null) || [];
 
