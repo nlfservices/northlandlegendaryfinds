@@ -3016,4 +3016,19 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Wire quarantine verifier into scheduled-daily-article.ts (auto-quarantine on publishImmediately)
 - [x] Wire quarantine verifier into rest-api.ts POST and PATCH (auto-quarantine on publish)
 - [x] All 437 tests passing (41 test files), zero TypeScript errors
-- [ ] Save checkpoint
+- [x] Save checkpoint
+
+## Stan Lee Legacy Article (July 2026)
+- [x] Create card-scan collage hero image (6 cards: Thor, Doom, Cyclops, Gambit, Loki, Mr. Fantastic)
+- [x] Write article: "Stan Lee's Legacy Lives in Every Card You Collect"
+- [x] Run contract verifier — PASS (spotlight template, 6 H2s, featured image present)
+- [x] Publish article to database
+- [x] Verify live on northlandlegendaryfinds.com
+
+## Adam Driver X-Men / Marvel Mint Article (July 2026)
+- [x] Create card-scan collage hero image (X-Men characters: Cyclops, Gambit, Doom, Loki, Thor, Mr. Fantastic)
+- [x] Write article: "Adam Driver in the MCU: Magneto or Mister Sinister — What It Means for Your Collection"
+- [x] Include 2026 Topps Marvel Mint release info
+- [x] Run contract verifier — PASS (timeline template, 6 H2s, inline images per section)
+- [x] Publish article to database
+- [x] Verify live on northlandlegendaryfinds.com
