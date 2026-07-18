@@ -3041,7 +3041,8 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Rotation advanced to "listicle"
 
 ## Listicle Template Mobile Fix (July 18, 2026)
-- [ ] Fix mobile layout: images too large, headings overlapping card images
-- [ ] Reduce card image height on mobile, add proper text spacing
-- [ ] Ensure section headings don't overlap images on stacked layout
-- [ ] Test on mobile viewport
+- [x] Fix mobile layout: images too large, headings overlapping card images
+- [x] Reduce card image height on mobile (max 180px), text appears FIRST via CSS order
+- [x] Ensure section headings don't overlap images (caption overlay hidden on mobile)
+- [x] Test on mobile viewport (verified with injected mobile styles)
+- [x] Save checkpoint
