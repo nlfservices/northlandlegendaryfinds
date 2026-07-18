@@ -34,7 +34,7 @@ export default function ImageLightbox({ src, alt, className = "", caption }: Ima
         className={`group cursor-pointer ${isAbsolute ? 'absolute inset-0' : 'relative'}`}
         onClick={open}
       >
-        <img src={src} alt={alt} className={`${imgClassName} ${isAbsolute ? 'w-full h-full' : ''}`} />
+        <img src={src} alt={alt} className={`${imgClassName} ${isAbsolute ? 'w-full h-full' : ''}`} loading="lazy" />
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
           <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/60 rounded-full p-3">
             <ZoomIn className="w-6 h-6 text-white" />
