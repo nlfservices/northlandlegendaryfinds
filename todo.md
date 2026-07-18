@@ -3032,3 +3032,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Run contract verifier — PASS (timeline template, 6 H2s, inline images per section)
 - [x] Publish article to database
 - [x] Verify live on northlandlegendaryfinds.com
+
+## Weekly Marvel Recap Article (July 18, 2026)
+- [x] Research this week's Marvel news (Spider-Man BND, Doomsday tickets, Adam Driver, Wolverine PS5, Marvel Rivals, X-Men 97, SDCC preview)
+- [x] Write article: "This Week in Marvel: The Biggest Week of 2026 Just Happened"
+- [x] Template: listicle (7 H2s, inline image per section) — contract PASS
+- [x] Publish to database
+- [x] Rotation advanced to "listicle"
