@@ -846,7 +846,7 @@ export function ListicleTemplate({
         const sectionImg = extractFirstSectionImage(entry.body);
 
         const art = (
-          <div className="lc-art" style={{ position: "relative", minHeight: 280, background: "#0a0010", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+          <div className="lc-art" style={{ position: "relative", minHeight: 280, background: "#0a0010", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", padding: "8px" }}>
             <div className="lc-rank-bg" style={{ position: "absolute", top: 0, left: 12, fontFamily: "'Anton',sans-serif", fontSize: "6rem", lineHeight: 1, color: isTop ? "#ffff" : "rgba(255,255,255,.08)", pointerEvents: "none", zIndex: 1 }}>
               {String(entry.rank).padStart(2, "0")}
             </div>
@@ -854,7 +854,7 @@ export function ListicleTemplate({
               {entry.rank}
             </div>
             {sectionImg ? (
-              <ImageLightbox src={sectionImg} alt={entry.heading} className="w-full h-full object-cover absolute inset-0" caption={entry.heading} />
+              <ImageLightbox src={sectionImg} alt={entry.heading} className="lc-card-img w-full h-auto object-contain" caption={entry.heading} />
             ) : (
               <>
                 <span style={{ fontSize: "2rem" }}>{isTop ? "★" : "🃏"}</span>
@@ -929,13 +929,16 @@ export function ListicleTemplate({
       )}
 
       <style>{`
+        .lc-art{ position:relative; }
+        .lc-card-img{ max-height:420px; }
         @media(max-width:768px){
           .lc-entry{ grid-template-columns:1fr !important; }
           .lc-counter{ display:none; }
           .lc-copy-wrap{ order:-1 !important; }
           .lc-art-wrap{ order:1 !important; }
-          .lc-art{ min-height:240px !important; max-height:360px !important; padding:0 !important; }
-          .lc-art img{ object-fit:cover !important; border-radius:6px; width:100% !important; height:100% !important; }
+          .lc-art{ min-height:auto !important; max-height:none !important; padding:12px !important; }
+          .lc-card-img{ max-height:420px !important; width:auto !important; max-width:100% !important; margin:0 auto !important; }
+          .lc-art img{ object-fit:contain !important; border-radius:6px; }
           .lc-art .group > p.absolute{ display:none !important; }
           .lc-rank-bg{ font-size:2.5rem !important; top:4px !important; left:6px !important; opacity:0.12 !important; }
           .lc-rank-badge{ width:28px !important; height:28px !important; top:6px !important; left:6px !important; font-size:.65rem !important; }
@@ -944,7 +947,7 @@ export function ListicleTemplate({
           .lc-entry{ margin-bottom:0.8rem !important; border-width:2px !important; }
         }
         @media(max-width:480px){
-          .lc-art{ min-height:200px !important; max-height:320px !important; }
+          .lc-card-img{ max-height:380px !important; }
           .lc-rank-bg{ font-size:2rem !important; }
           .lc-rank-badge{ width:24px !important; height:24px !important; font-size:.6rem !important; }
           .lc-copy{ padding:0.7rem 0.85rem !important; }
