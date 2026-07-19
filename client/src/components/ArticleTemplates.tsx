@@ -854,7 +854,7 @@ export function ListicleTemplate({
               {entry.rank}
             </div>
             {sectionImg ? (
-              <ImageLightbox src={sectionImg} alt={entry.heading} className="lc-card-img w-full h-auto object-contain" caption={entry.heading} />
+              <ImageLightbox src={sectionImg} alt={entry.heading} className="lc-card-img w-full h-auto object-contain" />
             ) : (
               <>
                 <span style={{ fontSize: "2rem" }}>{isTop ? "★" : "🃏"}</span>
