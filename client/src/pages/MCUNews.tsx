@@ -150,53 +150,53 @@ function VotingGrounds() {
   };
 
   return (
-    <section id="voting-grounds" className="py-10 bg-background border-2 border-red-600 rounded-xl mx-4 lg:mx-auto max-w-7xl my-8 shadow-lg shadow-red-900/20">
+    <section id="voting-grounds" className="py-5 bg-background border border-red-600/60 rounded-lg mx-4 lg:mx-auto max-w-4xl my-6 shadow-md shadow-red-900/10">
       <div className="container">
         {/* Section Header */}
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-10 h-10 bg-red-600/20 rounded-lg flex items-center justify-center shadow-md border border-red-600/40">
-            <span className="text-xl">🗳️</span>
+        <div className="flex items-center gap-2 mb-4">
+          <div className="w-7 h-7 bg-red-600/20 rounded-md flex items-center justify-center border border-red-600/40">
+            <span className="text-sm">🗳️</span>
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-red-500" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>Voting Grounds</h2>
-            <p className="text-sm text-muted-foreground">Cast your vote on the latest MCU topics</p>
+            <h2 className="text-lg font-bold text-red-500" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>Voting Grounds</h2>
+            <p className="text-xs text-muted-foreground">Cast your vote on the latest MCU topics</p>
           </div>
         </div>
 
-        {/* Voting Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {articlesWithVotes.slice(0, 6).map(item => {
+        {/* Voting Cards Grid - reduced to 2 cols, max 4 items */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          {articlesWithVotes.slice(0, 4).map(item => {
             const topEmoji = REACTION_EMOJIS[item.topReaction] || "\u{1F480}";
             return (
-              <div key={item.articleId} className="rounded-xl overflow-hidden bg-card shadow-lg border border-red-600/30 hover:border-red-500/60 transition-all">
+              <div key={item.articleId} className="rounded-lg overflow-hidden bg-card shadow border border-red-600/20 hover:border-red-500/50 transition-all">
                 {/* Article Header */}
                 <Link
                   href={`/mcu-news/${item.article.slug}`}
-                  className="block p-4 pb-2 group"
+                  className="block p-3 pb-1.5 group"
                 >
-                  <div className="flex gap-3 items-start">
+                  <div className="flex gap-2 items-start">
                     {item.article.featuredImageUrl && (
                       <img
                         src={item.article.featuredImageUrl}
                         alt={item.article.title}
-                        className="w-16 h-16 rounded-lg object-cover flex-shrink-0 group-hover:scale-105 transition-transform"
+                        className="w-12 h-12 rounded-md object-cover flex-shrink-0 group-hover:scale-105 transition-transform"
                       />
                     )}
                     <div className="min-w-0">
-                      <h3 className="text-sm font-bold text-white line-clamp-2 group-hover:text-white/80 transition-colors">
+                      <h3 className="text-xs font-bold text-white line-clamp-2 group-hover:text-white/80 transition-colors">
                         {item.article.title}
                       </h3>
-                      <div className="flex items-center gap-2 mt-1">
-                        <span className="text-xs text-white/60">{item.totalVotes} vote{item.totalVotes !== 1 ? "s" : ""}</span>
-                        <span className="text-xs text-white/40">|</span>
-                        <span className="text-xs text-white/60">Top: {topEmoji}</span>
+                      <div className="flex items-center gap-2 mt-0.5">
+                        <span className="text-[10px] text-white/60">{item.totalVotes} vote{item.totalVotes !== 1 ? "s" : ""}</span>
+                        <span className="text-[10px] text-white/40">|</span>
+                        <span className="text-[10px] text-white/60">Top: {topEmoji}</span>
                       </div>
                     </div>
                   </div>
                 </Link>
 
                 {/* Compact Voting */}
-                <div className="px-4 pb-4 pt-2">
+                <div className="px-3 pb-3 pt-1.5">
                   <FanVoting articleId={item.articleId} compact />
                 </div>
               </div>
@@ -478,8 +478,7 @@ export default function MCUNews() {
       {/* ===== CATEGORY FILTERS + SEARCH + ARTICLES ===== */}
       <section className="py-12">
         <div className="container">
-          {/* ===== VOTING GROUNDS (at top) ===== */}
-          <VotingGrounds />
+          {/* Voting Grounds moved lower on page */}
 
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Main Content */}
@@ -727,6 +726,9 @@ export default function MCUNews() {
           </div>
         </div>
       </section>
+
+      {/* ===== VOTING GROUNDS (lower on page, half size) ===== */}
+      <VotingGrounds />
     </div>
   );
 }
