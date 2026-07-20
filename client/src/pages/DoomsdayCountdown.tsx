@@ -36,19 +36,19 @@ const CONFIRMED_DETAILS = [
 
 const COLLECTOR_ANGLES = [
   {
-    title: "Doctor Doom Cards",
-    desc: "RDJ stepping into Doom is the biggest MCU casting news in years. Numbered Doom cards are already moving.",
-    href: "https://riseofdoom.com",
+    title: "2025 Topps Marvel Mint — SDCC Exclusive",
+    desc: "Last year's SDCC-only set featured Doctor Doom as the chase card. Comic Cuts, Chrome Refractors, and a Stan Lee Cut Signature — all confirmed characters from this trailer.",
+    href: "/mcu-news/2025-topps-marvel-mint-complete-guide-bronze-to-platinum",
   },
   {
-    title: "Fantastic Four Connection",
-    desc: "The Fantastic Four are central to Doomsday's story. Reed Richards, Sue Storm, and the team are all in play.",
-    href: "/marvel-characters",
+    title: "2026 Marvel Mint Drops This Week at SDCC",
+    desc: "History repeats: Topps just announced the 2026 Marvel Mint release at SDCC — Spider-Man themed this year. Same exclusive format, same limited boxes.",
+    href: "/mcu-news/2026-topps-marvel-mint-sdcc-spider-man-exclusive-announcement",
   },
   {
-    title: "The Avengers Roster",
-    desc: "Every Avenger on screen means every Avenger card gets a spotlight. Now is the time to build your set.",
-    href: "/marvel-characters",
+    title: "Every Character = A Card",
+    desc: "Doom, Thor, Xavier, Gambit, Magneto, Captain America — the trailer confirmed them all. Every character on screen means every card gets a spotlight.",
+    href: "/mcu-news/doctor-doom-sdcc-exclusive-750-card-2025-topps-marvel-mint",
   },
 ];
 
@@ -243,6 +243,56 @@ export default function DoomsdayCountdown() {
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
             <span className="text-xs text-gray-500 uppercase tracking-widest">Scroll</span>
             <div className="w-px h-8 bg-gradient-to-b from-green-500/60 to-transparent" />
+          </div>
+        </section>
+
+        {/* ===== OFFICIAL TRAILER ===== */}
+        <section className="py-16 sm:py-20 border-t border-green-500/10">
+          <div className="container">
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-red-600/15 border border-red-600/30 rounded-full mb-4 animate-pulse">
+                <span className="text-red-400 text-xs font-bold tracking-wider uppercase">NEW — Official Trailer</span>
+              </div>
+              <h2
+                className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-3"
+                style={{ fontFamily: "'Anton', sans-serif" }}
+              >
+                THE <span className="text-green-400">TRAILER</span> IS HERE
+              </h2>
+              <p className="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">
+                Marvel dropped the first official Avengers: Doomsday trailer before SDCC. Doctor Doom has arrived.
+              </p>
+            </div>
+
+            {/* YouTube Embed */}
+            <div className="max-w-4xl mx-auto">
+              <div className="relative w-full rounded-2xl overflow-hidden border-2 border-green-500/30 shadow-2xl shadow-green-500/10" style={{ paddingBottom: '56.25%' }}>
+                <iframe
+                  className="absolute inset-0 w-full h-full"
+                  src="https://www.youtube.com/embed/irVNGjRFZGk?rel=0&modestbranding=1"
+                  title="Avengers: Doomsday | Official Trailer"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                />
+              </div>
+              <div className="mt-4 text-center">
+                <p className="text-xs text-gray-500">Avengers: Doomsday | Official Trailer | In Theaters December 18, 2026</p>
+              </div>
+
+              {/* Marvel Mint SDCC Callout */}
+              <div className="mt-8 bg-gradient-to-r from-green-500/10 via-green-500/5 to-green-500/10 border border-green-500/20 rounded-xl p-5 sm:p-6">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                  <div className="flex-1">
+                    <p className="text-sm sm:text-base text-gray-300">
+                      <span className="font-bold text-green-400">Collector's Note:</span> Every character in this trailer appears in the <span className="font-semibold text-white">2025 Topps Marvel Mint</span> set — last year's SDCC-exclusive release. And this week at SDCC 2026, Topps drops the follow-up: a Spider-Man themed Marvel Mint with the same limited box format.
+                    </p>
+                  </div>
+                  <a href="/mcu-news/2025-topps-marvel-mint-complete-guide-bronze-to-platinum" className="inline-flex items-center gap-2 px-4 py-2 bg-green-500/20 border border-green-500/40 rounded-lg text-green-400 text-sm font-bold hover:bg-green-500/30 transition-colors whitespace-nowrap">
+                    Read the Guide →
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
