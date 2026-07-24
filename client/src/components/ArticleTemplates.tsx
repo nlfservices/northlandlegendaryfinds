@@ -1649,25 +1649,21 @@ function CollectorSpot({
 
   if (skin === "parkpass") {
     return (
-      <div style={{ margin:"1.5rem 0", borderRadius:16, overflow:"hidden", background:"linear-gradient(135deg,#3aa0ff,#a86bff,#ff6fb5)", padding:2 }}>
-        <div className="grid items-center" style={{ background:"#10172a", borderRadius:14, gridTemplateColumns: hasCard ? "auto 1fr auto" : "1fr auto", gap:"1.3rem", padding:"1.3rem 1.5rem" }}>
-          {hasCard && (
-            cardImageUrl ? (
-              <img src={cardImageUrl} alt="Featured card" style={{ width: 80, height: 108, flexShrink: 0, objectFit: "cover", borderRadius: 10, border: "1px solid #384465" }} />
-            ) : (
-              <div style={{ width: 80, height: 108, flexShrink: 0, borderRadius: 10, background: "linear-gradient(135deg,#18203a,#121829)", border: "1px solid #384465", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <span style={{ fontSize: "1.6rem" }}>🃏</span>
-              </div>
-            )
+      <div className="parkpass-collector" style={{ margin:"1.5rem 0", borderRadius:16, overflow:"hidden", background:"linear-gradient(135deg,#3aa0ff,#a86bff,#ff6fb5)", padding:2 }}>
+        <div style={{ background:"#10172a", borderRadius:14, overflow:"hidden" }}>
+          {cardImageUrl && (
+            <div style={{ width:"100%", maxHeight:280, overflow:"hidden" }}>
+              <img src={cardImageUrl} alt="Featured card" style={{ width:"100%", height:"auto", objectFit:"cover", display:"block" }} />
+            </div>
           )}
-          <div>
+          <div style={{ padding:"1.3rem 1.5rem" }}>
             <div style={{ fontFamily:"'Baloo 2',sans-serif", fontWeight:700, color:"#ffcf5c", letterSpacing:".14em", textTransform:"uppercase", fontSize:".66rem", marginBottom:".35rem" }}>{kicker}</div>
-            <h4 style={{ fontFamily:"'Baloo 2',sans-serif", fontWeight:800, fontSize:"1.45rem", margin:"0 0 .3rem", color:"#fff" }}>{heading}</h4>
-            <p style={{ margin:0, fontSize:".88rem", color:"#b4bcd4", maxWidth:"32rem" }}>{body}</p>
-          </div>
-          <div style={{ display:"flex", flexDirection:"column", gap:".5rem" }}>
-            <a href={NLF_WHATNOT_URL} style={{ fontFamily:"'Baloo 2',sans-serif", fontWeight:700, fontSize:".84rem", padding:".55rem 1.15rem", borderRadius:999, textDecoration:"none", textAlign:"center", whiteSpace:"nowrap", background:"var(--primary)", color:"var(--primary-foreground)" }}>Watch on Whatnot →</a>
-            <a href={NLF_SHOP_URL} style={{ fontFamily:"'Baloo 2',sans-serif", fontWeight:700, fontSize:".84rem", padding:".55rem 1.15rem", borderRadius:999, textDecoration:"none", textAlign:"center", whiteSpace:"nowrap", border:"1.5px solid #384465", color:"#d6dcec" }}>Shop the Repacks</a>
+            <h4 style={{ fontFamily:"'Baloo 2',sans-serif", fontWeight:800, fontSize:"1.45rem", margin:"0 0 .5rem", color:"#fff" }}>{heading}</h4>
+            <p style={{ margin:"0 0 1rem", fontSize:".88rem", color:"#b4bcd4", lineHeight:1.5 }}>{body}</p>
+            <div style={{ display:"flex", flexWrap:"wrap", gap:".5rem" }}>
+              <a href={NLF_WHATNOT_URL} style={{ fontFamily:"'Baloo 2',sans-serif", fontWeight:700, fontSize:".84rem", padding:".55rem 1.15rem", borderRadius:999, textDecoration:"none", textAlign:"center", whiteSpace:"nowrap", background:"var(--primary)", color:"var(--primary-foreground)" }}>Watch on Whatnot →</a>
+              <a href={NLF_SHOP_URL} style={{ fontFamily:"'Baloo 2',sans-serif", fontWeight:700, fontSize:".84rem", padding:".55rem 1.15rem", borderRadius:999, textDecoration:"none", textAlign:"center", whiteSpace:"nowrap", border:"1.5px solid #384465", color:"#d6dcec" }}>Shop the Repacks</a>
+            </div>
           </div>
         </div>
       </div>
@@ -2382,6 +2378,9 @@ export function DisneyExperienceTemplate({
         @media(max-width:640px){
           .dx-mosaic{ grid-template-columns:1fr !important; }
           .dx-card{ grid-column:auto !important; }
+          .parkpass-collector img{ max-height:200px !important; object-fit:cover !important; }
+          .parkpass-collector h4{ font-size:1.2rem !important; }
+          .parkpass-collector p{ font-size:.82rem !important; }
         }
       `}</style>
     </div>
