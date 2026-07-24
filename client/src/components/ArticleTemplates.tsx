@@ -1652,8 +1652,8 @@ function CollectorSpot({
       <div className="parkpass-collector" style={{ margin:"1.5rem 0", borderRadius:16, overflow:"hidden", background:"linear-gradient(135deg,#3aa0ff,#a86bff,#ff6fb5)", padding:2 }}>
         <div style={{ background:"#10172a", borderRadius:14, overflow:"hidden" }}>
           {cardImageUrl && (
-            <div style={{ width:"100%", maxHeight:280, overflow:"hidden" }}>
-              <img src={cardImageUrl} alt="Featured card" style={{ width:"100%", height:"auto", objectFit:"cover", display:"block" }} />
+            <div style={{ width:"100%", overflow:"hidden" }}>
+              <img src={cardImageUrl} alt="Featured card" style={{ width:"100%", height:"auto", display:"block" }} />
             </div>
           )}
           <div style={{ padding:"1.3rem 1.5rem" }}>
@@ -2378,7 +2378,7 @@ export function DisneyExperienceTemplate({
         @media(max-width:640px){
           .dx-mosaic{ grid-template-columns:1fr !important; }
           .dx-card{ grid-column:auto !important; }
-          .parkpass-collector img{ max-height:200px !important; object-fit:cover !important; }
+          .parkpass-collector img{ width:100% !important; height:auto !important; }
           .parkpass-collector h4{ font-size:1.2rem !important; }
           .parkpass-collector p{ font-size:.82rem !important; }
         }
