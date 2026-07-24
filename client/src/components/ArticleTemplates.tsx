@@ -123,7 +123,10 @@ function extractImages(content: string): string[] {
  * (images are already extracted and displayed in figure slots)
  */
 function stripImages(text: string): string {
-  return text.replace(/!\[.*?\]\(.*?\)\n*/g, '').trim();
+  return text
+    .replace(/!\[.*?\]\(.*?\)\n*/g, '')
+    .replace(/<img[^>]*>\s*/g, '')
+    .trim();
 }
 
 // ============================================================
@@ -2364,7 +2367,7 @@ export function DisneyExperienceTemplate({
       )}
 
       {/* ♥ collector slot + anti-bounce */}
-      <CollectorSpot cardMarketImpact={cardMarketImpact} focusTitle={null} skin="parkpass" cardImageUrl={inlineImages[0] || null} />
+      <CollectorSpot cardMarketImpact={cardMarketImpact} focusTitle={null} skin="parkpass" cardImageUrl={null} />
       <a href="/mcu-news" className="grid items-center" style={{ margin: "1.4rem 0 0", border: "1px solid var(--border)", borderRadius: 16, background: "var(--card)", gridTemplateColumns: "1fr auto", gap: "1rem", padding: "1.1rem 1.4rem", textDecoration: "none" }}>
         <span>
           <span style={{ fontFamily: "'Baloo 2',sans-serif", fontWeight: 700, fontSize: ".64rem", letterSpacing: ".14em", textTransform: "uppercase", color: GOLD, display: "block", marginBottom: ".25rem" }}>Plan Your Visit</span>
