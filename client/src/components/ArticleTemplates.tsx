@@ -2332,15 +2332,15 @@ export function DisneyExperienceTemplate({
         {sections.map((section, i) => {
           const c = DX_CARD_COLORS[i % DX_CARD_COLORS.length];
           const wide = i === 0;
+          const sectionImg = inlineImages[i] || null;
           return (
             <div key={i} className="dx-card" style={{ borderRadius: 16, overflow: "hidden", border: "1px solid var(--border)", background: "var(--card)", display: "flex", flexDirection: "column", gridColumn: wide ? "1 / -1" : "auto" }}>
               <div style={{ height: 6, background: c.accent }} />
-              <div style={{ aspectRatio: wide ? "21 / 8" : "16 / 9", position: "relative", overflow: "hidden", background: "#0c1120" }}>
-                <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: ".3rem", color: "#6a7493", background: "repeating-linear-gradient(135deg,#111728 0 16px,#0c1120 16px 32px)" }}>
-                  <span style={{ fontFamily: "'Baloo 2',sans-serif", fontWeight: 600, letterSpacing: ".04em", textTransform: "uppercase", fontSize: ".68rem" }}>Image — Add</span>
-                  <span style={{ fontSize: ".6rem", opacity: 0.7 }}>{wide ? "1600 × 600" : "800 × 450"}</span>
+              {sectionImg ? (
+                <div style={{ aspectRatio: wide ? "21 / 8" : "16 / 9", position: "relative", overflow: "hidden", background: "#0c1120" }}>
+                  <img src={sectionImg} alt={section.heading} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
                 </div>
-              </div>
+              ) : null}
               <div style={{ padding: "1.1rem 1.2rem", flex: 1 }}>
                 <div style={{ fontFamily: "'Baloo 2',sans-serif", fontWeight: 700, fontSize: ".66rem", letterSpacing: ".1em", textTransform: "uppercase", marginBottom: ".4rem", color: c.tier }}>
                   {tags && tags[i] ? tags[i] : `Highlight ${i + 1}`}
