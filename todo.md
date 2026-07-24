@@ -3046,3 +3046,5 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Ensure section headings don't overlap images (caption overlay hidden on mobile)
 - [x] Test on mobile viewport (verified with injected mobile styles)
 - [x] Save checkpoint
+
+- [x] SDCC 2026 Doomsday news roundup article (disney_experience template) — covers trailer, ticket sales, Latverian Witch, Topps SDCC exclusive, Hall H, Marvel Legends
