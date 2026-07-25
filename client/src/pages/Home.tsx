@@ -1291,7 +1291,7 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
             {/* Facebook */}
             <a
-              href="https://www.facebook.com/profile.php?id=61575227498498"
+              href="https://www.facebook.com/northlandlegendaryfinds"
               target="_blank"
               rel="noopener noreferrer"
               className="group bg-card/80 backdrop-blur-sm border border-border rounded-xl p-6 text-center hover:border-blue-500/40 hover:shadow-lg hover:shadow-blue-500/10 transition-all"

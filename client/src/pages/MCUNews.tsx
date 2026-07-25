@@ -706,7 +706,7 @@ export default function MCUNews() {
 
               {/* Facebook Follow CTA */}
               <a
-                href="https://www.facebook.com/profile.php?id=61575227498498"
+                href="https://www.facebook.com/northlandlegendaryfinds"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block bg-gradient-to-br from-blue-600/10 to-blue-500/5 rounded-xl border border-blue-500/20 p-5 group hover:border-blue-500/40 transition-all"

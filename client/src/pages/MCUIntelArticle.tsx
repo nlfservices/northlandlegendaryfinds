@@ -522,7 +522,7 @@ export default function MCUNewsArticle() {
               <p className="text-sm text-muted-foreground">Get breaking MCU news, card market updates, and exclusive drops in your feed.</p>
             </div>
             <a
-              href="https://www.facebook.com/profile.php?id=61575227498498"
+              href="https://www.facebook.com/northlandlegendaryfinds"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition-colors shadow-lg shadow-blue-600/20 hover:shadow-blue-600/40 flex-shrink-0"

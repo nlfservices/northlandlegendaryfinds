@@ -38,7 +38,7 @@ export default function Footer() {
               <a href="https://x.com/NorthlandFinds" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-muted flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all" title="Follow us on X">
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
               </a>
-              <a href="https://www.facebook.com/profile.php?id=61575227498498" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-muted flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all" title="Follow us on Facebook">
+              <a href="https://www.facebook.com/northlandlegendaryfinds" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-muted flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all" title="Follow us on Facebook">
                 <Facebook className="w-4 h-4" />
               </a>
               <a href="https://www.instagram.com/northlandlegendaryfinds" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-muted flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all" title="Follow us on Instagram">
@@ -97,7 +97,7 @@ export default function Footer() {
         <div className="border-t border-border mt-8 pt-8">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-12">
             {/* Facebook Follow */}
-            <a href="https://www.facebook.com/profile.php?id=61575227498498" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group">
+            <a href="https://www.facebook.com/northlandlegendaryfinds" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group">
               <div className="w-14 h-14 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/20 group-hover:shadow-blue-600/40 transition-all">
                 <Facebook className="w-7 h-7 text-white" />
               </div>
