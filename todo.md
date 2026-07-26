@@ -3051,3 +3051,4 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Fix disney_experience template double images — images show in mosaic cards AND inline body text, should only show once
 - [x] Add 2026 Topps Marvel Mint set to card database (233 cards: 125 base, 55 Cerebro, 30 Symbiote Takeover, 3 SDCC exclusive, 14 autos, 4 special hits, 2 sketch)
 - [x] Publish 2026 Topps Marvel Mint SDCC/Hobby article at /mcu-news/2026-topps-marvel-mint-sdcc-hobby-release
+- [x] Notebook cast MCU article with comic book style images (character_spotlight template)
