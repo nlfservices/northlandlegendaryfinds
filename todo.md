@@ -3053,3 +3053,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Publish 2026 Topps Marvel Mint SDCC/Hobby article at /mcu-news/2026-topps-marvel-mint-sdcc-hobby-release
 - [x] Notebook cast MCU article with comic book style images (character_spotlight template)
 - [x] Doctor Doom kids/family article with comic book images — personal story with Landon, Doom targeting families theory
+
+## Know Your Villain Series
+- [x] Generate featured image for Doctor Doom article (4:5 portrait with "Know Your Villain" text)
+- [x] Generate inline images (origin, Namor rivalry, God Emperor, Valeria, science/sorcery)
+- [x] Write and publish "Know Your Villain: Doctor Doom" article (comic_strip template)
+- [x] Post Doctor Doom article image to Instagram
+- [ ] Future: Know Your Villain: Galactus
+- [ ] Future: Know Your Villain: Mephisto
+- [ ] Future: Know Your Villain: Kang
