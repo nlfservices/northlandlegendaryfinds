@@ -3062,3 +3062,12 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [ ] Future: Know Your Villain: Galactus
 - [ ] Future: Know Your Villain: Mephisto
 - [ ] Future: Know Your Villain: Kang
+
+## Spider-Man Box Office & Card Market Article
+- [x] Research Spider-Man 4 box office predictions from news sources
+- [x] Analyze YouTube video about Spider-Man cards going crazy
+- [x] Research 2026 Topps Marvel Mint set release details
+- [x] Generate featured image for Spider-Man article
+- [x] Generate inline images for article sections (replaced with user's actual card photos)
+- [x] Write and publish Spider-Man article (box office + cards + Marvel Mint + Marvel vs Pokemon angle)
+- [x] Post Spider-Man article carousel to Instagram (3 real card photos)
