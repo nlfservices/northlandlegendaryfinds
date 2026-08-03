@@ -3071,3 +3071,19 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Generate inline images for article sections (replaced with user's actual card photos)
 - [x] Write and publish Spider-Man article (box office + cards + Marvel Mint + Marvel vs Pokemon angle)
 - [x] Post Spider-Man article carousel to Instagram (3 real card photos)
+
+## Secret Wars Article Series (3-Part Saga)
+- [x] Analyze 1984 Secret Wars YouTube video
+- [x] Research 1984 Secret Wars comic series details
+- [x] Generate images for 1984 Secret Wars article
+- [x] Write and publish 1984 Secret Wars article (classic template)
+- [x] Analyze 2015 Secret Wars YouTube video
+- [x] Research 2015 Jonathan Hickman Secret Wars details
+- [x] Generate images for 2015 Secret Wars article
+- [x] Write and publish 2015 Jonathan Hickman Secret Wars article (magazine template)
+- [x] Analyze One World Under Doom YouTube videos (3 sources)
+- [x] Write and publish One World Under Doom article (spotlight template)
+- [x] Rewrite all 3 articles with content structured for their specific template layouts
+- [x] Tie all 3 articles to Avengers: Doomsday (Dec 2026, RDJ)
+- [x] Interlink all 3 parts with navigation between them
+- [ ] Post Secret Wars articles to Instagram (awaiting user approval)
