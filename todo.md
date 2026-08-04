@@ -3087,3 +3087,10 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Tie all 3 articles to Avengers: Doomsday (Dec 2026, RDJ)
 - [x] Interlink all 3 parts with navigation between them
 - [ ] Post Secret Wars articles to Instagram (awaiting user approval)
+
+## WandaVision → Agatha → Vision Quest Disney+ Saga Article
+- [x] Research Vision Quest show details (Oct 14 2026, Paul Bettany, James Spader as Ultron, 8 eps)
+- [x] Research the connected Disney+ storyline (WandaVision → Agatha → Vision Quest)
+- [x] Generate featured image (triptych) and inline images (Hex, Witches Road, Vision/Ultron)
+- [x] Write and publish replacement article (replaced Agatha S2 article ID 6600001)
+- [x] Used magazine template (kept from original article's rotation slot)
