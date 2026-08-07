@@ -13,7 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import {
   Search, ChevronRight, BookOpen, Layers, Hash, ArrowLeft,
-  Star, X, Grid3X3, List, Trophy, Flame, Target, Sparkles, Eye
+  Star, X, Grid3X3, List, Trophy, Flame, Target, Sparkles, Eye, ArrowUpDown, Calendar
 } from "lucide-react";
 import MarvelMintChecklist from "@/components/MarvelMintChecklist";
 import GenericSetChecklist from "@/components/GenericSetChecklist";
@@ -344,6 +344,7 @@ const YEAR_THEMES: Record<number, { gradient: string; radial1: string; radial2: 
 function SetBrowser() {
   const { data: sets, isLoading } = trpc.public.marvel.sets.useQuery();
   const [searchQuery, setSearchQuery] = useState("");
+  const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
 
   const { data: searchResults } = trpc.public.marvel.search.useQuery(
     { query: searchQuery, limit: 50 },
@@ -383,8 +384,8 @@ function SetBrowser() {
           return a.name.localeCompare(b.name);
         })
       }))
-      .sort((a, b) => b.year - a.year);
-  }, [sets]);
+      .sort((a, b) => sortOrder === "newest" ? b.year - a.year : a.year - b.year);
+  }, [sets, sortOrder]);
 
   // SEO: structured data for the page
   useEffect(() => {
@@ -421,22 +422,33 @@ function SetBrowser() {
           </div>
 
           {/* Search */}
-          <div className="relative max-w-lg mt-6">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-            <Input
-              placeholder="Search cards by character name..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 h-12 text-base bg-card border-border"
-            />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            )}
+          <div className="flex items-center gap-3 mt-6 max-w-2xl">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+              <Input
+                placeholder="Search cards by character name..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10 h-12 text-base bg-card border-border"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
+            </div>
+            <Button
+              variant="outline"
+              onClick={() => setSortOrder(sortOrder === "newest" ? "oldest" : "newest")}
+              className="h-12 px-4 gap-2 shrink-0 bg-card border-border hover:border-primary/50"
+            >
+              <Calendar className="w-4 h-4" />
+              <span className="hidden sm:inline">{sortOrder === "newest" ? "Newest First" : "Oldest First"}</span>
+              <ArrowUpDown className="w-3.5 h-3.5" />
+            </Button>
           </div>
         </div>
       </div>

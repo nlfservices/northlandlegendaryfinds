@@ -10,13 +10,15 @@
     "DATABASE_URL": "mysql://2ApLA9jJxWZTtjv.be469c40c650:f3QM2v00eOb6vMu1nuYY@gateway02.us-east-1.prod.aws.tidbcloud.com:4000/SGHqXeh8PZJcCDnFiAMuFi?ssl={\"rejectUnauthorized\":true}",
     "DRIZZLE_DATABASE_URL": "mysql://2ApLA9jJxWZTtjv.be469c40c650:f3QM2v00eOb6vMu1nuYY@gateway02.us-east-1.prod.aws.tidbcloud.com:4000/SGHqXeh8PZJcCDnFiAMuFi?ssl={\"rejectUnauthorized\":true}"
   },
-  "experiments": null,
+  "experiments": [
+    "no_db_push"
+  ],
   "git_remote": {
     "repo_url": "s3://vida-prod-gitrepo/webdev-git/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi",
-    "access_key_id": "ASIAZV3A2ECZFOQ3FVCU",
-    "secret_access_key": "Jp43KvK6TzB12c7LijJWHO5wV6e0em1cUnxRZdZm",
-    "session_token": "IQoJb3JpZ2luX2VjEJX//////////wEaCXVzLWVhc3QtMSJGMEQCIQCOzgWB33sAx9PVIX6H4N/SJrRY+ebEfFGEtVH3AmiJUwIfZNb6yp+C8pNZ54Ijmgq/k0zGj30Ip7WiB+TTLQGqaCr2AwhdEAQaDDY2NTM4NjA5ODg2NiIM42BpZN0/4rSYf82KKtMDcIwQ2K+J7wHJqa2uyp+RU/Ec5pjVcXHRLSbHxDKd+xz8LAPhEZSKldPjF9qidG8hmeDZ/KGvG/VLW4rSLnCNrVRSlbW3XVYr4LZciaRmHmEJclXFtIv6eJI1xcTmn9C1hqHW/qo/9PJWoaDYUOVcAqXSrg4jFbjjwa3nnX4oJ7i7MiX7kTkm6bIzTMuyaILZrqAYiUSCGIsmlg/HQSD6fW14fxHRhPcfTTCVIYOpvbslGzPxXRuDd34mVQfd5r2qw1NPyO/oYGZiH0pnO3ytXgK6VqBQucocMz7NA24ElskHrptuGZUTEXTqltvfI1j6kSAPXBmDzfC3sCiBfv6QneCyGc60EskhowC1cFFnZ5lwsKOfp5wBFWoqWVI6U1Da9i5JK9VAx/8VaGkSUjKx5yvyTYNNe1Qkgh4k+RZWeHLnMGJthEtzTJxoo55n7fxmn+Qz3BZkK/NS9j04zLy5j1l/48dIY+t/eLQnvn00PfqxIkT7f4CKuUUXJjyLQ2nY3KkN/ZK2YH71XZxGPwULag/Thv/raYaSkUCyKLH5sOQA0zq7iFR7Zy7jojgDs4R5uNPXe3jl07f/l+sZ5FpLI8mh+bzGUBBHvtYp19tH7D/ET/kwxtWg0wY6ngGas47ATBGjntn7ZTbMks+eOAdcx83LfPiQcod8Ll/RD6fHIGLm/wbe9eYiP5ykrLbVETcdB1y0v3jTdnsk62ObRO209US+JC/n+ZMlvxezlHawTVob3NSfYOgSOYyIGXXVIyXWDc9kw87pnSn3FKP0O0fKjb7VN6QKd9HJix8p2O9kvgaLUnA3dO3500qOfRVtkBZerc/VQ7rkEJ/Wew==",
-    "expiration": "2026-07-28T16:06:30.000Z",
+    "access_key_id": "ASIAZV3A2ECZBIC56SHD",
+    "secret_access_key": "Mo/+lHdCRr6Dlh4c9VyDiSGXipeBwdmq0Bbc72um",
+    "session_token": "IQoJb3JpZ2luX2VjEI///////////wEaCXVzLWVhc3QtMSJIMEYCIQDshk+F6JkaP6mPINvvPLInFOhfMsYtTThLv8aRokN+ZAIhAKS1ScvhHggRAwDvYAY5kiFpReEwP/R0Rsa7LXSG/G4VKvYDCFgQBBoMNjY1Mzg2MDk4ODY2IgzQWADMCO4AaM9w04Yq0wNK2ufuieMkPyhPoz+YnfdsvYjcOEL+aCAAaqjWGq6VQdFCQ7+/bBWf04GMAJ0DtLGBM2tMdT+mn+NMeKhWddxDmfnjyptFTVWuvMXh0TazqA44rSVhIufcPk3e2ig7J5y6pjEWN1UO1c0t1lHr3mvkuHPNs+HhpTTpHeWxQQLcn2d87pXj4xPXxkDq+tPih+WXduPuUZXefbptLfapffew5hZ7rLbF5wLKmWEBrH8qcmxKB7h6EDTnCXuGAZyizsOoBUr8ijl7e3aHQ0xOu9Kld00j7D2ZpwcpT+2I9VQBUbAMm+SUSePiNNIe9EjBjuiok+qdYT/WWna1M6VErZ+uL9IlF0NOdVRHDFvftCjnp48Yc81sX2rQoAXNc750G3E7R8lkaHaKzokMHJbiGjO7sGeSo9s0qxmfFzPzujgZ788ukcEEbrWnU7Fl2vGHcauuInJuYFQMmmLRTuwL4CUwi+8okQhuQ0sqJmPLrxgXUnb0PUzLqEJ1dg1q8orvnLTo66v0OnNkK06POncyiv+iOle2qmnrzZdil7D10s36GxYIfs14HWtLrmd7rDmfBfG3UKq43pKm4f88XJwOUHEGQe7lvyicZQleMVHkv41KtlPApDDf3NfTBjqcARhEc70uuJqsuHZyHNh/7Bq2Jyicwz4zYaQn5hQjKAVgI6Xpaxy0BifmsVqjNoMvpmpGotWdGUlpVXx/TQkFBUQ1BCv3cTUOm6uEn1Ut3s9xYanOpPyKc2SBbEOkC4P2XQ6gRwOk11ISOwZMW3Wz+qirj4W2XMj6r2ze4Kds8v/VPu24rvY9CsxWasZC57kSclGuQLHn7cvOnGdcEA==",
+    "expiration": "2026-08-08T02:40:31.000Z",
     "backend": "GIT_BACKEND_S3"
   },
   "name": "northland-legendary-finds",

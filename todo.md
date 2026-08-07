@@ -3094,3 +3094,6 @@ Current status: 1,238/1,725 cards have images (72%). Remaining: Chrome 23, Sapph
 - [x] Generate featured image (triptych) and inline images (Hex, Witches Road, Vision/Ultron)
 - [x] Write and publish replacement article (replaced Agatha S2 article ID 6600001)
 - [x] Used magazine template (kept from original article's rotation slot)
+
+## Cards Page Improvements
+- [x] Add filter/sort by release date order on /cards page (toggle button: Newest First / Oldest First)
