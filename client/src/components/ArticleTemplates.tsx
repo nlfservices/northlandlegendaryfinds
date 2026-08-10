@@ -201,22 +201,16 @@ export function ClassicTemplate({
       </div>
 
       {/* ② lead image */}
-      <figure style={{ margin: "0 0 2.2rem" }}>
-        <div style={{ aspectRatio: "3 / 2", background: "#0c0d11", border: "1px solid var(--border)", position: "relative", overflow: "hidden" }}>
-          {featuredImageUrl ? (
+      {featuredImageUrl && (
+        <figure style={{ margin: "0 0 2.2rem" }}>
+          <div style={{ aspectRatio: "3 / 2", background: "#0c0d11", border: "1px solid var(--border)", position: "relative", overflow: "hidden" }}>
             <img src={featuredImageUrl} alt={title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-          ) : (
-            <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: ".4rem", color: "#565b66", background: "repeating-linear-gradient(135deg,#121419 0 16px,#0e1014 16px 32px)" }}>
-              <span style={{ fontSize: "1.8rem" }}>▭</span>
-              <span style={{ fontWeight: 600, letterSpacing: ".1em", textTransform: "uppercase", fontSize: ".74rem" }}>Lead Image — Add</span>
-              <span style={{ fontSize: ".66rem", opacity: 0.65 }}>1200 × 800 · 3:2</span>
-            </div>
-          )}
-        </div>
-        <figcaption style={{ fontSize: ".78rem", color: "var(--muted-foreground)", marginTop: ".6rem", lineHeight: 1.5, paddingLeft: ".8rem", borderLeft: `2px solid ${CI_RULE}` }}>
-          {title}
-        </figcaption>
-      </figure>
+          </div>
+          <figcaption style={{ fontSize: ".78rem", color: "var(--muted-foreground)", marginTop: ".6rem", lineHeight: 1.5, paddingLeft: ".8rem", borderLeft: `2px solid ${CI_RULE}` }}>
+            {title}
+          </figcaption>
+        </figure>
+      )}
 
       {/* ③ body */}
       <div className="ci-body" style={{ fontSize: "1.08rem", color: "#d2d5dd" }}>
@@ -340,22 +334,16 @@ export function MagazineTemplate({
       </div>
 
       {/* ② asymmetric hero w/ offset tag card */}
-      <div style={{ position: "relative", margin: "0 -1.25rem 0" }}>
-        <div style={{ background: "#0a090d", position: "relative", overflow: "hidden" }}>
-          {featuredImageUrl ? (
+      {featuredImageUrl && (
+        <div style={{ position: "relative", margin: "0 -1.25rem 0" }}>
+          <div style={{ background: "#0a090d", position: "relative", overflow: "hidden" }}>
             <img src={featuredImageUrl} alt={title} style={{ width: "100%", height: "auto", display: "block" }} />
-          ) : (
-            <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: ".4rem", color: "#5a5667", background: "repeating-linear-gradient(135deg,#131119 0 18px,#0e0d13 18px 36px)" }}>
-              <span style={{ fontSize: "2rem" }}>▦</span>
-              <span style={{ fontWeight: 600, letterSpacing: ".1em", textTransform: "uppercase", fontSize: ".74rem" }}>Cover Image</span>
-              <span style={{ fontFamily: "'Archivo',sans-serif", fontSize: ".66rem", opacity: 0.65 }}>1680 × 800 · 21:10</span>
-            </div>
-          )}
+          </div>
+          <div style={{ position: "absolute", bottom: 0, right: "1.25rem", background: PINK, color: "#0d0c10", fontFamily: "'Archivo',sans-serif", fontWeight: 800, textTransform: "uppercase", letterSpacing: ".06em", fontSize: ".7rem", padding: ".5rem .9rem" }}>
+            Cover Story
+          </div>
         </div>
-        <div style={{ position: "absolute", bottom: 0, right: "1.25rem", background: PINK, color: "#0d0c10", fontFamily: "'Archivo',sans-serif", fontWeight: 800, textTransform: "uppercase", letterSpacing: ".06em", fontSize: ".7rem", padding: ".5rem .9rem" }}>
-          Cover Story
-        </div>
-      </div>
+      )}
 
       {/* ③ two-column intro w/ drop cap */}
       {introHalves && (
@@ -388,23 +376,16 @@ export function MagazineTemplate({
       {sections.map((section, i) => {
         const imgRight = i % 2 === 1;
         const sectionImg = inlineImages[i] || null;
-        const fig = (
+        const fig = sectionImg ? (
           <figure className="mag-fig" style={{ margin: 0 }}>
             <div style={{ background: "#0a090d", border: `1px solid ${BORDER}`, position: "relative", overflow: "hidden" }}>
-              {sectionImg ? (
-                <img src={sectionImg} alt={section.heading} style={{ width: "100%", height: "auto", display: "block" }} />
-              ) : (
-              <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: ".3rem", color: "#5a5667", background: "repeating-linear-gradient(135deg,#131119 0 16px,#0e0d13 16px 32px)" }}>
-                <span style={{ fontWeight: 600, letterSpacing: ".08em", textTransform: "uppercase", fontSize: ".66rem" }}>Figure — Add</span>
-                <span style={{ fontFamily: "'Archivo',sans-serif", fontSize: ".6rem", opacity: 0.65 }}>800 × 1000 · 4:5</span>
-              </div>
-              )}
+              <img src={sectionImg} alt={section.heading} style={{ width: "100%", height: "auto", display: "block" }} />
             </div>
             <figcaption style={{ fontSize: ".74rem", color: "var(--muted-foreground)", marginTop: ".5rem", lineHeight: 1.45, borderLeft: `2px solid ${PINK}`, paddingLeft: ".6rem" }}>
               {section.heading}
             </figcaption>
           </figure>
-        );
+        ) : null;
         const txt = (
           <div>
             <div style={{ fontFamily: "'Playfair Display',serif", fontStyle: "italic", fontWeight: 600, fontSize: "1.1rem", color: GOLD, marginBottom: ".3rem" }}>
@@ -425,7 +406,11 @@ export function MagazineTemplate({
               className="mag-feature grid"
               style={{ gap: "1.6rem", margin: "2rem 0", alignItems: "start", gridTemplateColumns: imgRight ? "1.15fr 0.85fr" : "0.85fr 1.15fr" }}
             >
-              {imgRight ? (<>{txt}{fig}</>) : (<>{fig}{txt}</>)}
+              {fig ? (
+                <>{imgRight ? (<>{txt}{fig}</>) : (<>{fig}{txt}</>)}</>
+              ) : (
+                <div style={{ gridColumn: "1 / -1" }}>{txt}</div>
+              )}
             </div>
 
             {i === collectorAt && (
@@ -506,11 +491,7 @@ export function SpotlightTemplate({
           {featuredImageUrl ? (
             <img src={featuredImageUrl} alt={title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
           ) : (
-            <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: ".4rem", color: "#565d72", background: "repeating-linear-gradient(135deg,#101420 0 18px,#0b0e16 18px 36px)" }}>
-              <span style={{ fontSize: "2rem" }}>▤</span>
-              <span style={{ fontWeight: 600, letterSpacing: ".1em", textTransform: "uppercase", fontSize: ".74rem" }}>Hero Image — Add</span>
-              <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".66rem", opacity: 0.65 }}>1200 × 525 · 16:7</span>
-            </div>
+            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg,#101420,#0b0e16)" }} />
           )}
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top,rgba(10,12,17,.95),transparent 60%)" }} />
           <div style={{ position: "absolute", left: "1.5rem", bottom: "1.1rem", right: "1.5rem", zIndex: 2 }}>
@@ -859,10 +840,7 @@ export function ListicleTemplate({
             {sectionImg ? (
               <ImageLightbox src={sectionImg} alt={entry.heading} className="lc-card-img w-full h-auto object-contain" />
             ) : (
-              <>
-                <span style={{ fontSize: "2rem" }}>{isTop ? "★" : "🃏"}</span>
-                <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".64rem", opacity: 0.65 }}>Card Image</span>
-              </>
+              <div style={{ minHeight: 120 }} />
             )}
           </div>
         );
@@ -1763,25 +1741,7 @@ function CineStill({
       {imageUrl ? (
         <img src={imageUrl} alt={alt} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
       ) : (
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: ".4rem",
-            color: "#5a5a6a",
-            background: "repeating-linear-gradient(45deg,#0e0e16 0 22px,#0a0a10 22px 44px)",
-          }}
-        >
-          <span style={{ fontSize: "1.6rem" }}>▦</span>
-          <span style={{ fontFamily: "'Oswald',sans-serif", letterSpacing: ".2em", textTransform: "uppercase", fontSize: ".74rem" }}>
-            Scene Still — Add Image
-          </span>
-          <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".66rem", opacity: 0.6 }}>1600 × 700</span>
-        </div>
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg,#0e0e16,#0a0a10)" }} />
       )}
       {caption && (
         <div

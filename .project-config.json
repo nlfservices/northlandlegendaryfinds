@@ -8,17 +8,18 @@
   "dev_command": "pnpm run dev",
   "env_vars": {
     "DATABASE_URL": "mysql://2ApLA9jJxWZTtjv.be469c40c650:f3QM2v00eOb6vMu1nuYY@gateway02.us-east-1.prod.aws.tidbcloud.com:4000/SGHqXeh8PZJcCDnFiAMuFi?ssl={\"rejectUnauthorized\":true}",
-    "DRIZZLE_DATABASE_URL": "mysql://2ApLA9jJxWZTtjv.be469c40c650:f3QM2v00eOb6vMu1nuYY@gateway02.us-east-1.prod.aws.tidbcloud.com:4000/SGHqXeh8PZJcCDnFiAMuFi?ssl={\"rejectUnauthorized\":true}"
+    "DRIZZLE_DATABASE_URL": "mysql://2ApLA9jJxWZTtjv.be469c40c650:f3QM2v00eOb6vMu1nuYY@gateway02.us-east-1.prod.aws.tidbcloud.com:4000/SGHqXeh8PZJcCDnFiAMuFi?ssl={\"rejectUnauthorized\":true}",
+    "MANUS_WEBDEV_PROJECT_ID": "SGHqXeh8PZJcCDnFiAMuFi"
   },
   "experiments": [
     "no_db_push"
   ],
   "git_remote": {
     "repo_url": "s3://vida-prod-gitrepo/webdev-git/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi",
-    "access_key_id": "ASIAZV3A2ECZBIC56SHD",
-    "secret_access_key": "Mo/+lHdCRr6Dlh4c9VyDiSGXipeBwdmq0Bbc72um",
-    "session_token": "IQoJb3JpZ2luX2VjEI///////////wEaCXVzLWVhc3QtMSJIMEYCIQDshk+F6JkaP6mPINvvPLInFOhfMsYtTThLv8aRokN+ZAIhAKS1ScvhHggRAwDvYAY5kiFpReEwP/R0Rsa7LXSG/G4VKvYDCFgQBBoMNjY1Mzg2MDk4ODY2IgzQWADMCO4AaM9w04Yq0wNK2ufuieMkPyhPoz+YnfdsvYjcOEL+aCAAaqjWGq6VQdFCQ7+/bBWf04GMAJ0DtLGBM2tMdT+mn+NMeKhWddxDmfnjyptFTVWuvMXh0TazqA44rSVhIufcPk3e2ig7J5y6pjEWN1UO1c0t1lHr3mvkuHPNs+HhpTTpHeWxQQLcn2d87pXj4xPXxkDq+tPih+WXduPuUZXefbptLfapffew5hZ7rLbF5wLKmWEBrH8qcmxKB7h6EDTnCXuGAZyizsOoBUr8ijl7e3aHQ0xOu9Kld00j7D2ZpwcpT+2I9VQBUbAMm+SUSePiNNIe9EjBjuiok+qdYT/WWna1M6VErZ+uL9IlF0NOdVRHDFvftCjnp48Yc81sX2rQoAXNc750G3E7R8lkaHaKzokMHJbiGjO7sGeSo9s0qxmfFzPzujgZ788ukcEEbrWnU7Fl2vGHcauuInJuYFQMmmLRTuwL4CUwi+8okQhuQ0sqJmPLrxgXUnb0PUzLqEJ1dg1q8orvnLTo66v0OnNkK06POncyiv+iOle2qmnrzZdil7D10s36GxYIfs14HWtLrmd7rDmfBfG3UKq43pKm4f88XJwOUHEGQe7lvyicZQleMVHkv41KtlPApDDf3NfTBjqcARhEc70uuJqsuHZyHNh/7Bq2Jyicwz4zYaQn5hQjKAVgI6Xpaxy0BifmsVqjNoMvpmpGotWdGUlpVXx/TQkFBUQ1BCv3cTUOm6uEn1Ut3s9xYanOpPyKc2SBbEOkC4P2XQ6gRwOk11ISOwZMW3Wz+qirj4W2XMj6r2ze4Kds8v/VPu24rvY9CsxWasZC57kSclGuQLHn7cvOnGdcEA==",
-    "expiration": "2026-08-08T02:40:31.000Z",
+    "access_key_id": "ASIAZV3A2ECZCSWQA5XQ",
+    "secret_access_key": "18HGxSuwrpgjoAcP9MnjkY9+bssmXhRXIpydwmqm",
+    "session_token": "IQoJb3JpZ2luX2VjEMP//////////wEaCXVzLWVhc3QtMSJHMEUCIQCJvl48aRnanjrAsDyXslHwPAS4Xo3D3msih1ZBT5somwIgXL4YW3rrAUgzRF08P1BoWBoRbXjQ/VOvmISabw/nv3sq/wMIjP//////////ARAEGgw2NjUzODYwOTg4NjYiDFA00/wd35lNI8QwfCrTA6+WCYs255P5LoC/CjMLHHIj7kyEKM8EIMMXPTDpd+SC4Ppm/97fhib5VRkSQrRe5Qd1irffoQEe2xLMpxJr04zZsctVl+ZttdGeiAFKtfKauPq1SUwwHxCQvzcWWEcWwYvF+G518hooVafJN/r8JL3+vivDO8kx4fmqhg2CzCWjQgaBQ7IOpItyKusG1eoJUaZFGcWstBMGRkyHgZ78Miy9oCXiNEVKDPJRjH1rNG4Wjdknsu7fjIjTCcqZ3vZP4IPKhR9fjaQhYtb32SScp+CJXEwZkeLo2hSqcMEYrKMQb9/D9U5XGPcXxNhYJVWT69iamq1miUvwlW5FB6dGoMvhdvH6r0NmL7L+Bd6AdrqrjXF7x+pUJ+sj/GcD+HBjxGgkpKda8yxf7GbU/Bw7lQcTEaKQNRbF9smEnRWPZM75HwRbAAhz6LQUpIgmrUUrvlz5V1pthM5YhLDNaMMcOJMLYKrvCrvFo+oJJyJuD/TvyI+LC0PHn2UUd10w2uAbiBASEPEZZKuNwTChSMmoJqZDn2qcBh+HWpSBTZ8Ob431HSDBZbi/O0QW2YaEAkqUziVagJc87zByePfjR9h/wgzHcTWAjnpYjBp94J5vXgdR/wX7ML6X49MGOp0B85JaQHhkArjxTMwUo9t1SfhqaYZq2NSghKdRHDmjV2GnkEPgHwd6ReYzdoqPC6M+NArptZTFq/zawAq+gAzgTvPfF9a19/A03kvfxTy0jcUzfbEZgTHK3XkxSNTFkVyLP8wchCB0zQ44/xp48Bs2d2EkbeXndyaqLGMthZH8qP5kDlx9IfI11xdoJ/RqygXyItiCtFPkL78f/qAVUQ==",
+    "expiration": "2026-08-10T06:49:34.000Z",
     "backend": "GIT_BACKEND_S3"
   },
   "name": "northland-legendary-finds",
@@ -35,6 +36,7 @@
     "EBAY_SANDBOX_CLIENT_ID": "Northlan-MarvelTr-SBX-972dab605-c6af0d47",
     "EBAY_SANDBOX_CLIENT_SECRET": "SBX-72dab605cb0e-4ee6-4fbf-8ca2-0c1d",
     "EBAY_VERIFICATION_TOKEN": "nlf_ebay_667733fd245afbbcda4944fb6bbfb1a6e2f2da78b418bfbd",
+    "ELEVENLABS_API_KEY": "sk_c19c9d3ea726aa0fa23fdcc555a4b0b7dacb5c0a37795c11",
     "FB_APP_ID": "341166519822108",
     "FB_APP_SECRET": "4e7cc947f913ac1740535e2ef08876e0",
     "FB_PAGE_ACCESS_TOKEN": "EAAE2SgU5JxwBRtSsGr6J0xYKCyUdNLVEKSK7SjYknXiCcLpRHOiAi4hmwjGiZC4Blx2uCHV2rt43z5Wn7TmI8pp8DNAArwwJscwUxQC9BWXZAkVpJga9ZBei0gWQsWPGJf3QOZCyZCwBa1vsLkOl3IR7sJwcWNmvkklfRzHfx1mQqTVlRvzL4A5M8AdavZA21WEM1KrW6G6wPQGQFIVgZDZD",
@@ -43,6 +45,7 @@
     "GHL_LOCATION_ID": "KFJlOhDocOFLVA5rLqVh",
     "IG_BUSINESS_ACCOUNT_ID": "17841447678496145",
     "JWT_SECRET": "H46EUbE89shCcKcJNbwtMW",
+    "KLING_API_KEY": "api-key-kling-UKXOGYp4__WtviuCvSx27J2PTQpDpxCu1sCnsKjhLWw",
     "NLF_CRON_SECRET": "NLFcron2026MCUarticle$Pipeline99x",
     "OAUTH_SERVER_URL": "https://api.manus.im",
     "OWNER_NAME": "PDQ",

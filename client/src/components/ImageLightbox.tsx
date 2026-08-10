@@ -16,9 +16,13 @@ interface ImageLightboxProps {
 
 export default function ImageLightbox({ src, alt, className = "", caption }: ImageLightboxProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
   const open = useCallback(() => setIsOpen(true), []);
   const close = useCallback(() => setIsOpen(false), []);
+
+  // If the image fails to load, hide it entirely
+  if (hasError) return null;
 
   // Determine if the image needs absolute positioning (used in lc-art containers)
   const isAbsolute = className.includes('absolute');
@@ -67,7 +71,8 @@ export default function ImageLightbox({ src, alt, className = "", caption }: Ima
               src={src}
               alt={alt}
               className="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl"
-            />
+          onError={() => setHasError(true)}
+        />
             {(caption || alt) && (
               <p className="text-white/80 text-sm mt-3 text-center font-medium max-w-md">
                 {caption || alt}
