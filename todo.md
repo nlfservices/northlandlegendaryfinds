@@ -1,5 +1,11 @@
 # NLF E-Commerce Store Build
 
+## LeBron James × Doctor Doom Comparison Article
+- [x] Research the dominant-but-divisive comparison angle and supporting sources
+- [x] Generate a featured image and unique inline images for the article
+- [x] Write and publish the LeBron James and Doctor Doom comparison article using the next template in rotation
+- [x] Verify integrity and save the article checkpoint
+
 ## Phase 1: Research
 - [x] Study hitparade.com design patterns
 - [x] Study giantsportscards.com design patterns
