@@ -5,6 +5,16 @@
 - [x] Generate a featured image and unique inline images for the article
 - [x] Write and publish the LeBron James and Doctor Doom comparison article using the next template in rotation
 - [x] Verify integrity and save the article checkpoint
+- [x] Reframe the LeBron and Doctor Doom feature image to include both full figures without cutoffs
+- [x] Fix portrait-image cropping in the dossier template so full figures remain visible
+- [x] Urgently validate the live dossier article render after removing the forced landscape crop
+- [x] Add and run a regression test for uncropped dossier portrait images
+
+## Shohei Ohtani × Captain America Follow-Up Article
+- [ ] Research Ohtani's two-way achievements and the Captain America comparison angle
+- [ ] Generate a featured image and unique inline images for the article
+- [ ] Write and publish the Ohtani and Captain America comparison article using the next template in rotation
+- [ ] Verify integrity and save the article checkpoint
 
 ## Phase 1: Research
 - [x] Study hitparade.com design patterns

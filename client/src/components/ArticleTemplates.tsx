@@ -2039,16 +2039,10 @@ export function DossierTemplate({
         <div style={{ fontSize: ".62rem", color: "var(--muted-foreground)", textTransform: "uppercase", letterSpacing: ".12em", marginBottom: ".5rem" }}>
           Attached — Exhibit A · Visual Reference
         </div>
-        <div style={{ aspectRatio: "16 / 8", background: "#0a0c07", position: "relative", overflow: "hidden", border: `1px solid ${DOS_BORDER}` }}>
+        <div style={{ background: "#0a0c07", position: "relative", border: `1px solid ${DOS_BORDER}` }}>
           {featuredImageUrl ? (
-            <img src={featuredImageUrl} alt={title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-          ) : (
-            <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: ".35rem", color: "#5a6048", background: "repeating-linear-gradient(45deg,#101309 0 16px,#0c0e08 16px 32px)" }}>
-              <span style={{ fontSize: "1.5rem" }}>▤</span>
-              <span style={{ letterSpacing: ".12em", textTransform: "uppercase", fontSize: ".72rem" }}>Evidence Image — Add</span>
-              <span style={{ fontSize: ".62rem", opacity: 0.65 }}>1200 × 600</span>
-            </div>
-          )}
+            <img src={featuredImageUrl} alt={title} style={{ width: "100%", height: "auto", display: "block", objectFit: "contain" }} />
+          ) : null}
         </div>
       </div>
 
