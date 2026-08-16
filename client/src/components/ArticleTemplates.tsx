@@ -2121,6 +2121,7 @@ export function DossierTemplate({
 export function CharacterProfileTemplate({ content, title, featuredImageUrl, tags, excerpt, cardMarketImpact }: TemplateProps) {
   const { intro, sections } = useMemo(() => splitBySections(content), [content]);
   const pullQuote = useMemo(() => extractPullQuote(content), [content]);
+  const inlineImages = useMemo(() => extractImages(content), [content]);
   return (
     <div className="space-y-6">
       {/* Hero banner with character art */}
@@ -2160,6 +2161,16 @@ export function CharacterProfileTemplate({ content, title, featuredImageUrl, tag
                 <h2 className="text-xl font-bold text-foreground">{section.heading}</h2>
               </div>
               <RichContent className={proseClasses}>{stripImages(section.body)}</RichContent>
+              {inlineImages[i] && (
+                <figure className="overflow-hidden rounded-xl border border-border bg-card">
+                  <img
+                    src={inlineImages[i]}
+                    alt={`${section.heading} visual reference`}
+                    className="h-auto w-full object-contain"
+                    style={{ display: "block" }}
+                  />
+                </figure>
+              )}
             </div>
           ))}
         </div>

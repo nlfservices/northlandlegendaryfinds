@@ -9,12 +9,17 @@
 - [x] Fix portrait-image cropping in the dossier template so full figures remain visible
 - [x] Urgently validate the live dossier article render after removing the forced landscape crop
 - [x] Add and run a regression test for uncropped dossier portrait images
+- [x] Set the displayed publication date to one week earlier
+- [x] Add Doctor Doom's playful Michael Jordan GOAT verdict to the article ending
 
 ## Shohei Ohtani × Captain America Follow-Up Article
-- [ ] Research Ohtani's two-way achievements and the Captain America comparison angle
-- [ ] Generate a featured image and unique inline images for the article
-- [ ] Write and publish the Ohtani and Captain America comparison article using the next template in rotation
+- [x] Research Ohtani's two-way achievements and the Captain America comparison angle
+- [x] Generate a featured image and unique inline images for the article
+- [x] Render the generated inline images within the character-profile article layout
+- [x] Add and run a regression test for character-profile inline-image rendering
+- [x] Write and publish the Ohtani and Captain America comparison article using the next template in rotation
 - [ ] Verify integrity and save the article checkpoint
+- [x] Set the displayed publication date to one week earlier
 
 ## Phase 1: Research
 - [x] Study hitparade.com design patterns
