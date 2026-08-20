@@ -1,5 +1,21 @@
 # NLF E-Commerce Store Build
 
+## Full-Fidelity Migration Export
+- [x] Inventory all exportable code, Git history, database data, media, storage references, configuration, and project-owned instructions
+- [x] Export the complete current source repository and exportable Git history
+- [x] Export database schema, data, migrations, and portable formats with record-count validation
+- [x] Export all locally available media and build a full external-media/storage reference manifest
+- [x] Create a formal inventory of configuration files, environment-variable names, integration configs, and project-owned instructions/templates included in the export
+- [x] Validate exported database record counts per table against the live database and record the results
+- [x] Explicitly document and verify Drizzle migrations and the `__drizzle_migrations` database history
+- [x] Create migration, secrets-required, external-dependencies, and reconstruction documentation
+- [x] Generate backup manifest, checksums, validation report, and explicit limitations report
+- [x] Package the verified migration archive into clearly labeled downloadable parts
+
+## Doctor Doom Trailer Theory Cross-Check
+- [x] Cross-check the two-Doctor-Doom trailer theory against multiple reputable sources
+- [x] Summarize what the trailer supports, what remains rumor, and the most likely explanation
+
 ## LeBron James × Doctor Doom Comparison Article
 - [x] Research the dominant-but-divisive comparison angle and supporting sources
 - [x] Generate a featured image and unique inline images for the article
@@ -18,7 +34,7 @@
 - [x] Render the generated inline images within the character-profile article layout
 - [x] Add and run a regression test for character-profile inline-image rendering
 - [x] Write and publish the Ohtani and Captain America comparison article using the next template in rotation
-- [ ] Verify integrity and save the article checkpoint
+- [x] Verify integrity and save the article checkpoint
 - [x] Set the displayed publication date to one week earlier
 
 ## Phase 1: Research
