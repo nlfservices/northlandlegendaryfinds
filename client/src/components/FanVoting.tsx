@@ -1,11 +1,11 @@
-import { useState, useEffect, useMemo } from "react";
+﻿import { useState, useEffect, useMemo } from "react";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 
-const ICON_HULK = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/vote-hulk-smash-LvEJ9sdaX8HXtgsRE9jHda.webp";
-const ICON_MJOLNIR = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/vote-mjolnir-nhKZ9cfYJagRVeLScRQRBp.webp";
-const ICON_TIME_STONE = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/vote-time-stone-c7shjpNVbQjS4Zo2R98WeE.webp";
-const ICON_GAUNTLET = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/vote-thanos-gauntlet-gurG2wRKw3f4Woc6YqquUp.webp";
+const ICON_HULK = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/vote-hulk-smash-LvEJ9sdaX8HXtgsRE9jHda.webp";
+const ICON_MJOLNIR = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/vote-mjolnir-nhKZ9cfYJagRVeLScRQRBp.webp";
+const ICON_TIME_STONE = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/vote-time-stone-c7shjpNVbQjS4Zo2R98WeE.webp";
+const ICON_GAUNTLET = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/vote-thanos-gauntlet-gurG2wRKw3f4Woc6YqquUp.webp";
 
 const REACTIONS = [
   { key: "loved", icon: ICON_HULK, label: "Hulk Smash" },
@@ -148,7 +148,7 @@ export default function FanVoting({ articleId, articleTitle, compact = false }: 
         <div className="relative px-5 sm:px-6 pt-5 pb-3">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-white/15 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/20">
-              <span className="text-xl">🗳️</span>
+              <span className="text-xl">ðŸ—³ï¸</span>
             </div>
             <div>
               <h3 className="text-xl font-bold text-white tracking-wide uppercase" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
@@ -239,3 +239,4 @@ export default function FanVoting({ articleId, articleTitle, compact = false }: 
     </div>
   );
 }
+

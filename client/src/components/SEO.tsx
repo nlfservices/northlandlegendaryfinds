@@ -1,15 +1,15 @@
-import { Helmet } from "react-helmet-async";
+﻿import { Helmet } from "react-helmet-async";
 
 const SITE_NAME = "Northland Legendary Finds";
 const DEFAULT_TITLE = "Northland Legendary Finds | Marvel Trading Card Collector Hub";
 const DEFAULT_DESCRIPTION =
   "Your home for Marvel trading card collecting. Browse 1,709+ cards across 6 Topps sets, track Avengers: Doomsday intel, explore market analysis, and discover premium hand-curated repacks. Built by collectors, for collectors.";
 const DEFAULT_IMAGE =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hero-banner-jniBj55ukeiEDpJxc2aLgB.webp";
+  "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hero-banner-jniBj55ukeiEDpJxc2aLgB.webp";
 const SITE_URL = "https://northlandlegendaryfinds.com";
 
 interface SEOProps {
-  /** Page title — will be appended with " | Northland Legendary Finds" unless noSuffix is true */
+  /** Page title â€” will be appended with " | Northland Legendary Finds" unless noSuffix is true */
   title?: string;
   /** Meta description (max ~155 chars recommended) */
   description?: string;
@@ -17,7 +17,7 @@ interface SEOProps {
   path?: string;
   /** Full URL to OG image (1200x630 recommended) */
   image?: string;
-  /** OG type — defaults to "website" */
+  /** OG type â€” defaults to "website" */
   type?: "website" | "product" | "article";
   /** Don't append site name suffix to title */
   noSuffix?: boolean;
@@ -97,7 +97,7 @@ export function organizationJsonLd() {
     url: SITE_URL,
     logo: {
       "@type": "ImageObject",
-      url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nlf-logo-lmgLHqHqRKDwTnMGBxPxqP.webp",
+      url: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nlf-logo-lmgLHqHqRKDwTnMGBxPxqP.webp",
       width: 512,
       height: 512,
     },
@@ -295,7 +295,7 @@ export function articleJsonLd({
       url: SITE_URL,
       logo: {
         "@type": "ImageObject",
-        url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nlf-logo-lmgLHqHqRKDwTnMGBxPxqP.webp",
+        url: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nlf-logo-lmgLHqHqRKDwTnMGBxPxqP.webp",
       },
     },
     mainEntityOfPage: {
@@ -420,3 +420,4 @@ export function speakableJsonLd({
     },
   };
 }
+

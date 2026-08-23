@@ -1,10 +1,10 @@
-/**
+﻿/**
  * NLF Cosmic Hits - Checklists Page
- * Hit Parade-inspired simple layout: grid of series → modal with flat card list
+ * Hit Parade-inspired simple layout: grid of series â†’ modal with flat card list
  * Updated after each stream to show pulled status
  * 
  * NOTE: Currently showing Coming Soon with Variant Series product images.
- * No details, no prices, no checklists — just images and names.
+ * No details, no prices, no checklists â€” just images and names.
  * The ProductCard and ChecklistModal components are preserved below
  * for when series are ready to be fully activated.
  */
@@ -15,8 +15,8 @@ import { Loader2, X, CheckCircle2, Sparkles, Eye, ListChecks, Rocket, Clock } fr
 import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 import { useState, useMemo } from "react";
 
-const COSMIC_DROP_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-nlf-variant-2CkMPP3CsZhFkFXpzSuZkV.webp";
-const CHROME_EDITION_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-100-pack-LsACR5odDHrd8r7na6iEeJ.webp";
+const COSMIC_DROP_IMG = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-nlf-variant-2CkMPP3CsZhFkFXpzSuZkV.webp";
+const CHROME_EDITION_IMG = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-100-pack-LsACR5odDHrd8r7na6iEeJ.webp";
 
 interface DbProduct {
   id: number;
@@ -65,12 +65,12 @@ export default function Checklists() {
     <div className="min-h-screen">
       <SEO
         title="NLF Cosmic Hits | Checklists"
-        description="Complete checklists for all NLF Cosmic Hits trading card series. Full transparency — see every card before you buy."
+        description="Complete checklists for all NLF Cosmic Hits trading card series. Full transparency â€” see every card before you buy."
         path="/checklists"
         jsonLd={breadcrumbJsonLd([{ name: "Home", url: "/" }, { name: "NLF Cosmic Hits", url: "/checklists" }])}
       />
 
-      {/* Hero Section — clean and simple */}
+      {/* Hero Section â€” clean and simple */}
       <section className="relative py-16 lg:py-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
         <div className="container relative z-10">
@@ -121,7 +121,7 @@ export default function Checklists() {
                   />
                 </div>
 
-                {/* Series Name Only — no details */}
+                {/* Series Name Only â€” no details */}
                 <div className="p-4">
                   <h3 className="font-bold text-lg" style={{ fontFamily: "'Anton', sans-serif" }}>
                     {series.name}
@@ -165,7 +165,7 @@ export default function Checklists() {
   );
 }
 
-/** Product card in the grid — simple image + name + button (preserved for future use) */
+/** Product card in the grid â€” simple image + name + button (preserved for future use) */
 function ProductCard({ product, onViewChecklist }: { product: DbProduct; onViewChecklist: () => void }) {
   const packsOpened = product.totalPacks - product.packsRemaining;
   const progressPercent = product.totalPacks > 0 ? Math.round((packsOpened / product.totalPacks) * 100) : 0;
@@ -208,7 +208,7 @@ function ProductCard({ product, onViewChecklist }: { product: DbProduct; onViewC
   );
 }
 
-/** Checklist modal — Hit Parade style flat list (preserved for future use) */
+/** Checklist modal â€” Hit Parade style flat list (preserved for future use) */
 function ChecklistModal({ product, onClose }: { product: DbProduct; onClose: () => void }) {
   const { data: checklist, isLoading } = trpc.public.checklist.getByProduct.useQuery(
     { productId: product.id },
@@ -259,11 +259,11 @@ function ChecklistModal({ product, onClose }: { product: DbProduct; onClose: () 
             </h2>
             <div className="flex items-center gap-3 mt-1 text-sm text-muted-foreground">
               <span>{product.totalPacks} packs</span>
-              <span>·</span>
+              <span>Â·</span>
               <span className="text-green-400">{availableCount} available</span>
               {pulledCount > 0 && (
                 <>
-                  <span>·</span>
+                  <span>Â·</span>
                   <span className="text-muted-foreground">{pulledCount} pulled</span>
                 </>
               )}
@@ -366,3 +366,4 @@ function ChecklistModal({ product, onClose }: { product: DbProduct; onClose: () 
     </div>
   );
 }
+

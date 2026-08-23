@@ -1,6 +1,6 @@
-/**
- * Shop Page — Whatnot-Exclusive Infinity Series Showcase
- * No purchase buttons — all packs ripped live on Whatnot
+﻿/**
+ * Shop Page â€” Whatnot-Exclusive Infinity Series Showcase
+ * No purchase buttons â€” all packs ripped live on Whatnot
  * Features: Infinity Series 1 (completed), Series 2 & 3 (building)
  * Launch: June 7th, 2026
  */
@@ -14,7 +14,7 @@ import SEO, { breadcrumbJsonLd, organizationJsonLd } from "@/components/SEO";
 // Constants
 const WHATNOT_INVITE = "https://whatnot.com/invite/northlandfinds";
 const WHATNOT_PROFILE = "https://www.whatnot.com/user/northlandfinds";
-const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/infinity-series-hero-KjCaTtkrnY7XPqTemut8rw.webp";
+const HERO_IMAGE = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/infinity-series-hero-KjCaTtkrnY7XPqTemut8rw.webp";
 
 // Launch date: June 7, 2026 at 7:00 PM CDT (UTC-5)
 const LAUNCH_DATE = new Date("2026-06-07T19:00:00-05:00").getTime();
@@ -47,7 +47,7 @@ const SERIES_DATA = [
     oneOfOneCount: 5,
     parallels: ["Encased /100", "Encased /75", "Encased /50", "Orange Foil /25", "Gold Foil /50", "Silver Foil /99", "Black Foil /10", "Black Refractor /10", "Red Foil /5", "Red Refractor /5", "Platinum Refractor /25", "Sketch Cards 1/1", "Printing Plates 1/1"],
     graders: ["AGS", "CGC", "PSA"],
-    description: "Our flagship set — 165 premium cards across Topps Marvel Mint Encased, The Collector, and graded slabs. Includes 5 printing plate 1/1s, sketch cards, numbered parallels down to 1/1, and professionally graded slabs from AGS, CGC, and PSA. Finalized May 27, 2026.",
+    description: "Our flagship set â€” 165 premium cards across Topps Marvel Mint Encased, The Collector, and graded slabs. Includes 5 printing plate 1/1s, sketch cards, numbered parallels down to 1/1, and professionally graded slabs from AGS, CGC, and PSA. Finalized May 27, 2026.",
     checklistUrl: "/nlf-infinity-series-1",
     color: "from-purple-600 to-indigo-600",
     glowColor: "purple",
@@ -97,7 +97,7 @@ export default function Shop() {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Infinity Series — Premium Marvel Card Repacks | Ripped Live on Whatnot"
+        title="Infinity Series â€” Premium Marvel Card Repacks | Ripped Live on Whatnot"
         description="The NLF Infinity Series: premium Marvel trading card repacks ripped exclusively live on Whatnot. 85+ cards per series, graded slabs, numbered parallels, and 1/1 printing plates. First show June 7th, 2026."
         path="/shop"
         jsonLd={[
@@ -120,7 +120,7 @@ export default function Shop() {
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/15 border border-primary/30 rounded-full mb-6">
               <Radio className="w-4 h-4 text-primary animate-pulse" />
-              <span className="text-primary text-sm font-bold tracking-wide">RIPPED LIVE ON WHATNOT — EVERY PACK, EVERY TIME</span>
+              <span className="text-primary text-sm font-bold tracking-wide">RIPPED LIVE ON WHATNOT â€” EVERY PACK, EVERY TIME</span>
             </div>
 
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[0.9] mb-4" style={{ fontFamily: "'Anton', sans-serif" }}>
@@ -134,7 +134,7 @@ export default function Shop() {
             {/* Countdown */}
             {countdown && (
               <div className="mb-8">
-                <p className="text-sm text-muted-foreground mb-3 uppercase tracking-wider font-bold">First Live Show — June 7th</p>
+                <p className="text-sm text-muted-foreground mb-3 uppercase tracking-wider font-bold">First Live Show â€” June 7th</p>
                 <div className="flex gap-3">
                   {[
                     { label: "DAYS", value: countdown.days },
@@ -223,7 +223,7 @@ export default function Shop() {
                   expandedSeries === series.id ? "shadow-lg" : "hover:border-primary/30"
                 }`}
               >
-                {/* Series Header — always visible */}
+                {/* Series Header â€” always visible */}
                 <button
                   onClick={() => setExpandedSeries(expandedSeries === series.id ? null : series.id)}
                   className="w-full text-left p-6 flex items-center justify-between gap-4"
@@ -244,8 +244,8 @@ export default function Shop() {
                       </div>
                       <p className="text-sm text-muted-foreground">
                         {series.status === "complete"
-                          ? `${series.cardCount} cards • ${series.gradedCount} graded slabs • ${series.oneOfOneCount} 1/1s`
-                          : "Details coming soon — follow for reveals"}
+                          ? `${series.cardCount} cards â€¢ ${series.gradedCount} graded slabs â€¢ ${series.oneOfOneCount} 1/1s`
+                          : "Details coming soon â€” follow for reveals"}
                       </p>
                     </div>
                   </div>
@@ -429,3 +429,4 @@ export default function Shop() {
     </div>
   );
 }
+

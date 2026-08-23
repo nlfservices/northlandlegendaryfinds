@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Character Page - SEO-optimized individual character pages
  * Features: 1000+ word LLM-generated history, key facts sidebar, card gallery across sets
  * Content is generated on-demand and cached in the database
@@ -18,12 +18,12 @@ import {
 import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 import { Streamdown } from "streamdown";
 
-const PLACEHOLDER_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/character-placeholder-v2-CY48bnu9TGVPXs9qZJnG7S.webp";
+const PLACEHOLDER_IMG = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/character-placeholder-v2-CY48bnu9TGVPXs9qZJnG7S.webp";
 
 // Static image overrides for characters without trading cards in the database
 const CHARACTER_IMAGE_OVERRIDES: Record<string, string> = {
-  "kang": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/kang-character-3ikm66jFTWEESTn5mpNv6X.webp",
-  "red-skull": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/red-skull-character-WZAUMsSGJp4nqcvHpwhX5L.webp",
+  "kang": "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/kang-character-3ikm66jFTWEESTn5mpNv6X.webp",
+  "red-skull": "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/red-skull-character-WZAUMsSGJp4nqcvHpwhX5L.webp",
 };
 
 export default function CharacterPage() {
@@ -169,7 +169,7 @@ export default function CharacterPage() {
         ])}
       />
 
-      {/* Hero Section — Cinematic character card art banner */}
+      {/* Hero Section â€” Cinematic character card art banner */}
       <section className="relative border-b border-border/50 overflow-hidden">
         {/* Background: blurred character image */}
         <div className="absolute inset-0">
@@ -192,7 +192,7 @@ export default function CharacterPage() {
           </nav>
 
           <div className="grid md:grid-cols-[240px_1fr] lg:grid-cols-[280px_1fr] gap-6 lg:gap-10 items-start">
-            {/* Character Card Art — Large */}
+            {/* Character Card Art â€” Large */}
             <div className="mx-auto md:mx-0 w-48 md:w-full">
               <div className="aspect-[3/4] rounded-2xl overflow-hidden border-2 border-primary/40 shadow-2xl shadow-primary/20 ring-1 ring-primary/10">
                 <img
@@ -507,3 +507,4 @@ function RelatedCharactersSection({ slug, characterName }: { slug: string; chara
     </section>
   );
 }
+

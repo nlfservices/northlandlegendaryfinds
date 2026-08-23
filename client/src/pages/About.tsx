@@ -1,6 +1,6 @@
-/**
- * About Page — Founder Story with Family Photos
- * Narrative arc: The Hustle → The Builder → The Next Chapter → The Mission → The Why
+﻿/**
+ * About Page â€” Founder Story with Family Photos
+ * Narrative arc: The Hustle â†’ The Builder â†’ The Next Chapter â†’ The Mission â†’ The Why
  * Photo-rich, story-driven layout with alternating image/text sections
  */
 
@@ -9,53 +9,53 @@ import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 
-// ── CDN Photo URLs ──────────────────────────────────────────────────────────
+// â”€â”€ CDN Photo URLs â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const PHOTOS = {
-  // Hero — family together
-  hero: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/3ofUs-StarWarsStarCruiser_8441a617.jpg",
-  // Founders — couple shot
-  founders: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/KayaandINLFVegasRetreat_ce081be8.jpg",
-  // Father & son — warm, direct
-  fatherSon: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/MNSportsstore4_3c2e5a50.webp",
-  // Landon & I on a hayride — Northland Fence beanie days
-  hayride: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landon&I-Hayride_a8eeed98.webp",
-  // Out of This World Moments — Row 1
-  landonReading: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landonreading_fef412fa.jpg",
-  landonAssemble: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landon-Assemble3_5789b932.jpg",
-  landonStarWarsCruise: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landon-StarWarsCruiseship_8ef5ee08.jpg",
+  // Hero â€” family together
+  hero: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/3ofUs-StarWarsStarCruiser_8441a617.jpg",
+  // Founders â€” couple shot
+  founders: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/KayaandINLFVegasRetreat_ce081be8.jpg",
+  // Father & son â€” warm, direct
+  fatherSon: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/MNSportsstore4_3c2e5a50.webp",
+  // Landon & I on a hayride â€” Northland Fence beanie days
+  hayride: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landon&I-Hayride_a8eeed98.webp",
+  // Out of This World Moments â€” Row 1
+  landonReading: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landonreading_fef412fa.jpg",
+  landonAssemble: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landon-Assemble3_5789b932.jpg",
+  landonStarWarsCruise: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landon-StarWarsCruiseship_8ef5ee08.jpg",
   // Row 2
-  landonSpidermanPresents: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/LandonSpiderman-Presents_ae93e17f.jpg",
-  landonReadyToRip: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/LandonReadyToRip_398dd41e.png",
-  toySwapFun: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/ToySwapFun!_fd3c1d78.jpg",
+  landonSpidermanPresents: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/LandonSpiderman-Presents_ae93e17f.jpg",
+  landonReadyToRip: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/LandonReadyToRip_398dd41e.png",
+  toySwapFun: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/ToySwapFun!_fd3c1d78.jpg",
   // Row 3
-  starWarsSpaceHotel: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/StarWars-SpaceHotel_0364c8b3.jpg",
-  starWarsTwinCityCon: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Starwars-TwinCityCon_bc9e15fb.jpg",
-  mnCardShow: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/MNSportsCardShow_6e7594b5.jpg",
+  starWarsSpaceHotel: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/StarWars-SpaceHotel_0364c8b3.jpg",
+  starWarsTwinCityCon: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Starwars-TwinCityCon_bc9e15fb.jpg",
+  mnCardShow: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/MNSportsCardShow_6e7594b5.jpg",
   // Row 4
-  landonSissy: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landon&Sissy_ef115e28.webp",
-  avengersdinner: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/AvengersCruiseDinner_649ef3b3.jpg",
-  landonThor: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landon&Thor_b859091f.jpg",
+  landonSissy: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landon&Sissy_ef115e28.webp",
+  avengersdinner: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/AvengersCruiseDinner_649ef3b3.jpg",
+  landonThor: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landon&Thor_b859091f.jpg",
   // Row 5
-  avengersVsVillains: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/LandonAvengersvsVillains_60146c67.jpg",
-  mamaStarWarsCruise: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landon&Mama-StarWarsCruiseship2_561480c1.jpg",
-  sleepboy: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Sleepboy!_89ed6d95.jpg",
+  avengersVsVillains: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/LandonAvengersvsVillains_60146c67.jpg",
+  mamaStarWarsCruise: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Landon&Mama-StarWarsCruiseship2_561480c1.jpg",
+  sleepboy: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Sleepboy!_89ed6d95.jpg",
   // Kept for other sections
-  toysForTots: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Northland-StarWarsToysforTots3_b11fe6fe.jpg",
+  toysForTots: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Northland-StarWarsToysforTots3_b11fe6fe.jpg",
 };
 
 export default function About() {
   return (
     <div className="min-h-screen">
       <SEO
-        title="About Northland Legendary Finds — Our Story"
+        title="About Northland Legendary Finds â€” Our Story"
         description="From humble beginnings in Minnesota to building a successful fence company to launching a Marvel trading card business with his 8-year-old son. Meet the family behind Northland Legendary Finds."
         path="/about"
         jsonLd={breadcrumbJsonLd([{ name: "Home", url: "/" }, { name: "About", url: "/about" }])}
       />
 
-      {/* ═══════════════════════════════════════════════════════════════════
-          SECTION 1 — HERO: Family Photo + Headline
-      ═══════════════════════════════════════════════════════════════════ */}
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+          SECTION 1 â€” HERO: Family Photo + Headline
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="relative min-h-[550px] lg:min-h-[650px] flex items-center overflow-hidden">
         {/* Background image */}
         <div className="absolute inset-0">
@@ -79,17 +79,17 @@ export default function About() {
               <span className="text-white">RUN BY A FAMILY.</span>
             </h1>
             <p className="text-lg sm:text-xl text-gray-300 leading-relaxed max-w-xl">
-              From humble beginnings in Minnesota to building a successful business — and now starting 
+              From humble beginnings in Minnesota to building a successful business â€” and now starting 
               a brand-new chapter ripping cards with my 8-year-old son.
             </p>
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════════════════
-          SECTION 2 — THE HUSTLE: Where It All Started
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+          SECTION 2 â€” THE HUSTLE: Where It All Started
           Image RIGHT, text LEFT
-      ═══════════════════════════════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="py-16 lg:py-24">
         <div className="container max-w-6xl">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -109,7 +109,7 @@ export default function About() {
                   business today.
                 </p>
                 <p>
-                  Maybe that's the kind of drive you get from growing up the way I did — that push 
+                  Maybe that's the kind of drive you get from growing up the way I did â€” that push 
                   to do better for your own family one day.
                 </p>
               </div>
@@ -131,10 +131,10 @@ export default function About() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════════════════
-          SECTION 3 — THE BUILDER: Northland Fence
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+          SECTION 3 â€” THE BUILDER: Northland Fence
           Image LEFT, text RIGHT
-      ═══════════════════════════════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="py-16 lg:py-24 bg-card/50 border-y border-border/50">
         <div className="container max-w-6xl">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -143,7 +143,7 @@ export default function About() {
               <div className="absolute -inset-3 bg-gradient-to-br from-amber-500/20 via-transparent to-primary/20 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity" />
               <img
                 src={PHOTOS.founders}
-                alt="Kaya and I — Northland Legendary Finds Vegas Retreat"
+                alt="Kaya and I â€” Northland Legendary Finds Vegas Retreat"
                 className="relative rounded-xl w-full aspect-[4/3] object-cover shadow-2xl"
               />
               <div className="absolute bottom-4 left-4 bg-black/70 backdrop-blur-sm px-4 py-2 rounded-lg">
@@ -158,7 +158,7 @@ export default function About() {
               <div className="space-y-5 text-gray-300 text-lg leading-relaxed">
                 <p>
                   That hustle never left me. I took the same energy from the card shop and built 
-                  <strong className="text-white"> Northland Fence</strong> — starting in a rented garage 
+                  <strong className="text-white"> Northland Fence</strong> â€” starting in a rented garage 
                   with nothing but a truck and a dream.
                 </p>
                 <p>
@@ -179,10 +179,10 @@ export default function About() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════════════════
-          SECTION 4 — THE NEXT CHAPTER: Father & Son
-          Image RIGHT, text LEFT — emotional core
-      ═══════════════════════════════════════════════════════════════════ */}
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+          SECTION 4 â€” THE NEXT CHAPTER: Father & Son
+          Image RIGHT, text LEFT â€” emotional core
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="py-16 lg:py-24">
         <div className="container max-w-6xl">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -192,12 +192,12 @@ export default function About() {
               <h2 className="text-4xl sm:text-5xl font-bold mb-6">THE NEXT CHAPTER</h2>
               <div className="space-y-5 text-gray-300 text-lg leading-relaxed">
                 <p>
-                  My son Landon is 8 years old. He's obsessed with Marvel and Star Wars — just like 
+                  My son Landon is 8 years old. He's obsessed with Marvel and Star Wars â€” just like 
                   his old man. It started with me buying him the same action figures I once played with 
                   from my older brothers, hunting them down at nostalgia toy stores together.
                 </p>
                 <p>
-                  From there it was lightsaber battles in the house — I'm sure the neighbors got a 
+                  From there it was lightsaber battles in the house â€” I'm sure the neighbors got a 
                   good laugh out of that one. And now, it's ripping cards together. Watching him light 
                   up over a pull is the same feeling I had at that strip mall card shop all those years ago.
                 </p>
@@ -206,7 +206,7 @@ export default function About() {
                 </p>
                 <p>
                   That's what Northland Legendary Finds is. It's not just a card business. It's a 
-                  father and son building something together — and inviting you to be part of it.
+                  father and son building something together â€” and inviting you to be part of it.
                 </p>
               </div>
             </div>
@@ -216,7 +216,7 @@ export default function About() {
               <div className="absolute -inset-3 bg-gradient-to-br from-red-500/20 via-transparent to-primary/20 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity" />
               <img
                 src={PHOTOS.fatherSon}
-                alt="Me and Landon outside MN Sports Cards — one of our favorite card stores"
+                alt="Me and Landon outside MN Sports Cards â€” one of our favorite card stores"
                 className="relative rounded-xl w-full aspect-[3/4] object-cover object-top shadow-2xl"
               />
               <div className="absolute bottom-4 left-4 bg-black/70 backdrop-blur-sm px-4 py-2 rounded-lg flex items-center gap-2">
@@ -228,22 +228,22 @@ export default function About() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════════════════
-          SECTION 5 — OUT OF THIS WORLD MOMENTS: Photo Gallery
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+          SECTION 5 â€” OUT OF THIS WORLD MOMENTS: Photo Gallery
           Grid of Landon with Marvel heroes & Star Wars characters
-      ═══════════════════════════════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="py-16 lg:py-24 bg-card/50 border-y border-border/50">
         <div className="container max-w-6xl">
           <div className="text-center mb-12">
             <p className="text-purple-400 font-bold text-sm tracking-[0.2em] uppercase mb-3">The Superfan</p>
             <h2 className="text-4xl sm:text-5xl font-bold mb-4">OUT OF THIS WORLD MOMENTS</h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Marvel heroes and Star Wars legends — Landon doesn't just watch, he lives it. 
+              Marvel heroes and Star Wars legends â€” Landon doesn't just watch, he lives it. 
               Every convention, every character meet, every premiere. This is what it's all about.
             </p>
           </div>
 
-          {/* Photo grid — 3 columns on desktop, 2 on mobile */}
+          {/* Photo grid â€” 3 columns on desktop, 2 on mobile */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
             {[
               { src: PHOTOS.landonReading, alt: "Landon reading", label: "Quiet Moments" },
@@ -281,17 +281,17 @@ export default function About() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════════════════
-          SECTION 6 — THE MISSION: Cards as a Hobby
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+          SECTION 6 â€” THE MISSION: Cards as a Hobby
           Full-width statement + side-by-side images
-      ═══════════════════════════════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="py-16 lg:py-24">
         <div className="container max-w-6xl">
           <div className="text-center mb-12">
             <p className="text-primary font-bold text-sm tracking-[0.2em] uppercase mb-3">Chapter Four</p>
             <h2 className="text-4xl sm:text-5xl font-bold mb-6">THE MISSION</h2>
             <p className="text-gray-300 text-xl max-w-3xl mx-auto leading-relaxed">
-              Cards used to be about the hobby — trading with your friends, chasing your favorite 
+              Cards used to be about the hobby â€” trading with your friends, chasing your favorite 
               characters, the thrill of a good pull. Somewhere along the way, it became all about 
               "investment" and flipping for profit.
             </p>
@@ -300,7 +300,7 @@ export default function About() {
             </p>
           </div>
 
-          {/* Two images side by side — card show + community */}
+          {/* Two images side by side â€” card show + community */}
           <div className="grid md:grid-cols-2 gap-6 mb-12">
             <div className="relative group overflow-hidden rounded-xl">
               <img
@@ -365,10 +365,10 @@ export default function About() {
 
       {/* Family Adventures section consolidated into Out of This World Moments grid above */}
 
-      {/* ═══════════════════════════════════════════════════════════════════
-          SECTION 8 — THE WHY: Emotional Close
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+          SECTION 8 â€” THE WHY: Emotional Close
           Full-width cinematic statement
-      ═══════════════════════════════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="relative py-20 lg:py-28 overflow-hidden">
         {/* Subtle background glow */}
         <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background" />
@@ -384,7 +384,7 @@ export default function About() {
           </blockquote>
 
           <p className="text-gray-400 text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto mb-4">
-            That's the whole story. Everything else — the cards, the streams, the business — 
+            That's the whole story. Everything else â€” the cards, the streams, the business â€” 
             is just the vehicle. The destination is building something meaningful with my family 
             and sharing it with yours.
           </p>
@@ -395,14 +395,14 @@ export default function About() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════════════════
-          SECTION 9 — CTA: Join Us
-      ═══════════════════════════════════════════════════════════════════ */}
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+          SECTION 9 â€” CTA: Join Us
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="py-16 border-t border-border/50">
         <div className="container max-w-4xl text-center">
           <h2 className="text-3xl sm:text-4xl font-bold mb-6">COME HANG WITH US</h2>
           <p className="text-gray-400 text-lg mb-8 max-w-xl mx-auto">
-            Whether you're a lifelong collector or just getting started — we'd love to have you.
+            Whether you're a lifelong collector or just getting started â€” we'd love to have you.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/checklists">
@@ -429,3 +429,4 @@ export default function About() {
     </div>
   );
 }
+

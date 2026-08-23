@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Card Database / Marvel Encyclopedia Page
  * SEO-optimized, image-rich card browser with CSS flip animation
  * Lazy loading images for performance
@@ -23,19 +23,19 @@ import { getSetBackground } from "@/lib/cardBackgrounds";
 import SEO, { breadcrumbJsonLd, collectionPageJsonLd } from "@/components/SEO";
 
 // Default placeholder for cards without images
-const PLACEHOLDER_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hulk_9ebdacfa.png";
+const PLACEHOLDER_IMG = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hulk_9ebdacfa.png";
 
 // ==================== ERA COLOR THEMES ====================
 // Different color themes for each card era/subset
 // Cosmic nebula background images for CBH eras
 const COSMIC_BG: Record<string, string> = {
-  "COMIC BOOK HEROES 1975": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-1975-gold-amber_4a450d14.png",
-  "COMIC BOOK HEROES 1976": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-1976-blue-silver_6b1bd586.png",
-  "COMIC BOOK HEROES 2025": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-2025-emerald-green_6d5f07b4.png",
-  "BASE CARDS \u2013 BRONZE": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-mint-bronze_ab7d9bd7.png",
-  "BASE CARDS \u2013 SILVER": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-mint-silver_4a175856.png",
-  "BASE CARDS \u2013 GOLD": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-mint-gold_d9dc1d49.png",
-  "BASE CARDS \u2013 PLATINUM": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-mint-platinum_0fe0fc77.png",
+  "COMIC BOOK HEROES 1975": "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-1975-gold-amber_4a450d14.png",
+  "COMIC BOOK HEROES 1976": "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-1976-blue-silver_6b1bd586.png",
+  "COMIC BOOK HEROES 2025": "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-2025-emerald-green_6d5f07b4.png",
+  "BASE CARDS \u2013 BRONZE": "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-mint-bronze_ab7d9bd7.png",
+  "BASE CARDS \u2013 SILVER": "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-mint-silver_4a175856.png",
+  "BASE CARDS \u2013 GOLD": "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-mint-gold_d9dc1d49.png",
+  "BASE CARDS \u2013 PLATINUM": "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-mint-platinum_0fe0fc77.png",
 };
 
 const ERA_THEMES: Record<string, {
@@ -83,7 +83,7 @@ const ERA_THEMES: Record<string, {
     glowColor: "rgba(16, 185, 129, 0.35)",
   },
   // Marvel Mint subset themes (for future use)
-  "BASE CARDS – BRONZE": {
+  "BASE CARDS â€“ BRONZE": {
     bg: "bg-gradient-to-b from-orange-950/40 via-card to-card",
     border: "hover:border-orange-500/60",
     badge: "bg-orange-500/15 text-orange-400 border-orange-500/30",
@@ -94,7 +94,7 @@ const ERA_THEMES: Record<string, {
     borderColor: "rgba(249, 115, 22, 0.7)",
     glowColor: "rgba(249, 115, 22, 0.35)",
   },
-  "BASE CARDS – SILVER": {
+  "BASE CARDS â€“ SILVER": {
     bg: "bg-gradient-to-b from-slate-800/40 via-card to-card",
     border: "hover:border-slate-400/60",
     badge: "bg-slate-400/15 text-slate-300 border-slate-400/30",
@@ -105,7 +105,7 @@ const ERA_THEMES: Record<string, {
     borderColor: "rgba(148, 163, 184, 0.7)",
     glowColor: "rgba(148, 163, 184, 0.35)",
   },
-  "BASE CARDS – GOLD": {
+  "BASE CARDS â€“ GOLD": {
     bg: "bg-gradient-to-b from-yellow-900/40 via-card to-card",
     border: "hover:border-yellow-500/60",
     badge: "bg-yellow-500/15 text-yellow-400 border-yellow-500/30",
@@ -116,7 +116,7 @@ const ERA_THEMES: Record<string, {
     borderColor: "rgba(234, 179, 8, 0.7)",
     glowColor: "rgba(234, 179, 8, 0.35)",
   },
-  "BASE CARDS – PLATINUM": {
+  "BASE CARDS â€“ PLATINUM": {
     bg: "bg-gradient-to-b from-zinc-700/40 via-card to-card",
     border: "hover:border-zinc-300/60",
     badge: "bg-zinc-300/15 text-zinc-200 border-zinc-300/30",
@@ -172,7 +172,7 @@ function LazyImage({ src, alt, className }: { src: string; alt: string; classNam
         jsonLd={[
           breadcrumbJsonLd([{ name: "Home", url: "/" }, { name: "Card Database", url: "/cards" }]),
           collectionPageJsonLd({
-            name: "Marvel Card Database — 1,709+ Cards Across 6 Topps Sets",
+            name: "Marvel Card Database â€” 1,709+ Cards Across 6 Topps Sets",
             description: "Browse the complete Marvel trading card database. Search by character, set, or parallel across 2025 Topps Chrome, Comic Book Heroes, Marvel Mint, and more.",
             url: "/cards",
             itemCount: 1709,
@@ -416,7 +416,7 @@ function SetBrowser() {
             <div>
               <h1 className="text-3xl lg:text-4xl font-bold">Card Database</h1>
               <p className="text-muted-foreground mt-1">
-                Every Topps Marvel card set from 2024 to 2026 — organized by year
+                Every Topps Marvel card set from 2024 to 2026 â€” organized by year
               </p>
             </div>
           </div>
@@ -619,7 +619,7 @@ function SetBrowser() {
             {sets && (
               <div className="mt-12 text-center text-muted-foreground">
                 <p className="text-lg font-medium">{sets.length} sets &bull; {sets.reduce((sum, s) => sum + (s.totalCards ?? 0), 0).toLocaleString()} total cards in database</p>
-                <p className="text-sm mt-1">Spanning 2024–2026 &bull; Updated as new sets release</p>
+                <p className="text-sm mt-1">Spanning 2024â€“2026 &bull; Updated as new sets release</p>
               </div>
             )}
           </>
@@ -742,10 +742,10 @@ function SetDetail({ slug }: { slug: string }) {
 
   // Custom display order for card types
   const CARD_TYPE_ORDER: Record<string, number> = {
-    "BASE CARDS – BRONZE": 1,
-    "BASE CARDS – SILVER": 2,
-    "BASE CARDS – GOLD": 3,
-    "BASE CARDS – PLATINUM": 4,
+    "BASE CARDS â€“ BRONZE": 1,
+    "BASE CARDS â€“ SILVER": 2,
+    "BASE CARDS â€“ GOLD": 3,
+    "BASE CARDS â€“ PLATINUM": 4,
     "Autograph": 5,
     "GAMBIT'S DECK": 6,
     "GAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS": 7,
@@ -983,7 +983,7 @@ function SetDetail({ slug }: { slug: string }) {
             </div>
             <h2 className="text-2xl font-bold mb-4">{set.name}</h2>
             <p className="text-muted-foreground text-lg mb-6">
-              Full checklist and card database coming soon. This set {set.releaseYear && set.releaseYear > new Date().getFullYear() ? `releases in ${set.releaseYear}` : 'has been announced'} — we'll have the complete breakdown as soon as the checklist drops.
+              Full checklist and card database coming soon. This set {set.releaseYear && set.releaseYear > new Date().getFullYear() ? `releases in ${set.releaseYear}` : 'has been announced'} â€” we'll have the complete breakdown as soon as the checklist drops.
             </p>
             {set.description && (
               <p className="text-muted-foreground mb-8">{set.description}</p>
@@ -1184,3 +1184,4 @@ function SetDetail({ slug }: { slug: string }) {
     </div>
   );
 }
+

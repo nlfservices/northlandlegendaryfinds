@@ -1,9 +1,9 @@
-/**
- * TrendingCharacterPage — Reusable template for individual character card listing pages.
+﻿/**
+ * TrendingCharacterPage â€” Reusable template for individual character card listing pages.
  * Auto-pulls cards from marvelCards DB + checklistItems across ALL products.
  * SEO-optimized for "[Character] Topps Marvel Cards" and graded card searches.
  * Linked from /trending, navigable to other characters and home.
- * New checklists automatically populate these pages — no manual updates needed.
+ * New checklists automatically populate these pages â€” no manual updates needed.
  */
 
 import { useMemo } from "react";
@@ -19,12 +19,12 @@ import {
 import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 import { Streamdown } from "streamdown";
 
-const PLACEHOLDER_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/character-placeholder-v2-CY48bnu9TGVPXs9qZJnG7S.webp";
+const PLACEHOLDER_IMG = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/character-placeholder-v2-CY48bnu9TGVPXs9qZJnG7S.webp";
 
 // Static image overrides for characters without trading cards in the database
 const CHARACTER_IMAGE_OVERRIDES: Record<string, string> = {
-  "kang": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/kang-character-3ikm66jFTWEESTn5mpNv6X.webp",
-  "red-skull": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/red-skull-character-WZAUMsSGJp4nqcvHpwhX5L.webp",
+  "kang": "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/kang-character-3ikm66jFTWEESTn5mpNv6X.webp",
+  "red-skull": "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/red-skull-character-WZAUMsSGJp4nqcvHpwhX5L.webp",
 };
 
 export default function TrendingCharacterPage() {
@@ -103,7 +103,7 @@ export default function TrendingCharacterPage() {
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title={`${data.characterName} Topps Marvel Cards — Graded & Raw | Northland Legendary Finds`}
+        title={`${data.characterName} Topps Marvel Cards â€” Graded & Raw | Northland Legendary Finds`}
         description={metaDesc}
         path={`/trending/${slug}`}
         image={characterImage}
@@ -290,7 +290,7 @@ export default function TrendingCharacterPage() {
                   <div className="bg-gradient-to-r from-primary/10 to-transparent px-6 py-4 border-b border-border/50">
                     <div className="flex items-center justify-between">
                       <div>
-                        <h3 className="text-lg font-bold text-foreground">{data.characterName} — {group.setName}</h3>
+                        <h3 className="text-lg font-bold text-foreground">{data.characterName} â€” {group.setName}</h3>
                         <p className="text-sm text-muted-foreground">{group.cards.length} cards in this set</p>
                       </div>
                       {group.setSlug && (
@@ -436,3 +436,4 @@ export default function TrendingCharacterPage() {
     </div>
   );
 }
+

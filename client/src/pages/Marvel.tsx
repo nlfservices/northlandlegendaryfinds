@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Marvel Category Page - Marvel products with themed hero
  */
 
@@ -6,7 +6,7 @@ import { getProductsByCategory } from "@/lib/products";
 import ProductCard from "@/components/ProductCard";
 import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 
-const MARVEL_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/marvel-category-bg-H7jvz2QMRU6BGR7bwwNJ89.webp";
+const MARVEL_BG = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/marvel-category-bg-H7jvz2QMRU6BGR7bwwNJ89.webp";
 
 export default function Marvel() {
   const marvelProducts = getProductsByCategory("marvel");
@@ -31,7 +31,7 @@ export default function Marvel() {
             <span className="text-red-500">MARVEL</span> COLLECTION
           </h1>
           <p className="text-xl text-gray-300 max-w-2xl">
-            Premium Marvel trading card repacks and sealed products. From Topps Chrome to Marvel Mint — find your next legendary pull.
+            Premium Marvel trading card repacks and sealed products. From Topps Chrome to Marvel Mint â€” find your next legendary pull.
           </p>
         </div>
       </section>
@@ -52,3 +52,4 @@ export default function Marvel() {
     </div>
   );
 }
+

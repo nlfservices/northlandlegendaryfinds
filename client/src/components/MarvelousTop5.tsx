@@ -1,5 +1,5 @@
-/**
- * Marvelous Top 5 — Weekly buzz rankings from the Marvel universe
+﻿/**
+ * Marvelous Top 5 â€” Weekly buzz rankings from the Marvel universe
  * Each entry features a card image from the NLF database, backstory, and source links
  * Easy to update: just change the BUZZ_ITEMS array below
  */
@@ -23,23 +23,23 @@ interface BuzzItem {
 }
 
 // ============================================================
-// UPDATE THIS ARRAY TO CHANGE THE TOP 5 — no code changes needed
+// UPDATE THIS ARRAY TO CHANGE THE TOP 5 â€” no code changes needed
 // ============================================================
 const BUZZ_ITEMS: BuzzItem[] = [
   {
     rank: 1,
     title: "Spider-Man: Brand New Day",
     character: "Spider-Man",
-    tagline: "The trailer just dropped — and the hype is unreal",
+    tagline: "The trailer just dropped â€” and the hype is unreal",
     backstory:
       "Tom Holland returns as Peter Parker in a high-stakes prequel to Avengers: Doomsday. The Brand New Day trailer reveals lost friendships, new villains, and strange powers as Peter's life spins upside down. Set for July 2026, this is the fourth solo Spider-Man film and the bridge between Thunderbolts* and Doomsday. Spider-Man cards are already surging in the secondary market.",
     cardImage:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-101_Spider-Man_318857c1.webp",
+      "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-101_Spider-Man_318857c1.webp",
     cardLabel: "2025 Topps Chrome #101",
     cardLink: "/cards/chrome/101",
     sources: [
-      { title: "BBC — Brand New Day Trailer Breakdown", url: "https://www.bbc.co.uk/newsround/articles/cj323868dl4o" },
-      { title: "People — Everything We Know", url: "https://people.com/spider-man-brand-new-day-everything-we-know-11928797" },
+      { title: "BBC â€” Brand New Day Trailer Breakdown", url: "https://www.bbc.co.uk/newsround/articles/cj323868dl4o" },
+      { title: "People â€” Everything We Know", url: "https://people.com/spider-man-brand-new-day-everything-we-know-11928797" },
     ],
     heatLevel: "blazing",
     category: "Movie",
@@ -50,14 +50,14 @@ const BUZZ_ITEMS: BuzzItem[] = [
     character: "Doctor Doom",
     tagline: "Robert Downey Jr. becomes Marvel's greatest villain",
     backstory:
-      "The centerpiece of Avengers: Doomsday, Doctor Doom is being positioned as the most dangerous threat the MCU has ever faced. Robert Downey Jr.'s casting as Victor Von Doom sent shockwaves through the fandom. In the comics, Doom is returning in Captain America #12 this June, reshaping Steve Rogers' world before the Armageddon event. His cards — especially Chrome parallels — are among the most sought-after in the 2025 Topps set.",
+      "The centerpiece of Avengers: Doomsday, Doctor Doom is being positioned as the most dangerous threat the MCU has ever faced. Robert Downey Jr.'s casting as Victor Von Doom sent shockwaves through the fandom. In the comics, Doom is returning in Captain America #12 this June, reshaping Steve Rogers' world before the Armageddon event. His cards â€” especially Chrome parallels â€” are among the most sought-after in the 2025 Topps set.",
     cardImage:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-148_Doctor_Doom_52f7a61b.webp",
+      "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-148_Doctor_Doom_52f7a61b.webp",
     cardLabel: "2025 Topps Chrome #148",
     cardLink: "/cards/chrome/148",
     sources: [
-      { title: "Bleeding Cool — Doctor Doom Returns in Captain America", url: "https://bleedingcool.com/comics/return-of-doctor-doom-in-marvels-captain-america-june-2026-solicits/" },
-      { title: "E! Online — Lewis Pullman Teases Doomsday Surprises", url: "https://www.eonline.com/news/1429755/oscars-2026-lewis-pullman-on-avengers-doomsday-breaking-rules" },
+      { title: "Bleeding Cool â€” Doctor Doom Returns in Captain America", url: "https://bleedingcool.com/comics/return-of-doctor-doom-in-marvels-captain-america-june-2026-solicits/" },
+      { title: "E! Online â€” Lewis Pullman Teases Doomsday Surprises", url: "https://www.eonline.com/news/1429755/oscars-2026-lewis-pullman-on-avengers-doomsday-breaking-rules" },
     ],
     heatLevel: "blazing",
     category: "Movie / Comics",
@@ -68,14 +68,14 @@ const BUZZ_ITEMS: BuzzItem[] = [
     character: "Sentry",
     tagline: "Thunderbolts* breakout star heads to Doomsday",
     backstory:
-      "Lewis Pullman's portrayal of Bob Reynolds / The Sentry in Thunderbolts* has become one of the MCU's most talked-about performances. At the 2026 Oscars, Pullman teased \"surprises\" for Avengers: Doomsday. Fans are speculating that The Void — Sentry's dark alter ego — could play a pivotal role. The Sentry's power level (often compared to Superman) makes him a wildcard in the Doomsday conflict. His cards are climbing fast.",
+      "Lewis Pullman's portrayal of Bob Reynolds / The Sentry in Thunderbolts* has become one of the MCU's most talked-about performances. At the 2026 Oscars, Pullman teased \"surprises\" for Avengers: Doomsday. Fans are speculating that The Void â€” Sentry's dark alter ego â€” could play a pivotal role. The Sentry's power level (often compared to Superman) makes him a wildcard in the Doomsday conflict. His cards are climbing fast.",
     cardImage:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/chrome_168_sentry-8SrWXzwLRmHBTnWBHh7kCH.webp",
+      "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/chrome_168_sentry-8SrWXzwLRmHBTnWBHh7kCH.webp",
     cardLabel: "2025 Topps Chrome #168",
     cardLink: "/cards/chrome/168",
     sources: [
-      { title: "E! Online — Pullman Teases Doomsday at Oscars", url: "https://www.eonline.com/news/1429755/oscars-2026-lewis-pullman-on-avengers-doomsday-breaking-rules" },
-      { title: "Yahoo — Spider-Man Connection to The Void?", url: "https://www.yahoo.com/entertainment/movies/articles/thunderbolts-fans-think-spider-man-093818684.html" },
+      { title: "E! Online â€” Pullman Teases Doomsday at Oscars", url: "https://www.eonline.com/news/1429755/oscars-2026-lewis-pullman-on-avengers-doomsday-breaking-rules" },
+      { title: "Yahoo â€” Spider-Man Connection to The Void?", url: "https://www.yahoo.com/entertainment/movies/articles/thunderbolts-fans-think-spider-man-093818684.html" },
     ],
     heatLevel: "hot",
     category: "Movie",
@@ -84,16 +84,16 @@ const BUZZ_ITEMS: BuzzItem[] = [
     rank: 4,
     title: "Wolverine: Weapon X Unleashed",
     character: "Wolverine",
-    tagline: "Hugh Jackman confirmed for Doomsday — claws out",
+    tagline: "Hugh Jackman confirmed for Doomsday â€” claws out",
     backstory:
       "After the record-breaking success of Deadpool & Wolverine, Hugh Jackman is confirmed to return as Logan in Avengers: Doomsday. Wolverine's role in the multiverse saga is still shrouded in mystery, but his presence guarantees explosive action. In the card market, Wolverine Chrome parallels and inserts are consistently among the top sellers. His Sapphire and Gold parallels command premium prices.",
     cardImage:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-103_Wolverine_1cc49682.webp",
+      "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-103_Wolverine_1cc49682.webp",
     cardLabel: "2025 Topps Chrome #103",
     cardLink: "/cards/chrome/103",
     sources: [
-      { title: "Collider — MCU's Defining Moment in 2026", url: "https://www.facebook.com/collider/posts/the-marvel-cinematic-universe-faces-a-defining-moment-in-2026-after-the-muted-re/1340615581433199/" },
-      { title: "Hollywood.com — Everything We Know About Brand New Day", url: "https://www.hollywood.com/movies/everything-we-know-about-spider-man-brand-new-day-61030871" },
+      { title: "Collider â€” MCU's Defining Moment in 2026", url: "https://www.facebook.com/collider/posts/the-marvel-cinematic-universe-faces-a-defining-moment-in-2026-after-the-muted-re/1340615581433199/" },
+      { title: "Hollywood.com â€” Everything We Know About Brand New Day", url: "https://www.hollywood.com/movies/everything-we-know-about-spider-man-brand-new-day-61030871" },
     ],
     heatLevel: "hot",
     category: "Movie",
@@ -106,12 +106,12 @@ const BUZZ_ITEMS: BuzzItem[] = [
     backstory:
       "Sam Wilson's Captain America is stepping into the leadership role for Avengers: Doomsday. After Brave New World established him as the new Cap, the stakes have never been higher. In the comics, Captain America #12 ties directly into the Armageddon event with a Doctor Doom confrontation. Sam Wilson Chrome cards are gaining traction as collectors bet on his rising MCU prominence.",
     cardImage:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/chrome_185_captain_america-koKKBbDfbETQNRvGxiM3Nh.webp",
+      "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/chrome_185_captain_america-koKKBbDfbETQNRvGxiM3Nh.webp",
     cardLabel: "2025 Topps Chrome #185",
     cardLink: "/cards/chrome/185",
     sources: [
-      { title: "Bleeding Cool — Cap #12 Doctor Doom Confrontation", url: "https://bleedingcool.com/comics/return-of-doctor-doom-in-marvels-captain-america-june-2026-solicits/" },
-      { title: "Collider — MCU Faces Defining Moment", url: "https://www.facebook.com/collider/posts/the-marvel-cinematic-universe-faces-a-defining-moment-in-2026-after-the-muted-re/1340615581433199/" },
+      { title: "Bleeding Cool â€” Cap #12 Doctor Doom Confrontation", url: "https://bleedingcool.com/comics/return-of-doctor-doom-in-marvels-captain-america-june-2026-solicits/" },
+      { title: "Collider â€” MCU Faces Defining Moment", url: "https://www.facebook.com/collider/posts/the-marvel-cinematic-universe-faces-a-defining-moment-in-2026-after-the-muted-re/1340615581433199/" },
     ],
     heatLevel: "rising",
     category: "Movie / Comics",
@@ -151,7 +151,7 @@ export default function MarvelousTop5() {
             <span className="text-primary">Top 5</span>
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            The hottest buzz in the Marvel universe right now — movies, comics, and what it means for your collection.
+            The hottest buzz in the Marvel universe right now â€” movies, comics, and what it means for your collection.
           </p>
         </div>
 
@@ -298,3 +298,4 @@ export default function MarvelousTop5() {
     </section>
   );
 }
+

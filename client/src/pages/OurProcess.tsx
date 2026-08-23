@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Our Process Page
  * Step-by-step walkthrough of how NLF builds repacks:
  * sourcing, sorting, grading, sealing, packaging, and random spot assignment.
@@ -21,7 +21,7 @@ const PROCESS_STEPS = [
     title: "Card Sourcing",
     subtitle: "Finding the Right Cards",
     description:
-      "Every NLF repack starts with sourcing authentic cards from trusted distributors, hobby shops, and verified sellers. We focus exclusively on official Topps Marvel releases — no bootlegs, no reprints, no mystery sources. Each card is verified for authenticity before it ever touches our sorting table.",
+      "Every NLF repack starts with sourcing authentic cards from trusted distributors, hobby shops, and verified sellers. We focus exclusively on official Topps Marvel releases â€” no bootlegs, no reprints, no mystery sources. Each card is verified for authenticity before it ever touches our sorting table.",
     details: [
       "Sourced from authorized distributors and verified sellers",
       "100% authentic Topps Marvel releases only",
@@ -32,8 +32,8 @@ const PROCESS_STEPS = [
     color: "text-blue-400",
     bg: "bg-blue-500/10",
     borderColor: "border-blue-500/30",
-    placeholder: "Photo: Card sourcing — boxes of authentic Topps Marvel product",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Comic_Book_Heroes_box_spotlight_215fa041_a537a3c5.webp",
+    placeholder: "Photo: Card sourcing â€” boxes of authentic Topps Marvel product",
+    image: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Comic_Book_Heroes_box_spotlight_215fa041_a537a3c5.webp",
     imageAlt: "Topps Comic Book Heroes Marvel Golden Anniversary box with Marvel heroes",
   },
   {
@@ -41,7 +41,7 @@ const PROCESS_STEPS = [
     title: "Sorting & Organization",
     subtitle: "The Sorting Tables",
     description:
-      "Once sourced, every card goes through our sorting process. We organize cards by set, character, parallel type, and condition. Our sorting tables are where the magic happens — this is where we build the tiers for each repack series. Chase cards, hit cards, and base cards are carefully categorized and cataloged.",
+      "Once sourced, every card goes through our sorting process. We organize cards by set, character, parallel type, and condition. Our sorting tables are where the magic happens â€” this is where we build the tiers for each repack series. Chase cards, hit cards, and base cards are carefully categorized and cataloged.",
     details: [
       "Cards organized by set, character, and parallel type",
       "Tier assignment: Chase, Hit, and Base categories",
@@ -53,7 +53,7 @@ const PROCESS_STEPS = [
     bg: "bg-green-500/10",
     borderColor: "border-green-500/30",
     placeholder: "Photo: Sorting tables with cards organized by tier and set",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/SortingTable_08b58f63.png",
+    image: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/SortingTable_08b58f63.png",
     imageAlt: "NLF sorting table covered with stacks of Marvel trading cards organized by set and tier",
   },
   {
@@ -61,7 +61,7 @@ const PROCESS_STEPS = [
     title: "Grading & Quality Check",
     subtitle: "Every Card Inspected",
     description:
-      "Quality is non-negotiable. Every card in an NLF repack is individually inspected. Graded cards come in official slabs from top grading services including CGC, AGS, PSA, and more. Raw cards are checked for centering, surface condition, corners, and edges. If a card doesn't meet our standards, it doesn't make the cut — period.",
+      "Quality is non-negotiable. Every card in an NLF repack is individually inspected. Graded cards come in official slabs from top grading services including CGC, AGS, PSA, and more. Raw cards are checked for centering, surface condition, corners, and edges. If a card doesn't meet our standards, it doesn't make the cut â€” period.",
     details: [
       "Cards graded by top services including CGC, AGS, PSA, and more",
       "Every graded card verified with official slab and cert number",
@@ -73,8 +73,8 @@ const PROCESS_STEPS = [
     color: "text-amber-400",
     bg: "bg-amber-500/10",
     borderColor: "border-amber-500/30",
-    placeholder: "Photo: Quality inspection — graded slabs and raw card evaluation",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/GradedCardsSorting_317a2d17.png",
+    placeholder: "Photo: Quality inspection â€” graded slabs and raw card evaluation",
+    image: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/GradedCardsSorting_317a2d17.png",
     imageAlt: "Graded Marvel trading cards in CGC and AGS slabs being sorted and inspected on a table",
   },
   {
@@ -82,7 +82,7 @@ const PROCESS_STEPS = [
     title: "Sealing the Hits",
     subtitle: "Tamper-Proof Packaging",
     description:
-      "Every card is sealed in a custom NLF holographic mylar bag. This isn't just about presentation — it's about integrity. Once sealed, the contents cannot be tampered with or swapped. Each bag is heat-sealed and features our holographic NLF branding so you know it's authentic and untouched.",
+      "Every card is sealed in a custom NLF holographic mylar bag. This isn't just about presentation â€” it's about integrity. Once sealed, the contents cannot be tampered with or swapped. Each bag is heat-sealed and features our holographic NLF branding so you know it's authentic and untouched.",
     details: [
       "Custom NLF holographic mylar bags for every card",
       "Heat-sealed for tamper-proof protection",
@@ -93,8 +93,8 @@ const PROCESS_STEPS = [
     color: "text-purple-400",
     bg: "bg-purple-500/10",
     borderColor: "border-purple-500/30",
-    placeholder: "Photo: Sealing process — heat-sealing cards in NLF holographic mylar bags",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/1000036619_669cf912.jpg",
+    placeholder: "Photo: Sealing process â€” heat-sealing cards in NLF holographic mylar bags",
+    image: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/1000036619_669cf912.jpg",
     imageAlt: "Hacona heat sealer on Marvel comic tablecloth used to seal NLF repack bags",
   },
   {
@@ -102,10 +102,10 @@ const PROCESS_STEPS = [
     title: "Final Packaging",
     subtitle: "Ready for the Drop",
     description:
-      "Sealed packs are organized, counted, and prepared for the drop. Each series has a fixed number of packs — once they're packaged, the series is finalized and locked. The checklist is published, the pack count is set, and nothing changes from this point forward.",
+      "Sealed packs are organized, counted, and prepared for the drop. Each series has a fixed number of packs â€” once they're packaged, the series is finalized and locked. The checklist is published, the pack count is set, and nothing changes from this point forward.",
     details: [
       "Packs counted and organized for the series",
-      "Series finalized — checklist locked with date stamp",
+      "Series finalized â€” checklist locked with date stamp",
       "Pack inventory set and published on the product page",
       "Ready for live stream opening or direct purchase",
     ],
@@ -113,8 +113,8 @@ const PROCESS_STEPS = [
     color: "text-cyan-400",
     bg: "bg-cyan-500/10",
     borderColor: "border-cyan-500/30",
-    placeholder: "Photo: Final packaging — sealed NLF packs organized and ready for drop",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/NLF-Series3_870f94b8.webp",
+    placeholder: "Photo: Final packaging â€” sealed NLF packs organized and ready for drop",
+    image: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/NLF-Series3_870f94b8.webp",
     imageAlt: "Northland Legendary Finds sealed repack pack with cosmic NLF branding ready for drop",
   },
 ];
@@ -123,8 +123,8 @@ export default function OurProcess() {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Our Process — How We Build NLF Repacks"
-        description="See exactly how Northland Legendary Finds builds every repack — from card sourcing and sorting to sealing, packaging, and random live stream spot assignment."
+        title="Our Process â€” How We Build NLF Repacks"
+        description="See exactly how Northland Legendary Finds builds every repack â€” from card sourcing and sorting to sealing, packaging, and random live stream spot assignment."
         path="/our-process"
         jsonLd={breadcrumbJsonLd([
           { name: "Home", url: "/" },
@@ -149,7 +149,7 @@ export default function OurProcess() {
               <span className="text-primary">EVERY PACK</span>
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-              From card sourcing to your doorstep — here's the complete, unfiltered look at how every
+              From card sourcing to your doorstep â€” here's the complete, unfiltered look at how every
               Northland Legendary Finds repack is built. No shortcuts, no secrets, no filler.
             </p>
           </div>
@@ -211,7 +211,7 @@ export default function OurProcess() {
                           {step.placeholder}
                         </p>
                         <p className="text-xs text-muted-foreground/60">
-                          Image placeholder — replace with actual photo
+                          Image placeholder â€” replace with actual photo
                         </p>
                       </div>
                     )}
@@ -241,14 +241,14 @@ export default function OurProcess() {
         </div>
       </section>
 
-      {/* Step 6: Random Spot Assignment — The Fun One */}
+      {/* Step 6: Random Spot Assignment â€” The Fun One */}
       <section className="py-12 lg:py-20 bg-card/30 border-y border-border relative overflow-hidden">
         {/* Subtle playing card pattern background */}
         <div className="absolute inset-0 opacity-[0.03]">
-          <div className="absolute top-10 left-10 text-8xl rotate-12">♠</div>
-          <div className="absolute top-20 right-20 text-7xl -rotate-6">♥</div>
-          <div className="absolute bottom-10 left-1/4 text-9xl rotate-[-15deg]">♦</div>
-          <div className="absolute bottom-20 right-10 text-8xl rotate-6">♣</div>
+          <div className="absolute top-10 left-10 text-8xl rotate-12">â™ </div>
+          <div className="absolute top-20 right-20 text-7xl -rotate-6">â™¥</div>
+          <div className="absolute bottom-10 left-1/4 text-9xl rotate-[-15deg]">â™¦</div>
+          <div className="absolute bottom-20 right-10 text-8xl rotate-6">â™£</div>
         </div>
 
         <div className="container relative z-10">
@@ -275,7 +275,7 @@ export default function OurProcess() {
               {/* Live stream studio photo */}
               <div className="relative rounded-xl border-2 border-fuchsia-500/30 bg-card/30 overflow-hidden">
                 <img
-                  src="https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Studio_dbf83a8a.webp"
+                  src="https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Studio_dbf83a8a.webp"
                   alt="NLF live stream studio setup with Marvel collectible figures and Northland Legendary Finds branding on screen"
                   className="w-full h-full object-cover aspect-[4/3]"
                   loading="lazy"
@@ -294,16 +294,16 @@ export default function OurProcess() {
                 </p>
                 <p className="text-muted-foreground leading-relaxed mb-6">
                   This is the key to fairness. Random spots on streaming platforms make it virtually impossible
-                  for anyone to gain an advantage. No one — not the seller, not the buyer, not the chat
-                  moderator — knows which pack contains which card. The randomizer doesn't care about your
+                  for anyone to gain an advantage. No one â€” not the seller, not the buyer, not the chat
+                  moderator â€” knows which pack contains which card. The randomizer doesn't care about your
                   username, your purchase history, or how many fire emojis you spam in chat.
                 </p>
 
                 <div className="space-y-2">
                   {[
-                    "Spots assigned by random number generator — no exceptions",
+                    "Spots assigned by random number generator â€” no exceptions",
                     "Seller has zero knowledge of pack contents after sealing",
-                    "No pack selection, no feeling, no peeking — pure randomization",
+                    "No pack selection, no feeling, no peeking â€” pure randomization",
                     "Live on camera so the entire community can verify fairness",
                     "Stream recordings archived for full accountability",
                   ].map((detail) => (
@@ -320,7 +320,7 @@ export default function OurProcess() {
             <Card className="bg-gradient-to-r from-fuchsia-500/5 via-purple-500/5 to-blue-500/5 border-fuchsia-500/20 overflow-hidden">
               <CardContent className="pt-8 pb-8">
                 <div className="max-w-2xl mx-auto text-center">
-                  <div className="text-5xl mb-4">🃏</div>
+                  <div className="text-5xl mb-4">ðŸƒ</div>
                   <h3
                     className="text-xl sm:text-2xl font-bold mb-4"
                     style={{ fontFamily: "'Anton', sans-serif" }}
@@ -340,7 +340,7 @@ export default function OurProcess() {
                     AND WE DON'T SELL DC PRODUCTS.
                   </p>
                   <p className="text-sm text-muted-foreground/70 italic">
-                    Sorry, Clark. This is a Marvel house. 🕷️
+                    Sorry, Clark. This is a Marvel house. ðŸ•·ï¸
                   </p>
                 </div>
               </CardContent>
@@ -362,7 +362,7 @@ export default function OurProcess() {
               </h2>
               <p className="text-muted-foreground max-w-xl mx-auto">
                 Every step of our process is designed around one principle: you should never have to
-                just trust us — you should be able to verify everything yourself.
+                just trust us â€” you should be able to verify everything yourself.
               </p>
             </div>
 
@@ -425,7 +425,7 @@ export default function OurProcess() {
             </h2>
             <p className="text-muted-foreground mb-6">
               Browse our checklists, watch our live streams, or check out the shop.
-              Everything we do is built to be verified — not just believed.
+              Everything we do is built to be verified â€” not just believed.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link href="/shop">
@@ -450,3 +450,4 @@ export default function OurProcess() {
     </div>
   );
 }
+

@@ -1,5 +1,5 @@
-/**
- * Trending Cards — "Marvel Cards to Collect Right Now"
+﻿/**
+ * Trending Cards â€” "Marvel Cards to Collect Right Now"
  * Designed as both a site page and Facebook ad landing page.
  * Sections: Hero hook, trending characters, movie-driven picks,
  * beginner tips, and CTAs to shop/database/Whatnot.
@@ -12,18 +12,18 @@ import { useLaunchCountdown } from "@/hooks/useLaunchCountdown";
 import SEO from "@/components/SEO";
 
 // ===== CARD IMAGES =====
-const DOOM_CARD = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-148_Doctor_Doom_52f7a61b.webp";
-const SPIDER_MAN_CARD = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-101_Spider-Man_318857c1.webp";
-const WOLVERINE_CARD = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-103_Wolverine_1cc49682.webp";
-const GAMBIT_CARD = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-105_Gambit_4c11ff4d.webp";
-const CAPTAIN_AMERICA_CARD = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/chrome_185_captain_america-koKKBbDfbETQNRvGxiM3Nh.webp";
-const IRON_MAN_CARD = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/armored-hero-card-SdisyrpGhXuzM9QzK4oy8L.webp";
-const MAGNETO_CARD = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/chrome_169_magneto-5NA8vtyhi9Bfkd6qG3pBzv.webp";
-const FANTASTIC_FOUR_CARD = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-089_Mister_Fantastic_faeb8ea2.webp";
-const THOR_CARD = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-119_Thor_56a124bc.webp";
-const BLACK_PANTHER_CARD = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/black-panther-card-8p85njMmcGx6FSvhe3Txjb.webp";
+const DOOM_CARD = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-148_Doctor_Doom_52f7a61b.webp";
+const SPIDER_MAN_CARD = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-101_Spider-Man_318857c1.webp";
+const WOLVERINE_CARD = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-103_Wolverine_1cc49682.webp";
+const GAMBIT_CARD = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-105_Gambit_4c11ff4d.webp";
+const CAPTAIN_AMERICA_CARD = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/chrome_185_captain_america-koKKBbDfbETQNRvGxiM3Nh.webp";
+const IRON_MAN_CARD = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/armored-hero-card-SdisyrpGhXuzM9QzK4oy8L.webp";
+const MAGNETO_CARD = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/chrome_169_magneto-5NA8vtyhi9Bfkd6qG3pBzv.webp";
+const FANTASTIC_FOUR_CARD = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-089_Mister_Fantastic_faeb8ea2.webp";
+const THOR_CARD = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-119_Thor_56a124bc.webp";
+const BLACK_PANTHER_CARD = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/black-panther-card-8p85njMmcGx6FSvhe3Txjb.webp";
 
-const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hero-collector-banner-VbjWsKXzVgGZ6irJXkBrQz.webp";
+const HERO_BG = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hero-collector-banner-VbjWsKXzVgGZ6irJXkBrQz.webp";
 
 // ===== TRENDING DATA =====
 interface TrendingCard {
@@ -59,7 +59,7 @@ const TRENDING_CARDS: TrendingCard[] = [
     cardNumber: "101",
     image: SPIDER_MAN_CARD,
     heatLevel: "BLAZING",
-    reason: "The Brand New Day trailer just dropped and the hype is massive. Tom Holland's fourth solo film hits theaters July 31 — Spider-Man cards are surging across the board.",
+    reason: "The Brand New Day trailer just dropped and the hype is massive. Tom Holland's fourth solo film hits theaters July 31 â€” Spider-Man cards are surging across the board.",
     movieTie: "Spider-Man: Brand New Day (Jul 2026)",
     slug: "2025-topps-chrome/101",
     characterSlug: "spider-man",
@@ -131,7 +131,7 @@ const MOVIE_PICKS = [
     dateUtc: "2026-07-31T00:00:00Z",
     icon: Zap,
     color: "blue",
-    description: "Tom Holland's fourth solo outing bridges Thunderbolts* and Doomsday. Spider-Man is always the most collected character in Marvel — and a new movie means a new wave of demand.",
+    description: "Tom Holland's fourth solo outing bridges Thunderbolts* and Doomsday. Spider-Man is always the most collected character in Marvel â€” and a new movie means a new wave of demand.",
     topPicks: ["Spider-Man #101", "Spider-Man Variants", "Venom cards", "Green Goblin cards"],
     image: SPIDER_MAN_CARD,
   },
@@ -141,7 +141,7 @@ const BEGINNER_TIPS = [
   {
     icon: Target,
     title: "Collect What You Love",
-    description: "The best investment is a card you actually want to own. Start with your favorite characters — if you love Iron Man, collect Iron Man. Passion keeps you in the hobby when markets fluctuate.",
+    description: "The best investment is a card you actually want to own. Start with your favorite characters â€” if you love Iron Man, collect Iron Man. Passion keeps you in the hobby when markets fluctuate.",
   },
   {
     icon: Crown,
@@ -156,7 +156,7 @@ const BEGINNER_TIPS = [
   {
     icon: Film,
     title: "Follow the Movies",
-    description: "Marvel card values are heavily tied to movie announcements. When a character gets a movie or show, their cards spike. Buy before the hype — sell into the excitement.",
+    description: "Marvel card values are heavily tied to movie announcements. When a character gets a movie or show, their cards spike. Buy before the hype â€” sell into the excitement.",
   },
   {
     icon: BookOpen,
@@ -198,13 +198,13 @@ export default function TrendingCards() {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Marvel Cards to Collect Right Now — Trending Picks for 2026"
+        title="Marvel Cards to Collect Right Now â€” Trending Picks for 2026"
         description="Discover the hottest Marvel trading cards to collect in 2026. Movie-driven picks for Avengers: Doomsday and Spider-Man: Brand New Day, beginner tips, and expert recommendations."
         path="/trending"
         type="article"
       />
 
-      {/* ===== HERO — LANDING PAGE HOOK ===== */}
+      {/* ===== HERO â€” LANDING PAGE HOOK ===== */}
       <section className="relative min-h-[500px] lg:min-h-[550px] flex items-center overflow-hidden">
         <div className="absolute inset-0">
           <img src={HERO_BG} alt="" className="w-full h-full object-cover" loading="eager" />
@@ -247,7 +247,7 @@ export default function TrendingCards() {
         </div>
       </section>
 
-      {/* ===== TRENDING CARDS — THE MAIN LIST ===== */}
+      {/* ===== TRENDING CARDS â€” THE MAIN LIST ===== */}
       <section id="trending-cards" className="py-16 lg:py-20">
         <div className="container">
           <div className="text-center mb-12">
@@ -259,7 +259,7 @@ export default function TrendingCards() {
               TOP <span className="text-primary">TRENDING</span> CARDS
             </h2>
             <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto">
-              These are the cards generating the most buzz right now — driven by upcoming movies, trailer drops, and casting announcements.
+              These are the cards generating the most buzz right now â€” driven by upcoming movies, trailer drops, and casting announcements.
             </p>
           </div>
 
@@ -340,7 +340,7 @@ export default function TrendingCards() {
               COLLECT <span className="text-amber-400">BEFORE</span> THE MOVIES DROP
             </h2>
             <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto">
-              Card values spike when movies release. Smart collectors buy early — here's what's coming and what to grab now.
+              Card values spike when movies release. Smart collectors buy early â€” here's what's coming and what to grab now.
             </p>
           </div>
 
@@ -406,7 +406,7 @@ export default function TrendingCards() {
         </div>
       </section>
 
-      {/* ===== WHY THESE CARDS? — BEGINNER TIPS ===== */}
+      {/* ===== WHY THESE CARDS? â€” BEGINNER TIPS ===== */}
       <section className="py-16 lg:py-20">
         <div className="container">
           <div className="text-center mb-12">
@@ -418,7 +418,7 @@ export default function TrendingCards() {
               WHAT MAKES A CARD <span className="text-purple-400">VALUABLE?</span>
             </h2>
             <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto">
-              New to collecting? Here's what experienced collectors look for — and how you can start smart.
+              New to collecting? Here's what experienced collectors look for â€” and how you can start smart.
             </p>
           </div>
 
@@ -488,7 +488,7 @@ export default function TrendingCards() {
         </div>
       </section>
 
-      {/* ===== CTA — SHOP & WHATNOT ===== */}
+      {/* ===== CTA â€” SHOP & WHATNOT ===== */}
       <section className="relative py-16 lg:py-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-green-900/30 via-background to-green-900/30" />
         <div className="absolute inset-0">
@@ -534,3 +534,4 @@ export default function TrendingCards() {
     </div>
   );
 }
+

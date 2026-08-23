@@ -1,4 +1,4 @@
-/**
+﻿/**
  * MCU News - News, Rumors & Card Market Impact Hub
  * A content-rich page with featured articles, category filters, MCU timeline, and card market analysis
  */
@@ -15,8 +15,8 @@ import { trpc } from "@/lib/trpc";
 import SEO, { breadcrumbJsonLd, collectionPageJsonLd, organizationJsonLd } from "@/components/SEO";
 import FanVoting from "@/components/FanVoting";
 
-const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mcu-intel-hero-VcDNx3cvdPSwJjVGxWMfTo.webp";
-const CARD_MARKET_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mcu-intel-card-market-Lt56dsta4y7Hzfj6pzAysR.webp";
+const HERO_IMG = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mcu-intel-hero-VcDNx3cvdPSwJjVGxWMfTo.webp";
+const CARD_MARKET_IMG = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mcu-intel-card-market-Lt56dsta4y7Hzfj6pzAysR.webp";
 
 const CATEGORIES = [
   { key: "all", label: "All News", icon: Newspaper },
@@ -119,7 +119,7 @@ function getCategoryLabel(key: string): string {
   return CATEGORIES.find(c => c.key === key)?.label ?? key;
 }
 
-/** Voting Grounds — showcases all active article polls */
+/** Voting Grounds â€” showcases all active article polls */
 function VotingGrounds() {
   const { data: voteSummaries = [], isLoading } = trpc.articles.allVoteSummaries.useQuery(undefined, { staleTime: 30_000 });
   const { data: allArticles = [] } = trpc.articles.list.useQuery();
@@ -143,10 +143,10 @@ function VotingGrounds() {
   if (articlesWithVotes.length === 0) return null;
 
   const REACTION_EMOJIS: Record<string, string> = {
-    loved: "💀",
-    fire: "🔥",
-    meh: "😐",
-    thumbsdown: "👎",
+    loved: "ðŸ’€",
+    fire: "ðŸ”¥",
+    meh: "ðŸ˜",
+    thumbsdown: "ðŸ‘Ž",
   };
 
   return (
@@ -155,7 +155,7 @@ function VotingGrounds() {
         {/* Section Header */}
         <div className="flex items-center gap-2 mb-4">
           <div className="w-7 h-7 bg-red-600/20 rounded-md flex items-center justify-center border border-red-600/40">
-            <span className="text-sm">🗳️</span>
+            <span className="text-sm">ðŸ—³ï¸</span>
           </div>
           <div>
             <h2 className="text-lg font-bold text-red-500" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>Voting Grounds</h2>
@@ -240,7 +240,7 @@ export default function MCUNews() {
   return (
     <div className="min-h-screen">
       <SEO
-        title="MCU News — Marvel News, Rumors & Card Market Impact"
+        title="MCU News â€” Marvel News, Rumors & Card Market Impact"
         description="Your command center for MCU news, casting updates, release dates, and how they impact the Marvel trading card market. Stay ahead of the curve."
         path="/mcu-news"
         image={HERO_IMG}
@@ -251,7 +251,7 @@ export default function MCUNews() {
             { name: "MCU News", url: "/mcu-news" },
           ]),
           collectionPageJsonLd({
-            name: "MCU News — Marvel News, Rumors & Card Market Impact",
+            name: "MCU News â€” Marvel News, Rumors & Card Market Impact",
             description: "Your command center for MCU news, casting updates, release dates, and how they impact the Marvel trading card market.",
             url: "/mcu-news",
             itemCount: allArticles?.length,
@@ -521,7 +521,7 @@ export default function MCUNews() {
                     </button>
                   );
                 })}
-                {/* Voting Grounds Tab — red highlight */}
+                {/* Voting Grounds Tab â€” red highlight */}
                 <button
                   onClick={() => {
                     const el = document.getElementById('voting-grounds');
@@ -529,7 +529,7 @@ export default function MCUNews() {
                   }}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-bold border-2 border-red-600 text-red-500 bg-red-600/10 hover:bg-red-600/20 hover:text-red-400 transition-all"
                 >
-                  🗳️ Voting Grounds
+                  ðŸ—³ï¸ Voting Grounds
                 </button>
               </div>
 
@@ -732,3 +732,4 @@ export default function MCUNews() {
     </div>
   );
 }
+

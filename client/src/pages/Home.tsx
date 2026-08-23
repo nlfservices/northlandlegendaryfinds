@@ -1,6 +1,6 @@
-/**
+﻿/**
  * Homepage - Fan-First, Collector-Friendly
- * Design: Lead with fan experience → collector education → community → THEN repacks
+ * Design: Lead with fan experience â†’ collector education â†’ community â†’ THEN repacks
  * Character images: Doctor Doom, Iron Man, Spider-Man, Fantastic Four, Black Panther
  */
 
@@ -24,24 +24,24 @@ import { trpc } from "@/lib/trpc";
 
 
 const HERO_BG = "/manus-storage/doomsday-hero-banner_8bef00bd.jpg";
-const NLF_PACK = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-nlf-variant-2CkMPP3CsZhFkFXpzSuZkV.webp";
-const TRUST_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/trust-section-bg-kwnjuLkybJ2rqpCpEwiChw.webp";
+const NLF_PACK = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-nlf-variant-2CkMPP3CsZhFkFXpzSuZkV.webp";
+const TRUST_BG = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/trust-section-bg-kwnjuLkybJ2rqpCpEwiChw.webp";
 
 // Character card images
-const DOOM_CARD = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/doom-card-LTiPEJkmSfYjTgipmotMso.webp";
-const IRON_MAN_CARD = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/armored-hero-card-SdisyrpGhXuzM9QzK4oy8L.webp";
-const SPIDER_MAN_CARD = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/web-hero-card-nnb4jySYxm85VCLBiavLYC.webp";
-const FF_CARD = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/fantastic-four-card-hj632KBGq5hHBqFr24T7Bg.webp";
-const BLACK_PANTHER_CARD = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/black-panther-card-8p85njMmcGx6FSvhe3Txjb.webp";
+const DOOM_CARD = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/doom-card-LTiPEJkmSfYjTgipmotMso.webp";
+const IRON_MAN_CARD = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/armored-hero-card-SdisyrpGhXuzM9QzK4oy8L.webp";
+const SPIDER_MAN_CARD = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/web-hero-card-nnb4jySYxm85VCLBiavLYC.webp";
+const FF_CARD = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/fantastic-four-card-hj632KBGq5hHBqFr24T7Bg.webp";
+const BLACK_PANTHER_CARD = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/black-panther-card-8p85njMmcGx6FSvhe3Txjb.webp";
 
 // Legacy Legends card images
-const LEGACY_HOPKINS_ODIN = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hopkins-odin-5PmHir8t54fyriEVpZF3Tj.webp";
-const LEGACY_MCKELLEN_MAGNETO = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mckellen-magneto-N8g4KBYRkiGLYhftfknYBc.webp";
-const LEGACY_STEWART_PROFX = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/stewart-professor-x-QoEpAmXirvvLiCbPvb8gyG.webp";
-const LEGACY_BLACK_PANTHER = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/black-panther-card-HTGdTwE7FjM5GKsJFH6VNw.webp";
-const LEGACY_RDJ_IRON_MAN = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/rdj-iron-man-legacy-QegKWDGfdcUe8NRevdJ5GF.webp";
+const LEGACY_HOPKINS_ODIN = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hopkins-odin-5PmHir8t54fyriEVpZF3Tj.webp";
+const LEGACY_MCKELLEN_MAGNETO = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mckellen-magneto-N8g4KBYRkiGLYhftfknYBc.webp";
+const LEGACY_STEWART_PROFX = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/stewart-professor-x-QoEpAmXirvvLiCbPvb8gyG.webp";
+const LEGACY_BLACK_PANTHER = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/black-panther-card-HTGdTwE7FjM5GKsJFH6VNw.webp";
+const LEGACY_RDJ_IRON_MAN = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/rdj-iron-man-legacy-QegKWDGfdcUe8NRevdJ5GF.webp";
 
-// Legacy Legends data — expansion-ready array
+// Legacy Legends data â€” expansion-ready array
 const LEGACY_LEGENDS = [
   {
     id: "boseman",
@@ -54,7 +54,7 @@ const LEGACY_LEGENDS = [
     glowColor: "shadow-purple-500/30",
     accentColor: "text-purple-400",
     image: LEGACY_BLACK_PANTHER,
-    note: "Academy Award nominee. Howard University graduate. Brought Black Panther to life and inspired a generation — his 'Wakanda Forever' became a global symbol of strength. Passed away in 2020 at 43 after a private battle with cancer. No autograph card will ever exist.",
+    note: "Academy Award nominee. Howard University graduate. Brought Black Panther to life and inspired a generation â€” his 'Wakanda Forever' became a global symbol of strength. Passed away in 2020 at 43 after a private battle with cancer. No autograph card will ever exist.",
   },
   {
     id: "hopkins",
@@ -67,7 +67,7 @@ const LEGACY_LEGENDS = [
     glowColor: "shadow-amber-500/30",
     accentColor: "text-amber-400",
     image: LEGACY_HOPKINS_ODIN,
-    note: "Academy Award winner for The Silence of the Lambs and The Father. Knighted by Queen Elizabeth II. From Hannibal Lecter to the All-Father of Asgard — at 88, Sir Anthony Hopkins is one of the greatest actors who ever lived. His first-ever Marvel autograph card.",
+    note: "Academy Award winner for The Silence of the Lambs and The Father. Knighted by Queen Elizabeth II. From Hannibal Lecter to the All-Father of Asgard â€” at 88, Sir Anthony Hopkins is one of the greatest actors who ever lived. His first-ever Marvel autograph card.",
   },
   {
     id: "mckellen",
@@ -80,7 +80,7 @@ const LEGACY_LEGENDS = [
     glowColor: "shadow-red-500/30",
     accentColor: "text-red-400",
     image: LEGACY_MCKELLEN_MAGNETO,
-    note: "Six-time Olivier Award winner. Knighted for services to the performing arts. Defined Gandalf and Magneto for an entire generation. Sir Ian McKellen has been a titan of stage and screen for over 60 years — and a fearless advocate for equality. No Marvel autograph card exists yet — collectors are hoping for a debut auto in a future Topps set.",
+    note: "Six-time Olivier Award winner. Knighted for services to the performing arts. Defined Gandalf and Magneto for an entire generation. Sir Ian McKellen has been a titan of stage and screen for over 60 years â€” and a fearless advocate for equality. No Marvel autograph card exists yet â€” collectors are hoping for a debut auto in a future Topps set.",
   },
   {
     id: "stewart",
@@ -93,7 +93,7 @@ const LEGACY_LEGENDS = [
     glowColor: "shadow-blue-500/30",
     accentColor: "text-blue-400",
     image: LEGACY_STEWART_PROFX,
-    note: "Legendary Royal Shakespeare Company actor. Knighted in 2010. Made Captain Picard and Professor X two of the most iconic characters in pop culture history. Sir Patrick Stewart brings gravitas to everything he touches — from Star Trek to the X-Men. No Marvel autograph card exists yet — collectors are hoping for a debut auto in a future Topps set.",
+    note: "Legendary Royal Shakespeare Company actor. Knighted in 2010. Made Captain Picard and Professor X two of the most iconic characters in pop culture history. Sir Patrick Stewart brings gravitas to everything he touches â€” from Star Trek to the X-Men. No Marvel autograph card exists yet â€” collectors are hoping for a debut auto in a future Topps set.",
   },
   {
     id: "downey",
@@ -106,7 +106,7 @@ const LEGACY_LEGENDS = [
     glowColor: "shadow-red-500/30",
     accentColor: "text-red-400",
     image: LEGACY_RDJ_IRON_MAN,
-    note: "Academy Award winner for Oppenheimer. Launched the entire MCU as Tony Stark in 2008 and defined a generation of superhero cinema across 11 films. His 'I am Iron Man' became the most iconic line in Marvel history. Now returning as Doctor Doom in Avengers: Doomsday — the only actor to play both the MCU's greatest hero and its greatest villain. No Marvel autograph card exists yet — collectors are hoping for a debut auto in a future Topps set.",
+    note: "Academy Award winner for Oppenheimer. Launched the entire MCU as Tony Stark in 2008 and defined a generation of superhero cinema across 11 films. His 'I am Iron Man' became the most iconic line in Marvel history. Now returning as Doctor Doom in Avengers: Doomsday â€” the only actor to play both the MCU's greatest hero and its greatest villain. No Marvel autograph card exists yet â€” collectors are hoping for a debut auto in a future Topps set.",
   },
 ];
 
@@ -173,7 +173,7 @@ function LegacyLegendCard({ legend }: { legend: typeof LEGACY_LEGENDS[number] })
   );
 }
 
-// Card of the Day homepage widget — shows today's featured card with link to full page
+// Card of the Day homepage widget â€” shows today's featured card with link to full page
 function CardOfTheDayWidget() {
   const { data: todayCard, isLoading } = trpc.cardOfTheDay.getTodaysCard.useQuery();
 
@@ -237,7 +237,7 @@ function CardOfTheDayWidget() {
   );
 }
 
-// Latest MCU News section — auto-populated from published articles
+// Latest MCU News section â€” auto-populated from published articles
 function LatestMCUNews() {
   const { data: articles = [], isLoading } = trpc.articles.list.useQuery({ limit: 3 });
 
@@ -383,12 +383,12 @@ export default function Home() {
       <SEO
         path="/"
         title="Northland Legendary Finds | Marvel Trading Card Collector Hub"
-        description="Your home for Marvel fans and trading card collectors. Explore characters, track Avengers: Doomsday news, browse 1,709+ cards, and discover the hobby — whether you're brand new or a lifelong collector."
+        description="Your home for Marvel fans and trading card collectors. Explore characters, track Avengers: Doomsday news, browse 1,709+ cards, and discover the hobby â€” whether you're brand new or a lifelong collector."
         noSuffix
         jsonLd={[organizationJsonLd(), websiteJsonLd(), localBusinessJsonLd()]}
       />
 
-      {/* ===== 1. HERO — FAN-FIRST ===== */}
+      {/* ===== 1. HERO â€” FAN-FIRST ===== */}
       <section className="relative min-h-[500px] sm:min-h-[600px] lg:min-h-[720px] flex items-center overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0">
@@ -413,7 +413,7 @@ export default function Home() {
               </h1>
 
               <p className="text-lg sm:text-xl text-gray-300 max-w-lg mb-8 leading-relaxed">
-                Whether you grew up reading comics, watched every movie with your kids, or can't wait for Avengers: Doomsday — <strong className="text-white">you're in the right place.</strong>
+                Whether you grew up reading comics, watched every movie with your kids, or can't wait for Avengers: Doomsday â€” <strong className="text-white">you're in the right place.</strong>
               </p>
 
               <div className="flex flex-wrap gap-4">
@@ -487,7 +487,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== 2. STATS BAR — SIMPLIFIED FOR NEWCOMERS ===== */}
+      {/* ===== 2. STATS BAR â€” SIMPLIFIED FOR NEWCOMERS ===== */}
       <section className="bg-card border-y border-border">
         <div className="container py-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 text-center">
@@ -519,7 +519,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== 3. STREAM WITH US ON WHATNOT — HIGH IMPACT BANNER ===== */}
+      {/* ===== 3. STREAM WITH US ON WHATNOT â€” HIGH IMPACT BANNER ===== */}
       <section className="relative py-10 sm:py-14 lg:py-16 overflow-hidden">
         {/* Intense purple/red gradient background */}
         <div className="absolute inset-0 bg-gradient-to-r from-purple-900 via-purple-800 to-red-900" />
@@ -549,7 +549,7 @@ export default function Home() {
               </h2>
 
               <p className="text-lg sm:text-xl text-purple-100/80 max-w-md mx-auto lg:mx-0 mb-6 leading-relaxed">
-                Watch packs get ripped live, chat with other fans, and win giveaways. It's <strong className="text-white">free to watch</strong> — just follow and you'll get notified.
+                Watch packs get ripped live, chat with other fans, and win giveaways. It's <strong className="text-white">free to watch</strong> â€” just follow and you'll get notified.
               </p>
 
               <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
@@ -571,7 +571,7 @@ export default function Home() {
             <div className="hidden lg:flex flex-col items-center">
               <div className="bg-white rounded-2xl p-4 shadow-2xl shadow-purple-500/30 hover:scale-105 transition-transform duration-300">
                 <img
-                  src="https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nlf-whatnot-qr_a49cbbc8.jpg"
+                  src="https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nlf-whatnot-qr_a49cbbc8.jpg"
                   alt="Scan to follow us on Whatnot"
                   className="w-44 h-44"
                 />
@@ -603,7 +603,7 @@ export default function Home() {
             <div className="flex lg:hidden justify-center col-span-full mt-2">
               <div className="bg-white rounded-xl p-3 shadow-lg shadow-purple-500/20">
                 <img
-                  src="https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nlf-whatnot-qr_a49cbbc8.jpg"
+                  src="https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nlf-whatnot-qr_a49cbbc8.jpg"
                   alt="Scan to follow us on Whatnot"
                   className="w-32 h-32"
                 />
@@ -613,7 +613,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== 4. NEW TO COLLECTING? — BEGINNER WELCOME ===== */}
+      {/* ===== 4. NEW TO COLLECTING? â€” BEGINNER WELCOME ===== */}
       <section id="new-to-collecting" className="relative py-16 lg:py-20 overflow-hidden">
         {/* Deep Green Background */}
         <div className="absolute inset-0 bg-gradient-to-b from-green-950 via-green-950/95 to-green-950" />
@@ -630,7 +630,7 @@ export default function Home() {
               NEW TO <span className="text-primary">COLLECTING?</span>
             </h2>
             <p className="text-muted-foreground text-lg max-w-3xl mx-auto leading-relaxed">
-              You don't need to be an expert. If you love Marvel, you already belong here. Trading cards are just another way to connect with the characters and stories you care about — and we'll help you get started.
+              You don't need to be an expert. If you love Marvel, you already belong here. Trading cards are just another way to connect with the characters and stories you care about â€” and we'll help you get started.
             </p>
           </div>
 
@@ -644,7 +644,7 @@ export default function Home() {
                 PICK YOUR <span className="text-primary">FANDOM</span>
               </h3>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                Are you an Iron Man fan? A Spider-Man loyalist? Love the Fantastic Four? Start by exploring the characters you already know and love — we have profiles, backstories, and every card they appear on.
+                Are you an Iron Man fan? A Spider-Man loyalist? Love the Fantastic Four? Start by exploring the characters you already know and love â€” we have profiles, backstories, and every card they appear on.
               </p>
               <Link href="/characters">
                 <Button variant="outline" className="border-primary/30 text-primary hover:bg-primary/10 font-bold">
@@ -662,7 +662,7 @@ export default function Home() {
                 LEARN THE <span className="text-cyan-400">BASICS</span>
               </h3>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                What's a base card? What makes a card rare? How do card sets work? Our blog breaks it all down in plain language — no confusing hobby jargon, just clear answers for curious fans.
+                What's a base card? What makes a card rare? How do card sets work? Our blog breaks it all down in plain language â€” no confusing hobby jargon, just clear answers for curious fans.
               </p>
               <Link href="/the-collector">
                 <Button variant="outline" className="border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 font-bold">
@@ -680,7 +680,7 @@ export default function Home() {
                 BROWSE THE <span className="text-amber-400">CARDS</span>
               </h3>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                See what's out there. We've cataloged every card from the 2025 Topps Marvel sets — over 1,700 cards you can search by character, set, or rarity. It's like window shopping, but for trading cards.
+                See what's out there. We've cataloged every card from the 2025 Topps Marvel sets â€” over 1,700 cards you can search by character, set, or rarity. It's like window shopping, but for trading cards.
               </p>
               <Link href="/cards">
                 <Button variant="outline" className="border-amber-500/30 text-amber-400 hover:bg-amber-500/10 font-bold">
@@ -692,7 +692,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== 4b. COLLECTOR'S JOURNEY — REWRITTEN FOR FANS ===== */}
+      {/* ===== 4b. COLLECTOR'S JOURNEY â€” REWRITTEN FOR FANS ===== */}
       <section className="relative py-16 lg:py-20 overflow-hidden">
         {/* Deep Black Background */}
         <div className="absolute inset-0 bg-black" />
@@ -709,13 +709,13 @@ export default function Home() {
               IT STARTS WITH <span className="text-primary">A STORY</span>
             </h2>
             <p className="text-muted-foreground text-lg max-w-3xl mx-auto leading-relaxed">
-              Nobody wakes up one day and says "I'm going to collect trading cards." It starts with something else — a movie, a comic, a character that stuck with you. Here's how most people find their way here.
+              Nobody wakes up one day and says "I'm going to collect trading cards." It starts with something else â€” a movie, a comic, a character that stuck with you. Here's how most people find their way here.
             </p>
           </div>
 
           {/* Alternating image-text layout with character cards */}
           <div className="space-y-16 max-w-6xl mx-auto">
-            {/* Row 1: Image Left, Text Right — Iron Man */}
+            {/* Row 1: Image Left, Text Right â€” Iron Man */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
               <div className="flex justify-center">
                 <div className="relative group">
@@ -733,7 +733,7 @@ export default function Home() {
                   <span className="text-red-400">"I GREW UP</span> ON THIS"
                 </h3>
                 <p className="text-muted-foreground leading-relaxed mb-4">
-                  Maybe you read Iron Man comics as a kid. Maybe you watched the MCU movies with your family. Maybe your child just discovered Spider-Man and now you're both hooked. That connection to the characters is where it all begins — and trading cards are a way to hold onto it.
+                  Maybe you read Iron Man comics as a kid. Maybe you watched the MCU movies with your family. Maybe your child just discovered Spider-Man and now you're both hooked. That connection to the characters is where it all begins â€” and trading cards are a way to hold onto it.
                 </p>
                 <Link href="/characters">
                   <Button variant="outline" className="border-red-500/30 text-red-400 hover:bg-red-500/10 font-bold">
@@ -743,14 +743,14 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Row 2: Text Left, Image Right — Fantastic Four */}
+            {/* Row 2: Text Left, Image Right â€” Fantastic Four */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
               <div className="text-center lg:text-left order-2 lg:order-1">
                 <h3 className="text-2xl sm:text-3xl font-bold mb-4" style={{ fontFamily: "'Anton', sans-serif" }}>
                   <span className="text-blue-400">"WE DO THIS</span> TOGETHER"
                 </h3>
                 <p className="text-muted-foreground leading-relaxed mb-4">
-                  The best part isn't the cards themselves — it's opening packs with your kids, arguing about who's the strongest Avenger with your friends, or going to a card show and meeting people who love the same stuff you do. Collecting is social, and it's way more fun with other people.
+                  The best part isn't the cards themselves â€” it's opening packs with your kids, arguing about who's the strongest Avenger with your friends, or going to a card show and meeting people who love the same stuff you do. Collecting is social, and it's way more fun with other people.
                 </p>
                 <Link href="/card-shows">
                   <Button variant="outline" className="border-blue-500/30 text-blue-400 hover:bg-blue-500/10 font-bold">
@@ -771,7 +771,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Row 3: Image Left, Text Right — Black Panther */}
+            {/* Row 3: Image Left, Text Right â€” Black Panther */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
               <div className="flex justify-center">
                 <div className="relative group">
@@ -789,7 +789,7 @@ export default function Home() {
                   <span className="text-purple-400">"I WANT TO</span> LEARN MORE"
                 </h3>
                 <p className="text-muted-foreground leading-relaxed mb-4">
-                  Once you start, you'll want to know more — which cards are rare, what different sets exist, which ones feature your favorite characters. We built free tools to help: a searchable card database, market price tracking, and articles that explain everything in plain English. No gatekeeping here.
+                  Once you start, you'll want to know more â€” which cards are rare, what different sets exist, which ones feature your favorite characters. We built free tools to help: a searchable card database, market price tracking, and articles that explain everything in plain English. No gatekeeping here.
                 </p>
                 <Link href="/cards">
                   <Button variant="outline" className="border-purple-500/30 text-purple-400 hover:bg-purple-500/10 font-bold">
@@ -802,22 +802,22 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== 5. MCU COUNTDOWN — DOOMSDAY & SPIDER-MAN ===== */}
+      {/* ===== 5. MCU COUNTDOWN â€” DOOMSDAY & SPIDER-MAN ===== */}
       <MCUCountdown />
 
-      {/* ===== 5b. DOOMSDAY — CHARACTER INTEL HUB ===== */}
+      {/* ===== 5b. DOOMSDAY â€” CHARACTER INTEL HUB ===== */}
       <DoomsdaySection />
 
-      {/* ===== 5c. LATEST MCU NEWS — AUTO-POPULATED ===== */}
+      {/* ===== 5c. LATEST MCU NEWS â€” AUTO-POPULATED ===== */}
       <LatestMCUNews />
 
-      {/* ===== 5d. CARD OF THE DAY — DAILY FEATURED CARD ===== */}
+      {/* ===== 5d. CARD OF THE DAY â€” DAILY FEATURED CARD ===== */}
       <CardOfTheDayWidget />
 
       {/* ===== 6. MARVELOUS TOP 5 ===== */}
       <MarvelousTop5 />
 
-      {/* ===== 7. EXPLORE OUR COLLECTION — Spider-Man CTA ===== */}
+      {/* ===== 7. EXPLORE OUR COLLECTION â€” Spider-Man CTA ===== */}
       <section className="relative py-16 lg:py-20 overflow-hidden">
         {/* Deep Purple Background */}
         <div className="absolute inset-0 bg-gradient-to-b from-purple-950 via-purple-950/95 to-purple-950" />
@@ -844,7 +844,7 @@ export default function Home() {
                 SEE WHAT'S <span className="text-primary">OUT THERE</span>
               </h2>
               <p className="text-muted-foreground text-lg leading-relaxed mb-6">
-                We've cataloged every card from the 2025 Topps Marvel sets — Chrome, Comic Book Heroes, Mint, Sapphire, Studios, and more. Search by your favorite character, browse by set, or just scroll and see what catches your eye. It's completely free.
+                We've cataloged every card from the 2025 Topps Marvel sets â€” Chrome, Comic Book Heroes, Mint, Sapphire, Studios, and more. Search by your favorite character, browse by set, or just scroll and see what catches your eye. It's completely free.
               </p>
               <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
                 <Link href="/cards">
@@ -871,7 +871,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== 8. LEGACY LEGENDS — ACTOR-FOCUSED PREMIUM SECTION ===== */}
+      {/* ===== 8. LEGACY LEGENDS â€” ACTOR-FOCUSED PREMIUM SECTION ===== */}
       <section className="relative py-16 lg:py-24 overflow-hidden">
         {/* Rich Gold/Amber Background */}
         <div className="absolute inset-0 bg-gradient-to-b from-amber-950 via-amber-950/95 to-amber-950" />
@@ -896,7 +896,7 @@ export default function Home() {
               <span className="text-foreground">LEGENDS</span>
             </h2>
             <p className="text-muted-foreground text-lg max-w-3xl mx-auto leading-relaxed">
-              Where character meets immortality. These actors didn't just play heroes — they <em>became</em> them. Their debut autograph cards in the 2025 Topps Marvel Studios set represent some of the most significant pulls in the hobby.
+              Where character meets immortality. These actors didn't just play heroes â€” they <em>became</em> them. Their debut autograph cards in the 2025 Topps Marvel Studios set represent some of the most significant pulls in the hobby.
             </p>
           </div>
 
@@ -910,7 +910,7 @@ export default function Home() {
           {/* Bottom CTA */}
           <div className="text-center mt-12">
             <p className="text-muted-foreground text-sm mb-4">
-              More Legacy Legends coming soon — as new debut autos are confirmed in upcoming sets.
+              More Legacy Legends coming soon â€” as new debut autos are confirmed in upcoming sets.
             </p>
             <Link href="/cards">
               <Button variant="outline" className="border-amber-500/30 text-amber-400 hover:bg-amber-500/10 font-bold">
@@ -923,7 +923,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== 9. YOUR FANDOM, YOUR WAY — EXPANSION ROADMAP ===== */}
+      {/* ===== 9. YOUR FANDOM, YOUR WAY â€” EXPANSION ROADMAP ===== */}
       <section className="relative py-16 lg:py-20 overflow-hidden">
         {/* NLF Green Background */}
         <div className="absolute inset-0 bg-gradient-to-b from-green-950 via-green-950/95 to-green-950" />
@@ -944,66 +944,66 @@ export default function Home() {
               YOUR FANDOM, <span className="text-primary">YOUR WAY</span>
             </h2>
             <p className="text-muted-foreground text-lg max-w-3xl mx-auto leading-relaxed">
-              We're starting with Marvel — but this is just the beginning. NLF is building a home for fans and collectors across every universe you love. Stay tuned and stay informed.
+              We're starting with Marvel â€” but this is just the beginning. NLF is building a home for fans and collectors across every universe you love. Stay tuned and stay informed.
             </p>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-6xl mx-auto">
-            {/* Marvel — Active */}
+            {/* Marvel â€” Active */}
             <div className="relative group">
               <div className="bg-card border-2 border-primary/50 rounded-xl p-5 text-center hover:border-primary transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
                 <div className="absolute -top-2 -right-2">
                   <span className="bg-primary text-primary-foreground text-[10px] font-bold px-2 py-0.5 rounded-full">LIVE</span>
                 </div>
-                <div className="text-4xl mb-3">🦸</div>
+                <div className="text-4xl mb-3">ðŸ¦¸</div>
                 <h3 className="font-bold text-sm mb-1">Marvel</h3>
                 <p className="text-xs text-primary font-bold">Explore Now</p>
               </div>
             </div>
 
-            {/* Star Wars — Coming Soon */}
+            {/* Star Wars â€” Coming Soon */}
             <div className="relative group">
               <div className="bg-card border border-amber-500/30 rounded-xl p-5 text-center hover:border-amber-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/10">
                 <div className="absolute -top-2 -right-2">
                   <span className="bg-amber-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">SOON</span>
                 </div>
-                <div className="text-4xl mb-3">⚔️</div>
+                <div className="text-4xl mb-3">âš”ï¸</div>
                 <h3 className="font-bold text-sm mb-1">Star Wars</h3>
                 <p className="text-xs text-amber-400 font-bold">Fall 2026</p>
               </div>
             </div>
 
-            {/* Disney — Future */}
+            {/* Disney â€” Future */}
             <div className="group">
               <div className="bg-card/60 border border-border rounded-xl p-5 text-center hover:border-blue-500/30 transition-all duration-300 opacity-80 hover:opacity-100">
-                <div className="text-4xl mb-3">🏰</div>
+                <div className="text-4xl mb-3">ðŸ°</div>
                 <h3 className="font-bold text-sm mb-1">Disney</h3>
                 <p className="text-xs text-muted-foreground">Fall 2026</p>
               </div>
             </div>
 
-            {/* WWE — Future */}
+            {/* WWE â€” Future */}
             <div className="group">
               <div className="bg-card/60 border border-border rounded-xl p-5 text-center hover:border-red-500/30 transition-all duration-300 opacity-80 hover:opacity-100">
-                <div className="text-4xl mb-3">🤼</div>
+                <div className="text-4xl mb-3">ðŸ¤¼</div>
                 <h3 className="font-bold text-sm mb-1">WWE</h3>
                 <p className="text-xs text-muted-foreground">Fall 2026</p>
               </div>
             </div>
 
-            {/* UFC — Future */}
+            {/* UFC â€” Future */}
             <div className="group">
               <div className="bg-card/60 border border-border rounded-xl p-5 text-center hover:border-orange-500/30 transition-all duration-300 opacity-80 hover:opacity-100">
-                <div className="text-4xl mb-3">🥊</div>
+                <div className="text-4xl mb-3">ðŸ¥Š</div>
                 <h3 className="font-bold text-sm mb-1">UFC</h3>
                 <p className="text-xs text-muted-foreground">Summer 2026</p>
               </div>
             </div>
 
-            {/* Boxing — Future */}
+            {/* Boxing â€” Future */}
             <div className="group">
               <div className="bg-card/60 border border-border rounded-xl p-5 text-center hover:border-yellow-500/30 transition-all duration-300 opacity-80 hover:opacity-100">
-                <div className="text-4xl mb-3">🥇</div>
+                <div className="text-4xl mb-3">ðŸ¥‡</div>
                 <h3 className="font-bold text-sm mb-1">Boxing</h3>
                 <p className="text-xs text-muted-foreground">Fall 2026</p>
               </div>
@@ -1020,7 +1020,7 @@ export default function Home() {
 
       {/* ===== WHATNOT SECTION MOVED TO POSITION 3 ===== */}
 
-      {/* ===== 10. WHAT IS A REPACK? — SIMPLIFIED FOR BEGINNERS ===== */}
+      {/* ===== 10. WHAT IS A REPACK? â€” SIMPLIFIED FOR BEGINNERS ===== */}
       <section className="relative py-16 lg:py-20 overflow-hidden">
         {/* Deep Black Background */}
         <div className="absolute inset-0 bg-black" />
@@ -1037,7 +1037,7 @@ export default function Home() {
               WHAT IS A <span className="text-primary">REPACK</span>?
             </h2>
             <p className="text-muted-foreground text-lg max-w-3xl mx-auto leading-relaxed">
-              Think of it like a curated gift box of trading cards. Instead of buying a random pack from the store, you get a hand-picked selection that's been put together by someone who actually knows the cards. Every NLF repack includes a mix of common cards and rare ones — and we publish the full list of what could be inside so there are no surprises.
+              Think of it like a curated gift box of trading cards. Instead of buying a random pack from the store, you get a hand-picked selection that's been put together by someone who actually knows the cards. Every NLF repack includes a mix of common cards and rare ones â€” and we publish the full list of what could be inside so there are no surprises.
             </p>
           </div>
 
@@ -1048,7 +1048,7 @@ export default function Home() {
               </div>
               <h3 className="font-bold text-lg mb-2">Hand-Picked Cards</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Every pack is assembled by hand — not randomly generated. We choose cards that make the experience fun and worth your money.
+                Every pack is assembled by hand â€” not randomly generated. We choose cards that make the experience fun and worth your money.
               </p>
             </div>
             <div className="bg-card/80 border border-border rounded-xl p-6 text-center hover:border-amber-500/30 transition-colors">
@@ -1057,7 +1057,7 @@ export default function Home() {
               </div>
               <h3 className="font-bold text-lg mb-2">Rare Cards Included</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Every pack includes special cards — limited editions, rare versions, or professionally graded cards that have been verified by experts.
+                Every pack includes special cards â€” limited editions, rare versions, or professionally graded cards that have been verified by experts.
               </p>
             </div>
             <div className="bg-card/80 border border-border rounded-xl p-6 text-center hover:border-cyan-500/30 transition-colors">
@@ -1066,14 +1066,14 @@ export default function Home() {
               </div>
               <h3 className="font-bold text-lg mb-2">No Surprises</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                We publish a full checklist for every pack so you can see exactly what's possible before you buy. Complete transparency — always.
+                We publish a full checklist for every pack so you can see exactly what's possible before you buy. Complete transparency â€” always.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ===== 11. PRODUCT PYRAMID — REPACKS (SECONDARY) ===== */}
+      {/* ===== 11. PRODUCT PYRAMID â€” REPACKS (SECONDARY) ===== */}
       <section className="relative py-16 lg:py-20 overflow-hidden">
         {/* Deep Purple Background */}
         <div className="absolute inset-0 bg-gradient-to-b from-purple-950 via-purple-950/95 to-purple-950" />
@@ -1094,11 +1094,11 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Pyramid Tier 1: Gambit's Deck — Featured at Top */}
+          {/* Pyramid Tier 1: Gambit's Deck â€” Featured at Top */}
           {gambitProduct && (
             <div className="max-w-xl mx-auto mb-8">
               <div className="text-center mb-3">
-                <span className="text-xs font-bold uppercase tracking-widest text-fuchsia-400">Featured — See Every Card Before You Buy</span>
+                <span className="text-xs font-bold uppercase tracking-widest text-fuchsia-400">Featured â€” See Every Card Before You Buy</span>
               </div>
               <Link href={`/product/${gambitProduct.slug}`}>
                 <div className="group relative overflow-hidden rounded-2xl border-2 border-fuchsia-500/40 bg-gradient-to-br from-fuchsia-950/40 via-card to-purple-950/40 hover:border-fuchsia-400/60 transition-all duration-300 shadow-lg shadow-fuchsia-500/10 hover:shadow-fuchsia-500/20">
@@ -1121,7 +1121,7 @@ export default function Home() {
                         {gambitProduct.name}
                       </h3>
                       <p className="text-sm text-muted-foreground mb-3">
-                        52 single-card packs themed after Gambit's playing cards. The full checklist is published — you can see every possible card before you buy.
+                        52 single-card packs themed after Gambit's playing cards. The full checklist is published â€” you can see every possible card before you buy.
                       </p>
                       <div className="flex items-center justify-center sm:justify-start gap-4 mb-4">
                         <span className="text-2xl font-bold text-fuchsia-400" style={{ fontFamily: "'Anton', sans-serif" }}>${gambitProduct.price}</span>
@@ -1197,7 +1197,7 @@ export default function Home() {
               </div>
               <h3 className="font-bold text-lg mb-2">100% Real Cards</h3>
               <p className="text-sm text-muted-foreground">
-                Every card comes from official Topps releases. No fakes, no knockoffs — guaranteed authentic.
+                Every card comes from official Topps releases. No fakes, no knockoffs â€” guaranteed authentic.
               </p>
             </div>
 
@@ -1207,7 +1207,7 @@ export default function Home() {
               </div>
               <h3 className="font-bold text-lg mb-2">Free Resources</h3>
               <p className="text-sm text-muted-foreground">
-                Card database, character profiles, market prices, and beginner guides — all free, no account needed.
+                Card database, character profiles, market prices, and beginner guides â€” all free, no account needed.
               </p>
             </div>
 
@@ -1227,7 +1227,7 @@ export default function Home() {
               </div>
               <h3 className="font-bold text-lg mb-2">Built by Fans</h3>
               <p className="text-sm text-muted-foreground">
-                We're collectors and fans ourselves. This isn't a corporation — it's a passion project built for people like us.
+                We're collectors and fans ourselves. This isn't a corporation â€” it's a passion project built for people like us.
               </p>
             </div>
           </div>
@@ -1342,3 +1342,4 @@ export default function Home() {
     </div>
   );
 }
+

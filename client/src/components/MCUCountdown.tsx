@@ -1,5 +1,5 @@
-/**
- * MCU Countdown Section — Cinematic Doomsday countdown with Star Wars hyperspace intro
+﻿/**
+ * MCU Countdown Section â€” Cinematic Doomsday countdown with Star Wars hyperspace intro
  * Primary: Avengers: Doomsday (December 18, 2026)
  * Secondary: Spider-Man: Brand New Day (July 31, 2026)
  */
@@ -12,7 +12,7 @@ import { useEffect, useRef, useState } from "react";
 
 const DOOMSDAY_DATE = "2026-12-18T00:00:00Z";
 const SPIDERMAN_DATE = "2026-07-31T00:00:00Z";
-const COUNTDOWN_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/doomsday-section-bg-BjSMCi7WHT8WWJNCqKkRAi.webp";
+const COUNTDOWN_BG = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/doomsday-section-bg-BjSMCi7WHT8WWJNCqKkRAi.webp";
 
 function getMonthsAndDays(targetDateUtc: string) {
   const now = new Date();
@@ -230,7 +230,7 @@ export default function MCUCountdown() {
         {/* ===== TITLE ===== */}
         <div className="text-center mb-10 sm:mb-14">
           <p className="text-green-400 text-xs sm:text-sm font-bold tracking-[0.3em] uppercase mb-3">
-            ⚡ MARVEL CINEMATIC UNIVERSE
+            âš¡ MARVEL CINEMATIC UNIVERSE
           </p>
           <h2
             className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-none mb-2"
@@ -254,7 +254,7 @@ export default function MCUCountdown() {
             DOOMSDAY
           </h2>
           <p className="text-gray-400 text-sm sm:text-base">
-            December 18, 2026 &nbsp;·&nbsp; Robert Downey Jr. as Doctor Doom &nbsp;·&nbsp; Directed by the Russo Brothers
+            December 18, 2026 &nbsp;Â·&nbsp; Robert Downey Jr. as Doctor Doom &nbsp;Â·&nbsp; Directed by the Russo Brothers
           </p>
         </div>
 
@@ -298,7 +298,7 @@ export default function MCUCountdown() {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-black/40 border border-blue-500/20 rounded-xl px-5 py-4 backdrop-blur-sm">
             <div>
               <p className="text-blue-400 font-bold text-sm uppercase tracking-wider">
-                🕷 Spider-Man: Brand New Day
+                ðŸ•· Spider-Man: Brand New Day
               </p>
               <p className="text-gray-500 text-xs mt-0.5">July 31, 2026</p>
             </div>
@@ -319,9 +319,10 @@ export default function MCUCountdown() {
         </div>
 
         <p className="text-center text-xs text-muted-foreground/40 mt-6">
-          Release dates subject to change · Start collecting now so you're ready when the movies drop
+          Release dates subject to change Â· Start collecting now so you're ready when the movies drop
         </p>
       </div>
     </section>
   );
 }
+

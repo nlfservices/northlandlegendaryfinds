@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Star Wars Category Page - Coming Fall 2026 with Mandalorian movie tie-in
  */
 
@@ -9,7 +9,7 @@ import { Link } from "wouter";
 import { ArrowRight, Calendar, Film, Sparkles } from "lucide-react";
 import SEO from "@/components/SEO";
 
-const STARWARS_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/starwars-category-bg-WqLKRyttqRtq3ztxa82myb.webp";
+const STARWARS_BG = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/starwars-category-bg-WqLKRyttqRtq3ztxa82myb.webp";
 
 export default function StarWars() {
   const starWarsProducts = getProductsByCategory("starwars");
@@ -73,7 +73,7 @@ export default function StarWars() {
                     <div className="w-8 h-8 bg-cyan-500/10 rounded-lg flex items-center justify-center">
                       <Calendar className="w-4 h-4 text-cyan-400" />
                     </div>
-                    <span className="text-sm text-gray-300">Limited to 500 packs — sign up for early access</span>
+                    <span className="text-sm text-gray-300">Limited to 500 packs â€” sign up for early access</span>
                   </div>
                 </div>
                 <Link href="/subscribe">
@@ -106,7 +106,7 @@ export default function StarWars() {
       <section className="py-12 border-t border-border">
         <div className="container text-center">
           <p className="text-muted-foreground text-lg mb-4">
-            Can't wait? Check out our Marvel repacks — available now!
+            Can't wait? Check out our Marvel repacks â€” available now!
           </p>
           <Link href="/marvel">
             <Button variant="outline" size="lg" className="border-primary/30 text-primary hover:bg-primary/10 font-bold">
@@ -119,3 +119,4 @@ export default function StarWars() {
     </div>
   );
 }
+

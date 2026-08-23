@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Product Data Store - NLF E-Commerce
  * All product data for the storefront
  *
@@ -37,7 +37,7 @@ export interface Product {
   isRepack: boolean;
   isComingSoon: boolean;
   shopifyUrl?: string;
-  /** UTC ISO string — product cannot be purchased before this date */
+  /** UTC ISO string â€” product cannot be purchased before this date */
   launchDate?: string;
   /** Database product slug (if different from frontend slug) for live pack counter */
   dbSlug?: string;
@@ -48,47 +48,47 @@ export interface Product {
 // CDN URLs for product images
 const CDN = {
   // Existing generated images (will be updated with series-specific ones)
-  cosmicDrop: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-nlf-variant-2CkMPP3CsZhFkFXpzSuZkV.webp",
-  chromeEdition: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-100-pack-LsACR5odDHrd8r7na6iEeJ.webp",
-  snapCollection: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-snap-collection-f4QERPq29N4pJDjofGfJDw.webp",
-  mvOrigins: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-mv-origins-Hy4dpNfeVzWEfn9T6vJBid.webp",
-  mvParallel: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-mv-parallel-Jbn7zBa6fvERbhh2RRhg66.webp",
-  mvLegendary: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-mv-legendary-CR5tFH2VEfA8tsmNqDGf6V.webp",
+  cosmicDrop: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-nlf-variant-2CkMPP3CsZhFkFXpzSuZkV.webp",
+  chromeEdition: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-100-pack-LsACR5odDHrd8r7na6iEeJ.webp",
+  snapCollection: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-snap-collection-f4QERPq29N4pJDjofGfJDw.webp",
+  mvOrigins: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-mv-origins-Hy4dpNfeVzWEfn9T6vJBid.webp",
+  mvParallel: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-mv-parallel-Jbn7zBa6fvERbhh2RRhg66.webp",
+  mvLegendary: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-mv-legendary-CR5tFH2VEfA8tsmNqDGf6V.webp",
   // Topps box images
   toppsChrome: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/jdWyPiUVXDVdmyzj.jpg",
   toppsSapphireEd: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/YyWKnervcebTDXGJ.webp",
   toppsMint: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/AMhakRyQCtQiiBVc.jpg",
   toppsSapphireBox: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/QHvSDpUNxByvEZDk.jpg",
   nlfLogo: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/rwZcaJaSCFxygqjF.png",
-  gambitDeck: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit-deck-52-singles-agMj46W47777xcjTUjBw5L.webp",
+  gambitDeck: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/gambit-deck-52-singles-agMj46W47777xcjTUjBw5L.webp",
 };
 
 export const SHOPIFY_STORE = "f1ipn9-h0.myshopify.com";
 
 export const products: Product[] = [
   // ===================================================================
-  // GAMBIT'S DECK — 52 Singles — Launching May 21, 2026
+  // GAMBIT'S DECK â€” 52 Singles â€” Launching May 21, 2026
   // ===================================================================
   {
     id: "gambit-deck-52",
     slug: "gambit-deck-52",
     dbSlug: "nlf-marvel-52-singles",
     name: "Topps Marvel Mint Collection",
-    subtitle: "52 Premium Marvel Mint Packs — Complete Gambit Set Inside",
+    subtitle: "52 Premium Marvel Mint Packs â€” Complete Gambit Set Inside",
     category: "marvel",
     productLine: "gambit-deck",
     price: 600,
     packCount: 52,
     image: CDN.gambitDeck,
     images: [CDN.gambitDeck],
-    description: "52 premium packs featuring cards from the 2025 Topps Marvel Mint collection. Includes a complete Gambit set among other great cards from one of Topps' most sought-after Marvel releases. Each pack contains one card — Aces are the chase, Face cards are the hits, and Number cards form the base. This is the only NLF set with a pre-revealed checklist — see exactly what you're chasing before you buy.",
+    description: "52 premium packs featuring cards from the 2025 Topps Marvel Mint collection. Includes a complete Gambit set among other great cards from one of Topps' most sought-after Marvel releases. Each pack contains one card â€” Aces are the chase, Face cards are the hits, and Number cards form the base. This is the only NLF set with a pre-revealed checklist â€” see exactly what you're chasing before you buy.",
     features: [
       "52 premium packs from 2025 Topps Marvel Mint",
       "Complete Gambit set included among other great cards",
       "Playing card theme: Aces = chase, Face cards = hits, Number cards = base",
-      "Full checklist revealed before launch — see what you're chasing",
+      "Full checklist revealed before launch â€” see what you're chasing",
       "Sealed in custom NLF holographic mylar bag",
-      "Limited to 52 packs — collect the full deck",
+      "Limited to 52 packs â€” collect the full deck",
     ],
     badge: "DROPPING MAY 21",
     badgeColor: "magenta",
@@ -101,7 +101,7 @@ export const products: Product[] = [
   },
 
   // ===================================================================
-  // THE VARIANT SERIES — Launching May 21, 2026
+  // THE VARIANT SERIES â€” Launching May 21, 2026
   // ===================================================================
   {
     id: "variant-cosmic-drop",
@@ -115,13 +115,13 @@ export const products: Product[] = [
     packCount: 500,
     image: CDN.cosmicDrop,
     images: [CDN.cosmicDrop],
-    description: "The Cosmic Drop is our flagship Marvel trading card repack — 500 hand-curated packs featuring numbered parallels, inserts, and graded slabs from Topps Chrome Marvel, Marvel Mint, and more. Every pack has a published checklist so you know exactly what's possible.",
+    description: "The Cosmic Drop is our flagship Marvel trading card repack â€” 500 hand-curated packs featuring numbered parallels, inserts, and graded slabs from Topps Chrome Marvel, Marvel Mint, and more. Every pack has a published checklist so you know exactly what's possible.",
     features: [
       "Every card from authentic 2025 Topps Marvel releases",
       "Numbered parallels, inserts, and graded slabs included",
-      "Full checklist published — see every possible card",
+      "Full checklist published â€” see every possible card",
       "Cards from Topps Chrome, Marvel Mint, and other premium sets",
-      "Limited to 500 packs — once they're gone, they're gone",
+      "Limited to 500 packs â€” once they're gone, they're gone",
       "Sealed in custom NLF holographic mylar bag",
     ],
     badge: "DROPPING MAY 21",
@@ -149,9 +149,9 @@ export const products: Product[] = [
       "100 hand-curated Marvel chrome trading card packs",
       "Every card from authentic 2025 Topps Marvel releases",
       "Numbered parallels, inserts, and graded slabs included",
-      "Full checklist published — see every possible card",
+      "Full checklist published â€” see every possible card",
       "Focused on premium Topps Chrome Marvel cards",
-      "Limited to 100 packs — ultra-exclusive drop",
+      "Limited to 100 packs â€” ultra-exclusive drop",
     ],
     badge: "DROPPING MAY 21",
     badgeColor: "green",
@@ -163,7 +163,7 @@ export const products: Product[] = [
   },
 
   // ===================================================================
-  // THE SNAP COLLECTION — Launching May 21, 2026
+  // THE SNAP COLLECTION â€” Launching May 21, 2026
   // ===================================================================
   {
     id: "snap-collection-100",
@@ -182,7 +182,7 @@ export const products: Product[] = [
       "Themed around iconic Marvel moments and events",
       "Every card from authentic 2025 Topps Marvel releases",
       "Numbered parallels, inserts, and graded slabs included",
-      "Full checklist published — see every possible card",
+      "Full checklist published â€” see every possible card",
       "Sealed in custom NLF holographic mylar bag",
     ],
     badge: "DROPPING MAY 21",
@@ -204,13 +204,13 @@ export const products: Product[] = [
     packCount: 500,
     image: CDN.snapCollection,
     images: [CDN.snapCollection],
-    description: "The Snap Collection 500-pack edition — the full experience. 500 hand-curated packs featuring cards that capture the universe-altering events, legendary heroes, and infamous villains. Full checklist published so you know exactly what's possible.",
+    description: "The Snap Collection 500-pack edition â€” the full experience. 500 hand-curated packs featuring cards that capture the universe-altering events, legendary heroes, and infamous villains. Full checklist published so you know exactly what's possible.",
     features: [
       "500 hand-curated Marvel trading card packs",
       "Themed around iconic Marvel moments and events",
       "Every card from authentic 2025 Topps Marvel releases",
       "Numbered parallels, inserts, and graded slabs included",
-      "Full checklist published — see every possible card",
+      "Full checklist published â€” see every possible card",
       "Sealed in custom NLF holographic mylar bag",
     ],
     badge: "DROPPING MAY 21",
@@ -223,7 +223,7 @@ export const products: Product[] = [
   },
 
   // ===================================================================
-  // MULTIVERSE VAULT — Launching May 21, 2026
+  // MULTIVERSE VAULT â€” Launching May 21, 2026
   // ===================================================================
   {
     id: "mv-origins-100",
@@ -236,13 +236,13 @@ export const products: Product[] = [
     packCount: 100,
     image: CDN.mvOrigins,
     images: [CDN.mvOrigins],
-    description: "Multiverse Vault: Origins digs deep into the Marvel multiverse — 100 packs featuring origin stories, first appearances, and the characters that started it all. Full checklist published so you know exactly what's possible.",
+    description: "Multiverse Vault: Origins digs deep into the Marvel multiverse â€” 100 packs featuring origin stories, first appearances, and the characters that started it all. Full checklist published so you know exactly what's possible.",
     features: [
       "100 hand-curated Marvel trading card packs",
       "Origin stories and first appearance themed cards",
       "Every card from authentic 2025 Topps Marvel releases",
       "Numbered parallels, inserts, and graded slabs included",
-      "Full checklist published — see every possible card",
+      "Full checklist published â€” see every possible card",
       "Sealed in custom NLF holographic mylar bag",
     ],
     badge: "DROPPING MAY 21",
@@ -264,13 +264,13 @@ export const products: Product[] = [
     packCount: 500,
     image: CDN.mvOrigins,
     images: [CDN.mvOrigins],
-    description: "Multiverse Vault: Origins 500-pack edition — the full vault experience. 500 packs featuring origin stories, first appearances, and the characters that started it all. Full checklist published so you know exactly what's possible.",
+    description: "Multiverse Vault: Origins 500-pack edition â€” the full vault experience. 500 packs featuring origin stories, first appearances, and the characters that started it all. Full checklist published so you know exactly what's possible.",
     features: [
       "500 hand-curated Marvel trading card packs",
       "Origin stories and first appearance themed cards",
       "Every card from authentic 2025 Topps Marvel releases",
       "Numbered parallels, inserts, and graded slabs included",
-      "Full checklist published — see every possible card",
+      "Full checklist published â€” see every possible card",
       "Sealed in custom NLF holographic mylar bag",
     ],
     badge: "DROPPING MAY 21",
@@ -292,13 +292,13 @@ export const products: Product[] = [
     packCount: 100,
     image: CDN.mvParallel,
     images: [CDN.mvParallel],
-    description: "Multiverse Vault: Parallel Edition — 100 packs loaded with parallel variants, refractors, and numbered cards from across the Marvel multiverse. Full checklist published so you know exactly what's possible.",
+    description: "Multiverse Vault: Parallel Edition â€” 100 packs loaded with parallel variants, refractors, and numbered cards from across the Marvel multiverse. Full checklist published so you know exactly what's possible.",
     features: [
       "100 hand-curated Marvel trading card packs",
       "Focused on parallel variants and refractors",
       "Every card from authentic 2025 Topps Marvel releases",
       "Numbered parallels, inserts, and rare variants included",
-      "Full checklist published — see every possible card",
+      "Full checklist published â€” see every possible card",
       "Sealed in custom NLF holographic mylar bag",
     ],
     badge: "DROPPING MAY 21",
@@ -320,13 +320,13 @@ export const products: Product[] = [
     packCount: 500,
     image: CDN.mvParallel,
     images: [CDN.mvParallel],
-    description: "Multiverse Vault: Parallel Edition 500-pack — the full parallel experience. 500 packs loaded with parallel variants, refractors, and numbered cards from across the Marvel multiverse. Full checklist published so you know exactly what's possible.",
+    description: "Multiverse Vault: Parallel Edition 500-pack â€” the full parallel experience. 500 packs loaded with parallel variants, refractors, and numbered cards from across the Marvel multiverse. Full checklist published so you know exactly what's possible.",
     features: [
       "500 hand-curated Marvel trading card packs",
       "Focused on parallel variants and refractors",
       "Every card from authentic 2025 Topps Marvel releases",
       "Numbered parallels, inserts, and rare variants included",
-      "Full checklist published — see every possible card",
+      "Full checklist published â€” see every possible card",
       "Sealed in custom NLF holographic mylar bag",
     ],
     badge: "DROPPING MAY 21",
@@ -348,13 +348,13 @@ export const products: Product[] = [
     packCount: 100,
     image: CDN.mvLegendary,
     images: [CDN.mvLegendary],
-    description: "Multiverse Vault: Legendary Drop — 100 packs featuring the most legendary cards in the Marvel universe. Premium hits, graded slabs, and cards that define collections. Full checklist published so you know exactly what's possible.",
+    description: "Multiverse Vault: Legendary Drop â€” 100 packs featuring the most legendary cards in the Marvel universe. Premium hits, graded slabs, and cards that define collections. Full checklist published so you know exactly what's possible.",
     features: [
       "100 hand-curated Marvel trading card packs",
       "Premium legendary-tier cards and hits",
       "Every card from authentic 2025 Topps Marvel releases",
       "Numbered parallels, graded slabs, and premium cards included",
-      "Full checklist published — see every possible card",
+      "Full checklist published â€” see every possible card",
       "Sealed in custom NLF holographic mylar bag",
     ],
     badge: "DROPPING MAY 21",
@@ -376,13 +376,13 @@ export const products: Product[] = [
     packCount: 500,
     image: CDN.mvLegendary,
     images: [CDN.mvLegendary],
-    description: "Multiverse Vault: Legendary Drop 500-pack — the ultimate vault experience. 500 packs featuring the most legendary cards in the Marvel universe. Premium hits, graded slabs, and cards that define collections. Full checklist published so you know exactly what's possible.",
+    description: "Multiverse Vault: Legendary Drop 500-pack â€” the ultimate vault experience. 500 packs featuring the most legendary cards in the Marvel universe. Premium hits, graded slabs, and cards that define collections. Full checklist published so you know exactly what's possible.",
     features: [
       "500 hand-curated Marvel trading card packs",
       "Premium legendary-tier cards and hits",
       "Every card from authentic 2025 Topps Marvel releases",
       "Numbered parallels, graded slabs, and premium cards included",
-      "Full checklist published — see every possible card",
+      "Full checklist published â€” see every possible card",
       "Sealed in custom NLF holographic mylar bag",
     ],
     badge: "DROPPING MAY 21",
@@ -395,7 +395,7 @@ export const products: Product[] = [
   },
 
   // ===================================================================
-  // TOPPS HOBBY BOXES — Coming Soon
+  // TOPPS HOBBY BOXES â€” Coming Soon
   // ===================================================================
   {
     id: "topps-marvel-chrome",
@@ -515,30 +515,31 @@ export function getProductLines() {
     {
       id: "gambit-deck",
       name: "Topps Marvel Mint Collection",
-      tagline: "52 premium packs with a complete Gambit set — the only set with a pre-revealed checklist",
+      tagline: "52 premium packs with a complete Gambit set â€” the only set with a pre-revealed checklist",
       products: getProductsByLine("gambit-deck"),
       available: true,
     },
     {
       id: "variant-series",
       name: "The Variant Series",
-      tagline: "Our flagship Marvel repack line — launching May 21st",
+      tagline: "Our flagship Marvel repack line â€” launching May 21st",
       products: getProductsByLine("variant-series"),
       available: true,
     },
     {
       id: "snap-collection",
       name: "The Snap Collection",
-      tagline: "Iconic Marvel moments in every pack — launching May 21st",
+      tagline: "Iconic Marvel moments in every pack â€” launching May 21st",
       products: getProductsByLine("snap-collection"),
       available: true,
     },
     {
       id: "multiverse-vault",
       name: "Multiverse Vault",
-      tagline: "Deep cuts from across the Marvel multiverse — launching May 21st",
+      tagline: "Deep cuts from across the Marvel multiverse â€” launching May 21st",
       products: getProductsByLine("multiverse-vault"),
       available: true,
     },
   ];
 }
+

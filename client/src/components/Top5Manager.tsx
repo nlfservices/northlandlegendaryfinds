@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Top5Manager - Admin component for managing the Marvelous Top 5 section
  * Supports card image upload (front/back) with green screen removal,
  * cosmic frame compositing, backstory editing, and reordering
@@ -21,13 +21,13 @@ import {
 import { useState, useRef, useCallback } from "react";
 
 const FRAME_TEMPLATES = [
-  { key: "marvel_mint_gold", label: "Marvel Mint Gold", url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/combined_Marvel_Mint_Gold_f3bc7dc2.png" },
-  { key: "marvel_mint_silver", label: "Marvel Mint Silver", url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/combined_Marvel_Mint_Silver_57c1219f.png" },
-  { key: "marvel_mint_bronze", label: "Marvel Mint Bronze", url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/combined_Marvel_Mint_Bronze_ca850e23.png" },
-  { key: "marvel_mint_platinum", label: "Marvel Mint Platinum", url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/combined_Marvel_Mint_Platinum_126c3799.png" },
-  { key: "1975_era_gold_amber", label: "1975 Era Gold Amber", url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/combined_1975_Era_Gold_Amber_137f3e23.png" },
-  { key: "1976_era_blue_silver", label: "1976 Era Blue Silver", url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/combined_1976_Era_Blue_Silver_7e6de901.png" },
-  { key: "2025_era_emerald_green", label: "2025 Era Emerald Green", url: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/combined_2025_Era_Emerald_Green_4b7926e9.png" },
+  { key: "marvel_mint_gold", label: "Marvel Mint Gold", url: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/combined_Marvel_Mint_Gold_f3bc7dc2.png" },
+  { key: "marvel_mint_silver", label: "Marvel Mint Silver", url: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/combined_Marvel_Mint_Silver_57c1219f.png" },
+  { key: "marvel_mint_bronze", label: "Marvel Mint Bronze", url: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/combined_Marvel_Mint_Bronze_ca850e23.png" },
+  { key: "marvel_mint_platinum", label: "Marvel Mint Platinum", url: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/combined_Marvel_Mint_Platinum_126c3799.png" },
+  { key: "1975_era_gold_amber", label: "1975 Era Gold Amber", url: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/combined_1975_Era_Gold_Amber_137f3e23.png" },
+  { key: "1976_era_blue_silver", label: "1976 Era Blue Silver", url: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/combined_1976_Era_Blue_Silver_7e6de901.png" },
+  { key: "2025_era_emerald_green", label: "2025 Era Emerald Green", url: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/combined_2025_Era_Emerald_Green_4b7926e9.png" },
 ];
 
 const HEAT_ICONS: Record<string, React.ReactNode> = {
@@ -407,7 +407,7 @@ export default function Top5Manager() {
                 <Input
                   value={form.tagline}
                   onChange={e => setForm(f => ({ ...f, tagline: e.target.value }))}
-                  placeholder="e.g., The trailer just dropped — and the hype is unreal"
+                  placeholder="e.g., The trailer just dropped â€” and the hype is unreal"
                 />
               </div>
 
@@ -672,3 +672,4 @@ export default function Top5Manager() {
     </div>
   );
 }
+

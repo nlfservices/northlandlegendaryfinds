@@ -1,6 +1,6 @@
-/**
+﻿/**
  * Characters Index Page - Marvel Characters Hub
- * Sections: Doctor Doom Hero → Top 10 MCU → Team Rosters → Full Database
+ * Sections: Doctor Doom Hero â†’ Top 10 MCU â†’ Team Rosters â†’ Full Database
  * SEO-optimized with character card images, search, and alphabetical filtering
  */
 
@@ -19,12 +19,12 @@ import SEO, { breadcrumbJsonLd, collectionPageJsonLd, organizationJsonLd } from 
 
 const ALPHABET = "#ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 const PAGE_SIZE = 60;
-const PLACEHOLDER_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/character-placeholder-v2-CY48bnu9TGVPXs9qZJnG7S.webp";
+const PLACEHOLDER_IMG = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/character-placeholder-v2-CY48bnu9TGVPXs9qZJnG7S.webp";
 
 // Static image overrides for characters without trading cards in the database
 const CHARACTER_IMAGE_OVERRIDES: Record<string, string> = {
-  "KANG": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/kang-character-3ikm66jFTWEESTn5mpNv6X.webp",
-  "RED SKULL": "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/red-skull-character-WZAUMsSGJp4nqcvHpwhX5L.webp",
+  "KANG": "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/kang-character-3ikm66jFTWEESTn5mpNv6X.webp",
+  "RED SKULL": "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/red-skull-character-WZAUMsSGJp4nqcvHpwhX5L.webp",
 };
 
 function characterNameToSlug(name: string): string {
@@ -35,7 +35,7 @@ function characterNameToSlug(name: string): string {
     .replace(/^-|-$/g, "");
 }
 
-// ── Featured Characters Data ──────────────────────────────────────────────
+// â”€â”€ Featured Characters Data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const TOP_10_MCU: { rank: number; name: string; tagline: string }[] = [
   { rank: 1, name: "DOCTOR DOOM", tagline: "The new face of the MCU. Robert Downey Jr. returns." },
   { rank: 2, name: "IRON MAN", tagline: "The one who started it all. Genius, billionaire, legend." },
@@ -159,7 +159,7 @@ const ALL_FEATURED_NAMES = Array.from(new Set([
   ...TEAMS.flatMap(t => t.members),
 ]));
 
-// ── Character Card Component ──────────────────────────────────────────────
+// â”€â”€ Character Card Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function CharacterCard({
   name,
   imageUrl,
@@ -245,7 +245,7 @@ function CharacterCard({
     );
   }
 
-  // Normal size — compact card for grid
+  // Normal size â€” compact card for grid
   return (
     <Link href={`/characters/${slug}`} className="block group">
       <div className="relative rounded-lg overflow-hidden border border-border/50 bg-card hover:border-primary/50 transition-all duration-300">
@@ -269,7 +269,7 @@ function CharacterCard({
   );
 }
 
-// ── Main Page ─────────────────────────────────────────────────────────────
+// â”€â”€ Main Page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export default function Characters() {
   const [searchQuery, setSearchQuery] = useState("");
   const [letterFilter, setLetterFilter] = useState<string | null>(null);
@@ -346,9 +346,9 @@ export default function Characters() {
         ]}
       />
 
-      {/* ═══════════════════════════════════════════════════════════════════
-          SECTION 1 — HERO: Doctor Doom Featured
-      ═══════════════════════════════════════════════════════════════════ */}
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+          SECTION 1 â€” HERO: Doctor Doom Featured
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="relative border-b border-border/50 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/8 via-background to-background" />
         <div className="container max-w-6xl relative py-10 lg:py-16">
@@ -372,7 +372,7 @@ export default function Characters() {
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed mb-6 max-w-lg">
                 {data?.total ?? "880+"} characters across every trading card set we carry.
-                From Doctor Doom's rise to the Avengers assembling for Secret Wars — 
+                From Doctor Doom's rise to the Avengers assembling for Secret Wars â€” 
                 explore the heroes, villains, and teams that define the Marvel Universe.
               </p>
               <div className="flex flex-wrap gap-3">
@@ -413,9 +413,9 @@ export default function Characters() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════════════════
-          SECTION 2 — TOP 10 MCU CHARACTERS
-      ═══════════════════════════════════════════════════════════════════ */}
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+          SECTION 2 â€” TOP 10 MCU CHARACTERS
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section id="top-10" className="py-16 lg:py-20">
         <div className="container max-w-6xl">
           <div className="text-center mb-10">
@@ -431,7 +431,7 @@ export default function Characters() {
             </p>
           </div>
 
-          {/* Top 3 — Large cards */}
+          {/* Top 3 â€” Large cards */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
             {TOP_10_MCU.slice(0, 3).map((char) => (
               <CharacterCard
@@ -446,7 +446,7 @@ export default function Characters() {
             ))}
           </div>
 
-          {/* 4-10 — Smaller grid */}
+          {/* 4-10 â€” Smaller grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4">
             {TOP_10_MCU.slice(3).map((char) => (
               <CharacterCard
@@ -462,9 +462,9 @@ export default function Characters() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════════════════
-          SECTION 3 — TEAMS: Avengers Doomsday & Secret Wars
-      ═══════════════════════════════════════════════════════════════════ */}
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+          SECTION 3 â€” TEAMS: Avengers Doomsday & Secret Wars
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section id="teams" className="py-16 lg:py-20 bg-card/30 border-y border-border/50">
         <div className="container max-w-6xl">
           <div className="text-center mb-12">
@@ -519,9 +519,9 @@ export default function Characters() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════════════════
-          SECTION 4 — FULL CHARACTER DATABASE
-      ═══════════════════════════════════════════════════════════════════ */}
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+          SECTION 4 â€” FULL CHARACTER DATABASE
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section id="database" className="py-16 lg:py-20">
         <div className="container max-w-6xl">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
@@ -634,3 +634,4 @@ export default function Characters() {
     </div>
   );
 }
+

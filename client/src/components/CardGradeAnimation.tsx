@@ -1,4 +1,4 @@
-/**
+﻿/**
  * CardGradeAnimation - Interactive 3D card flip animation
  * Shows a raw card transforming into a CGC graded slab
  * Supports: auto-play, hover, click interactions
@@ -37,7 +37,7 @@ export default function CardGradeAnimation({
   grade = "10",
   gradeLabel = "GEM MINT",
   gradingCompany = "CGC",
-  serialNumber = "#109 · Black Refractor /10",
+  serialNumber = "#109 Â· Black Refractor /10",
   autoPlay = true,
   autoPlayDelay = 3000,
   className = "",
@@ -291,7 +291,7 @@ export default function CardGradeAnimation({
       {/* Interaction Hint */}
       <div className="flex items-center gap-4">
         <p className="text-xs text-muted-foreground/50">
-          {phase === "raw-front" && "Click to flip · Auto-cycles raw → graded"}
+          {phase === "raw-front" && "Click to flip Â· Auto-cycles raw â†’ graded"}
           {phase === "raw-back" && "Click to grade this card"}
           {phase === "transforming" && "Grading in progress..."}
           {phase === "graded-front" && "Click to see the back of the slab"}
@@ -316,8 +316,9 @@ export default function CardGradeAnimation({
 
 // Default Hulk card images for showcase
 export const HULK_CARD_IMAGES: CardImages = {
-  rawFront: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hulk-raw-front_44893b76.jpg",
-  rawBack: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hulk-raw-back_5cb01b4c.jpg",
-  gradedFront: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hulk-graded-front_aab29f02.jpg",
-  gradedBack: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hulk-graded-back_d2fb1b7c.jpg",
+  rawFront: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hulk-raw-front_44893b76.jpg",
+  rawBack: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hulk-raw-back_5cb01b4c.jpg",
+  gradedFront: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hulk-graded-front_aab29f02.jpg",
+  gradedBack: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hulk-graded-back_d2fb1b7c.jpg",
 };
+

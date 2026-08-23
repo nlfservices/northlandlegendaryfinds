@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Card Sets Page
  * Design: Overview of all three Marvel trading card sets
  * - Grid layout with set details
@@ -66,7 +66,7 @@ export default function CardSets() {
         <div 
           className="absolute inset-0 bg-cover bg-center opacity-20"
           style={{
-            backgroundImage: "url('https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/site-assets/marvel_heroes_banner.webp')",
+            backgroundImage: "url('https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/site-assets/marvel_heroes_banner.webp')",
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
@@ -205,3 +205,4 @@ export default function CardSets() {
     </div>
   );
 }
+

@@ -1,18 +1,18 @@
-/**
- * Card Display Tool — Premium single-page card display with 7 switchable cosmic themes.
+﻿/**
+ * Card Display Tool â€” Premium single-page card display with 7 switchable cosmic themes.
  * Features: space nebula backgrounds, corner ornaments, shimmer strip, scanline overlay,
  * floating particles, file upload with fade-in, download as image, and theme-matched accent colors.
  *
  * Supports URL params:
- *   ?img=<encoded_url>  — pre-load a card image
- *   ?theme=<theme_id>   — auto-select a theme (gold-amber, blue-silver, emerald-green, etc.)
- *   ?name=<card_name>   — display card name below the frame
+ *   ?img=<encoded_url>  â€” pre-load a card image
+ *   ?theme=<theme_id>   â€” auto-select a theme (gold-amber, blue-silver, emerald-green, etc.)
+ *   ?name=<card_name>   â€” display card name below the frame
  */
 
 import { useState, useRef, useCallback, useEffect, useMemo } from "react";
 // Canvas-based download (html2canvas doesn't support OKLCH colors from Tailwind 4)
 
-// ─── Theme Definitions ───────────────────────────────────────────────────────
+// â”€â”€â”€ Theme Definitions â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 interface Theme {
   id: string;
@@ -36,7 +36,7 @@ const THEMES: Theme[] = [
     glow: "rgba(232,160,32,0.6)",
     particle: "#e8a020",
     borderDark: "rgba(232,160,32,0.15)",
-    bgUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-1975-gold-amber_4a450d14.png",
+    bgUrl: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-1975-gold-amber_4a450d14.png",
   },
   {
     id: "blue-silver",
@@ -47,7 +47,7 @@ const THEMES: Theme[] = [
     glow: "rgba(74,158,255,0.55)",
     particle: "#4a9eff",
     borderDark: "rgba(74,158,255,0.15)",
-    bgUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-1976-blue-silver_6b1bd586.png",
+    bgUrl: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-1976-blue-silver_6b1bd586.png",
   },
   {
     id: "emerald-green",
@@ -58,7 +58,7 @@ const THEMES: Theme[] = [
     glow: "rgba(0,229,160,0.5)",
     particle: "#00e5a0",
     borderDark: "rgba(0,229,160,0.12)",
-    bgUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-2025-emerald-green_6d5f07b4.png",
+    bgUrl: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-2025-emerald-green_6d5f07b4.png",
   },
   {
     id: "mint-bronze",
@@ -69,7 +69,7 @@ const THEMES: Theme[] = [
     glow: "rgba(205,127,50,0.55)",
     particle: "#cd7f32",
     borderDark: "rgba(205,127,50,0.15)",
-    bgUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-mint-bronze_ab7d9bd7.png",
+    bgUrl: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-mint-bronze_ab7d9bd7.png",
   },
   {
     id: "mint-gold",
@@ -80,7 +80,7 @@ const THEMES: Theme[] = [
     glow: "rgba(255,215,0,0.55)",
     particle: "#ffd700",
     borderDark: "rgba(255,215,0,0.12)",
-    bgUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-mint-gold_d9dc1d49.png",
+    bgUrl: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-mint-gold_d9dc1d49.png",
   },
   {
     id: "mint-platinum",
@@ -91,7 +91,7 @@ const THEMES: Theme[] = [
     glow: "rgba(229,228,226,0.45)",
     particle: "#e5e4e2",
     borderDark: "rgba(229,228,226,0.12)",
-    bgUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-mint-platinum_0fe0fc77.png",
+    bgUrl: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-mint-platinum_0fe0fc77.png",
   },
   {
     id: "mint-silver",
@@ -102,7 +102,7 @@ const THEMES: Theme[] = [
     glow: "rgba(192,192,192,0.45)",
     particle: "#c0c0c0",
     borderDark: "rgba(192,192,192,0.12)",
-    bgUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-mint-silver_4a175856.png",
+    bgUrl: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/space-bg-mint-silver_4a175856.png",
   },
 ];
 
@@ -117,7 +117,7 @@ const CARD_TYPE_TO_THEME: Record<string, string> = {
   "BASE CARDS \u2013 PLATINUM": "mint-platinum",
 };
 
-// ─── Particle Data ───────────────────────────────────────────────────────────
+// â”€â”€â”€ Particle Data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 interface ParticleData {
   id: number;
@@ -137,7 +137,7 @@ function generateParticles(): ParticleData[] {
   }));
 }
 
-// ─── Component ───────────────────────────────────────────────────────────────
+// â”€â”€â”€ Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export default function CardDisplay() {
   // Read URL params for pre-loaded card
@@ -307,7 +307,7 @@ export default function CardDisplay() {
         fontFamily: "'Cinzel', serif",
       }}
     >
-      {/* ── Space Background ── */}
+      {/* â”€â”€ Space Background â”€â”€ */}
       <div
         className="fixed inset-0 z-0"
         style={{
@@ -319,7 +319,7 @@ export default function CardDisplay() {
         }}
       />
 
-      {/* ── Radial Overlay ── */}
+      {/* â”€â”€ Radial Overlay â”€â”€ */}
       <div
         className="fixed inset-0 z-[1]"
         style={{
@@ -328,7 +328,7 @@ export default function CardDisplay() {
         }}
       />
 
-      {/* ── Floating Particles ── */}
+      {/* â”€â”€ Floating Particles â”€â”€ */}
       <div className="fixed inset-0 pointer-events-none z-[2]">
         {particles.map((p) => (
           <div
@@ -350,9 +350,9 @@ export default function CardDisplay() {
         ))}
       </div>
 
-      {/* ── Main Content ── */}
+      {/* â”€â”€ Main Content â”€â”€ */}
       <div className="relative z-10 flex flex-col items-center gap-5 py-8 px-5">
-        {/* ── Back to Database link ── */}
+        {/* â”€â”€ Back to Database link â”€â”€ */}
         {fromDatabase && (
           <button
             onClick={() => window.history.back()}
@@ -379,7 +379,7 @@ export default function CardDisplay() {
           </button>
         )}
 
-        {/* ── Theme Selector Dots ── */}
+        {/* â”€â”€ Theme Selector Dots â”€â”€ */}
         <div className="flex gap-3 items-center">
           {THEMES.map((t) => (
             <button
@@ -427,7 +427,7 @@ export default function CardDisplay() {
           ))}
         </div>
 
-        {/* ── Card Name (if pre-loaded) ── */}
+        {/* â”€â”€ Card Name (if pre-loaded) â”€â”€ */}
         {preloadName && (
           <div
             className="text-center"
@@ -445,7 +445,7 @@ export default function CardDisplay() {
           </div>
         )}
 
-        {/* ── Capture Area (for download) ── */}
+        {/* â”€â”€ Capture Area (for download) â”€â”€ */}
         <div
           ref={captureRef}
           className="relative flex items-center justify-center"
@@ -457,7 +457,7 @@ export default function CardDisplay() {
             backgroundPosition: "center",
           }}
         >
-          {/* ── Card Frame ── */}
+          {/* â”€â”€ Card Frame â”€â”€ */}
           <div
             className="relative cursor-pointer"
             style={{ width: 280, height: 392 }}
@@ -619,7 +619,7 @@ export default function CardDisplay() {
           onChange={handleUpload}
         />
 
-        {/* ── Action Buttons ── */}
+        {/* â”€â”€ Action Buttons â”€â”€ */}
         <div className="flex items-center gap-4">
           {/* Upload Button */}
           <button
@@ -718,7 +718,7 @@ export default function CardDisplay() {
         )}
       </div>
 
-      {/* ── Keyframe Animations (injected via style tag) ── */}
+      {/* â”€â”€ Keyframe Animations (injected via style tag) â”€â”€ */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital@0;1&display=swap');
 
@@ -745,3 +745,4 @@ export default function CardDisplay() {
 
 // Export the theme mapping so CardDatabase can use it
 export { CARD_TYPE_TO_THEME };
+

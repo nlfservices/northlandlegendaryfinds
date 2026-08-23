@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Footer - NLF cosmic theme with all store links + newsletter signup
  */
 
@@ -15,7 +15,7 @@ export default function Footer() {
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-3 mb-4">
               <img
-                src={"https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/site-assets/NLF-Logo-MainLogo.png"}
+                src={"https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/site-assets/NLF-Logo-MainLogo.png"}
                 alt="NLF"
                 className="h-12 w-12 object-contain"
               />
@@ -110,7 +110,7 @@ export default function Footer() {
             <a href="https://whatnot.com/invite/northlandfinds" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group">
               <div className="bg-white rounded-lg p-1.5 shadow-sm">
                 <img
-                  src="https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nlf-whatnot-qr_a49cbbc8.jpg"
+                  src="https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/nlf-whatnot-qr_a49cbbc8.jpg"
                   alt="Scan to follow us on Whatnot"
                   className="w-16 h-16"
                 />
@@ -133,3 +133,4 @@ export default function Footer() {
     </footer>
   );
 }
+

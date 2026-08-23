@@ -1,5 +1,5 @@
-/**
- * Doomsday Section — Avengers: Doomsday Character Intel Hub
+﻿/**
+ * Doomsday Section â€” Avengers: Doomsday Character Intel Hub
  * Doctor Doom centerpiece with rotating character spotlights,
  * real news/rumor intel, article backlinks, and NLF card images.
  */
@@ -10,8 +10,8 @@ import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 
 // ===== ASSETS =====
-const DOOM_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/doomsday-villain-silhouette-bRM9RnWPaYDGXVzxSNryLP.webp";
-const BG_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/doomsday-section-bg-BjSMCi7WHT8WWJNCqKkRAi.webp";
+const DOOM_IMG = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/doomsday-villain-silhouette-bRM9RnWPaYDGXVzxSNryLP.webp";
+const BG_IMG = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/doomsday-section-bg-BjSMCi7WHT8WWJNCqKkRAi.webp";
 
 // ===== TYPES =====
 interface DoomsdayCharacter {
@@ -41,7 +41,7 @@ const DOOMSDAY_CHARACTERS: DoomsdayCharacter[] = [
       { url: "https://screenrant.com/avengers-doomsday-robert-downey-jr-doctor-doom-face-mcu-art/", source: "Screen Rant" },
       { url: "https://www.yahoo.com/entertainment/movies/articles/robert-downey-jr-doctor-doom-045400748.html", source: "Yahoo Entertainment" },
     ],
-    cardImageUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-148_Doctor_Doom_52f7a61b.webp",
+    cardImageUrl: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-148_Doctor_Doom_52f7a61b.webp",
     cardNumber: "148",
   },
   {
@@ -50,13 +50,13 @@ const DOOMSDAY_CHARACTERS: DoomsdayCharacter[] = [
     actor: "Chris Hemsworth",
     faction: "Avengers",
     status: "Confirmed",
-    roleSummary: "Thor returns with a more serious, dramatic arc in Doomsday — a departure from the comedic tone of Love and Thunder. A teaser shows him praying for strength to protect his adopted daughter, Love. Fan theories suggest Thor may die in the film.",
+    roleSummary: "Thor returns with a more serious, dramatic arc in Doomsday â€” a departure from the comedic tone of Love and Thunder. A teaser shows him praying for strength to protect his adopted daughter, Love. Fan theories suggest Thor may die in the film.",
     newsHeadline: "Thor Goes Serious in 'Avengers: Doomsday' After Hemsworth Criticized 'Too Silly' MCU",
     articles: [
       { url: "https://variety.com/2025/film/news/thor-avengers-doomsday-serious-chris-hemsworth-criticism-silly-1236620635/", source: "Variety" },
       { url: "https://www.yahoo.com/entertainment/movies/articles/chris-hemsworth-seemingly-wrapped-avengers-192630797.html", source: "Yahoo Entertainment" },
     ],
-    cardImageUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-119_Thor_56a124bc.webp",
+    cardImageUrl: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-119_Thor_56a124bc.webp",
     cardNumber: "119",
   },
   {
@@ -71,7 +71,7 @@ const DOOMSDAY_CHARACTERS: DoomsdayCharacter[] = [
       { url: "https://screenrant.com/thunderbolts-sam-wilson-real-avengers-doomsday-mcu-fix/", source: "Screen Rant" },
       { url: "https://www.cbr.com/character-reunions-avengers-doomsday-more-than-cameo/", source: "CBR" },
     ],
-    cardImageUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/chrome_185_captain_america-koKKBbDfbETQNRvGxiM3Nh.webp",
+    cardImageUrl: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/chrome_185_captain_america-koKKBbDfbETQNRvGxiM3Nh.webp",
     cardNumber: "185",
   },
   {
@@ -86,7 +86,7 @@ const DOOMSDAY_CHARACTERS: DoomsdayCharacter[] = [
       { url: "https://variety.com/2025/film/news/pedro-pascal-reed-richards-leading-avengers-doomsday-1236470208/", source: "Variety" },
       { url: "https://www.forbes.com/sites/paultassi/2025/07/17/mr-fantastic-will-lead-the-avengers-in-doomsday--what-about-sam-and-yelena/", source: "Forbes" },
     ],
-    cardImageUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-089_Mister_Fantastic_faeb8ea2.webp",
+    cardImageUrl: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-089_Mister_Fantastic_faeb8ea2.webp",
     cardNumber: "089",
   },
   {
@@ -101,7 +101,7 @@ const DOOMSDAY_CHARACTERS: DoomsdayCharacter[] = [
       { url: "https://deadline.com/2025/07/vanessa-kirby-the-fantastic-four-first-steps-mcu-doomsday-1236469883/", source: "Deadline" },
       { url: "https://nypost.com/2025/03/26/entertainment/marvel-announces-avengers-doomsday-cast-vanessa-kirby-sebastian-stan-chris-hemsworth/", source: "New York Post" },
     ],
-    cardImageUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/chrome_174_invisible_woman-hERLcKYLf5Y9rYL6D2sTUk.webp",
+    cardImageUrl: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/chrome_174_invisible_woman-hERLcKYLf5Y9rYL6D2sTUk.webp",
     cardNumber: "174",
   },
   {
@@ -116,7 +116,7 @@ const DOOMSDAY_CHARACTERS: DoomsdayCharacter[] = [
       { url: "https://www.ign.com/articles/fantastic-fours-joseph-quinn-felt-relief-when-his-avengers-doomsday-casting-was-announced", source: "IGN" },
       { url: "https://people.com/joseph-quinn-gushes-over-robert-downey-jr-avengers-doomsday-exclusive-11777721", source: "People" },
     ],
-    cardImageUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-040_Human_Torch_bf683dab.webp",
+    cardImageUrl: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-040_Human_Torch_bf683dab.webp",
     cardNumber: "040",
   },
   {
@@ -131,7 +131,7 @@ const DOOMSDAY_CHARACTERS: DoomsdayCharacter[] = [
       { url: "https://www.marvel.com/articles/movies/fantastic-four-first-steps-avengers-doomsday-kevin-feige", source: "Marvel.com" },
       { url: "https://vocal.media/beat/avengers-doomsday-s-main-twist-might-be-hidden-in-plain-sight", source: "Vocal" },
     ],
-    cardImageUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-109_The_Thing_a5dae37c.webp",
+    cardImageUrl: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-109_The_Thing_a5dae37c.webp",
     cardNumber: "109",
   },
   {
@@ -146,7 +146,7 @@ const DOOMSDAY_CHARACTERS: DoomsdayCharacter[] = [
       { url: "https://screenrant.com/avengers-doomsday-xmen-teaser-channing-tatum-gambit-darker/", source: "Screen Rant" },
       { url: "https://variety.com/2025/film/news/channing-tatum-gambit-accent-avengers-doomsday-injury-1236504531/", source: "Variety" },
     ],
-    cardImageUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-105_Gambit_4c11ff4d.webp",
+    cardImageUrl: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-105_Gambit_4c11ff4d.webp",
     cardNumber: "105",
   },
   {
@@ -161,7 +161,7 @@ const DOOMSDAY_CHARACTERS: DoomsdayCharacter[] = [
       { url: "https://screenrant.com/avengers-doomsday-cyclops-actor-james-marsden-explained/", source: "Screen Rant" },
       { url: "https://www.yahoo.com/entertainment/movies/articles/cyclops-actor-james-marsden-says-023104494.html", source: "Yahoo Entertainment" },
     ],
-    cardImageUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-107_Cyclops_f0689438.webp",
+    cardImageUrl: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-107_Cyclops_f0689438.webp",
     cardNumber: "107",
   },
   {
@@ -171,12 +171,12 @@ const DOOMSDAY_CHARACTERS: DoomsdayCharacter[] = [
     faction: "X-Men",
     status: "Confirmed",
     roleSummary: "Ian McKellen returns as Magneto and has revealed his character will destroy New Jersey in the film. This has sparked speculation about a connection to Ms. Marvel, who resides in New Jersey, hinting at a larger mutant storyline.",
-    newsHeadline: "Ian McKellen's Magneto Will Wreak Havoc — Again — In Avengers: Doomsday",
+    newsHeadline: "Ian McKellen's Magneto Will Wreak Havoc â€” Again â€” In Avengers: Doomsday",
     articles: [
       { url: "https://www.inverse.com/entertainment/magneto-avengers-doomsday-comeback", source: "Inverse" },
       { url: "https://screenrant.com/avengers-doomsday-magneto-tease-bigger-ms-marvel-theory-mcu/", source: "Screen Rant" },
     ],
-    cardImageUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/chrome_169_magneto-5NA8vtyhi9Bfkd6qG3pBzv.webp",
+    cardImageUrl: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/chrome_169_magneto-5NA8vtyhi9Bfkd6qG3pBzv.webp",
     cardNumber: "169",
   },
   {
@@ -206,7 +206,7 @@ const DOOMSDAY_CHARACTERS: DoomsdayCharacter[] = [
       { url: "https://deadline.com/2025/03/paul-rudd-ant-man-future-avengers-doomsday-secret-wars-1236327867/", source: "Deadline" },
       { url: "https://screenrant.com/paul-rudd-avengers-doomsday-story-response/", source: "Screen Rant" },
     ],
-    cardImageUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-141_Ant-Man_b6db983b.webp",
+    cardImageUrl: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-141_Ant-Man_b6db983b.webp",
     cardNumber: "141",
   },
   {
@@ -221,7 +221,7 @@ const DOOMSDAY_CHARACTERS: DoomsdayCharacter[] = [
       { url: "https://comicbook.com/marvel/news/how-shang-chi-has-changed-in-avengers-doomsday-revealed-by-simu-liu-exclusive/", source: "ComicBook.com" },
       { url: "https://deadline.com/2025/11/simu-liu-avengers-doomsday-love-letter-superhero-movies-1236605870/", source: "Deadline" },
     ],
-    cardImageUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-159_Shang-Chi_40d93a82.webp",
+    cardImageUrl: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-159_Shang-Chi_40d93a82.webp",
     cardNumber: "159",
   },
   {
@@ -236,7 +236,7 @@ const DOOMSDAY_CHARACTERS: DoomsdayCharacter[] = [
       { url: "https://screenrant.com/avengers-doomsday-rewrites-tom-hiddleston-loki/", source: "Screen Rant" },
       { url: "https://deadline.com/2025/12/tom-hiddleston-loki-avengers-doomsday-story-1236658815/", source: "Deadline" },
     ],
-    cardImageUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/STUDIOS_TVA-1_Loki-gNty6SoseZJiimEM3QLzHg.webp",
+    cardImageUrl: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/STUDIOS_TVA-1_Loki-gNty6SoseZJiimEM3QLzHg.webp",
     cardNumber: "TVA-1",
   },
   {
@@ -251,7 +251,7 @@ const DOOMSDAY_CHARACTERS: DoomsdayCharacter[] = [
       { url: "https://screenrant.com/tom-holland-spider-man-avengers-doomsday-return-tom-hiddleston-comments/", source: "Screen Rant" },
       { url: "https://www.cbr.com/spider-man-avengers-doomsday-appearance/", source: "CBR" },
     ],
-    cardImageUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-101_Spider-Man_318857c1.webp",
+    cardImageUrl: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-101_Spider-Man_318857c1.webp",
     cardNumber: "101",
   },
   {
@@ -266,7 +266,7 @@ const DOOMSDAY_CHARACTERS: DoomsdayCharacter[] = [
       { url: "https://screenrant.com/avengers-doomsday-xmen-teaser-channing-tatum-gambit-darker/", source: "Screen Rant" },
       { url: "https://variety.com/2025/film/news/channing-tatum-gambit-accent-avengers-doomsday-injury-1236504531/", source: "Variety" },
     ],
-    cardImageUrl: "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-103_Wolverine_1cc49682.webp",
+    cardImageUrl: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/CHROME-103_Wolverine_1cc49682.webp",
     cardNumber: "103",
   },
 ];
@@ -340,13 +340,13 @@ export default function DoomsdaySection() {
         <div className="text-center mb-10 lg:mb-14">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-green-500/10 border border-green-500/30 rounded-full mb-4">
             <Swords className="w-4 h-4 text-green-400" />
-            <span className="text-green-400 text-sm font-bold tracking-wide">DECEMBER 2026 — IN THEATERS</span>
+            <span className="text-green-400 text-sm font-bold tracking-wide">DECEMBER 2026 â€” IN THEATERS</span>
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
             AVENGERS: <span className="text-green-400">DOOMSDAY</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
-            The biggest Marvel event in history. Track every confirmed and rumored character — with the latest news, insider intel, and their cards from our collection.
+            The biggest Marvel event in history. Track every confirmed and rumored character â€” with the latest news, insider intel, and their cards from our collection.
           </p>
         </div>
 
@@ -418,14 +418,14 @@ export default function DoomsdaySection() {
                         <div className={`absolute -inset-1 rounded-xl ${faction.bgColor} opacity-50 group-hover:opacity-80 blur-sm transition-opacity`} />
                         <img
                           src={character.cardImageUrl}
-                          alt={`${character.name} — 2025 Topps Chrome #${character.cardNumber}`}
+                          alt={`${character.name} â€” 2025 Topps Chrome #${character.cardNumber}`}
                           className="relative w-full rounded-lg shadow-lg group-hover:scale-[1.02] transition-transform"
                           loading="lazy"
                           decoding="async"
                         />
                         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent rounded-b-lg p-2">
                           <p className="text-[10px] text-white/70 font-mono">2025 Topps Chrome #{character.cardNumber}</p>
-                          <p className="text-[10px] text-primary font-bold">IN OUR COLLECTION →</p>
+                          <p className="text-[10px] text-primary font-bold">IN OUR COLLECTION â†’</p>
                         </div>
                       </div>
                     </Link>
@@ -601,3 +601,4 @@ export default function DoomsdaySection() {
     </section>
   );
 }
+

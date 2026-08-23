@@ -1,15 +1,15 @@
-/**
- * NLF Rewards — Loyalty Program Landing Page
+﻿/**
+ * NLF Rewards â€” Loyalty Program Landing Page
  *
  * Purpose: Showcase the NLF Rewards tier system, drive early signups,
  * and capture leads into GHL CRM with "loyalty-member" tag.
  *
- * This page is built but NOT linked in navigation — hidden until launch.
+ * This page is built but NOT linked in navigation â€” hidden until launch.
  * Accessible directly via /rewards for preview/testing.
  *
  * Features:
  * - Hero section with "Coming Soon" teaser
- * - 4-tier system visual (Collector → Silver → Gold → Legendary)
+ * - 4-tier system visual (Collector â†’ Silver â†’ Gold â†’ Legendary)
  * - How to earn points breakdown
  * - VIP early signup form with GHL dual-capture
  * - FAQ section
@@ -36,7 +36,7 @@ import SEO, { breadcrumbJsonLd, faqJsonLd } from "@/components/SEO";
 // ============================================================
 
 const NLF_LOGO = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663027009739/rwZcaJaSCFxygqjF.png";
-const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hero-banner-jniBj55ukeiEDpJxc2aLgB.webp";
+const HERO_BG = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hero-banner-jniBj55ukeiEDpJxc2aLgB.webp";
 
 const GHL_FORM_URL = "https://api.leadconnectorhq.com/widget/form/5SL68SbkAFgq85FPiJw6";
 const GHL_FORM_ID = "5SL68SbkAFgq85FPiJw6";
@@ -127,7 +127,7 @@ const FAQ_ITEMS = [
   {
     question: "When does the NLF Rewards program launch?",
     answer:
-      "We're putting the finishing touches on the program now. Sign up for the VIP early access list to be the first to know when it goes live — and to lock in your welcome bonus.",
+      "We're putting the finishing touches on the program now. Sign up for the VIP early access list to be the first to know when it goes live â€” and to lock in your welcome bonus.",
   },
   {
     question: "How do I earn points?",
@@ -277,7 +277,7 @@ export default function Rewards() {
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="NLF Rewards — Loyalty Program"
+        title="NLF Rewards â€” Loyalty Program"
         description="Join the NLF Rewards program and earn points on every purchase. Unlock exclusive tiers, free shipping, early access to drops, members-only drawings, and more."
         path="/rewards"
         jsonLd={[
@@ -531,7 +531,7 @@ export default function Rewards() {
               Spend Points on What Matters
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              From discount codes to exclusive repacks you can't buy anywhere else — your points unlock real value.
+              From discount codes to exclusive repacks you can't buy anywhere else â€” your points unlock real value.
             </p>
           </div>
 
@@ -703,7 +703,7 @@ export default function Rewards() {
                   ) : (
                     <>
                       <Gift className="w-5 h-5 mr-2" />
-                      Join the VIP List — Earn 50 Bonus Points
+                      Join the VIP List â€” Earn 50 Bonus Points
                     </>
                   )}
                 </Button>
@@ -804,3 +804,4 @@ export default function Rewards() {
     </div>
   );
 }
+
