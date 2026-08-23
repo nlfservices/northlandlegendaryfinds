@@ -1,4 +1,5 @@
-﻿/**
+﻿import { mediaUrl } from "../lib/mediaUrl";
+/**
  * Trending Cards â€” "Marvel Cards to Collect Right Now"
  * Designed as both a site page and Facebook ad landing page.
  * Sections: Hero hook, trending characters, movie-driven picks,
@@ -275,7 +276,7 @@ export default function TrendingCards() {
                     <div className="relative">
                       <div className="absolute -inset-4 bg-primary/5 rounded-2xl blur-xl group-hover:bg-primary/10 transition-all" />
                       <img
-                        src={card.image}
+                        src={mediaUrl(card.image)}
                         alt={card.name}
                         className="relative w-36 sm:w-40 rounded-lg shadow-xl group-hover:scale-105 transition-transform duration-300"
                         loading="lazy"
@@ -377,7 +378,7 @@ export default function TrendingCards() {
                     {/* Card image */}
                     <div className="flex justify-center my-6">
                       <img
-                        src={movie.image}
+                        src={mediaUrl(movie.image)}
                         alt={movie.movie}
                         className="w-32 sm:w-36 rounded-lg shadow-xl"
                         loading="lazy"
@@ -465,7 +466,7 @@ export default function TrendingCards() {
               <div key={card.name} className="group relative bg-card/50 border border-border/40 rounded-xl p-4 text-center hover:border-primary/30 transition-all">
                 <div className="relative mb-3">
                   <img
-                    src={card.image}
+                    src={mediaUrl(card.image)}
                     alt={card.name}
                     className="w-28 sm:w-32 mx-auto rounded-lg shadow-lg group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"
@@ -534,4 +535,5 @@ export default function TrendingCards() {
     </div>
   );
 }
+
 

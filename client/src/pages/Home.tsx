@@ -1,4 +1,5 @@
-﻿/**
+﻿import { mediaUrl } from "../lib/mediaUrl";
+/**
  * Homepage - Fan-First, Collector-Friendly
  * Design: Lead with fan experience â†’ collector education â†’ community â†’ THEN repacks
  * Character images: Doctor Doom, Iron Man, Spider-Man, Fantastic Four, Black Panther
@@ -198,7 +199,7 @@ function CardOfTheDayWidget() {
               <div className="relative group cursor-pointer">
                 <div className="absolute -inset-3 bg-gradient-to-r from-amber-500/20 via-yellow-500/20 to-amber-500/20 rounded-2xl blur-xl opacity-60 group-hover:opacity-100 transition-opacity" />
                 <img
-                  src={todayCard.frontImageUrl || ''}
+                  src={mediaUrl(todayCard.frontImageUrl || '')}
                   alt={`${todayCard.characterName} - Card of the Day`}
                   className="relative w-64 sm:w-72 rounded-xl shadow-2xl shadow-amber-900/40 group-hover:scale-105 transition-transform duration-300"
                 />
@@ -302,7 +303,7 @@ function LatestMCUNews() {
                 {article.featuredImageUrl && (
                   <div className="relative aspect-[16/9] overflow-hidden">
                     <img
-                      src={article.featuredImageUrl}
+                      src={mediaUrl(article.featuredImageUrl)}
                       alt={article.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
@@ -1107,7 +1108,7 @@ export default function Home() {
                     <div className="relative shrink-0">
                       <div className="absolute -inset-4 bg-fuchsia-500/15 rounded-full blur-2xl" />
                       <img
-                        src={gambitProduct.image}
+                        src={mediaUrl(gambitProduct.image)}
                         alt={gambitProduct.name}
                         className="relative w-40 h-40 sm:w-48 sm:h-48 object-contain drop-shadow-[0_0_20px_rgba(217,70,239,0.3)] group-hover:scale-105 transition-transform duration-500"
                         loading="lazy"
@@ -1342,5 +1343,6 @@ export default function Home() {
     </div>
   );
 }
+
 
 

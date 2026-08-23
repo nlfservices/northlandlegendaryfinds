@@ -1,4 +1,5 @@
-﻿/**
+﻿import { mediaUrl } from "../lib/mediaUrl";
+/**
  * Card Display Tool â€” Premium single-page card display with 7 switchable cosmic themes.
  * Features: space nebula backgrounds, corner ornaments, shimmer strip, scanline overlay,
  * floating particles, file upload with fade-in, download as image, and theme-matched accent colors.
@@ -585,7 +586,7 @@ export default function CardDisplay() {
               {/* Card Image */}
               {cardSrc && (
                 <img
-                  src={cardSrc}
+                  src={mediaUrl(cardSrc)}
                   alt={preloadName || "Card"}
                   crossOrigin="anonymous"
                   className="absolute inset-0 w-full h-full object-cover z-[8]"
@@ -745,4 +746,5 @@ export default function CardDisplay() {
 
 // Export the theme mapping so CardDatabase can use it
 export { CARD_TYPE_TO_THEME };
+
 

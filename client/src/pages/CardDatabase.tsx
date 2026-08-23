@@ -1,4 +1,5 @@
-﻿/**
+﻿import { mediaUrl } from "../lib/mediaUrl";
+/**
  * Card Database / Marvel Encyclopedia Page
  * SEO-optimized, image-rich card browser with CSS flip animation
  * Lazy loading images for performance
@@ -289,7 +290,7 @@ function CardImage({ frontImg, name, cardNumber, cosmicBg, borderColor, glowColo
             />
           )}
           <LazyImage
-            src={frontImg}
+            src={mediaUrl(frontImg)}
             alt={`${name} #${cardNumber} - 2025 Topps Marvel Trading Card`}
             className={setBackground ? "relative w-[80%] h-[88%] mx-auto mt-[5%] object-contain drop-shadow-2xl" : "w-full h-full"}
           />
@@ -550,7 +551,7 @@ function SetBrowser() {
                                   <div className="shrink-0 w-28 h-36 rounded-lg overflow-hidden border border-white/10 bg-black/30 shadow-lg group-hover:scale-105 transition-transform duration-300">
                                     {set.imageUrl ? (
                                       <img
-                                        src={set.imageUrl}
+                                        src={mediaUrl(set.imageUrl)}
                                         alt={`${set.name} box`}
                                         className="w-full h-full object-contain p-1"
                                         loading="lazy"
@@ -972,7 +973,7 @@ function SetDetail({ slug }: { slug: string }) {
             {set.imageUrl && (
               <div className="mb-8">
                 <img 
-                  src={set.imageUrl} 
+                  src={mediaUrl(set.imageUrl)} 
                   alt={`${set.name} box`}
                   className="mx-auto max-h-80 object-contain drop-shadow-2xl"
                 />
@@ -1131,7 +1132,7 @@ function SetDetail({ slug }: { slug: string }) {
                           <div className="w-10 h-14 rounded overflow-hidden hover:ring-2 hover:ring-primary/50 transition-all relative">
                             <img src={getSetBackground(set.name)} alt="" className="absolute inset-0 w-full h-full object-cover" />
                             <LazyImage
-                              src={card.imageUrl || PLACEHOLDER_IMG}
+                              src={mediaUrl(card.imageUrl || PLACEHOLDER_IMG)}
                               alt={`${card.characterName} trading card`}
                               className="relative w-[80%] h-[85%] mx-auto mt-[7%] object-contain drop-shadow-lg"
                             />
@@ -1184,4 +1185,5 @@ function SetDetail({ slug }: { slug: string }) {
     </div>
   );
 }
+
 
