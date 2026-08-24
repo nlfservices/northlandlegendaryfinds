@@ -11,11 +11,18 @@
 import { useMemo } from "react";
 import { Streamdown } from "streamdown";
 import { YouTubeEmbed, parseContentWithEmbeds } from "./YouTubeEmbed";
+import { SafeImage } from "@/components/SafeImage";
 
 interface RichContentProps {
   children: string;
   className?: string;
 }
+
+const markdownImages = {
+  img: ({ src, alt, className, node: _node, ...props }: any) => (
+    <SafeImage src={src} alt={alt ?? ""} className={className} {...props} />
+  ),
+};
 
 export function RichContent({ children, className }: RichContentProps) {
   const segments = useMemo(() => parseContentWithEmbeds(children), [children]);
@@ -24,7 +31,7 @@ export function RichContent({ children, className }: RichContentProps) {
   if (segments.length === 1 && segments[0].type === "markdown") {
     return (
       <div className={className}>
-        <Streamdown>{children}</Streamdown>
+        <Streamdown components={markdownImages}>{children}</Streamdown>
       </div>
     );
   }
@@ -43,7 +50,7 @@ export function RichContent({ children, className }: RichContentProps) {
         }
         // Markdown segment
         return (
-          <Streamdown key={`md-${i}`}>{segment.content}</Streamdown>
+          <Streamdown key={`md-${i}`} components={markdownImages}>{segment.content}</Streamdown>
         );
       })}
     </div>
