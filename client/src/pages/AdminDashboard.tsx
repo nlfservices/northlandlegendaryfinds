@@ -42,6 +42,7 @@ import TokenExpirationAlert from "@/components/admin/TokenExpirationAlert";
 import FacebookBotManager from "@/components/admin/FacebookBotManager";
 import AdminAffiliateLinks from "@/pages/AdminAffiliateLinks";
 import ApiKeysManager from "@/components/admin/ApiKeysManager";
+import ChangePasswordCard from "@/components/admin/ChangePasswordCard";
 import UserPortal from "@/components/admin/UserPortal";
 import { AIChatBox, type Message as ChatMessage } from "@/components/AIChatBox";
 
@@ -1950,7 +1951,7 @@ export default function AdminDashboard() {
               </div>
             )}
             {activeSection === "affiliates" && <AdminAffiliateLinks />}
-            {activeSection === "settings" && <SiteSettingsManager />}
+            {activeSection === "settings" && (<><ChangePasswordCard /><SiteSettingsManager /></>)}
             {activeSection === "api-keys" && <ApiKeysManager />}
             {activeSection === "users" && <UserPortal />}
             {activeSection === "ai-assistant" && <AIAssistantPanel />}
