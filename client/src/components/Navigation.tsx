@@ -138,7 +138,7 @@ export default function Navigation() {
                 <img
                   src="https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/site-assets/NLF-Logo-MainLogo.png"
                   alt="NLF"
-                  className="relative h-[4.5rem] w-[4.5rem] object-contain group-hover:scale-105 transition-transform duration-300 drop-shadow-[0_0_12px_rgba(34,197,94,0.5)]"
+                  className="relative h-[4.5rem] w-[4.5rem] object-contain mix-blend-screen group-hover:scale-105 transition-transform duration-300 drop-shadow-[0_0_12px_rgba(34,197,94,0.5)]"
                 />
               </div>
               <div className="hidden sm:flex flex-col">
