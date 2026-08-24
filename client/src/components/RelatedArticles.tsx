@@ -7,6 +7,7 @@
 import { Link } from "wouter";
 import { Clock, ArrowRight, Newspaper } from "lucide-react";
 import { trpc } from "@/lib/trpc";
+import { SafeImage, HULK_PLACEHOLDER } from "@/components/SafeImage";
 
 interface RelatedArticlesProps {
   currentSlug: string;
@@ -107,8 +108,9 @@ export default function RelatedArticles({ currentSlug, tags }: RelatedArticlesPr
               {/* Thumbnail */}
               <div className="aspect-[16/9] overflow-hidden bg-muted relative">
                 {article.featuredImageUrl ? (
-                  <img
+                  <SafeImage
                     src={article.featuredImageUrl}
+                    fallbackSrc={HULK_PLACEHOLDER}
                     alt={article.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
