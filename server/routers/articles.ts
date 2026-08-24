@@ -30,13 +30,21 @@ function rewriteMedia(url?: string | null) {
   return url;
 }
 
+/** Rewrite manus-storage / CloudFront URLs in markdown ](url) and HTML src="..." / src='...'. */
+function rewriteBodyMedia(markdown: string) {
+  return markdown
+    .replace(/\bsrc=(["'])([^"']+)\1/gi, (_full, quote: string, url: string) => `src=${quote}${rewriteMedia(url)}${quote}`)
+    .replace(/\]\(([^)]+)\)/g, (_full, url: string) => `](${rewriteMedia(url)})`)
+    .replace(/(?:https?:\/\/[^/\s"'<>]+)?\/manus-storage\/([^\s"'<>)]+)/gi, (_full, file: string) => `${R2_PREFIX}/${file}`);
+}
+
 function rewriteArticle<T extends { featuredImageUrl?: string | null; contentMarkdown?: string | null }>(article: T | null) {
   if (!article) return article;
   return {
     ...article,
     featuredImageUrl: rewriteMedia(article.featuredImageUrl),
     contentMarkdown: article.contentMarkdown
-      ? article.contentMarkdown.replace(/\]\(([^)]+)\)/g, (_full, url: string) => `](${rewriteMedia(url)})`)
+      ? rewriteBodyMedia(article.contentMarkdown)
       : article.contentMarkdown,
   };
 }

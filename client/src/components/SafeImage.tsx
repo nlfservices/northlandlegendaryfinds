@@ -16,7 +16,7 @@ type SafeImageProps = Omit<ImgHTMLAttributes<HTMLImageElement>, "src"> & {
 /** <img> that runs URLs through mediaUrl() and hides (no broken-image icon) on load failure. */
 export function SafeImage({
   src,
-  fallbackSrc,
+  fallbackSrc = HULK_PLACEHOLDER,
   alt = "",
   className,
   wrapperClassName,

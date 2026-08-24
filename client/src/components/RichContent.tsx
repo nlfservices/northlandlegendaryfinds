@@ -11,27 +11,36 @@
 import { useMemo } from "react";
 import { Streamdown } from "streamdown";
 import { YouTubeEmbed, parseContentWithEmbeds } from "./YouTubeEmbed";
-import { SafeImage } from "@/components/SafeImage";
+import { SafeImage, HULK_PLACEHOLDER } from "@/components/SafeImage";
+import { mediaUrl } from "@/lib/mediaUrl";
 
 interface RichContentProps {
   children: string;
   className?: string;
 }
 
+/** Remap HTML src= and markdown ](url) so raw <img src="/manus-storage/..."> hits R2. */
+function rewriteBodyUrls(content: string) {
+  return content
+    .replace(/\bsrc=(["'])([^"']+)\1/gi, (_full, quote: string, url: string) => `src=${quote}${mediaUrl(url)}${quote}`)
+    .replace(/\]\(([^)]+)\)/g, (_full, url: string) => `](${mediaUrl(url)})`);
+}
+
 const markdownImages = {
   img: ({ src, alt, className, node: _node, ...props }: any) => (
-    <SafeImage src={src} alt={alt ?? ""} className={className} {...props} />
+    <SafeImage src={src} alt={alt ?? ""} className={className} fallbackSrc={HULK_PLACEHOLDER} {...props} />
   ),
 };
 
 export function RichContent({ children, className }: RichContentProps) {
-  const segments = useMemo(() => parseContentWithEmbeds(children), [children]);
+  const rewritten = useMemo(() => rewriteBodyUrls(children || ""), [children]);
+  const segments = useMemo(() => parseContentWithEmbeds(rewritten), [rewritten]);
 
   // If no embeds found, just render normally (fast path)
   if (segments.length === 1 && segments[0].type === "markdown") {
     return (
       <div className={className}>
-        <Streamdown components={markdownImages}>{children}</Streamdown>
+        <Streamdown components={markdownImages}>{rewritten}</Streamdown>
       </div>
     );
   }
