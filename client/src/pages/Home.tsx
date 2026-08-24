@@ -1,4 +1,4 @@
-﻿import { mediaUrl } from "../lib/mediaUrl";
+import { mediaUrl } from "../lib/mediaUrl";
 /**
  * Homepage - Fan-First, Collector-Friendly
  * Design: Lead with fan experience â†’ collector education â†’ community â†’ THEN repacks
@@ -24,7 +24,7 @@ import DoomsdayTicker from "@/components/DoomsdayTicker";
 import { trpc } from "@/lib/trpc";
 
 
-const HERO_BG = "/manus-storage/doomsday-hero-banner_8bef00bd.jpg";
+const HERO_BG = mediaUrl("/manus-storage/doomsday-hero-banner_8bef00bd.jpg");
 const NLF_PACK = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/product-nlf-variant-2CkMPP3CsZhFkFXpzSuZkV.webp";
 const TRUST_BG = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/trust-section-bg-kwnjuLkybJ2rqpCpEwiChw.webp";
 
