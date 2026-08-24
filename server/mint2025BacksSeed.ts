@@ -29,6 +29,9 @@ const LAST_CARD = 100;
 const HF_REPO = "pulljack/nlf-2025-marvel-mint-backs";
 const GH_RAW_BASE =
   "https://raw.githubusercontent.com/nlfservices/northlandlegendaryfinds/main/server/data/mint2025-backs";
+const GH_JSDELIVR_BASE =
+  "https://cdn.jsdelivr.net/gh/nlfservices/northlandlegendaryfinds@main/server/data/mint2025-backs";
+const FETCH_HEADERS = { "User-Agent": "nlf-mint2025-backs-seed", Accept: "text/plain,*/*" };
 const R2_PUBLIC_BASE =
   "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi";
 
@@ -56,6 +59,15 @@ function backManusUrl(n: number): string {
 
 function publicR2Url(n: number): string {
   return `${R2_PUBLIC_BASE}/${backObjectKey(n)}`;
+}
+
+function repoB64Urls(n: number): string[] {
+  const name = backB64Name(n);
+  return [
+    `${GH_RAW_BASE}/${name}`,
+    `${GH_JSDELIVR_BASE}/${name}`,
+    `https://github.com/nlfservices/northlandlegendaryfinds/raw/main/server/data/mint2025-backs/${name}`,
+  ];
 }
 
 function seedDirCandidates(): string[] {
@@ -152,7 +164,12 @@ async function fetchB64Text(url: string): Promise<string | null> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
   try {
-    const res = await fetch(url, { method: "GET", redirect: "follow", signal: controller.signal });
+    const res = await fetch(url, {
+      method: "GET",
+      redirect: "follow",
+      signal: controller.signal,
+      headers: FETCH_HEADERS,
+    });
     if (!res.ok) return null;
     const text = await res.text();
     if (!text || text.length > MAX_JPEG_BYTES * 2) return null;
@@ -179,9 +196,13 @@ async function readDiskB64(n: number): Promise<Buffer | null> {
 }
 
 async function fetchRepoB64(n: number): Promise<Buffer | null> {
-  const text = await fetchB64Text(`${GH_RAW_BASE}/${backB64Name(n)}`);
-  if (!text) return null;
-  return decodeB64Jpeg(text);
+  for (const url of repoB64Urls(n)) {
+    const text = await fetchB64Text(url);
+    if (!text) continue;
+    const jpeg = decodeB64Jpeg(text);
+    if (jpeg) return jpeg;
+  }
+  return null;
 }
 
 async function fetchHfJpeg(n: number): Promise<Buffer | null> {
@@ -273,7 +294,21 @@ async function seedMint2025Backs(): Promise<void> {
     return;
   }
 
-  console.log("[mint2025BacksSeed] starting setId=3 cards 1-100");
+  const dirs = seedDirCandidates();
+  let diskHits = 0;
+  for (const dir of dirs) {
+    try {
+      const sample = await readFile(path.join(dir, backB64Name(1)), "utf8");
+      if (decodeB64Jpeg(sample)) {
+        diskHits += 1;
+        console.log(`[mint2025BacksSeed] disk source ready: ${dir}`);
+        break;
+      }
+    } catch {
+      // try next
+    }
+  }
+  console.log(`[mint2025BacksSeed] starting setId=3 cards 1-100 disk=${diskHits ? "yes" : "no"}`);
   let uploaded = 0;
   let attached = 0;
   let skipped = 0;
