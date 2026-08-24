@@ -6,6 +6,7 @@
 import { useState, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { X, ZoomIn } from "lucide-react";
+import { mediaUrl } from "@/lib/mediaUrl";
 
 interface ImageLightboxProps {
   src: string;
@@ -17,12 +18,13 @@ interface ImageLightboxProps {
 export default function ImageLightbox({ src, alt, className = "", caption }: ImageLightboxProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const resolved = mediaUrl(src);
 
   const open = useCallback(() => setIsOpen(true), []);
   const close = useCallback(() => setIsOpen(false), []);
 
   // If the image fails to load, hide it entirely
-  if (hasError) return null;
+  if (hasError || !resolved) return null;
 
   // Determine if the image needs absolute positioning (used in lc-art containers)
   const isAbsolute = className.includes('absolute');
@@ -38,7 +40,7 @@ export default function ImageLightbox({ src, alt, className = "", caption }: Ima
         className={`group cursor-pointer ${isAbsolute ? 'absolute inset-0' : 'relative'}`}
         onClick={open}
       >
-        <img src={src} alt={alt} className={`${imgClassName} ${isAbsolute ? 'w-full h-full' : ''}`} loading="lazy" />
+        <img src={resolved} alt={alt} className={`${imgClassName} ${isAbsolute ? 'w-full h-full' : ''}`} loading="lazy" onError={() => setHasError(true)} />
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
           <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/60 rounded-full p-3">
             <ZoomIn className="w-6 h-6 text-white" />
@@ -68,7 +70,7 @@ export default function ImageLightbox({ src, alt, className = "", caption }: Ima
             onClick={(e) => e.stopPropagation()}
           >
             <img
-              src={src}
+              src={resolved}
               alt={alt}
               className="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl"
           onError={() => setHasError(true)}
