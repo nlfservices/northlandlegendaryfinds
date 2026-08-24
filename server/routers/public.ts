@@ -20,6 +20,7 @@ import {
   getSiteSetting,
   getPageContent,
 } from "../db";
+import { getCardDetailWithBack } from "../cardDetailBack";
 import { launchSubscribers } from "../../drizzle/schema";
 import { getDb } from "../db";
 import { eq, and } from "drizzle-orm";
@@ -377,7 +378,7 @@ Format the response as JSON with these fields:
 
   /** Get individual card detail with set info, parallels, adjacent cards */
   cardDetail: publicProcedure.input(z.object({ setSlug: z.string(), cardNumber: z.string() })).query(async ({ input }) => {
-    const card = await getCardBySetAndNumber(input.setSlug, input.cardNumber);
+    const card = await getCardDetailWithBack(input.setSlug, input.cardNumber);
     if (!card) return null;
 
     const [adjacent, sameCharCards, detailContent] = await Promise.all([
@@ -391,6 +392,7 @@ Format the response as JSON with these fields:
 
     return {
       card,
+      backImageUrl: card.backImageUrl ?? null,
       parallels,
       adjacent,
       sameCharCards,
