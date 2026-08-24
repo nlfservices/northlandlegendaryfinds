@@ -29,8 +29,10 @@ export default function AdminCredentialsForm({
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [resetBusy, setResetBusy] = useState(false);
 
   const adminLogin = trpc.matrix.adminLogin.useMutation();
+  const requestReset = trpc.matrix.requestPasswordReset.useMutation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -150,6 +152,28 @@ export default function AdminCredentialsForm({
                 )}
                 {isLoading ? "Verifying..." : "Access Dashboard"}
               </Button>
+              <button
+                type="button"
+                onClick={async () => {
+                  if (!username.trim()) {
+                    toast.error("Enter your email first.");
+                    return;
+                  }
+                  setResetBusy(true);
+                  try {
+                    const result = await requestReset.mutateAsync({ email: username.trim() });
+                    toast.success(result.message || "If that account exists, we sent a reset link.");
+                  } catch {
+                    toast.success("If that account exists, we sent a reset link.");
+                  } finally {
+                    setResetBusy(false);
+                  }
+                }}
+                disabled={isLoading || resetBusy}
+                className="w-full text-sm text-primary hover:text-green-400 transition-colors disabled:opacity-50"
+              >
+                {resetBusy ? "Sending reset link..." : "Forgot password?"}
+              </button>
             </form>
 
             <div className="flex items-center justify-center gap-1.5">
