@@ -1,8 +1,7 @@
 /**
  * Matrix Admin Portal - Server-side routes for 3-layer security
  * Layer 1: Access code gate (this router)
- * Layer 2: OAuth authentication (protectedProcedure)
- * Layer 3: Admin role check (adminProcedure)
+ * After a correct PIN, issue the admin session so /admin can load.
  */
 import { z } from "zod";
 import { publicProcedure, router } from "../_core/trpc";
@@ -13,15 +12,13 @@ import bcrypt from "bcryptjs";
 import { eq, and, gt } from "drizzle-orm";
 import { randomUUID } from "crypto";
 import { notifyOwner } from "../_core/notification";
+import { findOrCreateAdminUser, issueAdminSessions, clearAdminSessions } from "../_core/matrixAdmin";
 
 const MAX_ATTEMPTS = 5;
 const LOCKOUT_MINUTES = 15;
 const BYPASS_EXPIRY_MINUTES = 15;
 const BYPASS_COOLDOWN_MINUTES = 2;
 
-/**
- * Get the client IP from the request
- */
 function getClientIp(req: any): string {
   return (
     req.headers["x-forwarded-for"]?.split(",")[0]?.trim() ||
@@ -31,9 +28,6 @@ function getClientIp(req: any): string {
   );
 }
 
-/**
- * Get or create an attempt record for the given IP
- */
 async function getAttemptRecord(ip: string) {
   const db = await getDb();
   if (!db) return null;
@@ -46,9 +40,6 @@ async function getAttemptRecord(ip: string) {
   return records[0] || null;
 }
 
-/**
- * Check if an IP is currently locked out
- */
 async function isLockedOut(ip: string): Promise<{ locked: boolean; minutesRemaining: number }> {
   const record = await getAttemptRecord(ip);
   if (!record || !record.lockedUntil) {
@@ -64,17 +55,19 @@ async function isLockedOut(ip: string): Promise<{ locked: boolean; minutesRemain
   return { locked: false, minutesRemaining: 0 };
 }
 
+async function grantAdminSession(ctx: { req: any; res: any }) {
+  const adminUser = await findOrCreateAdminUser();
+  if (adminUser) {
+    await issueAdminSessions(ctx.req, ctx.res, adminUser);
+  }
+}
+
 export const matrixRouter = router({
-  /**
-   * Verify the access code (Layer 1)
-   * Returns success/failure and handles IP lockout
-   */
   verifyCode: publicProcedure
     .input(z.object({ code: z.string() }))
     .mutation(async ({ input, ctx }) => {
       const ip = getClientIp(ctx.req);
 
-      // Check if IP is locked out
       const lockStatus = await isLockedOut(ip);
       if (lockStatus.locked) {
         return {
@@ -107,9 +100,7 @@ export const matrixRouter = router({
         };
       }
 
-      // Check the code
       if (input.code === correctCode) {
-        // Success — clear any failed attempts for this IP
         const record = await getAttemptRecord(ip);
         if (record) {
           await db
@@ -117,6 +108,8 @@ export const matrixRouter = router({
             .set({ failedAttempts: 0, lockedUntil: null })
             .where(eq(matrixAttempts.id, record.id));
         }
+
+        await grantAdminSession(ctx);
 
         return {
           success: true,
@@ -126,7 +119,6 @@ export const matrixRouter = router({
         };
       }
 
-      // Wrong code — increment failed attempts
       const record = await getAttemptRecord(ip);
       if (record) {
         const newAttempts = record.failedAttempts + 1;
@@ -145,7 +137,6 @@ export const matrixRouter = router({
           .where(eq(matrixAttempts.id, record.id));
 
         if (newAttempts >= MAX_ATTEMPTS) {
-          // Notify owner of lockout
           await notifyOwner({
             title: "Matrix Portal: IP Locked Out",
             content: `IP address ${ip} has been locked out after ${MAX_ATTEMPTS} failed access code attempts. Lockout expires in ${LOCKOUT_MINUTES} minutes.`,
@@ -166,28 +157,22 @@ export const matrixRouter = router({
           attemptsRemaining: MAX_ATTEMPTS - newAttempts,
           message: `Incorrect code. ${MAX_ATTEMPTS - newAttempts} attempt${MAX_ATTEMPTS - newAttempts === 1 ? "" : "s"} remaining.`,
         };
-      } else {
-        // First attempt from this IP
-        await db.insert(matrixAttempts).values({
-          ipAddress: ip,
-          failedAttempts: 1,
-          lastAttemptAt: new Date(),
-        });
-
-        return {
-          success: false,
-          locked: false,
-          attemptsRemaining: MAX_ATTEMPTS - 1,
-          message: `Incorrect code. ${MAX_ATTEMPTS - 1} attempts remaining.`,
-        };
       }
+
+      await db.insert(matrixAttempts).values({
+        ipAddress: ip,
+        failedAttempts: 1,
+        lastAttemptAt: new Date(),
+      });
+
+      return {
+        success: false,
+        locked: false,
+        attemptsRemaining: MAX_ATTEMPTS - 1,
+        message: `Incorrect code. ${MAX_ATTEMPTS - 1} attempts remaining.`,
+      };
     }),
 
-  /**
-   * Request a bypass link (Forgot PIN)
-   * Sends a one-time bypass token to the admin notification email
-   * Rate limited: 1 request per 2 minutes per IP
-   */
   requestBypass: publicProcedure.mutation(async ({ ctx }) => {
     const ip = getClientIp(ctx.req);
     const db = await getDb();
@@ -195,7 +180,6 @@ export const matrixRouter = router({
       return { success: false, message: "Database unavailable." };
     }
 
-    // Rate limit: check for recent bypass requests from this IP
     const recentTokens = await db
       .select()
       .from(matrixBypassTokens)
@@ -214,7 +198,6 @@ export const matrixRouter = router({
       };
     }
 
-    // Generate bypass token
     const token = randomUUID();
     const expiresAt = new Date(Date.now() + BYPASS_EXPIRY_MINUTES * 60 * 1000);
 
@@ -224,7 +207,6 @@ export const matrixRouter = router({
       expiresAt,
     });
 
-    // Send notification with bypass link
     const siteUrl = process.env.SITE_URL || "https://northlandlegendaryfinds.com";
     const bypassUrl = `${siteUrl}/matrix?bypass=${token}`;
 
@@ -239,10 +221,6 @@ export const matrixRouter = router({
     };
   }),
 
-  /**
-   * Verify a bypass token
-   * If valid, clears the IP lockout and grants access
-   */
   verifyBypass: publicProcedure
     .input(z.object({ token: z.string() }))
     .mutation(async ({ input, ctx }) => {
@@ -272,13 +250,11 @@ export const matrixRouter = router({
         return { success: false, message: "This bypass link has expired." };
       }
 
-      // Mark token as used
       await db
         .update(matrixBypassTokens)
         .set({ isUsed: true })
         .where(eq(matrixBypassTokens.id, tokenRecord.id));
 
-      // Clear IP lockout
       const attemptRecord = await getAttemptRecord(ip);
       if (attemptRecord) {
         await db
@@ -287,12 +263,11 @@ export const matrixRouter = router({
           .where(eq(matrixAttempts.id, attemptRecord.id));
       }
 
+      await grantAdminSession(ctx);
+
       return { success: true, message: "Bypass successful. Access granted." };
     }),
 
-  /**
-   * Check lockout status for the current IP
-   */
   checkStatus: publicProcedure.query(async ({ ctx }) => {
     const ip = getClientIp(ctx.req);
     const lockStatus = await isLockedOut(ip);
@@ -302,10 +277,6 @@ export const matrixRouter = router({
     };
   }),
 
-  /**
-   * Admin login - Step 2 of Matrix portal
-   * Verifies username + password against admin_credentials table
-   */
   adminLogin: publicProcedure
     .input(z.object({ username: z.string().min(1), password: z.string().min(1) }))
     .mutation(async ({ input, ctx }) => {
@@ -328,25 +299,12 @@ export const matrixRouter = router({
         return { success: false, message: "Invalid username or password." };
       }
 
-      // Update last login timestamp
       await db
         .update(adminCredentials)
         .set({ lastLoginAt: new Date() })
         .where(eq(adminCredentials.id, cred.id));
 
-      // Set a 24h admin session cookie
-      const sessionToken = randomUUID();
-      const expires = new Date(Date.now() + 24 * 60 * 60 * 1000);
-      ctx.res.setHeader(
-        "Set-Cookie",
-        `matrix_admin_session=${sessionToken}; Path=/; HttpOnly; SameSite=Lax; Expires=${expires.toUTCString()}`
-      );
-
-      // Store session expiry in site_settings for validation
-      await db
-        .insert(siteSettings)
-        .values({ key: `matrix_session_${sessionToken}`, value: String(expires.getTime()), label: "Matrix admin session" })
-        .onDuplicateKeyUpdate({ set: { value: String(expires.getTime()) } });
+      await grantAdminSession(ctx);
 
       return {
         success: true,
@@ -356,9 +314,6 @@ export const matrixRouter = router({
       };
     }),
 
-  /**
-   * Verify current admin session cookie
-   */
   checkAdminSession: publicProcedure.query(async ({ ctx }) => {
     const cookieHeader = ctx.req.headers.cookie || "";
     const match = cookieHeader.match(/matrix_admin_session=([^;]+)/);
@@ -377,9 +332,6 @@ export const matrixRouter = router({
     return { valid: true };
   }),
 
-  /**
-   * Admin logout - clears the session cookie
-   */
   adminLogout: publicProcedure.mutation(async ({ ctx }) => {
     const cookieHeader = ctx.req.headers.cookie || "";
     const match = cookieHeader.match(/matrix_admin_session=([^;]+)/);
@@ -390,14 +342,10 @@ export const matrixRouter = router({
         await db.delete(siteSettings).where(eq(siteSettings.key, `matrix_session_${token}`));
       }
     }
-    ctx.res.setHeader("Set-Cookie", "matrix_admin_session=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0");
+    clearAdminSessions(ctx.req, ctx.res);
     return { success: true };
   }),
 
-  /**
-   * Change admin password — requires current session to be valid
-   * Clears the mustChangePassword flag after successful change
-   */
   changeAdminPassword: publicProcedure
     .input(z.object({ newPassword: z.string().min(8) }))
     .mutation(async ({ input, ctx }) => {
@@ -408,7 +356,6 @@ export const matrixRouter = router({
       const db = await getDb();
       if (!db) return { success: false, message: "Database unavailable." };
 
-      // Verify session is valid
       const sessionRows = await db
         .select()
         .from(siteSettings)
@@ -418,7 +365,6 @@ export const matrixRouter = router({
         return { success: false, message: "Session expired. Please log in again." };
       }
 
-      // Get the admin credential (there's only one for now)
       const creds = await db.select().from(adminCredentials).where(eq(adminCredentials.isActive, true)).limit(1);
       if (!creds[0]) return { success: false, message: "Admin account not found." };
 
@@ -431,10 +377,6 @@ export const matrixRouter = router({
       return { success: true, message: "Password changed successfully." };
     }),
 
-  /**
-   * One-time setup: create the initial admin credential
-   * Only works if no admin credentials exist yet
-   */
   setupAdmin: publicProcedure
     .input(z.object({ username: z.string().min(3).max(64), password: z.string().min(8), displayName: z.string().optional() }))
     .mutation(async ({ input }) => {
