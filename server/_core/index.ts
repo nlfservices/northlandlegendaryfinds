@@ -20,6 +20,7 @@ import { registerRestApi } from "../rest-api";
 import { registerMint2025BacksApi } from "../mint2025BacksApi";
 import { startMint2025BacksSeed } from "../mint2025BacksSeed";
 import { startCbhPhotosSeed } from "../cbhPhotosSeed";
+import { startMcsPhotosSeed } from "../mcsPhotosSeed";
 import { startMatrixAdminBootstrap } from "../matrixAdminBootstrap";
 import { appRouter } from "../routers";
 import { startBlogScheduler } from "../blog-scheduler";
@@ -104,6 +105,8 @@ async function startServer() {
     startMint2025BacksSeed();
     // One-shot 2025 Comic Book Heroes photo + metadata seed (setId=2 only). Does not block listen.
     startCbhPhotosSeed();
+    // One-shot 2025 Marvel Chrome Sapphire photo + odds seed (setId=4 numeric 1-200 only). Does not block listen.
+    startMcsPhotosSeed();
     // Clear Matrix lockouts and upsert admin credentials once per process.
     startMatrixAdminBootstrap();
   });
