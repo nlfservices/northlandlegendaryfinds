@@ -136,7 +136,7 @@ export default function Navigation() {
                 {/* Green glow aura behind logo */}
                 <div className="absolute inset-0 rounded-xl bg-green-500/20 blur-lg group-hover:bg-green-500/35 transition-all duration-500" />
                 <img
-                  src={"/manus-storage/NLFLogo-Transparent_8dda2575.png"}
+                  src="https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/site-assets/NLF-Logo-MainLogo.png"
                   alt="NLF"
                   className="relative h-[4.5rem] w-[4.5rem] object-contain group-hover:scale-105 transition-transform duration-300 drop-shadow-[0_0_12px_rgba(34,197,94,0.5)]"
                 />
