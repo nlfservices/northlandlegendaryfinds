@@ -116,6 +116,8 @@ describe("parseParallels", () => {
     expect(result).toContainEqual({ name: "Refractor", printRun: null, isNumbered: false, odds: "1:1" });
     expect(result).toContainEqual({ name: "Gold Mini Diamonds", printRun: null, isNumbered: false, odds: "1:8" });
     expect(result).toContainEqual({ name: "Superfractor", printRun: null, isNumbered: false, odds: "1:1,412" });
+    expect(result.find((p) => p.name === "412")).toBeUndefined();
+    expect(result.length).toBe(4);
   });
 });
 

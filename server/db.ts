@@ -1044,7 +1044,7 @@ export async function getAllCardDetailSlugs() {
 export function parseParallels(parallelsStr: string | null): Array<{ name: string; printRun: number | null; isNumbered: boolean; odds?: string }> {
   if (!parallelsStr) return [];
 
-  const parts = parallelsStr.split(",").map(p => p.trim()).filter(Boolean);
+  const parts = parallelsStr.split(/,\s+/).map(p => p.trim()).filter(Boolean);
   const result: Array<{ name: string; printRun: number | null; isNumbered: boolean }> = [];
 
   for (const part of parts) {
