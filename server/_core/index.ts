@@ -18,6 +18,7 @@ import { registerFbTokenRefreshRoute } from "../scheduled-fb-token-refresh";
 import { registerDailyArticleRoute } from "../scheduled-daily-article";
 import { registerRestApi } from "../rest-api";
 import { registerMint2025BacksApi } from "../mint2025BacksApi";
+import { startMint2025BacksSeed } from "../mint2025BacksSeed";
 import { appRouter } from "../routers";
 import { startBlogScheduler } from "../blog-scheduler";
 import { createContext } from "./context";
@@ -97,6 +98,8 @@ async function startServer() {
     console.log(`Server running on http://localhost:${port}/`);
     // Start blog auto-publisher scheduler
     startBlogScheduler();
+    // One-shot 2025 Mint back seed (setId=3 only). Does not block listen.
+    startMint2025BacksSeed();
   });
 }
 
