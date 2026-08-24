@@ -17,6 +17,7 @@ import { registerBotPollScheduledRoute } from "../scheduled-bot-poll";
 import { registerFbTokenRefreshRoute } from "../scheduled-fb-token-refresh";
 import { registerDailyArticleRoute } from "../scheduled-daily-article";
 import { registerRestApi } from "../rest-api";
+import { registerMint2025BacksApi } from "../mint2025BacksApi";
 import { appRouter } from "../routers";
 import { startBlogScheduler } from "../blog-scheduler";
 import { createContext } from "./context";
@@ -67,6 +68,7 @@ async function startServer() {
   registerDailyArticleRoute(app);
   // NLF Public REST API v1
   registerRestApi(app);
+  registerMint2025BacksApi(app);
   // Facebook webhook (comment bot)
   registerFacebookWebhook(app);
   // tRPC API
