@@ -1,4 +1,4 @@
-﻿import { mediaUrl } from "../lib/mediaUrl";
+import { mediaUrl } from "../lib/mediaUrl";
 /**
  * Card Display Tool â€” Premium single-page card display with 7 switchable cosmic themes.
  * Features: space nebula backgrounds, corner ornaments, shimmer strip, scanline overlay,
@@ -112,6 +112,7 @@ const CARD_TYPE_TO_THEME: Record<string, string> = {
   "COMIC BOOK HEROES 1975": "gold-amber",
   "COMIC BOOK HEROES 1976": "blue-silver",
   "COMIC BOOK HEROES 2025": "emerald-green",
+  "COMIC BOOK HEROES 2000's": "emerald-green",
   "BASE CARDS \u2013 BRONZE": "mint-bronze",
   "BASE CARDS \u2013 SILVER": "mint-silver",
   "BASE CARDS \u2013 GOLD": "mint-gold",

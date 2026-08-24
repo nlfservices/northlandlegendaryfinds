@@ -50,6 +50,29 @@ function getRarityLabel(printRun: number | null): string {
   return "";
 }
 
+
+function getOddsLabel(odds?: string) {
+  if (!odds) return "";
+  const n = parseInt(String(odds).replace(/[^0-9]/g, ""), 10);
+  if (!n) return "";
+  if (n >= 700) return "ULTRA RARE";
+  if (n >= 140) return "SHORT PRINT";
+  if (n >= 29) return "LIMITED";
+  return "";
+}
+
+function getOddsColor(odds?: string) {
+  if (!odds) return "bg-zinc-700 text-zinc-200";
+  const n = parseInt(String(odds).replace(/[^0-9]/g, ""), 10);
+  if (!n) return "bg-zinc-700 text-zinc-200";
+  if (n >= 700) return "bg-gradient-to-r from-amber-500 to-yellow-400 text-black font-bold";
+  if (n >= 280) return "bg-gradient-to-r from-red-600 to-red-500 text-white font-bold";
+  if (n >= 140) return "bg-gradient-to-r from-purple-600 to-purple-500 text-white";
+  if (n >= 29) return "bg-gradient-to-r from-blue-600 to-blue-500 text-white";
+  if (n >= 10) return "bg-gradient-to-r from-emerald-600 to-emerald-500 text-white";
+  return "bg-zinc-600 text-zinc-100";
+}
+
 function NoCardImage() {
   return (
     <div className="aspect-[2/3] bg-card rounded-xl border border-border/30 flex items-center justify-center">
@@ -380,13 +403,15 @@ export default function CardDetailPage() {
                 </h2>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
                   {parallels.map((p, i) => {
-                    const rarityLabel = getRarityLabel(p.printRun);
+                    const odds = (p as { odds?: string }).odds;
+                    const rarityLabel = odds ? getOddsLabel(odds) : getRarityLabel(p.printRun);
+                    const badgeClass = odds ? getOddsColor(odds) : getParallelColor(p.printRun);
                     return (
                       <div
                         key={i}
                         className="relative overflow-hidden rounded-lg border border-border/30 bg-card p-3 hover:border-primary/40 transition-colors"
                       >
-                        <div className={`inline-block px-2.5 py-1 rounded-md text-xs font-semibold mb-2 ${getParallelColor(p.printRun)}`}>
+                        <div className={`inline-block px-2.5 py-1 rounded-md text-xs font-semibold mb-2 ${badgeClass}`}>
                           {p.name}
                         </div>
                         {rarityLabel && (
@@ -394,7 +419,12 @@ export default function CardDetailPage() {
                             {rarityLabel}
                           </div>
                         )}
-                        {p.printRun && p.printRun > 1 && (
+                        {odds && (
+                          <div className="text-xs text-muted-foreground mt-1">
+                            Odds {odds}
+                          </div>
+                        )}
+                        {!odds && p.printRun && p.printRun > 1 && (
                           <div className="text-xs text-muted-foreground mt-1">
                             Print run: {p.printRun}
                           </div>

@@ -109,6 +109,14 @@ describe("parseParallels", () => {
     expect(result.find((p) => p.name === "Gold /5")).toBeDefined();
     expect(result.find((p) => p.name.includes("Printing Plate"))).toBeDefined();
   });
+
+  it("parses named pull-odds (Comic Book Heroes)", () => {
+    const result = parseParallels("Base 1:1, Refractor 1:1, Gold Mini Diamonds 1:8, Superfractor 1:1,412");
+    expect(result).toContainEqual({ name: "Base", printRun: null, isNumbered: false, odds: "1:1" });
+    expect(result).toContainEqual({ name: "Refractor", printRun: null, isNumbered: false, odds: "1:1" });
+    expect(result).toContainEqual({ name: "Gold Mini Diamonds", printRun: null, isNumbered: false, odds: "1:8" });
+    expect(result).toContainEqual({ name: "Superfractor", printRun: null, isNumbered: false, odds: "1:1,412" });
+  });
 });
 
 describe("Card Detail DB helpers", () => {

@@ -1041,7 +1041,7 @@ export async function getAllCardDetailSlugs() {
  * Filters out plain "Base", "Base Cards", and unnumbered single-word entries.
  * Keeps numbered parallels (/99, /25, etc.), color-named with numbers, PP, etc.
  */
-export function parseParallels(parallelsStr: string | null): Array<{ name: string; printRun: number | null; isNumbered: boolean }> {
+export function parseParallels(parallelsStr: string | null): Array<{ name: string; printRun: number | null; isNumbered: boolean; odds?: string }> {
   if (!parallelsStr) return [];
 
   const parts = parallelsStr.split(",").map(p => p.trim()).filter(Boolean);
@@ -1116,6 +1116,24 @@ export function parseParallels(parallelsStr: string | null): Array<{ name: strin
         isNumbered: false,
       });
       continue;
+    }
+
+    // Named pull-odds: "Gold Mini Diamonds � 1:8" or "Refractor 1:1"
+    const oddsDot = part.match(/^(.+?)\s*[\u00B7\u2022]\s*1:([\d,]+)$/);
+    const oddsSpace = oddsDot ? null : part.match(/^(.+?)\s+1:([\d,]+)$/);
+    const oddsMatch = oddsDot || oddsSpace;
+    if (oddsMatch) {
+      const name = oddsMatch[1].replace(/[\u00B7\u2022]\s*$/, "").trim();
+      const odds = `1:${oddsMatch[2]}`;
+      if (name) {
+        result.push({
+          name,
+          printRun: null,
+          isNumbered: false,
+          odds,
+        });
+        continue;
+      }
     }
 
     // Single word insert names (Gambits Deck, Infinite Sapphire, etc.) - skip unnumbered
