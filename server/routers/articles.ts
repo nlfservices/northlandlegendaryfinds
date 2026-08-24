@@ -16,6 +16,31 @@ import {
   type RotationTemplate, type AnyTemplate,
 } from "../article-pipeline";
 
+const R2_BASE = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev";
+const R2_PREFIX = `${R2_BASE}/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi`;
+const MANUS_FILE = /(?:https?:\/\/[^/]+)?\/manus-storage\/(.+)$/i;
+const CLOUDFRONT = /^https?:\/\/[^/]*cloudfront\.net/i;
+
+function rewriteMedia(url?: string | null) {
+  if (!url) return url ?? null;
+  const clean = url.split("?")[0];
+  const manus = clean.match(MANUS_FILE);
+  if (manus) return `${R2_PREFIX}/${manus[1]}`;
+  if (CLOUDFRONT.test(clean)) return clean.replace(CLOUDFRONT, R2_BASE);
+  return url;
+}
+
+function rewriteArticle<T extends { featuredImageUrl?: string | null; contentMarkdown?: string | null }>(article: T | null) {
+  if (!article) return article;
+  return {
+    ...article,
+    featuredImageUrl: rewriteMedia(article.featuredImageUrl),
+    contentMarkdown: article.contentMarkdown
+      ? article.contentMarkdown.replace(/\]\(([^)]+)\)/g, (_full, url: string) => `](${rewriteMedia(url)})`)
+      : article.contentMarkdown,
+  };
+}
+
 const articleInput = z.object({
   title: z.string().min(1),
   slug: z.string().min(1),
@@ -75,7 +100,6 @@ export const articleAdminRouter = router({
   }),
 
   create: adminProcedure.input(articleInput).mutation(async ({ input }) => {
-    // Resolve template: use provided one, or auto-assign from rotation
     let templateLayout: string;
     const isSpecial = input.isSpecial && input.templateLayout &&
       (SPECIALS as readonly string[]).includes(input.templateLayout);
@@ -89,7 +113,6 @@ export const articleAdminRouter = router({
       templateLayout = name;
     }
 
-    // Validate against template contract if publishing
     if (input.isPublished && !input.skipValidation) {
       const result = validateArticle(
         { contentMarkdown: input.contentMarkdown, featuredImageUrl: input.featuredImageUrl },
@@ -117,7 +140,6 @@ export const articleAdminRouter = router({
       metaDescription: input.metaDescription ?? null,
     });
 
-    // Advance rotation counter only on successful publish of non-special templates
     if (input.isPublished && !isSpecial && (ROTATION as readonly string[]).includes(templateLayout)) {
       await advanceRotation(templateLayout as RotationTemplate);
     }
@@ -129,7 +151,6 @@ export const articleAdminRouter = router({
     id: z.number(),
     data: articleInput.partial(),
   })).mutation(async ({ input }) => {
-    // If article is already published, re-validate against its template contract
     const existing = await getArticleById(input.id);
     if (existing && existing.isPublished) {
       const template = (input.data.templateLayout || existing.templateLayout) as AnyTemplate;
@@ -146,7 +167,6 @@ export const articleAdminRouter = router({
           });
         }
       }
-      // Validate timestamp if being updated
       if (input.data.publishedAt) {
         validatePublishedAt(input.data.publishedAt as number);
       }
@@ -165,9 +185,6 @@ export const articleAdminRouter = router({
     return { success: true };
   }),
 
-  /** Run the auto-quarantine verifier on all published articles.
-   *  Any article failing its template contract is immediately unpublished.
-   *  Call after any raw SQL workflow or as a safety check. */
   quarantineCheck: adminProcedure.mutation(async () => {
     const result = await quarantineFailingArticles(
       async () => {
@@ -188,11 +205,9 @@ export const articleAdminRouter = router({
   }),
 
   togglePublished: adminProcedure.input(z.object({ id: z.number() })).mutation(async ({ input }) => {
-    // Get the article to check its template and content before publishing
     const article = await getArticleById(input.id);
     if (!article) throw new TRPCError({ code: "NOT_FOUND", message: "Article not found" });
 
-    // If toggling TO published, validate against template contract
     if (!article.isPublished) {
       const template = (article.templateLayout || (await getNextTemplate()).name) as AnyTemplate;
       const result = validateArticle(
@@ -206,7 +221,6 @@ export const articleAdminRouter = router({
         });
       }
 
-      // Advance rotation if it's a rotation template (not special)
       const isSpecial = (SPECIALS as readonly string[]).includes(template);
       if (!isSpecial && (ROTATION as readonly string[]).includes(template)) {
         await advanceRotation(template as RotationTemplate);
@@ -225,31 +239,29 @@ export const articlePublicRouter = router({
     category: z.string().optional(),
     limit: z.number().optional(),
   }).optional()).query(async ({ input }) => {
-    if (input?.category) {
-      return getPublishedArticlesByCategory(input.category);
-    }
-    return getPublishedArticles(input?.limit);
+    const rows = input?.category
+      ? await getPublishedArticlesByCategory(input.category)
+      : await getPublishedArticles(input?.limit);
+    return (rows || []).map((row: any) => rewriteArticle(row));
   }),
 
   featured: publicProcedure.query(async () => {
-    return getFeaturedArticles();
+    const rows = await getFeaturedArticles();
+    return (rows || []).map((row: any) => rewriteArticle(row));
   }),
 
   getBySlug: publicProcedure.input(z.object({ slug: z.string() })).query(async ({ input }) => {
-    return getPublishedArticleBySlug(input.slug);
+    return rewriteArticle(await getPublishedArticleBySlug(input.slug));
   }),
 
-  /** Get vote counts for an article */
   getVotes: publicProcedure.input(z.object({ articleId: z.number() })).query(async ({ input }) => {
     return getArticleVoteCounts(input.articleId);
   }),
 
-  /** Get a visitor's existing vote */
   getMyVote: publicProcedure.input(z.object({ articleId: z.number(), visitorId: z.string() })).query(async ({ input }) => {
     return getVisitorArticleVote(input.articleId, input.visitorId);
   }),
 
-  /** Cast or update a vote */
   vote: publicProcedure.input(z.object({
     articleId: z.number(),
     reaction: z.enum(["loved", "fire", "meh", "thumbsdown"]),
@@ -259,17 +271,16 @@ export const articlePublicRouter = router({
     return { success: true };
   }),
 
-  /** Get vote summaries for all articles (Voting Grounds) */
   allVoteSummaries: publicProcedure.query(async () => {
     return getAllArticleVoteSummaries();
   }),
 
-  /** Get related articles by shared tags, excluding the current article */
   getRelated: publicProcedure.input(z.object({
     slug: z.string(),
     tags: z.array(z.string()),
     limit: z.number().min(1).max(6).default(3),
   })).query(async ({ input }) => {
-    return getRelatedArticles(input.slug, input.tags, input.limit);
+    const rows = await getRelatedArticles(input.slug, input.tags, input.limit);
+    return (rows || []).map((row: any) => rewriteArticle(row));
   }),
 });
