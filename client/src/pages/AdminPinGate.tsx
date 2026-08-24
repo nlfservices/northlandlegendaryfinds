@@ -1,12 +1,14 @@
 /**
  * PIN gate in front of /admin.
- * Reuses the Matrix 6-digit verifyCode path. After a correct PIN the
- * server sets the admin session cookies and AdminDashboard loads.
+ * Step 1: Matrix 6-digit PIN
+ * Step 2: email/password (adminLogin)
+ * Step 3: AdminDashboard after adminLogin (or an already-valid returning session)
  */
-import { lazy, Suspense, useCallback } from "react";
+import { lazy, Suspense, useCallback, useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 import MatrixPinForm from "@/components/admin/MatrixPinForm";
+import AdminCredentialsForm from "@/components/admin/AdminCredentialsForm";
 
 const AdminDashboard = lazy(() => import("./AdminDashboard"));
 
@@ -26,12 +28,19 @@ function GateLoader() {
 export default function AdminPinGate() {
   const { user, loading: authLoading, refresh } = useAuth();
   const session = trpc.matrix.checkAdminSession.useQuery(undefined, { retry: false });
+  const [pinPassed, setPinPassed] = useState(false);
+  const [credsPassed, setCredsPassed] = useState(false);
 
-  const allowedByRole = Boolean(user && ALLOWED_ADMIN_ROLES.includes(user.role));
-  const allowedByMatrix = Boolean(session.data?.valid);
-  const allowed = allowedByRole || allowedByMatrix;
+  const returningUser =
+    Boolean(session.data?.valid) || Boolean(user && ALLOWED_ADMIN_ROLES.includes(user.role));
+  const allowed = returningUser || credsPassed;
 
-  const handlePinSuccess = useCallback(async () => {
+  const handlePinSuccess = useCallback(() => {
+    setPinPassed(true);
+  }, []);
+
+  const handleLoginSuccess = useCallback(async () => {
+    setCredsPassed(true);
     await Promise.all([session.refetch(), refresh()]);
   }, [session, refresh]);
 
@@ -39,13 +48,22 @@ export default function AdminPinGate() {
     return <GateLoader />;
   }
 
-  if (!allowed) {
-    return <MatrixPinForm onSuccess={handlePinSuccess} />;
+  if (allowed) {
+    return (
+      <Suspense fallback={<GateLoader />}>
+        <AdminDashboard />
+      </Suspense>
+    );
   }
 
-  return (
-    <Suspense fallback={<GateLoader />}>
-      <AdminDashboard />
-    </Suspense>
-  );
+  if (pinPassed) {
+    return (
+      <AdminCredentialsForm
+        onSuccess={handleLoginSuccess}
+        onBack={() => setPinPassed(false)}
+      />
+    );
+  }
+
+  return <MatrixPinForm onSuccess={handlePinSuccess} />;
 }
