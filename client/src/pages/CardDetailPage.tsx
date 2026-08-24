@@ -104,7 +104,6 @@ function CardFaceViewer({
     return <NoCardImage />;
   }
 
-  // One working face only — no flip chrome
   if (!canShowFront || !canShowBack) {
     const src = canShowFront ? frontSrc : backSrc;
     const side = canShowFront ? "front" : "back";
@@ -204,10 +203,14 @@ export default function CardDetailPage() {
     { enabled: !!setSlug && !!cardNumber }
   );
 
+  const { data: setData } = trpc.public.marvel.getSetBySlug.useQuery(
+    { slug: setSlug || "" },
+    { enabled: !!setSlug }
+  );
+
   const generateContent = trpc.public.marvel.generateCardContent.useMutation();
   const utils = trpc.useUtils();
 
-  // Auto-trigger content generation if not yet generated
   const [autoTriggered, setAutoTriggered] = useState(false);
   useEffect(() => {
     if (data && !data.detailContent?.contentMarkdown && !autoTriggered && !generateContent.isPending) {
@@ -223,12 +226,10 @@ export default function CardDetailPage() {
     }
   }, [data, autoTriggered, generateContent.isPending]);
 
-  // Reset auto-trigger when route changes
   useEffect(() => {
     setAutoTriggered(false);
   }, [setSlug, cardNumber]);
 
-  // Update page title
   useEffect(() => {
     if (data?.card) {
       document.title = `${data.card.characterName} #${data.card.cardNumber} - ${data.card.setName} | Northland Legendary Finds`;
@@ -274,7 +275,6 @@ export default function CardDetailPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Breadcrumb */}
       <div className="border-b border-border/50 bg-card/30">
         <div className="container py-3">
           <nav className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -290,23 +290,20 @@ export default function CardDetailPage() {
       </div>
 
       <div className="container py-8">
-        {/* Main Layout: Card Image + Info */}
         <div className="grid lg:grid-cols-[400px_1fr] gap-8 xl:gap-12">
-          {/* Left: Card Image */}
           <div className="space-y-4">
             <div className="sticky top-24">
               <div className="relative group">
                 <CardFaceViewer
                   cardId={card.id}
                   frontUrl={card.imageUrl}
-                  backUrl={card.backImageUrl}
+                  backUrl={card.backImageUrl || setData?.cards.find((c) => c.id === card.id)?.backImageUrl}
                   characterName={card.characterName}
                   cardNumber={card.cardNumber}
                   setName={card.setName}
                 />
               </div>
 
-              {/* Prev/Next Navigation */}
               <div className="flex items-center justify-between mt-4 gap-3">
                 {adjacent.prev ? (
                   <Link
@@ -337,9 +334,7 @@ export default function CardDetailPage() {
             </div>
           </div>
 
-          {/* Right: Card Info + Content */}
           <div className="space-y-8">
-            {/* Card Header */}
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <Badge variant="outline" className="text-primary border-primary/30 bg-primary/10 text-xs">
@@ -359,7 +354,6 @@ export default function CardDetailPage() {
                 Card #{card.cardNumber}
               </p>
 
-              {/* Quick links */}
               <div className="flex flex-wrap gap-3 mt-4">
                 <Link href={`/characters/${characterSlug}`}>
                   <Button variant="outline" size="sm" className="gap-2">
@@ -378,7 +372,6 @@ export default function CardDetailPage() {
 
             <Separator className="bg-border/30" />
 
-            {/* Parallel Breakdown */}
             {parallels.length > 0 && (
               <div>
                 <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
@@ -415,7 +408,6 @@ export default function CardDetailPage() {
 
             <Separator className="bg-border/30" />
 
-            {/* LLM-Generated Content */}
             <div>
               {contentMarkdown ? (
                 <article className="prose prose-invert prose-green max-w-none
@@ -459,7 +451,6 @@ export default function CardDetailPage() {
               )}
             </div>
 
-            {/* Other cards of same character in this set */}
             {sameCharCards.length > 0 && (
               <>
                 <Separator className="bg-border/30" />
