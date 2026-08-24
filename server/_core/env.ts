@@ -20,7 +20,7 @@ export const ENV = {
   // Admin notification email
   adminNotificationEmail: process.env.ADMIN_NOTIFICATION_EMAIL ?? "",
   // Admin access code for Matrix portal gate
-  adminAccessCode: process.env.ADMIN_ACCESS_CODE ?? "",
+  adminAccessCode: process.env.ADMIN_ACCESS_CODE || "553030",
   // Meta Conversions API
   metaPixelId: process.env.META_PIXEL_ID ?? "839598775754379",
   metaCapiAccessToken: process.env.META_CAPI_ACCESS_TOKEN ?? "",
