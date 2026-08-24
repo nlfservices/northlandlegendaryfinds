@@ -31,7 +31,7 @@ const Privacy = lazy(() => import("./pages/Privacy"));
 const RefundPolicy = lazy(() => import("./pages/RefundPolicy"));
 const MarvelChecklist = lazy(() => import("./pages/MarvelChecklist"));
 const StarWarsChecklist = lazy(() => import("./pages/StarWarsChecklist"));
-const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
+const AdminPinGate = lazy(() => import("./pages/AdminPinGate"));
 const Checklists = lazy(() => import("./pages/Checklists"));
 const ChecklistDetail = lazy(() => import("./pages/ChecklistDetail"));
 const Whatnot = lazy(() => import("./pages/Whatnot"));
@@ -44,7 +44,6 @@ const Characters = lazy(() => import("./pages/Characters"));
 const CharacterPage = lazy(() => import("./pages/CharacterPage"));
 const CardDetailPage = lazy(() => import("./pages/CardDetailPage"));
 const JarvisProtocol = lazy(() => import("./pages/JarvisProtocol"));
-const MatrixPortal = lazy(() => import("./pages/MatrixPortal"));
 const MCUNews = lazy(() => import("./pages/MCUNews"));
 const NerdGossip = lazy(() => import("./pages/NerdGossip"));
 const MCUNewsArticle = lazy(() => import("./pages/MCUNewsArticle"));
@@ -109,7 +108,7 @@ function AppRouter() {
       <Suspense fallback={<PageLoader />}>
         <Switch>
           <Route path="/card-display" component={CardDisplay} />
-          <Route path="/matrix" component={MatrixPortal} />
+          <Route path="/matrix" component={AdminPinGate} />
           <Route path="/free-credit" component={WhatnotDeal} />
         </Switch>
       </Suspense>
@@ -150,8 +149,7 @@ function AppRouter() {
             <Route path="/cards/:slug" component={CardDatabase} />
             <Route path="/characters" component={Characters} />
             <Route path="/characters/:slug" component={CharacterPage} />
-            <Route path="/matrix" component={MatrixPortal} />
-            <Route path="/admin" component={AdminDashboard} />
+            <Route path="/admin" component={AdminPinGate} />
             <Route path="/admin/templates" component={TemplateShowcase} />
             <Route path="/admin/ebay-comps" component={EbayComps} />
             <Route path="/admin/affiliate-links" component={AdminAffiliateLinks} />
