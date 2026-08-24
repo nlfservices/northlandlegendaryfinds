@@ -131,15 +131,16 @@ export default function Navigation() {
           <div className="flex items-center justify-between h-20">
 
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3.5 group flex-shrink-0">
-              <div className="relative">
-                {/* Green glow aura behind logo */}
-                <div className="absolute inset-0 rounded-xl bg-green-500/20 blur-lg group-hover:bg-green-500/35 transition-all duration-500" />
-                <img
-                  src="https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/site-assets/NLF-Logo-MainLogo.png"
-                  alt="NLF"
-                  className="relative h-[4.5rem] w-[4.5rem] object-contain mix-blend-screen group-hover:scale-105 transition-transform duration-300 drop-shadow-[0_0_12px_rgba(34,197,94,0.5)]"
-                />
+            <Link href="/" className="flex items-center gap-3 group flex-shrink-0">
+              <div className="relative h-16 w-16 flex-shrink-0">
+                <div className="absolute -inset-1 rounded-full bg-emerald-500/20 blur-md group-hover:bg-emerald-500/35 transition-all duration-500" />
+                <div className="relative h-16 w-16 overflow-hidden rounded-full ring-1 ring-emerald-400/30 shadow-[0_0_16px_rgba(16,185,129,0.35)]">
+                  <img
+                    src="https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/site-assets/NLF-Logo-MainLogo.png"
+                    alt="Northland Legendary Finds"
+                    className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
               </div>
               <div className="hidden sm:flex flex-col">
                 <span
@@ -151,7 +152,6 @@ export default function Navigation() {
                 <span className="text-emerald-400/70 text-[11px] tracking-[0.3em] uppercase -mt-0.5 font-semibold">
                   LEGENDARY FINDS
                 </span>
-                {/* Subtle accent line */}
                 <div className="h-[1px] w-full mt-1 bg-gradient-to-r from-transparent via-green-500/50 to-transparent" />
               </div>
             </Link>
@@ -176,7 +176,6 @@ export default function Navigation() {
 
                       {openDropdown === item.label && (
                         <div className="absolute top-full left-0 mt-1.5 w-56 bg-card border border-border rounded-lg shadow-xl py-1.5 z-50">
-                          {/* Link to main page */}
                           {item.path && (
                             <>
                               <Link href={item.path} onClick={() => setOpenDropdown(null)}>
@@ -223,7 +222,6 @@ export default function Navigation() {
                 </div>
               ))}
 
-              {/* More Dropdown */}
               <div className="relative" ref={moreRef}>
                 <button
                   onClick={() => setMoreOpen(!moreOpen)}
@@ -255,9 +253,7 @@ export default function Navigation() {
               </div>
             </div>
 
-            {/* Right Side Utilities */}
             <div className="flex items-center gap-0.5">
-              {/* Random Card Button */}
               <button
                 onClick={handleRandomCard}
                 disabled={isRandomizing}
@@ -267,7 +263,6 @@ export default function Navigation() {
                 <Shuffle className={`w-4.5 h-4.5 ${isRandomizing ? "animate-spin" : ""}`} />
               </button>
 
-              {/* User Account Button — only shows when logged in, otherwise hidden */}
               {isAuthenticated && (
                 <Link href="/login">
                   <button
@@ -280,7 +275,6 @@ export default function Navigation() {
                 </Link>
               )}
 
-              {/* Mobile Menu Toggle */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="lg:hidden text-foreground/70 hover:text-foreground transition-colors p-2 rounded-md hover:bg-muted/50 ml-1"
@@ -291,12 +285,9 @@ export default function Navigation() {
           </div>
         </div>
 
-        {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="lg:hidden border-t border-border/50 bg-background/98 backdrop-blur-md max-h-[calc(100vh-5rem)] overflow-y-auto">
             <div className="container py-3">
-
-              {/* Main Nav Items */}
               <div className="mb-2">
                 <p className="px-3 py-1 text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">Main</p>
                 {NAV_ITEMS.map((item) => (
@@ -327,10 +318,8 @@ export default function Navigation() {
                 ))}
               </div>
 
-              {/* Divider */}
               <div className="border-t border-border/30 my-2" />
 
-              {/* More Section */}
               <div className="mb-2">
                 <p className="px-3 py-1 text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">More</p>
                 {MORE_ITEMS.map((item) => (
@@ -346,10 +335,8 @@ export default function Navigation() {
                 ))}
               </div>
 
-              {/* Divider */}
               <div className="border-t border-border/30 my-2" />
 
-              {/* Utilities */}
               <div>
                 <button
                   onClick={handleRandomCard}
