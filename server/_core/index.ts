@@ -22,6 +22,7 @@ import { startMint2025BacksSeed } from "../mint2025BacksSeed";
 import { startCbhPhotosSeed } from "../cbhPhotosSeed";
 import { startMcsPhotosSeed } from "../mcsPhotosSeed";
 import { startStudiosPhotosSeed } from "../studiosPhotosSeed";
+import { startMint2026PhotosSeed } from "../mint2026PhotosSeed";
 import { startMatrixAdminBootstrap } from "../matrixAdminBootstrap";
 import { appRouter } from "../routers";
 import { startBlogScheduler } from "../blog-scheduler";
@@ -110,6 +111,8 @@ async function startServer() {
     startMcsPhotosSeed();
     // One-shot 2025 Marvel Chrome Studios photo seed (setId=5 numeric 1-200 only). Does not block listen.
     startStudiosPhotosSeed();
+    // One-shot 2026 Marvel Mint photo seed (setId=90006 numeric 1-125 only). Does not block listen.
+    startMint2026PhotosSeed();
     // Clear Matrix lockouts and upsert admin credentials once per process.
     startMatrixAdminBootstrap();
   });
