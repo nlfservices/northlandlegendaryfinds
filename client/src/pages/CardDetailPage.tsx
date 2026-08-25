@@ -108,11 +108,13 @@ function CardFaceViewer({
   const [frontDead, setFrontDead] = useState(false);
   const [backDead, setBackDead] = useState(false);
   const [showBack, setShowBack] = useState(false);
+  const [loadBack, setLoadBack] = useState(false);
 
   useEffect(() => {
     setFrontDead(false);
     setBackDead(false);
     setShowBack(false);
+    setLoadBack(false);
   }, [cardId, frontSrc, backSrc]);
 
   const canShowFront = !!frontSrc && !frontDead;
@@ -148,7 +150,7 @@ function CardFaceViewer({
       <div className="relative" style={{ perspective: "1400px" }}>
         <button
           type="button"
-          onClick={() => setShowBack((prev) => !prev)}
+          onClick={() => { setLoadBack(true); setShowBack((prev) => !prev); }}
           aria-label={showingBack ? "Show card front" : "Show card back"}
           className="block w-full cursor-pointer bg-transparent p-0 border-0 text-left group"
         >
@@ -166,6 +168,7 @@ function CardFaceViewer({
               style={{ backfaceVisibility: "hidden" }}
               onError={() => setFrontDead(true)}
             />
+            {loadBack ? (
             <img
               src={backSrc}
               alt={`${characterName} #${cardNumber} back - ${setName}`}
@@ -173,6 +176,7 @@ function CardFaceViewer({
               style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
               onError={() => setBackDead(true)}
             />
+            ) : null}
           </div>
         </button>
       </div>
@@ -191,7 +195,7 @@ function CardFaceViewer({
         </button>
         <button
           type="button"
-          onClick={() => setShowBack(true)}
+          onClick={() => { setLoadBack(true); setShowBack(true); }}
           aria-pressed={showingBack}
           className={`px-3 py-1.5 rounded-md text-xs font-semibold border transition-colors ${
             showingBack

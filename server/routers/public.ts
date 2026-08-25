@@ -124,7 +124,30 @@ const publicMarvelRouter = router({
     const set = await getMarvelSetBySlug(input.slug);
     if (!set) return null;
     const cards = await getMarvelCardsBySetId(set.id);
-    return { set, cards };
+    return {
+      set: {
+        id: set.id,
+        name: set.name,
+        shortName: set.shortName,
+        slug: set.slug,
+        releaseYear: set.releaseYear,
+        totalCards: set.totalCards,
+        description: set.description,
+        imageUrl: set.imageUrl,
+      },
+      cards: cards.map((c) => ({
+        id: c.id,
+        setId: c.setId,
+        cardNumber: c.cardNumber,
+        characterName: c.characterName,
+        cardType: c.cardType,
+        parallels: c.parallels,
+        rarity: c.rarity,
+        imageUrl: c.imageUrl,
+        backImageUrl: c.backImageUrl,
+        sortOrder: c.sortOrder,
+      })),
+    };
   }),
 
   /** Get cards for a set by ID */

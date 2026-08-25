@@ -166,20 +166,6 @@ function LazyImage({ src, alt, className }: { src: string; alt: string; classNam
 
   return (
     <div ref={imgRef} className={`relative ${className || ""}`}>
-      <SEO
-        title="Marvel Card Database"
-        description="Browse the complete Marvel trading card database. Search by character, set, or parallel across 2025 Topps Chrome, Comic Book Heroes, Marvel Mint, and more."
-        path="/cards"
-        jsonLd={[
-          breadcrumbJsonLd([{ name: "Home", url: "/" }, { name: "Card Database", url: "/cards" }]),
-          collectionPageJsonLd({
-            name: "Marvel Card Database â€” 1,709+ Cards Across 6 Topps Sets",
-            description: "Browse the complete Marvel trading card database. Search by character, set, or parallel across 2025 Topps Chrome, Comic Book Heroes, Marvel Mint, and more.",
-            url: "/cards",
-            itemCount: 1709,
-          }),
-        ]}
-      />
       {!loaded && !error && (
         <div className="absolute inset-0 bg-muted/30 animate-pulse rounded-lg" />
       )}
@@ -290,7 +276,7 @@ function CardImage({ frontImg, name, cardNumber, cosmicBg, borderColor, glowColo
             />
           )}
           <LazyImage
-            src={mediaUrl(frontImg)}
+            src={mediaUrl(frontImg, 400)}
             alt={`${name} #${cardNumber} - 2025 Topps Marvel Trading Card`}
             className={setBackground ? "relative w-[80%] h-[88%] mx-auto mt-[5%] object-contain drop-shadow-2xl" : "w-full h-full"}
           />
@@ -399,6 +385,20 @@ function SetBrowser() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Marvel Card Database"
+        description="Browse the complete Marvel trading card database. Search by character, set, or parallel across 2025 Topps Chrome, Comic Book Heroes, Marvel Mint, and more."
+        path="/cards"
+        jsonLd={[
+          breadcrumbJsonLd([{ name: "Home", url: "/" }, { name: "Card Database", url: "/cards" }]),
+          collectionPageJsonLd({
+            name: "Marvel Card Database — 1,709+ Cards Across 6 Topps Sets",
+            description: "Browse the complete Marvel trading card database. Search by character, set, or parallel across 2025 Topps Chrome, Comic Book Heroes, Marvel Mint, and more.",
+            url: "/cards",
+            itemCount: 1709,
+          }),
+        ]}
+      />
       {/* Header */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-purple-900/10" />
@@ -833,6 +833,11 @@ function SetDetail({ slug }: { slug: string }) {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title={set.name}
+        description={`${set.name} checklist and card images from Northland Legendary Finds.`}
+        path={`/cards/${set.slug}`}
+      />
       {/* Header */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-purple-900/10" />

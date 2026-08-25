@@ -5,6 +5,7 @@ import { nanoid } from "nanoid";
 import path from "path";
 import { createServer as createViteServer } from "vite";
 import viteConfig from "../../vite.config";
+import { registerImageThumbs } from "./imageThumbs";
 
 export async function setupVite(app: Express, server: Server) {
   const serverOptions = {
@@ -58,10 +59,30 @@ export function serveStatic(app: Express) {
     );
   }
 
-  app.use(express.static(distPath));
+  registerImageThumbs(app);
+
+  app.use(express.static(distPath, {
+    etag: true,
+    lastModified: true,
+    setHeaders(res, filePath) {
+      const name = path.basename(filePath);
+      if (/\.html$/i.test(name)) {
+        res.setHeader("Cache-Control", "no-cache");
+        return;
+      }
+      if (/\.(?:js|css|woff2)$/i.test(name) && /-[A-Za-z0-9_]{6,}\./.test(name)) {
+        res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+        return;
+      }
+      if (/\.(?:jpe?g|png|webp|gif|svg|ico|woff2?)$/i.test(name)) {
+        res.setHeader("Cache-Control", "public, max-age=604800, stale-while-revalidate=86400");
+      }
+    },
+  }));
 
   // fall through to index.html if the file doesn't exist
   app.use("*", (_req, res) => {
+    res.setHeader("Cache-Control", "no-cache");
     res.sendFile(path.resolve(distPath, "index.html"));
   });
 }
