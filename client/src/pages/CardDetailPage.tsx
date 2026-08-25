@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Streamdown } from "streamdown";
+import { LazyStreamdown } from "@/components/LazyStreamdown";
 import {
   ChevronLeft,
   ChevronRight,
@@ -452,7 +452,7 @@ export default function CardDetailPage() {
                   prose-a:text-primary prose-a:no-underline hover:prose-a:underline
                   prose-li:text-muted-foreground
                 ">
-                  <Streamdown>{contentMarkdown}</Streamdown>
+                  <LazyStreamdown>{contentMarkdown}</LazyStreamdown>
                 </article>
               ) : isGenerating ? (
                 <div className="flex flex-col items-center justify-center py-16 text-center">

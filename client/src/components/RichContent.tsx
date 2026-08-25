@@ -9,7 +9,7 @@
  */
 
 import { useMemo } from "react";
-import { Streamdown } from "streamdown";
+import { LazyStreamdown } from "@/components/LazyStreamdown";
 import { YouTubeEmbed, parseContentWithEmbeds } from "./YouTubeEmbed";
 import { SafeImage, HULK_PLACEHOLDER } from "@/components/SafeImage";
 import { mediaUrl } from "@/lib/mediaUrl";
@@ -40,7 +40,7 @@ export function RichContent({ children, className }: RichContentProps) {
   if (segments.length === 1 && segments[0].type === "markdown") {
     return (
       <div className={className}>
-        <Streamdown components={markdownImages}>{rewritten}</Streamdown>
+        <LazyStreamdown components={markdownImages}>{rewritten}</LazyStreamdown>
       </div>
     );
   }
@@ -59,7 +59,7 @@ export function RichContent({ children, className }: RichContentProps) {
         }
         // Markdown segment
         return (
-          <Streamdown key={`md-${i}`} components={markdownImages}>{segment.content}</Streamdown>
+          <LazyStreamdown key={`md-${i}`} components={markdownImages}>{segment.content}</LazyStreamdown>
         );
       })}
     </div>

@@ -17,7 +17,7 @@ import {
   Flame, TrendingUp, Star, Package, Tv, Users, BookOpen, Sparkles, Crown
 } from "lucide-react";
 import SEO, { breadcrumbJsonLd } from "@/components/SEO";
-import { Streamdown } from "streamdown";
+import { LazyStreamdown } from "@/components/LazyStreamdown";
 
 const PLACEHOLDER_IMG = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/character-placeholder-v2-CY48bnu9TGVPXs9qZJnG7S.webp";
 
@@ -357,7 +357,7 @@ export default function TrendingCharacterPage() {
               prose-li:text-muted-foreground
               prose-a:text-primary prose-a:no-underline hover:prose-a:underline
             ">
-              <Streamdown>{data.content.historyMarkdown}</Streamdown>
+              <LazyStreamdown>{data.content.historyMarkdown}</LazyStreamdown>
             </article>
           </section>
         )}

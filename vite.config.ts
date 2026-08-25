@@ -23,13 +23,14 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    // Do not put streamdown in a shared vendor chunk; it shares tiny deps and the homepage then statically imports the whole 3.8MB file.
+    modulePreload: {
+      resolveDependencies: (_filename, deps) =>
+        deps.filter((dep) => !dep.includes("streamdown-vendor")),
+    },
     rollupOptions: {
       output: {
         manualChunks(id) {
-          // Streamdown + its heavy deps (mermaid, shiki, katex) - only loaded on article pages
-          if (id.includes('node_modules/streamdown') || id.includes('node_modules/mermaid') || id.includes('node_modules/shiki') || id.includes('node_modules/katex')) {
-            return 'streamdown-vendor';
-          }
           // React core
           if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/')) {
             return 'react-vendor';

@@ -14,7 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { trpc } from "@/lib/trpc";
 import SEO, { breadcrumbJsonLd } from "@/components/SEO";
-import { Streamdown } from "streamdown";
+import { LazyStreamdown } from "@/components/LazyStreamdown";
 import {
   SocialShareInline,
   SocialShareFloating,
@@ -292,7 +292,7 @@ export default function BlogPost() {
                 prose-li:text-muted-foreground
                 prose-code:text-primary prose-code:bg-primary/10 prose-code:rounded prose-code:px-1
               ">
-                <Streamdown>{post.contentMarkdown}</Streamdown>
+                <LazyStreamdown>{post.contentMarkdown}</LazyStreamdown>
               </div>
             </article>
 
