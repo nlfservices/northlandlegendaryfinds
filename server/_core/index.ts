@@ -25,6 +25,7 @@ import { startCbhPhotosSeed } from "../cbhPhotosSeed";
 import { startMcsPhotosSeed } from "../mcsPhotosSeed";
 import { startStudiosPhotosSeed } from "../studiosPhotosSeed";
 import { startStudios2025MetaSeed } from "../studios2025MetaSeed";
+import { startStudiosSapphire2025MetaSeed } from "../studiosSapphire2025MetaSeed";
 import { startCollector2025MetaSeed } from "../collector2025MetaSeed";
 import { startCap85thMetaSeed } from "../cap85thMetaSeed";
 import { startMint2026PhotosSeed } from "../mint2026PhotosSeed";
@@ -122,6 +123,8 @@ async function startServer() {
     startStudiosPhotosSeed();
     // Official 2025 Marvel Chrome Studios hobby odds (setId=5 only). Does not write photos. Does not block listen.
     startStudios2025MetaSeed();
+    // Official 2025 Marvel Studios Sapphire pack-rate odds (setId=6 only). Does not write photos. Does not block listen.
+    startStudiosSapphire2025MetaSeed();
     // Official 2025 Marvel The Collector hobby odds (setId=30001 only). Does not write photos. Does not block listen.
     startCollector2025MetaSeed();
     // Official 2026 Brooklyn Collection Captain America 85th hobby odds (setId=90004 only). Does not write photos. Does not block listen.
