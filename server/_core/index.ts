@@ -35,6 +35,7 @@ import { startMint2026MetaSeed } from "../mint2026MetaSeed";
 import { startVault2026Seed } from "../vault2026Seed";
 import { startFinestFF2026MetaSeed } from "../finestFF2026MetaSeed";
 import { startChrome2024MetaSeed } from "../chrome2024MetaSeed";
+import { startSapphire2024MetaSeed } from "../sapphire2024MetaSeed";
 import { startMatrixAdminBootstrap } from "../matrixAdminBootstrap";
 import { appRouter } from "../routers";
 import { startBlogScheduler } from "../blog-scheduler";
@@ -149,6 +150,8 @@ async function startServer() {
     startFinestFF2026MetaSeed();
     // Official 2024 Topps Chrome Marvel hobby odds (setId=90001 only). Does not write photos. Does not block listen.
     startChrome2024MetaSeed();
+    // Official 2024 Topps Chrome Sapphire Marvel print runs (setId=90002 only). Does not write photos. Does not block listen.
+    startSapphire2024MetaSeed();
     // Clear Matrix lockouts and upsert admin credentials once per process.
     startMatrixAdminBootstrap();
   });
