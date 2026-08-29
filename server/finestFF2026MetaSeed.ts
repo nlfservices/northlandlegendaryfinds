@@ -46,7 +46,7 @@ const MINT_2026_SET_ID = 90006;
 const VAULT_SET_ID = 90007;
 
 /** Bump when official 2026 Finest Fantastic Four hobby odds change so the seed re-runs. */
-const SEED_VERSION = "finest-ff-2026-official-hobby-odds-v1";
+const SEED_VERSION = "finest-ff-2026-official-hobby-odds-v2";
 
 function oddsLine(parts: Array<[string, string]>): string {
   return parts.map(([name, odds]) => `${name} \u00B7 ${odds}`).join(", ");
@@ -64,6 +64,7 @@ function repairCardType(value: string | null | undefined): string {
 function normType(value: string | null | undefined): string {
   return repairCardType(value)
     .toLowerCase()
+    .replace(/[\u2018\u2019\u201B'`]/g, "")
     .replace(/[^a-z0-9]+/g, " ")
     .trim();
 }
