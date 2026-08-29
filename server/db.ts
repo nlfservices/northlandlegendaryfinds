@@ -1136,6 +1136,22 @@ export function parseParallels(parallelsStr: string | null): Array<{ name: strin
       }
     }
 
+    // Named pull-odds: "Base" + middle-dot + "5 per box" / "1 per value box"
+    const perBoxMatch = part.match(/^(.+?)\s*[\u00B7\u2022]\s*(\d+\s+per\s+(?:value\s+)?box)$/i);
+    if (perBoxMatch) {
+      const name = perBoxMatch[1].replace(/[\u00B7\u2022]\s*$/, "").trim();
+      const odds = perBoxMatch[2].replace(/\s+/g, " ").toLowerCase();
+      if (name) {
+        result.push({
+          name,
+          printRun: null,
+          isNumbered: false,
+          odds,
+        });
+        continue;
+      }
+    }
+
     // Single word insert names (Gambits Deck, Infinite Sapphire, etc.) - skip unnumbered
     if (!/\d/.test(part)) continue;
 
