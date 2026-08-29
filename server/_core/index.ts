@@ -19,6 +19,7 @@ import { registerDailyArticleRoute } from "../scheduled-daily-article";
 import { registerRestApi } from "../rest-api";
 import { registerMint2025BacksApi } from "../mint2025BacksApi";
 import { startMint2025BacksSeed } from "../mint2025BacksSeed";
+import { startMint2025MetaSeed } from "../mint2025MetaSeed";
 import { startCbhPhotosSeed } from "../cbhPhotosSeed";
 import { startMcsPhotosSeed } from "../mcsPhotosSeed";
 import { startStudiosPhotosSeed } from "../studiosPhotosSeed";
@@ -105,6 +106,8 @@ async function startServer() {
     startBlogScheduler();
     // One-shot 2025 Mint back seed (setId=3 only). Does not block listen.
     startMint2025BacksSeed();
+    // Official 2025 Mint cardType + hobby odds (setId=3 only). Does not write photos. Does not block listen.
+    startMint2025MetaSeed();
     // One-shot 2025 Comic Book Heroes photo + metadata seed (setId=2 only). Does not block listen.
     startCbhPhotosSeed();
     // One-shot 2025 Marvel Chrome Sapphire photo + odds seed (setId=4 numeric 1-200 only). Does not block listen.
