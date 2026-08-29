@@ -22,6 +22,7 @@ import { startMint2025BacksSeed } from "../mint2025BacksSeed";
 import { startMint2025MetaSeed } from "../mint2025MetaSeed";
 import { startChrome2025MetaSeed } from "../chrome2025MetaSeed";
 import { startChrome2026MetaSeed } from "../chrome2026MetaSeed";
+import { startDeadpool2025MetaSeed } from "../deadpool2025MetaSeed";
 import { startCbhPhotosSeed } from "../cbhPhotosSeed";
 import { startMcsPhotosSeed } from "../mcsPhotosSeed";
 import { startStudiosPhotosSeed } from "../studiosPhotosSeed";
@@ -134,6 +135,8 @@ async function startServer() {
     startCap85thMetaSeed();
     // Official 2026 Chrome Marvel Comics hobby odds (setId=90005 only). Does not write photos. Does not block listen.
     startChrome2026MetaSeed();
+    // Official 2025 Chrome Deadpool hobby odds (setId=90003 only). Does not write photos. Does not block listen.
+    startDeadpool2025MetaSeed();
     // One-shot 2026 Marvel Mint photo seed (setId=90006 numeric 1-125 only). Does not block listen.
     startMint2026PhotosSeed();
     // Official 2026 Marvel Mint hobby odds (setId=90006 only). Does not write photos. Does not block listen.
