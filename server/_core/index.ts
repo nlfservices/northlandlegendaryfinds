@@ -26,6 +26,7 @@ import { startMcsPhotosSeed } from "../mcsPhotosSeed";
 import { startStudiosPhotosSeed } from "../studiosPhotosSeed";
 import { startStudios2025MetaSeed } from "../studios2025MetaSeed";
 import { startCollector2025MetaSeed } from "../collector2025MetaSeed";
+import { startCap85thMetaSeed } from "../cap85thMetaSeed";
 import { startMint2026PhotosSeed } from "../mint2026PhotosSeed";
 import { startMatrixAdminBootstrap } from "../matrixAdminBootstrap";
 import { appRouter } from "../routers";
@@ -123,6 +124,8 @@ async function startServer() {
     startStudios2025MetaSeed();
     // Official 2025 Marvel The Collector hobby odds (setId=30001 only). Does not write photos. Does not block listen.
     startCollector2025MetaSeed();
+    // Official 2026 Brooklyn Collection Captain America 85th hobby odds (setId=90004 only). Does not write photos. Does not block listen.
+    startCap85thMetaSeed();
     // One-shot 2026 Marvel Mint photo seed (setId=90006 numeric 1-125 only). Does not block listen.
     startMint2026PhotosSeed();
     // Clear Matrix lockouts and upsert admin credentials once per process.
