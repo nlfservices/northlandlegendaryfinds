@@ -21,6 +21,7 @@ import { registerMint2025BacksApi } from "../mint2025BacksApi";
 import { startMint2025BacksSeed } from "../mint2025BacksSeed";
 import { startMint2025MetaSeed } from "../mint2025MetaSeed";
 import { startChrome2025MetaSeed } from "../chrome2025MetaSeed";
+import { startChrome2026MetaSeed } from "../chrome2026MetaSeed";
 import { startCbhPhotosSeed } from "../cbhPhotosSeed";
 import { startMcsPhotosSeed } from "../mcsPhotosSeed";
 import { startStudiosPhotosSeed } from "../studiosPhotosSeed";
@@ -131,6 +132,8 @@ async function startServer() {
     startCollector2025MetaSeed();
     // Official 2026 Brooklyn Collection Captain America 85th hobby odds (setId=90004 only). Does not write photos. Does not block listen.
     startCap85thMetaSeed();
+    // Official 2026 Chrome Marvel Comics hobby odds (setId=90005 only). Does not write photos. Does not block listen.
+    startChrome2026MetaSeed();
     // One-shot 2026 Marvel Mint photo seed (setId=90006 numeric 1-125 only). Does not block listen.
     startMint2026PhotosSeed();
     // Official 2026 Marvel Mint hobby odds (setId=90006 only). Does not write photos. Does not block listen.
