@@ -29,6 +29,7 @@ import { startStudiosSapphire2025MetaSeed } from "../studiosSapphire2025MetaSeed
 import { startCollector2025MetaSeed } from "../collector2025MetaSeed";
 import { startCap85thMetaSeed } from "../cap85thMetaSeed";
 import { startMint2026PhotosSeed } from "../mint2026PhotosSeed";
+import { startVault2026Seed } from "../vault2026Seed";
 import { startMatrixAdminBootstrap } from "../matrixAdminBootstrap";
 import { appRouter } from "../routers";
 import { startBlogScheduler } from "../blog-scheduler";
@@ -131,6 +132,8 @@ async function startServer() {
     startCap85thMetaSeed();
     // One-shot 2026 Marvel Mint photo seed (setId=90006 numeric 1-125 only). Does not block listen.
     startMint2026PhotosSeed();
+    // Official 2026 Topps Marvel Vault checklist + hobby odds (setId=90007). Inserts set+cards. Photos stay empty. Does not block listen.
+    startVault2026Seed();
     // Clear Matrix lockouts and upsert admin credentials once per process.
     startMatrixAdminBootstrap();
   });
