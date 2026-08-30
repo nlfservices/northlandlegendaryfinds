@@ -18,12 +18,41 @@ import {
 
 const R2_BASE = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev";
 const R2_PREFIX = `${R2_BASE}/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi`;
+const CF_PREFIX = "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi";
 const MANUS_FILE = /(?:https?:\/\/[^/]+)?\/manus-storage\/(.+)$/i;
 const CLOUDFRONT = /^https?:\/\/[^/]*cloudfront\.net/i;
+
+const CF_FALLBACK = new Set([
+  "C-10_front_0ebad520.webp",
+  "C-A_front_175ac9e0.webp",
+  "C-J_front_513c0568.webp",
+  "C-9_front_4bbe8bc3.webp",
+  "C-Q_front_0d8f0dcd.webp",
+  "C-K_front_e6aa9dc5.webp",
+  "CBH-002_Captain_America_9fb636d3.webp",
+  "CBH-010_Hulk_5021737a.webp",
+  "CBH-013_Iron_Man_185446b3.webp",
+  "CBH-011_Human_Torch_63626d10.webp",
+  "CBH-021_Namor_083abd08.webp",
+  "CBH-024_The_Thing_b6ab8fe6.webp",
+  "CBH-025_Thor_e699fbe8.webp",
+  "CBH-036_Doctor_Strange_d7ffaca0.webp",
+  "CBH-148_Wolverine_6575e9cd.webp",
+  "CBH-142_Spider-Man_1b89e31c.webp",
+  "CBH-117_Gambit_8bcc2f45.webp",
+  "CHROME-159_Shang-Chi_40d93a82.webp",
+  "CBH-078_Loki_37e7f6a0.webp",
+]);
+
+function fileName(path?: string | null) {
+  return String(path || "").split("?")[0].split("/").pop() || "";
+}
 
 function rewriteMedia(url?: string | null) {
   if (!url) return url ?? null;
   const clean = url.split("?")[0];
+  const name = fileName(clean);
+  if (CF_FALLBACK.has(name)) return `${CF_PREFIX}/${name}`;
   const manus = clean.match(MANUS_FILE);
   if (manus) return `${R2_PREFIX}/${manus[1]}`;
   if (CLOUDFRONT.test(clean)) return clean.replace(CLOUDFRONT, R2_BASE);
@@ -35,7 +64,10 @@ function rewriteBodyMedia(markdown: string) {
   return markdown
     .replace(/\bsrc=(["'])([^"']+)\1/gi, (_full, quote: string, url: string) => `src=${quote}${rewriteMedia(url)}${quote}`)
     .replace(/\]\(([^)]+)\)/g, (_full, url: string) => `](${rewriteMedia(url)})`)
-    .replace(/(?:https?:\/\/[^/\s"'<>]+)?\/manus-storage\/([^\s"'<>)]+)/gi, (_full, file: string) => `${R2_PREFIX}/${file}`);
+    .replace(/(?:https?:\/\/[^/\s"'<>]+)?\/manus-storage\/([^\s"'<>)]+)/gi, (_full, file: string) => {
+      const name = fileName(file);
+      return CF_FALLBACK.has(name) ? `${CF_PREFIX}/${name}` : `${R2_PREFIX}/${file}`;
+    });
 }
 
 function rewriteArticle<T extends { featuredImageUrl?: string | null; contentMarkdown?: string | null }>(article: T | null) {
