@@ -26,6 +26,14 @@ const CF_FALLBACK = new Set([
   "CBH-117_Gambit_8bcc2f45.webp",
   "CHROME-159_Shang-Chi_40d93a82.webp",
   "CBH-078_Loki_37e7f6a0.webp",
+  "professor-x_fa6a6e7a.png",
+]);
+
+/** Missing article files whose recovered stand-ins were not Marvel-accurate. Hide; do not substitute. */
+const HIDE_BROKEN = new Set([
+  "secret-wars-1984-battleworld-kVKCjJvVkMQxpBz2YzjGKa.webp",
+  "wolv-spidey-split-poster-v2_c6c00c2e.jpg",
+  "events-wccs-7fUNnxDMYRVLQmYLhJLqQV.webp",
 ]);
 
 function fileName(path) {
@@ -35,6 +43,7 @@ function fileName(path) {
 /** Resolve a card/media URL. Pass width for set-grid thumbs of local scans. */
 export function mediaUrl(url, width) {
   if (!url) return "";
+  if (HIDE_BROKEN.has(fileName(url))) return "";
   const base = String(import.meta.env.VITE_MEDIA_PUBLIC_BASE || DEFAULT_BASE).replace(/\/$/, "");
   const clean = String(url).split("?")[0];
   const manus = clean.match(MANUS_FILE);

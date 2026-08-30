@@ -42,6 +42,14 @@ const CF_FALLBACK = new Set([
   "CBH-117_Gambit_8bcc2f45.webp",
   "CHROME-159_Shang-Chi_40d93a82.webp",
   "CBH-078_Loki_37e7f6a0.webp",
+  "professor-x_fa6a6e7a.png",
+]);
+
+/** Missing article files whose recovered stand-ins were not Marvel-accurate. Hide; do not substitute. */
+const HIDE_BROKEN = new Set([
+  "secret-wars-1984-battleworld-kVKCjJvVkMQxpBz2YzjGKa.webp",
+  "wolv-spidey-split-poster-v2_c6c00c2e.jpg",
+  "events-wccs-7fUNnxDMYRVLQmYLhJLqQV.webp",
 ]);
 
 function fileName(path?: string | null) {
@@ -52,6 +60,7 @@ function rewriteMedia(url?: string | null) {
   if (!url) return url ?? null;
   const clean = url.split("?")[0];
   const name = fileName(clean);
+  if (HIDE_BROKEN.has(name)) return "";
   if (CF_FALLBACK.has(name)) return `${CF_PREFIX}/${name}`;
   const manus = clean.match(MANUS_FILE);
   if (manus) return `${R2_PREFIX}/${manus[1]}`;
@@ -61,11 +70,20 @@ function rewriteMedia(url?: string | null) {
 
 /** Rewrite manus-storage / CloudFront URLs in markdown ](url) and HTML src="..." / src='...'. */
 function rewriteBodyMedia(markdown: string) {
-  return markdown
+  const stripped = markdown
+    .replace(/!\[[^\]]*\]\(([^)]+)\)/g, (full, url: string) =>
+      HIDE_BROKEN.has(fileName(url)) ? "" : full
+    )
+    .replace(/<img\b[^>]*>/gi, (full) => {
+      const m = full.match(/\bsrc=(["'])([^"']+)\1/i);
+      return m && HIDE_BROKEN.has(fileName(m[2])) ? "" : full;
+    });
+  return stripped
     .replace(/\bsrc=(["'])([^"']+)\1/gi, (_full, quote: string, url: string) => `src=${quote}${rewriteMedia(url)}${quote}`)
     .replace(/\]\(([^)]+)\)/g, (_full, url: string) => `](${rewriteMedia(url)})`)
     .replace(/(?:https?:\/\/[^/\s"'<>]+)?\/manus-storage\/([^\s"'<>)]+)/gi, (_full, file: string) => {
       const name = fileName(file);
+      if (HIDE_BROKEN.has(name)) return "";
       return CF_FALLBACK.has(name) ? `${CF_PREFIX}/${name}` : `${R2_PREFIX}/${file}`;
     });
 }
