@@ -83,7 +83,7 @@ const DOOM_COMIC_CUT_SEO = `Northland Legendary Finds filmed this look at a Doct
 export const VIDEOS: VideoEntry[] = [
   {
     id: "doctor-doom-comic-cut-1-1-2025-topps-marvel-mint",
-    title: "Doctor Doom | Comic Cut 1/1 | 2025 Topps Marvel Mint | NLF",
+    title: "2025 Topps Marvel Mint Doctor Doom 1/1 Comic Cut",
     youtubeId: "GK7TpveroyU",
     character: "Doctor Doom",
     characterLetter: "D",
