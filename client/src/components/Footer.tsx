@@ -57,6 +57,7 @@ export default function Footer() {
               <li><Link href="/card-of-the-day" className="text-sm text-muted-foreground hover:text-primary transition-colors">Card of the Day</Link></li>
               <li><Link href="/checklists" className="text-sm text-muted-foreground hover:text-primary transition-colors">Cosmic Hits</Link></li>
               <li><Link href="/characters" className="text-sm text-muted-foreground hover:text-primary transition-colors">Characters</Link></li>
+              <li><Link href="/videos" className="text-sm text-muted-foreground hover:text-primary transition-colors">Videos</Link></li>
               <li><Link href="/cards" className="text-sm text-muted-foreground hover:text-primary transition-colors">Card Database</Link></li>
               <li><Link href="/card-shows" className="text-sm text-muted-foreground hover:text-primary transition-colors">Card Shows</Link></li>
               <li><Link href="/whatnot" className="text-sm text-muted-foreground hover:text-primary transition-colors">Whatnot</Link></li>

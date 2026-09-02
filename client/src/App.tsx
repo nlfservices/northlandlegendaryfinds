@@ -85,6 +85,7 @@ const ChasingDoom = lazy(() => import("./pages/ChasingDoom"));
 const CardOfTheDayPage = lazy(() => import("./pages/CardOfTheDay"));
 const Battleworld = lazy(() => import("./pages/Battleworld"));
 const BuildYourRepack = lazy(() => import("./pages/BuildYourRepack"));
+const Videos = lazy(() => import("./pages/Videos"));
 
 // Minimal loading spinner for lazy-loaded pages
 function PageLoader() {
@@ -155,6 +156,7 @@ function AppRouter() {
             <Route path="/admin/affiliate-links" component={AdminAffiliateLinks} />
             <Route path="/transparency" component={Transparency} />
             <Route path="/mcu-news" component={MCUNews} />
+            <Route path="/videos" component={Videos} />
             <Route path="/nerd-gossip" component={NerdGossip} />
             <Route path="/mcu-news/:slug" component={MCUNewsArticle} />
             {/* Redirects from old /mcu-intel URLs */}
