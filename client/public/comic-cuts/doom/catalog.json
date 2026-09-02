@@ -1,0 +1,439 @@
+{
+  "title": "Doctor Doom Authentic Comic Cuts — Master List",
+  "set": "2025 Topps Marvel Mint",
+  "insert": "Doctor Doom Comic Cuts (DD-CC)",
+  "odds": "~1:61 Hobby / ~1:63 SDCC (Topps checklist)",
+  "count_unique": "~200 unique 1/1s",
+  "inventory_here": 42,
+  "gaps": [
+    21,
+    22,
+    32,
+    58
+  ],
+  "rename_pattern": "Series_Issue_pXX_CutNN.jpg",
+  "updated": "2026-09-02",
+  "note": "Research inventory for NLF. Not a sales catalog. Nest under Marvel Mint master set — not an isolated Doom-only DB. Jarvis owns Doom history narrative.",
+  "cuts": [
+    {
+      "num": 18,
+      "file": "Doom_Comic_Cut_018.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_018.jpg",
+      "full": null,
+      "clues": "Doom lunging/crouched fists; purple/magenta pebbled robot with yellow/tan chest oval + flat silver faceplate; reddish cracked stone; balloon GUARDS--",
+      "status": "unidentified",
+      "ruled_out": "FF #84–85 (careful), #197–200, #247, #258, #279, #287–288; Thor #182–183; SVTU #6; GSSVTU #2; AT #1–3; WGCM #11",
+      "next": "Emperor Doom MGN; WGCM #1–2; FF #86–87 careful"
+    },
+    {
+      "num": 19,
+      "file": "Doom_Comic_Cut_019.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_019.jpg",
+      "full": null,
+      "clues": "Doom close-up lunging; Thing rocky back BL + fist UL; flat yellow bg; black downward V/chevrons at top; Kirby Ben-Day",
+      "status": "unidentified",
+      "ruled_out": "FF #40, #58–60; FF Annual #2 Origin + Final Victory (MU omits #5 reprint)",
+      "next": "Fantastic Four (1961) #5; FF #23/#17/#10"
+    },
+    {
+      "num": 20,
+      "file": "Doom_Comic_Cut_020.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_020.jpg",
+      "full": null,
+      "clues": "Doom left; blue jet/vapor UR; bare pointing hand FG (not gauntlet)",
+      "status": "unidentified",
+      "ruled_out": "AT #2; FF #60 p.3 (armored hand); Thor #182–183 (no single-panel match)",
+      "next": "FF #5/#17/#200"
+    },
+    {
+      "num": 23,
+      "file": "Doom_Comic_Cut_023.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_023.jpg",
+      "full": null,
+      "clues": "Doom chest-up, pinkish bg; fragmented caption text",
+      "status": "unidentified",
+      "ruled_out": "",
+      "next": "needs MU lead hunt"
+    },
+    {
+      "num": 24,
+      "file": "Doom_Comic_Cut_024.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_024.jpg",
+      "full": null,
+      "clues": "Ben-Day/Kirby-era; DES OF THE SERAPHIM + YES! YOU UNDERSTAND!; young dark curly-haired man over Doom shoulder; magenta edges; tan brick",
+      "status": "unidentified",
+      "ruled_out": "Triumph and Torment (Mignola art mismatch)",
+      "next": "Doctor Strange (1974) #57; ASM Annual #14"
+    },
+    {
+      "num": 25,
+      "file": "Doom_Comic_Cut_025.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_025.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 26,
+      "file": "Doom_Comic_Cut_026.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_026.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 27,
+      "file": "Doom_Comic_Cut_027.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_027.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 28,
+      "file": "Doom_Comic_Cut_028.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_028.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 29,
+      "file": "Doom_Comic_Cut_029.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_029.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 30,
+      "file": "Doom_Comic_Cut_030.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_030.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 31,
+      "file": "Doom_Comic_Cut_031.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_031.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 33,
+      "file": "Doom_Comic_Cut_033.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_033.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 34,
+      "file": "Doom_Comic_Cut_034.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_034.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 35,
+      "file": "Doom_Comic_Cut_035.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_035.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 36,
+      "file": "Doom_Comic_Cut_036.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_036.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 37,
+      "file": "Doom_Comic_Cut_037.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_037.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 38,
+      "file": "Doom_Comic_Cut_038.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_038.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 39,
+      "file": "Doom_Comic_Cut_039.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_039.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 40,
+      "file": "Doom_Comic_Cut_040.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_040.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 41,
+      "file": "Doom_Comic_Cut_041.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_041.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 42,
+      "file": "Doom_Comic_Cut_042.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_042.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 43,
+      "file": "Doom_Comic_Cut_043.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_043.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 44,
+      "file": "Doom_Comic_Cut_044.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_044.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 45,
+      "file": "Doom_Comic_Cut_045.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_045.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 46,
+      "file": "Doom_Comic_Cut_046.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_046.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 47,
+      "file": "Doom_Comic_Cut_047.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_047.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 48,
+      "file": "Doom_Comic_Cut_048.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_048.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 49,
+      "file": "Doom_Comic_Cut_049.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_049.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 50,
+      "file": "Doom_Comic_Cut_050.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_050.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 51,
+      "file": "Doom_Comic_Cut_051.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_051.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 52,
+      "file": "Doom_Comic_Cut_052.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_052.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 53,
+      "file": "Doom_Comic_Cut_053.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_053.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 54,
+      "file": "Doom_Comic_Cut_054.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_054.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 55,
+      "file": "Doom_Comic_Cut_055.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_055.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 56,
+      "file": "Doom_Comic_Cut_056.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_056.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 57,
+      "file": "Doom_Comic_Cut_057.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_057.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 59,
+      "file": "Doom_Comic_Cut_059.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_059.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 60,
+      "file": "Doom_Comic_Cut_060.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_060.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 61,
+      "file": "Doom_Comic_Cut_061.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_061.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 62,
+      "file": "Doom_Comic_Cut_062.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_062.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    },
+    {
+      "num": 63,
+      "file": "Doom_Comic_Cut_063.jpg",
+      "thumb": "/comic-cuts/doom/thumbs/cut_063.jpg",
+      "full": null,
+      "clues": "Not yet sampled in detail",
+      "status": "pending",
+      "ruled_out": "",
+      "next": "visual sample + MU hunt"
+    }
+  ]
+}
