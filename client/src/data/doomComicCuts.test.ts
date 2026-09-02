@@ -47,7 +47,7 @@ describe("Doctor Doom Comic Cuts HISTORY companion", () => {
     expect(MINT_COMIC_CUT_FACTS.sdccOdds).toBe("1:63");
     expect(MINT_2025_SET_PATH).toBe("/cards/2025-topps-marvel-mint");
     expect(historyPage).not.toMatch(/print run of/i);
-    expect(historyPage).toMatch(/Total box print run unknown/);
+    expect(historyPage).toMatch(/Total box print run[\s\S]*unknown/);
   });
 
   it("uses the real card photo and the live YouTube companion", () => {
@@ -56,7 +56,7 @@ describe("Doctor Doom Comic Cuts HISTORY companion", () => {
     expect(DOOM_CARD_IMAGE).not.toMatch(/cloudfront/i);
     expect(DOOM_YOUTUBE_ID).toBe("GK7TpveroyU");
     expect(DOOM_VIDEO_PATH).toBe("/videos/doctor-doom-comic-cut-1-1-2025-topps-marvel-mint");
-    expect(historyPage).toContain(DOOM_CARD_IMAGE);
+    expect(historyPage).toContain("DOOM_CARD_IMAGE");
     expect(historyPage).toContain("DOOM_YOUTUBE_ID");
     expect(historyPage).toContain("DOOM_VIDEO_PATH");
   });

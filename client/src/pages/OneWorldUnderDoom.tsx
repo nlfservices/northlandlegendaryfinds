@@ -144,8 +144,9 @@ export default function OneWorldUnderDoom() {
 
         <p className="mt-10 border-t border-border/50 pt-6 text-xs leading-relaxed text-muted-foreground">
           Independent NLF write-up — not an official Topps or Marvel statement.
-          Research stub only. No checkout, no invented odds, no card-by-card OWUD
-          list until the official checklist is ingested into the shared set catalog.
+          Research stub only. Information page — no commerce, no invented odds, no
+          card-by-card OWUD list until the official checklist is ingested into the
+          shared set catalog.
         </p>
       </article>
     </div>
