@@ -62,6 +62,7 @@ const SITE_SECTIONS: SiteSection[] = [
       { path: "/trending", label: "Trending Cards", description: "Marvel cards to collect right now — movie-driven picks and beginner tips" },
       { path: "/gambit-deck", label: "Gambit Chrome Deck Guide", description: "Complete guide to the 2025 Topps Marvel Mint Gambit Deck — all 52 cards, prices, and MCU connections" },
       { path: "/comic-cuts/doctor-doom-history", label: "Doctor Doom History — Mint Comic Cuts", description: "Storyline companion to 2025 Topps Marvel Mint Authentic Comic Cuts (DD-CC). Victor von Doom lore nested under the official Mint set." },
+      { path: "/comic-cuts/doctor-doom-history#research-inventory", label: "Doctor Doom Comic Cuts research inventory", description: "Research thumb grid of NLF-held DD-CC 1/1s under 2025 Topps Marvel Mint. Not a sales catalog." },
       { path: "/chrome/one-world-under-doom", label: "One World Under Doom (Chrome 2026 research)", description: "Insert-family stub for 2026 Topps Chrome Marvel Comics One World Under Doom. Reported hobby odds 1:6. Checklist ingest pending." },
     ],
   },

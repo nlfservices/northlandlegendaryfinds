@@ -6,6 +6,9 @@ import {
   CHROME_2026_SET_PATH,
   DOOM_CARD_IMAGE,
   DOOM_CHARACTER_PATH,
+  DOOM_GALLERY_CATALOG_PATH,
+  DOOM_GALLERY_HASH,
+  DOOM_GALLERY_PATH,
   DOOM_HISTORY_PATH,
   DOOM_VIDEO_ID,
   DOOM_VIDEO_PATH,
@@ -14,12 +17,16 @@ import {
   MINT_COMIC_CUT_FACTS,
   OWUD_FACTS,
   OWUD_PATH,
+  isDoomComicCutCatalog,
   loreCompanionForVideo,
+  padCutNum,
+  visibleDoomCuts,
 } from "./doomComicCuts";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const historyPage = readFileSync(resolve(here, "../pages/DoomComicCutHistory.tsx"), "utf8");
 const owudPage = readFileSync(resolve(here, "../pages/OneWorldUnderDoom.tsx"), "utf8");
+const gallery = readFileSync(resolve(here, "../components/DoomComicCutGallery.tsx"), "utf8");
 const app = readFileSync(resolve(here, "../App.tsx"), "utf8");
 
 function wordCount(text: string): number {
@@ -97,7 +104,53 @@ describe("Doctor Doom Comic Cuts HISTORY companion", () => {
     expect(app).toContain('lazy(() => import("./pages/DoomComicCutHistory"))');
     expect(app).toContain('lazy(() => import("./pages/OneWorldUnderDoom"))');
     expect(app).toContain('path="/comic-cuts/doctor-doom-history"');
+    expect(app).toContain('path="/comic-cuts/doom"');
+    expect(app).toContain("DOOM_GALLERY_HASH");
     expect(app).toContain('path="/chrome/one-world-under-doom"');
+  });
+
+  it("embeds the research inventory gallery on the HISTORY page", () => {
+    expect(historyPage).toContain("DoomComicCutGallery");
+    expect(historyPage).toContain("DOOM_GALLERY_HASH");
+    expect(gallery).toMatch(/not a sales catalog/i);
+    expect(gallery).toContain("DOOM_GALLERY_CATALOG_PATH");
+    expect(gallery).toContain("MINT_2025_SET_PATH");
+    expect(gallery).toContain("DOOM_VIDEO_PATH");
+    expect(gallery).not.toMatch(/checkout|add to cart|buy now|shop now/i);
+    expect(DOOM_GALLERY_PATH).toBe("/comic-cuts/doom");
+    expect(DOOM_GALLERY_CATALOG_PATH).toBe("/comic-cuts/doom/catalog.json");
+    expect(DOOM_GALLERY_HASH).toBe("research-inventory");
+  });
+});
+
+describe("Doom Comic Cuts research catalog", () => {
+  const catalog = JSON.parse(
+    readFileSync(resolve(here, "../../public/comic-cuts/doom/catalog.json"), "utf8")
+  );
+
+  it("matches the public catalog shape and hides gap numbers", () => {
+    expect(isDoomComicCutCatalog(catalog)).toBe(true);
+    expect(catalog.set).toBe("2025 Topps Marvel Mint");
+    expect(catalog.insert).toMatch(/DD-CC/);
+    expect(catalog.inventory_here).toBe(42);
+    expect(catalog.gaps).toEqual([21, 22, 32, 58]);
+    expect(catalog.note).toMatch(/Not a sales catalog/i);
+    expect(catalog.note).toMatch(/Marvel Mint/);
+
+    const visible = visibleDoomCuts(catalog);
+    expect(visible).toHaveLength(42);
+    expect(visible.map((cut) => cut.num)).not.toEqual(expect.arrayContaining(catalog.gaps));
+    expect(visible.every((cut) => cut.thumb.startsWith("/comic-cuts/doom/thumbs/cut_"))).toBe(true);
+    expect(visible.every((cut) => cut.status === "unidentified")).toBe(true);
+    expect(visible.some((cut) => (cut.clues ?? "").length > 0)).toBe(true);
+    expect(padCutNum(18)).toBe("018");
+  });
+
+  it("does not invent locked issue/page IDs or commerce copy", () => {
+    const raw = JSON.stringify(catalog);
+    expect(raw).not.toMatch(/checkout|buy now|add to cart/i);
+    expect(raw).not.toMatch(/2099/);
+    expect(visibleDoomCuts(catalog).every((cut) => !cut.file.match(/2099/i))).toBe(true);
   });
 });
 
