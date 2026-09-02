@@ -3,6 +3,7 @@ import { getAllMarvelSets, getAllCharacterSlugs, getAllCardDetailSlugs, getPubli
 import { getDb } from "./db";
 import { mcuMedia, cardOfTheDayEntries } from "../drizzle/schema";
 import { eq, asc } from "drizzle-orm";
+import { getVideoSitemapPaths } from "../client/src/data/videos";
 
 const SITE_URL = "https://northlandlegendaryfinds.com";
 
@@ -145,6 +146,11 @@ export function registerSitemapRoute(app: Express) {
       // Product pages
       for (const slug of PRODUCT_SLUGS) {
         entries.push(buildUrlEntry(`/product/${slug}`, "0.8", "weekly", today));
+      }
+
+      // Per-video SEO landing pages from the catalog
+      for (const path of getVideoSitemapPaths()) {
+        entries.push(buildUrlEntry(path, "0.7", "weekly", today));
       }
 
       // Dynamic card set pages from database
