@@ -53,6 +53,7 @@ const HIDE_BROKEN = new Set([
   "1787184553802.png",
   "1787138353784.png",
   "1786100483415.png",
+  "doom-comic-cuts-history-g3QcNLGZc2WPzsXXUzE6mo.webp",
 ]);
 
 function fileName(path?: string | null) {

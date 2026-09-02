@@ -29,7 +29,7 @@ describe("videos catalog", () => {
     const doom = VIDEOS.find((v) => v.youtubeId === "GK7TpveroyU");
     expect(doom).toBeTruthy();
     expect(doom?.id).toBe("doctor-doom-comic-cut-1-1-2025-topps-marvel-mint");
-    expect(doom?.title).toBe("Doctor Doom | Comic Cut 1/1 | 2025 Topps Marvel Mint | NLF");
+    expect(doom?.title).toBe("2025 Topps Marvel Mint Doctor Doom 1/1 Comic Cut");
     expect(doom?.character).toBe("Doctor Doom");
     expect(doom?.characterLetter).toBe("D");
     expect(doom?.setFilter).toBe("2025 Topps Marvel Mint");
@@ -39,8 +39,10 @@ describe("videos catalog", () => {
     expect(doom?.parallel).toBe("Comic Cut 1/1");
     expect(doom?.description).toBe("Doctor Doom Comic Cut 1/1 from 2025 Topps Marvel Mint");
     expect(doom?.thumbnailUrl).toBeUndefined();
-    expect(doom?.cardImageUrl).toMatch(/^https:\/\/d2xsxph8kpxj0f\.cloudfront\.net\//);
-    expect(doom?.cardImageUrl).toContain("doom-comic-cuts-history");
+    expect(doom?.cardImageUrl).toContain("doom-comic-cut-1of1-black.jpg");
+    expect(doom?.cardImageUrl).toBe("/videos/doom-comic-cut-1of1-black.jpg?v=2");
+    expect(doom?.cardImageUrl).not.toMatch(/cloudfront/i);
+    expect(doom?.cardImageUrl).not.toContain("doom-comic-cuts-history");
     expect(doom?.printRun).toBe("1/1");
     expect(doom?.populationLabel).toContain("1/1");
     expect(doom?.populationLabel).toContain("200");
