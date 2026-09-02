@@ -20,12 +20,14 @@ import {
   youtubeEmbedUrl,
   type VideoEntry,
 } from "@/data/videos";
+import { loreCompanionForVideo } from "@/data/doomComicCuts";
 
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
 function VideoCard({ video }: { video: VideoEntry }) {
   const setHref = video.setSlug ? `/cards/${video.setSlug}` : null;
   const detailHref = hasVideoDetailPage(video) ? videoDetailPath(video.id) : null;
+  const lore = loreCompanionForVideo(video.id);
 
   return (
     <article className="overflow-hidden rounded-xl border border-green-500/20 bg-card/60 shadow-lg shadow-green-950/20 transition-all hover:border-green-400/50">
@@ -86,6 +88,15 @@ function VideoCard({ video }: { video: VideoEntry }) {
               className="inline-flex items-center gap-1 text-sm font-semibold text-emerald-300 transition-colors hover:text-emerald-200"
             >
               View {video.setFilter}
+              <ChevronRight className="h-4 w-4" />
+            </Link>
+          )}
+          {lore && (
+            <Link
+              href={lore.href}
+              className="inline-flex items-center gap-1 text-sm font-semibold text-green-400 transition-colors hover:text-green-300"
+            >
+              {lore.label}
               <ChevronRight className="h-4 w-4" />
             </Link>
           )}
