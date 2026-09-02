@@ -100,6 +100,7 @@ export const VIDEOS: VideoEntry[] = [
     hobbyOdds: "1:61",
     sdccOdds: "1:63",
     cardNumber: "DD-CC",
+    // Hobby commonly cited Aug 13, 2025 after SDCC first. Total box print run unknown — do not invent.
   },
 ];
 

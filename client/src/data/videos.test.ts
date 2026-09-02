@@ -29,11 +29,13 @@ describe("videos catalog", () => {
     const doom = VIDEOS.find((v) => v.youtubeId === "GK7TpveroyU");
     expect(doom).toBeTruthy();
     expect(doom?.id).toBe("doctor-doom-comic-cut-1-1-2025-topps-marvel-mint");
+    expect(doom?.title).toBe("Doctor Doom | Comic Cut 1/1 | 2025 Topps Marvel Mint | NLF");
     expect(doom?.character).toBe("Doctor Doom");
     expect(doom?.characterLetter).toBe("D");
     expect(doom?.setFilter).toBe("2025 Topps Marvel Mint");
     expect(doom?.setLabel).toBe("Topps Marvel Mint");
     expect(doom?.setSlug).toBe("2025-topps-marvel-mint");
+    expect(`/cards/${doom?.setSlug}`).toBe("/cards/2025-topps-marvel-mint");
     expect(doom?.parallel).toBe("Comic Cut 1/1");
     expect(doom?.description).toBe("Doctor Doom Comic Cut 1/1 from 2025 Topps Marvel Mint");
     expect(doom?.thumbnailUrl).toBeUndefined();
