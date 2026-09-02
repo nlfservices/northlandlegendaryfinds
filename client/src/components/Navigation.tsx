@@ -29,6 +29,7 @@ const NAV_ITEMS: NavItemWithDropdown[] = [
     dropdown: [
       { path: "/movies-series", label: "Movies & Series", description: "Releases, trailers & timelines" },
       { path: "/nerd-gossip", label: "Nerd Gossip", description: "Rumors, leaks & hot takes" },
+      { path: "/videos", label: "Videos", description: "NLF card videos & YouTube gallery" },
     ],
   },
   {
@@ -110,6 +111,7 @@ export default function Navigation() {
     location === path ||
     (path === "/checklists" && location.startsWith("/checklists")) ||
     (path === "/mcu-news" && location.startsWith("/mcu-news")) ||
+    (path === "/videos" && location.startsWith("/videos")) ||
     (path === "/cards" && location.startsWith("/cards"));
 
   const isGroupActive = (item: NavItemWithDropdown) => {

@@ -4,7 +4,7 @@
  */
 
 import { Link, useLocation } from "wouter";
-import { Home, Grid3x3, Users, ShoppingCart, Info, X } from "lucide-react";
+import { Home, Grid3x3, Users, ShoppingCart, Info, X, Youtube } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface MobileMenuProps {
@@ -16,6 +16,7 @@ const navItems = [
   { path: "/", label: "Home", icon: Home },
   { path: "/sets", label: "Card Sets", icon: Grid3x3 },
   { path: "/characters", label: "Characters", icon: Users },
+  { path: "/videos", label: "Videos", icon: Youtube },
   // { path: "/shop", label: "Shop", icon: ShoppingCart }, // Hidden until launch
   { path: "/about", label: "About", icon: Info },
 ];
