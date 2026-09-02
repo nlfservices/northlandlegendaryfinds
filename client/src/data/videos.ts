@@ -70,8 +70,7 @@ export interface VideoEntry {
 }
 
 /** Verified NLF CloudFront asset used on Doom Comic Cuts content (same file as R2 image/webp). */
-const DOOM_COMIC_CUTS_CARD_IMAGE =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/doom-comic-cuts-history-g3QcNLGZc2WPzsXXUzE6mo.webp";
+const DOOM_COMIC_CUTS_CARD_IMAGE = "/videos/doom-comic-cut-1of1-black.jpg";
 
 /**
  * Approved researcher brief for the first live detail page.
