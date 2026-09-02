@@ -9,6 +9,7 @@ import {
   DOOM_GALLERY_CATALOG_PATH,
   DOOM_GALLERY_HASH,
   DOOM_GALLERY_PATH,
+  DOOM_HOT_LEADS,
   DOOM_HISTORY_PATH,
   DOOM_VIDEO_ID,
   DOOM_VIDEO_PATH,
@@ -17,6 +18,7 @@ import {
   MINT_COMIC_CUT_FACTS,
   OWUD_FACTS,
   OWUD_PATH,
+  hotLeadsForCut,
   isDoomComicCutCatalog,
   loreCompanionForVideo,
   padCutNum,
@@ -142,8 +144,23 @@ describe("Doom Comic Cuts research catalog", () => {
     expect(visible.map((cut) => cut.num)).not.toEqual(expect.arrayContaining(catalog.gaps));
     expect(visible.every((cut) => cut.thumb.startsWith("/comic-cuts/doom/thumbs/cut_"))).toBe(true);
     expect(visible.every((cut) => cut.status === "unidentified")).toBe(true);
-    expect(visible.some((cut) => (cut.clues ?? "").length > 0)).toBe(true);
+    expect(visible.every((cut) => (cut.clues ?? "").trim().length > 0)).toBe(true);
     expect(padCutNum(18)).toBe("018");
+  });
+
+  it("surfaces CUT 052 and CUT 060 as research leads, not locked IDs", () => {
+    expect(DOOM_HOT_LEADS.map((lead) => lead.num)).toEqual([52, 60]);
+    expect(hotLeadsForCut(52)[0]?.note).toMatch(/GIANT-SIZE SUPER-VILLAIN TEAM-UP #1/);
+    expect(hotLeadsForCut(52)[0]?.note).toMatch(/not a locked/i);
+    expect(hotLeadsForCut(60)[0]?.note).toMatch(/Cut 019/);
+    expect(hotLeadsForCut(19).some((lead) => lead.num === 60)).toBe(true);
+    expect(hotLeadsForCut(18)).toEqual([]);
+    expect(gallery).toContain("HotLeadsStrip");
+    expect(gallery).toContain("hotLeadsForCut");
+    expect(gallery).toMatch(/no locked comic \+ page ID/);
+    const cut52 = catalog.cuts.find((cut: { num: number }) => cut.num === 52);
+    expect(cut52?.clues).toMatch(/GIANT-SIZE SUPER-VILLAIN TEAM-UP #1/);
+    expect(cut52?.status).toBe("unidentified");
   });
 
   it("does not invent locked issue/page IDs or commerce copy", () => {
