@@ -69,8 +69,8 @@ export interface VideoEntry {
   cardNumber?: string;
 }
 
-/** Verified NLF CloudFront asset used on Doom Comic Cuts content (same file as R2 image/webp). */
-const DOOM_COMIC_CUTS_CARD_IMAGE = "/videos/doom-comic-cut-1of1-black.jpg";
+/** Real NLF photo of the 1/1 Comic Cut (black background). Query busts stale caches of the old AI collage. */
+const DOOM_COMIC_CUTS_CARD_IMAGE = "/videos/doom-comic-cut-1of1-black.jpg?v=2";
 
 /**
  * Approved researcher brief for the first live detail page.
