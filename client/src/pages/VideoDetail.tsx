@@ -14,6 +14,7 @@ import {
   youtubeEmbedUrl,
   type VideoEntry,
 } from "@/data/videos";
+import { loreCompanionForVideo } from "@/data/doomComicCuts";
 import { templateIdForVideoId, type VideoTemplateId } from "@/data/videoTemplates";
 
 function metaDescriptionFor(video: VideoEntry): string {
@@ -139,6 +140,7 @@ function VideoBreadcrumb({ video }: { video: VideoEntry }) {
 }
 
 function VideoBackLinks({ video }: { video: VideoEntry }) {
+  const lore = loreCompanionForVideo(video.id);
   return (
     <div className="flex flex-wrap items-center gap-4 pt-2">
       <Link href="/videos" className="inline-flex items-center gap-1 text-sm font-semibold text-green-400 transition-colors hover:text-green-300">
@@ -151,6 +153,15 @@ function VideoBackLinks({ video }: { video: VideoEntry }) {
           className="inline-flex items-center gap-1 text-sm font-semibold text-emerald-300 transition-colors hover:text-emerald-200"
         >
           View {video.setFilter}
+          <ChevronRight className="h-4 w-4" />
+        </Link>
+      )}
+      {lore && (
+        <Link
+          href={lore.href}
+          className="inline-flex items-center gap-1 text-sm font-semibold text-green-400 transition-colors hover:text-green-300"
+        >
+          {lore.label}
           <ChevronRight className="h-4 w-4" />
         </Link>
       )}
