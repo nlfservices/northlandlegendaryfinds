@@ -11,6 +11,7 @@ import GlobalTicker from "./components/GlobalTicker";
 import Footer from "./components/Footer";
 import CartDrawer from "./components/CartDrawer";
 import LegendaryListPopup from "./components/LegendaryListPopup";
+import { DOOM_GALLERY_HASH, DOOM_HISTORY_PATH } from "./data/doomComicCuts";
 
 // Critical path - loaded eagerly (homepage)
 import Home from "./pages/Home";
@@ -162,6 +163,7 @@ function AppRouter() {
             <Route path="/videos/:slug" component={VideoDetail} />
             <Route path="/videos" component={Videos} />
             <Route path="/comic-cuts/doctor-doom-history" component={DoomComicCutHistory} />
+            <Route path="/comic-cuts/doom">{() => { window.location.replace(`${DOOM_HISTORY_PATH}#${DOOM_GALLERY_HASH}`); return null; }}</Route>
             <Route path="/chrome/one-world-under-doom" component={OneWorldUnderDoom} />
             <Route path="/nerd-gossip" component={NerdGossip} />
             <Route path="/mcu-news/:slug" component={MCUNewsArticle} />

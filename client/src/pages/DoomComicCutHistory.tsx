@@ -2,15 +2,17 @@
  * Doctor Doom HISTORY — storyline companion to 2025 Topps Marvel Mint
  * Authentic Comic Cuts (DD-CC). Insert-family lore page, not a Doom-only DB.
  */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "wouter";
 import { ChevronRight, ShieldAlert, Youtube } from "lucide-react";
 import SEO, { breadcrumbJsonLd, organizationJsonLd } from "@/components/SEO";
+import DoomComicCutGallery from "@/components/DoomComicCutGallery";
 import {
   CARD_DATABASE_PATH,
   CHROME_2026_SET_PATH,
   DOOM_CARD_IMAGE,
   DOOM_CHARACTER_PATH,
+  DOOM_GALLERY_HASH,
   DOOM_HISTORY_PATH,
   DOOM_VIDEO_PATH,
   DOOM_YOUTUBE_ID,
@@ -27,6 +29,12 @@ const SEO_DESCRIPTION =
 
 export default function DoomComicCutHistory() {
   const [showHero, setShowHero] = useState(true);
+
+  useEffect(() => {
+    if (window.location.hash.replace("#", "") === DOOM_GALLERY_HASH) {
+      document.getElementById(DOOM_GALLERY_HASH)?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
@@ -114,6 +122,8 @@ export default function DoomComicCutHistory() {
           )}
 
           <ReportedFacts />
+
+          <DoomComicCutGallery />
 
           <div className="prose prose-invert prose-lg mb-12 max-w-none prose-headings:font-bold prose-headings:text-foreground prose-p:leading-relaxed prose-p:text-muted-foreground prose-strong:text-foreground prose-a:text-primary prose-a:no-underline hover:prose-a:underline">
             <h2>Why these Comic Cuts matter</h2>
@@ -458,6 +468,12 @@ function CtaStrip() {
             Watch the NLF video
           </Link>
           <span className="text-muted-foreground"> — filmed look at a DD-CC 1/1.</span>
+        </li>
+        <li>
+          <a href={`#${DOOM_GALLERY_HASH}`} className="font-semibold text-green-400 hover:text-green-300">
+            Research inventory
+          </a>
+          <span className="text-muted-foreground"> — 42 public DD-CC thumbs under Mint Comic Cuts.</span>
         </li>
         <li>
           <Link href={MINT_2025_SET_PATH} className="font-semibold text-emerald-300 hover:text-emerald-200">

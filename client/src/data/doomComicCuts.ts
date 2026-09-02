@@ -7,6 +7,9 @@
  */
 
 export const DOOM_HISTORY_PATH = "/comic-cuts/doctor-doom-history";
+export const DOOM_GALLERY_PATH = "/comic-cuts/doom";
+export const DOOM_GALLERY_CATALOG_PATH = "/comic-cuts/doom/catalog.json";
+export const DOOM_GALLERY_HASH = "research-inventory";
 export const OWUD_PATH = "/chrome/one-world-under-doom";
 export const MINT_2025_SET_PATH = "/cards/2025-topps-marvel-mint";
 export const CHROME_2026_SET_PATH = "/cards/2026-topps-chrome-marvel-comics";
@@ -58,4 +61,50 @@ export function loreCompanionForVideo(videoId: string): { href: string; label: s
     return { href: DOOM_HISTORY_PATH, label: "Doctor Doom history" };
   }
   return null;
+}
+
+export type DoomComicCut = {
+  num: number;
+  file: string;
+  thumb: string;
+  full?: string;
+  clues?: string;
+  status?: string;
+  ruled_out?: string;
+  next?: string;
+};
+
+export type DoomComicCutCatalog = {
+  title: string;
+  set: string;
+  insert: string;
+  odds: string;
+  count_unique: string;
+  inventory_here: number;
+  gaps: number[];
+  rename_pattern?: string;
+  updated?: string;
+  note?: string;
+  cuts: DoomComicCut[];
+};
+
+export function padCutNum(num: number): string {
+  return String(num).padStart(3, "0");
+}
+
+/** Hide gap numbers and cuts with no public thumb. Do not invent missing files. */
+export function visibleDoomCuts(catalog: DoomComicCutCatalog): DoomComicCut[] {
+  const gaps = new Set(catalog.gaps ?? []);
+  return (catalog.cuts ?? []).filter((cut) => {
+    if (!Number.isFinite(cut.num)) return false;
+    if (gaps.has(cut.num)) return false;
+    if (!cut.thumb) return false;
+    return true;
+  });
+}
+
+export function isDoomComicCutCatalog(value: unknown): value is DoomComicCutCatalog {
+  if (!value || typeof value !== "object") return false;
+  const catalog = value as DoomComicCutCatalog;
+  return Array.isArray(catalog.cuts) && Array.isArray(catalog.gaps);
 }
