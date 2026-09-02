@@ -7,9 +7,11 @@ import { Link } from "wouter";
 import { X } from "lucide-react";
 import {
   DOOM_GALLERY_CATALOG_PATH,
+  DOOM_HOT_LEADS,
   DOOM_VIDEO_PATH,
   MINT_2025_SET_PATH,
   MINT_COMIC_CUT_FACTS,
+  hotLeadsForCut,
   isDoomComicCutCatalog,
   padCutNum,
   visibleDoomCuts,
@@ -84,6 +86,14 @@ export default function DoomComicCutGallery() {
         </Link>
       </p>
 
+      <HotLeadsStrip
+        cuts={cuts}
+        onSelect={(num) => {
+          const cut = cuts.find((item) => item.num === num);
+          if (cut) setSelected(cut);
+        }}
+      />
+
       {cuts.length === 0 ? (
         <p className="text-sm text-muted-foreground">No public thumbs available yet.</p>
       ) : (
@@ -93,7 +103,11 @@ export default function DoomComicCutGallery() {
               <button
                 type="button"
                 onClick={() => setSelected(cut)}
-                className="group flex w-full flex-col overflow-hidden rounded-lg border border-green-500/20 bg-black/40 text-left transition-colors hover:border-green-400/50"
+                className={`group flex w-full flex-col overflow-hidden rounded-lg border bg-black/40 text-left transition-colors hover:border-green-400/50 ${
+                  hotLeadsForCut(cut.num).length
+                    ? "border-amber-400/40"
+                    : "border-green-500/20"
+                }`}
               >
                 <div className="aspect-[3/4] bg-black/60">
                   <img
@@ -117,6 +131,11 @@ export default function DoomComicCutGallery() {
                   <p className="text-[11px] capitalize text-muted-foreground">
                     {cut.status || "unidentified"}
                   </p>
+                  {hotLeadsForCut(cut.num).map((lead) => (
+                    <p key={lead.label} className="text-[10px] font-semibold uppercase tracking-wide text-amber-300">
+                      {lead.label}
+                    </p>
+                  ))}
                 </div>
               </button>
             </li>
@@ -139,6 +158,43 @@ export default function DoomComicCutGallery() {
         />
       )}
     </section>
+  );
+}
+
+function HotLeadsStrip({
+  cuts,
+  onSelect,
+}: {
+  cuts: DoomComicCut[];
+  onSelect: (num: number) => void;
+}) {
+  const present = new Set(cuts.map((cut) => cut.num));
+  const leads = DOOM_HOT_LEADS.filter((lead) => present.has(lead.num));
+  if (leads.length === 0) return null;
+
+  return (
+    <aside className="mb-6 rounded-lg border border-amber-400/30 bg-amber-400/5 p-4">
+      <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-amber-300">
+        Hot research leads
+      </p>
+      <p className="mb-3 text-xs text-muted-foreground">
+        Working notes only. Nothing here is a locked comic + page identification.
+      </p>
+      <ul className="space-y-3">
+        {leads.map((lead) => (
+          <li key={lead.num} className="text-sm leading-relaxed">
+            <button
+              type="button"
+              onClick={() => onSelect(lead.num)}
+              className="font-mono font-bold text-amber-200 hover:text-amber-100"
+            >
+              Cut {padCutNum(lead.num)}
+            </button>
+            <span className="text-muted-foreground"> — {lead.label}. {lead.note}</span>
+          </li>
+        ))}
+      </ul>
+    </aside>
   );
 }
 
@@ -195,6 +251,12 @@ function ResearchNote({
             <dt className="text-xs uppercase tracking-wider text-muted-foreground">Status</dt>
             <dd className="capitalize text-foreground">{cut.status || "unidentified"} — no locked comic + page ID</dd>
           </div>
+          {hotLeadsForCut(cut.num).map((lead) => (
+            <div key={lead.label} className="rounded-lg border border-amber-400/30 bg-amber-400/5 p-3">
+              <dt className="text-xs font-bold uppercase tracking-wider text-amber-300">{lead.label}</dt>
+              <dd className="mt-1 text-muted-foreground">{lead.note}</dd>
+            </div>
+          ))}
           {cut.clues && (
             <div>
               <dt className="text-xs uppercase tracking-wider text-muted-foreground">Visual clues</dt>

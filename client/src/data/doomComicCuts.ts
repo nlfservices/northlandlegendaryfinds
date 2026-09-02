@@ -108,3 +108,34 @@ export function isDoomComicCutCatalog(value: unknown): value is DoomComicCutCata
   const catalog = value as DoomComicCutCatalog;
   return Array.isArray(catalog.cuts) && Array.isArray(catalog.gaps);
 }
+
+/**
+ * Light research leads for the HISTORY gallery. Never treat these as locked
+ * comic + page identifications unless a later catalog status says confirmed.
+ */
+export type DoomHotLead = {
+  num: number;
+  relatedNums?: number[];
+  label: string;
+  note: string;
+};
+
+export const DOOM_HOT_LEADS: readonly DoomHotLead[] = [
+  {
+    num: 52,
+    label: "Footnote lead",
+    note: "Card footnote reads *SEE GIANT-SIZE SUPER-VILLAIN TEAM-UP #1. Research note only — not a locked comic + page ID.",
+  },
+  {
+    num: 60,
+    relatedNums: [19],
+    label: "Visual twin",
+    note: "Visual twin of Cut 019 (Doom + Thing rocky shoulder, yellow background, black top triangles). Research pairing only — not a locked issue ID.",
+  },
+];
+
+export function hotLeadsForCut(num: number): DoomHotLead[] {
+  return DOOM_HOT_LEADS.filter(
+    (lead) => lead.num === num || (lead.relatedNums ?? []).includes(num)
+  );
+}
