@@ -50,6 +50,9 @@ const HIDE_BROKEN = new Set([
   "secret-wars-1984-battleworld-kVKCjJvVkMQxpBz2YzjGKa.webp",
   "wolv-spidey-split-poster-v2_c6c00c2e.jpg",
   "events-wccs-7fUNnxDMYRVLQmYLhJLqQV.webp",
+  "1787184553802.png",
+  "1787138353784.png",
+  "1786100483415.png",
 ]);
 
 function fileName(path?: string | null) {
