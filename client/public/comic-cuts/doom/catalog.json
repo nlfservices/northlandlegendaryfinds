@@ -13,7 +13,7 @@
   ],
   "rename_pattern": "Series_Issue_pXX_CutNN.jpg",
   "updated": "2026-09-02",
-  "note": "Research inventory for NLF. Not a sales catalog. Nest under Marvel Mint master set \u2014 not an isolated Doom-only DB. Jarvis owns Doom history narrative. Public thumbs only; full scans stay offline research.",
+  "note": "Research inventory for NLF. Not a sales catalog. Nest under Marvel Mint master set \u2014 not an isolated Doom-only DB. Jarvis owns Doom history narrative. Cut 52 is first locked ID (Fantastic Four #156). Public thumbs only; full scans stay offline research.",
   "cuts": [
     {
       "num": 18,
@@ -30,8 +30,8 @@
       "thumb": "/comic-cuts/doom/thumbs/cut_019.jpg",
       "clues": "Doom close-up lunging; Thing rocky back BL + fist UL; flat yellow bg; black downward V/chevrons at top; Kirby Ben-Day",
       "status": "unidentified",
-      "ruled_out": "FF #40, #58\u201360; FF Annual #2 Origin + Final Victory (MU omits #5 reprint)",
-      "next": "Fantastic Four (1961) #5; FF #23/#17/#10"
+      "ruled_out": "FF #40, #58\u201360; FF Annual #2 Origin + Final Victory (MU omits #5 reprint); FF #5 (full MU)",
+      "next": "FF #23/#17/#10; mid/late-60s Kirby Thing\u2013Doom"
     },
     {
       "num": 20,
@@ -299,9 +299,13 @@
       "file": "Doom_Comic_Cut_052.jpg",
       "thumb": "/comic-cuts/doom/thumbs/cut_052.jpg",
       "clues": "Waist-up Doom fists clenched, dual gold clasps; peach bg. Balloons: \"...MY OWN FAULT.\" / \"AFTER MY RECENT FALL FROM SPACE* THE INCIDENT SPAWNED AN IDEA IN MY MIND--\"; yellow footnote \"*SEE GIANT-SIZE SUPER-VILLAIN TEAM-UP #1 FOR SAL...\". 1970s Ben-Day.",
-      "status": "unidentified",
-      "ruled_out": "",
-      "next": "visual lead hunt"
+      "status": "locked",
+      "ruled_out": "GSSVTU #1 (footnote source only)",
+      "next": "rename file; nest on NLF",
+      "locked_issue": "Fantastic Four (1961) #156",
+      "locked_page": "story p5 panel 1",
+      "locked_title": "Middle Game!",
+      "rename": "FantasticFour_156_p05_Cut052.jpg"
     },
     {
       "num": 53,
@@ -363,8 +367,8 @@
       "thumb": "/comic-cuts/doom/thumbs/cut_060.jpg",
       "clues": "Doom close-up green hood over Thing rocky orange shoulder/head BL; Thing fist tip UL; solid bright yellow bg with black triangular patterns along top. Ben-Day Silver/Bronze.",
       "status": "unidentified",
-      "ruled_out": "",
-      "next": "visual lead hunt"
+      "ruled_out": "FF #5 (full MU)",
+      "next": "FF #23/#17/#10; mid/late-60s Kirby Thing\u2013Doom"
     },
     {
       "num": 61,
