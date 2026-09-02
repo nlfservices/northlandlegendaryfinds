@@ -23,6 +23,16 @@ export const CARD_DATABASE_PATH = "/cards";
 export const DOOM_CARD_IMAGE = "/videos/doom-comic-cut-1of1-black.jpg?v=2";
 export const DOOM_YOUTUBE_ID = "GK7TpveroyU";
 
+/** First locked inventory IDs (research gallery catalog). */
+export const DOOM_CUT_FIRST_LOCK = {
+  num: 52,
+  issue: "Fantastic Four (1961) #156",
+  title: "Middle Game!",
+  page: "story p5 panel 1",
+  rename: "FantasticFour_156_p05_Cut052.jpg",
+} as const;
+
+
 export const MINT_COMIC_CUT_FACTS = {
   set: "2025 Topps Marvel Mint",
   setSlug: "2025-topps-marvel-mint",
