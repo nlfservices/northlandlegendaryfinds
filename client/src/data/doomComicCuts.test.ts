@@ -6,6 +6,7 @@ import {
   CHROME_2026_SET_PATH,
   DOOM_CARD_IMAGE,
   DOOM_CHARACTER_PATH,
+  DOOM_CUT_FIRST_LOCK,
   DOOM_GALLERY_CATALOG_PATH,
   DOOM_GALLERY_HASH,
   DOOM_GALLERY_PATH,
@@ -20,6 +21,8 @@ import {
   OWUD_PATH,
   hotLeadsForCut,
   isDoomComicCutCatalog,
+  isLockedDoomCut,
+  lockedBadgeLabel,
   loreCompanionForVideo,
   padCutNum,
   visibleDoomCuts,
@@ -56,7 +59,7 @@ describe("Doctor Doom Comic Cuts HISTORY companion", () => {
     expect(MINT_COMIC_CUT_FACTS.sdccOdds).toBe("1:63");
     expect(MINT_2025_SET_PATH).toBe("/cards/2025-topps-marvel-mint");
     expect(historyPage).not.toMatch(/print run of/i);
-    expect(historyPage).toMatch(/Total box print run[\s\S]*unknown/);
+    expect(historyPage).toMatch(/print run unknown/i);
   });
 
   it("uses the real card photo and the live YouTube companion", () => {
@@ -70,18 +73,23 @@ describe("Doctor Doom Comic Cuts HISTORY companion", () => {
     expect(historyPage).toContain("DOOM_VIDEO_PATH");
   });
 
-  it("ships substantial curated lore covering the required arc", () => {
-    expect(wordCount(historyPage)).toBeGreaterThan(1200);
-    expect(historyPage).toMatch(/Why these Comic Cuts matter/);
+  it("is a scannable collector hub, not an SEO essay", () => {
+    expect(wordCount(historyPage)).toBeLessThan(500);
+    expect(historyPage).not.toMatch(/Why these Comic Cuts matter/);
+    expect(historyPage).not.toMatch(/prose prose-invert/);
+    expect(historyPage).toMatch(/Quick timeline/);
     expect(historyPage).toMatch(/Fantastic Four #5/);
     expect(historyPage).toMatch(/Latveria/);
-    expect(historyPage).toMatch(/Servo-Guard/);
     expect(historyPage).toMatch(/Secret Wars/);
     expect(historyPage).toMatch(/First Steps/);
     expect(historyPage).toMatch(/Doomsday/);
+    expect(historyPage).toMatch(/Comic Cuts/);
     expect(historyPage).toMatch(/Not Doom 2099/);
     expect(historyPage).toMatch(/Independent NLF write-up/);
     expect(historyPage).toMatch(/does not assign a\s+specific issue or page/i);
+    expect(historyPage).toMatch(/Mint 2025/);
+    expect(historyPage).toMatch(/Hobby/);
+    expect(historyPage).toMatch(/SDCC/);
   });
 
   it("keeps Doctor Doom distinct from Doom 2099 and skips commerce", () => {
@@ -143,24 +151,30 @@ describe("Doom Comic Cuts research catalog", () => {
     expect(visible).toHaveLength(42);
     expect(visible.map((cut) => cut.num)).not.toEqual(expect.arrayContaining(catalog.gaps));
     expect(visible.every((cut) => cut.thumb.startsWith("/comic-cuts/doom/thumbs/cut_"))).toBe(true);
-    expect(visible.every((cut) => cut.status === "unidentified")).toBe(true);
+    expect(visible.filter((cut) => cut.status === "locked").map((cut) => cut.num)).toEqual([52]);
+    expect(visible.filter((cut) => cut.num !== 52).every((cut) => cut.status === "unidentified")).toBe(true);
     expect(visible.every((cut) => (cut.clues ?? "").trim().length > 0)).toBe(true);
     expect(padCutNum(18)).toBe("018");
   });
 
-  it("surfaces CUT 052 and CUT 060 as research leads, not locked IDs", () => {
-    expect(DOOM_HOT_LEADS.map((lead) => lead.num)).toEqual([52, 60]);
-    expect(hotLeadsForCut(52)[0]?.note).toMatch(/GIANT-SIZE SUPER-VILLAIN TEAM-UP #1/);
-    expect(hotLeadsForCut(52)[0]?.note).toMatch(/not a locked/i);
+  it("badges locked Cut 052 as FF #156 and keeps Cut 060 as a research lead", () => {
+    expect(DOOM_HOT_LEADS.map((lead) => lead.num)).toEqual([60]);
+    expect(hotLeadsForCut(52)).toEqual([]);
     expect(hotLeadsForCut(60)[0]?.note).toMatch(/Cut 019/);
     expect(hotLeadsForCut(19).some((lead) => lead.num === 60)).toBe(true);
     expect(hotLeadsForCut(18)).toEqual([]);
     expect(gallery).toContain("HotLeadsStrip");
     expect(gallery).toContain("hotLeadsForCut");
-    expect(gallery).toMatch(/no locked comic \+ page ID/);
+    expect(gallery).toContain("lockedBadgeLabel");
+    expect(gallery).toContain("isLockedDoomCut");
     const cut52 = catalog.cuts.find((cut: { num: number }) => cut.num === 52);
     expect(cut52?.clues).toMatch(/GIANT-SIZE SUPER-VILLAIN TEAM-UP #1/);
-    expect(cut52?.status).toBe("unidentified");
+    expect(cut52?.status).toBe("locked");
+    expect(cut52?.locked_issue).toMatch(/Fantastic Four \(1961\) #156/);
+    expect(isLockedDoomCut(cut52)).toBe(true);
+    expect(lockedBadgeLabel(cut52)).toBe("FF #156");
+    expect(DOOM_CUT_FIRST_LOCK.num).toBe(52);
+    expect(DOOM_CUT_FIRST_LOCK.issue).toMatch(/#156/);
   });
 
   it("does not invent locked issue/page IDs or commerce copy", () => {

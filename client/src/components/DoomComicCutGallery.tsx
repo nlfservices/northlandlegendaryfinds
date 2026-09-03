@@ -13,6 +13,8 @@ import {
   MINT_COMIC_CUT_FACTS,
   hotLeadsForCut,
   isDoomComicCutCatalog,
+  isLockedDoomCut,
+  lockedBadgeLabel,
   padCutNum,
   visibleDoomCuts,
   type DoomComicCut,
@@ -68,23 +70,29 @@ export default function DoomComicCutGallery() {
       <h2 className="mb-2 text-2xl font-bold text-foreground">
         {catalog.title || "Doctor Doom Authentic Comic Cuts"}
       </h2>
-      <p className="mb-4 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-        Visual research inventory under {catalog.set} {catalog.insert}. This is{" "}
-        <strong className="text-foreground">not a sales catalog</strong>.{" "}
-        {cuts.length} public thumbs on hand
-        {catalog.count_unique ? ` of ${catalog.count_unique}` : ""}. Gap numbers
-        {catalog.gaps?.length ? ` (${catalog.gaps.map(padCutNum).join(", ")})` : ""}{" "}
-        are hidden. Status is mostly unidentified — no locked comic + page IDs yet.
+      <p className="mb-3 text-sm text-muted-foreground">
+        {cuts.length} public thumbs{catalog.count_unique ? ` of ${catalog.count_unique}` : ""}.{" "}
+        <strong className="text-foreground">Not a sales catalog.</strong>
       </p>
-      <p className="mb-6 text-sm">
-        <Link href={MINT_2025_SET_PATH} className="font-semibold text-emerald-300 hover:text-emerald-200">
-          2025 Topps Marvel Mint checklist
+      {catalog.gaps?.length ? (
+        <p className="mb-4 text-xs text-muted-foreground">
+          Gaps (no public thumb): {catalog.gaps.map(padCutNum).join(" · ")}
+        </p>
+      ) : null}
+      <div className="mb-5 flex flex-wrap gap-2">
+        <Link
+          href={MINT_2025_SET_PATH}
+          className="rounded-full border border-green-500/30 px-3 py-1 text-xs font-semibold text-emerald-300 hover:text-emerald-200"
+        >
+          Mint 2025 set
         </Link>
-        <span className="text-muted-foreground"> · </span>
-        <Link href={DOOM_VIDEO_PATH} className="font-semibold text-green-400 hover:text-green-300">
-          NLF Videos detail
+        <Link
+          href={DOOM_VIDEO_PATH}
+          className="rounded-full border border-green-500/30 px-3 py-1 text-xs font-semibold text-green-400 hover:text-green-300"
+        >
+          Videos detail
         </Link>
-      </p>
+      </div>
 
       <HotLeadsStrip
         cuts={cuts}
@@ -104,12 +112,14 @@ export default function DoomComicCutGallery() {
                 type="button"
                 onClick={() => setSelected(cut)}
                 className={`group flex w-full flex-col overflow-hidden rounded-lg border bg-black/40 text-left transition-colors hover:border-green-400/50 ${
-                  hotLeadsForCut(cut.num).length
-                    ? "border-amber-400/40"
-                    : "border-green-500/20"
+                  isLockedDoomCut(cut)
+                    ? "border-emerald-400/50"
+                    : hotLeadsForCut(cut.num).length
+                      ? "border-amber-400/40"
+                      : "border-green-500/20"
                 }`}
               >
-                <div className="aspect-[3/4] bg-black/60">
+                <div className="relative aspect-[3/4] bg-black/60">
                   <img
                     src={cut.thumb}
                     alt={`Doctor Doom Comic Cut ${padCutNum(cut.num)} research thumb`}
@@ -124,13 +134,19 @@ export default function DoomComicCutGallery() {
                     }
                   />
                 </div>
-                <div className="space-y-0.5 px-2 py-2">
+                <div className="space-y-1 px-2 py-2">
                   <p className="font-mono text-xs font-bold text-green-300">
                     Cut {padCutNum(cut.num)}
                   </p>
-                  <p className="text-[11px] capitalize text-muted-foreground">
-                    {cut.status || "unidentified"}
-                  </p>
+                  {lockedBadgeLabel(cut) ? (
+                    <span className="inline-block rounded-full bg-emerald-400 px-2 py-0.5 text-[10px] font-bold text-black">
+                      {lockedBadgeLabel(cut)}
+                    </span>
+                  ) : (
+                    <p className="text-[11px] capitalize text-muted-foreground">
+                      {cut.status || "unidentified"}
+                    </p>
+                  )}
                   {hotLeadsForCut(cut.num).map((lead) => (
                     <p key={lead.label} className="text-[10px] font-semibold uppercase tracking-wide text-amber-300">
                       {lead.label}
@@ -169,7 +185,8 @@ function HotLeadsStrip({
   onSelect: (num: number) => void;
 }) {
   const present = new Set(cuts.map((cut) => cut.num));
-  const leads = DOOM_HOT_LEADS.filter((lead) => present.has(lead.num));
+  const lockedNums = new Set(cuts.filter(isLockedDoomCut).map((cut) => cut.num));
+  const leads = DOOM_HOT_LEADS.filter((lead) => present.has(lead.num) && !lockedNums.has(lead.num));
   if (leads.length === 0) return null;
 
   return (
@@ -178,7 +195,7 @@ function HotLeadsStrip({
         Hot research leads
       </p>
       <p className="mb-3 text-xs text-muted-foreground">
-        Working notes only. Nothing here is a locked comic + page identification.
+        Working notes. Not locked IDs.
       </p>
       <ul className="space-y-3">
         {leads.map((lead) => (
@@ -249,7 +266,11 @@ function ResearchNote({
         <dl className="space-y-3 text-sm">
           <div>
             <dt className="text-xs uppercase tracking-wider text-muted-foreground">Status</dt>
-            <dd className="capitalize text-foreground">{cut.status || "unidentified"} — no locked comic + page ID</dd>
+            <dd className="capitalize text-foreground">
+              {isLockedDoomCut(cut)
+                ? `${lockedBadgeLabel(cut) ?? "Locked"}${cut.locked_issue ? ` — ${cut.locked_issue}` : ""}`
+                : `${cut.status || "unidentified"} — no locked comic + page ID`}
+            </dd>
           </div>
           {hotLeadsForCut(cut.num).map((lead) => (
             <div key={lead.label} className="rounded-lg border border-amber-400/30 bg-amber-400/5 p-3">
