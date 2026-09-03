@@ -82,6 +82,10 @@ export type DoomComicCut = {
   status?: string;
   ruled_out?: string;
   next?: string;
+  locked_issue?: string;
+  locked_page?: string;
+  locked_title?: string;
+  rename?: string;
 };
 
 export type DoomComicCutCatalog = {
@@ -132,17 +136,27 @@ export type DoomHotLead = {
 
 export const DOOM_HOT_LEADS: readonly DoomHotLead[] = [
   {
-    num: 52,
-    label: "Footnote lead",
-    note: "Card footnote reads *SEE GIANT-SIZE SUPER-VILLAIN TEAM-UP #1. Research note only — not a locked comic + page ID.",
-  },
-  {
     num: 60,
     relatedNums: [19],
     label: "Visual twin",
     note: "Visual twin of Cut 019 (Doom + Thing rocky shoulder, yellow background, black top triangles). Research pairing only — not a locked issue ID.",
   },
 ];
+
+export function isLockedDoomCut(cut: Pick<DoomComicCut, "status">): boolean {
+  return cut.status === "locked";
+}
+
+/** Short collector badge — e.g. Cut 052 → "FF #156". */
+export function lockedBadgeLabel(cut: DoomComicCut): string | null {
+  if (!isLockedDoomCut(cut)) return null;
+  if (cut.num === DOOM_CUT_FIRST_LOCK.num) return "FF #156";
+  const issue = cut.locked_issue?.trim();
+  if (!issue) return "Locked";
+  return issue
+    .replace(/^Fantastic Four \(1961\)\s+/i, "FF ")
+    .replace(/^Fantastic Four\s+/i, "FF ");
+}
 
 export function hotLeadsForCut(num: number): DoomHotLead[] {
   return DOOM_HOT_LEADS.filter(
