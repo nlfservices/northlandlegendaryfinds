@@ -159,10 +159,6 @@ export default function DoomComicCutGallery() {
         </ul>
       )}
 
-      {catalog.note && (
-        <p className="mt-5 text-xs leading-relaxed text-muted-foreground">{catalog.note}</p>
-      )}
-
       {selected && (
         <ResearchNote
           cut={selected}

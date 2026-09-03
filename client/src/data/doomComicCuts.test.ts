@@ -71,6 +71,8 @@ describe("Doctor Doom Comic Cuts HISTORY companion", () => {
     expect(historyPage).toContain("DOOM_CARD_IMAGE");
     expect(historyPage).toContain("DOOM_YOUTUBE_ID");
     expect(historyPage).toContain("DOOM_VIDEO_PATH");
+    expect(historyPage).not.toMatch(/youtube\.com\/embed\/(?!\$\{)/);
+    expect((historyPage.match(/DOOM_YOUTUBE_ID/g) || []).length).toBeGreaterThan(0);
   });
 
   it("is a scannable collector hub, not an SEO essay", () => {
@@ -121,6 +123,9 @@ describe("Doctor Doom Comic Cuts HISTORY companion", () => {
 
   it("embeds the research inventory gallery on the HISTORY page", () => {
     expect(historyPage).toContain("DoomComicCutGallery");
+    expect(historyPage.indexOf("DoomComicCutGallery")).toBeLessThan(
+      historyPage.indexOf('id="watch"')
+    );
     expect(historyPage).toContain("DOOM_GALLERY_HASH");
     expect(gallery).toMatch(/not a sales catalog/i);
     expect(gallery).toContain("DOOM_GALLERY_CATALOG_PATH");
