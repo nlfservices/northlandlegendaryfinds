@@ -156,11 +156,11 @@ export default function DoomComicCutHistory() {
                 <a href="#timeline" className={jumpChipClass}>
                   Timeline
                 </a>
-                <a href="#watch" className={jumpChipClass}>
-                  Watch
-                </a>
                 <a href={`#${DOOM_GALLERY_HASH}`} className={jumpChipClass}>
                   Inventory
+                </a>
+                <a href="#watch" className={jumpChipClass}>
+                  Watch
                 </a>
               </div>
             </div>
@@ -186,7 +186,9 @@ export default function DoomComicCutHistory() {
             </div>
           </section>
 
-          <section id="watch" className="mb-12 scroll-mt-24">
+          <DoomComicCutGallery />
+
+          <section id="watch" className="mb-12 max-w-xl scroll-mt-24">
             <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
               <div className="flex items-center gap-2">
                 <Youtube className="h-4 w-4 text-primary" />
@@ -199,10 +201,10 @@ export default function DoomComicCutHistory() {
                 className="inline-flex items-center gap-1.5 rounded-full border border-green-500/30 bg-green-500/10 px-3 py-1 text-xs font-semibold text-green-300 hover:border-green-400/50 hover:text-green-200"
               >
                 <Play className="h-3 w-3" />
-                Videos detail
+                Filmed 1/1
               </Link>
             </div>
-            <div className="overflow-hidden rounded-xl border border-green-500/20 bg-black shadow-lg shadow-green-950/30">
+            <div className="overflow-hidden rounded-xl border border-green-500/20 bg-black">
               <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
                 <iframe
                   className="absolute inset-0 h-full w-full"
@@ -214,11 +216,9 @@ export default function DoomComicCutHistory() {
               </div>
             </div>
             <p className="mt-2 text-xs text-muted-foreground">
-              Filmed 1/1 — does not assign a specific issue or page.
+              Existing companion only — does not assign a specific issue or page.
             </p>
           </section>
-
-          <DoomComicCutGallery />
 
           <aside className="mb-8 rounded-xl border border-amber-400/35 bg-amber-400/5 px-4 py-3 sm:px-5">
             <div className="flex items-start gap-3">
