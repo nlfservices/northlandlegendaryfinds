@@ -133,19 +133,20 @@ export default function DoomComicCutGallery() {
                       })
                     }
                   />
-                  {lockedBadgeLabel(cut) && (
-                    <span className="absolute left-1.5 top-1.5 rounded-full border border-emerald-300/60 bg-emerald-400 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-black">
-                      {lockedBadgeLabel(cut)}
-                    </span>
-                  )}
                 </div>
-                <div className="space-y-0.5 px-2 py-2">
+                <div className="space-y-1 px-2 py-2">
                   <p className="font-mono text-xs font-bold text-green-300">
                     Cut {padCutNum(cut.num)}
                   </p>
-                  <p className="text-[11px] capitalize text-muted-foreground">
-                    {isLockedDoomCut(cut) ? "locked" : cut.status || "unidentified"}
-                  </p>
+                  {lockedBadgeLabel(cut) ? (
+                    <span className="inline-block rounded-full bg-emerald-400 px-2 py-0.5 text-[10px] font-bold text-black">
+                      {lockedBadgeLabel(cut)}
+                    </span>
+                  ) : (
+                    <p className="text-[11px] capitalize text-muted-foreground">
+                      {cut.status || "unidentified"}
+                    </p>
+                  )}
                   {hotLeadsForCut(cut.num).map((lead) => (
                     <p key={lead.label} className="text-[10px] font-semibold uppercase tracking-wide text-amber-300">
                       {lead.label}
