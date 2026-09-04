@@ -28,6 +28,9 @@ import {
   padCutNum,
   visibleDoomCuts,
 } from "./doomComicCuts";
+import { chromeMarvel2026Data } from "./setChecklists/chromeMarvel2026";
+import { finestFantasticFour2026Data } from "./setChecklists/finestFantasticFour2026";
+import { chromeDeadpool2025Data } from "./setChecklists/chromeDeadpool2025";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const historyPage = readFileSync(resolve(here, "../pages/DoomComicCutHistory.tsx"), "utf8");
@@ -222,6 +225,24 @@ describe("Doctor Doom Card Database character match", () => {
     expect(cardDatabase).toMatch(/emerald-9/);
     expect(cardDatabase).not.toMatch(/checkout|add to cart|buy now|shop now/i);
     expect(cardDatabase).not.toMatch(/youtube\.com\/embed/);
+  });
+
+  it("would show the Doom control on 2026 Chrome Marvel Comics and hide 2099 / Doomasaur", () => {
+    const matches = chromeMarvel2026Data.baseCards.filter((c) => isDoctorDoomCharacter(c.name));
+    expect(matches.map((c) => c.name)).toEqual(["Doctor Doom"]);
+    expect(matches).toHaveLength(1);
+  });
+
+  it("would show the Doom control on 2026 Finest Fantastic Four and hide 2099 / Doomasaur", () => {
+    const matches = finestFantasticFour2026Data.baseCards.filter((c) =>
+      isDoctorDoomCharacter(c.name)
+    );
+    expect(matches.map((c) => c.name)).toEqual(["Doctor Doom"]);
+  });
+
+  it("would hide the Doom control on sets with no Doctor Doom cards", () => {
+    const matches = chromeDeadpool2025Data.baseCards.filter((c) => isDoctorDoomCharacter(c.name));
+    expect(matches).toHaveLength(0);
   });
 });
 
