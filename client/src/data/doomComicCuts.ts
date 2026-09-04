@@ -73,6 +73,26 @@ export function loreCompanionForVideo(videoId: string): { href: string; label: s
   return null;
 }
 
+/**
+ * Doctor Doom (Victor von Doom) only — used by Card Database set filters.
+ * Matches "Doctor Doom" / standalone "Doom" (case-insensitive), including parallel suffixes.
+ * Excludes Doom 2099 and lookalikes (Doomasaur, Doomsday).
+ */
+export function isDoctorDoomCharacter(characterName: string | null | undefined): boolean {
+  if (!characterName) return false;
+  const name = characterName.trim().toLowerCase();
+  if (!name || name.includes("2099")) return false;
+  if (
+    name.includes("doctor doom") ||
+    name.includes("dr. doom") ||
+    name.includes("dr doom")
+  ) {
+    return true;
+  }
+  const tokens = name.split(/[^a-z0-9]+/).filter(Boolean);
+  return tokens.includes("doom");
+}
+
 export type DoomComicCut = {
   num: number;
   file: string;

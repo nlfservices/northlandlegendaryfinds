@@ -14,8 +14,9 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import {
   Search, ChevronRight, BookOpen, Layers, Hash, ArrowLeft,
-  Star, X, Grid3X3, List, Trophy, Flame, Target, Sparkles, Eye, ArrowUpDown, Calendar
+  Star, X, Grid3X3, List, Trophy, Flame, Target, Sparkles, Eye, ArrowUpDown, Calendar, Crown
 } from "lucide-react";
+import { DOOM_HISTORY_PATH, DOOM_VIDEO_PATH, isDoctorDoomCharacter } from "@/data/doomComicCuts";
 import MarvelMintChecklist from "@/components/MarvelMintChecklist";
 import GenericSetChecklist from "@/components/GenericSetChecklist";
 import { getSetChecklist } from "@/data/setChecklists";
@@ -731,6 +732,7 @@ function PlayingCardSuitGrid({ cards, setName }: { cards: any[]; setName: string
 function SetDetail({ slug }: { slug: string }) {
   const { data, isLoading } = trpc.public.marvel.getSetBySlug.useQuery({ slug });
   const [filterType, setFilterType] = useState<string>("all");
+  const [doomOnly, setDoomOnly] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [pageTab, setPageTab] = useState<"cards" | "checklist-odds">("cards");
@@ -762,9 +764,18 @@ function SetDetail({ slug }: { slug: string }) {
     });
   }, [data?.cards]);
 
+  const doomCards = useMemo(
+    () => (data?.cards ?? []).filter((c) => isDoctorDoomCharacter(c.characterName)),
+    [data?.cards]
+  );
+  const doomCount = doomCards.length;
+
   const filteredCards = useMemo(() => {
     if (!data?.cards) return [];
     let cards = data.cards;
+    if (doomOnly) {
+      cards = cards.filter((c) => isDoctorDoomCharacter(c.characterName));
+    }
     if (filterType !== "all") {
       cards = cards.filter(c => (c.cardType || 'Base') === filterType);
     }
@@ -787,7 +798,11 @@ function SetDetail({ slug }: { slug: string }) {
       const numB = parseInt(b.cardNumber.replace(/[^0-9]/g, '')) || 0;
       return numA - numB;
     });
-  }, [data?.cards, filterType, searchQuery]);
+  }, [data?.cards, filterType, searchQuery, doomOnly]);
+
+  useEffect(() => {
+    setDoomOnly(false);
+  }, [slug]);
 
   // Default to list view for sets without images
   useEffect(() => {
@@ -938,6 +953,23 @@ function SetDetail({ slug }: { slug: string }) {
                   </Button>
                 );
               })}
+              {doomCount > 0 && (
+                <button
+                  type="button"
+                  aria-pressed={doomOnly}
+                  aria-label={`Doctor Doom cards in this set, ${doomCount}`}
+                  onClick={() => setDoomOnly((on) => !on)}
+                  className={`relative inline-flex items-center gap-1.5 h-8 px-3 rounded-full text-sm font-semibold tracking-wide border transition-all ${
+                    doomOnly
+                      ? "bg-gradient-to-r from-emerald-950 via-emerald-900 to-amber-950 text-amber-100 border-amber-400 shadow-[0_0_16px_rgba(251,191,36,0.35)]"
+                      : "bg-emerald-950/80 text-amber-200 border-amber-500/55 hover:border-amber-400 hover:shadow-[0_0_12px_rgba(251,191,36,0.25)]"
+                  }`}
+                >
+                  <Crown className="w-3.5 h-3.5 text-amber-400 shrink-0" aria-hidden="true" />
+                  <span>Doctor Doom</span>
+                  <span className="text-[10px] font-bold text-amber-400 tabular-nums">({doomCount})</span>
+                </button>
+              )}
               {/* View toggle */}
               <div className="ml-auto flex gap-1 border border-border rounded-md p-0.5">
                 <button
@@ -1013,12 +1045,40 @@ function SetDetail({ slug }: { slug: string }) {
       {/* Cards */}
       {cards.length > 0 && pageTab === "cards" && (
       <div className="container pb-16">
+        {doomOnly && (
+          <div className="mb-5 flex flex-wrap items-center gap-2 sm:gap-3 rounded-lg border border-amber-500/40 bg-gradient-to-r from-emerald-950/90 via-emerald-900/40 to-amber-950/60 px-3 py-2">
+            <Crown className="w-4 h-4 text-amber-400 shrink-0" aria-hidden="true" />
+            <p className="text-sm font-semibold text-amber-100">
+              Doctor Doom cards in this set
+            </p>
+            <span className="text-xs font-bold text-amber-300 tabular-nums">{filteredCards.length}</span>
+            <div className="flex flex-wrap gap-1.5 sm:ml-auto">
+              <Link
+                href={DOOM_HISTORY_PATH}
+                className="inline-flex items-center h-7 px-2.5 rounded-full text-[11px] font-semibold border border-amber-400/50 text-amber-200 hover:bg-amber-500/10 hover:border-amber-300 transition-colors"
+              >
+                History
+              </Link>
+              <Link
+                href={DOOM_VIDEO_PATH}
+                className="inline-flex items-center h-7 px-2.5 rounded-full text-[11px] font-semibold border border-emerald-400/40 text-emerald-200 hover:bg-emerald-500/10 hover:border-emerald-300 transition-colors"
+              >
+                Videos
+              </Link>
+            </div>
+          </div>
+        )}
         {viewMode === "grid" ? (
           /* Check if current filter is a playing card type for special layout */
           isPlayingCardType(filterType) ? (
             <PlayingCardSuitGrid cards={filteredCards} setName={set.name} />
           ) : (
           /* Premium Grid View with 3D Tilt, Shimmer, Staggered Animation */
+          filteredCards.length === 0 ? (
+            <div className="py-12 text-center text-muted-foreground">
+              {doomOnly ? "No Doctor Doom cards in this set" : "No cards match your filters"}
+            </div>
+          ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-5">
             {filteredCards.map((card, idx) => (
               <article
@@ -1113,6 +1173,7 @@ function SetDetail({ slug }: { slug: string }) {
             ))}
           </div>
           )
+          )
         ) : (
           /* List View */
           <div className="rounded-xl border border-border overflow-hidden bg-card">
@@ -1176,7 +1237,7 @@ function SetDetail({ slug }: { slug: string }) {
 
             {filteredCards.length === 0 && (
               <div className="py-12 text-center text-muted-foreground">
-                No cards match your filters
+                {doomOnly ? "No Doctor Doom cards in this set" : "No cards match your filters"}
               </div>
             )}
           </div>
