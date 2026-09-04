@@ -74,14 +74,17 @@ export function loreCompanionForVideo(videoId: string): { href: string; label: s
 }
 
 /**
- * Doctor Doom (Victor von Doom) only — used by Card Database set filters.
- * Matches "Doctor Doom" / standalone "Doom" (case-insensitive), including parallel suffixes.
- * Excludes Doom 2099 and lookalikes (Doomasaur, Doomsday).
+ * HARD LOCK: Doctor Doom (Victor von Doom) only — used by Card Database set filters.
+ * Doctor Doom ≠ Doom 2099 ≠ Doomasaur.
+ * Deny-first: any characterName containing "2099" or "Doomasaur" is never a match.
+ * Matches existing "Doctor Doom" / standalone "Doom" checklist names only.
+ * Does not invent cards or photos.
  */
 export function isDoctorDoomCharacter(characterName: string | null | undefined): boolean {
   if (!characterName) return false;
   const name = characterName.trim().toLowerCase();
-  if (!name || name.includes("2099")) return false;
+  if (!name) return false;
+  if (name.includes("2099") || name.includes("doomasaur")) return false;
   if (
     name.includes("doctor doom") ||
     name.includes("dr. doom") ||

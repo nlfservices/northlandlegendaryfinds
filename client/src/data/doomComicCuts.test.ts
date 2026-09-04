@@ -205,11 +205,21 @@ describe("Doctor Doom Card Database character match", () => {
     expect(isDoctorDoomCharacter("Doom 2099")).toBe(false);
     expect(isDoctorDoomCharacter("Doctor Doom 2099")).toBe(false);
     expect(isDoctorDoomCharacter("Doomasaur")).toBe(false);
+    expect(isDoctorDoomCharacter("DOOMASAUR")).toBe(false);
+    expect(isDoctorDoomCharacter("Doomasaur — Refractor")).toBe(false);
+    expect(isDoctorDoomCharacter("Doctor Doom / Doomasaur")).toBe(false);
     expect(isDoctorDoomCharacter("Doomsday")).toBe(false);
     expect(isDoctorDoomCharacter("Doctor Octopus")).toBe(false);
     expect(isDoctorDoomCharacter("Doctor Strange")).toBe(false);
     expect(isDoctorDoomCharacter("")).toBe(false);
     expect(isDoctorDoomCharacter(null)).toBe(false);
+  });
+
+  it("deny-first hard lock: 2099 or Doomasaur never match even if Doom is in the name", () => {
+    expect(isDoctorDoomCharacter("Doctor Doom 2099")).toBe(false);
+    expect(isDoctorDoomCharacter("Doom 2099 — Clawed Chrome")).toBe(false);
+    expect(isDoctorDoomCharacter("Doctor Doom / Doomasaur")).toBe(false);
+    expect(isDoctorDoomCharacter("Doomasaur vs Doctor Doom")).toBe(false);
   });
 
   it("wires a distinctive Doom filter into CardDatabase set detail, not a clone of subset chips", () => {
@@ -225,6 +235,12 @@ describe("Doctor Doom Card Database character match", () => {
     expect(cardDatabase).toMatch(/emerald-9/);
     expect(cardDatabase).not.toMatch(/checkout|add to cart|buy now|shop now/i);
     expect(cardDatabase).not.toMatch(/youtube\.com\/embed/);
+    expect(cardDatabase).toContain("thin banner only — no essay panel");
+    expect(cardDatabase).toContain("filter existing set cards only — do not invent cards or photos");
+    expect(cardDatabase).not.toMatch(/Victor von Doom/);
+    expect(cardDatabase).not.toMatch(/Why these/);
+    expect(cardDatabase).not.toMatch(/prose prose-invert/);
+    expect(cardDatabase).not.toMatch(/const doom(Cards|Roster|Gallery)\s*=\s*\[/);
   });
 
   it("would show the Doom control on 2026 Chrome Marvel Comics and hide 2099 / Doomasaur", () => {
