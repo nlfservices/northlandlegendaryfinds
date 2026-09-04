@@ -764,6 +764,7 @@ function SetDetail({ slug }: { slug: string }) {
     });
   }, [data?.cards]);
 
+  // HARD LOCK: filter existing set cards only — do not invent cards or photos.
   const doomCards = useMemo(
     () => (data?.cards ?? []).filter((c) => isDoctorDoomCharacter(c.characterName)),
     [data?.cards]
@@ -1046,6 +1047,7 @@ function SetDetail({ slug }: { slug: string }) {
       {cards.length > 0 && pageTab === "cards" && (
       <div className="container pb-16">
         {doomOnly && (
+          /* HARD LOCK: scannable chip + thin banner only — no essay panel. */
           <div className="mb-5 flex flex-wrap items-center gap-2 sm:gap-3 rounded-lg border border-amber-500/40 bg-gradient-to-r from-emerald-950/90 via-emerald-900/40 to-amber-950/60 px-3 py-2">
             <Crown className="w-4 h-4 text-amber-400 shrink-0" aria-hidden="true" />
             <p className="text-sm font-semibold text-amber-100">
