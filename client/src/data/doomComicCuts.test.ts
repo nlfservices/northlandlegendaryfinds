@@ -20,6 +20,7 @@ import {
   OWUD_FACTS,
   OWUD_PATH,
   hotLeadsForCut,
+  isDoctorDoomCharacter,
   isDoomComicCutCatalog,
   isLockedDoomCut,
   lockedBadgeLabel,
@@ -27,6 +28,9 @@ import {
   padCutNum,
   visibleDoomCuts,
 } from "./doomComicCuts";
+import { chromeMarvel2026Data } from "./setChecklists/chromeMarvel2026";
+import { finestFantasticFour2026Data } from "./setChecklists/finestFantasticFour2026";
+import { chromeDeadpool2025Data } from "./setChecklists/chromeDeadpool2025";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const historyPage = readFileSync(resolve(here, "../pages/DoomComicCutHistory.tsx"), "utf8");
@@ -187,6 +191,58 @@ describe("Doom Comic Cuts research catalog", () => {
     expect(raw).not.toMatch(/checkout|buy now|add to cart/i);
     expect(raw).not.toMatch(/2099/);
     expect(visibleDoomCuts(catalog).every((cut) => !cut.file.match(/2099/i))).toBe(true);
+  });
+});
+
+describe("Doctor Doom Card Database character match", () => {
+  it("includes Doctor Doom / Doom variants and excludes 2099 plus lookalikes", () => {
+    expect(isDoctorDoomCharacter("Doctor Doom")).toBe(true);
+    expect(isDoctorDoomCharacter("doctor doom — Refractor")).toBe(true);
+    expect(isDoctorDoomCharacter("DOOM")).toBe(true);
+    expect(isDoctorDoomCharacter("Dr. Doom")).toBe(true);
+    expect(isDoctorDoomCharacter("God Emperor Doom")).toBe(true);
+    expect(isDoctorDoomCharacter("Iron Man / Doctor Doom")).toBe(true);
+    expect(isDoctorDoomCharacter("Doom 2099")).toBe(false);
+    expect(isDoctorDoomCharacter("Doctor Doom 2099")).toBe(false);
+    expect(isDoctorDoomCharacter("Doomasaur")).toBe(false);
+    expect(isDoctorDoomCharacter("Doomsday")).toBe(false);
+    expect(isDoctorDoomCharacter("Doctor Octopus")).toBe(false);
+    expect(isDoctorDoomCharacter("Doctor Strange")).toBe(false);
+    expect(isDoctorDoomCharacter("")).toBe(false);
+    expect(isDoctorDoomCharacter(null)).toBe(false);
+  });
+
+  it("wires a distinctive Doom filter into CardDatabase set detail, not a clone of subset chips", () => {
+    const cardDatabase = readFileSync(resolve(here, "../pages/CardDatabase.tsx"), "utf8");
+    expect(cardDatabase).toContain("isDoctorDoomCharacter");
+    expect(cardDatabase).toContain("doomOnly");
+    expect(cardDatabase).toContain("filterType");
+    expect(cardDatabase).toContain("DOOM_HISTORY_PATH");
+    expect(cardDatabase).toContain("DOOM_VIDEO_PATH");
+    expect(cardDatabase).toContain("Doctor Doom cards in this set");
+    expect(cardDatabase).toContain("No Doctor Doom cards in this set");
+    expect(cardDatabase).toMatch(/amber-400/);
+    expect(cardDatabase).toMatch(/emerald-9/);
+    expect(cardDatabase).not.toMatch(/checkout|add to cart|buy now|shop now/i);
+    expect(cardDatabase).not.toMatch(/youtube\.com\/embed/);
+  });
+
+  it("would show the Doom control on 2026 Chrome Marvel Comics and hide 2099 / Doomasaur", () => {
+    const matches = chromeMarvel2026Data.baseCards.filter((c) => isDoctorDoomCharacter(c.name));
+    expect(matches.map((c) => c.name)).toEqual(["Doctor Doom"]);
+    expect(matches).toHaveLength(1);
+  });
+
+  it("would show the Doom control on 2026 Finest Fantastic Four and hide 2099 / Doomasaur", () => {
+    const matches = finestFantasticFour2026Data.baseCards.filter((c) =>
+      isDoctorDoomCharacter(c.name)
+    );
+    expect(matches.map((c) => c.name)).toEqual(["Doctor Doom"]);
+  });
+
+  it("would hide the Doom control on sets with no Doctor Doom cards", () => {
+    const matches = chromeDeadpool2025Data.baseCards.filter((c) => isDoctorDoomCharacter(c.name));
+    expect(matches).toHaveLength(0);
   });
 });
 
