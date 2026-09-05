@@ -33,7 +33,7 @@ export default function Breaks() {
 
       <section className="border-b border-border py-12 sm:py-16">
         <div className="container max-w-4xl">
-          <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.2em] text-primary">
+          <p className="mb-3 text-[11px] font-bold tracking-[0.14em] text-primary">
             {INDEX_HEADER_CHIP}
           </p>
           <h1
