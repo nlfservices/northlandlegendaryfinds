@@ -5,7 +5,7 @@
  */
 
 import { useState } from "react";
-import { Gem, Radio, Gift, Eye, Sparkles, Shield, Award, Flame, ChevronDown, ChevronUp, ListChecks } from "lucide-react";
+import { Gem, Radio, Gift, Eye, Sparkles, Shield, Award, Flame, ChevronDown, ChevronUp, ListChecks, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import SEO, { breadcrumbJsonLd, organizationJsonLd } from "@/components/SEO";
@@ -289,6 +289,24 @@ export default function Shop() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ===== BREAK RUNS (quiet link — header left alone) ===== */}
+      <section className="pb-14">
+        <div className="container">
+          <Link href="/breaks" className="mx-auto flex max-w-4xl items-center justify-between gap-4 rounded-2xl border border-border bg-card/80 px-5 py-5 transition-colors hover:border-primary/40 sm:px-6">
+            <div>
+              <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">Whatnot only</p>
+              <h3 className="mt-1 text-xl font-bold" style={{ fontFamily: "'Anton', sans-serif" }}>
+                BREAK RUNS
+              </h3>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Odds, packs left, checklist. Spots on Whatnot — not here.
+              </p>
+            </div>
+            <ArrowRight className="h-5 w-5 flex-shrink-0 text-primary" />
+          </Link>
         </div>
       </section>
 

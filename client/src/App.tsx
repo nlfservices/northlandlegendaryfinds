@@ -18,6 +18,8 @@ import Home from "./pages/Home";
 
 // Everything else - lazy loaded on demand
 const Shop = lazy(() => import("./pages/Shop"));
+const Breaks = lazy(() => import("./pages/Breaks"));
+const BreakRun = lazy(() => import("./pages/BreakRun"));
 const ProductDetail = lazy(() => import("./pages/ProductDetail"));
 const Cart = lazy(() => import("./pages/Cart"));
 const Marvel = lazy(() => import("./pages/Marvel"));
@@ -131,6 +133,8 @@ function AppRouter() {
           <Switch>
             <Route path="/" component={Home} />
             <Route path="/shop" component={Shop} />
+            <Route path="/breaks/:slug" component={BreakRun} />
+            <Route path="/breaks" component={Breaks} />
             <Route path="/product/:slug" component={ProductDetail} />
             <Route path="/cart" component={Cart} />
             <Route path="/marvel" component={Marvel} />

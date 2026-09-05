@@ -61,6 +61,7 @@ export default function Footer() {
               <li><Link href="/cards" className="text-sm text-muted-foreground hover:text-primary transition-colors">Card Database</Link></li>
               <li><Link href="/card-shows" className="text-sm text-muted-foreground hover:text-primary transition-colors">Card Shows</Link></li>
               <li><Link href="/whatnot" className="text-sm text-muted-foreground hover:text-primary transition-colors">Whatnot</Link></li>
+              <li><Link href="/breaks" className="text-sm text-muted-foreground hover:text-primary transition-colors">Breaks</Link></li>
             </ul>
           </div>
 
