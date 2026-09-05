@@ -4,6 +4,7 @@ import { getDb } from "./db";
 import { mcuMedia, cardOfTheDayEntries } from "../drizzle/schema";
 import { eq, asc } from "drizzle-orm";
 import { getVideoSitemapPaths } from "../client/src/data/videos";
+import { getBreakRunSitemapPaths } from "../client/src/data/breakRuns";
 
 const SITE_URL = "https://northlandlegendaryfinds.com";
 
@@ -11,6 +12,7 @@ const SITE_URL = "https://northlandlegendaryfinds.com";
 const STATIC_PAGES: { path: string; priority: string; changefreq: string }[] = [
   { path: "/", priority: "1.0", changefreq: "weekly" },
   { path: "/shop", priority: "0.9", changefreq: "weekly" },
+  { path: "/breaks", priority: "0.7", changefreq: "weekly" },
   { path: "/marvel", priority: "0.8", changefreq: "weekly" },
   { path: "/cards", priority: "0.8", changefreq: "weekly" },
   { path: "/checklists", priority: "0.7", changefreq: "weekly" },
@@ -153,6 +155,12 @@ export function registerSitemapRoute(app: Express) {
       // Per-video SEO landing pages from the catalog
       for (const path of getVideoSitemapPaths()) {
         entries.push(buildUrlEntry(path, "0.7", "weekly", today));
+      }
+
+      // Whatnot-only break-run pages (index is already in STATIC_PAGES)
+      for (const path of getBreakRunSitemapPaths()) {
+        if (STATIC_PAGES.some((page) => page.path === path)) continue;
+        entries.push(buildUrlEntry(path, "0.6", "weekly", today));
       }
 
       // Dynamic card set pages from database

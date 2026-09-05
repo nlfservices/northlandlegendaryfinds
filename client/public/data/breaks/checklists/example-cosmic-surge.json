@@ -1,0 +1,10 @@
+{
+  "updated_at": "2026-09-05T16:00:00Z",
+  "run_slug": "example-cosmic-surge",
+  "skip_commons": true,
+  "cards": [
+    { "id": "example-chase-1", "tier": "chase", "imageUrl": "", "status": "available", "name": "EXAMPLE Chase" },
+    { "id": "example-grail-1", "tier": "grail", "imageUrl": "", "status": "available", "name": "EXAMPLE Grail" },
+    { "id": "example-super-grail-1", "tier": "super_grail", "imageUrl": "", "status": "pulled", "name": "EXAMPLE Super Grail", "pulled_at": "2026-09-05T16:00:00Z" }
+  ]
+}
