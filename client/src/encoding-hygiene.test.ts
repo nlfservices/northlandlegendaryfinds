@@ -30,6 +30,17 @@ function walk(dir: string, out: string[] = []): string[] {
 }
 
 describe("source encoding hygiene", () => {
+  it("uses a real em dash on the Card Database and Doomsday badge copy Pat reported", () => {
+    const cards = fs.readFileSync(path.join(ROOT, "client/src/pages/CardDatabase.tsx"), "utf8");
+    const doomsday = fs.readFileSync(path.join(ROOT, "client/src/pages/DoomsdayCountdown.tsx"), "utf8");
+    const ticker = fs.readFileSync(path.join(ROOT, "client/src/components/GlobalTicker.tsx"), "utf8");
+    expect(cards).toContain("2024 to 2026 \u2014 organized by year");
+    expect(cards).not.toContain("\u00E2\u20AC\u201D");
+    expect(doomsday).toContain("MCU Phase 6 \u2014 Live Countdown");
+    expect(ticker).toContain("SPIDER-MAN: BRAND NEW DAY \u2014");
+    expect(ticker).toContain("from \"lucide-react\"");
+  });
+
   it("has no Windows-1252 mojibake sequences in client/server/shared source", () => {
     const offenders: string[] = [];
     for (const file of walk(ROOT)) {
