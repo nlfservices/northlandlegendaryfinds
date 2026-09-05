@@ -19,6 +19,7 @@ type DropdownItem = { path: string; label: string; description?: string };
 interface NavItemWithDropdown {
   label: string;
   path?: string;
+  title?: string;
   dropdown?: DropdownItem[];
 }
 
@@ -45,6 +46,11 @@ const NAV_ITEMS: NavItemWithDropdown[] = [
       { path: "/artists", label: "Artist Directory", description: "Card artists & their work" },
       { path: "/checklists", label: "Cosmic Hits", description: "Chase cards & hit checklists" },
     ],
+  },
+  {
+    label: "Breaks",
+    path: "/breaks",
+    title: "Whatnot live runs",
   },
 ];
 
@@ -112,7 +118,8 @@ export default function Navigation() {
     (path === "/checklists" && location.startsWith("/checklists")) ||
     (path === "/mcu-news" && location.startsWith("/mcu-news")) ||
     (path === "/videos" && location.startsWith("/videos")) ||
-    (path === "/cards" && location.startsWith("/cards"));
+    (path === "/cards" && location.startsWith("/cards")) ||
+    (path === "/breaks" && location.startsWith("/breaks"));
 
   const isGroupActive = (item: NavItemWithDropdown) => {
     if (item.path && isActive(item.path)) return true;
@@ -211,6 +218,7 @@ export default function Navigation() {
                   ) : (
                     <Link href={item.path!}>
                       <button
+                        title={item.title}
                         className={`px-3.5 py-2 text-sm font-semibold rounded-md transition-all whitespace-nowrap ${
                           isActive(item.path!)
                             ? "text-primary bg-primary/10"
@@ -296,11 +304,14 @@ export default function Navigation() {
                   <div key={item.label}>
                     {item.path && (
                       <Link href={item.path} onClick={() => setMobileMenuOpen(false)}>
-                        <div className={`px-3 py-2.5 rounded-md text-sm font-medium transition-colors ${
-                          isGroupActive(item)
-                            ? "bg-primary/10 text-primary"
-                            : "text-foreground/80 hover:bg-muted/50 hover:text-foreground"
-                        }`}>
+                        <div
+                          title={item.title}
+                          className={`px-3 py-2.5 rounded-md text-sm font-medium transition-colors ${
+                            isGroupActive(item)
+                              ? "bg-primary/10 text-primary"
+                              : "text-foreground/80 hover:bg-muted/50 hover:text-foreground"
+                          }`}
+                        >
                           {item.label}
                         </div>
                       </Link>

@@ -95,6 +95,13 @@ export default function Shop() {
               <div className="inline-flex items-center px-3 py-1.5 bg-card/80 border border-primary/20 rounded-full">
                 <span className="text-primary text-xs font-bold tracking-widest uppercase">Coming soon</span>
               </div>
+              <Link
+                href="/breaks"
+                title="Whatnot live runs"
+                className="inline-flex items-center px-3 py-1.5 bg-card/80 border border-primary/20 rounded-full hover:border-primary/40 transition-colors"
+              >
+                <span className="text-primary text-xs font-bold tracking-widest uppercase">Breaks</span>
+              </Link>
             </div>
 
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[0.9] mb-4" style={{ fontFamily: "'Anton', sans-serif" }}>
@@ -292,7 +299,7 @@ export default function Shop() {
         </div>
       </section>
 
-      {/* ===== BREAK RUNS (quiet link — header left alone) ===== */}
+      {/* ===== BREAK RUNS (quiet link — Whatnot CTAs stay on break pages) ===== */}
       <section className="pb-14">
         <div className="container">
           <Link href="/breaks" className="mx-auto flex max-w-4xl items-center justify-between gap-4 rounded-2xl border border-border bg-card/80 px-5 py-5 transition-colors hover:border-primary/40 sm:px-6">

@@ -157,6 +157,32 @@ export default function HomeHero() {
         </div>
       </section>
 
+      {/* ===== LIVE BREAKS — scannable chip, not an essay ===== */}
+      <section className="bg-background border-b border-emerald-500/20">
+        <div className="container py-3">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 rounded-lg border border-emerald-500/35 bg-gradient-to-r from-emerald-950/90 via-green-950/55 to-black px-3 py-2.5">
+            <span className="inline-flex items-center rounded-full border border-emerald-400/40 bg-emerald-500/15 px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-emerald-300">
+              Live Breaks
+            </span>
+            <p className="text-sm text-emerald-100/90">
+              Topps Marvel repack runs — checklist + Whatnot only.
+            </p>
+            <div className="flex flex-col items-start sm:ml-auto">
+              <Link
+                href="/breaks"
+                className="inline-flex h-7 items-center rounded-full border border-emerald-400/50 px-2.5 text-[11px] font-semibold text-emerald-200 transition-colors hover:border-emerald-300 hover:bg-emerald-500/10"
+              >
+                See breaks
+              </Link>
+              {/* EXAMPLE_NOTE — remove when inventory seeds */}
+              <p className="mt-1 text-[10px] text-muted-foreground">
+                EXAMPLE run until inventory seeds
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ===== 3. STREAM WITH US ON WHATNOT — HIGH IMPACT BANNER ===== */}
       <section className="relative py-10 sm:py-14 lg:py-16 overflow-hidden">
         {/* Intense purple/red gradient background */}
