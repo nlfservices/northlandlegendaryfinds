@@ -6,15 +6,24 @@ import { Link, useParams } from "wouter";
 import { ArrowLeft } from "lucide-react";
 import SEO, { breadcrumbJsonLd, organizationJsonLd } from "@/components/SEO";
 import BreakRunShopCard from "@/components/BreakRunShopCard";
-import { getBreakRun } from "@/data/breakRuns";
+import { useBreaksFeed } from "@/data/useBreaksFeed";
 import NotFound from "@/pages/NotFound";
 
 export default function BreakRun() {
   const { slug } = useParams<{ slug: string }>();
-  const run = getBreakRun(slug);
+  const { runs, loading } = useBreaksFeed();
+  const run = runs.find((item) => item.run_slug === slug);
+
+  if (!loading && !run) {
+    return <NotFound />;
+  }
 
   if (!run) {
-    return <NotFound />;
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+      </div>
+    );
   }
 
   return (

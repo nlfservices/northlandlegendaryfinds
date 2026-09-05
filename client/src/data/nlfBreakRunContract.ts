@@ -47,6 +47,64 @@ export type NlfBreakRunMetafields = {
   "nlf.spot_or_order"?: string | null;
 };
 
+/** Public Inventory Bot feed row — `/data/breaks/runs.json`. */
+export type InventoryBreakRunRow = {
+  run_slug: string;
+  title: string;
+  tier_label: string;
+  blurb: string;
+  total_packs: number;
+  packs_remaining: number;
+  status: NlfBreakStatus;
+  whatnot_listing_url: string;
+  whatnot_show_url: string;
+  whatnot_clip_url?: string | null;
+  odds_snapshot_url?: string | null;
+  show_date?: string | null;
+  spot_or_order?: string | null;
+  product_id: string | null;
+  variant_id: string | null;
+  pack_art_url: string | null;
+  odds: ShopifyBreakRunRecord["odds"];
+  checklist: ShopifyBreakRunRecord["checklist"];
+};
+
+export type InventoryBreaksFeed = {
+  updated_at: string;
+  example: boolean;
+  shopify_admin_wired: boolean;
+  runs: InventoryBreakRunRow[];
+};
+
+export const BREAKS_FEED_PATH = "/data/breaks/runs.json";
+
+export function inventoryRowToMetafieldRecord(
+  row: InventoryBreakRunRow
+): ShopifyBreakRunRecord {
+  return {
+    product_id: row.product_id,
+    variant_id: row.variant_id,
+    variant_inventory_quantity: row.packs_remaining,
+    "nlf.run_slug": row.run_slug,
+    "nlf.total_packs": row.total_packs,
+    "nlf.packs_remaining": null,
+    "nlf.break_status": row.status,
+    "nlf.whatnot_listing_url": row.whatnot_listing_url,
+    "nlf.whatnot_show_url": row.whatnot_show_url,
+    "nlf.odds_snapshot_url": row.odds_snapshot_url ?? null,
+    "nlf.whatnot_clip_url": row.whatnot_clip_url ?? null,
+    "nlf.show_date": row.show_date ?? null,
+    "nlf.spot_or_order": row.spot_or_order ?? null,
+    title: row.title,
+    tier_label: row.tier_label,
+    blurb: row.blurb,
+    pack_art_url: row.pack_art_url,
+    example: true,
+    odds: row.odds,
+    checklist: row.checklist,
+  };
+}
+
 export type ShopifyNativeIds = {
   product_id: string | null;
   variant_id: string | null;

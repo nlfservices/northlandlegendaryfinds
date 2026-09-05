@@ -2,8 +2,10 @@ import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import exampleFile from "./breakRuns.example.json";
+import feedFile from "../../public/data/breaks/runs.json";
 import {
+  BREAKS_FEED_PATH,
+  BREAKS_FEED_UPDATED_AT,
   BREAK_RUNS,
   CHECKLIST_COMING_SOON,
   EXAMPLE_ODDS_COSMIC_SURGE,
@@ -30,10 +32,11 @@ const pages = [
   readFileSync(resolve(here, "../components/BreakRunShopCard.tsx"), "utf8"),
   readFileSync(resolve(here, "./breakRuns.ts"), "utf8"),
   readFileSync(resolve(here, "./breakRunLoader.ts"), "utf8"),
+  readFileSync(resolve(here, "./useBreaksFeed.ts"), "utf8"),
   readFileSync(resolve(here, "./nlfBreakRunContract.ts"), "utf8"),
 ].join("\n");
 const app = readFileSync(resolve(here, "../App.tsx"), "utf8");
-const exampleJson = readFileSync(resolve(here, "./breakRuns.example.json"), "utf8");
+const feedJson = readFileSync(resolve(here, "../../public/data/breaks/runs.json"), "utf8");
 
 const COMMERCE_LEAKS = [
   /open pack/i,
@@ -54,17 +57,17 @@ const INVENTED_CARD_NAMES = [
   /Doctor Doom Superfractor/i,
 ];
 
-const CONTRACT_KEYS = [
-  "nlf.run_slug",
-  "nlf.total_packs",
-  "nlf.packs_remaining",
-  "nlf.break_status",
-  "nlf.whatnot_listing_url",
-  "nlf.whatnot_show_url",
-  "nlf.odds_snapshot_url",
-  "nlf.whatnot_clip_url",
-  "nlf.show_date",
-  "nlf.spot_or_order",
+const FEED_KEYS = [
+  "run_slug",
+  "total_packs",
+  "packs_remaining",
+  "status",
+  "whatnot_listing_url",
+  "whatnot_show_url",
+  "whatnot_clip_url",
+  "odds_snapshot_url",
+  "show_date",
+  "spot_or_order",
   "product_id",
   "variant_id",
 ] as const;
@@ -116,9 +119,10 @@ describe("break-run catalog", () => {
     for (const run of BREAK_RUNS) {
       expect(run.checklist).toEqual([]);
     }
+    expect(feedFile.runs.every((run) => run.checklist.length === 0)).toBe(true);
     for (const leak of INVENTED_CARD_NAMES) {
       expect(pages).not.toMatch(leak);
-      expect(exampleJson).not.toMatch(leak);
+      expect(feedJson).not.toMatch(leak);
     }
   });
 
@@ -176,15 +180,41 @@ describe("break-run catalog", () => {
   it("uses real UTF-8 dashes and dots in EXAMPLE copy", () => {
     expect(pages).toContain("Live now \u2014 auction");
     expect(pages).toContain("Sold out \u2014 see hit proof");
-    expect(exampleJson).toContain("Entry Infinity Pack run \u2014 Guardians");
-    expect(exampleJson).toContain("$15\u201333");
+    expect(feedJson).toContain("Entry Infinity Pack run \u2014 Guardians");
+    expect(feedJson).toContain("$15\u201333");
     expect(pages).toContain("2.22% \u00B7 Grail 5%");
     expect(pages).not.toContain("\u00E2\u20AC\u201D");
-    expect(exampleJson).not.toContain("\u00E2\u20AC\u201D");
+    expect(feedJson).not.toContain("\u00E2\u20AC\u201D");
   });
 });
 
-describe("Inventory Bot nlf metafield contract", () => {
+describe("Inventory Bot public feed + nlf metafield contract", () => {
+  it("publishes /data/breaks/runs.json with updated_at and Inventory run keys", () => {
+    expect(BREAKS_FEED_PATH).toBe("/data/breaks/runs.json");
+    expect(pages).toContain("BREAKS_FEED_PATH");
+    expect(pages).toContain("useBreaksFeed");
+    expect(feedFile.updated_at).toBe("2026-09-05T15:58:00.000Z");
+    expect(BREAKS_FEED_UPDATED_AT).toBe(feedFile.updated_at);
+    expect(feedFile.example).toBe(true);
+    expect(feedFile.shopify_admin_wired).toBe(false);
+    expect(Array.isArray(feedFile.runs)).toBe(true);
+    for (const key of FEED_KEYS) {
+      expect(feedJson).toContain(`"${key}"`);
+    }
+    const cosmic = feedFile.runs.find((run) => run.run_slug === "cosmic-surge");
+    expect(cosmic).toMatchObject({
+      run_slug: "cosmic-surge",
+      total_packs: 400,
+      packs_remaining: 400,
+      status: "upcoming",
+      whatnot_listing_url: "https://whatnot.com/invite/northlandfinds",
+      whatnot_show_url: "https://www.whatnot.com/user/northlandfinds",
+      product_id: null,
+      variant_id: null,
+      checklist: [],
+    });
+  });
+
   it("documents the nlf namespace and exact keys", () => {
     expect(NLF_METAFIELD_NAMESPACE).toBe("nlf");
     expect(NLF_BREAK_RUN_KEYS).toEqual({
@@ -203,13 +233,9 @@ describe("Inventory Bot nlf metafield contract", () => {
     expect(pages).toContain("Live Shopify Admin is not wired yet");
   });
 
-  it("keeps static EXAMPLE JSON on the exact metafield keys", () => {
-    expect(exampleFile.namespace).toBe("nlf");
-    expect(exampleFile.shopify_admin_wired).toBe(false);
-    for (const key of CONTRACT_KEYS) {
-      expect(exampleJson).toContain(`"${key}"`);
-    }
-    const cosmic = exampleFile.runs.find((run) => run["nlf.run_slug"] === "cosmic-surge");
+  it("maps the public feed through nlf metafield keys", () => {
+    const records = loadShopifyBreakRunRecords();
+    const cosmic = records.find((run) => run["nlf.run_slug"] === "cosmic-surge");
     expect(cosmic).toMatchObject({
       product_id: null,
       variant_id: null,
@@ -220,10 +246,6 @@ describe("Inventory Bot nlf metafield contract", () => {
       "nlf.break_status": "upcoming",
       "nlf.whatnot_listing_url": "https://whatnot.com/invite/northlandfinds",
       "nlf.whatnot_show_url": "https://www.whatnot.com/user/northlandfinds",
-      "nlf.odds_snapshot_url": null,
-      "nlf.whatnot_clip_url": null,
-      "nlf.show_date": null,
-      "nlf.spot_or_order": null,
     });
   });
 

@@ -12,9 +12,11 @@ import {
   INDEX_HEADER_CHIP,
   listBreakRuns,
 } from "@/data/breakRuns";
+import { useBreaksFeed } from "@/data/useBreaksFeed";
 
 export default function Breaks() {
-  const runs = listBreakRuns();
+  const { runs, loading } = useBreaksFeed();
+  const ordered = listBreakRuns(runs);
 
   return (
     <div className="min-h-screen">
@@ -57,7 +59,12 @@ export default function Breaks() {
 
       <section className="py-10 sm:py-14">
         <div className="container max-w-4xl space-y-4">
-          {runs.map((run) => (
+          {loading && (
+            <div className="flex justify-center py-10">
+              <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+            </div>
+          )}
+          {ordered.map((run) => (
             <BreakRunShopCard key={run.run_slug} run={run} variant="compact" />
           ))}
         </div>

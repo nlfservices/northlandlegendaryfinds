@@ -6,7 +6,7 @@
  *
  * Data keys follow Inventory Bot’s Shopify metafield contract
  * (namespace `nlf` on the Break Run product). Live Shopify Admin
- * is not wired yet — static EXAMPLE JSON feeds this catalog.
+ * is not wired yet — pages load /data/breaks/runs.json (EXAMPLE).
  *
  * .com adaptation: rundown pages only. CTAs deep-link to Whatnot.
  */
@@ -20,8 +20,13 @@ export {
   NLF_METAFIELD_NAMESPACE,
   resolvePacksRemaining,
 } from "./nlfBreakRunContract";
-export { SHOPIFY_ADMIN_WIRED, loadShopifyBreakRunRecords } from "./breakRunLoader";
-
+export {
+  BREAKS_FEED_UPDATED_AT,
+  SHOPIFY_ADMIN_WIRED,
+  fetchBreaksFeed,
+  loadShopifyBreakRunRecords,
+} from "./breakRunLoader";
+export { BREAKS_FEED_PATH } from "./nlfBreakRunContract";
 export const WHATNOT_INVITE_URL = "https://whatnot.com/invite/northlandfinds";
 export const WHATNOT_PROFILE_URL = "https://www.whatnot.com/user/northlandfinds";
 
@@ -66,8 +71,8 @@ const STATUS_ORDER: Record<NlfBreakStatus, number> = {
   sold_out: 2,
 };
 
-export function listBreakRuns(): BreakRun[] {
-  return [...BREAK_RUNS].sort((a, b) => STATUS_ORDER[a.break_status] - STATUS_ORDER[b.break_status]);
+export function listBreakRuns(runs: BreakRun[] = BREAK_RUNS): BreakRun[] {
+  return [...runs].sort((a, b) => STATUS_ORDER[a.break_status] - STATUS_ORDER[b.break_status]);
 }
 
 export function getBreakRunSitemapPaths(): string[] {
