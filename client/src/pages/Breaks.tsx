@@ -1,6 +1,6 @@
 /**
  * Break-run index — scannable Whatnot-only shop cards.
- * Header is left alone; this page is linked from Shop + footer.
+ * Linked from Header, Home, Shop, and footer.
  */
 
 import { Link } from "wouter";
