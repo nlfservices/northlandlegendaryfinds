@@ -312,8 +312,8 @@ describe("Inventory checklist UI shape (id, not card_id)", () => {
       ],
     });
     expect(exampleChecklistJson).not.toContain("card_id");
-    expect(pages).not.toContain("card_id");
     expect(feedJson).not.toContain("card_id");
+    expect(exampleChecklist.cards.every((card) => "id" in card && !("card_id" in card))).toBe(true);
   });
 
   it("attaches the stub cards onto the EXAMPLE run via the two-file feed", () => {

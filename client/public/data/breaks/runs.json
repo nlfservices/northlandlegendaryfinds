@@ -2,7 +2,7 @@
   "updated_at": "2026-09-05T16:00:00Z",
   "example": true,
   "shopify_admin_wired": false,
-  "note": "Inventory Bot two-file feed. Live Shopify Admin is not wired yet. EXAMPLE Cosmic Surge copy until Pat / Inventory confirm. Checklists live at breaks/checklists/{run_slug}.json — card shape uses id (not card_id).",
+  "note": "Inventory Bot two-file feed. Live Shopify Admin is not wired yet. EXAMPLE Cosmic Surge copy until Pat / Inventory confirm. Checklists live at breaks/checklists/{run_slug}.json — required card keys are id, tier, imageUrl, status.",
   "runs": [
     {
       "run_slug": "example-cosmic-surge",
