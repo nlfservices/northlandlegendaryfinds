@@ -108,39 +108,37 @@ function BreakCta({ run }: { run: BreakRun }) {
 
   if (cta.kind === "sold_out") {
     return (
-      <a href={cta.href} target="_blank" rel="noopener noreferrer">
-        <Button
-          variant="outline"
-          size="lg"
-          className={`${shared} border-zinc-600/50 text-zinc-400 hover:bg-zinc-800/40 hover:text-zinc-300`}
-        >
+      <Button
+        asChild
+        variant="outline"
+        size="lg"
+        className={`${shared} border-zinc-600/50 text-zinc-400 hover:bg-zinc-800/40 hover:text-zinc-300`}
+      >
+        <a href={cta.href} target="_blank" rel="noopener noreferrer">
           {cta.label}
-        </Button>
-      </a>
+        </a>
+      </Button>
     );
   }
 
   if (cta.kind === "live") {
     return (
-      <a href={cta.href} target="_blank" rel="noopener noreferrer">
-        <Button
-          size="lg"
-          className={`${shared} bg-emerald-500 text-black hover:bg-emerald-400`}
-        >
+      <Button asChild size="lg" className={`${shared} bg-emerald-500 text-black hover:bg-emerald-400`}>
+        <a href={cta.href} target="_blank" rel="noopener noreferrer">
           <ExternalLink className="mr-2 h-4 w-4" />
           {cta.label}
-        </Button>
-      </a>
+        </a>
+      </Button>
     );
   }
 
   return (
-    <a href={cta.href} target="_blank" rel="noopener noreferrer">
-      <Button size="lg" className={`${shared} bg-primary text-primary-foreground hover:bg-primary/90`}>
+    <Button asChild size="lg" className={`${shared} bg-primary text-primary-foreground hover:bg-primary/90`}>
+      <a href={cta.href} target="_blank" rel="noopener noreferrer">
         <ExternalLink className="mr-2 h-4 w-4" />
         {cta.label}
-      </Button>
-    </a>
+      </a>
+    </Button>
   );
 }
 

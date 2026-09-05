@@ -73,6 +73,13 @@ describe("break-run catalog", () => {
     }
   });
 
+  it("renders sold-out hit proof as a real Whatnot link, not a dead button", () => {
+    const card = readFileSync(resolve(here, "../components/BreakRunShopCard.tsx"), "utf8");
+    expect(card).toContain("asChild");
+    expect(card).toContain("cta.href");
+    expect(card).toContain('target="_blank"');
+  });
+
   it("deep-links CTAs to Whatnot only", () => {
     const upcoming = ctaForRun(getBreakRun("cosmic-surge")!);
     const live = ctaForRun(getBreakRun("nebula-vault")!);
