@@ -1,0 +1,89 @@
+{
+  "source": "static-example",
+  "shopify_admin_wired": false,
+  "note": "Live Shopify Admin is not wired yet. Static EXAMPLE JSON matches Super Grok Cosmic Surge copy until Inventory Bot feeds nlf metafields on the Break Run product.",
+  "namespace": "nlf",
+  "runs": [
+    {
+      "product_id": null,
+      "variant_id": null,
+      "variant_inventory_quantity": 400,
+      "nlf.run_slug": "cosmic-surge",
+      "nlf.total_packs": 400,
+      "nlf.packs_remaining": null,
+      "nlf.break_status": "upcoming",
+      "nlf.whatnot_listing_url": "https://whatnot.com/invite/northlandfinds",
+      "nlf.whatnot_show_url": "https://www.whatnot.com/user/northlandfinds",
+      "nlf.odds_snapshot_url": null,
+      "nlf.whatnot_clip_url": null,
+      "nlf.show_date": null,
+      "nlf.spot_or_order": null,
+      "title": "Cosmic Surge",
+      "tier_label": "Entry",
+      "blurb": "Entry Infinity Pack run — Guardians, street heat, and solid floors.",
+      "pack_art_url": null,
+      "example": true,
+      "odds": [
+        { "id": "common", "label": "Common", "qty": 311, "percent": 77.78, "value_band": "$15–33" },
+        { "id": "chase", "label": "Chase", "qty": 60, "percent": 15, "value_band": "$45–88" },
+        { "id": "grail", "label": "Grail", "qty": 20, "percent": 5, "value_band": "$90–129" },
+        { "id": "super_grail", "label": "Super Grail", "qty": 9, "percent": 2.22, "value_band": "$150–520" }
+      ],
+      "checklist": []
+    },
+    {
+      "product_id": null,
+      "variant_id": null,
+      "variant_inventory_quantity": 184,
+      "nlf.run_slug": "nebula-vault",
+      "nlf.total_packs": 400,
+      "nlf.packs_remaining": null,
+      "nlf.break_status": "live",
+      "nlf.whatnot_listing_url": "https://whatnot.com/invite/northlandfinds",
+      "nlf.whatnot_show_url": "https://www.whatnot.com/user/northlandfinds",
+      "nlf.odds_snapshot_url": null,
+      "nlf.whatnot_clip_url": null,
+      "nlf.show_date": null,
+      "nlf.spot_or_order": null,
+      "title": "Nebula Vault",
+      "tier_label": "Entry",
+      "blurb": "EXAMPLE live shell. Auction on Whatnot — not on this site.",
+      "pack_art_url": null,
+      "example": true,
+      "odds": [
+        { "id": "common", "label": "Common", "qty": 311, "percent": 77.78, "value_band": "$15–33" },
+        { "id": "chase", "label": "Chase", "qty": 60, "percent": 15, "value_band": "$45–88" },
+        { "id": "grail", "label": "Grail", "qty": 20, "percent": 5, "value_band": "$90–129" },
+        { "id": "super_grail", "label": "Super Grail", "qty": 9, "percent": 2.22, "value_band": "$150–520" }
+      ],
+      "checklist": []
+    },
+    {
+      "product_id": null,
+      "variant_id": null,
+      "variant_inventory_quantity": 0,
+      "nlf.run_slug": "afterglow-case",
+      "nlf.total_packs": 400,
+      "nlf.packs_remaining": null,
+      "nlf.break_status": "sold_out",
+      "nlf.whatnot_listing_url": "https://whatnot.com/invite/northlandfinds",
+      "nlf.whatnot_show_url": "https://www.whatnot.com/user/northlandfinds",
+      "nlf.odds_snapshot_url": null,
+      "nlf.whatnot_clip_url": null,
+      "nlf.show_date": null,
+      "nlf.spot_or_order": null,
+      "title": "Afterglow Case",
+      "tier_label": "Entry",
+      "blurb": "EXAMPLE sold-out shell. Hit proof lives on Whatnot.",
+      "pack_art_url": null,
+      "example": true,
+      "odds": [
+        { "id": "common", "label": "Common", "qty": 311, "percent": 77.78, "value_band": "$15–33" },
+        { "id": "chase", "label": "Chase", "qty": 60, "percent": 15, "value_band": "$45–88" },
+        { "id": "grail", "label": "Grail", "qty": 20, "percent": 5, "value_band": "$90–129" },
+        { "id": "super_grail", "label": "Super Grail", "qty": 9, "percent": 2.22, "value_band": "$150–520" }
+      ],
+      "checklist": []
+    }
+  ]
+}

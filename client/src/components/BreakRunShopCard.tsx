@@ -168,7 +168,7 @@ export default function BreakRunShopCard({ run, variant }: CardProps) {
         <div className="min-w-0 flex-1">
           <div className="mb-2 flex flex-wrap items-center gap-2">
             {run.example && <ExampleChip />}
-            <BreakStatusChip status={run.status} />
+            <BreakStatusChip status={run.break_status} />
             <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
               {run.tier_label}
             </span>
@@ -189,7 +189,7 @@ export default function BreakRunShopCard({ run, variant }: CardProps) {
             </div>
             <div className="h-1.5 overflow-hidden rounded-full bg-muted">
               <div
-                className={`h-full rounded-full ${run.status === "sold_out" ? "bg-zinc-500" : "bg-primary"}`}
+                className={`h-full rounded-full ${run.break_status === "sold_out" ? "bg-zinc-500" : "bg-primary"}`}
                 style={{ width: `${remainingPct}%` }}
               />
             </div>
