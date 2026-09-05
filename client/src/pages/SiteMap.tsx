@@ -62,6 +62,7 @@ const SITE_SECTIONS: SiteSection[] = [
       { path: "/market-intel/best-topps-marvel-cards", label: "Best Topps Marvel Cards", description: "Top cards to watch from 2025 Topps Marvel sets" },
       { path: "/trending", label: "Trending Cards", description: "Marvel cards to collect right now — movie-driven picks and beginner tips" },
       { path: "/gambit-deck", label: "Gambit Chrome Deck Guide", description: "Complete guide to the 2025 Topps Marvel Mint Gambit Deck — all 52 cards, prices, and MCU connections" },
+      { path: "/characters/doctor-doom", label: "Doctor Doom rarity hub", description: "Provisional Card Research v1 rarity snapshot on the Doctor Doom character page. Comic Cut history stays on its own lane." },
       { path: "/comic-cuts/doctor-doom-history", label: "Doctor Doom History — Mint Comic Cuts", description: "Collector hub for 2025 Topps Marvel Mint Authentic Comic Cuts (DD-CC): timeline, filmed 1/1, research inventory." },
       { path: "/comic-cuts/doctor-doom-history#research-inventory", label: "Doctor Doom Comic Cuts research inventory", description: "Research thumb grid of NLF-held DD-CC 1/1s under 2025 Topps Marvel Mint. Not a sales catalog." },
       { path: "/chrome/one-world-under-doom", label: "One World Under Doom (Chrome 2026 research)", description: "Insert-family stub for 2026 Topps Chrome Marvel Comics One World Under Doom. Reported hobby odds 1:6. Checklist ingest pending." },
