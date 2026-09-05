@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 import { LazyStreamdown } from "@/components/LazyStreamdown";
+import DoomRarityHub from "@/components/DoomRarityHub";
 
 const PLACEHOLDER_IMG = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/character-placeholder-v2-CY48bnu9TGVPXs9qZJnG7S.webp";
 
@@ -252,6 +253,7 @@ export default function CharacterPage() {
 
       {/* Main Content */}
       <div className="container max-w-6xl py-8 lg:py-12">
+        {slug === "doctor-doom" && <DoomRarityHub />}
         <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
           {/* Article Content - Left 2/3 */}
           <div className="lg:col-span-2">

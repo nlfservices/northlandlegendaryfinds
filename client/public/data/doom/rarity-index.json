@@ -1,0 +1,324 @@
+{
+  "updated_at": "2026-09-05T19:00:00Z",
+  "source": {
+    "primary": "Official Topps checklists + hobby odds",
+    "ingest": "ChatGPT Hourly Doom Updates + Red Doom brief (Jarvis 2026-09-04)",
+    "status": "provisional_ledger",
+    "publish_surface": "/characters/doctor-doom",
+    "master_set_layer": true,
+    "forced_complete": false,
+    "comic_cuts_lane": "/comic-cuts/doctor-doom-history — Comic Cut history only; rarity census lives on CharacterPage"
+  },
+  "identity_rules": {
+    "include": [
+      "Doctor Doom",
+      "Victor von Doom"
+    ],
+    "exclude": [
+      "Doom 2099",
+      "Doomasaur",
+      "Victorious",
+      "Victor Timely"
+    ],
+    "notes": "Doom ≠ Doom 2099 forever. Count each distinct parallel/issue separately. Unnumbered parallels are not serial-population."
+  },
+  "benchmark": {
+    "physical_total": 16799,
+    "accounted": 13663,
+    "accounted_pct": 81.33,
+    "gap": 3136,
+    "research_progress_note": "~90.5% research work done is NOT a forced census total",
+    "confidence": "Calculated",
+    "physical_total_confidence": "Official"
+  },
+  "confidence_defs": {
+    "Official": "Topps checklist or odds sheet states it explicitly",
+    "Calculated": "Derived from official odds × pack/box/case config or checklist counts",
+    "Estimated": "Inferred where Topps lacks sufficient detail (e.g. specific-card odds = parallel odds × eligible checklist size)"
+  },
+  "families": [
+    {
+      "id": "comic-cuts",
+      "label": "Doctor Doom Comic Cuts",
+      "rule": "Unique 1/1 panel family — do not merge into Superfractors / plates / Sapphire 1/1s",
+      "owner": "Doom Comic Cut Researcher",
+      "catalog": "/comic-cuts/doom/catalog.json",
+      "approx_unique": 200,
+      "confidence": "Estimated"
+    },
+    {
+      "id": "superfractors",
+      "label": "Exact Superfractors",
+      "rule": "Excludes Sapphire 1/1s, Foilfractors, printing plates, Comic Cuts",
+      "exact_count_aug26": 49,
+      "confidence": "Calculated",
+      "notes": "Superfractor chat still unextracted — count may revise"
+    },
+    {
+      "id": "printing-plates",
+      "label": "Printing plates",
+      "rule": "Separate 1/1 issues from Superfractors and Comic Cuts",
+      "confidence": "Official"
+    },
+    {
+      "id": "sapphire-padparadscha",
+      "label": "Sapphire Padparadscha 1/1s",
+      "rule": "Separate from Superfractors",
+      "confidence": "Official"
+    }
+  ],
+  "tiers": [
+    {
+      "id": "serial-5",
+      "label": "/5",
+      "confidence": "Calculated",
+      "distinct": 61,
+      "physical": 305,
+      "pct_of_benchmark": 1.816,
+      "notes": "Was 58 frozen Aug 26; +3 Marvel Mint 2026 verified (#122 Platinum Red Foil /5, #122 Platinum Chrome Var Red Refractor /5, Cerebro #4 Red Refractor /5)"
+    },
+    {
+      "id": "serial-50",
+      "label": "/50",
+      "confidence": "Calculated",
+      "distinct": 47,
+      "physical": null,
+      "notes": "Supersession 46→47; physical sum pending full tier extract"
+    },
+    {
+      "id": "serial-99",
+      "label": "/99",
+      "confidence": "Calculated",
+      "distinct": 18,
+      "physical": null,
+      "notes": "Rebuilt to 18 confirmed; CBH Gold Mini-Diamonds reclass /99→/199 still needs reconciliation — do not force physical"
+    },
+    {
+      "id": "family-comic-cuts-1of1",
+      "label": "Comic Cut 1/1 family",
+      "confidence": "Estimated",
+      "distinct": 200,
+      "physical": 200,
+      "notes": "~200 unique 1/1 panels; track as family. Exact catalog locks owned by Comic Cut Researcher."
+    },
+    {
+      "id": "family-superfractor-1of1",
+      "label": "Exact Superfractors",
+      "confidence": "Calculated",
+      "distinct": 49,
+      "physical": 49,
+      "notes": "Aug 26 Superfractor-only audit; chat extract still pending"
+    },
+    {
+      "id": "product-2026-mint-numbered",
+      "label": "2026 Marvel Mint numbered Doom",
+      "confidence": "Calculated",
+      "distinct": 17,
+      "physical": 300,
+      "notes": "7×1/1 (incl 4 plates) + 3×/5 + 3×/10 + 2×/25 + 2×/99. Exclude Doomasaur #39."
+    },
+    {
+      "id": "product-2026-sapphire-numbered",
+      "label": "2026 Chrome Sapphire numbered Doom",
+      "confidence": "Official",
+      "distinct": 8,
+      "physical": 266,
+      "notes": "Base subject #28 only (not Doomasaur #31, not Doom 2099 #112). Green/99 through Red/5 + Padparadscha + Quad Padparadscha."
+    },
+    {
+      "id": "product-2026-vault",
+      "label": "2026 Marvel Vault Doom",
+      "confidence": "Official",
+      "distinct": 0,
+      "physical": 0,
+      "notes": "Official checklist has no Doctor Doom / Victor von Doom"
+    }
+  ],
+  "open_tiers": {
+    "notes": "Full 1/1→/399 master table was in ChatGPT browser extract not yet captured as structured rows. Do not invent physicals for missing serials.",
+    "blockers": [
+      "/99 and /199 reconciliation (CBH Gold Mini-Diamonds)",
+      "Middle/high serial tiers incomplete",
+      "Late 2026 products",
+      "Superfractor chat extract",
+      "Final issue-level sum — never back-solve the ~3,136 gap"
+    ]
+  },
+  "sapphire_2026_odds": [
+    {
+      "parallel": "Green",
+      "serial": "/99",
+      "pack_odds": "1:6",
+      "confidence": "Official"
+    },
+    {
+      "parallel": "Purple",
+      "serial": "/75",
+      "pack_odds": "1:8",
+      "confidence": "Official"
+    },
+    {
+      "parallel": "Gold",
+      "serial": "/50",
+      "pack_odds": "1:11",
+      "confidence": "Official"
+    },
+    {
+      "parallel": "Orange",
+      "serial": "/25",
+      "pack_odds": "1:22",
+      "confidence": "Official"
+    },
+    {
+      "parallel": "Black",
+      "serial": "/10",
+      "pack_odds": "1:53",
+      "confidence": "Official"
+    },
+    {
+      "parallel": "Red",
+      "serial": "/5",
+      "pack_odds": "1:106",
+      "confidence": "Official"
+    },
+    {
+      "parallel": "Padparadscha",
+      "serial": "1/1",
+      "pack_odds": "1:527",
+      "confidence": "Official"
+    },
+    {
+      "parallel": "MFQ-DNSG Quad Padparadscha",
+      "serial": "1/1",
+      "pack_odds": "1:50,280",
+      "odds_scope": "family",
+      "confidence": "Official"
+    }
+  ],
+  "specific_card_estimates": [
+    {
+      "card": "Base Doom Padparadscha 1/1",
+      "formula": "1:527 × 200 subjects",
+      "estimate": "~1:105,400 packs",
+      "confidence": "Estimated"
+    },
+    {
+      "card": "MFQ-DNSG Quad Padparadscha 1/1",
+      "formula": "1:50,280 × 2 quad subjects",
+      "estimate": "~1:100,560 packs",
+      "confidence": "Estimated"
+    }
+  ],
+  "key_pulls": [
+    {
+      "set": "Topps Marvel (MFQ-DNSG Quad Facsimile)",
+      "card": "Doctor Doom / Silver Surfer / Galactus / Namor",
+      "parallel": "Superfractor",
+      "print_or_odds": "1:2,145,920 Value",
+      "confidence": "Official",
+      "notes": "Hardest known 1/1 pull called out in census"
+    },
+    {
+      "set": "Topps Marvel (MFQ-DNSG)",
+      "card": "Doctor Doom Quad Facsimile",
+      "parallel": "Red Wave /5",
+      "print_or_odds": "1:132,404 Hobby",
+      "confidence": "Official",
+      "notes": "Hardest /5"
+    },
+    {
+      "set": "65 Fantastic Years",
+      "card": "FY-05 Doctor Doom",
+      "parallel": "/5",
+      "print_or_odds": "1:60,774 Value",
+      "confidence": "Official",
+      "notes": "Hardest solo-Doom /5"
+    },
+    {
+      "set": "2026 Topps Chrome Marvel Sapphire",
+      "card": "Doctor Doom #28",
+      "parallel": "Padparadscha 1/1",
+      "print_or_odds": "1:527 packs (parallel) · ~1:105,400 specific (Estimated)",
+      "confidence": "Official",
+      "notes": "Base subject #28 only"
+    },
+    {
+      "set": "2026 Topps Chrome Marvel Sapphire",
+      "card": "MFQ-DNSG Quad",
+      "parallel": "Padparadscha 1/1",
+      "print_or_odds": "1:50,280 family · ~1:100,560 specific (Estimated)",
+      "confidence": "Official",
+      "notes": "Family odds Official; specific Estimated"
+    },
+    {
+      "set": "Example method — Chrome Red Wave",
+      "card": "Any eligible Red Wave /5 (not Doom-specific until × checklist)",
+      "parallel": "Red Wave /5",
+      "print_or_odds": "1:1,475 Hobby (parallel Official)",
+      "confidence": "Official",
+      "notes": "Method example: if 200 eligible → Doom-specific estimate 1:295,000 (Estimated). Store both parallel + specific."
+    }
+  ],
+  "ui_chips": [
+    {
+      "label": "Physical benchmark",
+      "value": "16,799",
+      "confidence": "Official"
+    },
+    {
+      "label": "Accounted",
+      "value": "~13,663 (81%)",
+      "confidence": "Calculated"
+    },
+    {
+      "label": "Gap",
+      "value": "~3,136",
+      "confidence": "Calculated"
+    },
+    {
+      "label": "/5 issues",
+      "value": "61 · 305 physical",
+      "confidence": "Calculated"
+    },
+    {
+      "label": "Sapphire base",
+      "value": "#28",
+      "confidence": "Official"
+    },
+    {
+      "label": "Vault 2026",
+      "value": "0 Doom",
+      "confidence": "Official"
+    },
+    {
+      "label": "Comic Cuts",
+      "value": "~200 unique 1/1s",
+      "confidence": "Estimated"
+    },
+    {
+      "label": "Superfractors",
+      "value": "49 exact",
+      "confidence": "Calculated"
+    }
+  ],
+  "provisional_banner": "Ledger ~81% accounted — provisional research census. Missing cards are not guessed.",
+  "links": {
+    "character_page": "/characters/doctor-doom",
+    "comic_cuts_history": "/comic-cuts/doctor-doom-history",
+    "comic_cuts_catalog": "/comic-cuts/doom/catalog.json",
+    "set_pages": [
+      "/cards/2026-topps-marvel-mint",
+      "/cards/2026-topps-chrome-marvel-comics",
+      "/cards/2025-topps-chrome",
+      "/cards/2025-topps-marvel-mint",
+      "/cards/2025-topps-marvel-sapphire",
+      "/cards/2024-topps-chrome-sapphire-marvel",
+      "/cards/2024-topps-chrome-marvel"
+    ],
+    "exclude_character_slugs": [
+      "doomasaur",
+      "doom-2099",
+      "victor-von-doom"
+    ]
+  }
+}
