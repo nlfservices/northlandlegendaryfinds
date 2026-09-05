@@ -93,6 +93,7 @@ const VideoDetail = lazy(() => import("./pages/VideoDetail"));
 const DoomComicCutHistory = lazy(() => import("./pages/DoomComicCutHistory"));
 const OneWorldUnderDoom = lazy(() => import("./pages/OneWorldUnderDoom"));
 const DoomToughest2425Page = lazy(() => import("./pages/DoomToughest2425Page"));
+const DoomToughest5Page = lazy(() => import("./pages/DoomToughest5Page"));
 
 // Minimal loading spinner for lazy-loaded pages
 function PageLoader() {
@@ -171,6 +172,7 @@ function AppRouter() {
             <Route path="/comic-cuts/doom">{() => { window.location.replace(`${DOOM_HISTORY_PATH}#${DOOM_GALLERY_HASH}`); return null; }}</Route>
             <Route path="/chrome/one-world-under-doom" component={OneWorldUnderDoom} />
             <Route path="/research/doctor-doom-toughest-24-25-topps-marvel-cards" component={DoomToughest2425Page} />
+            <Route path="/research/toughest-doctor-doom-5-topps-marvel-cards" component={DoomToughest5Page} />
             <Route path="/nerd-gossip" component={NerdGossip} />
             <Route path="/mcu-news/:slug" component={MCUNewsArticle} />
             {/* Redirects from old /mcu-intel URLs */}

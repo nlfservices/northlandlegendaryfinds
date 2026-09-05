@@ -1,0 +1,386 @@
+{
+  "seo": {
+    "slug": "toughest-doctor-doom-5-topps-marvel-cards",
+    "title": "10 Toughest Doctor Doom /5 Topps Marvel Cards to Pull | NLF",
+    "meta": "Only five copies exist of each Doctor Doom /5 card, but their pack odds can be dramatically different. NLF counts down 10 of the toughest Doctor Doom /5 Topps Marvel pulls, plus three honorable mentions.",
+    "h1": "The 10 Toughest Doctor Doom /5 Topps Marvel Cards to Pull",
+    "subtitle": "Only Five Copies Exist — But Some Are Far Harder to Pull Than Others",
+    "chips": ["Doctor Doom", "Topps Marvel", "/5", "Card Research", "Rarity Research"]
+  },
+  "census": {
+    "issues": 61,
+    "physical": 305,
+    "exclude": ["Doom 2099", "Doomasaur", "Victorious", "Victor Timely"]
+  },
+  "intro": {
+    "beats": [
+      "Rank by published pack odds first — not price, not pop-alone.",
+      "Same /5 serial does not mean the same pull. Population measures scarcity. Pull odds measure difficulty.",
+      "Hobby vs Value labels stay as published. Do not convert them.",
+      "When odds tie, order is editorial — not harder math."
+    ],
+    "researchNote": "Independent NLF write-up — not official Topps or Marvel. Census: 61 /5 issues, 305 physical copies. Exclude Doom 2099, Doomasaur, Victorious, and Victor Timely."
+  },
+  "sister": {
+    "path": "/research/doctor-doom-toughest-24-25-topps-marvel-cards",
+    "label": "Sister countdown: toughest Doctor Doom /24 & /25",
+    "body": "That page ranks Orange Wave /25 cards. This page ranks Red Wave /5 — same card numbers, different cards."
+  },
+  "editorialNote": "#10–#5 share 1:14,712 Hobby — order is editorial, not harder math. OW-01 starts the 20-card One World Under Doom /5 run; it is not harder than OW-20. TB-12 is the editorial transition.",
+  "cards": [
+    {
+      "id": "mfq-dnsg",
+      "rank": 1,
+      "year": 2026,
+      "set": "2026 Topps Chrome Marvel Comics",
+      "cardNumber": "MFQ-DNSG",
+      "name": "Quad Facsimile (Doom / SS / Galactus / Namor)",
+      "type": "MULTI",
+      "parallel": "Red Wave Refractor",
+      "serial": "/5",
+      "pop": 5,
+      "publishedOdds": "1:132,404 Hobby",
+      "notes": "Hardest overall",
+      "tied": false,
+      "multiCharacter": true,
+      "imageUrl": null,
+      "market": {
+        "ebayLive": "https://www.ebay.com/sch/i.html?_nkw=2026+Topps+Chrome+Marvel+MFQ-DNSG+Doctor+Doom+Silver+Surfer+Galactus+Namor+Red+Wave+%2F5&_sacat=0",
+        "ebaySold": "https://www.ebay.com/sch/i.html?_nkw=2026+Topps+Chrome+Marvel+MFQ-DNSG+Doctor+Doom+Silver+Surfer+Galactus+Namor+Red+Wave+%2F5&_sacat=0&LH_Sold=1&LH_Complete=1",
+        "comc": "https://www.comc.com/Cards?q=2026+Topps+Chrome+Marvel+MFQ-DNSG+Doctor+Doom+Silver+Surfer+Galactus+Namor+Red+Wave+%2F5"
+      },
+      "nlfBuyUrl": null
+    },
+    {
+      "id": "fy-05",
+      "rank": 2,
+      "year": 2026,
+      "set": "2026 Topps Chrome Marvel Comics",
+      "cardNumber": "FY-05",
+      "name": "Doctor Doom - 65 Fantastic Years",
+      "type": "Solo",
+      "parallel": "Red Wave Refractor",
+      "serial": "/5",
+      "pop": 5,
+      "publishedOdds": "1:60,774 Value",
+      "notes": "Hardest solo",
+      "tied": false,
+      "multiCharacter": false,
+      "imageUrl": null,
+      "market": {
+        "ebayLive": "https://www.ebay.com/sch/i.html?_nkw=2026+Topps+Chrome+Marvel+FY-05+Doctor+Doom+65+Fantastic+Years+Red+Wave+%2F5&_sacat=0",
+        "ebaySold": "https://www.ebay.com/sch/i.html?_nkw=2026+Topps+Chrome+Marvel+FY-05+Doctor+Doom+65+Fantastic+Years+Red+Wave+%2F5&_sacat=0&LH_Sold=1&LH_Complete=1",
+        "comc": "https://www.comc.com/Cards?q=2026+Topps+Chrome+Marvel+FY-05+Doctor+Doom+65+Fantastic+Years+Red+Wave+%2F5"
+      },
+      "nlfBuyUrl": null
+    },
+    {
+      "id": "fd-ds",
+      "rank": 3,
+      "year": 2025,
+      "set": "2025 Marvel Comics Chrome",
+      "cardNumber": "FD-DS",
+      "name": "Silver Surfer / Doctor Doom Dual Facsimile",
+      "type": "MULTI",
+      "parallel": "Red Wave",
+      "serial": "/5",
+      "pop": 5,
+      "publishedOdds": "1:40,070 Hobby · Value 1:282,450",
+      "notes": "Dual",
+      "tied": false,
+      "multiCharacter": true,
+      "imageUrl": null,
+      "market": {
+        "ebayLive": "https://www.ebay.com/sch/i.html?_nkw=2025+Marvel+Comics+Chrome+FD-DS+Silver+Surfer+Doctor+Doom+Dual+Facsimile+Red+Wave+%2F5&_sacat=0",
+        "ebaySold": "https://www.ebay.com/sch/i.html?_nkw=2025+Marvel+Comics+Chrome+FD-DS+Silver+Surfer+Doctor+Doom+Dual+Facsimile+Red+Wave+%2F5&_sacat=0&LH_Sold=1&LH_Complete=1",
+        "comc": "https://www.comc.com/Cards?q=2025+Marvel+Comics+Chrome+FD-DS+Silver+Surfer+Doctor+Doom+Dual+Facsimile+Red+Wave+%2F5"
+      },
+      "nlfBuyUrl": null
+    },
+    {
+      "id": "mr-1",
+      "rank": 4,
+      "year": 2025,
+      "set": "2025 Marvel Comics Chrome",
+      "cardNumber": "MR-1",
+      "name": "Doctor Doom - Marvel Reflections",
+      "type": "Solo",
+      "parallel": "RayWave",
+      "serial": "/5",
+      "pop": 5,
+      "publishedOdds": "1:25,044 Hobby",
+      "notes": "",
+      "tied": false,
+      "multiCharacter": false,
+      "imageUrl": null,
+      "market": {
+        "ebayLive": "https://www.ebay.com/sch/i.html?_nkw=2025+Marvel+Comics+Chrome+MR-1+Doctor+Doom+Marvel+Reflections+RayWave+%2F5&_sacat=0",
+        "ebaySold": "https://www.ebay.com/sch/i.html?_nkw=2025+Marvel+Comics+Chrome+MR-1+Doctor+Doom+Marvel+Reflections+RayWave+%2F5&_sacat=0&LH_Sold=1&LH_Complete=1",
+        "comc": "https://www.comc.com/Cards?q=2025+Marvel+Comics+Chrome+MR-1+Doctor+Doom+Marvel+Reflections+RayWave+%2F5"
+      },
+      "nlfBuyUrl": null
+    },
+    {
+      "id": "tb-12",
+      "rank": 5,
+      "year": 2026,
+      "set": "2026 Topps Chrome Marvel Comics",
+      "cardNumber": "TB-12",
+      "name": "Doctor Doom - The Beyond",
+      "type": "Solo",
+      "parallel": "Red Refractor",
+      "serial": "/5",
+      "pop": 5,
+      "publishedOdds": "1:14,712 Hobby",
+      "notes": "Tied editorial transition",
+      "tied": true,
+      "multiCharacter": false,
+      "imageUrl": null,
+      "market": {
+        "ebayLive": "https://www.ebay.com/sch/i.html?_nkw=2026+Topps+Chrome+Marvel+TB-12+Doctor+Doom+The+Beyond+Red+Refractor+%2F5&_sacat=0",
+        "ebaySold": "https://www.ebay.com/sch/i.html?_nkw=2026+Topps+Chrome+Marvel+TB-12+Doctor+Doom+The+Beyond+Red+Refractor+%2F5&_sacat=0&LH_Sold=1&LH_Complete=1",
+        "comc": "https://www.comc.com/Cards?q=2026+Topps+Chrome+Marvel+TB-12+Doctor+Doom+The+Beyond+Red+Refractor+%2F5"
+      },
+      "nlfBuyUrl": null
+    },
+    {
+      "id": "ow-01",
+      "rank": 6,
+      "year": 2026,
+      "set": "2026 Topps Chrome Marvel Comics",
+      "cardNumber": "OW-01",
+      "name": "One World Under Doom",
+      "type": "Insert",
+      "parallel": "Red Refractor",
+      "serial": "/5",
+      "pop": 5,
+      "publishedOdds": "1:14,712 Hobby",
+      "notes": "Starts OW run · tied",
+      "tied": true,
+      "multiCharacter": false,
+      "imageUrl": null,
+      "market": {
+        "ebayLive": "https://www.ebay.com/sch/i.html?_nkw=2026+Topps+Chrome+Marvel+OW-01+One+World+Under+Doom+Red+Refractor+%2F5&_sacat=0",
+        "ebaySold": "https://www.ebay.com/sch/i.html?_nkw=2026+Topps+Chrome+Marvel+OW-01+One+World+Under+Doom+Red+Refractor+%2F5&_sacat=0&LH_Sold=1&LH_Complete=1",
+        "comc": "https://www.comc.com/Cards?q=2026+Topps+Chrome+Marvel+OW-01+One+World+Under+Doom+Red+Refractor+%2F5"
+      },
+      "nlfBuyUrl": null
+    },
+    {
+      "id": "ow-05",
+      "rank": 7,
+      "year": 2026,
+      "set": "2026 Topps Chrome Marvel Comics",
+      "cardNumber": "OW-05",
+      "name": "One World Under Doom",
+      "type": "Insert",
+      "parallel": "Red Refractor",
+      "serial": "/5",
+      "pop": 5,
+      "publishedOdds": "1:14,712 Hobby",
+      "notes": "Tied",
+      "tied": true,
+      "multiCharacter": false,
+      "imageUrl": null,
+      "market": {
+        "ebayLive": "https://www.ebay.com/sch/i.html?_nkw=2026+Topps+Chrome+Marvel+OW-05+One+World+Under+Doom+Red+Refractor+%2F5&_sacat=0",
+        "ebaySold": "https://www.ebay.com/sch/i.html?_nkw=2026+Topps+Chrome+Marvel+OW-05+One+World+Under+Doom+Red+Refractor+%2F5&_sacat=0&LH_Sold=1&LH_Complete=1",
+        "comc": "https://www.comc.com/Cards?q=2026+Topps+Chrome+Marvel+OW-05+One+World+Under+Doom+Red+Refractor+%2F5"
+      },
+      "nlfBuyUrl": null
+    },
+    {
+      "id": "ow-10",
+      "rank": 8,
+      "year": 2026,
+      "set": "2026 Topps Chrome Marvel Comics",
+      "cardNumber": "OW-10",
+      "name": "One World Under Doom",
+      "type": "Insert",
+      "parallel": "Red Refractor",
+      "serial": "/5",
+      "pop": 5,
+      "publishedOdds": "1:14,712 Hobby",
+      "notes": "Tied",
+      "tied": true,
+      "multiCharacter": false,
+      "imageUrl": null,
+      "market": {
+        "ebayLive": "https://www.ebay.com/sch/i.html?_nkw=2026+Topps+Chrome+Marvel+OW-10+One+World+Under+Doom+Red+Refractor+%2F5&_sacat=0",
+        "ebaySold": "https://www.ebay.com/sch/i.html?_nkw=2026+Topps+Chrome+Marvel+OW-10+One+World+Under+Doom+Red+Refractor+%2F5&_sacat=0&LH_Sold=1&LH_Complete=1",
+        "comc": "https://www.comc.com/Cards?q=2026+Topps+Chrome+Marvel+OW-10+One+World+Under+Doom+Red+Refractor+%2F5"
+      },
+      "nlfBuyUrl": null
+    },
+    {
+      "id": "ow-15",
+      "rank": 9,
+      "year": 2026,
+      "set": "2026 Topps Chrome Marvel Comics",
+      "cardNumber": "OW-15",
+      "name": "One World Under Doom",
+      "type": "Insert",
+      "parallel": "Red Refractor",
+      "serial": "/5",
+      "pop": 5,
+      "publishedOdds": "1:14,712 Hobby",
+      "notes": "Tied",
+      "tied": true,
+      "multiCharacter": false,
+      "imageUrl": null,
+      "market": {
+        "ebayLive": "https://www.ebay.com/sch/i.html?_nkw=2026+Topps+Chrome+Marvel+OW-15+One+World+Under+Doom+Red+Refractor+%2F5&_sacat=0",
+        "ebaySold": "https://www.ebay.com/sch/i.html?_nkw=2026+Topps+Chrome+Marvel+OW-15+One+World+Under+Doom+Red+Refractor+%2F5&_sacat=0&LH_Sold=1&LH_Complete=1",
+        "comc": "https://www.comc.com/Cards?q=2026+Topps+Chrome+Marvel+OW-15+One+World+Under+Doom+Red+Refractor+%2F5"
+      },
+      "nlfBuyUrl": null
+    },
+    {
+      "id": "ow-20",
+      "rank": 10,
+      "year": 2026,
+      "set": "2026 Topps Chrome Marvel Comics",
+      "cardNumber": "OW-20",
+      "name": "One World Under Doom",
+      "type": "Insert",
+      "parallel": "Red Refractor",
+      "serial": "/5",
+      "pop": 5,
+      "publishedOdds": "1:14,712 Hobby",
+      "notes": "Tied",
+      "tied": true,
+      "multiCharacter": false,
+      "imageUrl": null,
+      "market": {
+        "ebayLive": "https://www.ebay.com/sch/i.html?_nkw=2026+Topps+Chrome+Marvel+OW-20+One+World+Under+Doom+Red+Refractor+%2F5&_sacat=0",
+        "ebaySold": "https://www.ebay.com/sch/i.html?_nkw=2026+Topps+Chrome+Marvel+OW-20+One+World+Under+Doom+Red+Refractor+%2F5&_sacat=0&LH_Sold=1&LH_Complete=1",
+        "comc": "https://www.comc.com/Cards?q=2026+Topps+Chrome+Marvel+OW-20+One+World+Under+Doom+Red+Refractor+%2F5"
+      },
+      "nlfBuyUrl": null
+    }
+  ],
+  "honorableMentions": [
+    {
+      "id": "mi-1",
+      "hm": 1,
+      "year": 2025,
+      "set": "2025 Marvel Comics Chrome",
+      "cardNumber": "MI-1",
+      "name": "Doctor Doom - Marvel Icons",
+      "type": "Solo",
+      "parallel": "Red Wave",
+      "serial": "/5",
+      "pop": 5,
+      "publishedOdds": "1:13,357 Hobby · Secondary 1:376,600 Value",
+      "notes": "Marvel Icons",
+      "tied": false,
+      "multiCharacter": false,
+      "imageUrl": null,
+      "market": {
+        "ebayLive": "https://www.ebay.com/sch/i.html?_nkw=2025+Marvel+Comics+Chrome+MI-1+Doctor+Doom+Marvel+Icons+Red+Wave+%2F5&_sacat=0",
+        "ebaySold": "https://www.ebay.com/sch/i.html?_nkw=2025+Marvel+Comics+Chrome+MI-1+Doctor+Doom+Marvel+Icons+Red+Wave+%2F5&_sacat=0&LH_Sold=1&LH_Complete=1",
+        "comc": "https://www.comc.com/Cards?q=2025+Marvel+Comics+Chrome+MI-1+Doctor+Doom+Marvel+Icons+Red+Wave+%2F5"
+      },
+      "nlfBuyUrl": null
+    },
+    {
+      "id": "tl-05",
+      "hm": 2,
+      "year": 2026,
+      "set": "2026 Topps Finest Fantastic Four: 65th Anniversary",
+      "cardNumber": "TL-05",
+      "name": "Doom Wields the Power Cosmic",
+      "type": "Solo",
+      "parallel": "Red Refractor",
+      "serial": "/5",
+      "pop": 5,
+      "publishedOdds": "1:7,542 Hobby",
+      "notes": "Finest insert",
+      "tied": false,
+      "multiCharacter": false,
+      "imageUrl": null,
+      "market": {
+        "ebayLive": "https://www.ebay.com/sch/i.html?_nkw=2026+Topps+Finest+Fantastic+Four+TL-05+Doctor+Doom+Wields+the+Power+Cosmic+Red+Refractor+%2F5&_sacat=0",
+        "ebaySold": "https://www.ebay.com/sch/i.html?_nkw=2026+Topps+Finest+Fantastic+Four+TL-05+Doctor+Doom+Wields+the+Power+Cosmic+Red+Refractor+%2F5&_sacat=0&LH_Sold=1&LH_Complete=1",
+        "comc": "https://www.comc.com/Cards?q=2026+Topps+Finest+Fantastic+Four+TL-05+Doctor+Doom+Wields+the+Power+Cosmic+Red+Refractor+%2F5"
+      },
+      "nlfBuyUrl": null
+    },
+    {
+      "id": "to-01",
+      "hm": 3,
+      "year": 2026,
+      "set": "2026 Topps Finest Fantastic Four: 65th Anniversary",
+      "cardNumber": "TO-01",
+      "name": "Doctor Doom - Topps Originals (Adi Granov)",
+      "type": "Solo",
+      "parallel": "Red Refractor",
+      "serial": "/5",
+      "pop": 5,
+      "publishedOdds": "1:7,542 Hobby",
+      "notes": "Tied with other Finest inserts at this figure",
+      "tied": true,
+      "multiCharacter": false,
+      "imageUrl": null,
+      "market": {
+        "ebayLive": "https://www.ebay.com/sch/i.html?_nkw=2026+Topps+Finest+Fantastic+Four+TO-01+Doctor+Doom+Topps+Originals+Adi+Granov+Red+Refractor+%2F5&_sacat=0",
+        "ebaySold": "https://www.ebay.com/sch/i.html?_nkw=2026+Topps+Finest+Fantastic+Four+TO-01+Doctor+Doom+Topps+Originals+Adi+Granov+Red+Refractor+%2F5&_sacat=0&LH_Sold=1&LH_Complete=1",
+        "comc": "https://www.comc.com/Cards?q=2026+Topps+Finest+Fantastic+Four+TO-01+Doctor+Doom+Topps+Originals+Adi+Granov+Red+Refractor+%2F5"
+      },
+      "nlfBuyUrl": null
+    }
+  ],
+  "sections": [
+    {
+      "id": "ow-run",
+      "title": "The OW /5 run",
+      "body": "One World Under Doom is a 20-card insert in 2026 Topps Chrome Marvel Comics. The Red Refractor /5s on this list — OW-01, OW-05, OW-10, OW-15, OW-20 — all publish 1:14,712 Hobby. OW-01 starts the run; that does not make it a harder pull than OW-20. The #10–#6 order is editorial sampling of that 20-card family."
+    },
+    {
+      "id": "solo-vs-multi",
+      "title": "Solo vs Multi",
+      "body": "Two of the four steepest published /5s are multi-character facsimile cards (MFQ-DNSG quad, FD-DS dual). FY-05 is the hardest solo Doctor Doom /5 on this list at 1:60,774 Value. Multi-character cards can carry steeper family odds than a solo insert with the same /5 stamp."
+    },
+    {
+      "id": "five-not-equal",
+      "title": "Why /5 ≠ equal difficulty",
+      "body": "Every card here is serial /5 with a stated pop of 5. Published pack odds still range from 1:132,404 Hobby down through 1:14,712 Hobby — and easier still on the honorable mentions. Same serial is not the same pull."
+    },
+    {
+      "id": "market-not-difficulty",
+      "title": "Market ≠ difficulty",
+      "body": "Sold comps and asking prices measure demand, not pack difficulty. A cheaper /5 can still be harder to rip. This ranking uses published odds, not comps."
+    },
+    {
+      "id": "methodology",
+      "title": "Methodology",
+      "body": "Rank by published pack odds. Keep Hobby and Value labels as printed. When odds tie at 1:14,712 Hobby, order is editorial (OW run sampling + TB-12 as the transition into that band). Census: 61 /5 issues, 305 physical. Exclude Doom 2099, Doomasaur, Victorious, and Victor Timely. Independent NLF write-up — not official Topps or Marvel."
+    }
+  ],
+  "faq": [
+    {
+      "q": "Are all Doctor Doom /5 cards equally hard to pull?",
+      "a": "No. Only five copies exist of each issue, but published pack odds vary by set and insert family."
+    },
+    {
+      "q": "Why are #10–#5 in that order if they share 1:14,712 Hobby?",
+      "a": "That band is tied. The order is editorial. OW-01 starts the 20-card OW run; it is not harder than OW-20. TB-12 is the editorial transition."
+    },
+    {
+      "q": "Why is MFQ-DNSG #1?",
+      "a": "It has the steepest published figure on this list: 1:132,404 Hobby."
+    },
+    {
+      "q": "Why is FY-05 the hardest solo?",
+      "a": "It publishes 1:60,774 Value — the next-steepest printed figure after the quad, and the steepest solo /5 here."
+    },
+    {
+      "q": "Is this the same as the /24 & /25 countdown?",
+      "a": "No. That sister page ranks Orange Wave /25 cards. This page ranks /5 cards (Red Wave and other /5 parallels). Same card numbers can appear on both lists as different cards."
+    },
+    {
+      "q": "Who is excluded?",
+      "a": "Doom 2099, Doomasaur, Victorious, and Victor Timely."
+    }
+  ]
+}
