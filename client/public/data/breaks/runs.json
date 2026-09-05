@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-09-05T16:00:00Z",
+  "updated_at": "2026-09-05T17:30:00Z",
   "example": true,
   "shopify_admin_wired": false,
-  "note": "Inventory Bot two-file feed. Live Shopify Admin is not wired yet. EXAMPLE Cosmic Surge copy until Pat / Inventory confirm. Checklists live at breaks/checklists/{run_slug}.json — required card keys are id, tier, imageUrl, status.",
+  "note": "Inventory Bot seed after Shopify scan. No Cosmic Surge / break-run product in Admin yet (draft packs at 0 only). Keep EXAMPLE until real run product. product_id/variant_id null. No invented card photos.",
   "runs": [
     {
       "run_slug": "example-cosmic-surge",
@@ -21,7 +21,7 @@
       "product_id": null,
       "variant_id": null,
       "pack_art_url": null,
-      "checklist_url": "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/breaks/checklists/example-cosmic-surge.json",
+      "checklist_url": "/data/breaks/checklists/example-cosmic-surge.json",
       "odds": [
         { "id": "common", "label": "Common", "qty": 311, "percent": 77.78, "value_band": "$15–33" },
         { "id": "chase", "label": "Chase", "qty": 60, "percent": 15, "value_band": "$45–88" },
@@ -46,7 +46,7 @@
       "product_id": null,
       "variant_id": null,
       "pack_art_url": null,
-      "checklist_url": "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/breaks/checklists/nebula-vault.json",
+      "checklist_url": "/data/breaks/checklists/nebula-vault.json",
       "odds": [
         { "id": "common", "label": "Common", "qty": 311, "percent": 77.78, "value_band": "$15–33" },
         { "id": "chase", "label": "Chase", "qty": 60, "percent": 15, "value_band": "$45–88" },
@@ -71,7 +71,7 @@
       "product_id": null,
       "variant_id": null,
       "pack_art_url": null,
-      "checklist_url": "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/breaks/checklists/afterglow-case.json",
+      "checklist_url": "/data/breaks/checklists/afterglow-case.json",
       "odds": [
         { "id": "common", "label": "Common", "qty": 311, "percent": 77.78, "value_band": "$15–33" },
         { "id": "chase", "label": "Chase", "qty": 60, "percent": 15, "value_band": "$45–88" },

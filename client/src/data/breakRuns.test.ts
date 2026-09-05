@@ -210,10 +210,12 @@ describe("Inventory Bot public feed + nlf metafield contract", () => {
     expect(BREAKS_FEED_PATH).toBe("/data/breaks/runs.json");
     expect(pages).toContain("BREAKS_FEED_PATH");
     expect(pages).toContain("useBreaksFeed");
-    expect(feedFile.updated_at).toBe("2026-09-05T16:00:00Z");
+    expect(feedFile.updated_at).toBe("2026-09-05T17:30:00Z");
     expect(BREAKS_FEED_UPDATED_AT).toBe(feedFile.updated_at);
     expect(feedFile.example).toBe(true);
     expect(feedFile.shopify_admin_wired).toBe(false);
+    expect(feedJson).toContain("No Cosmic Surge / break-run product in Admin yet");
+    expect(feedJson).toContain("No invented card photos");
     expect(Array.isArray(feedFile.runs)).toBe(true);
     for (const key of FEED_KEYS) {
       expect(feedJson).toContain(`"${key}"`);
@@ -228,7 +230,7 @@ describe("Inventory Bot public feed + nlf metafield contract", () => {
       whatnot_show_url: "https://www.whatnot.com/user/northlandfinds",
       product_id: null,
       variant_id: null,
-      checklist_url: checklistR2Url("example-cosmic-surge"),
+      checklist_url: checklistFallbackPath("example-cosmic-surge"),
     });
     expect(cosmic).not.toHaveProperty("checklist");
   });
@@ -295,19 +297,28 @@ describe("Inventory Bot public feed + nlf metafield contract", () => {
 describe("Inventory checklist UI shape (id, not card_id)", () => {
   it("publishes the EXAMPLE Cosmic Surge stub at the aligned run_slug", () => {
     expect(exampleChecklist).toEqual({
-      updated_at: "2026-09-05T16:00:00Z",
+      updated_at: "2026-09-05T17:30:00Z",
       run_slug: "example-cosmic-surge",
       skip_commons: true,
+      example: true,
       cards: [
         { id: "example-chase-1", tier: "chase", imageUrl: "", status: "available", name: "EXAMPLE Chase" },
+        { id: "example-chase-2", tier: "chase", imageUrl: "", status: "available", name: "EXAMPLE Chase" },
         { id: "example-grail-1", tier: "grail", imageUrl: "", status: "available", name: "EXAMPLE Grail" },
         {
           id: "example-super-grail-1",
           tier: "super_grail",
           imageUrl: "",
+          status: "available",
+          name: "EXAMPLE Super Grail",
+        },
+        {
+          id: "example-super-grail-2",
+          tier: "super_grail",
+          imageUrl: "",
           status: "pulled",
           name: "EXAMPLE Super Grail",
-          pulled_at: "2026-09-05T16:00:00Z",
+          pulled_at: "2026-09-05T17:00:00Z",
         },
       ],
     });
@@ -319,25 +330,27 @@ describe("Inventory checklist UI shape (id, not card_id)", () => {
   it("attaches the stub cards onto the EXAMPLE run via the two-file feed", () => {
     const run = getBreakRun(EXAMPLE_COSMIC_SURGE_SLUG)!;
     expect(run.skip_commons).toBe(true);
-    expect(run.checklist_url).toBe(checklistR2Url("example-cosmic-surge"));
+    expect(run.checklist_url).toBe(checklistFallbackPath("example-cosmic-surge"));
     expect(run.checklist.map((card) => card.id)).toEqual([
       "example-chase-1",
+      "example-chase-2",
       "example-grail-1",
       "example-super-grail-1",
+      "example-super-grail-2",
     ]);
     expect(run.checklist.every((card) => GALLERY_TIERS.includes(card.tier))).toBe(true);
     expect(run.checklist.some((card) => card.status === "pulled")).toBe(true);
     expect(run.checklist.every((card) => !hasCardArt(card))).toBe(true);
     expect(remainingByTier(run.checklist)).toEqual({
-      chase: 1,
+      chase: 2,
       grail: 1,
-      super_grail: 0,
+      super_grail: 1,
     });
   });
 
   it("gives every run a checklist_url and skip_commons checklists", () => {
     for (const run of feedFile.runs) {
-      expect(run.checklist_url).toBe(checklistR2Url(run.run_slug));
+      expect(run.checklist_url).toBe(checklistFallbackPath(run.run_slug));
     }
     expect(BREAK_RUNS.every((run) => run.skip_commons)).toBe(true);
     expect(getBreakRun("nebula-vault")?.checklist).toEqual([]);
