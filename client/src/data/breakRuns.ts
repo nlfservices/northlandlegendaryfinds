@@ -1,12 +1,14 @@
 /**
  * Whatnot-only break-run catalog.
  *
- * Editable sample data so Inventory metafields can replace this later.
- * Field names match the planned metafield keys:
- *   run_slug, total_packs, packs_remaining, status,
- *   whatnot_* URLs, odds, checklist.
+ * Super Grok SAMPLE COPY for the Cosmic Surge shell.
+ * Everything is EXAMPLE until Pat / Inventory confirm.
  *
- * No .com commerce — CTAs deep-link to Whatnot only.
+ * Field names match planned Inventory metafields:
+ *   run_slug, total_packs, packs_remaining, status,
+ *   tier_label, whatnot_* URLs, odds, checklist.
+ *
+ * .com adaptation: rundown pages only. CTAs deep-link to Whatnot.
  */
 
 export const WHATNOT_INVITE_URL = "https://whatnot.com/invite/northlandfinds";
@@ -14,6 +16,14 @@ export const WHATNOT_PROFILE_URL = "https://www.whatnot.com/user/northlandfinds"
 
 /** Placeholder livestream URL until a real Whatnot show id is wired. */
 export const WHATNOT_SHOW_PLACEHOLDER_URL = "https://www.whatnot.com/user/northlandfinds";
+
+export const INDEX_HEADER_CHIP = "INFINITY PACKS / break runs — Whatnot only.";
+
+/** Scannable odds beat — EXAMPLE until Inventory confirms. */
+export const EXAMPLE_ODDS_LINE =
+  "Super Grail 2.22% · Grail 5% · Chase 15% · Common 77.78% (combined grail 7.22%) — EXAMPLE.";
+
+export const CHECKLIST_COMING_SOON = "Checklist (coming soon)";
 
 export type BreakRunStatus = "upcoming" | "live" | "sold_out";
 
@@ -24,24 +34,25 @@ export type BreakOddsTier = {
   label: string;
   qty: number;
   percent: number;
-  /** Sample collector value band — replace with Inventory metafields later. */
+  /** EXAMPLE value band — replace with Inventory metafields later. */
   value_band: string;
 };
 
 export type BreakChecklistItem = {
   name: string;
   tier: OddsTierId;
-  /** Placeholder names must stay marked SAMPLE until official lists land. */
-  sample: true;
 };
 
 export type BreakRun = {
   run_slug: string;
   title: string;
+  tier_label: string;
   blurb: string;
   total_packs: number;
   packs_remaining: number;
   status: BreakRunStatus;
+  /** True until Pat / Inventory confirm live numbers. */
+  example: true;
   /** Null hides art — never invent card photos. */
   pack_art_url: string | null;
   pack_art_alt: string;
@@ -50,6 +61,7 @@ export type BreakRun = {
   whatnot_show_url: string;
   hit_proof_url: string;
   odds: BreakOddsTier[];
+  /** Empty until official lists land — do not invent card names. */
   checklist: BreakChecklistItem[];
 };
 
@@ -62,69 +74,68 @@ export const BREAK_STATUS_CHIPS: ReadonlyArray<{
   { id: "sold_out", label: "sold out" },
 ];
 
-/** Blez Marvel Plus-style sample table (77.78 / 15 / 5 / 2.22). */
-export const SAMPLE_ODDS_BLEZ: BreakOddsTier[] = [
-  { id: "common", label: "Common", qty: 233, percent: 77.78, value_band: "$5–$20" },
-  { id: "chase", label: "Chase", qty: 45, percent: 15, value_band: "$25–$80" },
-  { id: "grail", label: "Grail", qty: 15, percent: 5, value_band: "$100–$250" },
-  { id: "super_grail", label: "Super Grail", qty: 7, percent: 2.22, value_band: "$400+" },
-];
-
-const SAMPLE_CHECKLIST: BreakChecklistItem[] = [
-  { name: "SAMPLE — Spider-Man Chrome Base", tier: "common", sample: true },
-  { name: "SAMPLE — Storm Cosmic Refractor", tier: "chase", sample: true },
-  { name: "SAMPLE — Wolverine Gold /50", tier: "grail", sample: true },
-  { name: "SAMPLE — Doctor Doom Superfractor 1/1", tier: "super_grail", sample: true },
+/** Super Grok Cosmic Surge odds table — EXAMPLE (400 packs). */
+export const EXAMPLE_ODDS_COSMIC_SURGE: BreakOddsTier[] = [
+  { id: "common", label: "Common", qty: 311, percent: 77.78, value_band: "$15–33" },
+  { id: "chase", label: "Chase", qty: 60, percent: 15, value_band: "$45–88" },
+  { id: "grail", label: "Grail", qty: 20, percent: 5, value_band: "$90–129" },
+  { id: "super_grail", label: "Super Grail", qty: 9, percent: 2.22, value_band: "$150–520" },
 ];
 
 export const BREAK_RUNS: BreakRun[] = [
   {
     run_slug: "cosmic-surge",
     title: "Cosmic Surge",
-    blurb: "Marvel Topps mix. 300 packs. Spots on Whatnot only.",
-    total_packs: 300,
-    packs_remaining: 300,
+    tier_label: "Entry",
+    blurb: "Entry Infinity Pack run — Guardians, street heat, and solid floors.",
+    total_packs: 400,
+    packs_remaining: 400,
     status: "upcoming",
+    example: true,
     pack_art_url: null,
-    pack_art_alt: "Pack art pending — Cosmic Surge",
+    pack_art_alt: "Pack art pending — Cosmic Surge (EXAMPLE)",
     whatnot_invite_url: WHATNOT_INVITE_URL,
     whatnot_profile_url: WHATNOT_PROFILE_URL,
     whatnot_show_url: WHATNOT_SHOW_PLACEHOLDER_URL,
     hit_proof_url: WHATNOT_PROFILE_URL,
-    odds: SAMPLE_ODDS_BLEZ,
-    checklist: SAMPLE_CHECKLIST,
+    odds: EXAMPLE_ODDS_COSMIC_SURGE,
+    checklist: [],
   },
   {
     run_slug: "nebula-vault",
     title: "Nebula Vault",
-    blurb: "SAMPLE live table. Auction on Whatnot — not on this site.",
-    total_packs: 300,
+    tier_label: "Entry",
+    blurb: "EXAMPLE live shell. Auction on Whatnot — not on this site.",
+    total_packs: 400,
     packs_remaining: 184,
     status: "live",
+    example: true,
     pack_art_url: null,
-    pack_art_alt: "Pack art pending — Nebula Vault",
+    pack_art_alt: "Pack art pending — Nebula Vault (EXAMPLE)",
     whatnot_invite_url: WHATNOT_INVITE_URL,
     whatnot_profile_url: WHATNOT_PROFILE_URL,
     whatnot_show_url: WHATNOT_SHOW_PLACEHOLDER_URL,
     hit_proof_url: WHATNOT_PROFILE_URL,
-    odds: SAMPLE_ODDS_BLEZ,
-    checklist: SAMPLE_CHECKLIST,
+    odds: EXAMPLE_ODDS_COSMIC_SURGE,
+    checklist: [],
   },
   {
     run_slug: "afterglow-case",
     title: "Afterglow Case",
-    blurb: "SAMPLE sold-out run. Hit proof lives on Whatnot.",
-    total_packs: 300,
+    tier_label: "Entry",
+    blurb: "EXAMPLE sold-out shell. Hit proof lives on Whatnot.",
+    total_packs: 400,
     packs_remaining: 0,
     status: "sold_out",
+    example: true,
     pack_art_url: null,
-    pack_art_alt: "Pack art pending — Afterglow Case",
+    pack_art_alt: "Pack art pending — Afterglow Case (EXAMPLE)",
     whatnot_invite_url: WHATNOT_INVITE_URL,
     whatnot_profile_url: WHATNOT_PROFILE_URL,
     whatnot_show_url: WHATNOT_SHOW_PLACEHOLDER_URL,
     hit_proof_url: WHATNOT_PROFILE_URL,
-    odds: SAMPLE_ODDS_BLEZ,
-    checklist: SAMPLE_CHECKLIST,
+    odds: EXAMPLE_ODDS_COSMIC_SURGE,
+    checklist: [],
   },
 ];
 
@@ -154,6 +165,12 @@ export function packsLeftLabel(run: BreakRun): string {
 export function packsLeftPercent(run: BreakRun): number {
   if (run.total_packs <= 0) return 0;
   return Math.max(0, Math.min(100, (run.packs_remaining / run.total_packs) * 100));
+}
+
+export function combinedGrailPercent(odds: BreakOddsTier[]): number {
+  return odds
+    .filter((tier) => tier.id === "grail" || tier.id === "super_grail")
+    .reduce((sum, tier) => sum + tier.percent, 0);
 }
 
 export type BreakCta = {

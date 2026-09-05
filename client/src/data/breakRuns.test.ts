@@ -4,9 +4,13 @@ import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import {
   BREAK_RUNS,
-  SAMPLE_ODDS_BLEZ,
+  CHECKLIST_COMING_SOON,
+  EXAMPLE_ODDS_COSMIC_SURGE,
+  EXAMPLE_ODDS_LINE,
+  INDEX_HEADER_CHIP,
   WHATNOT_INVITE_URL,
   WHATNOT_PROFILE_URL,
+  combinedGrailPercent,
   ctaForRun,
   getBreakRun,
   getBreakRunSitemapPaths,
@@ -32,31 +36,44 @@ const COMMERCE_LEAKS = [
   /stripe/i,
   /\$15 free/i,
   /free credit/i,
+  /\bcredits?\b/i,
+];
+
+const INVENTED_CARD_NAMES = [
+  /Spider-Man Chrome Base/i,
+  /Storm Cosmic Refractor/i,
+  /Wolverine Gold/i,
+  /Doctor Doom Superfractor/i,
 ];
 
 describe("break-run catalog", () => {
-  it("ships cosmic-surge as the featured sample with 300 / 300 packs", () => {
+  it("ships Cosmic Surge as the Super Grok EXAMPLE shell (400 / 400, Entry, upcoming)", () => {
     const run = getBreakRun("cosmic-surge");
     expect(run).toBeTruthy();
     expect(run?.title).toBe("Cosmic Surge");
+    expect(run?.tier_label).toBe("Entry");
+    expect(run?.blurb).toBe("Entry Infinity Pack run — Guardians, street heat, and solid floors.");
     expect(run?.status).toBe("upcoming");
-    expect(run?.total_packs).toBe(300);
-    expect(run?.packs_remaining).toBe(300);
-    expect(packsLeftLabel(run!)).toBe("300 / 300");
+    expect(run?.example).toBe(true);
+    expect(run?.total_packs).toBe(400);
+    expect(run?.packs_remaining).toBe(400);
+    expect(packsLeftLabel(run!)).toBe("400 / 400");
     expect(run?.pack_art_url).toBeNull();
+    expect(run?.checklist).toEqual([]);
   });
 
-  it("uses Blez Marvel Plus-style odds with qty and value bands", () => {
-    const byId = Object.fromEntries(SAMPLE_ODDS_BLEZ.map((tier) => [tier.id, tier]));
-    expect(byId.common.percent).toBe(77.78);
-    expect(byId.chase.percent).toBe(15);
-    expect(byId.grail.percent).toBe(5);
-    expect(byId.super_grail.percent).toBe(2.22);
-    expect(SAMPLE_ODDS_BLEZ.reduce((sum, tier) => sum + tier.qty, 0)).toBe(300);
-    expect(SAMPLE_ODDS_BLEZ.every((tier) => tier.value_band.length > 0)).toBe(true);
+  it("uses Super Grok EXAMPLE odds with qty, percents, and value bands", () => {
+    const byId = Object.fromEntries(EXAMPLE_ODDS_COSMIC_SURGE.map((tier) => [tier.id, tier]));
+    expect(byId.common).toMatchObject({ qty: 311, percent: 77.78, value_band: "$15–33" });
+    expect(byId.chase).toMatchObject({ qty: 60, percent: 15, value_band: "$45–88" });
+    expect(byId.grail).toMatchObject({ qty: 20, percent: 5, value_band: "$90–129" });
+    expect(byId.super_grail).toMatchObject({ qty: 9, percent: 2.22, value_band: "$150–520" });
+    expect(EXAMPLE_ODDS_COSMIC_SURGE.reduce((sum, tier) => sum + tier.qty, 0)).toBe(400);
+    expect(combinedGrailPercent(EXAMPLE_ODDS_COSMIC_SURGE)).toBeCloseTo(7.22);
   });
 
-  it("covers upcoming, live, and sold out sample runs", () => {
+  it("covers upcoming, live, and sold out EXAMPLE shells", () => {
+    expect(BREAK_RUNS.every((run) => run.example)).toBe(true);
     const statuses = new Set(BREAK_RUNS.map((run) => run.status));
     expect(statuses).toEqual(new Set(["upcoming", "live", "sold_out"]));
     expect(listBreakRuns().map((run) => run.status)).toEqual([
@@ -66,11 +83,25 @@ describe("break-run catalog", () => {
     ]);
   });
 
-  it("marks checklist names as SAMPLE placeholders", () => {
+  it("does not invent checklist card names — coming soon only", () => {
+    expect(CHECKLIST_COMING_SOON).toBe("Checklist (coming soon)");
+    expect(pages).toContain("Checklist (coming soon)");
+    expect(pages).toContain("Coming soon.");
     for (const run of BREAK_RUNS) {
-      expect(run.checklist.length).toBeGreaterThan(0);
-      expect(run.checklist.every((item) => item.sample && item.name.includes("SAMPLE"))).toBe(true);
+      expect(run.checklist).toEqual([]);
     }
+    for (const leak of INVENTED_CARD_NAMES) {
+      expect(pages).not.toMatch(leak);
+    }
+  });
+
+  it("shows the Infinity Packs index chip and EXAMPLE odds line", () => {
+    expect(INDEX_HEADER_CHIP).toBe("INFINITY PACKS / break runs — Whatnot only.");
+    expect(EXAMPLE_ODDS_LINE).toBe(
+      "Super Grail 2.22% · Grail 5% · Chase 15% · Common 77.78% (combined grail 7.22%) — EXAMPLE."
+    );
+    expect(pages).toContain(INDEX_HEADER_CHIP);
+    expect(pages).toContain(EXAMPLE_ODDS_LINE);
   });
 
   it("renders sold-out hit proof as a real Whatnot link, not a dead button", () => {
@@ -107,7 +138,7 @@ describe("break-run catalog", () => {
     ]);
   });
 
-  it("wires /breaks routes and keeps commerce off the break pages", () => {
+  it("wires /breaks routes and keeps commerce and credits off the break pages", () => {
     expect(app).toContain('path="/breaks"');
     expect(app).toContain('path="/breaks/:slug"');
     for (const leak of COMMERCE_LEAKS) {
@@ -115,9 +146,12 @@ describe("break-run catalog", () => {
     }
   });
 
-  it("uses a real em dash in live and sold-out CTA copy", () => {
+  it("uses real UTF-8 dashes and dots in EXAMPLE copy", () => {
     expect(pages).toContain("Live now \u2014 auction");
     expect(pages).toContain("Sold out \u2014 see hit proof");
+    expect(pages).toContain("Entry Infinity Pack run \u2014 Guardians");
+    expect(pages).toContain("$15\u201333");
+    expect(pages).toContain("2.22% \u00B7 Grail 5%");
     expect(pages).not.toContain("\u00E2\u20AC\u201D");
   });
 });

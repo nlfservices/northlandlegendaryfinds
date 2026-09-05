@@ -5,8 +5,13 @@
 
 import { Link } from "wouter";
 import SEO, { breadcrumbJsonLd, organizationJsonLd } from "@/components/SEO";
-import BreakRunShopCard, { BreakStatusChip } from "@/components/BreakRunShopCard";
-import { BREAK_STATUS_CHIPS, listBreakRuns } from "@/data/breakRuns";
+import BreakRunShopCard, { BreakStatusChip, ExampleChip } from "@/components/BreakRunShopCard";
+import {
+  BREAK_STATUS_CHIPS,
+  EXAMPLE_ODDS_LINE,
+  INDEX_HEADER_CHIP,
+  listBreakRuns,
+} from "@/data/breakRuns";
 
 export default function Breaks() {
   const runs = listBreakRuns();
@@ -15,7 +20,7 @@ export default function Breaks() {
     <div className="min-h-screen">
       <SEO
         title="Break Runs — Whatnot Only"
-        description="NLF break runs: odds, packs left, checklist. Spots on Whatnot only — no checkout on this site."
+        description="NLF break runs: odds, packs left, checklist. Spots on Whatnot only — not a store."
         path="/breaks"
         jsonLd={[
           breadcrumbJsonLd([
@@ -28,8 +33,8 @@ export default function Breaks() {
 
       <section className="border-b border-border py-12 sm:py-16">
         <div className="container max-w-4xl">
-          <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.25em] text-primary">
-            Whatnot only
+          <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.2em] text-primary">
+            {INDEX_HEADER_CHIP}
           </p>
           <h1
             className="text-5xl leading-none sm:text-6xl"
@@ -37,11 +42,12 @@ export default function Breaks() {
           >
             BREAK <span className="text-primary">RUNS</span>
           </h1>
-          <p className="mt-4 max-w-xl text-muted-foreground">
-            Odds. Packs left. Checklist. Spots on Whatnot — not here.
+          <p className="mt-4 max-w-2xl text-sm text-muted-foreground sm:text-base">
+            {EXAMPLE_ODDS_LINE}
           </p>
 
-          <div className="mt-6 flex flex-wrap gap-2">
+          <div className="mt-6 flex flex-wrap items-center gap-2">
+            <ExampleChip />
             {BREAK_STATUS_CHIPS.map((chip) => (
               <BreakStatusChip key={chip.id} status={chip.id} />
             ))}

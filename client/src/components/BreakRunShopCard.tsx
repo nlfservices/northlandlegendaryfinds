@@ -1,6 +1,6 @@
 /**
  * Infinity Packs-style shop card for a Whatnot-only break run.
- * Odds, packs left, checklist, pack art — no .com checkout.
+ * Odds, packs left, checklist, pack art — Whatnot spots only.
  */
 
 import { Link } from "wouter";
@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import {
+  CHECKLIST_COMING_SOON,
   type BreakOddsTier,
   type BreakRun,
   type BreakRunStatus,
@@ -34,6 +35,14 @@ const STATUS_CHIP: Record<BreakRunStatus, string> = {
   live: "border-emerald-400/50 bg-emerald-400/20 text-emerald-300",
   sold_out: "border-zinc-500/40 bg-zinc-500/15 text-zinc-400",
 };
+
+export function ExampleChip() {
+  return (
+    <span className="inline-flex items-center rounded-full border border-amber-400/40 bg-amber-400/15 px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-amber-300">
+      EXAMPLE
+    </span>
+  );
+}
 
 export function BreakStatusChip({ status }: { status: BreakRunStatus }) {
   return (
@@ -158,9 +167,10 @@ export default function BreakRunShopCard({ run, variant }: CardProps) {
         </div>
         <div className="min-w-0 flex-1">
           <div className="mb-2 flex flex-wrap items-center gap-2">
+            {run.example && <ExampleChip />}
             <BreakStatusChip status={run.status} />
             <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-              Whatnot only
+              {run.tier_label}
             </span>
           </div>
           <h2
@@ -173,7 +183,7 @@ export default function BreakRunShopCard({ run, variant }: CardProps) {
           <div className="mt-3">
             <div className="mb-1 flex items-baseline justify-between gap-2">
               <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
-                Packs left
+                Packs left{run.example ? " — EXAMPLE" : ""}
               </span>
               <span className="text-sm font-bold tabular-nums">{packsLeftLabel(run)}</span>
             </div>
@@ -191,7 +201,7 @@ export default function BreakRunShopCard({ run, variant }: CardProps) {
         <>
           <div className="mt-6">
             <h3 className="mb-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
-              Odds
+              Odds{run.example ? " — EXAMPLE" : ""}
             </h3>
             <OddsTable odds={run.odds} />
           </div>
@@ -199,22 +209,26 @@ export default function BreakRunShopCard({ run, variant }: CardProps) {
           <Accordion type="single" collapsible className="mt-4 rounded-xl border border-border px-3">
             <AccordionItem value="checklist" className="border-0">
               <AccordionTrigger className="text-sm font-bold uppercase tracking-wider hover:no-underline">
-                Checklist — SAMPLE
+                {CHECKLIST_COMING_SOON}
               </AccordionTrigger>
               <AccordionContent>
-                <ul className="space-y-2">
-                  {run.checklist.map((item) => (
-                    <li
-                      key={item.name}
-                      className="flex items-center justify-between gap-3 text-sm"
-                    >
-                      <span>{item.name}</span>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
-                        {item.tier.replace(/_/g, " ")}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
+                {run.checklist.length === 0 ? (
+                  <p className="text-sm text-muted-foreground">Coming soon.</p>
+                ) : (
+                  <ul className="space-y-2">
+                    {run.checklist.map((item) => (
+                      <li
+                        key={item.name}
+                        className="flex items-center justify-between gap-3 text-sm"
+                      >
+                        <span>{item.name}</span>
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                          {item.tier.replace(/_/g, " ")}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </AccordionContent>
             </AccordionItem>
           </Accordion>

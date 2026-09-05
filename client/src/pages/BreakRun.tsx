@@ -46,7 +46,8 @@ export default function BreakRun() {
           <BreakRunShopCard run={run} variant="full" />
 
           <p className="mt-6 text-xs text-muted-foreground">
-            This page is a rundown — not a store. Spots are Whatnot-only (@northlandfinds).
+            EXAMPLE shell until Pat / Inventory confirm. Rundown only — spots are Whatnot-only
+            (@northlandfinds).
           </p>
         </div>
       </section>
