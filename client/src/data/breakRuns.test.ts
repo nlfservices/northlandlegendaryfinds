@@ -3,26 +3,38 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import feedFile from "../../public/data/breaks/runs.json";
+import exampleChecklist from "../../public/data/breaks/checklists/example-cosmic-surge.json";
 import {
   BREAKS_FEED_PATH,
   BREAKS_FEED_UPDATED_AT,
   BREAK_RUNS,
   CHECKLIST_COMING_SOON,
+  CHECKLIST_R2_OBJECT,
+  EXAMPLE_COSMIC_SURGE_SLUG,
   EXAMPLE_ODDS_COSMIC_SURGE,
   EXAMPLE_ODDS_LINE,
+  GALLERY_TIERS,
   INDEX_HEADER_CHIP,
   NLF_BREAK_RUN_KEYS,
   NLF_METAFIELD_NAMESPACE,
+  R2_PUBLIC_BASE,
   SHOPIFY_ADMIN_WIRED,
   WHATNOT_INVITE_URL,
+  checklistFallbackPath,
+  checklistR2Url,
   ctaForRun,
+  galleryCards,
   getBreakRun,
   getBreakRunSitemapPaths,
+  hasCardArt,
   listBreakRuns,
   loadShopifyBreakRunRecords,
   packsLeftLabel,
+  parseChecklistCards,
+  remainingByTier,
   resolvePacksRemaining,
   combinedGrailPercent,
+  runsR2Url,
 } from "./breakRuns";
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -37,6 +49,10 @@ const pages = [
 ].join("\n");
 const app = readFileSync(resolve(here, "../App.tsx"), "utf8");
 const feedJson = readFileSync(resolve(here, "../../public/data/breaks/runs.json"), "utf8");
+const exampleChecklistJson = readFileSync(
+  resolve(here, "../../public/data/breaks/checklists/example-cosmic-surge.json"),
+  "utf8"
+);
 
 const COMMERCE_LEAKS = [
   /open pack/i,
@@ -70,11 +86,12 @@ const FEED_KEYS = [
   "spot_or_order",
   "product_id",
   "variant_id",
+  "checklist_url",
 ] as const;
 
 describe("break-run catalog", () => {
   it("ships Cosmic Surge as the Super Grok EXAMPLE shell (400 / 400, Entry, upcoming)", () => {
-    const run = getBreakRun("cosmic-surge");
+    const run = getBreakRun(EXAMPLE_COSMIC_SURGE_SLUG);
     expect(run).toBeTruthy();
     expect(run?.title).toBe("Cosmic Surge");
     expect(run?.tier_label).toBe("Entry");
@@ -86,9 +103,9 @@ describe("break-run catalog", () => {
     expect(run?.packs_remaining_source).toBe("variant_inventory_quantity");
     expect(packsLeftLabel(run!)).toBe("400 / 400");
     expect(run?.pack_art_url).toBeNull();
-    expect(run?.checklist).toEqual([]);
     expect(run?.product_id).toBeNull();
     expect(run?.variant_id).toBeNull();
+    expect(run?.run_slug).toBe("example-cosmic-surge");
   });
 
   it("uses Super Grok EXAMPLE odds with qty, percents, and value bands", () => {
@@ -112,18 +129,18 @@ describe("break-run catalog", () => {
     ]);
   });
 
-  it("does not invent checklist card names — coming soon only", () => {
+  it("does not invent official checklist card names or photos", () => {
     expect(CHECKLIST_COMING_SOON).toBe("Checklist (coming soon)");
     expect(pages).toContain("Checklist (coming soon)");
     expect(pages).toContain("Coming soon.");
-    for (const run of BREAK_RUNS) {
-      expect(run.checklist).toEqual([]);
-    }
-    expect(feedFile.runs.every((run) => run.checklist.length === 0)).toBe(true);
+    expect(pages).toContain("Art hidden");
+    expect(pages).toContain("hasCardArt");
     for (const leak of INVENTED_CARD_NAMES) {
       expect(pages).not.toMatch(leak);
       expect(feedJson).not.toMatch(leak);
+      expect(exampleChecklistJson).not.toMatch(leak);
     }
+    expect(exampleChecklist.cards.every((card) => card.imageUrl === "")).toBe(true);
   });
 
   it("shows the Infinity Packs index chip and EXAMPLE odds line", () => {
@@ -143,7 +160,7 @@ describe("break-run catalog", () => {
   });
 
   it("deep-links CTAs to Whatnot listing / show URLs", () => {
-    const upcoming = ctaForRun(getBreakRun("cosmic-surge")!);
+    const upcoming = ctaForRun(getBreakRun(EXAMPLE_COSMIC_SURGE_SLUG)!);
     const live = ctaForRun(getBreakRun("nebula-vault")!);
     const sold = ctaForRun(getBreakRun("afterglow-case")!);
 
@@ -163,7 +180,7 @@ describe("break-run catalog", () => {
   it("exposes sitemap paths for the index and each run", () => {
     expect(getBreakRunSitemapPaths()).toEqual([
       "/breaks",
-      "/breaks/cosmic-surge",
+      "/breaks/example-cosmic-surge",
       "/breaks/nebula-vault",
       "/breaks/afterglow-case",
     ]);
@@ -193,7 +210,7 @@ describe("Inventory Bot public feed + nlf metafield contract", () => {
     expect(BREAKS_FEED_PATH).toBe("/data/breaks/runs.json");
     expect(pages).toContain("BREAKS_FEED_PATH");
     expect(pages).toContain("useBreaksFeed");
-    expect(feedFile.updated_at).toBe("2026-09-05T15:58:00.000Z");
+    expect(feedFile.updated_at).toBe("2026-09-05T16:00:00Z");
     expect(BREAKS_FEED_UPDATED_AT).toBe(feedFile.updated_at);
     expect(feedFile.example).toBe(true);
     expect(feedFile.shopify_admin_wired).toBe(false);
@@ -201,9 +218,9 @@ describe("Inventory Bot public feed + nlf metafield contract", () => {
     for (const key of FEED_KEYS) {
       expect(feedJson).toContain(`"${key}"`);
     }
-    const cosmic = feedFile.runs.find((run) => run.run_slug === "cosmic-surge");
+    const cosmic = feedFile.runs.find((run) => run.run_slug === EXAMPLE_COSMIC_SURGE_SLUG);
     expect(cosmic).toMatchObject({
-      run_slug: "cosmic-surge",
+      run_slug: "example-cosmic-surge",
       total_packs: 400,
       packs_remaining: 400,
       status: "upcoming",
@@ -211,8 +228,9 @@ describe("Inventory Bot public feed + nlf metafield contract", () => {
       whatnot_show_url: "https://www.whatnot.com/user/northlandfinds",
       product_id: null,
       variant_id: null,
-      checklist: [],
+      checklist_url: checklistR2Url("example-cosmic-surge"),
     });
+    expect(cosmic).not.toHaveProperty("checklist");
   });
 
   it("documents the nlf namespace and exact keys", () => {
@@ -235,12 +253,12 @@ describe("Inventory Bot public feed + nlf metafield contract", () => {
 
   it("maps the public feed through nlf metafield keys", () => {
     const records = loadShopifyBreakRunRecords();
-    const cosmic = records.find((run) => run["nlf.run_slug"] === "cosmic-surge");
+    const cosmic = records.find((run) => run["nlf.run_slug"] === EXAMPLE_COSMIC_SURGE_SLUG);
     expect(cosmic).toMatchObject({
       product_id: null,
       variant_id: null,
       variant_inventory_quantity: 400,
-      "nlf.run_slug": "cosmic-surge",
+      "nlf.run_slug": "example-cosmic-surge",
       "nlf.total_packs": 400,
       "nlf.packs_remaining": null,
       "nlf.break_status": "upcoming",
@@ -251,7 +269,7 @@ describe("Inventory Bot public feed + nlf metafield contract", () => {
 
   it("prefers variant inventory quantity unless nlf.packs_remaining overrides", () => {
     const records = loadShopifyBreakRunRecords();
-    const cosmic = records.find((run) => run["nlf.run_slug"] === "cosmic-surge")!;
+    const cosmic = records.find((run) => run["nlf.run_slug"] === EXAMPLE_COSMIC_SURGE_SLUG)!;
     expect(resolvePacksRemaining(cosmic)).toEqual({
       packs_remaining: 400,
       packs_remaining_source: "variant_inventory_quantity",
@@ -271,5 +289,104 @@ describe("Inventory Bot public feed + nlf metafield contract", () => {
     expect(live?.packs_remaining).toBe(184);
     expect(live?.packs_remaining_source).toBe("variant_inventory_quantity");
     expect(getBreakRun("afterglow-case")?.packs_remaining).toBe(0);
+  });
+});
+
+describe("Inventory checklist UI shape (id, not card_id)", () => {
+  it("publishes the EXAMPLE Cosmic Surge stub at the aligned run_slug", () => {
+    expect(exampleChecklist).toEqual({
+      updated_at: "2026-09-05T16:00:00Z",
+      run_slug: "example-cosmic-surge",
+      skip_commons: true,
+      cards: [
+        { id: "example-chase-1", tier: "chase", imageUrl: "", status: "available", name: "EXAMPLE Chase" },
+        { id: "example-grail-1", tier: "grail", imageUrl: "", status: "available", name: "EXAMPLE Grail" },
+        {
+          id: "example-super-grail-1",
+          tier: "super_grail",
+          imageUrl: "",
+          status: "pulled",
+          name: "EXAMPLE Super Grail",
+          pulled_at: "2026-09-05T16:00:00Z",
+        },
+      ],
+    });
+    expect(exampleChecklistJson).not.toContain("card_id");
+    expect(pages).not.toContain("card_id");
+    expect(feedJson).not.toContain("card_id");
+  });
+
+  it("attaches the stub cards onto the EXAMPLE run via the two-file feed", () => {
+    const run = getBreakRun(EXAMPLE_COSMIC_SURGE_SLUG)!;
+    expect(run.skip_commons).toBe(true);
+    expect(run.checklist_url).toBe(checklistR2Url("example-cosmic-surge"));
+    expect(run.checklist.map((card) => card.id)).toEqual([
+      "example-chase-1",
+      "example-grail-1",
+      "example-super-grail-1",
+    ]);
+    expect(run.checklist.every((card) => GALLERY_TIERS.includes(card.tier))).toBe(true);
+    expect(run.checklist.some((card) => card.status === "pulled")).toBe(true);
+    expect(run.checklist.every((card) => !hasCardArt(card))).toBe(true);
+    expect(remainingByTier(run.checklist)).toEqual({
+      chase: 1,
+      grail: 1,
+      super_grail: 0,
+    });
+  });
+
+  it("gives every run a checklist_url and skip_commons checklists", () => {
+    for (const run of feedFile.runs) {
+      expect(run.checklist_url).toBe(checklistR2Url(run.run_slug));
+    }
+    expect(BREAK_RUNS.every((run) => run.skip_commons)).toBe(true);
+    expect(getBreakRun("nebula-vault")?.checklist).toEqual([]);
+    expect(getBreakRun("afterglow-case")?.checklist).toEqual([]);
+  });
+
+  it("uses the R2 bucket-root two-file object paths", () => {
+    expect(R2_PUBLIC_BASE).toBe("https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev");
+    expect(runsR2Url()).toBe(`${R2_PUBLIC_BASE}/breaks/runs.json`);
+    expect(CHECKLIST_R2_OBJECT("example-cosmic-surge")).toBe(
+      "breaks/checklists/example-cosmic-surge.json"
+    );
+    expect(checklistR2Url("example-cosmic-surge")).toBe(
+      `${R2_PUBLIC_BASE}/breaks/checklists/example-cosmic-surge.json`
+    );
+    expect(checklistFallbackPath("example-cosmic-surge")).toBe(
+      "/data/breaks/checklists/example-cosmic-surge.json"
+    );
+    expect(pages).toContain("checklist_url");
+    expect(pages).toContain("checklistFallbackPath");
+  });
+
+  it("parses required id/tier/imageUrl/status and ignores card_id plus commons", () => {
+    const parsed = parseChecklistCards({
+      updated_at: "2026-09-05T16:00:00Z",
+      run_slug: "example-cosmic-surge",
+      skip_commons: true,
+      cards: [
+        { id: "ok", tier: "chase", imageUrl: "", status: "available" },
+        { id: "common-no", tier: "common" as never, imageUrl: "", status: "available" },
+        { card_id: "legacy", tier: "grail", imageUrl: "", status: "available" } as never,
+        { id: "no-status", tier: "grail", imageUrl: "" } as never,
+        { id: "pulled", tier: "super_grail", imageUrl: "https://cdn.example/x.webp", status: "pulled" },
+      ],
+    });
+    expect(parsed.map((card) => card.id)).toEqual(["ok", "pulled"]);
+    expect(galleryCards(parsed).every((card) => card.tier !== "common")).toBe(true);
+    expect(hasCardArt(parsed[0])).toBe(false);
+    expect(hasCardArt(parsed[1])).toBe(true);
+  });
+
+  it("marks pulled cards in the gallery and hides empty imageUrl", () => {
+    const card = readFileSync(resolve(here, "../components/BreakRunShopCard.tsx"), "utf8");
+    expect(card).toContain("ChecklistGallery");
+    expect(card).toContain("Hits remaining");
+    expect(card).toContain("Pulled");
+    expect(card).toContain("hasCardArt");
+    expect(card).toContain("Art hidden");
+    expect(card).toContain("line-through");
+    expect(card).not.toContain("card_id");
   });
 });

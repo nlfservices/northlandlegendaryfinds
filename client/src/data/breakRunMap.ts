@@ -32,6 +32,8 @@ export function mapRecordToBreakRun(record: ShopifyBreakRunRecord): BreakRun {
     show_date: record[NLF_BREAK_RUN_KEYS.show_date] ?? null,
     spot_or_order: record[NLF_BREAK_RUN_KEYS.spot_or_order] ?? null,
     odds: record.odds,
+    checklist_url: record.checklist_url,
+    skip_commons: true,
     checklist: record.checklist,
   };
 }

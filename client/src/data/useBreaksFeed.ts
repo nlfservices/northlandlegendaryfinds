@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchBreaksFeed, loadBreakRuns } from "./breakRunLoader";
 import type { BreakRun } from "./nlfBreakRunContract";
 
-/** Load `/data/breaks/runs.json` for break pages. Fallback is the same static EXAMPLE file. */
+/** Load the two-file Inventory feed (R2, then `/data/breaks/runs.json` + checklists). */
 export function useBreaksFeed(): {
   runs: BreakRun[];
   updatedAt: string | null;

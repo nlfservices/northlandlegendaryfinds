@@ -6,24 +6,43 @@
  *
  * Data keys follow Inventory Bot’s Shopify metafield contract
  * (namespace `nlf` on the Break Run product). Live Shopify Admin
- * is not wired yet — pages load /data/breaks/runs.json (EXAMPLE).
+ * is not wired yet — pages load the two-file EXAMPLE feed
+ * (runs.json + breaks/checklists/{run_slug}.json). Checklist cards
+ * use `id` (not card_id).
  *
  * .com adaptation: rundown pages only. CTAs deep-link to Whatnot.
  */
 
 import { loadBreakRuns } from "./breakRunLoader";
-import type { BreakRun, NlfBreakStatus } from "./nlfBreakRunContract";
+import type { BreakRun, ChecklistTier, NlfBreakStatus } from "./nlfBreakRunContract";
 
 export type { BreakRun, NlfBreakStatus as BreakRunStatus } from "./nlfBreakRunContract";
 export {
+  CHECKLIST_R2_OBJECT,
+  GALLERY_TIERS,
   NLF_BREAK_RUN_KEYS,
   NLF_METAFIELD_NAMESPACE,
+  R2_PUBLIC_BASE,
+  checklistFallbackPath,
+  checklistR2Url,
+  galleryCards,
+  hasCardArt,
+  parseChecklistCards,
+  remainingByTier,
   resolvePacksRemaining,
+  runsR2Url,
+} from "./nlfBreakRunContract";
+export type {
+  ChecklistCardStatus,
+  ChecklistTier,
+  InventoryChecklistCard,
+  InventoryChecklistFile,
 } from "./nlfBreakRunContract";
 export {
   BREAKS_FEED_UPDATED_AT,
   SHOPIFY_ADMIN_WIRED,
   fetchBreaksFeed,
+  fetchChecklistFile,
   loadShopifyBreakRunRecords,
 } from "./breakRunLoader";
 export { BREAKS_FEED_PATH } from "./nlfBreakRunContract";
@@ -40,6 +59,13 @@ export const EXAMPLE_ODDS_LINE =
   "Super Grail 2.22% · Grail 5% · Chase 15% · Common 77.78% (combined grail 7.22%) — EXAMPLE.";
 
 export const CHECKLIST_COMING_SOON = "Checklist (coming soon)";
+export const EXAMPLE_COSMIC_SURGE_SLUG = "example-cosmic-surge";
+
+export const GALLERY_TIER_LABEL: Record<ChecklistTier, string> = {
+  chase: "Chase",
+  grail: "Grail",
+  super_grail: "Super Grail",
+};
 
 export type OddsTierId = "common" | "chase" | "grail" | "super_grail";
 
@@ -58,7 +84,7 @@ export const BREAK_STATUS_CHIPS: ReadonlyArray<{
 export const BREAK_RUNS: BreakRun[] = loadBreakRuns();
 
 export const EXAMPLE_ODDS_COSMIC_SURGE: BreakOddsTier[] =
-  BREAK_RUNS.find((run) => run.run_slug === "cosmic-surge")?.odds ?? [];
+  BREAK_RUNS.find((run) => run.run_slug === EXAMPLE_COSMIC_SURGE_SLUG)?.odds ?? [];
 
 export function getBreakRun(slug: string | undefined): BreakRun | undefined {
   if (!slug) return undefined;

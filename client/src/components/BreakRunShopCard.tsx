@@ -14,9 +14,14 @@ import {
 import { Button } from "@/components/ui/button";
 import {
   CHECKLIST_COMING_SOON,
+  GALLERY_TIER_LABEL,
+  galleryCards,
+  hasCardArt,
+  remainingByTier,
   type BreakOddsTier,
   type BreakRun,
   type BreakRunStatus,
+  type InventoryChecklistCard,
   ctaForRun,
   packsLeftLabel,
   packsLeftPercent,
@@ -77,6 +82,89 @@ function PackArtSlot({ run }: { run: BreakRun }) {
       <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/35">
         Art hidden
       </span>
+    </div>
+  );
+}
+
+const GALLERY_TIER_CHIP: Record<InventoryChecklistCard["tier"], string> = {
+  chase: "border-cyan-400/40 bg-cyan-400/15 text-cyan-300",
+  grail: "border-amber-400/40 bg-amber-400/15 text-amber-300",
+  super_grail: "border-fuchsia-400/40 bg-fuchsia-400/15 text-fuchsia-300",
+};
+
+function ChecklistCardFrame({ card }: { card: InventoryChecklistCard }) {
+  const pulled = card.status === "pulled";
+  const label = card.name || GALLERY_TIER_LABEL[card.tier];
+
+  return (
+    <article className={pulled ? "opacity-60" : ""}>
+      <div className="relative aspect-[2/3] overflow-hidden rounded-lg border border-white/10 bg-zinc-950">
+        {hasCardArt(card) ? (
+          <img src={card.imageUrl} alt={label} className="h-full w-full object-cover" />
+        ) : (
+          <div
+            className="flex h-full w-full flex-col items-center justify-center gap-1 bg-[radial-gradient(circle_at_30%_20%,rgba(16,185,129,0.12),transparent_45%),linear-gradient(160deg,#09090b,#111827)]"
+            aria-hidden="true"
+          >
+            <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-white/30">
+              Art hidden
+            </span>
+          </div>
+        )}
+        {pulled && (
+          <span className="absolute right-1.5 top-1.5 rounded-full border border-zinc-500/50 bg-zinc-900/85 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-zinc-300">
+            Pulled
+          </span>
+        )}
+      </div>
+      <div className="mt-2 flex flex-wrap items-center gap-1">
+        <span
+          className={`inline-flex items-center rounded-full border px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider ${GALLERY_TIER_CHIP[card.tier]}`}
+        >
+          {GALLERY_TIER_LABEL[card.tier]}
+        </span>
+      </div>
+      {card.name ? (
+        <p className={`mt-1 text-xs ${pulled ? "text-muted-foreground line-through" : "text-foreground"}`}>
+          {card.name}
+        </p>
+      ) : null}
+    </article>
+  );
+}
+
+function ChecklistGallery({ run }: { run: BreakRun }) {
+  const cards = galleryCards(run.checklist);
+  const remaining = remainingByTier(cards);
+
+  if (cards.length === 0) {
+    return (
+      <Accordion type="single" collapsible className="mt-4 rounded-xl border border-border px-3">
+        <AccordionItem value="checklist" className="border-0">
+          <AccordionTrigger className="text-sm font-bold uppercase tracking-wider hover:no-underline">
+            {CHECKLIST_COMING_SOON}
+          </AccordionTrigger>
+          <AccordionContent>
+            <p className="text-sm text-muted-foreground">Coming soon.</p>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+    );
+  }
+
+  return (
+    <div className="mt-6">
+      <h3 className="mb-1 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+        Hits remaining{run.example ? " — EXAMPLE" : ""}
+      </h3>
+      <p className="mb-3 text-[11px] text-muted-foreground">
+        Chase {remaining.chase} · Grail {remaining.grail} · Super Grail {remaining.super_grail}
+      </p>
+      <div className="grid grid-cols-3 gap-3">
+        {cards.map((card) => (
+          <ChecklistCardFrame key={card.id} card={card} />
+        ))}
+      </div>
     </div>
   );
 }
@@ -206,32 +294,7 @@ export default function BreakRunShopCard({ run, variant }: CardProps) {
             <OddsTable odds={run.odds} />
           </div>
 
-          <Accordion type="single" collapsible className="mt-4 rounded-xl border border-border px-3">
-            <AccordionItem value="checklist" className="border-0">
-              <AccordionTrigger className="text-sm font-bold uppercase tracking-wider hover:no-underline">
-                {CHECKLIST_COMING_SOON}
-              </AccordionTrigger>
-              <AccordionContent>
-                {run.checklist.length === 0 ? (
-                  <p className="text-sm text-muted-foreground">Coming soon.</p>
-                ) : (
-                  <ul className="space-y-2">
-                    {run.checklist.map((item) => (
-                      <li
-                        key={item.name}
-                        className="flex items-center justify-between gap-3 text-sm"
-                      >
-                        <span>{item.name}</span>
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
-                          {item.tier.replace(/_/g, " ")}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
+          <ChecklistGallery run={run} />
 
           <div className="mt-6">
             <BreakCta run={run} />

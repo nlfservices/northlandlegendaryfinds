@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-09-05T15:58:00.000Z",
+  "updated_at": "2026-09-05T16:00:00Z",
   "example": true,
   "shopify_admin_wired": false,
-  "note": "Inventory Bot placeholder feed. Live Shopify Admin is not wired yet. EXAMPLE Cosmic Surge copy until Pat / Inventory confirm.",
+  "note": "Inventory Bot two-file feed. Live Shopify Admin is not wired yet. EXAMPLE Cosmic Surge copy until Pat / Inventory confirm. Checklists live at breaks/checklists/{run_slug}.json — card shape uses id (not card_id).",
   "runs": [
     {
-      "run_slug": "cosmic-surge",
+      "run_slug": "example-cosmic-surge",
       "title": "Cosmic Surge",
       "tier_label": "Entry",
       "blurb": "Entry Infinity Pack run — Guardians, street heat, and solid floors.",
@@ -21,13 +21,13 @@
       "product_id": null,
       "variant_id": null,
       "pack_art_url": null,
+      "checklist_url": "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/breaks/checklists/example-cosmic-surge.json",
       "odds": [
         { "id": "common", "label": "Common", "qty": 311, "percent": 77.78, "value_band": "$15–33" },
         { "id": "chase", "label": "Chase", "qty": 60, "percent": 15, "value_band": "$45–88" },
         { "id": "grail", "label": "Grail", "qty": 20, "percent": 5, "value_band": "$90–129" },
         { "id": "super_grail", "label": "Super Grail", "qty": 9, "percent": 2.22, "value_band": "$150–520" }
-      ],
-      "checklist": []
+      ]
     },
     {
       "run_slug": "nebula-vault",
@@ -46,13 +46,13 @@
       "product_id": null,
       "variant_id": null,
       "pack_art_url": null,
+      "checklist_url": "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/breaks/checklists/nebula-vault.json",
       "odds": [
         { "id": "common", "label": "Common", "qty": 311, "percent": 77.78, "value_band": "$15–33" },
         { "id": "chase", "label": "Chase", "qty": 60, "percent": 15, "value_band": "$45–88" },
         { "id": "grail", "label": "Grail", "qty": 20, "percent": 5, "value_band": "$90–129" },
         { "id": "super_grail", "label": "Super Grail", "qty": 9, "percent": 2.22, "value_band": "$150–520" }
-      ],
-      "checklist": []
+      ]
     },
     {
       "run_slug": "afterglow-case",
@@ -71,13 +71,13 @@
       "product_id": null,
       "variant_id": null,
       "pack_art_url": null,
+      "checklist_url": "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/breaks/checklists/afterglow-case.json",
       "odds": [
         { "id": "common", "label": "Common", "qty": 311, "percent": 77.78, "value_band": "$15–33" },
         { "id": "chase", "label": "Chase", "qty": 60, "percent": 15, "value_band": "$45–88" },
         { "id": "grail", "label": "Grail", "qty": 20, "percent": 5, "value_band": "$90–129" },
         { "id": "super_grail", "label": "Super Grail", "qty": 9, "percent": 2.22, "value_band": "$150–520" }
-      ],
-      "checklist": []
+      ]
     }
   ]
 }
