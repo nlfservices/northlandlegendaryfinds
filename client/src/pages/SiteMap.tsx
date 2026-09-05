@@ -67,6 +67,7 @@ const SITE_SECTIONS: SiteSection[] = [
       { path: "/comic-cuts/doctor-doom-history#research-inventory", label: "Doctor Doom Comic Cuts research inventory", description: "Research thumb grid of NLF-held DD-CC 1/1s under 2025 Topps Marvel Mint. Not a sales catalog." },
       { path: "/chrome/one-world-under-doom", label: "One World Under Doom (Chrome 2026 research)", description: "Insert-family stub for 2026 Topps Chrome Marvel Comics One World Under Doom. Reported hobby odds 1:6. Checklist ingest pending." },
       { path: "/research/doctor-doom-toughest-24-25-topps-marvel-cards", label: "Toughest Doctor Doom /24 & /25", description: "Scannable ranking of the hardest Doctor Doom /24 and /25 Topps Marvel cards to pull — serial pop, official published odds, and NLF estimated specific-card odds." },
+      { path: "/research/toughest-doctor-doom-5-topps-marvel-cards", label: "Toughest Doctor Doom /5", description: "Countdown of the 10 toughest Doctor Doom /5 Topps Marvel cards to pull — published pack odds, Red Wave /5 vs Orange Wave /25 sister page, plus three honorable mentions." },
     ],
   },
   {
