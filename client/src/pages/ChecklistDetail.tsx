@@ -83,8 +83,8 @@ export default function ChecklistDetail() {
     bonus: "Bonus Cards",
   };
   const tierDescriptions: Record<string, string> = {
-    chase: "The top-tier cards â€” the ones everyone is chasing",
-    hit: "Premium cards â€” autos, relics, and numbered parallels",
+    chase: "The top-tier cards — the ones everyone is chasing",
+    hit: "Premium cards — autos, relics, and numbered parallels",
     base: "Quality base cards from authentic Topps releases",
     bonus: "Bonus inserts and surprises",
   };
@@ -205,7 +205,7 @@ export default function ChecklistDetail() {
               )}
             </div>
 
-            {/* Stats Cards â€” hide card count pre-launch */}
+            {/* Stats Cards — hide card count pre-launch */}
             <div className="flex gap-4">
               <div className="bg-card border border-border rounded-xl p-4 text-center min-w-[100px]">
                 <div className="text-2xl font-bold text-primary" style={{ fontFamily: "'Anton', sans-serif" }}>
@@ -272,7 +272,7 @@ export default function ChecklistDetail() {
             </div>
             <div className="flex items-center gap-1.5 shrink-0">
               <Info className="w-3.5 h-3.5 text-blue-400" />
-              <span>{isPreLaunch(params.slug) ? "Checklist reveals at launch â€” no hidden cards" : "Full checklist published â€” no hidden cards"}</span>
+              <span>{isPreLaunch(params.slug) ? "Checklist reveals at launch — no hidden cards" : "Full checklist published — no hidden cards"}</span>
             </div>
             <div className="flex items-center gap-1.5 shrink-0">
               <Eye className="w-3.5 h-3.5 text-purple-400" />
@@ -327,7 +327,7 @@ export default function ChecklistDetail() {
                       </p>
                       <div className="inline-flex items-center gap-2 text-primary text-sm font-bold">
                         <Clock className="w-4 h-4" />
-                        Cards across all tiers â€” revealed at launch
+                        Cards across all tiers — revealed at launch
                       </div>
                     </div>
                   </div>
@@ -433,9 +433,9 @@ export default function ChecklistDetail() {
                                 </div>
                                 <div className="text-xs text-muted-foreground flex flex-wrap gap-x-1.5">
                                   {item.cardSet && <span>{item.cardSet}</span>}
-                                  {item.cardYear && <span>Â· {item.cardYear}</span>}
-                                  {item.cardNumber && <span>Â· #{item.cardNumber}</span>}
-                                  {item.cardCondition && <span>Â· {item.cardCondition}</span>}
+                                  {item.cardYear && <span>· {item.cardYear}</span>}
+                                  {item.cardNumber && <span>· #{item.cardNumber}</span>}
+                                  {item.cardCondition && <span>· {item.cardCondition}</span>}
                                 </div>
                               </div>
                             </div>
@@ -479,9 +479,9 @@ export default function ChecklistDetail() {
                                   {item?.parallel && <span className="text-primary ml-2 font-normal text-sm">({item.parallel})</span>}
                                 </div>
                                 <div className="text-xs text-muted-foreground">
-                                  {item?.cardSet && <span>{item.cardSet} Â· </span>}
+                                  {item?.cardSet && <span>{item.cardSet} · </span>}
                                   Pack #{pull.packNumber || '?'}
-                                  {pull.pulledBy && <span> Â· {pull.pulledBy}</span>}
+                                  {pull.pulledBy && <span> · {pull.pulledBy}</span>}
                                 </div>
                               </div>
                             </div>
@@ -525,7 +525,7 @@ export default function ChecklistDetail() {
                               </div>
                               <div className="text-sm text-muted-foreground">
                                 {new Date(Number(show.showDate)).toLocaleString()}
-                                {show.packsOpened > 0 && <span> Â· {show.packsOpened} packs opened</span>}
+                                {show.packsOpened > 0 && <span> · {show.packsOpened} packs opened</span>}
                               </div>
                             </div>
                           </div>

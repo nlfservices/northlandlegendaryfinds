@@ -120,7 +120,7 @@ function getCategoryLabel(key: string): string {
   return CATEGORIES.find(c => c.key === key)?.label ?? key;
 }
 
-/** Voting Grounds â€” showcases all active article polls */
+/** Voting Grounds — showcases all active article polls */
 function VotingGrounds() {
   const { data: voteSummaries = [], isLoading } = trpc.articles.allVoteSummaries.useQuery(undefined, { staleTime: 30_000 });
   const { data: allArticles = [] } = trpc.articles.list.useQuery();
@@ -242,7 +242,7 @@ export default function MCUNews() {
   return (
     <div className="min-h-screen">
       <SEO
-        title="MCU News â€” Marvel News, Rumors & Card Market Impact"
+        title="MCU News — Marvel News, Rumors & Card Market Impact"
         description="Your command center for MCU news, casting updates, release dates, and how they impact the Marvel trading card market. Stay ahead of the curve."
         path="/mcu-news"
         image={HERO_IMG}
@@ -253,7 +253,7 @@ export default function MCUNews() {
             { name: "MCU News", url: "/mcu-news" },
           ]),
           collectionPageJsonLd({
-            name: "MCU News â€” Marvel News, Rumors & Card Market Impact",
+            name: "MCU News — Marvel News, Rumors & Card Market Impact",
             description: "Your command center for MCU news, casting updates, release dates, and how they impact the Marvel trading card market.",
             url: "/mcu-news",
             itemCount: allArticles?.length,
@@ -525,7 +525,7 @@ export default function MCUNews() {
                     </button>
                   );
                 })}
-                {/* Voting Grounds Tab â€” red highlight */}
+                {/* Voting Grounds Tab — red highlight */}
                 <button
                   onClick={() => {
                     const el = document.getElementById('voting-grounds');

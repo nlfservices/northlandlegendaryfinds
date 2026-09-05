@@ -1,5 +1,5 @@
 ﻿/**
- * MCU Countdown Section â€” Cinematic Doomsday countdown with Star Wars hyperspace intro
+ * MCU Countdown Section — Cinematic Doomsday countdown with Star Wars hyperspace intro
  * Primary: Avengers: Doomsday (December 18, 2026)
  * Secondary: Spider-Man: Brand New Day (July 31, 2026)
  */
@@ -230,7 +230,7 @@ export default function MCUCountdown() {
         {/* ===== TITLE ===== */}
         <div className="text-center mb-10 sm:mb-14">
           <p className="text-green-400 text-xs sm:text-sm font-bold tracking-[0.3em] uppercase mb-3">
-            âš¡ MARVEL CINEMATIC UNIVERSE
+            ⚡ MARVEL CINEMATIC UNIVERSE
           </p>
           <h2
             className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-none mb-2"
@@ -254,7 +254,7 @@ export default function MCUCountdown() {
             DOOMSDAY
           </h2>
           <p className="text-gray-400 text-sm sm:text-base">
-            December 18, 2026 &nbsp;Â·&nbsp; Robert Downey Jr. as Doctor Doom &nbsp;Â·&nbsp; Directed by the Russo Brothers
+            December 18, 2026 &nbsp;·&nbsp; Robert Downey Jr. as Doctor Doom &nbsp;·&nbsp; Directed by the Russo Brothers
           </p>
         </div>
 
@@ -319,7 +319,7 @@ export default function MCUCountdown() {
         </div>
 
         <p className="text-center text-xs text-muted-foreground/40 mt-6">
-          Release dates subject to change Â· Start collecting now so you're ready when the movies drop
+          Release dates subject to change · Start collecting now so you're ready when the movies drop
         </p>
       </div>
     </section>

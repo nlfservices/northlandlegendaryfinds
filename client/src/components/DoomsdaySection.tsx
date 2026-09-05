@@ -1,5 +1,5 @@
 ﻿/**
- * Doomsday Section â€” Avengers: Doomsday Character Intel Hub
+ * Doomsday Section — Avengers: Doomsday Character Intel Hub
  * Doctor Doom centerpiece with rotating character spotlights,
  * real news/rumor intel, article backlinks, and NLF card images.
  */
@@ -50,7 +50,7 @@ const DOOMSDAY_CHARACTERS: DoomsdayCharacter[] = [
     actor: "Chris Hemsworth",
     faction: "Avengers",
     status: "Confirmed",
-    roleSummary: "Thor returns with a more serious, dramatic arc in Doomsday â€” a departure from the comedic tone of Love and Thunder. A teaser shows him praying for strength to protect his adopted daughter, Love. Fan theories suggest Thor may die in the film.",
+    roleSummary: "Thor returns with a more serious, dramatic arc in Doomsday — a departure from the comedic tone of Love and Thunder. A teaser shows him praying for strength to protect his adopted daughter, Love. Fan theories suggest Thor may die in the film.",
     newsHeadline: "Thor Goes Serious in 'Avengers: Doomsday' After Hemsworth Criticized 'Too Silly' MCU",
     articles: [
       { url: "https://variety.com/2025/film/news/thor-avengers-doomsday-serious-chris-hemsworth-criticism-silly-1236620635/", source: "Variety" },
@@ -171,7 +171,7 @@ const DOOMSDAY_CHARACTERS: DoomsdayCharacter[] = [
     faction: "X-Men",
     status: "Confirmed",
     roleSummary: "Ian McKellen returns as Magneto and has revealed his character will destroy New Jersey in the film. This has sparked speculation about a connection to Ms. Marvel, who resides in New Jersey, hinting at a larger mutant storyline.",
-    newsHeadline: "Ian McKellen's Magneto Will Wreak Havoc â€” Again â€” In Avengers: Doomsday",
+    newsHeadline: "Ian McKellen's Magneto Will Wreak Havoc — Again — In Avengers: Doomsday",
     articles: [
       { url: "https://www.inverse.com/entertainment/magneto-avengers-doomsday-comeback", source: "Inverse" },
       { url: "https://screenrant.com/avengers-doomsday-magneto-tease-bigger-ms-marvel-theory-mcu/", source: "Screen Rant" },
@@ -340,13 +340,13 @@ export default function DoomsdaySection() {
         <div className="text-center mb-10 lg:mb-14">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-green-500/10 border border-green-500/30 rounded-full mb-4">
             <Swords className="w-4 h-4 text-green-400" />
-            <span className="text-green-400 text-sm font-bold tracking-wide">DECEMBER 2026 â€” IN THEATERS</span>
+            <span className="text-green-400 text-sm font-bold tracking-wide">DECEMBER 2026 — IN THEATERS</span>
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>
             AVENGERS: <span className="text-green-400">DOOMSDAY</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
-            The biggest Marvel event in history. Track every confirmed and rumored character â€” with the latest news, insider intel, and their cards from our collection.
+            The biggest Marvel event in history. Track every confirmed and rumored character — with the latest news, insider intel, and their cards from our collection.
           </p>
         </div>
 
@@ -418,14 +418,14 @@ export default function DoomsdaySection() {
                         <div className={`absolute -inset-1 rounded-xl ${faction.bgColor} opacity-50 group-hover:opacity-80 blur-sm transition-opacity`} />
                         <img
                           src={character.cardImageUrl}
-                          alt={`${character.name} â€” 2025 Topps Chrome #${character.cardNumber}`}
+                          alt={`${character.name} — 2025 Topps Chrome #${character.cardNumber}`}
                           className="relative w-full rounded-lg shadow-lg group-hover:scale-[1.02] transition-transform"
                           loading="lazy"
                           decoding="async"
                         />
                         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent rounded-b-lg p-2">
                           <p className="text-[10px] text-white/70 font-mono">2025 Topps Chrome #{character.cardNumber}</p>
-                          <p className="text-[10px] text-primary font-bold">IN OUR COLLECTION â†’</p>
+                          <p className="text-[10px] text-primary font-bold">IN OUR COLLECTION →</p>
                         </div>
                       </div>
                     </Link>

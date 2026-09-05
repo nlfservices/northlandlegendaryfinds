@@ -73,7 +73,7 @@ export default function StarWars() {
                     <div className="w-8 h-8 bg-cyan-500/10 rounded-lg flex items-center justify-center">
                       <Calendar className="w-4 h-4 text-cyan-400" />
                     </div>
-                    <span className="text-sm text-gray-300">Limited to 500 packs â€” sign up for early access</span>
+                    <span className="text-sm text-gray-300">Limited to 500 packs — sign up for early access</span>
                   </div>
                 </div>
                 <Link href="/subscribe">
@@ -106,7 +106,7 @@ export default function StarWars() {
       <section className="py-12 border-t border-border">
         <div className="container text-center">
           <p className="text-muted-foreground text-lg mb-4">
-            Can't wait? Check out our Marvel repacks â€” available now!
+            Can't wait? Check out our Marvel repacks — available now!
           </p>
           <Link href="/marvel">
             <Button variant="outline" size="lg" className="border-primary/30 text-primary hover:bg-primary/10 font-bold">

@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { adminProcedure, publicProcedure, router } from "../_core/trpc";
+import { repairMojibake } from "@shared/repairMojibake";
 import { invokeLLM } from "../_core/llm";
 import { generateImage } from "../_core/imageGeneration";
 import {
@@ -371,19 +372,38 @@ imagePrompt MUST describe a REALISTIC PHOTOGRAPHY-STYLE image. Must look like a 
 
 // ==================== PUBLIC BLOG ROUTES ====================
 
+function repairBlogPost<T extends {
+  title?: string | null;
+  excerpt?: string | null;
+  contentMarkdown?: string | null;
+  metaDescription?: string | null;
+}>(post: T | null | undefined): T | null | undefined {
+  if (!post) return post;
+  const repair = (value: string | null | undefined) =>
+    value == null ? value : repairMojibake(value);
+  return {
+    ...post,
+    title: repair(post.title) as T["title"],
+    excerpt: repair(post.excerpt) as T["excerpt"],
+    contentMarkdown: repair(post.contentMarkdown) as T["contentMarkdown"],
+    metaDescription: repair(post.metaDescription) as T["metaDescription"],
+  };
+}
+
 export const blogPublicRouter = router({
   list: publicProcedure.input(z.object({
     category: z.string().optional(),
     limit: z.number().optional(),
   }).optional()).query(async ({ input }) => {
-    if (input?.category) {
-      return getPublishedBlogPostsByCategory(input.category);
-    }
-    return getPublishedBlogPosts(input?.limit);
+    const posts = input?.category
+      ? await getPublishedBlogPostsByCategory(input.category)
+      : await getPublishedBlogPosts(input?.limit);
+    return (posts || []).map((post) => repairBlogPost(post));
   }),
 
   featured: publicProcedure.query(async () => {
-    return getFeaturedBlogPosts();
+    const posts = await getFeaturedBlogPosts();
+    return (posts || []).map((post) => repairBlogPost(post));
   }),
 
   getBySlug: publicProcedure.input(z.object({ slug: z.string() })).query(async ({ input }) => {
@@ -391,7 +411,7 @@ export const blogPublicRouter = router({
     if (post) {
       incrementBlogPostViews(post.id).catch(() => {});
     }
-    return post;
+    return repairBlogPost(post);
   }),
 
   categories: publicProcedure.query(() => {

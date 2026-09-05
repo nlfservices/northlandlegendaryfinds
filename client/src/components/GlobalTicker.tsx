@@ -1,4 +1,6 @@
 import { useLaunchCountdown } from "@/hooks/useLaunchCountdown";
+import { Clapperboard, Spade, Star, Zap } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { Link } from "wouter";
 
 const DOOMSDAY_DATE = "2026-12-18T00:00:00Z";
@@ -24,7 +26,7 @@ interface TickerItem {
   href: string;
   color: string;
   bold?: boolean;
-  icon?: string;
+  icon?: LucideIcon;
 }
 
 export default function GlobalTicker() {
@@ -40,7 +42,7 @@ export default function GlobalTicker() {
       href: "/doomsday",
       color: "text-green-400",
       bold: true,
-      icon: "⚡",
+      icon: Zap,
     },
 
     {
@@ -48,26 +50,26 @@ export default function GlobalTicker() {
       href: "/doomsday",
       color: "text-yellow-400",
       bold: true,
-      icon: "★",
+      icon: Star,
     },
     {
       text: "RUSSO BROTHERS DIRECTING",
       href: "/doomsday",
       color: "text-gray-300",
-      icon: "🎬",
+      icon: Clapperboard,
     },
     {
       text: `SPIDER-MAN: BRAND NEW DAY — ${pad(spiderman.days, 3)}D ${pad(spiderman.hours)}H ${pad(spiderman.minutes)}M AWAY`,
       href: "/mcu-news/spiderman-brand-new-day-trailer-record-breaking-card-market",
       color: "text-blue-400",
       bold: true,
-      icon: "🕷",
+      icon: Star,
     },
     {
       text: "NUMBERED TOPPS MARVEL CARDS — LIMITED FOREVER",
       href: "/mcu-news",
       color: "text-gray-300",
-      icon: "🃏",
+      icon: Spade,
     },
 
   ];
@@ -88,19 +90,23 @@ export default function GlobalTicker() {
           >
             {[0, 1].map((copy) => (
               <span key={copy} className="inline-flex items-center gap-6 pr-6 text-sm">
-                {tickerItems.map((item, i) => (
+                {tickerItems.map((item, i) => {
+                  const Icon = item.icon;
+                  return (
                   <span key={`${copy}-${i}`} className="inline-flex items-center">
                     <Link
                       href={item.href}
                       className={`${item.color} ${item.bold ? "font-bold" : "font-medium"} tracking-wide hover:underline hover:brightness-125 transition-all cursor-pointer`}
                     >
-                      {item.icon ? `${item.icon} ` : ""}{item.text}
+                      {Icon ? <Icon className="inline-block w-3.5 h-3.5 mr-1.5 align-text-bottom" /> : null}
+                      {item.text}
                     </Link>
                     {i < tickerItems.length - 1 && (
                       <span className="text-gray-600 ml-6">|</span>
                     )}
                   </span>
-                ))}
+                  );
+                })}
                 <span className="text-gray-600 ml-6">|</span>
               </span>
             ))}

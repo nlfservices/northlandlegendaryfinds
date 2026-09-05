@@ -1,7 +1,7 @@
 ﻿/**
- * Chasing Doom â€” Patrick's Origin Story & Road Trip Series
+ * Chasing Doom — Patrick's Origin Story & Road Trip Series
  * A father-son journey across America hunting Doctor Doom cards and toys.
- * Hidden page (no nav link) â€” direct URL access only while building.
+ * Hidden page (no nav link) — direct URL access only while building.
  * Designed to eventually spin off to chasingdoom.com
  */
 
@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 
-// â”€â”€ CDN Image URLs â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── CDN Image URLs ──────────────────────────────────────────────────────────
 const HERO_IMG = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/chasing-doom-hero-Qpuj5b9HuAanLbKqnvjgaF.webp";
 
 // Reuse family photos from About page
@@ -30,8 +30,8 @@ export default function ChasingDoom() {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Chasing Doom â€” A Father & Son Journey Across America"
-        description="Patrick sold his fence company, chose sobriety, and now he's on the road with his 8-year-old son Landon â€” chasing Doctor Doom cards, toys, and card stores across the country."
+        title="Chasing Doom — A Father & Son Journey Across America"
+        description="Patrick sold his fence company, chose sobriety, and now he's on the road with his 8-year-old son Landon — chasing Doctor Doom cards, toys, and card stores across the country."
         path="/chasing-doom"
         jsonLd={breadcrumbJsonLd([
           { name: "Home", url: "/" },
@@ -39,9 +39,9 @@ export default function ChasingDoom() {
         ])}
       />
 
-      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-          HERO SECTION â€” The Open Road
-      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
+      {/* ═══════════════════════════════════════════════════════════════════
+          HERO SECTION — The Open Road
+      ═══════════════════════════════════════════════════════════════════ */}
       <section className="relative min-h-[500px] lg:min-h-[600px] flex items-end overflow-hidden">
         <div className="absolute inset-0">
           <img
@@ -69,10 +69,10 @@ export default function ChasingDoom() {
         </div>
       </section>
 
-      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-          SECTION 1 â€” THE PARALLEL: Victor, Robert, Patrick
+      {/* ═══════════════════════════════════════════════════════════════════
+          SECTION 1 — THE PARALLEL: Victor, Robert, Patrick
           Full-width cinematic text block
-      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
+      ═══════════════════════════════════════════════════════════════════ */}
       <section className="py-16 lg:py-24">
         <div className="container max-w-4xl">
           <div className="text-center mb-12">
@@ -100,7 +100,7 @@ export default function ChasingDoom() {
               <h3 className="text-lg font-bold text-amber-400 mb-2">Robert Downey Jr.</h3>
               <p className="text-gray-400 text-sm leading-relaxed">
                 Built something iconic. Chose sobriety. Walked away from Iron Man. 
-                Came back as something completely different â€” and more powerful.
+                Came back as something completely different — and more powerful.
               </p>
             </div>
 
@@ -111,7 +111,7 @@ export default function ChasingDoom() {
               </div>
               <h3 className="text-lg font-bold text-primary mb-2">Patrick</h3>
               <p className="text-gray-400 text-sm leading-relaxed">
-                Built Northland Fence from a rented garage. Chose sobriety â€” coming up 
+                Built Northland Fence from a rented garage. Chose sobriety — coming up 
                 on twenty years this September. Sold the company. Now on the road with his son.
               </p>
             </div>
@@ -119,15 +119,15 @@ export default function ChasingDoom() {
 
           <blockquote className="border-l-4 border-green-500/50 pl-6 py-2 text-xl text-gray-300 italic max-w-3xl mx-auto">
             "Victor came from nothing and built an empire. RDJ chose redemption and came back stronger. 
-            I built fences for twenty years â€” physical ones and personal ones. Now I'm tearing them down."
+            I built fences for twenty years — physical ones and personal ones. Now I'm tearing them down."
           </blockquote>
         </div>
       </section>
 
-      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-          SECTION 2 â€” THE ORIGIN: Patrick's Story
+      {/* ═══════════════════════════════════════════════════════════════════
+          SECTION 2 — THE ORIGIN: Patrick's Story
           Image LEFT, text RIGHT
-      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
+      ═══════════════════════════════════════════════════════════════════ */}
       <section className="py-16 lg:py-24 bg-card/50 border-y border-border/50">
         <div className="container max-w-6xl">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -151,17 +151,17 @@ export default function ChasingDoom() {
               <div className="space-y-5 text-gray-300 text-lg leading-relaxed">
                 <p>
                   I grew up in Section 8 housing in Minnesota. My old man didn't have much, but he'd 
-                  drop me off at the local card show. That's where I learned to hustle â€” trading cards 
+                  drop me off at the local card show. That's where I learned to hustle — trading cards 
                   with guys twice my age, figuring out what things were worth before I could drive.
                 </p>
                 <p>
-                  That same energy built <strong className="text-white">Northland Fence</strong> â€” 
+                  That same energy built <strong className="text-white">Northland Fence</strong> — 
                   starting in a rented garage with nothing but a truck and a dream. We grew it into one 
                   of the largest residential fence installers in Minnesota.
                 </p>
                 <p>
                   Like Victor Von Doom coming from Latveria with nothing, I built something from the 
-                  ground up. And like RDJ, I chose sobriety. Coming up on twenty years this September â€” 
+                  ground up. And like RDJ, I chose sobriety. Coming up on twenty years this September — 
                   the same month Endgame re-releases in theaters.
                 </p>
                 <p className="text-green-400/90 italic border-l-4 border-green-500/50 pl-5">
@@ -173,10 +173,10 @@ export default function ChasingDoom() {
         </div>
       </section>
 
-      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-          SECTION 3 â€” THE FAMILY: Laura, Kaya, Landon
+      {/* ═══════════════════════════════════════════════════════════════════
+          SECTION 3 — THE FAMILY: Laura, Kaya, Landon
           Text LEFT, image RIGHT
-      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
+      ═══════════════════════════════════════════════════════════════════ */}
       <section className="py-16 lg:py-24">
         <div className="container max-w-6xl">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -186,7 +186,7 @@ export default function ChasingDoom() {
               <h2 className="text-4xl sm:text-5xl font-bold mb-6">THE CREW</h2>
               <div className="space-y-5 text-gray-300 text-lg leading-relaxed">
                 <p>
-                  I met my wife Laura in 2008 â€” on Friday the 13th. Our first date was a double 
+                  I met my wife Laura in 2008 — on Friday the 13th. Our first date was a double 
                   feature: <em>The Happening</em> and <em>The Incredible Hulk</em>. Yeah, the Hulk 
                   was there from the very beginning.
                 </p>
@@ -195,9 +195,9 @@ export default function ChasingDoom() {
                   and runs Northland Fence after the sale. She earned it.
                 </p>
                 <p>
-                  Landon is 8 â€” the same age Kaya was when I came into her life. He's obsessed with 
+                  Landon is 8 — the same age Kaya was when I came into her life. He's obsessed with 
                   Doctor Doom, Marvel, and hunting toys at every store we pass. Laura? She's the 
-                  <strong className="text-white"> Eye-Rolling Wife</strong> â€” and she's along for the ride 
+                  <strong className="text-white"> Eye-Rolling Wife</strong> — and she's along for the ride 
                   whether she likes it or not.
                 </p>
                 <p className="text-red-400/90 italic border-l-4 border-red-500/50 pl-5">
@@ -212,7 +212,7 @@ export default function ChasingDoom() {
               <div className="absolute -inset-3 bg-gradient-to-br from-red-500/20 via-transparent to-purple-500/20 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity" />
               <img
                 src={PHOTOS.family}
-                alt="Patrick, Laura, and Landon â€” the family behind Chasing Doom"
+                alt="Patrick, Laura, and Landon — the family behind Chasing Doom"
                 className="relative rounded-xl w-full aspect-[4/3] object-cover shadow-2xl"
               />
               <div className="absolute bottom-4 left-4 bg-black/70 backdrop-blur-sm px-4 py-2 rounded-lg flex items-center gap-2">
@@ -224,10 +224,10 @@ export default function ChasingDoom() {
         </div>
       </section>
 
-      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-          SECTION 3B â€” KAYA: The Legacy
+      {/* ═══════════════════════════════════════════════════════════════════
+          SECTION 3B — KAYA: The Legacy
           Image RIGHT, text LEFT
-      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
+      ═══════════════════════════════════════════════════════════════════ */}
       <section className="py-16 lg:py-24 bg-card/50 border-y border-border/50">
         <div className="container max-w-6xl">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -239,17 +239,17 @@ export default function ChasingDoom() {
                 <p>
                   She was 8 years old when I came into her life. I adopted her when she was 18. 
                   By 15, she was out in the shop <strong className="text-white">fabricating gates 
-                  with the guys</strong> â€” not answering phones, not filing paperwork. Welding. Building.
+                  with the guys</strong> — not answering phones, not filing paperwork. Welding. Building.
                 </p>
                 <p>
                   From there she moved into admin and reception, then into sales, and eventually 
-                  became the one building the systems the whole company ran on. I'm more risk-adverse â€” 
+                  became the one building the systems the whole company ran on. I'm more risk-adverse — 
                   she's the one who brought the structure.
                 </p>
                 <p>
                   The truth is, <strong className="text-white">she left me in the dust</strong>. 
                   After my exit, Kaya stayed on in upper management running Northland Fence. 
-                  She didn't inherit anything â€” she outgrew the guy who started it.
+                  She didn't inherit anything — she outgrew the guy who started it.
                 </p>
                 <p className="text-amber-400/90 italic border-l-4 border-amber-500/50 pl-5">
                   "I didn't hand her anything. She showed up at 15, outworked everyone, 
@@ -263,11 +263,11 @@ export default function ChasingDoom() {
               <div className="relative group">
                 <img
                   src={PHOTOS.kayaLandonSunflowers}
-                  alt="Kaya holding Landon in a sunflower field â€” Minnesota"
+                  alt="Kaya holding Landon in a sunflower field — Minnesota"
                   className="rounded-xl w-full aspect-[16/10] object-cover shadow-2xl"
                 />
                 <div className="absolute bottom-3 left-3 bg-black/70 backdrop-blur-sm px-3 py-1.5 rounded-lg">
-                  <p className="text-xs text-gray-300">Kaya & Landon â€” Minnesota sunflower fields</p>
+                  <p className="text-xs text-gray-300">Kaya & Landon — Minnesota sunflower fields</p>
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
@@ -278,17 +278,17 @@ export default function ChasingDoom() {
                     className="rounded-lg w-full aspect-[3/4] object-cover shadow-xl"
                   />
                   <div className="absolute bottom-2 left-2 bg-black/70 backdrop-blur-sm px-2 py-1 rounded">
-                    <p className="text-[10px] text-gray-300">Day one â€” baby Landon & the NF shirt</p>
+                    <p className="text-[10px] text-gray-300">Day one — baby Landon & the NF shirt</p>
                   </div>
                 </div>
                 <div className="relative">
                   <img
                     src={PHOTOS.kayaWorking}
-                    alt="Kaya working at Northland Fence â€” shoveling dirt on a job site"
+                    alt="Kaya working at Northland Fence — shoveling dirt on a job site"
                     className="rounded-lg w-full aspect-[3/4] object-cover shadow-xl"
                   />
                   <div className="absolute bottom-2 left-2 bg-black/70 backdrop-blur-sm px-2 py-1 rounded">
-                    <p className="text-[10px] text-gray-300">Earning it â€” on the job site</p>
+                    <p className="text-[10px] text-gray-300">Earning it — on the job site</p>
                   </div>
                 </div>
               </div>
@@ -297,10 +297,10 @@ export default function ChasingDoom() {
         </div>
       </section>
 
-      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-          SECTION 3C â€” JIM: The Cutman
+      {/* ═══════════════════════════════════════════════════════════════════
+          SECTION 3C — JIM: The Cutman
           Full-width character card
-      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
+      ═══════════════════════════════════════════════════════════════════ */}
       <section className="py-16 lg:py-24">
         <div className="container max-w-4xl">
           <div className="bg-gradient-to-br from-gray-800/60 via-card/80 to-gray-900/60 border border-gray-500/20 rounded-2xl p-8 lg:p-12">
@@ -318,18 +318,18 @@ export default function ChasingDoom() {
                 </h3>
                 <div className="space-y-4 text-gray-300 text-lg leading-relaxed">
                   <p>
-                    My old boxing cutman and best friend. Jim still works at Northland Fence â€” 
+                    My old boxing cutman and best friend. Jim still works at Northland Fence — 
                     he's been there since the beginning. Built like a tank, looks like 
                     <strong className="text-white">Bane from Batman</strong> crossed with a 
                     <strong className="text-white">mini Goldberg from WWE</strong>.
                   </p>
                   <p>
-                    Landon calls him "Uncle Jim" â€” and sometimes just "Mini Goldberg" to his face. 
+                    Landon calls him "Uncle Jim" — and sometimes just "Mini Goldberg" to his face. 
                     Jim doesn't mind. He's the kind of guy who'd take a punch for you and laugh about it after.
                   </p>
                 </div>
                 <p className="mt-4 text-gray-500 italic text-sm">
-                  ðŸ“¸ Photos coming soon â€” stay tuned for the full Jim experience.
+                  ðŸ“¸ Photos coming soon — stay tuned for the full Jim experience.
                 </p>
               </div>
             </div>
@@ -337,10 +337,10 @@ export default function ChasingDoom() {
         </div>
       </section>
 
-      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-          SECTION 4 â€” THE MISSION: What Is Chasing Doom?
+      {/* ═══════════════════════════════════════════════════════════════════
+          SECTION 4 — THE MISSION: What Is Chasing Doom?
           Full-width centered
-      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
+      ═══════════════════════════════════════════════════════════════════ */}
       <section className="py-16 lg:py-24 bg-card/50 border-y border-border/50">
         <div className="container max-w-4xl text-center">
           <p className="text-purple-400 font-bold text-sm tracking-[0.2em] uppercase mb-3">The Mission</p>
@@ -348,7 +348,7 @@ export default function ChasingDoom() {
           
           <div className="space-y-6 text-gray-300 text-lg leading-relaxed text-left max-w-3xl mx-auto">
             <p>
-              We're traveling across the country â€” hitting card stores, grading cards, learning the 
+              We're traveling across the country — hitting card stores, grading cards, learning the 
               business, and enjoying every mile of it as a family. Landon and I hunt for Doctor Doom 
               cards and toys at every stop. Laura rolls her eyes. We keep driving.
             </p>
@@ -357,7 +357,7 @@ export default function ChasingDoom() {
               know exactly where it goes. That's the point.
             </p>
             <p>
-              Along the way, we're doing giveaways â€” targeting families like ours. Collectors with 
+              Along the way, we're doing giveaways — targeting families like ours. Collectors with 
               kids. Dads and moms who are trying to share something they love with the next generation.
             </p>
           </div>
@@ -383,10 +383,10 @@ export default function ChasingDoom() {
         </div>
       </section>
 
-      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-          SECTION 5 â€” THE SEPTEMBER MILESTONE
+      {/* ═══════════════════════════════════════════════════════════════════
+          SECTION 5 — THE SEPTEMBER MILESTONE
           Cinematic callout
-      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
+      ═══════════════════════════════════════════════════════════════════ */}
       <section className="py-16 lg:py-24">
         <div className="container max-w-4xl">
           <div className="bg-gradient-to-br from-green-500/10 via-card/80 to-purple-500/10 border border-green-500/20 rounded-2xl p-8 lg:p-12">
@@ -410,7 +410,7 @@ export default function ChasingDoom() {
                 He came back stronger. He's now playing the villain who wants to reshape the world.
               </p>
               <p className="text-green-400 font-bold text-xl">
-                I chose sobriety. I built something. I sold it. And now I'm reshaping my life â€” 
+                I chose sobriety. I built something. I sold it. And now I'm reshaping my life — 
                 on the road with my son, chasing the same character RDJ is becoming.
               </p>
             </div>
@@ -418,10 +418,10 @@ export default function ChasingDoom() {
         </div>
       </section>
 
-      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-          SECTION 6 â€” INTERACTIVE ROAD TRIP TIMELINE
+      {/* ═══════════════════════════════════════════════════════════════════
+          SECTION 6 — INTERACTIVE ROAD TRIP TIMELINE
           Visual tracker of the cross-country journey
-      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
+      ═══════════════════════════════════════════════════════════════════ */}
       <section className="py-16 lg:py-24 bg-card/50 border-y border-border/50">
         <div className="container max-w-4xl">
           <div className="text-center mb-12">

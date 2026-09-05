@@ -1,6 +1,6 @@
 ﻿import { mediaUrl } from "../lib/mediaUrl";
 /**
- * Trending Cards â€” "Marvel Cards to Collect Right Now"
+ * Trending Cards — "Marvel Cards to Collect Right Now"
  * Designed as both a site page and Facebook ad landing page.
  * Sections: Hero hook, trending characters, movie-driven picks,
  * beginner tips, and CTAs to shop/database/Whatnot.
@@ -60,7 +60,7 @@ const TRENDING_CARDS: TrendingCard[] = [
     cardNumber: "101",
     image: SPIDER_MAN_CARD,
     heatLevel: "BLAZING",
-    reason: "The Brand New Day trailer just dropped and the hype is massive. Tom Holland's fourth solo film hits theaters July 31 â€” Spider-Man cards are surging across the board.",
+    reason: "The Brand New Day trailer just dropped and the hype is massive. Tom Holland's fourth solo film hits theaters July 31 — Spider-Man cards are surging across the board.",
     movieTie: "Spider-Man: Brand New Day (Jul 2026)",
     slug: "2025-topps-chrome/101",
     characterSlug: "spider-man",
@@ -132,7 +132,7 @@ const MOVIE_PICKS = [
     dateUtc: "2026-07-31T00:00:00Z",
     icon: Zap,
     color: "blue",
-    description: "Tom Holland's fourth solo outing bridges Thunderbolts* and Doomsday. Spider-Man is always the most collected character in Marvel â€” and a new movie means a new wave of demand.",
+    description: "Tom Holland's fourth solo outing bridges Thunderbolts* and Doomsday. Spider-Man is always the most collected character in Marvel — and a new movie means a new wave of demand.",
     topPicks: ["Spider-Man #101", "Spider-Man Variants", "Venom cards", "Green Goblin cards"],
     image: SPIDER_MAN_CARD,
   },
@@ -142,7 +142,7 @@ const BEGINNER_TIPS = [
   {
     icon: Target,
     title: "Collect What You Love",
-    description: "The best investment is a card you actually want to own. Start with your favorite characters â€” if you love Iron Man, collect Iron Man. Passion keeps you in the hobby when markets fluctuate.",
+    description: "The best investment is a card you actually want to own. Start with your favorite characters — if you love Iron Man, collect Iron Man. Passion keeps you in the hobby when markets fluctuate.",
   },
   {
     icon: Crown,
@@ -157,7 +157,7 @@ const BEGINNER_TIPS = [
   {
     icon: Film,
     title: "Follow the Movies",
-    description: "Marvel card values are heavily tied to movie announcements. When a character gets a movie or show, their cards spike. Buy before the hype â€” sell into the excitement.",
+    description: "Marvel card values are heavily tied to movie announcements. When a character gets a movie or show, their cards spike. Buy before the hype — sell into the excitement.",
   },
   {
     icon: BookOpen,
@@ -199,13 +199,13 @@ export default function TrendingCards() {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Marvel Cards to Collect Right Now â€” Trending Picks for 2026"
+        title="Marvel Cards to Collect Right Now — Trending Picks for 2026"
         description="Discover the hottest Marvel trading cards to collect in 2026. Movie-driven picks for Avengers: Doomsday and Spider-Man: Brand New Day, beginner tips, and expert recommendations."
         path="/trending"
         type="article"
       />
 
-      {/* ===== HERO â€” LANDING PAGE HOOK ===== */}
+      {/* ===== HERO — LANDING PAGE HOOK ===== */}
       <section className="relative min-h-[500px] lg:min-h-[550px] flex items-center overflow-hidden">
         <div className="absolute inset-0">
           <img src={HERO_BG} alt="" className="w-full h-full object-cover" loading="eager" />
@@ -248,7 +248,7 @@ export default function TrendingCards() {
         </div>
       </section>
 
-      {/* ===== TRENDING CARDS â€” THE MAIN LIST ===== */}
+      {/* ===== TRENDING CARDS — THE MAIN LIST ===== */}
       <section id="trending-cards" className="py-16 lg:py-20">
         <div className="container">
           <div className="text-center mb-12">
@@ -260,7 +260,7 @@ export default function TrendingCards() {
               TOP <span className="text-primary">TRENDING</span> CARDS
             </h2>
             <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto">
-              These are the cards generating the most buzz right now â€” driven by upcoming movies, trailer drops, and casting announcements.
+              These are the cards generating the most buzz right now — driven by upcoming movies, trailer drops, and casting announcements.
             </p>
           </div>
 
@@ -341,7 +341,7 @@ export default function TrendingCards() {
               COLLECT <span className="text-amber-400">BEFORE</span> THE MOVIES DROP
             </h2>
             <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto">
-              Card values spike when movies release. Smart collectors buy early â€” here's what's coming and what to grab now.
+              Card values spike when movies release. Smart collectors buy early — here's what's coming and what to grab now.
             </p>
           </div>
 
@@ -407,7 +407,7 @@ export default function TrendingCards() {
         </div>
       </section>
 
-      {/* ===== WHY THESE CARDS? â€” BEGINNER TIPS ===== */}
+      {/* ===== WHY THESE CARDS? — BEGINNER TIPS ===== */}
       <section className="py-16 lg:py-20">
         <div className="container">
           <div className="text-center mb-12">
@@ -419,7 +419,7 @@ export default function TrendingCards() {
               WHAT MAKES A CARD <span className="text-purple-400">VALUABLE?</span>
             </h2>
             <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto">
-              New to collecting? Here's what experienced collectors look for â€” and how you can start smart.
+              New to collecting? Here's what experienced collectors look for — and how you can start smart.
             </p>
           </div>
 
@@ -489,7 +489,7 @@ export default function TrendingCards() {
         </div>
       </section>
 
-      {/* ===== CTA â€” SHOP & WHATNOT ===== */}
+      {/* ===== CTA — SHOP & WHATNOT ===== */}
       <section className="relative py-16 lg:py-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-green-900/30 via-background to-green-900/30" />
         <div className="absolute inset-0">

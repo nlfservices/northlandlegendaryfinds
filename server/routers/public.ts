@@ -21,6 +21,22 @@ import {
   getPageContent,
 } from "../db";
 import { getCardDetailWithBack } from "../cardDetailBack";
+import { repairMojibake } from "@shared/repairMojibake";
+
+function repairCardRow<T extends {
+  characterName?: string | null;
+  cardType?: string | null;
+  parallels?: string | null;
+  description?: string | null;
+}>(card: T): T {
+  return {
+    ...card,
+    characterName: card.characterName ? repairMojibake(card.characterName) : card.characterName,
+    cardType: card.cardType ? repairMojibake(card.cardType) : card.cardType,
+    parallels: card.parallels ? repairMojibake(card.parallels) : card.parallels,
+    description: card.description ? repairMojibake(card.description) : card.description,
+  };
+}
 import { launchSubscribers } from "../../drizzle/schema";
 import { getDb } from "../db";
 import { eq, and } from "drizzle-orm";
@@ -132,10 +148,10 @@ const publicMarvelRouter = router({
         slug: set.slug,
         releaseYear: set.releaseYear,
         totalCards: set.totalCards,
-        description: set.description,
+        description: set.description ? repairMojibake(set.description) : set.description,
         imageUrl: set.imageUrl,
       },
-      cards: cards.map((c) => ({
+      cards: cards.map((c) => repairCardRow({
         id: c.id,
         setId: c.setId,
         cardNumber: c.cardNumber,
@@ -152,12 +168,14 @@ const publicMarvelRouter = router({
 
   /** Get cards for a set by ID */
   getCardsBySet: publicProcedure.input(z.object({ setId: z.number() })).query(async ({ input }) => {
-    return getMarvelCardsBySetId(input.setId);
+    const cards = await getMarvelCardsBySetId(input.setId);
+    return cards.map((c) => repairCardRow(c));
   }),
 
   /** Search cards across all sets */
   search: publicProcedure.input(z.object({ query: z.string(), limit: z.number().default(50) })).query(async ({ input }) => {
-    return searchMarvelCards(input.query, input.limit);
+    const cards = await searchMarvelCards(input.query, input.limit);
+    return cards.map((c) => repairCardRow(c));
   }),
 
   /** Get character page data by slug */
@@ -766,7 +784,7 @@ const publicPageContentRouter = router({
       // Return as a key-value map for easy consumption
       const contentMap: Record<string, string> = {};
       for (const s of sections) {
-        contentMap[s.sectionKey] = s.content;
+        contentMap[s.sectionKey] = repairMojibake(s.content);
       }
       return contentMap;
     }),

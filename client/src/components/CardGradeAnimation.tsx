@@ -37,7 +37,7 @@ export default function CardGradeAnimation({
   grade = "10",
   gradeLabel = "GEM MINT",
   gradingCompany = "CGC",
-  serialNumber = "#109 Â· Black Refractor /10",
+  serialNumber = "#109 · Black Refractor /10",
   autoPlay = true,
   autoPlayDelay = 3000,
   className = "",
@@ -291,7 +291,7 @@ export default function CardGradeAnimation({
       {/* Interaction Hint */}
       <div className="flex items-center gap-4">
         <p className="text-xs text-muted-foreground/50">
-          {phase === "raw-front" && "Click to flip Â· Auto-cycles raw â†’ graded"}
+          {phase === "raw-front" && "Click to flip · Auto-cycles raw → graded"}
           {phase === "raw-back" && "Click to grade this card"}
           {phase === "transforming" && "Grading in progress..."}
           {phase === "graded-front" && "Click to see the back of the slab"}
