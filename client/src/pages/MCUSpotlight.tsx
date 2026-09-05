@@ -1,7 +1,7 @@
 ﻿/**
  * MCU Spotlight - Actor of the Day / Character Spotlight
- * 3 rotating round-robin templates (A â†’ B â†’ C â†’ A â†’ B â†’ C)
- * Cross-references actors â†’ characters â†’ trading cards with chase card sections
+ * 3 rotating round-robin templates (A → B → C → A → B → C)
+ * Cross-references actors → characters → trading cards with chase card sections
  * Orange placeholder images with numbered labels and dimensions
  */
 
@@ -17,7 +17,7 @@ import { Badge } from "@/components/ui/badge";
 import { trpc } from "@/lib/trpc";
 import SEO, { breadcrumbJsonLd } from "@/components/SEO";
 
-// â”€â”€ Types â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Types ──────────────────────────────────────────────────────────────────
 interface SpotlightEntry {
   id: number;
   actorName: string;
@@ -30,7 +30,7 @@ interface SpotlightEntry {
   mcuDebut?: string; // First MCU appearance
   upcomingAppearances: string[]; // Upcoming movies/shows
   chaseCards: ChaseCard[];
-  /** Images â€” orange placeholders with dimensions shown until replaced */
+  /** Images — orange placeholders with dimensions shown until replaced */
   image1Url: string; // Actor/character hero image
   image2Url: string; // Scene or action shot
   image3Url: string; // Card showcase image
@@ -49,7 +49,7 @@ interface ChaseCard {
   cardSlug?: string; // Links to /cards/:setSlug/:cardNumber
 }
 
-// â”€â”€ Placeholder Image Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Placeholder Image Component ────────────────────────────────────────────
 function PlaceholderImage({
   number,
   width,
@@ -71,7 +71,7 @@ function PlaceholderImage({
           Placeholder {number}
         </div>
         <div className="text-xs text-white/60 mt-1 font-mono">
-          {width} Ã— {height}
+          {width} × {height}
         </div>
       </div>
       {/* Corner dimension labels */}
@@ -115,7 +115,7 @@ function SpotlightImage({
   );
 }
 
-// â”€â”€ Static Spotlight Data (seeded, will be replaced by DB later) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Static Spotlight Data (seeded, will be replaced by DB later) ──────────
 const SPOTLIGHT_ENTRIES: SpotlightEntry[] = [
   {
     id: 1,
@@ -125,7 +125,7 @@ const SPOTLIGHT_ENTRIES: SpotlightEntry[] = [
     realName: "Matt Murdock",
     seriesOrMovie: "Daredevil: Born Again Season 2",
     releaseDate: "March 24, 2026",
-    bio: "Charlie Cox has redefined the Man Without Fear across Netflix and Disney+. His portrayal of blind attorney Matt Murdock â€” who fights crime as Daredevil in Hell's Kitchen â€” has become one of the most acclaimed performances in the MCU. Born Again Season 2 continues the story with 9 episodes of gritty, street-level action.",
+    bio: "Charlie Cox has redefined the Man Without Fear across Netflix and Disney+. His portrayal of blind attorney Matt Murdock — who fights crime as Daredevil in Hell's Kitchen — has become one of the most acclaimed performances in the MCU. Born Again Season 2 continues the story with 9 episodes of gritty, street-level action.",
     mcuDebut: "Daredevil (Netflix, 2015)",
     upcomingAppearances: [
       "Daredevil: Born Again Season 2 (Airing Now)",
@@ -152,7 +152,7 @@ const SPOTLIGHT_ENTRIES: SpotlightEntry[] = [
     realName: "Victor Von Doom",
     seriesOrMovie: "Avengers: Doomsday",
     releaseDate: "December 18, 2026",
-    bio: "Robert Downey Jr. shocked the world at San Diego Comic-Con when he was revealed as Doctor Doom â€” not returning as Tony Stark, but as the MCU's most terrifying new villain. The Russo Brothers are directing, and early CinemaCon footage shows Doom stopping Stormbreaker with his bare hand. This is the most anticipated MCU casting since the original Iron Man.",
+    bio: "Robert Downey Jr. shocked the world at San Diego Comic-Con when he was revealed as Doctor Doom — not returning as Tony Stark, but as the MCU's most terrifying new villain. The Russo Brothers are directing, and early CinemaCon footage shows Doom stopping Stormbreaker with his bare hand. This is the most anticipated MCU casting since the original Iron Man.",
     mcuDebut: "Iron Man (2008) as Tony Stark",
     upcomingAppearances: [
       "Avengers: Doomsday (December 18, 2026)",
@@ -199,7 +199,7 @@ const SPOTLIGHT_ENTRIES: SpotlightEntry[] = [
   },
 ];
 
-// â”€â”€ Template A: Actor Left, Character/Card Info Right, Chase Below â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Template A: Actor Left, Character/Card Info Right, Chase Below ─────────
 function TemplateA({ entry }: { entry: SpotlightEntry }) {
   return (
     <div className="space-y-8">
@@ -321,7 +321,7 @@ function TemplateA({ entry }: { entry: SpotlightEntry }) {
   );
 }
 
-// â”€â”€ Template B: Full-Width Hero Banner, Bio Below, Chase Grid â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Template B: Full-Width Hero Banner, Bio Below, Chase Grid ──────────────
 function TemplateB({ entry }: { entry: SpotlightEntry }) {
   return (
     <div className="space-y-8">
@@ -434,7 +434,7 @@ function TemplateB({ entry }: { entry: SpotlightEntry }) {
   );
 }
 
-// â”€â”€ Template C: Split Diagonal, Cards Prominent, Actor/Series Info â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Template C: Split Diagonal, Cards Prominent, Actor/Series Info ─────────
 function TemplateC({ entry }: { entry: SpotlightEntry }) {
   return (
     <div className="space-y-8">
@@ -475,7 +475,7 @@ function TemplateC({ entry }: { entry: SpotlightEntry }) {
               )}
             </div>
 
-            {/* Card Name â€” Prominent */}
+            {/* Card Name — Prominent */}
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-lg bg-primary/20 border border-primary/30 flex items-center justify-center">
                 <CreditCard className="w-6 h-6 text-primary" />
@@ -554,13 +554,13 @@ function TemplateC({ entry }: { entry: SpotlightEntry }) {
         </div>
       </div>
 
-      {/* Chase Cards â€” Card-Prominent Layout */}
+      {/* Chase Cards — Card-Prominent Layout */}
       <ChaseCardsSection entry={entry} variant="prominent" />
     </div>
   );
 }
 
-// â”€â”€ Chase Cards Section (shared across templates) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Chase Cards Section (shared across templates) ──────────────────────────
 function ChaseCardsSection({
   entry,
   variant = "list",
@@ -709,7 +709,7 @@ function ChaseCardItemWide({ card, index }: { card: ChaseCard; index: number }) 
   return content;
 }
 
-// â”€â”€ Main Page Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Main Page Component ────────────────────────────────────────────────────
 export default function MCUSpotlight() {
   // For now, rotate through static entries. Later this will be DB-driven.
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -733,7 +733,7 @@ export default function MCUSpotlight() {
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="MCU Spotlight â€” Actor of the Day"
+        title="MCU Spotlight — Actor of the Day"
         description="Daily MCU actor and character spotlights with trading card cross-references, chase card picks, and upcoming appearance schedules. Your collector's guide to the Marvel Cinematic Universe."
         path="/mcu-spotlight"
         type="article"
@@ -766,7 +766,7 @@ export default function MCUSpotlight() {
                 MCU Spotlight
               </h1>
               <p className="text-muted-foreground mt-1 max-w-xl">
-                Actor of the Day â€” cross-referenced with their Marvel trading cards.
+                Actor of the Day — cross-referenced with their Marvel trading cards.
                 Every spotlight features chase cards to hunt and upcoming MCU appearances.
               </p>
             </div>

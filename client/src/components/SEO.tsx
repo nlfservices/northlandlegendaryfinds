@@ -9,7 +9,7 @@ const DEFAULT_IMAGE =
 const SITE_URL = "https://northlandlegendaryfinds.com";
 
 interface SEOProps {
-  /** Page title â€” will be appended with " | Northland Legendary Finds" unless noSuffix is true */
+  /** Page title — will be appended with " | Northland Legendary Finds" unless noSuffix is true */
   title?: string;
   /** Meta description (max ~155 chars recommended) */
   description?: string;
@@ -17,7 +17,7 @@ interface SEOProps {
   path?: string;
   /** Full URL to OG image (1200x630 recommended) */
   image?: string;
-  /** OG type â€” defaults to "website" */
+  /** OG type — defaults to "website" */
   type?: "website" | "product" | "article";
   /** Don't append site name suffix to title */
   noSuffix?: boolean;

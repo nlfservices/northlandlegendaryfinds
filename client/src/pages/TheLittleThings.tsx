@@ -1,6 +1,6 @@
 ﻿/**
- * The Little Things â€” Community / Journey / Giveaway Page
- * Personal, authentic, fun â€” about the hobby, family, and community
+ * The Little Things — Community / Journey / Giveaway Page
+ * Personal, authentic, fun — about the hobby, family, and community
  * Giveaway entry via email signup, personal narrative, community highlights
  */
 import { useState } from "react";
@@ -56,7 +56,7 @@ export default function TheLittleThings() {
   return (
     <>
       <SEO
-        title="The Little Things â€” Our Journey, Giveaways & Community"
+        title="The Little Things — Our Journey, Giveaways & Community"
         description="Join the Northland Legendary Finds family. Giveaways, father-son card rips, embarrassing my wife at card shows, and building a community around the little things that make this hobby legendary."
         path="/the-little-things"
         jsonLd={breadcrumbJsonLd([
@@ -91,7 +91,7 @@ export default function TheLittleThings() {
               </h1>
 
               <p className="text-lg lg:text-xl text-gray-300 leading-relaxed mb-8 max-w-xl">
-                This isn't just a card shop. It's a journey â€” ripping packs with my son, 
+                This isn't just a card shop. It's a journey — ripping packs with my son, 
                 embarrassing my wife at every card show we attend, and building something 
                 with all of you. Come along for the ride.
               </p>
@@ -128,7 +128,7 @@ export default function TheLittleThings() {
               <div className="flex gap-4 items-start">
                 <Quote className="w-8 h-8 text-green-400 flex-shrink-0 mt-1" />
                 <p>
-                  Look â€” I'm not going to pretend this is some polished corporate thing. 
+                  Look — I'm not going to pretend this is some polished corporate thing. 
                   It started with me and my son sitting at the kitchen table, ripping packs, 
                   and losing our minds over a holographic Spider-Man. That's it. That was the moment.
                 </p>
@@ -138,14 +138,14 @@ export default function TheLittleThings() {
                 My wife thinks I'm insane. She's probably right. But she also can't stop laughing 
                 when I drag her to card shows and make her hold up slabs for photos. She's a good sport. 
                 Most of the time. I plan on continuing to embarrass her publicly, so if you're here for 
-                that content â€” you're in the right place.
+                that content — you're in the right place.
               </p>
 
               <p className="pl-12">
                 But here's the real thing: this hobby brought me closer to my kid. It gave us something 
-                to geek out about together. And now it's connecting us with all of you â€” people who get 
+                to geek out about together. And now it's connecting us with all of you — people who get 
                 excited about the same stuff. Whether you're collecting with your son, your daughter, 
-                your buddy, your partner, or just yourself â€” this is for you.
+                your buddy, your partner, or just yourself — this is for you.
               </p>
 
               <div className="pl-12 p-6 bg-green-500/10 border border-green-500/20 rounded-xl">
@@ -183,7 +183,7 @@ export default function TheLittleThings() {
                 </div>
                 <h3 className="text-lg font-bold mb-2">Monthly Card Giveaway</h3>
                 <p className="text-gray-400 text-sm">
-                  Graded slabs, raw singles, sealed packs â€” we rotate what we give away 
+                  Graded slabs, raw singles, sealed packs — we rotate what we give away 
                   every month. Subscribers get automatic entry.
                 </p>
               </div>
@@ -280,7 +280,7 @@ export default function TheLittleThings() {
                 COME ALONG FOR THE RIDE
               </h2>
               <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-                Here's what you're signing up for. Fair warning â€” it's not always pretty, 
+                Here's what you're signing up for. Fair warning — it's not always pretty, 
                 but it's always real.
               </p>
             </div>
@@ -360,9 +360,9 @@ export default function TheLittleThings() {
               READY TO JOIN?
             </h2>
             <p className="text-gray-400 mb-8 text-lg">
-              Whether you're a seasoned collector or just getting started â€” 
+              Whether you're a seasoned collector or just getting started — 
               whether you're here for the cards, the giveaways, or just to watch me 
-              embarrass my wife â€” you're welcome here.
+              embarrass my wife — you're welcome here.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/giveaway">

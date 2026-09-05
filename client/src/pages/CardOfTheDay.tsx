@@ -1,6 +1,6 @@
 ﻿import { mediaUrl } from "../lib/mediaUrl";
 /**
- * Card of the Day â€” Public Page
+ * Card of the Day — Public Page
  * Route: /card-of-the-day
  * Features cards from all 3 sets: Marvel Mint, Marvel Studios Chrome, Comic Book Heroes 50th
  */
@@ -11,11 +11,11 @@ import { trpc } from "@/lib/trpc";
 import { Helmet } from "react-helmet-async";
 import { getCharacterBackground } from "@/lib/cardBackgrounds";
 
-// â”€â”€ Gold + Primary colors matching NLF design â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Gold + Primary colors matching NLF design ────────────────────────────────
 const GOLD = "#ffce4d";
 const PRIMARY = "var(--primary, #62e08a)";
 
-// â”€â”€ Types â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Types ────────────────────────────────────────────────────────────────────
 type CardData = {
   dateISO: string;
   dateLabel: string;
@@ -40,7 +40,7 @@ type CardData = {
   buzzNote?: string | null;
 };
 
-// â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Helpers ──────────────────────────────────────────────────────────────────
 function buildCardName(data: CardData) {
   const parts: string[] = [];
   if (data.setLabel) parts.push(data.setLabel);
@@ -70,7 +70,7 @@ function characterPageUrl(characterName: string) {
   return `/characters/${slug}`;
 }
 
-// â”€â”€ Sub-components â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Sub-components ───────────────────────────────────────────────────────────
 function Placeholder({ icon, label, dims }: { icon: string; label: string; dims?: string }) {
   return (
     <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: ".5rem", color: "#565d72", background: "repeating-linear-gradient(135deg,#10141f 0 18px,#0b0e16 18px 36px)" }}>
@@ -112,7 +112,7 @@ function SectionRule({ icon, title }: { icon: string; title: string }) {
   );
 }
 
-// â”€â”€ Main Card Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Main Card Component ───────────────────────────────────────────────────────
 function CardOfTheDayDisplay({ data }: { data: CardData }) {
   const {
     cardNumber, setLabel, frontImageUrl, backImageUrl, youtubeId,
@@ -132,7 +132,7 @@ function CardOfTheDayDisplay({ data }: { data: CardData }) {
   const tabs = useMemo(() => {
     const t: { key: string; label: string }[] = [{ key: "front", label: "Front" }];
     if (backImageUrl) t.push({ key: "back", label: "Back" });
-    if (youtubeId) t.push({ key: "video", label: "â–¶ Video" });
+    if (youtubeId) t.push({ key: "video", label: "▶ Video" });
     return t;
   }, [backImageUrl, youtubeId]);
 
@@ -147,7 +147,7 @@ function CardOfTheDayDisplay({ data }: { data: CardData }) {
       image: frontImageUrl ? [frontImageUrl] : undefined,
       description: characterBio
         ? `${cardName}. ${characterBio}`
-        : `${cardName} â€” featured Card of the Day at Northland Legendary Finds.`,
+        : `${cardName} — featured Card of the Day at Northland Legendary Finds.`,
       brand: { "@type": "Brand", name: setLabel || "Topps" },
       offers: {
         "@type": "AggregateOffer",
@@ -210,7 +210,7 @@ function CardOfTheDayDisplay({ data }: { data: CardData }) {
                     <div className="cod-zoom-hint" title="Hover to zoom">ðŸ”</div>
                   </>
                 )
-                : <Placeholder icon="â—ˆ" label="Card Image Coming Soon" dims="Photo being added" />
+                : <Placeholder icon="█" label="Card Image Coming Soon" dims="Photo being added" />
             )}
             {active === "back" && (
               backImageUrl
@@ -220,7 +220,7 @@ function CardOfTheDayDisplay({ data }: { data: CardData }) {
                     <div className="cod-zoom-hint" title="Hover to zoom">ðŸ”</div>
                   </>
                 )
-                : <Placeholder icon="â–£" label="Card Back â€” Coming Soon" />
+                : <Placeholder icon="▣" label="Card Back — Coming Soon" />
             )}
             {active === "video" && youtubeId && (
               <iframe
@@ -279,19 +279,19 @@ function CardOfTheDayDisplay({ data }: { data: CardData }) {
             </a>
             <a className="cod-btn" href={whatnotUrl} target="_blank" rel="noopener"
                style={{ background: "#1c2333", color: "#fff", border: "1px solid var(--steel,#384259)" }}>
-              â–¶ Watch Live on Whatnot
+              ▶ Watch Live on Whatnot
             </a>
           </div>
         </div>
       </div>
 
-      {/* Character info â€” evergreen SEO content */}
+      {/* Character info — evergreen SEO content */}
       <SectionRule icon="ðŸ¦¹" title={`Who Is ${characterName}?`} />
       <div className="cod-char" style={{ display: "grid", gridTemplateColumns: "120px 1fr", gap: "1.3rem", background: "var(--card,#141823)", border: "1px solid var(--border,#242a3a)", borderRadius: 16, padding: "1.3rem", marginBottom: "1.4rem" }}>
         <div style={{ aspectRatio: "3 / 4", borderRadius: 11, border: "1px solid var(--border,#242a3a)", background: "#0a0c11", position: "relative", overflow: "hidden" }}>
           {characterImageUrl
             ? <img src={characterImageUrl} alt={characterName} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
-            : <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", color: "#565d72", fontSize: "1.6rem", background: "repeating-linear-gradient(135deg,#10141f 0 14px,#0b0e16 14px 28px)" }}>â—ˆ</div>}
+            : <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", color: "#565d72", fontSize: "1.6rem", background: "repeating-linear-gradient(135deg,#10141f 0 14px,#0b0e16 14px 28px)" }}>█</div>}
         </div>
         <div>
           <h2 style={{ fontFamily: "'Sora',sans-serif", fontWeight: 800, fontSize: "1.35rem", color: "#fff", margin: "0 0 .15rem" }}>
@@ -322,7 +322,7 @@ function CardOfTheDayDisplay({ data }: { data: CardData }) {
         <a href={characterPageUrl(characterName)}
            className="inline-flex items-center"
            style={{ gap: ".5rem", fontFamily: "'Sora',sans-serif", fontWeight: 700, fontSize: ".9rem", color: "#5b8cff", textDecoration: "none", border: "1px solid rgba(91,140,255,.4)", padding: ".6rem 1.1rem", borderRadius: 10 }}>
-          ðŸ¦¸ Explore {characterName} â†’
+          ðŸ¦¸ Explore {characterName} →
         </a>
       </div>
 
@@ -331,11 +331,11 @@ function CardOfTheDayDisplay({ data }: { data: CardData }) {
         <div className="flex items-center justify-between" style={{ background: "#10141c", borderRadius: 14, padding: "1.4rem 1.6rem", gap: "1rem", flexWrap: "wrap" }}>
           <div>
             <h3 style={{ fontFamily: "'Sora',sans-serif", fontWeight: 800, fontSize: "1.3rem", margin: "0 0 .2rem", color: "#fff" }}>Want this card in hand?</h3>
-            <p style={{ margin: 0, fontSize: ".88rem", color: "#aeb4c4" }}>Catch it in a live break â€” strong floor, loaded middle, healthy ceiling.</p>
+            <p style={{ margin: 0, fontSize: ".88rem", color: "#aeb4c4" }}>Catch it in a live break — strong floor, loaded middle, healthy ceiling.</p>
           </div>
           <a href={whatnotUrl} target="_blank" rel="noopener"
              style={{ background: PRIMARY, color: "var(--primary-foreground,#08200f)", fontFamily: "'Sora',sans-serif", fontWeight: 800, fontSize: ".9rem", padding: ".75rem 1.4rem", borderRadius: 10, textDecoration: "none", whiteSpace: "nowrap" }}>
-            â–¶ Join Live Break
+            ▶ Join Live Break
           </a>
         </div>
       </div>
@@ -388,7 +388,7 @@ function CardOfTheDayDisplay({ data }: { data: CardData }) {
   );
 }
 
-// â”€â”€ Archive Gallery Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Archive Gallery Component ────────────────────────────────────────────────
 function ArchiveGallery({ currentDate }: { currentDate?: string }) {
   const [showArchive, setShowArchive] = useState(false);
   const [, navigate] = useLocation();
@@ -451,7 +451,7 @@ function ArchiveGallery({ currentDate }: { currentDate?: string }) {
 
           {allDatesQuery.isLoading && (
             <div style={{ textAlign: "center", padding: "2rem", color: "var(--muted-foreground,#8a90a3)" }}>
-              <p style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".8rem" }}>Loading archiveâ€¦</p>
+              <p style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".8rem" }}>Loading archive…</p>
             </div>
           )}
 
@@ -483,7 +483,7 @@ function ArchiveGallery({ currentDate }: { currentDate?: string }) {
                       {card.frontImageUrl ? (
                         <img src={mediaUrl(card.frontImageUrl)} alt={card.characterName} style={{ position: "relative", width: "78%", height: "85%", objectFit: "contain", margin: "7% auto 0", display: "block", filter: "drop-shadow(0 4px 12px rgba(0,0,0,0.5))" }} loading="lazy" />
                       ) : (
-                        <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", color: "#565d72", fontSize: "1.4rem" }}>â—ˆ</div>
+                        <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", color: "#565d72", fontSize: "1.4rem" }}>█</div>
                       )}
                     </div>
                     {/* Info */}
@@ -505,13 +505,13 @@ function ArchiveGallery({ currentDate }: { currentDate?: string }) {
   );
 }
 
-// â”€â”€ Page wrapper â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Page wrapper ─────────────────────────────────────────────────────────────
 export default function CardOfTheDayPage() {
   const params = useParams();
   const [, navigate] = useLocation();
   const dateParam = params.date; // undefined = today
 
-  // Fetch card data â€” either by date or today's
+  // Fetch card data — either by date or today's
   const todayQuery = trpc.cardOfTheDay.getTodaysCard.useQuery(undefined, {
     staleTime: 1000 * 60 * 5,
     enabled: !dateParam,
@@ -535,7 +535,7 @@ export default function CardOfTheDayPage() {
   );
 
   const pageTitle = data
-    ? `Card of the Day: ${data.characterName} â€” ${data.setLabel || "NLF Collection"} | Northland Legendary Finds`
+    ? `Card of the Day: ${data.characterName} — ${data.setLabel || "NLF Collection"} | Northland Legendary Finds`
     : "Card of the Day | Northland Legendary Finds";
 
   const pageDesc = data
@@ -567,8 +567,8 @@ export default function CardOfTheDayPage() {
 
       {isLoading && (
         <div style={{ maxWidth: "60rem", margin: "4rem auto", padding: "2rem", textAlign: "center", color: "var(--muted-foreground,#8a90a3)" }}>
-          <div style={{ fontSize: "2rem", marginBottom: "1rem" }}>â—ˆ</div>
-          <p style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".85rem", letterSpacing: ".08em", textTransform: "uppercase" }}>Loading cardâ€¦</p>
+          <div style={{ fontSize: "2rem", marginBottom: "1rem" }}>█</div>
+          <p style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: ".85rem", letterSpacing: ".08em", textTransform: "uppercase" }}>Loading card…</p>
         </div>
       )}
 
@@ -605,10 +605,10 @@ export default function CardOfTheDayPage() {
                 onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,206,77,.05)"; }}
                 onMouseLeave={(e) => { e.currentTarget.style.background = "none"; }}
               >
-                <span style={{ fontSize: "1.6rem", color: GOLD, lineHeight: 1 }}>â€¹</span>
+                <span style={{ fontSize: "1.6rem", color: GOLD, lineHeight: 1 }}>‹</span>
                 <div style={{ textAlign: "left" }}>
                   <span style={{ display: "block", fontFamily: "'JetBrains Mono',monospace", fontSize: ".62rem", color: "var(--muted-foreground,#8a90a3)", letterSpacing: ".1em", textTransform: "uppercase" }}>Previous</span>
-                  <span style={{ display: "block", fontFamily: "'Sora',sans-serif", fontWeight: 700, fontSize: ".85rem", marginTop: ".1rem" }}>â† Earlier Card</span>
+                  <span style={{ display: "block", fontFamily: "'Sora',sans-serif", fontWeight: 700, fontSize: ".85rem", marginTop: ".1rem" }}>← Earlier Card</span>
                 </div>
               </button>
             ) : (
@@ -648,9 +648,9 @@ export default function CardOfTheDayPage() {
               >
                 <div style={{ textAlign: "right" }}>
                   <span style={{ display: "block", fontFamily: "'JetBrains Mono',monospace", fontSize: ".62rem", color: "var(--muted-foreground,#8a90a3)", letterSpacing: ".1em", textTransform: "uppercase" }}>Next</span>
-                  <span style={{ display: "block", fontFamily: "'Sora',sans-serif", fontWeight: 700, fontSize: ".85rem", marginTop: ".1rem" }}>Later Card â†’</span>
+                  <span style={{ display: "block", fontFamily: "'Sora',sans-serif", fontWeight: 700, fontSize: ".85rem", marginTop: ".1rem" }}>Later Card →</span>
                 </div>
-                <span style={{ fontSize: "1.6rem", color: GOLD, lineHeight: 1 }}>â€º</span>
+                <span style={{ fontSize: "1.6rem", color: GOLD, lineHeight: 1 }}>›</span>
               </button>
             ) : (
               <div style={{ flex: 1, padding: "1rem 1.4rem", borderLeft: "1px solid var(--border,#242a3a)", textAlign: "right" }}>

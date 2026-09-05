@@ -169,7 +169,7 @@ export default function CharacterPage() {
         ])}
       />
 
-      {/* Hero Section â€” Cinematic character card art banner */}
+      {/* Hero Section — Cinematic character card art banner */}
       <section className="relative border-b border-border/50 overflow-hidden">
         {/* Background: blurred character image */}
         <div className="absolute inset-0">
@@ -192,7 +192,7 @@ export default function CharacterPage() {
           </nav>
 
           <div className="grid md:grid-cols-[240px_1fr] lg:grid-cols-[280px_1fr] gap-6 lg:gap-10 items-start">
-            {/* Character Card Art â€” Large */}
+            {/* Character Card Art — Large */}
             <div className="mx-auto md:mx-0 w-48 md:w-full">
               <div className="aspect-[3/4] rounded-2xl overflow-hidden border-2 border-primary/40 shadow-2xl shadow-primary/20 ring-1 ring-primary/10">
                 <img

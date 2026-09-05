@@ -1,9 +1,9 @@
 ﻿/**
- * TrendingCharacterPage â€” Reusable template for individual character card listing pages.
+ * TrendingCharacterPage — Reusable template for individual character card listing pages.
  * Auto-pulls cards from marvelCards DB + checklistItems across ALL products.
  * SEO-optimized for "[Character] Topps Marvel Cards" and graded card searches.
  * Linked from /trending, navigable to other characters and home.
- * New checklists automatically populate these pages â€” no manual updates needed.
+ * New checklists automatically populate these pages — no manual updates needed.
  */
 
 import { useMemo } from "react";
@@ -103,7 +103,7 @@ export default function TrendingCharacterPage() {
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title={`${data.characterName} Topps Marvel Cards â€” Graded & Raw | Northland Legendary Finds`}
+        title={`${data.characterName} Topps Marvel Cards — Graded & Raw | Northland Legendary Finds`}
         description={metaDesc}
         path={`/trending/${slug}`}
         image={characterImage}
@@ -290,7 +290,7 @@ export default function TrendingCharacterPage() {
                   <div className="bg-gradient-to-r from-primary/10 to-transparent px-6 py-4 border-b border-border/50">
                     <div className="flex items-center justify-between">
                       <div>
-                        <h3 className="text-lg font-bold text-foreground">{data.characterName} â€” {group.setName}</h3>
+                        <h3 className="text-lg font-bold text-foreground">{data.characterName} — {group.setName}</h3>
                         <p className="text-sm text-muted-foreground">{group.cards.length} cards in this set</p>
                       </div>
                       {group.setSlug && (

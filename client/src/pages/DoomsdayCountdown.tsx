@@ -1,5 +1,5 @@
 ﻿/**
- * Doomsday Countdown Page â€” /doomsday
+ * Doomsday Countdown Page — /doomsday
  * Dedicated cinematic countdown to Avengers: Doomsday (Dec 18, 2026)
  * with collector context and Spider-Man: Brand New Day secondary timer.
  */
@@ -36,18 +36,18 @@ const CONFIRMED_DETAILS = [
 
 const COLLECTOR_ANGLES = [
   {
-    title: "2025 Topps Marvel Mint â€” SDCC Exclusive",
-    desc: "Last year's SDCC-only set featured Doctor Doom as the chase card. Comic Cuts, Chrome Refractors, and a Stan Lee Cut Signature â€” all confirmed characters from this trailer.",
+    title: "2025 Topps Marvel Mint — SDCC Exclusive",
+    desc: "Last year's SDCC-only set featured Doctor Doom as the chase card. Comic Cuts, Chrome Refractors, and a Stan Lee Cut Signature — all confirmed characters from this trailer.",
     href: "/mcu-news/2025-topps-marvel-mint-complete-guide-bronze-to-platinum",
   },
   {
     title: "2026 Marvel Mint Drops This Week at SDCC",
-    desc: "History repeats: Topps just announced the 2026 Marvel Mint release at SDCC â€” Spider-Man themed this year. Same exclusive format, same limited boxes.",
+    desc: "History repeats: Topps just announced the 2026 Marvel Mint release at SDCC — Spider-Man themed this year. Same exclusive format, same limited boxes.",
     href: "/mcu-news/2026-topps-marvel-mint-sdcc-spider-man-exclusive-announcement",
   },
   {
     title: "Every Character = A Card",
-    desc: "Doom, Thor, Xavier, Gambit, Magneto, Captain America â€” the trailer confirmed them all. Every character on screen means every card gets a spotlight.",
+    desc: "Doom, Thor, Xavier, Gambit, Magneto, Captain America — the trailer confirmed them all. Every character on screen means every card gets a spotlight.",
     href: "/mcu-news/doctor-doom-sdcc-exclusive-750-card-2025-topps-marvel-mint",
   },
 ];
@@ -133,13 +133,13 @@ export default function DoomsdayCountdown() {
     <>
       <SEO
         title="Avengers: Doomsday Countdown | Northland Legendary Finds"
-        description={`Live countdown to Avengers: Doomsday â€” December 18, 2026. ${doomsday.days} days remaining. Robert Downey Jr. as Doctor Doom. Track the MCU's biggest event with NLF.`}
+        description={`Live countdown to Avengers: Doomsday — December 18, 2026. ${doomsday.days} days remaining. Robert Downey Jr. as Doctor Doom. Track the MCU's biggest event with NLF.`}
         path="/doomsday"
       />
 
       <div className="min-h-screen bg-black">
 
-        {/* ===== HERO â€” Full cinematic countdown ===== */}
+        {/* ===== HERO — Full cinematic countdown ===== */}
         <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
           {/* Background */}
           <div className="absolute inset-0">
@@ -163,7 +163,7 @@ export default function DoomsdayCountdown() {
             <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-green-500/10 border border-green-500/30 rounded-full mb-6 sm:mb-8">
               <Flame className="w-4 h-4 text-green-400 animate-pulse" />
               <span className="text-green-400 text-xs sm:text-sm font-bold tracking-[0.15em] uppercase">
-                MCU Phase 6 â€” Live Countdown
+                MCU Phase 6 — Live Countdown
               </span>
             </div>
 
@@ -251,7 +251,7 @@ export default function DoomsdayCountdown() {
           <div className="container">
             <div className="text-center mb-8">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-red-600/15 border border-red-600/30 rounded-full mb-4 animate-pulse">
-                <span className="text-red-400 text-xs font-bold tracking-wider uppercase">NEW â€” Official Trailer</span>
+                <span className="text-red-400 text-xs font-bold tracking-wider uppercase">NEW — Official Trailer</span>
               </div>
               <h2
                 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-3"
@@ -284,11 +284,11 @@ export default function DoomsdayCountdown() {
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                   <div className="flex-1">
                     <p className="text-sm sm:text-base text-gray-300">
-                      <span className="font-bold text-green-400">Collector's Note:</span> Every character in this trailer appears in the <span className="font-semibold text-white">2025 Topps Marvel Mint</span> set â€” last year's SDCC-exclusive release. And this week at SDCC 2026, Topps drops the follow-up: a Spider-Man themed Marvel Mint with the same limited box format.
+                      <span className="font-bold text-green-400">Collector's Note:</span> Every character in this trailer appears in the <span className="font-semibold text-white">2025 Topps Marvel Mint</span> set — last year's SDCC-exclusive release. And this week at SDCC 2026, Topps drops the follow-up: a Spider-Man themed Marvel Mint with the same limited box format.
                     </p>
                   </div>
                   <a href="/mcu-news/2025-topps-marvel-mint-complete-guide-bronze-to-platinum" className="inline-flex items-center gap-2 px-4 py-2 bg-green-500/20 border border-green-500/40 rounded-lg text-green-400 text-sm font-bold hover:bg-green-500/30 transition-colors whitespace-nowrap">
-                    Read the Guide â†’
+                    Read the Guide →
                   </a>
                 </div>
               </div>
@@ -340,7 +340,7 @@ export default function DoomsdayCountdown() {
                 WHY YOUR <span className="text-green-400">CARDS MATTER</span> NOW
               </h2>
               <p className="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
-                Every movie that drops sends collectors scrambling. The smart move is building your collection before the hype hits â€” not after.
+                Every movie that drops sends collectors scrambling. The smart move is building your collection before the hype hits — not after.
               </p>
             </div>
 
@@ -406,7 +406,7 @@ export default function DoomsdayCountdown() {
           </div>
         </section>
 
-        {/* ===== EMAIL SIGNUP â€” News, Giveaways, Drops ===== */}
+        {/* ===== EMAIL SIGNUP — News, Giveaways, Drops ===== */}
         <section className="py-14 sm:py-16 border-t border-green-500/10">
           <div className="container max-w-lg">
             <div className="text-center mb-6">
@@ -417,7 +417,7 @@ export default function DoomsdayCountdown() {
                 STAY IN THE <span className="text-green-400">LOOP</span>
               </h2>
               <p className="text-gray-400 text-sm sm:text-base">
-                Get Doomsday news, giveaway alerts, and exclusive collector drops â€” straight to your inbox.
+                Get Doomsday news, giveaway alerts, and exclusive collector drops — straight to your inbox.
               </p>
             </div>
             <NewsletterSignup

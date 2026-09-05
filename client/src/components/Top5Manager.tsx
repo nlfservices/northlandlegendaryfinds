@@ -407,7 +407,7 @@ export default function Top5Manager() {
                 <Input
                   value={form.tagline}
                   onChange={e => setForm(f => ({ ...f, tagline: e.target.value }))}
-                  placeholder="e.g., The trailer just dropped â€” and the hype is unreal"
+                  placeholder="e.g., The trailer just dropped — and the hype is unreal"
                 />
               </div>
 

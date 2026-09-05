@@ -180,7 +180,7 @@ function ArticleContentWithBanner({ content }: { content: string }) {
             </div>
             <div className="text-center sm:text-left flex-1">
               <p className="font-bold text-foreground text-base sm:text-lg mb-1">
-                We're going LIVE this week â€” free cards every stream
+                We're going LIVE this week — free cards every stream
               </p>
               <p className="text-sm text-muted-foreground">
                 New to Whatnot? Get <span className="text-yellow-400 font-semibold">$15 off</span> your first purchase. No strings attached.
@@ -306,7 +306,7 @@ export default function MCUNewsArticle() {
         ]}
       />
 
-      {/* Back nav â€” hidden for patriotic template (it has its own full-width layout) */}
+      {/* Back nav — hidden for patriotic template (it has its own full-width layout) */}
       {getArticleTemplate(article.templateLayout as ArticleTemplate | null, article.id) !== 'patriotic' && (
         <div className="border-b border-border bg-card/30">
           <div className="container max-w-4xl py-3">
@@ -317,7 +317,7 @@ export default function MCUNewsArticle() {
       )}
 
       <article className={getArticleTemplate(article.templateLayout as ArticleTemplate | null, article.id) === 'patriotic' ? 'py-0' : 'container max-w-4xl py-8 lg:py-12'}>
-        {/* Header â€” patriotic template renders its own header inside the template */}
+        {/* Header — patriotic template renders its own header inside the template */}
         {getArticleTemplate(article.templateLayout as ArticleTemplate | null, article.id) !== 'patriotic' && (
         <header className="mb-8">
           <div className="flex items-center gap-3 mb-4">
@@ -363,7 +363,7 @@ export default function MCUNewsArticle() {
         )}
 
 
-        {/* Featured Image â€” only for Classic template; other templates render their own hero */}
+        {/* Featured Image — only for Classic template; other templates render their own hero */}
         {article.featuredImageUrl && getArticleTemplate(article.templateLayout as ArticleTemplate | null, article.id) === 'classic' && (
           <div className="rounded-xl overflow-hidden mb-8 border border-border">
             <img
@@ -375,7 +375,7 @@ export default function MCUNewsArticle() {
         )}
 
 
-        {/* Top Share Buttons â€” below featured image, above article content */}
+        {/* Top Share Buttons — below featured image, above article content */}
         {getArticleTemplate(article.templateLayout as ArticleTemplate | null, article.id) === 'classic' && (
           <div className="mb-6 border-b border-border pb-4">
             <ShareButtons
@@ -386,7 +386,7 @@ export default function MCUNewsArticle() {
           </div>
         )}
 
-        {/* Article Content â€” Template-based rendering */}
+        {/* Article Content — Template-based rendering */}
         {(() => {
           const template = getArticleTemplate(article.templateLayout as ArticleTemplate | null, article.id);
           if (template === 'classic') {
@@ -409,7 +409,7 @@ export default function MCUNewsArticle() {
           );
         })()}
 
-        {/* Bottom Share Buttons â€” after article content, before Collector's Corner */}
+        {/* Bottom Share Buttons — after article content, before Collector's Corner */}
         {/* Patriotic template already has its own share buttons inside the template */}
         {getArticleTemplate(article.templateLayout as ArticleTemplate | null, article.id) !== 'patriotic' && (
           <div className="mb-6 border-t border-border pt-4">
@@ -421,7 +421,7 @@ export default function MCUNewsArticle() {
           </div>
         )}
 
-        {/* Collector's Corner and CTAs â€” wrapped in container for patriotic template */}
+        {/* Collector's Corner and CTAs — wrapped in container for patriotic template */}
         <div className={getArticleTemplate(article.templateLayout as ArticleTemplate | null, article.id) === 'patriotic' ? 'container max-w-4xl px-4 sm:px-6' : ''}>
         <CollectorsCorner
           articleId={article.id}
@@ -439,7 +439,7 @@ export default function MCUNewsArticle() {
             href="https://northlandlegendaryfinds.com/whatnot"
             className="inline-flex items-center gap-2 px-8 py-4 bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-lg rounded-lg transition-all shadow-lg shadow-yellow-500/20 hover:shadow-yellow-500/40 hover:scale-[1.02]"
           >
-            Watch Us Live â€” Free Giveaways Every Show
+            Watch Us Live — Free Giveaways Every Show
           </a>
           <p className="text-xs text-muted-foreground mt-3">No purchase necessary to watch or win. Just show up.</p>
         </div>

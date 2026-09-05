@@ -31,7 +31,7 @@ export default function Marvel() {
             <span className="text-red-500">MARVEL</span> COLLECTION
           </h1>
           <p className="text-xl text-gray-300 max-w-2xl">
-            Premium Marvel trading card repacks and sealed products. From Topps Chrome to Marvel Mint â€” find your next legendary pull.
+            Premium Marvel trading card repacks and sealed products. From Topps Chrome to Marvel Mint — find your next legendary pull.
           </p>
         </div>
       </section>

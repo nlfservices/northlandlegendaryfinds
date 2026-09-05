@@ -38,7 +38,7 @@ const tierConfig = {
   },
   hit: {
     label: "MIDDLE OF THE PACK",
-    subtitle: "Solid hits â€” autos, relics, and numbered parallels",
+    subtitle: "Solid hits — autos, relics, and numbered parallels",
     icon: Target,
     gradient: "from-purple-500 to-violet-600",
     bgGlow: "bg-purple-500/5",
@@ -52,7 +52,7 @@ const tierConfig = {
   },
   base: {
     label: "LOW FLOOR",
-    subtitle: "Base cards with solid value â€” every pack has these",
+    subtitle: "Base cards with solid value — every pack has these",
     icon: Layers,
     gradient: "from-blue-500 to-cyan-600",
     bgGlow: "bg-blue-500/5",
@@ -76,7 +76,7 @@ const tierConfig = {
     iconBg: "bg-gradient-to-br from-green-500/20 to-emerald-500/20",
     pulledBg: "bg-green-500/5 border-green-500/20",
     ringColor: "ring-green-500/20",
-    emoji: "â­",
+    emoji: "⭐",
   },
 };
 
@@ -233,7 +233,7 @@ export default function WhatnotChecklist() {
               )}
 
               <p className="text-sm text-muted-foreground">
-                {product.packsPerShow || 50} packs per show Â· {product.totalPacks} total packs Â· Whatnot exclusive
+                {product.packsPerShow || 50} packs per show · {product.totalPacks} total packs · Whatnot exclusive
               </p>
             </div>
 
@@ -427,23 +427,23 @@ export default function WhatnotChecklist() {
                                   )}
                                 </div>
                                 <div className="text-xs text-muted-foreground flex items-center gap-1 flex-wrap">
-                                  {[item.cardSet, item.cardYear].filter(Boolean).join(' Â· ')}
+                                  {[item.cardSet, item.cardYear].filter(Boolean).join(' · ')}
                                   {/* Show pull date and info */}
                                   {item.isPulled && pullData && (
                                     <>
-                                      <span className="mx-1">Â·</span>
+                                      <span className="mx-1">·</span>
                                       <Clock className="w-3 h-3 inline" />
                                       <span className={config.textColor}>
                                         Pulled {formatPullDate(pullData.pulledAt)}
                                       </span>
                                       {pullData.packNumber && (
-                                        <span className="text-muted-foreground"> Â· Pack #{pullData.packNumber}</span>
+                                        <span className="text-muted-foreground"> · Pack #{pullData.packNumber}</span>
                                       )}
                                       {showInfo && (
-                                        <span className="text-muted-foreground"> Â· {showInfo.title}</span>
+                                        <span className="text-muted-foreground"> · {showInfo.title}</span>
                                       )}
                                       {pullData.pulledBy && (
-                                        <span className="text-muted-foreground"> Â· {pullData.pulledBy}</span>
+                                        <span className="text-muted-foreground"> · {pullData.pulledBy}</span>
                                       )}
                                     </>
                                   )}
@@ -521,9 +521,9 @@ export default function WhatnotChecklist() {
                                 </div>
                                 <div className="text-sm text-muted-foreground flex items-center gap-1 flex-wrap mt-0.5">
                                   {item?.cardSet && <span>{item.cardSet}</span>}
-                                  {pull.packNumber && <span> Â· Pack #{pull.packNumber}</span>}
-                                  {pull.pulledBy && <span> Â· {pull.pulledBy}</span>}
-                                  {showInfo && <span> Â· {showInfo.title}</span>}
+                                  {pull.packNumber && <span> · Pack #{pull.packNumber}</span>}
+                                  {pull.pulledBy && <span> · {pull.pulledBy}</span>}
+                                  {showInfo && <span> · {showInfo.title}</span>}
                                 </div>
                               </div>
                             </div>
@@ -575,8 +575,8 @@ export default function WhatnotChecklist() {
                               <div className="text-sm text-muted-foreground mt-0.5">
                                 <Calendar className="w-3 h-3 inline mr-1" />
                                 {new Date(Number(show.showDate)).toLocaleString()}
-                                {show.packsOpened > 0 && <span> Â· {show.packsOpened} packs opened</span>}
-                                {show.startingPackNumber && <span> Â· Starting pack #{show.startingPackNumber}</span>}
+                                {show.packsOpened > 0 && <span> · {show.packsOpened} packs opened</span>}
+                                {show.startingPackNumber && <span> · Starting pack #{show.startingPackNumber}</span>}
                               </div>
                             </div>
                           </div>

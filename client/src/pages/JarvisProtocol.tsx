@@ -37,7 +37,7 @@ const BENEFITS = [
   {
     icon: Bell,
     title: "Exclusive Drop Alerts",
-    description: "Get notified first when new repack products go live â€” never miss a legendary pull.",
+    description: "Get notified first when new repack products go live — never miss a legendary pull.",
   },
   {
     icon: Star,
@@ -72,7 +72,7 @@ export default function JarvisProtocol() {
     );
   }
 
-  // Authenticated â€” show account dashboard
+  // Authenticated — show account dashboard
   if (isAuthenticated && user) {
     return (
       <div className="min-h-screen bg-background">
@@ -160,7 +160,7 @@ export default function JarvisProtocol() {
   }
 
   // ========================================
-  // Not authenticated â€” Two-path login page
+  // Not authenticated — Two-path login page
   // ========================================
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
@@ -202,7 +202,7 @@ export default function JarvisProtocol() {
         </Link>
 
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start max-w-6xl mx-auto">
-          {/* Left Side â€” Branding & Benefits */}
+          {/* Left Side — Branding & Benefits */}
           <div>
             {/* Protocol Header */}
             <div className="flex items-center gap-4 mb-6">
@@ -242,7 +242,7 @@ export default function JarvisProtocol() {
             </div>
           </div>
 
-          {/* Right Side â€” Two Login Options */}
+          {/* Right Side — Two Login Options */}
           <div className="space-y-5">
             {/* ===== NEW USER CARD ===== */}
             <div className="bg-card border-2 border-primary/40 rounded-2xl overflow-hidden shadow-2xl shadow-primary/10">
@@ -258,7 +258,7 @@ export default function JarvisProtocol() {
                   </div>
                 </div>
                 <p className="text-muted-foreground text-sm leading-relaxed">
-                  Join the NLF community in seconds. Sign up with your email, Google, Facebook, Apple, or Microsoft account â€” no special account needed.
+                  Join the NLF community in seconds. Sign up with your email, Google, Facebook, Apple, or Microsoft account — no special account needed.
                 </p>
               </div>
 
@@ -271,7 +271,7 @@ export default function JarvisProtocol() {
                   }}
                 >
                   <UserPlus className="w-5 h-5" />
-                  Create Account â€” It's Free
+                  Create Account — It's Free
                   <ChevronRight className="w-5 h-5" />
                 </Button>
 

@@ -1,5 +1,5 @@
 ﻿/**
- * Template Showcase â€” Preview all 10 article template layouts with sample content
+ * Template Showcase — Preview all 10 article template layouts with sample content
  * Admin-only page for reviewing and choosing templates. Includes print/PDF export.
  */
 
@@ -16,11 +16,11 @@ import {
   type ArticleTemplate
 } from "@/components/ArticleTemplates";
 
-// â”€â”€â”€ Sample content for each template category â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── Sample content for each template category ───────────────────────────────
 
 const SAMPLE_CONTENT_GENERAL = `The Marvel Cinematic Universe continues to evolve at a breathtaking pace. With Phase 6 now in full swing, the multiverse saga is reaching its climax in ways that fans have been anticipating for years.
 
-> "The best Marvel cards are the ones that tell a story â€” and right now, every character has a story worth collecting."
+> "The best Marvel cards are the ones that tell a story — and right now, every character has a story worth collecting."
 
 The trading card market has responded to these developments with unprecedented enthusiasm. Collectors are scrambling to secure key cards before the next wave of announcements drives prices even higher.
 
@@ -56,7 +56,7 @@ For collectors who stay informed, maintain discipline, and act on conviction, th
 
 const SAMPLE_CONTENT_CHARACTER = `Robert Downey Jr. brought Tony Stark to life in a way that defined an era of cinema. His portrayal of the genius billionaire philanthropist set the gold standard for superhero performances and launched the MCU into the cultural stratosphere.
 
-> "I am Iron Man." â€” Three words that changed cinema forever.
+> "I am Iron Man." — Three words that changed cinema forever.
 
 The trading card market reflects this legacy in a powerful way. RDJ-era Iron Man cards remain among the most sought-after in the entire Topps Marvel catalog.
 
@@ -76,7 +76,7 @@ Autograph cards featuring RDJ's signature command premium prices in the secondar
 
 Tony Stark's sacrifice in Avengers: Endgame created one of cinema's most emotional moments. The character's arc from self-centered weapons manufacturer to selfless hero resonates with audiences of all ages.
 
-This emotional connection drives collector demand in a way that purely fictional characters cannot match â€” every card is a piece of a story that genuinely moved people.
+This emotional connection drives collector demand in a way that purely fictional characters cannot match — every card is a piece of a story that genuinely moved people.
 
 ## What Collectors Should Know
 
@@ -86,13 +86,13 @@ const SAMPLE_CONTENT_DISNEY = `Disney Parks have been transforming their Marvel 
 
 ## Avengers Campus: The Crown Jewel
 
-Avengers Campus at Disney California Adventure opened in 2021 and immediately became one of the most popular lands in any Disney park worldwide. The attention to detail is extraordinary â€” every corner tells a story, every cast member is in character.
+Avengers Campus at Disney California Adventure opened in 2021 and immediately became one of the most popular lands in any Disney park worldwide. The attention to detail is extraordinary — every corner tells a story, every cast member is in character.
 
 The centerpiece attraction, WEB SLINGERS: A Spider-Man Adventure, uses cutting-edge technology to put guests in the role of a new recruit helping Spider-Man collect his out-of-control Spider-Bots. It's interactive, replayable, and genuinely thrilling.
 
 ## Guardians of the Galaxy: Cosmic Rewind
 
-The Guardians of the Galaxy: Cosmic Rewind attraction at EPCOT represents a new category of Disney attraction â€” the "reverse launch" coaster that takes guests on an intergalactic chase through the cosmos.
+The Guardians of the Galaxy: Cosmic Rewind attraction at EPCOT represents a new category of Disney attraction — the "reverse launch" coaster that takes guests on an intergalactic chase through the cosmos.
 
 The pre-show featuring the Collector (played by Benicio del Toro) sets up a narrative that perfectly captures the spirit of the Guardians films. It's one of the most technically impressive attractions ever built.
 
@@ -102,11 +102,11 @@ Disney has announced significant Marvel expansions across multiple parks. The de
 
 ## The Card Connection
 
-Theme park experiences drive Marvel fandom in powerful ways. Kids who experience Avengers Campus become lifelong Marvel fans â€” and many of them become card collectors. The pipeline from park visitor to card collector is real and growing.`;
+Theme park experiences drive Marvel fandom in powerful ways. Kids who experience Avengers Campus become lifelong Marvel fans — and many of them become card collectors. The pipeline from park visitor to card collector is real and growing.`;
 
 const SAMPLE_CONTENT_COLLECTOR = `The Amazing Spider-Man #1 from 1963 is one of the most iconic comic books ever published. It introduced the world to Peter Parker's solo adventures and established the template for what a Marvel superhero story could be. Today, high-grade copies command extraordinary prices at auction.
 
-> "With great power comes great responsibility." â€” The line that defined a hero and a generation of readers.
+> "With great power comes great responsibility." — The line that defined a hero and a generation of readers.
 
 For Marvel card collectors, understanding the comics that inspired the cards is essential context for appreciating what makes certain cards truly special.
 
@@ -114,7 +114,7 @@ For Marvel card collectors, understanding the comics that inspired the cards is 
 
 Stan Lee and Steve Ditko created something timeless with their early Spider-Man stories. The combination of relatable teenage protagonist, witty dialogue, and genuinely challenging villains set a new standard for superhero storytelling.
 
-The visual language established in those early comics â€” the web-swinging poses, the expressive costume, the dynamic action sequences â€” directly influenced how Spider-Man appears on trading cards decades later.
+The visual language established in those early comics — the web-swinging poses, the expressive costume, the dynamic action sequences — directly influenced how Spider-Man appears on trading cards decades later.
 
 ## Most Loved Marvel Comics Series
 
@@ -128,11 +128,11 @@ The 2025 Topps Marvel Chrome set features artwork directly inspired by classic c
 
 ## Building a Complementary Collection
 
-Many serious collectors pursue both comics and cards simultaneously. The two collecting hobbies complement each other beautifully â€” comics provide the narrative context, cards provide the portable, displayable art.
+Many serious collectors pursue both comics and cards simultaneously. The two collecting hobbies complement each other beautifully — comics provide the narrative context, cards provide the portable, displayable art.
 
 Starting with key first appearances in both formats is a proven strategy for building a collection with both sentimental and investment value.`;
 
-// â”€â”€â”€ Template definitions â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── Template definitions ─────────────────────────────────────────────────────
 
 const TEMPLATES: {
   id: ArticleTemplate;
@@ -148,7 +148,7 @@ const TEMPLATES: {
     id: "classic",
     name: "1. Classic",
     icon: Newspaper,
-    description: "Clean linear flow â€” hero image, flowing paragraphs, mid-article banners. The reliable workhorse.",
+    description: "Clean linear flow — hero image, flowing paragraphs, mid-article banners. The reliable workhorse.",
     bestFor: "Movie news, general MCU updates, release date announcements",
     content: SAMPLE_CONTENT_GENERAL,
     category: "movie_news",
@@ -242,7 +242,7 @@ const TEMPLATES: {
   },
 ];
 
-// â”€â”€â”€ Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── Component ────────────────────────────────────────────────────────────────
 
 export default function TemplateShowcase() {
   const [activeTemplate, setActiveTemplate] = useState<ArticleTemplate>("classic");
@@ -265,7 +265,7 @@ export default function TemplateShowcase() {
         }
       `}</style>
 
-      {/* â”€â”€ Header â”€â”€ */}
+      {/* ── Header ── */}
       <div className="border-b border-border/50 bg-card/50 sticky top-0 z-50 no-print">
         <div className="container py-4">
           <div className="flex items-center justify-between flex-wrap gap-3">
@@ -278,7 +278,7 @@ export default function TemplateShowcase() {
               </Link>
               <div>
                 <h1 className="text-lg font-bold">Article Template Showcase</h1>
-                <p className="text-xs text-muted-foreground">10 distinct layouts â€” click any template to preview</p>
+                <p className="text-xs text-muted-foreground">10 distinct layouts — click any template to preview</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
@@ -318,7 +318,7 @@ export default function TemplateShowcase() {
         </div>
       </div>
 
-      {/* â”€â”€ Show All Mode â”€â”€ */}
+      {/* ── Show All Mode ── */}
       {showAll ? (
         <div className="container py-8 space-y-16">
           <div className="text-center mb-8">
@@ -355,7 +355,7 @@ export default function TemplateShowcase() {
                   <ArticleTemplateRenderer
                     template={t.id}
                     content={t.content}
-                    title={`Sample: ${t.name} Template â€” Marvel MCU Article`}
+                    title={`Sample: ${t.name} Template — Marvel MCU Article`}
                     featuredImageUrl="https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mcu-intel-card-market-Lt56dsta4y7Hzfj6pzAysR.webp"
                     category={t.category}
                     cardMarketImpact={t.cardMarketImpact}
@@ -368,7 +368,7 @@ export default function TemplateShowcase() {
           })}
         </div>
       ) : (
-        /* â”€â”€ Single Template View â”€â”€ */
+        /* ── Single Template View ── */
         <div className="container py-6">
           {/* Active template info card */}
           <div className="bg-card border border-border rounded-2xl p-5 mb-8">
@@ -402,7 +402,7 @@ export default function TemplateShowcase() {
             <ArticleTemplateRenderer
               template={activeTemplate}
               content={active.content}
-              title={`Sample: ${active.name} Template â€” Marvel MCU Article`}
+              title={`Sample: ${active.name} Template — Marvel MCU Article`}
               featuredImageUrl="https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/mcu-intel-card-market-Lt56dsta4y7Hzfj6pzAysR.webp"
               category={active.category}
               cardMarketImpact={active.cardMarketImpact}

@@ -9,6 +9,7 @@ import {
   castArticleVote, getArticleVoteCounts, getVisitorArticleVote,
   getAllArticleVoteSummaries, getRelatedArticles,
 } from "../db";
+import { repairMojibake } from "@shared/repairMojibake";
 import {
   ROTATION, SPECIALS, CONTRACTS,
   getNextTemplate, advanceRotation, validateArticle,
@@ -92,13 +93,26 @@ function rewriteBodyMedia(markdown: string) {
     });
 }
 
-function rewriteArticle<T extends { featuredImageUrl?: string | null; contentMarkdown?: string | null }>(article: T | null) {
+function rewriteArticle<T extends {
+  featuredImageUrl?: string | null;
+  contentMarkdown?: string | null;
+  title?: string | null;
+  excerpt?: string | null;
+  metaDescription?: string | null;
+  cardMarketImpact?: string | null;
+}>(article: T | null) {
   if (!article) return article;
+  const repair = (value: string | null | undefined) =>
+    value == null ? value : repairMojibake(value);
   return {
     ...article,
+    title: repair(article.title) as T["title"],
+    excerpt: repair(article.excerpt) as T["excerpt"],
+    metaDescription: repair(article.metaDescription) as T["metaDescription"],
+    cardMarketImpact: repair(article.cardMarketImpact) as T["cardMarketImpact"],
     featuredImageUrl: rewriteMedia(article.featuredImageUrl),
     contentMarkdown: article.contentMarkdown
-      ? rewriteBodyMedia(article.contentMarkdown)
+      ? repairMojibake(rewriteBodyMedia(article.contentMarkdown))
       : article.contentMarkdown,
   };
 }

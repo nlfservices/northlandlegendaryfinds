@@ -40,7 +40,7 @@ export async function setupVite(app: Express, server: Server) {
         `src="/src/main.tsx?v=${nanoid()}"`
       );
       const page = await vite.transformIndexHtml(url, template);
-      res.status(200).set({ "Content-Type": "text/html" }).end(page);
+      res.status(200).set({ "Content-Type": "text/html; charset=utf-8" }).end(page);
     } catch (e) {
       vite.ssrFixStacktrace(e as Error);
       next(e);
@@ -68,6 +68,7 @@ export function serveStatic(app: Express) {
       const name = path.basename(filePath);
       if (/\.html$/i.test(name)) {
         res.setHeader("Cache-Control", "no-cache");
+        res.setHeader("Content-Type", "text/html; charset=utf-8");
         return;
       }
       if (/\.(?:js|css|woff2)$/i.test(name) && /-[A-Za-z0-9_]{6,}\./.test(name)) {
@@ -83,6 +84,7 @@ export function serveStatic(app: Express) {
   // fall through to index.html if the file doesn't exist
   app.use("*", (_req, res) => {
     res.setHeader("Cache-Control", "no-cache");
+    res.setHeader("Content-Type", "text/html; charset=utf-8");
     res.sendFile(path.resolve(distPath, "index.html"));
   });
 }

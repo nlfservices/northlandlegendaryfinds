@@ -23,6 +23,7 @@ import { getSetChecklist } from "@/data/setChecklists";
 import { getSetBackground } from "@/lib/cardBackgrounds";
 
 import SEO, { breadcrumbJsonLd, collectionPageJsonLd } from "@/components/SEO";
+import { repairMojibake } from "@shared/repairMojibake";
 
 // Default placeholder for cards without images
 const PLACEHOLDER_IMG = "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/hulk_9ebdacfa.png";
@@ -85,7 +86,7 @@ const ERA_THEMES: Record<string, {
     glowColor: "rgba(16, 185, 129, 0.35)",
   },
   // Marvel Mint subset themes (for future use)
-  "BASE CARDS â€“ BRONZE": {
+  "BASE CARDS – BRONZE": {
     bg: "bg-gradient-to-b from-orange-950/40 via-card to-card",
     border: "hover:border-orange-500/60",
     badge: "bg-orange-500/15 text-orange-400 border-orange-500/30",
@@ -96,7 +97,7 @@ const ERA_THEMES: Record<string, {
     borderColor: "rgba(249, 115, 22, 0.7)",
     glowColor: "rgba(249, 115, 22, 0.35)",
   },
-  "BASE CARDS â€“ SILVER": {
+  "BASE CARDS – SILVER": {
     bg: "bg-gradient-to-b from-slate-800/40 via-card to-card",
     border: "hover:border-slate-400/60",
     badge: "bg-slate-400/15 text-slate-300 border-slate-400/30",
@@ -107,7 +108,7 @@ const ERA_THEMES: Record<string, {
     borderColor: "rgba(148, 163, 184, 0.7)",
     glowColor: "rgba(148, 163, 184, 0.35)",
   },
-  "BASE CARDS â€“ GOLD": {
+  "BASE CARDS – GOLD": {
     bg: "bg-gradient-to-b from-yellow-900/40 via-card to-card",
     border: "hover:border-yellow-500/60",
     badge: "bg-yellow-500/15 text-yellow-400 border-yellow-500/30",
@@ -118,7 +119,7 @@ const ERA_THEMES: Record<string, {
     borderColor: "rgba(234, 179, 8, 0.7)",
     glowColor: "rgba(234, 179, 8, 0.35)",
   },
-  "BASE CARDS â€“ PLATINUM": {
+  "BASE CARDS – PLATINUM": {
     bg: "bg-gradient-to-b from-zinc-700/40 via-card to-card",
     border: "hover:border-zinc-300/60",
     badge: "bg-zinc-300/15 text-zinc-200 border-zinc-300/30",
@@ -144,7 +145,8 @@ const DEFAULT_THEME = {
 };
 
 function getEraTheme(cardType: string) {
-  return ERA_THEMES[cardType] || DEFAULT_THEME;
+  const cleaned = repairMojibake(cardType);
+  return ERA_THEMES[cleaned] || ERA_THEMES[cardType] || DEFAULT_THEME;
 }
 
 // ==================== LAZY IMAGE ====================
@@ -418,7 +420,7 @@ function SetBrowser() {
             <div>
               <h1 className="text-3xl lg:text-4xl font-bold">Card Database</h1>
               <p className="text-muted-foreground mt-1">
-                Every Topps Marvel card set from 2024 to 2026 â€” organized by year
+                Every Topps Marvel card set from 2024 to 2026 — organized by year
               </p>
             </div>
           </div>
@@ -470,7 +472,7 @@ function SetBrowser() {
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-5">
                 {searchResults.map((card: any, idx: number) => {
                   const theme = getEraTheme(card.cardType || '');
-                  const cosmicBgUrl = COSMIC_BG[card.cardType || ''];
+                  const cosmicBgUrl = COSMIC_BG[repairMojibake(card.cardType || '')] || COSMIC_BG[card.cardType || ''];
                   const hasCosmic = !!cosmicBgUrl;
                   const setSlugForLink = card.setSlug || (sets?.find((s: any) => s.id === card.setId)?.slug);
                   return (
@@ -492,7 +494,7 @@ function SetBrowser() {
                           <p className="font-semibold text-sm truncate">{card.characterName}</p>
                           <div className="flex items-center justify-between mt-1">
                             <span className="text-xs text-muted-foreground font-mono">#{card.cardNumber}</span>
-                            <Badge variant="outline" className={`text-[10px] px-1.5 py-0 ${theme.badge}`}>{card.cardType || "Base"}</Badge>
+                            <Badge variant="outline" className={`text-[10px] px-1.5 py-0 ${theme.badge}`}>{repairMojibake(card.cardType || "Base")}</Badge>
                           </div>
                           {card.setName && (
                             <p className="text-[10px] text-muted-foreground mt-1 truncate">{card.setName}</p>
@@ -621,7 +623,7 @@ function SetBrowser() {
             {sets && (
               <div className="mt-12 text-center text-muted-foreground">
                 <p className="text-lg font-medium">{sets.length} sets &bull; {sets.reduce((sum, s) => sum + (s.totalCards ?? 0), 0).toLocaleString()} total cards in database</p>
-                <p className="text-sm mt-1">Spanning 2024â€“2026 &bull; Updated as new sets release</p>
+                <p className="text-sm mt-1">Spanning 2024–2026 &bull; Updated as new sets release</p>
               </div>
             )}
           </>
@@ -745,10 +747,10 @@ function SetDetail({ slug }: { slug: string }) {
 
   // Custom display order for card types
   const CARD_TYPE_ORDER: Record<string, number> = {
-    "BASE CARDS â€“ BRONZE": 1,
-    "BASE CARDS â€“ SILVER": 2,
-    "BASE CARDS â€“ GOLD": 3,
-    "BASE CARDS â€“ PLATINUM": 4,
+    "BASE CARDS – BRONZE": 1,
+    "BASE CARDS – SILVER": 2,
+    "BASE CARDS – GOLD": 3,
+    "BASE CARDS – PLATINUM": 4,
     "Autograph": 5,
     "GAMBIT'S DECK": 6,
     "GAMBITS DECK DOUBLE SIDED CHROME PLAYING CARDS": 7,
@@ -756,10 +758,10 @@ function SetDetail({ slug }: { slug: string }) {
 
   const cardTypes = useMemo(() => {
     if (!data?.cards) return [];
-    const types = new Set(data.cards.map(c => c.cardType || 'Base'));
+    const types = new Set(data.cards.map(c => repairMojibake(c.cardType || 'Base')));
     return Array.from(types).sort((a, b) => {
-      const orderA = CARD_TYPE_ORDER[a] ?? 99;
-      const orderB = CARD_TYPE_ORDER[b] ?? 99;
+      const orderA = CARD_TYPE_ORDER[repairMojibake(a)] ?? 99;
+      const orderB = CARD_TYPE_ORDER[repairMojibake(b)] ?? 99;
       return orderA - orderB;
     });
   }, [data?.cards]);
@@ -778,7 +780,7 @@ function SetDetail({ slug }: { slug: string }) {
       cards = cards.filter((c) => isDoctorDoomCharacter(c.characterName));
     }
     if (filterType !== "all") {
-      cards = cards.filter(c => (c.cardType || 'Base') === filterType);
+      cards = cards.filter(c => repairMojibake(c.cardType || 'Base') === filterType);
     }
     if (searchQuery) {
       const q = searchQuery.toLowerCase();
@@ -789,8 +791,8 @@ function SetDetail({ slug }: { slug: string }) {
     }
     // Sort by card type order, then by card number within each type
     return [...cards].sort((a, b) => {
-      const typeA = a.cardType || 'Base';
-      const typeB = b.cardType || 'Base';
+      const typeA = repairMojibake(a.cardType || 'Base');
+      const typeB = repairMojibake(b.cardType || 'Base');
       const orderA = CARD_TYPE_ORDER[typeA] ?? 99;
       const orderB = CARD_TYPE_ORDER[typeB] ?? 99;
       if (orderA !== orderB) return orderA - orderB;
@@ -942,7 +944,7 @@ function SetDetail({ slug }: { slug: string }) {
                 All ({cards.length})
               </Button>
               {cardTypes.map(type => {
-                const count = cards.filter(c => (c.cardType || 'Base') === type).length;
+                const count = cards.filter(c => repairMojibake(c.cardType || 'Base') === type).length;
                 return (
                   <Button
                     key={type}
@@ -1022,7 +1024,7 @@ function SetDetail({ slug }: { slug: string }) {
             </div>
             <h2 className="text-2xl font-bold mb-4">{set.name}</h2>
             <p className="text-muted-foreground text-lg mb-6">
-              Full checklist and card database coming soon. This set {set.releaseYear && set.releaseYear > new Date().getFullYear() ? `releases in ${set.releaseYear}` : 'has been announced'} â€” we'll have the complete breakdown as soon as the checklist drops.
+              Full checklist and card database coming soon. This set {set.releaseYear && set.releaseYear > new Date().getFullYear() ? `releases in ${set.releaseYear}` : 'has been announced'} — we'll have the complete breakdown as soon as the checklist drops.
             </p>
             {set.description && (
               <p className="text-muted-foreground mb-8">{set.description}</p>
@@ -1092,7 +1094,7 @@ function SetDetail({ slug }: { slug: string }) {
                   const theme = getEraTheme(card.cardType || '');
                   // Gambit cards don't get cosmic backgrounds
                   const isGambit = isPlayingCardType(card.cardType || '');
-                  const cosmicBgUrl = isGambit ? undefined : COSMIC_BG[card.cardType || ''];
+                  const cosmicBgUrl = isGambit ? undefined : (COSMIC_BG[repairMojibake(card.cardType || '')] || COSMIC_BG[card.cardType || '']);
                   const hasCosmic = !!cosmicBgUrl;
                   const hasImage = card.imageUrl && card.imageUrl !== PLACEHOLDER_IMG;
                   // Count parallel variants from the parallels string
@@ -1141,7 +1143,7 @@ function SetDetail({ slug }: { slug: string }) {
                         <div className="flex items-center justify-between mt-1">
                           <span className="text-xs text-muted-foreground font-mono">#{card.cardNumber}</span>
                           <span className={`inline-flex items-center text-[10px] px-1.5 py-0 rounded-full border font-medium ${theme.badge}`}>
-                            {theme.label || card.cardType || "Base"}
+                            {theme.label || repairMojibake(card.cardType || "Base")}
                           </span>
                         </div>
                         {/* Parallel count badge */}
@@ -1158,7 +1160,7 @@ function SetDetail({ slug }: { slug: string }) {
                         <div className="font-bold text-sm mb-1 truncate">{card.characterName}</div>
                         <div className="text-muted-foreground space-y-0.5">
                           <div className="flex justify-between"><span>Card #</span><span className="font-mono">{card.cardNumber}</span></div>
-                          <div className="flex justify-between"><span>Type</span><span>{card.cardType || 'Base'}</span></div>
+                          <div className="flex justify-between"><span>Type</span><span>{repairMojibake(card.cardType || 'Base')}</span></div>
                           {parallelCount > 0 && (
                             <div className="flex justify-between"><span>Parallels</span><span>{parallelCount} variants</span></div>
                           )}
@@ -1220,7 +1222,7 @@ function SetDetail({ slug }: { slug: string }) {
                       </td>
                       <td className="p-3">
                         <Badge variant={card.cardType === 'Base' ? 'secondary' : 'outline'} className="text-xs">
-                          {card.cardType || 'Base'}
+                          {repairMojibake(card.cardType || 'Base')}
                         </Badge>
                       </td>
                       <td className="p-3 text-sm text-muted-foreground max-w-xs">

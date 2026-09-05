@@ -1,19 +1,19 @@
 import { mediaUrl } from "../lib/mediaUrl";
 /**
- * Card Display Tool â€” Premium single-page card display with 7 switchable cosmic themes.
+ * Card Display Tool — Premium single-page card display with 7 switchable cosmic themes.
  * Features: space nebula backgrounds, corner ornaments, shimmer strip, scanline overlay,
  * floating particles, file upload with fade-in, download as image, and theme-matched accent colors.
  *
  * Supports URL params:
- *   ?img=<encoded_url>  â€” pre-load a card image
- *   ?theme=<theme_id>   â€” auto-select a theme (gold-amber, blue-silver, emerald-green, etc.)
- *   ?name=<card_name>   â€” display card name below the frame
+ *   ?img=<encoded_url>  — pre-load a card image
+ *   ?theme=<theme_id>   — auto-select a theme (gold-amber, blue-silver, emerald-green, etc.)
+ *   ?name=<card_name>   — display card name below the frame
  */
 
 import { useState, useRef, useCallback, useEffect, useMemo } from "react";
 // Canvas-based download (html2canvas doesn't support OKLCH colors from Tailwind 4)
 
-// â”€â”€â”€ Theme Definitions â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── Theme Definitions ───────────────────────────────────────────────────────
 
 interface Theme {
   id: string;
@@ -119,7 +119,7 @@ const CARD_TYPE_TO_THEME: Record<string, string> = {
   "BASE CARDS \u2013 PLATINUM": "mint-platinum",
 };
 
-// â”€â”€â”€ Particle Data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── Particle Data ───────────────────────────────────────────────────────────
 
 interface ParticleData {
   id: number;
@@ -139,7 +139,7 @@ function generateParticles(): ParticleData[] {
   }));
 }
 
-// â”€â”€â”€ Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── Component ───────────────────────────────────────────────────────────────
 
 export default function CardDisplay() {
   // Read URL params for pre-loaded card
@@ -309,7 +309,7 @@ export default function CardDisplay() {
         fontFamily: "'Cinzel', serif",
       }}
     >
-      {/* â”€â”€ Space Background â”€â”€ */}
+      {/* ── Space Background ── */}
       <div
         className="fixed inset-0 z-0"
         style={{
@@ -321,7 +321,7 @@ export default function CardDisplay() {
         }}
       />
 
-      {/* â”€â”€ Radial Overlay â”€â”€ */}
+      {/* ── Radial Overlay ── */}
       <div
         className="fixed inset-0 z-[1]"
         style={{
@@ -330,7 +330,7 @@ export default function CardDisplay() {
         }}
       />
 
-      {/* â”€â”€ Floating Particles â”€â”€ */}
+      {/* ── Floating Particles ── */}
       <div className="fixed inset-0 pointer-events-none z-[2]">
         {particles.map((p) => (
           <div
@@ -352,9 +352,9 @@ export default function CardDisplay() {
         ))}
       </div>
 
-      {/* â”€â”€ Main Content â”€â”€ */}
+      {/* ── Main Content ── */}
       <div className="relative z-10 flex flex-col items-center gap-5 py-8 px-5">
-        {/* â”€â”€ Back to Database link â”€â”€ */}
+        {/* ── Back to Database link ── */}
         {fromDatabase && (
           <button
             onClick={() => window.history.back()}
@@ -381,7 +381,7 @@ export default function CardDisplay() {
           </button>
         )}
 
-        {/* â”€â”€ Theme Selector Dots â”€â”€ */}
+        {/* ── Theme Selector Dots ── */}
         <div className="flex gap-3 items-center">
           {THEMES.map((t) => (
             <button
@@ -429,7 +429,7 @@ export default function CardDisplay() {
           ))}
         </div>
 
-        {/* â”€â”€ Card Name (if pre-loaded) â”€â”€ */}
+        {/* ── Card Name (if pre-loaded) ── */}
         {preloadName && (
           <div
             className="text-center"
@@ -447,7 +447,7 @@ export default function CardDisplay() {
           </div>
         )}
 
-        {/* â”€â”€ Capture Area (for download) â”€â”€ */}
+        {/* ── Capture Area (for download) ── */}
         <div
           ref={captureRef}
           className="relative flex items-center justify-center"
@@ -459,7 +459,7 @@ export default function CardDisplay() {
             backgroundPosition: "center",
           }}
         >
-          {/* â”€â”€ Card Frame â”€â”€ */}
+          {/* ── Card Frame ── */}
           <div
             className="relative cursor-pointer"
             style={{ width: 280, height: 392 }}
@@ -621,7 +621,7 @@ export default function CardDisplay() {
           onChange={handleUpload}
         />
 
-        {/* â”€â”€ Action Buttons â”€â”€ */}
+        {/* ── Action Buttons ── */}
         <div className="flex items-center gap-4">
           {/* Upload Button */}
           <button
@@ -720,7 +720,7 @@ export default function CardDisplay() {
         )}
       </div>
 
-      {/* â”€â”€ Keyframe Animations (injected via style tag) â”€â”€ */}
+      {/* ── Keyframe Animations (injected via style tag) ── */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital@0;1&display=swap');
 

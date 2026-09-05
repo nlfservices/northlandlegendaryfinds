@@ -1,6 +1,6 @@
 ﻿/**
- * Whatnot Page â€” Same design as Giveaway page
- * Hero with treasure chest â†’ What We Give Away â†’ $15 Credit â†’ How It Works â†’ Card Showcase â†’ Final CTA â†’ Legal
+ * Whatnot Page — Same design as Giveaway page
+ * Hero with treasure chest → What We Give Away → $15 Credit → How It Works → Card Showcase → Final CTA → Legal
  * Designed for ad traffic. Facebook Pixel fires on page load + clicks.
  * MOBILE-FIRST: Sticky CTA bar, large touch targets, optimized spacing
  */
@@ -31,7 +31,7 @@ const CARD_IMAGES = {
   magneto: "https://pub-2bccaba34f224e6a94329005b795ea9e.r2.dev/310419663027009739/SGHqXeh8PZJcCDnFiAMuFi/Magneto-Comic2_5df7b4c4.png",
 };
 
-// Countdown hook â€” takes a UTC timestamp (ms), returns live d/h/m/s
+// Countdown hook — takes a UTC timestamp (ms), returns live d/h/m/s
 function useCountdown(targetMs: number | null) {
   const [now, setNow] = useState(Date.now());
   useEffect(() => {
@@ -63,7 +63,7 @@ const BUTTON_COLORS = {
 
 type SectionColor = keyof typeof BUTTON_COLORS;
 
-/** Reusable Whatnot Invite CTA button â€” alternates green/purple per section */
+/** Reusable Whatnot Invite CTA button — alternates green/purple per section */
 function WhatnotInviteButton({ label = "Get $15 Free Credit", size = "lg" as const, className = "", onClick, color = "green" }: { label?: string; size?: "lg" | "default" | "sm"; className?: string; onClick?: () => void; color?: SectionColor }) {
   return (
     <a href={WHATNOT_INVITE} target="_blank" rel="noopener noreferrer" onClick={onClick}>
@@ -78,7 +78,7 @@ function WhatnotInviteButton({ label = "Get $15 Free Credit", size = "lg" as con
   );
 }
 
-/** Reusable Upcoming Shows button â€” alternates green/purple per section */
+/** Reusable Upcoming Shows button — alternates green/purple per section */
 function UpcomingShowsButton({ label = "See Upcoming Shows", size = "lg" as const, className = "", color = "green" }: { label?: string; size?: "lg" | "default" | "sm"; className?: string; color?: SectionColor }) {
   return (
     <a href={WHATNOT_PROFILE} target="_blank" rel="noopener noreferrer">
@@ -125,7 +125,7 @@ export default function Whatnot() {
     <>
       <div className="min-h-screen pb-20 md:pb-0">
         <SEO
-          title="Live on Whatnot â€” Free Marvel Card Giveaways + $15 Credit"
+          title="Live on Whatnot — Free Marvel Card Giveaways + $15 Credit"
           description="Watch Northland Legendary Finds live on Whatnot for free Marvel card giveaways, graded slabs, sealed packs, and more. New users get $15 free credit."
           path="/whatnot"
           jsonLd={breadcrumbJsonLd([
@@ -134,7 +134,7 @@ export default function Whatnot() {
           ])}
         />
 
-        {/* ===== HERO SECTION â€” TREASURE CHEST ===== */}
+        {/* ===== HERO SECTION — TREASURE CHEST ===== */}
         <section className="relative min-h-[500px] sm:min-h-[600px] lg:min-h-[700px] flex items-center overflow-hidden">
           {/* Background Image */}
           <div className="absolute inset-0">
@@ -164,10 +164,10 @@ export default function Whatnot() {
                 </h1>
 
                 <p className="text-base sm:text-lg lg:text-xl text-gray-300 mb-6 sm:mb-8 leading-relaxed max-w-lg">
-                  Every live show on Whatnot, we give away <strong className="text-yellow-400">graded cards, raw singles, sealed packs, hobby boxes, and NLF Repacks</strong> â€” completely free. We're always switching it up, dropping random cards throughout our shows to keep things fresh. No catch. Just show up and enter.
+                  Every live show on Whatnot, we give away <strong className="text-yellow-400">graded cards, raw singles, sealed packs, hobby boxes, and NLF Repacks</strong> — completely free. We're always switching it up, dropping random cards throughout our shows to keep things fresh. No catch. Just show up and enter.
                 </p>
 
-                {/* Dual CTAs â€” SECTION 1: Green invite + Purple shows */}
+                {/* Dual CTAs — SECTION 1: Green invite + Purple shows */}
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6">
                   <WhatnotInviteButton
                     label="Get $15 Free Credit"
@@ -182,7 +182,7 @@ export default function Whatnot() {
                   />
                 </div>
 
-                {/* Trust badges â€” wrap nicely on mobile */}
+                {/* Trust badges — wrap nicely on mobile */}
                 <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 text-sm">
                   <div className="flex items-center gap-2 text-yellow-400">
                     <Star className="w-4 h-4 fill-yellow-400 flex-shrink-0" />
@@ -199,7 +199,7 @@ export default function Whatnot() {
                 </div>
               </div>
 
-              {/* Right: Countdown Timer (if active) â€” desktop only */}
+              {/* Right: Countdown Timer (if active) — desktop only */}
               <div className="hidden lg:flex justify-center">
                 {countdown && (
                   <div className="p-8 bg-black/60 backdrop-blur-md border border-yellow-500/30 rounded-3xl">
@@ -237,7 +237,7 @@ export default function Whatnot() {
           </div>
         </section>
 
-        {/* Mobile countdown â€” shows below hero on small screens */}
+        {/* Mobile countdown — shows below hero on small screens */}
         {countdown && (
           <section className="lg:hidden py-6 bg-card/50 border-y border-border/30">
             <div className="container">
@@ -264,7 +264,7 @@ export default function Whatnot() {
           </section>
         )}
 
-        {/* ===== WHAT WE GIVE AWAY â€” Side by Side Layout ===== */}
+        {/* ===== WHAT WE GIVE AWAY — Side by Side Layout ===== */}
         <section className="relative py-14 sm:py-20 lg:py-24 overflow-hidden">
           <div className="absolute inset-0">
             <div className="absolute top-20 right-[10%] w-96 h-96 bg-green-500/10 rounded-full blur-[160px]" />
@@ -303,11 +303,11 @@ export default function Whatnot() {
 
                 <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
                   {[
-                    { icon: Crown, color: "text-yellow-400", bg: "bg-yellow-500/10", title: "Graded Raw Cards", desc: "Top-tier graded and raw Marvel cards â€” Spider-Man, Wolverine, Doctor Doom, and more" },
+                    { icon: Crown, color: "text-yellow-400", bg: "bg-yellow-500/10", title: "Graded Raw Cards", desc: "Top-tier graded and raw Marvel cards — Spider-Man, Wolverine, Doctor Doom, and more" },
                     { icon: Package, color: "text-blue-400", bg: "bg-blue-500/10", title: "Sealed Hobby Boxes & Packs", desc: "Factory-sealed Marvel Mint, Topps Chrome, and new release products" },
                     { icon: Gift, color: "text-green-400", bg: "bg-green-500/10", title: "NLF Repacks", desc: "Our hand-curated repack products loaded with hits, parallels, and guaranteed value" },
                     { icon: Zap, color: "text-purple-400", bg: "bg-purple-500/10", title: "Rare Singles & Parallels", desc: "Numbered parallels, refractors, and chase cards you won't find anywhere else" },
-                    { icon: Sparkles, color: "text-pink-400", bg: "bg-pink-500/10", title: "Surprise Drops", desc: "Random bonus giveaways throughout the show â€” you never know what's next" },
+                    { icon: Sparkles, color: "text-pink-400", bg: "bg-pink-500/10", title: "Surprise Drops", desc: "Random bonus giveaways throughout the show — you never know what's next" },
                   ].map((item, i) => (
                     <div key={i} className="flex gap-3 sm:gap-4 items-start">
                       <div className={`flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 ${item.bg} rounded-xl flex items-center justify-center`}>
@@ -321,7 +321,7 @@ export default function Whatnot() {
                   ))}
                 </div>
 
-                {/* CTA buttons after prize list â€” SECTION 2: Purple invite + Green shows */}
+                {/* CTA buttons after prize list — SECTION 2: Purple invite + Green shows */}
                 <div className="flex flex-col sm:flex-row gap-3">
                   <WhatnotInviteButton
                     label="Get $15 Free Credit"
@@ -367,7 +367,7 @@ export default function Whatnot() {
 
               <p className="text-base sm:text-lg lg:text-xl text-muted-foreground mb-6 sm:mb-8 leading-relaxed max-w-lg mx-auto px-2">
                 Sign up through our link and get <strong className="text-yellow-400">$15 in free credit</strong> applied automatically at checkout. 
-                Use it on any of our live Marvel singles shows â€” no minimum spend, no code needed.
+                Use it on any of our live Marvel singles shows — no minimum spend, no code needed.
               </p>
 
               {/* Whatnot invite link pill */}
@@ -383,7 +383,7 @@ export default function Whatnot() {
                 <ExternalLink className="w-3.5 h-3.5 text-primary opacity-60 group-hover:opacity-100 transition-opacity flex-shrink-0" />
               </a>
 
-              {/* Big CTA â€” SECTION 3: Green invite + Purple shows */}
+              {/* Big CTA — SECTION 3: Green invite + Purple shows */}
               <div className="flex flex-col sm:flex-row justify-center gap-3 mb-6 sm:mb-8 px-4 sm:px-0">
                 <WhatnotInviteButton
                   label="Get My $15 Credit"
@@ -398,7 +398,7 @@ export default function Whatnot() {
                 />
               </div>
 
-              {/* Trust badges â€” 2x2 grid on mobile, row on desktop */}
+              {/* Trust badges — 2x2 grid on mobile, row on desktop */}
               <div className="grid grid-cols-2 sm:flex sm:flex-wrap sm:justify-center gap-3 sm:gap-6 text-xs sm:text-sm text-muted-foreground px-4 sm:px-0">
                 {[
                   { icon: Shield, label: "No Minimum Spend" },
@@ -416,7 +416,7 @@ export default function Whatnot() {
           </div>
         </section>
 
-        {/* ===== HOW IT WORKS â€” 3 STEPS ===== */}
+        {/* ===== HOW IT WORKS — 3 STEPS ===== */}
         <section className="relative py-14 sm:py-20 lg:py-24 overflow-hidden">
           <div className="absolute inset-0">
             <div className="absolute top-10 left-[20%] w-80 h-80 bg-purple-500/8 rounded-full blur-[160px]" />
@@ -442,7 +442,7 @@ export default function Whatnot() {
                   borderColor: "border-green-500/20 hover:border-green-500/40",
                   bg: "bg-green-500/5",
                   title: "Sign Up Free",
-                  desc: "Use our referral link to create a Whatnot account. You'll get $15 in free credit instantly â€” no code needed.",
+                  desc: "Use our referral link to create a Whatnot account. You'll get $15 in free credit instantly — no code needed.",
                 },
                 {
                   step: "02",
@@ -476,7 +476,7 @@ export default function Whatnot() {
               ))}
             </div>
 
-            {/* CTA under steps â€” SECTION 4: Purple invite + Green shows */}
+            {/* CTA under steps — SECTION 4: Purple invite + Green shows */}
             <div className="mt-10 sm:mt-12 text-center">
               <p className="text-muted-foreground text-sm sm:text-base mb-4">Ready to get started? It takes 30 seconds.</p>
               <div className="flex flex-col sm:flex-row justify-center gap-3">
@@ -496,7 +496,7 @@ export default function Whatnot() {
           </div>
         </section>
 
-        {/* ===== CARD SHOWCASE â€” FLOATING CARDS ===== */}
+        {/* ===== CARD SHOWCASE — FLOATING CARDS ===== */}
         <section className="relative py-12 sm:py-16 lg:py-20 overflow-hidden">
           {/* Subtle background glow */}
           <div className="absolute inset-0">
@@ -517,11 +517,11 @@ export default function Whatnot() {
             {/* Desktop: 5 cards in a row with varied rotations */}
             <div className="hidden md:flex justify-center items-end gap-4 lg:gap-6">
               {[
-                { src: CARD_IMAGES.spiderman, alt: "Spider-Man â€” Marvel Mint Gambit's Deck CGC 9", rotate: "-6deg", delay: "0s" },
-                { src: CARD_IMAGES.gambit, alt: "Gambit â€” Marvel Mint CGC 9", rotate: "3deg", delay: "0.1s" },
-                { src: CARD_IMAGES.ironman, alt: "Iron Man â€” Topps Chrome 45/50", rotate: "-2deg", delay: "0.2s" },
-                { src: CARD_IMAGES.wolverine, alt: "Wolverine â€” Marvel Mint CGC 10", rotate: "4deg", delay: "0.3s" },
-                { src: CARD_IMAGES.magneto, alt: "Magneto â€” Marvel Mint CGC 10", rotate: "-5deg", delay: "0.4s" },
+                { src: CARD_IMAGES.spiderman, alt: "Spider-Man — Marvel Mint Gambit's Deck CGC 9", rotate: "-6deg", delay: "0s" },
+                { src: CARD_IMAGES.gambit, alt: "Gambit — Marvel Mint CGC 9", rotate: "3deg", delay: "0.1s" },
+                { src: CARD_IMAGES.ironman, alt: "Iron Man — Topps Chrome 45/50", rotate: "-2deg", delay: "0.2s" },
+                { src: CARD_IMAGES.wolverine, alt: "Wolverine — Marvel Mint CGC 10", rotate: "4deg", delay: "0.3s" },
+                { src: CARD_IMAGES.magneto, alt: "Magneto — Marvel Mint CGC 10", rotate: "-5deg", delay: "0.4s" },
               ].map((card, i) => (
                 <div
                   key={i}
@@ -546,15 +546,15 @@ export default function Whatnot() {
               ))}
             </div>
 
-            {/* Mobile: Horizontal scroll strip â€” larger cards, better touch */}
+            {/* Mobile: Horizontal scroll strip — larger cards, better touch */}
             <div className="md:hidden overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide snap-x snap-mandatory">
               <div className="flex gap-4 w-max">
                 {[
-                  { src: CARD_IMAGES.spiderman, alt: "Spider-Man â€” Marvel Mint Gambit's Deck CGC 9" },
-                  { src: CARD_IMAGES.gambit, alt: "Gambit â€” Marvel Mint CGC 9" },
-                  { src: CARD_IMAGES.ironman, alt: "Iron Man â€” Topps Chrome 45/50" },
-                  { src: CARD_IMAGES.wolverine, alt: "Wolverine â€” Marvel Mint CGC 10" },
-                  { src: CARD_IMAGES.magneto, alt: "Magneto â€” Marvel Mint CGC 10" },
+                  { src: CARD_IMAGES.spiderman, alt: "Spider-Man — Marvel Mint Gambit's Deck CGC 9" },
+                  { src: CARD_IMAGES.gambit, alt: "Gambit — Marvel Mint CGC 9" },
+                  { src: CARD_IMAGES.ironman, alt: "Iron Man — Topps Chrome 45/50" },
+                  { src: CARD_IMAGES.wolverine, alt: "Wolverine — Marvel Mint CGC 10" },
+                  { src: CARD_IMAGES.magneto, alt: "Magneto — Marvel Mint CGC 10" },
                 ].map((card, i) => (
                   <div key={i} className="flex-shrink-0 snap-center">
                     <img
@@ -569,7 +569,7 @@ export default function Whatnot() {
               </div>
             </div>
 
-            {/* CTA under cards â€” SECTION 5: Green invite + Purple shows */}
+            {/* CTA under cards — SECTION 5: Green invite + Purple shows */}
             <div className="mt-8 sm:mt-10 text-center">
               <p className="text-muted-foreground text-sm sm:text-base mb-4">Want cards like these? They're free at our shows.</p>
               <div className="flex flex-col sm:flex-row justify-center gap-3">
@@ -589,7 +589,7 @@ export default function Whatnot() {
           </div>
         </section>
 
-        {/* ===== FINAL CTA â€” BOTTOM BANNER ===== */}
+        {/* ===== FINAL CTA — BOTTOM BANNER ===== */}
         <section className="relative py-12 sm:py-16 lg:py-20 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-yellow-900/20 via-background to-green-900/20" />
           <div className="container relative z-10">
@@ -640,7 +640,7 @@ export default function Whatnot() {
               {showRules && (
                 <div className="mt-6 p-4 sm:p-6 bg-card border border-border rounded-2xl text-xs text-muted-foreground space-y-4 leading-relaxed text-left">
                   <h4 className="text-sm font-bold text-foreground">
-                    OFFICIAL GIVEAWAY RULES â€” NORTHLAND LEGENDARY FINDS
+                    OFFICIAL GIVEAWAY RULES — NORTHLAND LEGENDARY FINDS
                   </h4>
 
                   <p>
@@ -743,7 +743,7 @@ export default function Whatnot() {
         </section>
       </div>
 
-      {/* ===== STICKY MOBILE CTA BAR â€” Always visible on phones ===== */}
+      {/* ===== STICKY MOBILE CTA BAR — Always visible on phones ===== */}
       <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-background/95 backdrop-blur-lg border-t border-border/50 px-4 py-3 safe-area-bottom">
         <div className="flex gap-2">
           <a

@@ -1,5 +1,5 @@
 ﻿/**
- * Whatnot Referral Landing Page â€” Facebook Ads Funnel (CRO Optimized)
+ * Whatnot Referral Landing Page — Facebook Ads Funnel (CRO Optimized)
  * 
  * Purpose: Convert cold Facebook ad traffic into:
  * 1. Whatnot signups via referral link ($15 credit for them, $5 for NLF)
@@ -7,7 +7,7 @@
  * 3. Repack shop visitors
  * 
  * CRO Optimizations:
- * - Standalone page (no main nav/footer) â€” logo-only minimal header
+ * - Standalone page (no main nav/footer) — logo-only minimal header
  * - No email popup (suppressed in EmailCapturePopup)
  * - All CTAs consolidated to "Get My $15 Credit"
  * - Social proof trust bar below hero
@@ -179,7 +179,7 @@ export default function WhatnotDeal() {
 
               <p className="text-lg sm:text-xl text-gray-300 max-w-lg mb-6 leading-relaxed">
                 Sign up on Whatnot through our link and get <span className="text-yellow-400 font-bold">$15 in credit</span> applied 
-                automatically at checkout on your first purchase. Use it at our live Marvel card breaks â€” graded slabs, numbered parallels, chase cards.
+                automatically at checkout on your first purchase. Use it at our live Marvel card breaks — graded slabs, numbered parallels, chase cards.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 mb-5">
@@ -332,7 +332,7 @@ export default function WhatnotDeal() {
             <h2 className="text-3xl md:text-4xl font-bold mb-2" style={{ fontFamily: "'Anton', sans-serif" }}>
               WHAT YOU'LL FIND ON <span className="text-purple-400">OUR SHOWS</span>
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">Singles, box breaks, case breaks, and combo shows where we do a little bit of everything â€” plus giveaways for our entire community, not just buyers.</p>
+            <p className="text-muted-foreground max-w-2xl mx-auto">Singles, box breaks, case breaks, and combo shows where we do a little bit of everything — plus giveaways for our entire community, not just buyers.</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -459,7 +459,7 @@ export default function WhatnotDeal() {
                 STAY IN THE <span className="text-primary">LOOP</span>
               </h2>
               <p className="text-muted-foreground mb-5">
-                Get notified about upcoming shows, exclusive drawings, and new drops. No spam â€” only the good stuff.
+                Get notified about upcoming shows, exclusive drawings, and new drops. No spam — only the good stuff.
               </p>
 
               {submitted ? (
@@ -518,7 +518,7 @@ export default function WhatnotDeal() {
                 DON'T FORGET YOUR <span className="text-yellow-400">$15</span>
               </h3>
               <p className="text-muted-foreground mb-5">
-                Sign up through our link â€” $15 credit applied automatically at checkout on your first purchase.
+                Sign up through our link — $15 credit applied automatically at checkout on your first purchase.
               </p>
               <a href={WHATNOT_INVITE} target="_blank" rel="noopener noreferrer" onClick={handleWhatnotClick}>
                 <Button size="lg" className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-lg px-8 py-6 w-full shadow-lg shadow-yellow-500/20">
@@ -548,9 +548,9 @@ export default function WhatnotDeal() {
 
           <div className="space-y-3">
             {[
-              { q: "How does the $15 credit work?", a: "Sign up through our referral link and Whatnot adds $15 to your account. It's applied automatically at checkout on your first purchase â€” no code needed, no minimum spend." },
+              { q: "How does the $15 credit work?", a: "Sign up through our referral link and Whatnot adds $15 to your account. It's applied automatically at checkout on your first purchase — no code needed, no minimum spend." },
               { q: "What is Whatnot?", a: "The #1 live shopping app for collectibles. Sellers open packs on camera, buyers bid or buy in real-time." },
-              { q: "What kind of cards do you sell?", a: "Marvel trading cards â€” Topps Chrome, Comic Book Heroes, Marvel Mint, Sapphire Edition. Numbered parallels, graded slabs, chase inserts." },
+              { q: "What kind of cards do you sell?", a: "Marvel trading cards — Topps Chrome, Comic Book Heroes, Marvel Mint, Sapphire Edition. Numbered parallels, graded slabs, chase inserts." },
               { q: "Does the $15 credit expire?", a: "Yes, the credit is valid for 90 days after signup. Use it on your first purchase at any of our live shows within that window." },
               { q: "Can I also buy from your website?", a: "Yes! We sell repacks directly at NorthlandLegendaryFinds.com with full checklists and a 1,700+ card database." },
             ].map((faq, i) => (
@@ -593,7 +593,7 @@ export default function WhatnotDeal() {
             <a href={WHATNOT_STORE} target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:text-purple-300 underline">
               Follow us directly
             </a>
-            {" Â· "}
+            {" · "}
             <Link href="/shop" className="text-primary hover:text-primary/80 underline">
               Shop repacks on our site
             </Link>
