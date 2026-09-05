@@ -82,6 +82,7 @@ export type InventoryChecklistFile = {
   updated_at: string;
   run_slug: string;
   skip_commons: true;
+  example?: boolean;
   cards: InventoryChecklistCard[];
 };
 

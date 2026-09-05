@@ -2,7 +2,9 @@
  * Whatnot-only break-run catalog.
  *
  * Super Grok SAMPLE COPY for the Cosmic Surge shell.
- * Everything is EXAMPLE until Pat / Inventory confirm.
+ * Inventory Bot seed after Shopify scan — keep EXAMPLE until a
+ * real Cosmic Surge / break-run product exists in Admin
+ * (product_id/variant_id stay null). No invented card photos.
  *
  * Data keys follow Inventory Bot’s Shopify metafield contract
  * (namespace `nlf` on the Break Run product). Live Shopify Admin
